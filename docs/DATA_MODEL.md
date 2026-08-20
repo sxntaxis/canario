@@ -30,68 +30,79 @@ what was acquired
 
 ## Core Shape
 
-```text
-Source -> SourceRun -> SourceCapture -> Artifact -> Representation
-                                         |
-                                         +-> CivicDocument
+The pre-SQL model distinguishes what is **core now**, what is **optional when a
+fixture proves it**, and what belongs to the **horizon**. This document is not a
+promise to create one SQL table per noun.
 
-CivicDocument -> optional DocumentPart
-CivicCollection -> Membership -> CivicDocument
+```text
+Source -> AcquisitionObservation -> Artifact -> Representation
+                                            |
+                                            +-> CivicDocument
 
 Claim -> ClaimRevision -> EvidenceLink -> Representation + typed locator
-  |          |                |
-  |          |                +-> optional Document/Part context
-  |          +-> ClaimEntityLink -> Entity
-  |          +-> tag assignments
-  |          +-> ClaimRelation -> another ClaimRevision
-  +-> review decisions/batches
+                         |
+                         +-> ClaimEntityLink -> Entity
+                         +-> TagAssignment -> Tag
+                         +-> ClaimRelationRevision -> another ClaimRevision
 
-SavedQuery -> selected read model -> OutputInstance -> Export/Snapshot
+ReviewDecision -> exact claim/relation revision(s) or reproducible subject set
 ```
 
-`Episode` and `Hilo` are not core tables. They belong to the Hilo Output Type.
+`DocumentPart`, `CivicCollection`, specialized profiles, explicit correction
+events, saved queries, output state, and richer acquisition-run machinery are
+optional extensions justified by fixtures/use. `Episode` and `Hilo` are not core.
 
-## Likely Table Families
+## Candidate Persistence Families
 
-The final SQL may merge or split these after concrete query tests.
+Final SQL may merge/split these after fixture/query tests.
 
-| Family | Important fields | Why |
-|---|---|---|
-| `sources` | source ID, display identity, authority class | Stable source family identity |
-| `source_policies` | source, revision, acquisition rules, authority scopes, retention/privacy | What may be acquired and what it can demonstrate |
-| `source_runs` | run ID, policy revision, scope/checkpoint, outcome, times | One bounded inspection |
-| `source_captures` | run, resource locator/URI, supplied metadata, time, artifact/failure | Exact acquisition provenance |
-| `artifacts` | digest, bytes, media type, archive locator, custody state | Immutable evidence bytes |
-| `representations` | parent, kind, digest, media, process, quality | Text/OCR/table/transcript/etc. |
-| `process_runs` | inputs/hashes, executor/model/config, outputs, diagnostics | Replaceable/attributable Lector work |
-| `civic_documents` | identity, issuer, normalized type, subtype/profile, date/language, revision | Civic meaning independent of format |
-| `document_source_observations` | capture + supplied title/type/id/date | Preserve what each source called it |
-| `document_profile_data` | document + profile schema + validated payload | Specialized semantics without table explosion |
-| `document_anchors` | document + representation + typed locator | One artifact may contain multiple documents |
-| `document_parts` | document, parent part, kind/title/order | Optional meaningful internal structure |
-| `document_part_anchors` | part + representation + typed locator | Exact part location |
-| `civic_collections` | collection ID, kind, identity/context, revision | Multi-document expediente/package/case |
-| `collection_memberships` | collection + document + relation/order | Membership without pretending collection is one file |
-| `claims` | stable claim ID + current revision/status pointer | Identity across correction |
-| `claim_revisions` | text, kind, origin, attribution, temporal scope, flags, epistemic state, hash | Durable proposition history |
-| `evidence_links` | claim revision, relation, representation, locator, optional document/part | Exact provenance |
-| `entities` | entity ID, class, canonical/display identity, lifecycle | Retrieval-relevant shared anchors |
-| `entity_aliases` / source observations | entity + label/context/source/process | Preserve names and identity resolution provenance |
-| `claim_entity_links` | exact claim revision + entity + role/relation + origin/review | Durable claim/entity anchoring |
-| `tags` | local tag identity, taxonomy/version, lifecycle | Local/shared topic vocabulary |
-| `tag_assignments` | subject + tag + origin/process + review metadata if needed | Search classification |
-| `claim_relations` | stable relation ID/revision, exact from/to claim revisions, typed relation, origin, basis kind, status | First-class proposition-to-proposition memory |
-| `claim_relation_bases` | relation revision + exact claim/evidence refs + optional rationale | Inspectable reason/evidence for a connection |
-| `review_policies` | scope, mode, triggers, revision | strict/batch/supervised behavior |
-| `review_batches` | deterministic subject set/hash, policy revision, actor/outcome | One action over many claims |
-| `review_decisions` | exact subject/batch, action, actor, rationale/time | Human supervision trail |
-| `explicit_corrections` | target/prior/new state, kind, reason, actor | Only corrections that matter as events |
-| `saved_queries` | definition/version/parameters/access | Reusable read filters |
-| `output_types` | installed type/version/manifest/schema/capabilities | Extensible output definition |
-| `output_instances` | type/version + local configuration | Configured use of an Output Type |
-| `output_state` | instance + validated namespaced derived/curated state | Output-specific state without core pollution |
-| `output_snapshots` | exact inputs/type/version/config/output hashes/publication state | Rebuildable/citable release state |
-| `operation_receipts` | operation ID, request hash, result, actor | Replay safety/audit |
+### Core now
+
+| Concern | Minimum durable meaning |
+|---|---|
+| source | stable source identity + bounded authority/acquisition configuration |
+| acquisition observation | where/when/how a resource was observed or failed; resulting artifact if any |
+| artifact | immutable digest, size/media, archive locator, custody/provenance |
+| representation | parent, kind, digest/media, attributable generation provenance |
+| civic document | stable civic identity/classification separate from representation |
+| claim identity + revisions | proposition lineage, origin, lifecycle, attribution/time/flags |
+| evidence link | exact claim revision -> representation locator + evidence relation |
+| entity + observed names/identifiers | stable local retrieval anchor without name-equality merging |
+| claim-entity link | exact claim revision -> entity + role/origin |
+| tag + assignment | local topic vocabulary + attributable assignment |
+| claim relation identity + revisions | exact claim-revision endpoints + type/origin/basis/lifecycle |
+| review decision | exact revision(s)/reproducible set + actor/action/time/rationale as needed |
+
+### Optional with a proving fixture/use case
+
+| Concern | Add when |
+|---|---|
+| document source observations / anchors | one artifact contains multiple docs or source labels must be preserved independently |
+| document parts | meaningful internal structure improves citation/query integrity |
+| civic collections + memberships | expediente/package/case spans multiple documents |
+| profile data | acta/report/budget semantics need validated specialized fields |
+| explicit processing-run record | one execution produces many outputs or replay/audit needs shared run identity |
+| entity merge/split event | identity reconciliation must preserve a decision/history |
+| explicit correction event | retraction/redaction/public correction/unlinking itself matters |
+| batch review record | compact subject-set representation cannot be reconstructed cleanly from decisions alone |
+| publication snapshot | deliberate release needs reproducible immutable history |
+
+### Horizon, not first-schema requirements
+
+```text
+universal operation receipts
+saved-query canonical objects
+output package registry / install lifecycle
+universal OutputType/OutputInstance/OutputState tables
+graph nodes/edges/triples
+vector index as authority
+multi-tenant accounts/roles
+federation/peer synchronization
+```
+
+Hashes, idempotency keys, stale-write guards, and cached “current revision”
+pointers are implementation tools added where tests show they are needed; they
+are not mandatory fields on every canonical record.
 
 ## What Is Deliberately Not a Core Table
 
@@ -184,29 +195,21 @@ of truth.
 
 ## Claim Data
 
-A claim's identity and review are separate.
+Claim identity and claim revision are separate. SQL does not need a mandatory
+mutable `current_revision` pointer if the current revision can be derived
+unambiguously from lineage; such a pointer may be added later as an optimization.
 
 ```text
-claims
-  clm_123 -> current revision 3
-
-claim_revisions
-  clm_123@1  machine extracted
-  clm_123@2  corrected wording
-  clm_123@3  current
+clm_123@1  machine extracted, active
+clm_123@2  corrected wording, supersedes @1
 ```
 
-A revision carries origin/process and epistemic state. Human review is derived
-from `review_decisions`; it is not required to insert the revision.
+A revision carries origin/process provenance, lifecycle, attribution/temporal
+scope, and flags. Human review is derived from `review_decisions`; it is not
+required to insert/search the revision.
 
-This allows high-volume supervised extraction without losing provenance:
-
-```text
-machine-only active claim
-human-reviewed active claim
-rejected claim retained for audit
-superseded claim retained for history
-```
+Optional human assessment is separate from lifecycle/review and is only stored
+when a workflow actually records such a judgment.
 
 ## Evidence Locator Storage
 
@@ -231,7 +234,8 @@ Validation happens in the semantic core before persistence.
 
 ## Source Authority Storage
 
-A source policy may define one or more bounded authority scopes such as:
+The baseline needs bounded authority scope attached to the source/configuration
+or acquisition context, for example:
 
 ```text
 formal_record
@@ -241,100 +245,96 @@ reported_observation
 structured_value
 ```
 
-Do not reduce this to a single trust score. EvidenceLink validation can check
-whether claim wording/kind is compatible with the declared scope when policy
-requires it.
+Do not reduce this to a trust score and do not require a standalone versioned
+source-policy table until adapters or policy-history requirements justify one.
 
 ## Review Modes in Data
 
 ### Strict
 
-Claim may exist, but protected downstream uses query only claims satisfying the
-required human review decision.
+Protected use queries only exact revisions satisfying required human review.
 
 ### Batch
 
-`review_batches` stores an ordered/deterministic set of exact revisions and a
-set hash. Batch outcome applies to that set; per-claim exceptions override it.
+One decision may cover a reproducible deterministic set of exact revisions plus
+exceptions. SQL may represent this with a compact set fingerprint/membership
+record or individual decisions; do not precommit to a heavyweight batch model.
 
 ### Supervised
 
-No synthetic approval is written. Machine-only claims remain machine-only until
-a real human decision exists.
+No synthetic approval is written. Unreviewed machine/rule material remains
+searchable until a real human decision exists.
 
 This distinction is important: **absence of review is data, not an error**.
 
 ## Queries and Search
 
-SQLite should initially support ordinary deterministic retrieval before adding
-specialized search infrastructure. Likely needs:
+SQLite should initially support ordinary deterministic retrieval:
 
 - full-text claim/document search;
-- indexes for dates, document type, source, status/review level;
+- indexes for dates, document type, source, lifecycle/review visibility;
 - entity and tag joins;
 - direct claim-relation lookup;
-- bounded recursive traversal over claim relations when useful;
-- evidence resolution;
-- saved query definitions.
+- bounded recursive traversal over explicit claim relations;
+- evidence resolution.
 
-Vector/semantic search is horizon work. The model must not depend on it.
+Queries are ephemeral by default. Saved-query persistence is added only if real
+operator workflows require durable identity/versioning. Vector/semantic search
+is horizon work and never canonical authority.
 
-## Output Type Boundary
+## Output Boundary
 
-Output code receives a bounded read/query interface, not database credentials.
-An output can own validated namespaced state but cannot update core civic tables.
+The core exposes a bounded read/query interface. Output code may own local
+validated presentation/curation state but cannot update core civic tables
+silently.
 
-Example:
+The first schema does not need universal tables for output packages/instances/
+state. The first proof is:
 
 ```text
-OutputType: hilo:v1
-OutputInstance: "Water governance"
-OutputState:
-  episodes
-  episode membership/order
-  curated reader summaries
+same Fichero/read model
+  -> Hilo output (may define Episode internally)
+  -> tiny structurally different non-Episode output/fixture
 ```
 
-Those rows/payloads are **presentation state**, not evidence authority.
-Deleting the output state loses presentation curation but not the claims and
-citations it references.
-
-Output package sharing later requires stable manifest/schema/version identity,
-not a shared database schema between cantons.
+If later outputs need durable configured state, add namespaced output persistence
+without making presentation state evidence authority.
 
 ## Single-Operator-First Storage
 
-The baseline assumes one operator process at a time, occasionally two humans in
-the organization. SQLite and an in-process/core writer are therefore sufficient.
+The baseline assumes one writer/operator process at a time, occasionally two
+humans in the organization. SQLite and an in-process core writer are sufficient.
 
-The schema still uses stable revisions and operation IDs so a later daemon or
-concurrent client layer does not require rewriting civic history.
-
-No multi-tenant account model, distributed lock service, or peer synchronization
-belongs in the first schema.
+Stable civic IDs/revision lineage are preserved now. Universal operation IDs,
+distributed locks, multi-tenant accounts, and peer synchronization are not
+required. A later daemon/concurrent-client layer can add stale-write/idempotency
+controls at its boundary without rewriting civic history.
 
 ## Pre-SQL Questions That Must Be Answered
 
-Before writing migration `0001`, prove with realistic fixtures:
+Before migration `0001`, prove with realistic fixtures:
 
-1. Can a PDF acta, spreadsheet budget, HTML notice, and unknown document all be
-   preserved and cited using the same core relationships?
-2. Can one concatenated PDF map to two documents without byte duplication?
-3. Can supervised extraction store hundreds of machine-only claims efficiently?
-4. Can a batch review cover a deterministic set without manufacturing hundreds
-   of redundant approval rows unless needed?
-5. Can source authority limitations be represented without a trust-score system?
-6. Can hundreds of claims share one entity/tag anchor without pairwise-edge
-   explosion?
-7. Can an explicit claim relation preserve exact revision endpoints, origin,
-   inspectable basis, lifecycle and review state?
-8. Can a claim correction occur without silently retargeting an old relation?
-9. Can SQLite retrieve a bounded multi-step relation chain without a graph database?
-10. Can entity/tag retrieval work without a universal ontology?
-11. Can a saved query feed two different outputs?
-12. Can a Hilo output define Episodes without any `episodes` core table?
-13. Can output state be deleted/rebuilt without touching evidence/claims?
-14. Can backup/restore verify database + archive + connection consistency?
+1. PDF acta, spreadsheet budget, HTML notice, and unknown document use the same
+   evidence/claim core without invented structure.
+2. One concatenated artifact can map to multiple civic documents without byte
+   duplication.
+3. Hundreds of machine-only claims can be stored/searched under supervised mode.
+4. One batch action can cover a deterministic set with exceptions without
+   requiring claim-by-claim busywork or a heavyweight batch subsystem.
+5. Source authority limitations are representable without a trust score/policy
+   engine.
+6. Many claims can share one entity/tag without pairwise-edge explosion.
+7. Entity aliases/strong identifiers work, and an identity merge/split can
+   preserve history without silent mass rewrite.
+8. An active claim relation always has exact endpoints, attributable origin, and
+   an inspectable basis; candidates can remain unreviewed.
+9. Claim correction does not silently retarget an old relation.
+10. SQLite can retrieve a bounded multi-step explicit relation chain without a
+    graph database.
+11. Evidence `challenges` and claim `contradicts` remain unambiguous in queries/UI.
+12. Hilo can define Episodes outside core, and a tiny non-Episode output can use
+    the same read model.
+13. Backup/restore verifies database + archive + relation/evidence consistency.
 
-Only after these pass should final SQL table names, constraints, and indexes be
-reviewed and accepted.
+Only after these pass should final SQL tables, constraints, indexes, cached
+current pointers, idempotency keys, or record hashes be reviewed and accepted.

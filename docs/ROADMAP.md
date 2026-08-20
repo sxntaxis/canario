@@ -43,12 +43,12 @@ language and the pre-SQL examples expose no unresolved semantic contradiction.
 
 Implement dependency-light types/validation for:
 
-- IDs, revisions, operations and canonical serialization;
+- stable IDs and revision lineage where civic meaning requires it;
 - documents/parts/collections;
 - claims, evidence links and typed locators;
 - entities, claim-entity links, tags, and first-class claim relations;
-- review policies/batches/decisions;
-- saved query and Output Type contracts.
+- strict/batch/supervised review semantics and decisions;
+- bounded query/read boundary and output separation.
 
 **Gate:** invalid states fail before touching SQLite. Hilo/Episode can be modeled
 as an Output Type fixture without becoming core entities.
@@ -60,7 +60,7 @@ Implement:
 - SQLite canonical store with explicit migrations;
 - content-addressed evidence archive;
 - core-owned writes only;
-- operation replay/stale-write checks;
+- replay/stale-write protection only on boundaries proven to need it;
 - backup and restore verification.
 
 Do **not** require a daemon. CLI/local worker can call the core directly.
@@ -139,8 +139,8 @@ claim, open its exact evidence, review/correct it, and retain that history.
 
 ## Phase 7 — Consultas and Salidas
 
-Implement deterministic search/filtering and saved queries, then a minimal
-Output Type interface.
+Implement deterministic search/filtering, then a minimal Output read boundary.
+Persist saved queries only if operator use proves they need durable identity.
 
 The first output proves the boundary by implementing the existing Hilo concept
 outside the core:
@@ -149,8 +149,8 @@ outside the core:
 query -> Hilo output -> Episodes -> Markdown/JSON exporter
 ```
 
-Add at least one structurally different output fixture (for example an agreement
-tracker or timeline) to prove Episode is not universal.
+Add one tiny structurally different non-Episode output/fixture to prove Episode
+is not universal; it need not be a second full product.
 
 **Gate:** queries can use shared anchors and explicit relation chains; both outputs
 consume the same Fichero without custom core schema and cannot silently mutate

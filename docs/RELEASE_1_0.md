@@ -80,7 +80,7 @@ Stable must address the actual local/document threats:
 | Malicious document | maintained parsers, no document-controlled shell/network behavior, resource bounds |
 | Path/symlink mistakes | safe path handling, atomic writes, traversal/symlink tests |
 | Prompt injection | source material is data; Lector has no implicit shell/secrets/publication authority |
-| Accidental destructive write | core-owned canonical writes, revisions, operation replay/stale guards, backups |
+| Accidental destructive write | core-owned canonical writes, revision history, targeted replay/stale guards where needed, backups |
 | Privacy harm | sensitive-output defaults, explicit publication policy, traceable source/evidence |
 | Data loss | verified backup/restore and archive/database consistency checks |
 
@@ -104,9 +104,9 @@ A backup that cannot be restored is not release evidence.
 
 ## Output and Sharing Boundary
 
-Stable supports local Output Types and exporters. An Output Type package may be
-portable/shareable as code/schema/config without transporting another
-installation's civic data.
+Stable supports local outputs and exporters over the bounded read model. A
+portable/shareable package format is optional until multiple real outputs or
+installations justify a compatibility contract.
 
 Inter-installation civic-data exchange, signed peer trust, federation, and public
 network services are horizon features, not GA gates.
@@ -137,7 +137,7 @@ references. Upgrade/restore behavior is tested on realistic fixtures.
 | Claim extraction | high-volume supervised extraction with stable provenance/evidence |
 | Review | strict, batch, supervised; sensitive/public trigger cases |
 | Query | text/entity/tag/date/status retrieval, explicit relation traversal, and evidence resolution |
-| Outputs | Hilo/Episode output plus one non-Episode output over same Fichero |
+| Outputs | Hilo/Episode output plus one tiny non-Episode proof over same Fichero |
 | Failure/recovery | interruption, disk/permission failure, corrupt/missing archive object, restore |
 | Security/privacy | paths, prompt injection, restricted output, destructive-operation guards |
 | Operator journey | one person can acquire -> inspect -> search -> review/correct -> output -> backup |
@@ -157,7 +157,7 @@ working directories are never release fixtures.
 | Review | strict/batch/supervised semantics demonstrated |
 | Degradation | unknown/malformed documents preserve honest partial state |
 | Query | obscure facts and a real relation chain are retrievable without AI rediscovery |
-| Output boundary | Hilo/Episode and a different output work without core schema coupling |
+| Output boundary | Hilo/Episode and a tiny non-Episode proof work without core schema coupling |
 | Recovery | clean restore verifies database + archive consistency |
 | Security/privacy | baseline threat tests pass; sensitive outputs fail safely |
 | Operations | one supported install/update/backup/restore workflow is documented |

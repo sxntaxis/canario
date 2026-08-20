@@ -32,9 +32,9 @@ Freeze only what would be expensive to migrate later:
 
 - product scope;
 - core record distinctions;
-- ID/revision/provenance rules;
+- stable ID/revision/provenance boundaries where civic meaning requires them;
 - typed locators;
-- source authority scope;
+- source authority scope and minimum acquisition provenance;
 - claim/relation/review semantics;
 - privacy/correction rules;
 - Output Type write boundary.
@@ -59,16 +59,15 @@ Do not freeze daemon protocol, plugin packaging, federation, or final SQL names.
 
 Implement pure/domain logic for:
 
-- IDs/revisions/operations;
-- SourcePolicy authority scopes;
+- stable IDs/revision lineage;
+- bounded source authority/acquisition semantics;
 - artifact/representation lineage;
 - CivicDocument typing, profiles, parts and collections;
 - claims/revisions;
 - typed EvidenceLinks;
 - entities/aliases, claim-entity links, tags, and first-class claim relations;
-- review policy/batch/decision;
-- saved query definitions;
-- Output Type manifests and permissions.
+- strict/batch/supervised review semantics and decisions;
+- query/read boundary and output write restrictions.
 
 No SQLite is needed to prove these transitions.
 
@@ -82,7 +81,7 @@ Implement:
 - SQLite schema reviewed against `DATA_MODEL.md`;
 - content-addressed archive with atomic verified writes;
 - repositories behind the ActaKit core;
-- migrations and stale-write/operation replay guards;
+- migrations plus replay/stale-write guards only where tests require them;
 - consistent backup/export and restore verification;
 - fixity/health checks.
 
@@ -184,10 +183,10 @@ Implement basic deterministic querying:
 - source/document type/date;
 - entity/tag;
 - direct claim relations and bounded relation traversal;
-- review level/epistemic status;
+- review visibility/lifecycle and optional attributable assessment;
 - evidence resolution.
 
-Then implement the minimal Output Type boundary.
+Then implement the minimal Output read boundary.
 
 ### First real output: Hilo
 
@@ -205,12 +204,12 @@ query/read interface rather than own civic truth.
 
 ### Second proof output
 
-Implement a small structurally different fixture/output such as a timeline or
-agreement tracker to prove no Episode dependency in core.
+Implement a tiny structurally different non-Episode fixture/output to prove no
+Episode dependency in core; do not build a second full product merely for the gate.
 
 **Gate:** a query can follow a real multi-document relation chain using SQLite,
-and Output Types can be installed/configured/rebuilt independently; their
-code/state has no direct canonical database mutation path.
+and both output shapes consume the same bounded read model without direct
+canonical database mutation. Package/install lifecycle is not required.
 
 ## WP9 — Export, Recovery, and Operational Hardening
 

@@ -20,41 +20,34 @@ Canonical meaning belongs to ActaKit records and their relationships, not to one
 serialization format. SQLite rows, JSON, YAML, Markdown, and output files are
 representations of contracts.
 
-Every mutable canonical record has at least:
+Use stable opaque IDs for records whose identity must survive renaming,
+correction, or reprocessing. Use append-only revisions where civic meaning can
+change materially: claims, claim relations, document classification/identity
+when necessary, and other subjects proven by fixtures to need revision history.
 
-```yaml
-id: opaque stable identifier
-schema_version: contract version
-revision: monotonic record-local revision
-created_at: ISO-8601 UTC timestamp
-created_by: actor/process identity
-record_hash: hash of canonical serialization
-```
+Do **not** require `record_hash`, `operation_id`, expected-revision guards, or a
+second revision protocol for every canonical row. Add hashes/idempotency/stale-
+write controls at concrete boundaries that need replay safety or concurrency.
 
-Every consequential mutation has an `operation_id`. Replaying the same operation
-with the same request is safe; reusing the ID for a different request is an
-error. Updates to existing records use an expected revision or equivalent stale-
-write guard.
+Every attributable action records enough provenance to answer who/what created
+or changed it and when. Source filenames, URLs, document numbers, titles, tag
+names, and output positions are labels, not canonical keys.
 
-Opaque IDs are preferred for canonical identity. Source filenames, URLs,
-document numbers, titles, tag names, and output positions are labels, not keys.
-
-## Sources and Captures
+## Sources and Acquisition
 
 A `Source` identifies a bounded public information source or source family.
-A versioned `SourcePolicy` controls:
+The baseline stores bounded acquisition configuration and authority scope only as
+needed by real adapters; it does not require a general-purpose policy engine.
 
-- acquisition hosts/paths/media where relevant;
-- retention and privacy expectations;
-- source authority/scope: what kinds of claims this source can reasonably
-  support;
-- completeness/checkpoint rules when they are knowable.
+An `AcquisitionObservation` records one concrete observation/retrieval attempt:
+source, resource locator/URI, supplied metadata, time, outcome, and resulting
+artifact or failure.
 
-A `SourceRun` is one bounded inspection attempt. A `SourceCapture` records one
-observed resource, retrieval attempt, final URI/locator, supplied metadata,
-time, and resulting artifact or failure.
+A discovery adapter may later introduce explicit run/checkpoint objects when it
+needs completeness reporting, retries, or incremental crawling. Those structures
+must preserve the same invariant:
 
-Failure or absence in one run never deletes prior knowledge.
+> failure or absence in one observation/run never deletes prior knowledge.
 
 ## Artifacts and Representations
 
@@ -88,15 +81,18 @@ language/charset where relevant, and quality/diagnostic metadata.
 
 A derivative never replaces its parent.
 
-## Process Runs and the Lector
+## Processing Provenance and the Lector
 
-Every parser, OCR, rule engine, AI model, normalization pass, classifier, or
-human-assisted extraction can be recorded as a `ProcessRun` with exact inputs,
-implementation/model/configuration identifiers, time, outputs, and diagnostics.
+Parser, OCR, rule-engine, model, normalization, classifier, or human-assisted
+work that materially creates derived representations/claims/relations records
+attributable processing provenance: exact inputs, implementation/model/rule
+identity, relevant configuration/version, time, and diagnostics when useful.
 
-A ProcessRun may create claims, entity/tag links or suggestions, document
-classification, claim-relation proposals, or new representations. AI output is attributable processing output,
-never factual source evidence by itself.
+This may be represented as a reusable `ProcessRun` when many outputs share one
+execution, or compact provenance attached to outputs for simpler cases. The
+contract is **reproducible attribution**, not a mandatory table per tool call.
+
+AI output is processing output, never factual source evidence by itself.
 
 ## Civic Documents, Parts, and Collections
 
@@ -147,44 +143,39 @@ A claim revision records at least:
 ```yaml
 text: exact normalized proposition or explicit question
 kind: source_assertion | derived_inference | community_report | verification_question
-origin_kind: machine | human
-origin_process_id: optional ProcessRun
+origin_kind: machine | rule | human
+origin_process_ref: optional attributable processing provenance
 attribution: optional speaker/body/source actor
 temporal_scope: optional
 flags:
   sensitive: false
   quantitative: false
-status: active | rejected | superseded | retracted | restricted
-epistemic_status: unverified | supported | corroborated | contested | refuted | indeterminate
+lifecycle: active | rejected | superseded | retracted | restricted
 ```
 
-Human review level is derived from review decisions and must remain separate from
-epistemic status. At minimum consumers can distinguish:
+Human review is derived from review decisions and remains separate from
+lifecycle. Consumers must at minimum distinguish unreviewed machine/rule output
+from human-reviewed material.
 
-```text
-machine-only
-human-reviewed
-```
+An optional attributable assessment (`supported`, `contested`, `refuted`, etc.)
+may exist when a workflow needs it, but it is **not a mandatory claim field** and
+must not be presented as an objective truth score. Evidence links and explicit
+claim relations remain the inspectable record.
 
 A claim is not split further unless the parts need independent evidence,
 correction, retrieval, or relationships.
 
 ### Extraction policy
 
-A versioned extraction policy defines what counts as civically relevant for a
-source/document profile. The default aims for broad capture of relevant:
+Extraction aims for broad civic relevance: decisions, votes, agreements,
+requests, commitments, responsibilities, money, quantities, deadlines, dates,
+projects, services, works, contracts, public resources, reported problems,
+responses, findings, recommendations, outcomes, and retrieval-relevant entities.
 
-- decisions, votes, agreements, requests, commitments and responsibilities;
-- money, quantities, deadlines, dates and periods;
-- projects, services, works, contracts and public resources;
-- reported problems, responses, findings, recommendations and outcomes;
-- named institutions, places, public actors and other retrieval-relevant
-  entities;
-- contradictions, uncertainty, or verification questions when material.
-
-The policy should favor later recoverability over guessing today's importance,
-while excluding purely ceremonial/noise content when it has no plausible civic
-retrieval value.
+The policy favors later recoverability over guessing today's importance while
+excluding purely ceremonial/noise content with no plausible civic retrieval
+value. A versioned policy object is only required when changing policy itself
+must be audited/replayed; simple configuration is sufficient initially.
 
 ## Evidence Links and Typed Locators
 
@@ -193,7 +184,7 @@ using one relation:
 
 ```text
 supports
-contradicts
+challenges
 contextualizes
 quotes
 mentions
@@ -233,8 +224,8 @@ link resolves to a verifiable representation location.
 
 ## Source Authority Scope
 
-Evidence quality is not a single `official=true` flag. SourcePolicy or bounded
-source observations describe what the source can directly demonstrate.
+Evidence quality is not a single `official=true` flag. Bounded source configuration or acquisition observations describe what the
+source can directly demonstrate.
 
 Examples:
 
@@ -253,18 +244,25 @@ announced X” must not silently become “X happened.”
 
 ### Entities are shared anchors
 
-An `Entity` gives a retrieval-relevant thing a stable local identity. Initial
-classes may include person, organization/institution, place, project, legal
-instrument, contract/procurement object, and other locally justified classes.
+An `Entity` gives a retrieval-relevant thing a stable **local** identity.
+Initial classes may include person, organization/institution, place, project,
+legal instrument, contract/procurement object, and other locally justified
+classes.
 
-An entity records at least a stable ID, class, display/canonical label, lifecycle,
-and attributable aliases/source observations where useful. Multiple source labels
-may resolve to one entity without erasing what each source actually called it.
+Identity resolution is explicit rather than name-equality magic:
+
+- preserve every observed/source-supplied label that matters;
+- attach strong external identifiers when available (legal ID, contract number,
+  official expediente/agreement identifier, etc.);
+- do not merge people merely because names match;
+- projects/places/organizations may have aliases and changing display names;
+- merge/split decisions preserve history and provenance instead of silently
+  rewriting every old link.
 
 A `ClaimEntityLink` binds an exact claim revision to an entity using a small,
 extensible relation/role vocabulary such as `mentions`, `about`, `actor`,
-`responsible`, or `place` when those distinctions are useful. It records origin
-(machine/rule/human), process when applicable, and review state independently.
+`responsible`, or `place` when useful. It records origin and processing/review
+provenance as needed.
 
 Shared entity membership is a retrieval fact, not a semantic shortcut:
 
@@ -280,7 +278,7 @@ or contradicts B.
 
 A `ClaimRelation` records a meaningful proposition-to-proposition connection.
 It is canonical data with its own stable identity/revision, not a search result
-or something that must be rediscovered by an AI.
+or something an AI must rediscover each time.
 
 It binds **specific claim revisions**:
 
@@ -289,31 +287,31 @@ from_claim_revision: clm_...@N
 relation_type: updates | contradicts | corrects | responds_to | implements | supersedes | same_matter_as | other
 to_claim_revision: clm_...@N
 origin_kind: machine | rule | human
-origin_process_id: optional ProcessRun
+origin_process_ref: optional attributable processing provenance
 basis_kind: source_evidence | analyst_inference | mechanical_identity | other
-basis_refs: optional exact claim/evidence references
-rationale: optional concise explanation
-status: active | rejected | superseded
+basis_refs: exact claim/evidence/document references when available
+rationale: concise explanation when basis refs alone do not explain the link
+lifecycle: candidate | active | rejected | superseded
 ```
 
-A relation can cite the endpoint claims/evidence links or other exact canonical
-records that justify the connection. The basis must be inspectable; `AI thinks
-these are related` is provenance for a proposal, not factual evidence.
+A canonical **active** relation must have attributable origin plus an inspectable
+basis: exact references, a concise rationale, or both. `AI thinks these are
+related` is provenance for a candidate, not sufficient canonical meaning.
 
-Review level is derived from review decisions just as for claims. In supervised
-mode, a machine/rule-proposed active relation may remain machine-only and
-searchable. It must never masquerade as human-confirmed.
+Review is derived from review decisions just as for claims. In supervised mode a
+machine/rule candidate may remain searchable without masquerading as human-
+confirmed. Promotion to active follows the relation policy and basis minimum.
 
-Relation types remain a small versioned vocabulary and may gain locally useful
-extensions. Do not encode a universal civic ontology in relation names.
+Relation types remain a small versioned vocabulary. Do not encode a universal
+civic ontology in relation names.
 
 When a claim revision changes materially, existing relations keep their original
 revision endpoints. The core may propose/review a replacement relation; it does
-not silently retarget history to the new text.
+not silently retarget history.
 
 `EvidenceLink.relation` and `ClaimRelation.relation_type` are different
-contracts: the first says how evidence bears on one claim; the second says how
-one proposition relates to another.
+contracts: evidence `challenges` one claim; one proposition may `contradict`
+another proposition.
 
 ### Tags
 
@@ -334,7 +332,7 @@ require it.
 ## Review Policies and Decisions
 
 Review is a policy layer over records, not the condition for a Claim or
-ClaimRelation to exist. A `ReviewPolicy` may select mode by installation, source,
+ClaimRelation to exist. Configuration may select mode by installation, source,
 document profile, output, sensitivity, subject kind, or other bounded criteria.
 
 Initial modes:
@@ -347,29 +345,26 @@ supervised
 
 ### Strict
 
-Protected use requires an explicit human review decision on the relevant claim,
-claim relation, or deterministic review set.
+Protected use requires an explicit human review decision on the relevant exact
+revision(s).
 
 ### Batch
 
-A `ReviewBatch` identifies an immutable deterministic set of subject revisions
-and its set hash. One human action can approve/reject that set while exceptions
-receive individual decisions.
+One human action may cover a deterministic set of exact subject revisions, with
+per-subject exceptions. The contract requires reproducible membership (for
+example an ordered set or set fingerprint) and attributable outcome; it does
+**not** require a permanent `ReviewBatch` entity/table.
 
 ### Supervised
 
-Machine-only claims and relations are immediately available for permitted
-internal search. Human review occurs on demand or when another policy requires
-it.
+Unreviewed machine/rule claims and relation candidates are immediately available
+for permitted internal search. Human review occurs on demand or when another
+policy requires it.
 
-A `ReviewDecision` records an exact subject revision (for example a claim or
-claim relation) or batch hash, actor, action, rationale when needed, time, and
-policy revision. The ordinary installation may have one
-operator performing all actions; authority is recorded as an action/capability,
-not a required staffing role.
-
-Sensitive data, public publication, or other high-consequence contexts may force
-human review independently of the default ingestion mode.
+A `ReviewDecision` records exact subject revision(s) or reproducible subject set,
+actor, action, rationale when needed, time, and applicable policy/configuration
+identity when relevant. One operator may perform all actions; ActaKit records
+actions/capabilities rather than requiring staffing roles.
 
 ## Corrections
 
@@ -389,44 +384,38 @@ A redacted public representation never overwrites the restricted original.
 
 ## Queries
 
-A query is read-only. It selects records by documented fields such as text,
-entity, tag, source/document type, date, review level, epistemic status, or other
-supported indexes. It may also traverse explicit claim relations or use shared
-entity/tag anchors to assemble a related set without inventing semantic edges.
+A query is read-only. It selects records by supported fields such as text,
+entity, tag, source/document type, date, lifecycle/review visibility, optional
+assessment, and explicit claim relations. It may use bounded relation traversal
+or shared anchors without inventing semantic edges.
 
-A query may be ephemeral or saved as a versioned `SavedQuery` with parameters.
-Results do not become canonical civic claims merely because they were returned
-or ranked.
+Queries are ephemeral by default. A durable saved-query contract is added only
+when operator use proves that query definitions themselves need stable identity,
+versioning, or sharing. Query results never become canonical civic claims merely
+because they were returned or ranked.
 
-## Output Types
+## Outputs
 
-An `OutputType` is a versioned extension that consumes a bounded query/read model
-and organizes it for a purpose. The core contract separates:
+An output consumes a bounded query/read model and organizes it for a purpose.
+The baseline contract is deliberately small:
 
 ```text
-OutputType      logic/schema/capabilities
-OutputInstance  configured local use of that type
-OutputState     optional derived/curated state owned by that output namespace
-Exporter        serialization/transport such as Markdown, JSON, CSV, HTML
+read/query capabilities -> output-specific logic/state -> exporter
 ```
 
-An OutputType declares at least:
+Output code has read-only core access by default. It may own validated local
+presentation/curation state, but it cannot silently rewrite claims, evidence,
+review decisions, entities, relations, or artifacts. Canonical mutation must go
+through an explicit core operation.
 
-```yaml
-output_type_id: stable package/type identity
-version: semantic/schema version
-input_capabilities: required read/query capabilities
-config_schema: validated configuration schema
-state_schema: optional validated derived/curation state schema
-exporters: supported serializers
-permissions: read-only core access by default
-```
+The first implementation does not require a universal package manifest,
+registry, install lifecycle, or canonical `OutputType/OutputInstance/OutputState`
+records. Use versioned local identifiers/configuration where compatibility
+actually exists. A stable shareable Output API/package format is promoted later
+when multiple real outputs/installations prove the need.
 
-Output state may contain human curation specific to that presentation, but it
-cannot silently rewrite claims, evidence, review decisions, or artifacts. Any
-canonical mutation must use an explicit core operation.
-
-Output Types may be shared between installations independently of civic data.
+An `Exporter` serializes output/query results to Markdown, JSON, CSV, HTML, or
+another transport format.
 
 ### Hilo
 
@@ -445,9 +434,10 @@ reader organization over claims.
 
 ## Publication Snapshots
 
-When an output is deliberately released, ActaKit may create an immutable
-snapshot containing exact input claim/document revisions, output type/version,
-configuration, policy state, output hashes, and publication decision.
+When an output is deliberately released and reproducible publication history
+matters, ActaKit may create an immutable snapshot containing exact input
+revisions, output implementation/configuration identity, hashes, and publication
+decision. Publication snapshots are not a prerequisite for internal outputs.
 
 Later correction creates a new snapshot. Omission from a later snapshot is not
 implicit deletion.

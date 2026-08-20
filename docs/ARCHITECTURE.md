@@ -55,7 +55,7 @@ names for maintainability.
 | **Lector** | ¿Qué contiene? | Parsers, rules, AI, or humans extracting structure |
 | **Fichero** | ¿Qué afirma el material, dónde y cómo se conecta? | Claims, evidence links, entities, tags, connections |
 | **Mesa de control** | ¿Qué necesita atención humana? | Review, correction, privacy, exceptions |
-| **Consultas** | ¿Qué necesito encontrar ahora? | Search, filters, saved queries |
+| **Consultas** | ¿Qué necesito encontrar ahora? | Search and filters; durable saved definitions only if real use requires them |
 | **Salidas** | ¿Cómo quiero usar o presentar esto? | Hilos, timelines, trackers, reports, exports |
 
 The whole program can therefore be visualized as:
@@ -135,19 +135,23 @@ They act on top of the traceable record.
 
 ## Evidence Custody: the Depósito
 
-A source URL, one retrieval attempt, downloaded bytes, extracted text, and a
-human-readable document identity are different things.
+A source, one observation/acquisition attempt, downloaded bytes, extracted text,
+and a human-readable document identity are different things.
 
 ```text
 source
-  -> source run/capture
+  -> acquisition observation
   -> immutable artifact bytes
   -> one or more representations
 ```
 
-The same bytes acquired twice can retain two capture histories. A changed file
-at the same URL is a new artifact. An OCR result never replaces the scan that
-produced it.
+The baseline only needs enough acquisition history to answer **where, when, and
+how these bytes were observed**. A discovery adapter may later justify separate
+run/checkpoint structures, but those are not universal semantic requirements.
+
+The same bytes acquired twice may share physical storage while retaining distinct
+provenance observations. A changed file at the same URL is a new artifact.
+Failure or absence during a later acquisition never deletes prior evidence.
 
 Artifacts are content-addressed and hash-verified. The canonical database stores
 metadata and relationships; it is not a substitute for original evidence bytes.
@@ -246,7 +250,7 @@ Documents are always data, never executable instructions to an AI agent. A
 reader has no shell, credential, publication, or unrestricted canonical-write
 authority merely because it can inspect content.
 
-## Claims: Extract Broadly, Distinguish Confidence
+## Claims: Extract Broadly, Keep State Axes Separate
 
 A claim is **an identifiable proposition found in or derived from civic source
 material**, not “a truth approved by a human.”
@@ -259,17 +263,20 @@ responses, quantitative facts, and other later-searchable developments.
 The system should not optimize only for what looks important today. The value of
 ActaKit is partly that an obscure fact can become easy to recover months later.
 
-Claims preserve distinct dimensions:
+Do not compress different questions into one status or confidence score:
 
 ```text
-origin          machine or human; exact process/input
-kind            source assertion / derived inference / community report / question
-review level    machine-only or human-reviewed
-status          active / rejected / superseded / retracted / restricted
-epistemic state unverified / supported / corroborated / contested / refuted / indeterminate
+origin       machine / rule / human, with exact process/input when applicable
+kind         source assertion / derived inference / community report / question
+lifecycle    active / rejected / superseded / retracted / restricted
+review       no human decision / human-reviewed, derived from review history
+assessment   optional attributable judgment such as supported / contested / refuted
 ```
 
-These dimensions must not collapse into one “confidence score.”
+`machine-only` describes review visibility, not lifecycle. `corrected` means a
+new revision or explicit correction event, not a permanent status. An assessment
+is optional and never presented as ActaKit measuring objective truth; evidence
+links and claim relations remain the inspectable basis.
 
 A practical claim boundary is:
 
@@ -280,7 +287,7 @@ ActaKit does not atomize prose merely because a model can.
 
 ## Source Authority: What Can This Evidence Demonstrate?
 
-“Official” is not a universal proof level. Source policy records the kinds of
+“Official” is not a universal proof level. Bounded source authority configuration records the kinds of
 assertions a source can reasonably support.
 
 For example:
@@ -307,33 +314,37 @@ ActaKit is **single-operator-first**. A normal canton installation is expected t
 have one operator, sometimes two, and potentially many read-only consumers.
 The architecture records actions precisely without inventing an organization
 chart that small teams do not have. Claims and explicit claim relations use the
-same supervision principle: machine-only is allowed, but never mislabeled as
-human-reviewed.
+same supervision principle: unreviewed machine/rule output is allowed, but never
+mislabeled as human-reviewed.
 
 Review policy is configurable. Initial modes:
 
 ### `strict`
 
-Claims covered by the policy require explicit human review before becoming
-usable in the policy's protected context.
+Claims/relations covered by the policy require explicit human review before
+protected downstream use.
 
 ### `batch`
 
-One human action can approve/reject/correct a deterministic set of claims from a
-document or work package. Exceptions remain individually addressable.
+One human action can apply to a deterministic set of exact claim/relation
+revisions, with individually addressable exceptions. **Batch review is a 1.0
+capability; it does not require a heavyweight `ReviewBatch` subsystem or table.**
+The implementation may persist a compact subject-set fingerprint plus exceptions
+if that is sufficient to reconstruct the decision.
 
 ### `supervised`
 
-Machine-extracted claims become internally searchable immediately with a clear
-`machine-only` review level. Human review happens on demand or when policy
+Machine-extracted claims and relations become internally searchable immediately
+with clear unreviewed provenance. Human review happens on demand or when policy
 triggers it.
 
 `supervised` is the expected everyday mode for high-volume extraction. A public
-or sensitive output may independently require human-reviewed claims even when
-the internal Fichero allows machine-only material.
+or sensitive output may independently require human-reviewed material even when
+the internal Fichero allows unreviewed material.
 
-A review decision always records what exact revision or deterministic batch was
-reviewed. Readiness means process sufficiency, not metaphysical truth.
+A review decision identifies the exact revision(s) it covered and the actor,
+action, time, and rationale when needed. Readiness means process sufficiency,
+not metaphysical truth.
 
 ## The Fichero Is a Network, Not a Pile of Claims
 
@@ -404,20 +415,24 @@ all budget claims above an amount
 all unresolved commitments in a period
 ```
 
-A query may be ephemeral or saved as a versioned definition. Queries may follow
-shared entity/tag anchors or explicit claim-relation chains, including bounded
-recursive traversal when useful. Query results are not new civic truth. A result
-can be handed to an Output Type.
+Queries may follow shared entity/tag anchors or explicit claim-relation chains,
+including bounded recursive traversal when useful. Query results are not new
+civic truth and do not create semantic edges.
 
-Search must let consumers distinguish/filter machine-only, human-reviewed,
-contested, rejected, and restricted material according to access policy.
+The baseline needs deterministic query functions and filters. A durable
+versioned `SavedQuery` becomes canonical only when real operator use demonstrates
+that a query definition itself needs identity/history; it is not a mandatory
+first-schema object.
+
+Search must let consumers distinguish/filter unreviewed, human-reviewed,
+rejected, retracted, restricted, or explicitly assessed material according to
+access policy.
 
 ## Salidas Are Extensible and Shareable
 
-An **Output Type** turns a query/result set into a useful organization or
-presentation. It may define its own validated configuration and derived state,
-but it reads the Fichero through a bounded read interface and cannot silently
-rewrite canonical claims/evidence.
+A **Salida** turns a query/result set into a useful organization or presentation.
+The architectural requirement is a narrow read boundary: output code can query
+and organize the Fichero but cannot silently rewrite canonical claims/evidence.
 
 Examples:
 
@@ -434,9 +449,11 @@ citation packet
 An **Exporter** only serializes a result/output as Markdown, JSON, CSV, HTML, or
 another transport format. Output logic and serialization are separate concepts.
 
-Output Types should eventually be programmable and shareable between canton
-installations without sharing civic data. Sharing a `Hilo` implementation means
-sharing code/schema/templates, not another canton's Fichero.
+The first implementation does **not** need a plugin marketplace, package registry,
+install lifecycle, or universal `OutputType/OutputInstance/OutputState` tables.
+It only needs a boundary clean enough that Hilo can live outside the core and a
+small structurally different proof can consume the same read model. A richer
+shareable Output API is horizon work once two real outputs justify it.
 
 ### Episode belongs to the Hilo output
 
@@ -473,8 +490,12 @@ or multi-writer architecture is **not required initially**. Those become
 implementation choices only when multiple concurrent clients/operators create a
 real need. The authority boundary is designed now; the daemon is not.
 
-SQLite remains on local attached storage and uses explicit migrations, foreign keys, recursive queries where justified, and safe backup procedures. Original/derived bytes live in the archive,
-not as database blobs by default.
+SQLite remains on local attached storage and uses explicit migrations, foreign
+keys, recursive queries where justified, and safe backup procedures.
+Idempotency keys, stale-write guards, and record hashes are added where a concrete
+replay/concurrency/import failure mode requires them; they are not universal tax
+on every mutation. Original/derived bytes live in the archive, not as database
+blobs by default.
 
 ## Corrections and History
 
@@ -484,7 +505,7 @@ separate heavyweight “correction case”; explicit correction records are
 reserved for events such as retraction, public correction, redaction, or
 evidence unlinking where the action itself matters.
 
-Absence from a new source run, query, output, or export never means deletion.
+Absence from a new acquisition observation, query, output, or export never means deletion.
 
 ## Privacy and Publication
 
