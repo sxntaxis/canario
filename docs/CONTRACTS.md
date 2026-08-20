@@ -94,8 +94,8 @@ Every parser, OCR, rule engine, AI model, normalization pass, classifier, or
 human-assisted extraction can be recorded as a `ProcessRun` with exact inputs,
 implementation/model/configuration identifiers, time, outputs, and diagnostics.
 
-A ProcessRun may create claims, entity/tag suggestions, document classification,
-relations, or new representations. AI output is attributable processing output,
+A ProcessRun may create claims, entity/tag links or suggestions, document
+classification, claim-relation proposals, or new representations. AI output is attributable processing output,
 never factual source evidence by itself.
 
 ## Civic Documents, Parts, and Collections
@@ -249,33 +249,93 @@ structured_value    source table/dataset contains value X
 Claim wording and evidence relations must preserve this scope. “The institution
 announced X” must not silently become “X happened.”
 
-## Entities, Tags, and Relations
+## Entities, Tags, and Claim Connections
 
-Entities exist to improve retrieval and linkage, not to build a universal civic
-ontology. Initial useful classes may include person, organization/institution,
-place, project, legal instrument, and other locally justified entities.
+### Entities are shared anchors
 
-Tags/topics are local, versioned vocabulary. A canton may create, import, or
-share a taxonomy without making it globally canonical.
+An `Entity` gives a retrieval-relevant thing a stable local identity. Initial
+classes may include person, organization/institution, place, project, legal
+instrument, contract/procurement object, and other locally justified classes.
 
-Relations are simple typed edges only when they improve retrieval or integrity,
-for example:
+An entity records at least a stable ID, class, display/canonical label, lifecycle,
+and attributable aliases/source observations where useful. Multiple source labels
+may resolve to one entity without erasing what each source actually called it.
+
+A `ClaimEntityLink` binds an exact claim revision to an entity using a small,
+extensible relation/role vocabulary such as `mentions`, `about`, `actor`,
+`responsible`, or `place` when those distinctions are useful. It records origin
+(machine/rule/human), process when applicable, and review state independently.
+
+Shared entity membership is a retrieval fact, not a semantic shortcut:
 
 ```text
-claim -> mentions -> entity
-claim -> concerns -> place
-project -> managed_by -> institution
-claim -> contradicts -> claim
+Claim A -> entity: Puerto Caldera
+Claim B -> entity: Puerto Caldera
 ```
+
+means the claims can be found together. It does **not** mean A updates, supports,
+or contradicts B.
+
+### ClaimRelation is first-class civic memory
+
+A `ClaimRelation` records a meaningful proposition-to-proposition connection.
+It is canonical data with its own stable identity/revision, not a search result
+or something that must be rediscovered by an AI.
+
+It binds **specific claim revisions**:
+
+```yaml
+from_claim_revision: clm_...@N
+relation_type: updates | contradicts | corrects | responds_to | implements | supersedes | same_matter_as | other
+to_claim_revision: clm_...@N
+origin_kind: machine | rule | human
+origin_process_id: optional ProcessRun
+basis_kind: source_evidence | analyst_inference | mechanical_identity | other
+basis_refs: optional exact claim/evidence references
+rationale: optional concise explanation
+status: active | rejected | superseded
+```
+
+A relation can cite the endpoint claims/evidence links or other exact canonical
+records that justify the connection. The basis must be inspectable; `AI thinks
+these are related` is provenance for a proposal, not factual evidence.
+
+Review level is derived from review decisions just as for claims. In supervised
+mode, a machine/rule-proposed active relation may remain machine-only and
+searchable. It must never masquerade as human-confirmed.
+
+Relation types remain a small versioned vocabulary and may gain locally useful
+extensions. Do not encode a universal civic ontology in relation names.
+
+When a claim revision changes materially, existing relations keep their original
+revision endpoints. The core may propose/review a replacement relation; it does
+not silently retarget history to the new text.
+
+`EvidenceLink.relation` and `ClaimRelation.relation_type` are different
+contracts: the first says how evidence bears on one claim; the second says how
+one proposition relates to another.
+
+### Tags
+
+Tags/topics are local, versioned vocabulary. A canton may create, import, or
+share a taxonomy without making it globally canonical. Tags provide another
+cheap shared anchor and do not imply pairwise claim relations.
+
+### Storage shape
+
+The baseline is relational, not a generic triple store. Prefer typed tables such
+as claims, entities, claim-entity links, and claim relations over universal
+`node/edge` or `subject/predicate/object` tables. This still forms a graph-shaped
+record and can be traversed with ordinary/recursive SQLite queries.
 
 Do not normalize every noun, date, or number into its own table before use cases
 require it.
 
 ## Review Policies and Decisions
 
-Review is a policy layer over records, not the condition for a Claim to exist.
-A `ReviewPolicy` may select mode by installation, source, document profile,
-output, sensitivity, or other bounded criteria.
+Review is a policy layer over records, not the condition for a Claim or
+ClaimRelation to exist. A `ReviewPolicy` may select mode by installation, source,
+document profile, output, sensitivity, subject kind, or other bounded criteria.
 
 Initial modes:
 
@@ -287,8 +347,8 @@ supervised
 
 ### Strict
 
-Protected use requires an explicit human review decision on the relevant claim
-or deterministic review set.
+Protected use requires an explicit human review decision on the relevant claim,
+claim relation, or deterministic review set.
 
 ### Batch
 
@@ -298,11 +358,13 @@ receive individual decisions.
 
 ### Supervised
 
-Machine-only claims are immediately available for permitted internal search.
-Human review occurs on demand or when another policy requires it.
+Machine-only claims and relations are immediately available for permitted
+internal search. Human review occurs on demand or when another policy requires
+it.
 
-A `ReviewDecision` records subject revision/batch hash, actor, action, rationale
-when needed, time, and policy revision. The ordinary installation may have one
+A `ReviewDecision` records an exact subject revision (for example a claim or
+claim relation) or batch hash, actor, action, rationale when needed, time, and
+policy revision. The ordinary installation may have one
 operator performing all actions; authority is recorded as an action/capability,
 not a required staffing role.
 
@@ -329,7 +391,8 @@ A redacted public representation never overwrites the restricted original.
 
 A query is read-only. It selects records by documented fields such as text,
 entity, tag, source/document type, date, review level, epistemic status, or other
-supported indexes.
+supported indexes. It may also traverse explicit claim relations or use shared
+entity/tag anchors to assemble a related set without inventing semantic edges.
 
 A query may be ephemeral or saved as a versioned `SavedQuery` with parameters.
 Results do not become canonical civic claims merely because they were returned

@@ -33,7 +33,7 @@ extract broad traceable claims
 search machine-only and reviewed material distinctly
 review strictly, in batch, or by supervision
 correct without erasing history
-run queries
+run queries and follow stored claim connections
 build outputs
 back up and restore
 ```
@@ -136,7 +136,7 @@ references. Upgrade/restore behavior is tested on realistic fixtures.
 | Acquisition/extraction | normal, changed, duplicate, malformed, unknown, hostile inputs |
 | Claim extraction | high-volume supervised extraction with stable provenance/evidence |
 | Review | strict, batch, supervised; sensitive/public trigger cases |
-| Query | text/entity/tag/date/status retrieval and evidence resolution |
+| Query | text/entity/tag/date/status retrieval, explicit relation traversal, and evidence resolution |
 | Outputs | Hilo/Episode output plus one non-Episode output over same Fichero |
 | Failure/recovery | interruption, disk/permission failure, corrupt/missing archive object, restore |
 | Security/privacy | paths, prompt injection, restricted output, destructive-operation guards |
@@ -156,7 +156,7 @@ working directories are never release fixtures.
 | Volume | broad claim extraction works without mandatory one-by-one approval |
 | Review | strict/batch/supervised semantics demonstrated |
 | Degradation | unknown/malformed documents preserve honest partial state |
-| Query | useful later retrieval of obscure facts is demonstrated |
+| Query | obscure facts and a real relation chain are retrievable without AI rediscovery |
 | Output boundary | Hilo/Episode and a different output work without core schema coupling |
 | Recovery | clean restore verifies database + archive consistency |
 | Security/privacy | baseline threat tests pass; sensitive outputs fail safely |
@@ -172,7 +172,7 @@ working directories are never release fixtures.
 - public hosting;
 - public API/automation adapters;
 - OCI plus wheel plus source package simultaneously;
-- graph/vector database;
+- specialized graph/vector database;
 - multi-tenant role system;
 - historical bulk migration.
 

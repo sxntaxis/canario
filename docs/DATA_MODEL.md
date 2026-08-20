@@ -4,7 +4,7 @@ kind: conceptual-data-model
 state: proposed-for-acceptance
 created: 2026-08-20
 authority: architecture-proposal
-summary: Pre-SQL model for a small civic-record core with traceable claims, configurable review, queries, and output extensions.
+summary: Pre-SQL model for a small networked civic-record core with traceable claims, first-class connections, configurable review, queries, and output extensions.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-CONTRACTS-001
@@ -41,7 +41,9 @@ CivicCollection -> Membership -> CivicDocument
 Claim -> ClaimRevision -> EvidenceLink -> Representation + typed locator
   |          |                |
   |          |                +-> optional Document/Part context
-  |          +-> entities/tags/relations
+  |          +-> ClaimEntityLink -> Entity
+  |          +-> tag assignments
+  |          +-> ClaimRelation -> another ClaimRevision
   +-> review decisions/batches
 
 SavedQuery -> selected read model -> OutputInstance -> Export/Snapshot
@@ -73,11 +75,13 @@ The final SQL may merge or split these after concrete query tests.
 | `claims` | stable claim ID + current revision/status pointer | Identity across correction |
 | `claim_revisions` | text, kind, origin, attribution, temporal scope, flags, epistemic state, hash | Durable proposition history |
 | `evidence_links` | claim revision, relation, representation, locator, optional document/part | Exact provenance |
-| `entities` | entity ID, class, normalized/display identity | Retrieval-relevant named things |
-| `claim_entities` | claim revision + entity + relation | Claim/entity linkage |
+| `entities` | entity ID, class, canonical/display identity, lifecycle | Retrieval-relevant shared anchors |
+| `entity_aliases` / source observations | entity + label/context/source/process | Preserve names and identity resolution provenance |
+| `claim_entity_links` | exact claim revision + entity + role/relation + origin/review | Durable claim/entity anchoring |
 | `tags` | local tag identity, taxonomy/version, lifecycle | Local/shared topic vocabulary |
 | `tag_assignments` | subject + tag + origin/process + review metadata if needed | Search classification |
-| `relations` | subject/object type+ID, relation, origin/evidence | Simple useful graph edges |
+| `claim_relations` | stable relation ID/revision, exact from/to claim revisions, typed relation, origin, basis kind, status | First-class proposition-to-proposition memory |
+| `claim_relation_bases` | relation revision + exact claim/evidence refs + optional rationale | Inspectable reason/evidence for a connection |
 | `review_policies` | scope, mode, triggers, revision | strict/batch/supervised behavior |
 | `review_batches` | deterministic subject set/hash, policy revision, actor/outcome | One action over many claims |
 | `review_decisions` | exact subject/batch, action, actor, rationale/time | Human supervision trail |
@@ -105,8 +109,8 @@ agreement tracker
 They are Output Type concepts unless a future cross-output requirement proves
 otherwise.
 
-Likewise, do not start with universal tables for every date, amount, office,
-legal reference, or geographic object. Promote structured fields only when real
+Likewise, do not start with universal graph-node/edge/triple tables or universal
+tables for every date, amount, office, legal reference, or geographic object. Promote structured fields only when real
 queries or integrity constraints need them.
 
 ## Document Typing
@@ -134,6 +138,49 @@ that is the most honest broad type.
 
 `expediente` and similar case/package concepts begin as collection kinds, not
 forced document types.
+
+## Networked Fichero
+
+The Fichero is graph-shaped, but the baseline SQL should stay explicit and
+relational. There are two intentionally different connection mechanisms.
+
+### Shared anchors
+
+```text
+claim_revision -> claim_entity_link -> entity
+claim_revision -> tag_assignment -> tag
+```
+
+These allow broad retrieval without creating an edge between every pair of
+claims that mention the same place, project, institution, or topic.
+
+### Direct claim relations
+
+```text
+claim_revision A -> claim_relation -> claim_revision B
+```
+
+The relation is itself versioned civic metadata and records: exact endpoint
+revisions, relation type, machine/rule/human origin, process when applicable,
+basis kind, exact basis references/rationale when any, lifecycle status, and
+human review decisions when any.
+
+The same review machinery can target a claim relation revision; machine-only is
+a valid relation review state.
+
+A claim edit does not silently retarget existing relation endpoints. If a new
+revision changes the proposition enough to change a relationship, a new/revised
+ClaimRelation is created deliberately.
+
+Machine-only relations are allowed in supervised mode and are filterable just
+like machine-only claims. Shared anchors and direct relations therefore provide
+useful structure without pretending automation is human confirmation.
+
+Do **not** begin with one generic `nodes`/`edges` or RDF-style triple table. Typed
+relational tables provide stronger invariants and simpler code for the known
+core. If future traversal workloads justify a specialized graph index/engine, it
+can be derived from these canonical records rather than becoming a second source
+of truth.
 
 ## Claim Data
 
@@ -225,6 +272,8 @@ specialized search infrastructure. Likely needs:
 - full-text claim/document search;
 - indexes for dates, document type, source, status/review level;
 - entity and tag joins;
+- direct claim-relation lookup;
+- bounded recursive traversal over claim relations when useful;
 - evidence resolution;
 - saved query definitions.
 
@@ -275,11 +324,17 @@ Before writing migration `0001`, prove with realistic fixtures:
 4. Can a batch review cover a deterministic set without manufacturing hundreds
    of redundant approval rows unless needed?
 5. Can source authority limitations be represented without a trust-score system?
-6. Can entity/tag retrieval work without a universal ontology?
-7. Can a saved query feed two different outputs?
-8. Can a Hilo output define Episodes without any `episodes` core table?
-9. Can output state be deleted/rebuilt without touching evidence/claims?
-10. Can backup/restore verify database + archive consistency?
+6. Can hundreds of claims share one entity/tag anchor without pairwise-edge
+   explosion?
+7. Can an explicit claim relation preserve exact revision endpoints, origin,
+   inspectable basis, lifecycle and review state?
+8. Can a claim correction occur without silently retargeting an old relation?
+9. Can SQLite retrieve a bounded multi-step relation chain without a graph database?
+10. Can entity/tag retrieval work without a universal ontology?
+11. Can a saved query feed two different outputs?
+12. Can a Hilo output define Episodes without any `episodes` core table?
+13. Can output state be deleted/rebuilt without touching evidence/claims?
+14. Can backup/restore verify database + archive + connection consistency?
 
 Only after these pass should final SQL table names, constraints, and indexes be
 reviewed and accepted.

@@ -29,7 +29,8 @@ Agree on:
 - Depósito / Mesa de trabajo / Lector / Fichero / Mesa de control / Consultas /
   Salidas vocabulary;
 - document typing vs representation/locator typing;
-- claim meaning and broad civic extraction policy;
+- claim meaning, shared anchors, first-class claim relations, and broad civic
+  extraction policy;
 - `strict`, `batch`, and `supervised` review semantics;
 - source authority scopes;
 - Output Type boundary and Episode/Hilo placement;
@@ -45,7 +46,7 @@ Implement dependency-light types/validation for:
 - IDs, revisions, operations and canonical serialization;
 - documents/parts/collections;
 - claims, evidence links and typed locators;
-- entities, tags and simple relations;
+- entities, claim-entity links, tags, and first-class claim relations;
 - review policies/batches/decisions;
 - saved query and Output Type contracts.
 
@@ -92,10 +93,13 @@ human entry
 ```
 
 Extract civically relevant claims broadly, plus retrieval-relevant entities,
-tags, and simple relations. Store exact process provenance and evidence links.
+claim-entity links, tags, and candidate/direct claim relations. Store exact
+process provenance and evidence links. Shared anchors must not create semantic
+pairwise relations automatically.
 
 **Gate:** a substantial real document can yield many machine-only claims without
-requiring human clicks or losing exact citation traceability.
+requiring human clicks or losing exact citation traceability; entity anchors and
+claim relations retain their own machine/rule/human provenance.
 
 ## Phase 5 — Mesa de control
 
@@ -148,8 +152,9 @@ query -> Hilo output -> Episodes -> Markdown/JSON exporter
 Add at least one structurally different output fixture (for example an agreement
 tracker or timeline) to prove Episode is not universal.
 
-**Gate:** both outputs consume the same Fichero without custom core schema and
-cannot silently mutate claims/evidence.
+**Gate:** queries can use shared anchors and explicit relation chains; both outputs
+consume the same Fichero without custom core schema and cannot silently mutate
+claims/evidence/connections.
 
 ## Phase 8 — Operational 1.0
 
@@ -179,7 +184,7 @@ Design boundaries should allow, but roadmap does not require yet:
 - inter-installation civic-data exchange;
 - signed/federated snapshots;
 - public web/API/automation access;
-- semantic/vector/graph search;
+- specialized semantic/vector/graph search engines;
 - alternate database engines;
 - deliberate historical bulk migration.
 

@@ -35,7 +35,7 @@ Freeze only what would be expensive to migrate later:
 - ID/revision/provenance rules;
 - typed locators;
 - source authority scope;
-- claim/review semantics;
+- claim/relation/review semantics;
 - privacy/correction rules;
 - Output Type write boundary.
 
@@ -65,7 +65,7 @@ Implement pure/domain logic for:
 - CivicDocument typing, profiles, parts and collections;
 - claims/revisions;
 - typed EvidenceLinks;
-- entities/tags/simple relations;
+- entities/aliases, claim-entity links, tags, and first-class claim relations;
 - review policy/batch/decision;
 - saved query definitions;
 - Output Type manifests and permissions.
@@ -119,15 +119,18 @@ Initial outputs:
 - exact evidence links;
 - entity mentions;
 - local topic/tag assignments;
-- simple useful relations;
+- claim-entity anchors;
+- candidate/direct claim relations with origin/basis;
 - document classification/profile suggestions.
 
 Default extraction policy aims for comprehensive civic relevance rather than a
-small editorial summary.
+small editorial summary. Shared entity/tag anchors may be created broadly;
+claim-to-claim semantic relations are recorded separately and never inferred
+merely from shared subject matter.
 
 **Gate:** one long document can produce a large claim set with stable provenance,
 no duplicate explosion on replay, and no review requirement merely to store or
-search those claims.
+search those claims/connections; relation replay is idempotent and attributable.
 
 ## WP6 — Review and Operator Workflow
 
@@ -180,6 +183,7 @@ Implement basic deterministic querying:
 - full-text;
 - source/document type/date;
 - entity/tag;
+- direct claim relations and bounded relation traversal;
 - review level/epistemic status;
 - evidence resolution.
 
@@ -204,7 +208,8 @@ query/read interface rather than own civic truth.
 Implement a small structurally different fixture/output such as a timeline or
 agreement tracker to prove no Episode dependency in core.
 
-**Gate:** Output Types can be installed/configured/rebuilt independently; their
+**Gate:** a query can follow a real multi-document relation chain using SQLite,
+and Output Types can be installed/configured/rebuilt independently; their
 code/state has no direct canonical database mutation path.
 
 ## WP9 — Export, Recovery, and Operational Hardening
@@ -246,6 +251,6 @@ Unless a concrete use case promotes them:
 - Output Type registry/marketplace;
 - cryptographic inter-canton federation;
 - cross-canton canonical data synchronization;
-- graph/vector databases;
+- specialized graph/vector databases or indexes;
 - alternate relational engines;
 - mass historical migration.

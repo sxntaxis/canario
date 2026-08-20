@@ -53,7 +53,7 @@ names for maintainability.
 | **Depósito** | ¿Qué conseguimos realmente? | Source capture, immutable artifacts, custody |
 | **Mesa de trabajo** | ¿Cómo podemos leerlo? | Representations: text, OCR, tables, transcripts |
 | **Lector** | ¿Qué contiene? | Parsers, rules, AI, or humans extracting structure |
-| **Fichero** | ¿Qué afirma el material y dónde? | Claims, evidence links, entities, tags, relations |
+| **Fichero** | ¿Qué afirma el material, dónde y cómo se conecta? | Claims, evidence links, entities, tags, connections |
 | **Mesa de control** | ¿Qué necesita atención humana? | Review, correction, privacy, exceptions |
 | **Consultas** | ¿Qué necesito encontrar ahora? | Search, filters, saved queries |
 | **Salidas** | ¿Cómo quiero usar o presentar esto? | Hilos, timelines, trackers, reports, exports |
@@ -71,7 +71,7 @@ LECTOR
   software/AI/human extraction and classification
     ↓
 FICHERO
-  traceable claims + evidence + entities + tags + relations
+  traceable claims + evidence + entities + tags + explicit connections
     ↓
 MESA DE CONTROL
   human supervision where policy or importance requires it
@@ -123,9 +123,9 @@ Around the claim are lightweight structures useful for retrieval:
 
 ```text
 Claim
-├── entities
+├── entity anchors
 ├── tags/topics
-├── relations
+├── explicit ClaimRelations
 ├── dates/periods when useful
 └── quantities when useful
 ```
@@ -306,7 +306,9 @@ supporting a source assertion.
 ActaKit is **single-operator-first**. A normal canton installation is expected to
 have one operator, sometimes two, and potentially many read-only consumers.
 The architecture records actions precisely without inventing an organization
-chart that small teams do not have.
+chart that small teams do not have. Claims and explicit claim relations use the
+same supervision principle: machine-only is allowed, but never mislabeled as
+human-reviewed.
 
 Review policy is configurable. Initial modes:
 
@@ -333,23 +335,63 @@ the internal Fichero allows machine-only material.
 A review decision always records what exact revision or deterministic batch was
 reviewed. Readiness means process sufficiency, not metaphysical truth.
 
-## The Fichero
+## The Fichero Is a Network, Not a Pile of Claims
 
-The Fichero is the durable searchable civic record. Its universal core stays
-small:
+The Fichero is the durable searchable civic record. Claims do not exist in a
+vacuum: durable connections are part of the record, not something an AI must
+rediscover every time a user searches.
+
+Its universal core stays small:
 
 - claims and claim revisions;
 - exact evidence links;
-- entities needed for retrieval;
+- entities needed as shared anchors for retrieval;
 - local tags/topics;
-- simple typed relations when they add search value.
+- explicit claim-to-claim relations when they carry real meaning.
+
+There are two different kinds of connection.
+
+### Shared anchors
+
+Many claims can point to the same entity or tag:
+
+```text
+Claim A -> entity: Puerto Caldera
+Claim B -> entity: Puerto Caldera
+Claim C -> entity: Puerto Caldera
+```
+
+This is enough to retrieve the claims together. It does **not** assert that A, B,
+and C logically update, contradict, or respond to one another. ActaKit must not
+create pairwise edges merely because two claims share a subject.
+
+### Explicit claim relations
+
+When the relationship itself matters, store it as a first-class record:
+
+```text
+Claim B -> updates -> Claim A
+Claim C -> contradicts -> Claim B
+Claim D -> responds_to -> Claim C
+```
+
+The relation records who/what proposed it, its exact endpoint revisions, its
+basis, lifecycle/review state, and exact evidence/claim references or rationale
+needed to understand it. A machine-proposed relation may remain searchable as machine-only; a human
+review is not required merely for the connection to exist.
+
+This gives ActaKit a **graph-shaped civic record** without requiring a graph
+database. The baseline persists typed entities, joins, and claim relations in
+SQLite. A specialized graph engine is justified only if real traversal/query
+workloads later exceed what the relational model can handle cleanly.
 
 Tags/taxonomies are local by default and may be shared deliberately. ActaKit
 must not impose one national topic taxonomy.
 
 Dates, quantities, locations, or other structured values should become dedicated
 relational structures only when real query/integrity requirements justify it.
-Do not model a universal ontology in advance.
+Do not model a universal ontology or generic everything-is-a-node triple store in
+advance.
 
 ## Consultas Are First-Class Read Operations
 
@@ -362,8 +404,10 @@ all budget claims above an amount
 all unresolved commitments in a period
 ```
 
-A query may be ephemeral or saved as a versioned definition. Query results are
-not new civic truth. A result can be handed to an Output Type.
+A query may be ephemeral or saved as a versioned definition. Queries may follow
+shared entity/tag anchors or explicit claim-relation chains, including bounded
+recursive traversal when useful. Query results are not new civic truth. A result
+can be handed to an Output Type.
 
 Search must let consumers distinguish/filter machine-only, human-reviewed,
 contested, rejected, and restricted material according to access policy.
@@ -380,7 +424,7 @@ Examples:
 ```text
 Hilo
 chronology
-tagreement tracker
+agreement tracker
 budget monitor
 project sheet
 weekly digest
@@ -429,8 +473,7 @@ or multi-writer architecture is **not required initially**. Those become
 implementation choices only when multiple concurrent clients/operators create a
 real need. The authority boundary is designed now; the daemon is not.
 
-SQLite remains on local attached storage and uses explicit migrations, foreign
-keys, and safe backup procedures. Original/derived bytes live in the archive,
+SQLite remains on local attached storage and uses explicit migrations, foreign keys, recursive queries where justified, and safe backup procedures. Original/derived bytes live in the archive,
 not as database blobs by default.
 
 ## Corrections and History
@@ -472,7 +515,7 @@ requirements:
 - data exchange between independent installations;
 - cryptographically signed inter-canton snapshots;
 - public network/API/automation services;
-- graph/RDF/vector projections;
+- specialized graph/RDF/vector engines or projections;
 - large-scale historical migration;
 - alternate database engines.
 
@@ -487,11 +530,15 @@ Before the first persistent canonical schema is accepted, demonstrate:
 3. unknown/misshaped documents degrade gracefully;
 4. machine-only claims are searchable without masquerading as reviewed claims;
 5. `strict`, `batch`, and `supervised` review policies have unambiguous behavior;
-6. a query can retrieve claims across documents, entities, tags, and time;
-7. an Output Type can organize results without canonical-write authority;
-8. a Hilo can define Episodes without making Episode a core record;
-9. correction/reprocessing does not erase history;
-10. backup/restore reproduces the Fichero and referenced evidence.
+6. claims sharing an entity are jointly retrievable without manufacturing
+   pairwise semantic edges;
+7. an explicit claim relation retains endpoint revisions, origin, basis, and
+   review state and can be traversed later;
+8. a query can retrieve claims across documents, entities, tags, relations, and time;
+9. an Output Type can organize results without canonical-write authority;
+10. a Hilo can define Episodes without making Episode a core record;
+11. correction/reprocessing does not erase history or silently retarget relations;
+12. backup/restore reproduces the Fichero, its connections, and referenced evidence.
 
 ## Acceptance Required
 
