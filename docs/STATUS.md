@@ -1,10 +1,10 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: source-investigation-checkpoint
+state: architecture-revision-proposed
 created: 2026-08-19
 authority: operating
-summary: Official video evidence confirms Concejo sessions through 180 while the web archive remains at Acta 161; an oficio draft is ready for human review.
+summary: Current acta pipeline remains intact while a self-contained civic-record architecture is being reviewed before persistent canonical implementation.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -12,89 +12,75 @@ related:
 
 # Current Status
 
-## Existing Authority
+## Current Implementation
 
-- Canonical civic content: `/mnt/Ginebra/Plaza/vault`.
-- Processed baseline: Acta 161, 2026-05-18.
-- Historical actas and curated Hilos are preserved; no mass regeneration is
-  authorized.
-- Nextcloud is a publication target. No live publication is authorized at this
-  checkpoint.
-- Current additive Hilo integration starts after the Acta 161 baseline.
+The repository currently implements the file/Markdown acta pipeline. Existing
+operator data and curated Hilos are preserved; no mass regeneration or migration
+is authorized by the architecture proposal.
 
-## Architecture Decision Context
+One existing canton configuration contains deployment-specific absolute paths.
+Those paths are legacy deployment configuration, **not** target product
+dependencies. The future durable core must operate from its own configurable
+storage without requiring any named external workspace or application.
 
-The next era of actakit is proposed as a federation of sovereign local civic
-record nodes, not a Markdown-only pipeline or a single national database. It
-will use named human approval roles, restricted raw evidence, minimal public
-derivatives, and one new Esparza acta as the first vertical proof.
+## Current Source Checkpoint
+
+The existing source investigation found the official written Concejo archive at
+Acta 161 dated 2026-05-18 while the municipality's official video publication
+showed later sessions through Session 180 in August 2026. The videos establish
+that later sessions occurred; they do not establish the exact content or
+approval status of unavailable written actas.
+
+This source gap remains a useful real-world proof case for the future model:
+source occurrence, source authority, artifact acquisition, and formal written
+record are not interchangeable.
+
+## Architecture Revision Under Review
+
+The current proposal now defines ActaKit as a self-contained civic-record system
+using this native product language:
+
+```text
+Depósito -> Mesa de trabajo -> Lector -> Fichero
+         -> Mesa de control -> Consultas -> Salidas
+```
+
+Key revisions awaiting acceptance:
+
+- claims may exist machine-only and searchable before human review;
+- extraction aims for broad civic relevance, not only editorial highlights;
+- review supports strict, batch, and supervised modes;
+- one operator is the default organizational assumption;
+- Episode/Hilo move out of the universal core into an Output Type;
+- queries become first-class read operations;
+- Output Types are extensible/shareable without sharing civic data;
+- daemon/RPC/federation/public APIs move to the horizon;
+- product architecture no longer depends on external named workspaces/services.
 
 ## Active Edge
 
 ```text
-confirm post-161 official source coverage
--> review and accept target architecture
--> define policy/schema contracts
--> build semantic kernel
--> build custody/service foundation
--> process one new Esparza acta end to end
+review/accept architecture revision
+-> validate pre-SQL model with realistic fixtures
+-> design first SQLite schema
+-> implement semantic kernel
+-> implement local custody/Fichero
+-> prove one new acta end to end
 ```
 
-## Official Source Audit
+## Prohibitions Until Acceptance
 
-Read-only checks on 2026-08-19 found:
-
-- The official [Concejo archive](/articulo/230/actas-concejo-municipal) lists
-  2026 records through Acta 161, dated 2026-05-18, and no later Concejo record.
-- The official [Actas hub](/articulo/229/actas) links the Concejo, permanent
-  commission, special commission, Junta Vial, and VideotecaCR repositories.
-- The 2026 section of [Junta Vial](/articulo/231/actas-junta-vial) is present but
-  contains no listed entries.
-- [Permanent commissions](/articulo/609/actas-de-comisiones) expose one 2026
-  item, `Dictamen Sociales N°1-2026`; this is not a Concejo acta.
-- The official-linked [VideotecaCR archive](https://www.videotecacr.com/muniesparza/pages/galeria.php)
-  renders period/month filters but no indexed video entries in the fetched
-  response.
-- The municipality's `/sesion` and `/video` pages render no embedded session or
-  video in the fetched response.
-
-The official YouTube channel now confirms post-161 session activity. Its streams
-listing includes sessions 162 through 180; the individual page for Session 180
-reports a live broadcast on 2026-08-17 and publication on 2026-08-18. The
-official written archive still ends at Acta 161 on 2026-05-18, creating a
-minimum 93-day written-publication gap as of this checkpoint.
-
-The channel listing includes multiple sessions numbered 162 through 180 (with
-some numbers absent from the visible listing). This proves a publication gap,
-not the contents or approval status of any acta.
-No post-161 written acta has been acquired into the vault. The information-
-request draft now lives in the Plaza vault at
-`4 Salidas/Oficios/Borradores/Oficio_Actas_y_Comisiones_Municipalidad.md`,
-linked to its source evidence note. It remains unsigned and must be reviewed
-before sending.
-
-## Prohibitions Until the Vertical Proof
-
-- No public client adapter, including writable MCP.
+- No persistent canonical SQLite schema is authorized by these proposal docs.
+- No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
-- No live Nextcloud writes.
-- No historical vault regeneration.
-- No claim of source verification without artifact, locator, and review record.
+- No historical mass rewrite.
+- No claim may conceal whether it is machine-only or human-reviewed.
+- No AI output may serve as factual source evidence for its own claim.
 - No individual political-preference profiling or targeted-persuasion use.
 
-## Evidence Used For This Checkpoint
+## Planning Documents
 
-- Current actakit implementation and Esparza vault integration.
-- Digest local archive at `/home/sxntax/Downloads/Digest-main.zip`.
-- `/mnt/Tokyo/Lab/Git/Plaza` architecture, data model, safeguards, and demo
-  audits.
-- `sxntaxis/notebook` and `sxntaxis/stereo-dev` architecture studies.
-
-These studies inform the proposal. They do not automatically amend actakit
-architecture or authorize implementation.
-
-## 1.0 Planning
-
-The proposed complete plan is in `ARCHITECTURE.md`, `CONTRACTS.md`,
-`DATA_MODEL.md`, `IMPLEMENTATION_PLAN.md`, and `RELEASE_1_0.md`. These documents
-require named human acceptance before service/database implementation begins.
+The proposed design is defined by `ARCHITECTURE.md`, `CONTRACTS.md`,
+`DATA_MODEL.md`, `ROADMAP.md`, `IMPLEMENTATION_PLAN.md`, and
+`RELEASE_1_0.md`. Acceptance authorizes the semantic direction and the next
+pre-SQL/schema work, not every horizon feature mentioned there.

@@ -1,226 +1,187 @@
 ---
 id: ACTAKIT-ROADMAP-001
-kind: implementation-roadmap
+kind: roadmap
 state: proposed-for-acceptance
 created: 2026-08-19
 authority: roadmap-proposal
-summary: Architecture-first, proof-gated plan for evolving actakit from a file pipeline into a local civic-record service without discarding the existing vault.
+summary: Proof-gated roadmap from the current acta pipeline to a self-contained civic-record core, with complexity added only when real use requires it.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-DATA-001
   - ACTAKIT-STATUS-001
 ---
 
-# Implementation Roadmap
+# Roadmap
 
-This is the conceptual phase map. The ordered engineering work packages,
-dependencies, and acceptance evidence through 1.0 are in
-[`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md). The 1.0 distribution and
-operations requirements are in [`RELEASE_1_0.md`](RELEASE_1_0.md).
+## Rule
 
-## How Much Architecture Now
+ActaKit builds the smallest durable civic-record system that solves real work.
+Future complexity is anticipated through boundaries, not preimplemented.
 
-Do enough architecture now to freeze expensive boundaries, and no more.
+No persistent canonical database work begins until the architecture, claim
+semantics, evidence locators, review modes, and pre-SQL model are accepted.
 
-**Freeze before implementation:** semantic ownership, evidence identity,
-revision/correction rules, review authority, privacy/publication policy,
-database/archive boundary, document-vs-representation typing, typed locator
-semantics, unknown-type fallback, collection/part boundaries, projection
-boundary, operation replay, source-run semantics, and MCP read/write boundary.
+## Phase 0 — Accept the Model
 
-**Defer until evidence demands it:** web UI, public hosting, national corpus
-scale, domain-pack plugins, graph database, vector search, IIIF service,
-semantic-web endpoint, scheduler cluster, and national orchestration.
+Agree on:
 
-The outcome is not a speculative platform. It is a durable local core that can
-grow without reassigning authority later.
+- product scope and self-contained boundary;
+- Depósito / Mesa de trabajo / Lector / Fichero / Mesa de control / Consultas /
+  Salidas vocabulary;
+- document typing vs representation/locator typing;
+- claim meaning and broad civic extraction policy;
+- `strict`, `batch`, and `supervised` review semantics;
+- source authority scopes;
+- Output Type boundary and Episode/Hilo placement;
+- privacy and correction principles.
 
-## Phase 0: Architecture Acceptance
+**Gate:** a non-developer operator can explain the system accurately in ordinary
+language and the pre-SQL examples expose no unresolved semantic contradiction.
 
-**Deliverables**
+## Phase 1 — Semantic Kernel and Tests
 
-- Accept or amend `docs/ARCHITECTURE.md`.
-- Name the initial human roles and escalation path.
-- Adopt source-admission, privacy/minimization, correction, and publication
-  policies as versioned documents.
-- Define a small schema vocabulary and stable ID rules.
-- Accept or amend `docs/DATA_MODEL.md` before SQL design.
-- Define the first acceptance fixture and the required evidence for Acta 162.
+Implement dependency-light types/validation for:
 
-**Gate**
+- IDs, revisions, operations and canonical serialization;
+- documents/parts/collections;
+- claims, evidence links and typed locators;
+- entities, tags and simple relations;
+- review policies/batches/decisions;
+- saved query and Output Type contracts.
 
-No database, daemon, MCP, or migration code begins until the human authority
-accepts the architecture and policy set.
+**Gate:** invalid states fail before touching SQLite. Hilo/Episode can be modeled
+as an Output Type fixture without becoming core entities.
 
-## Phase 1: Dependency-Free Semantic Kernel
+## Phase 2 — Local Durable Depósito and Fichero
 
-**Goal:** validate the civic record model before storage/network complexity.
+Implement:
 
-**Build**
+- SQLite canonical store with explicit migrations;
+- content-addressed evidence archive;
+- core-owned writes only;
+- operation replay/stale-write checks;
+- backup and restore verification.
 
-- Typed IDs, revisions, digests, timestamps, operation envelopes, and errors.
-- Immutable record contracts for artifacts, representations, civic documents,
-  document parts/collections, claims, typed evidence locators/links, review
-  decisions, and publication snapshots.
-- Pure editorial-readiness assessment.
-- Input/output schema validation and stable serialization.
+Do **not** require a daemon. CLI/local worker can call the core directly.
 
-**Proof**
+**Gate:** interrupted writes, duplicate acquisitions, changed source bytes, and
+restore all preserve evidence/history correctly.
 
-- AI proposals cannot be factual support.
-- Quotes require exact locators and context review.
-- PDF, text, spreadsheet, image, media, and structured-data locators validate
-  independently of civic document type.
-- Unknown civic types remain ingestible without silently acquiring profile
-  semantics; unsupported representations cannot support approved factual claims.
-- Quantitative claims require a documented source/reproduction limit.
-- Conflicting evidence remains visible.
-- Same operation ID is replay-safe; changed semantics are rejected.
+## Phase 3 — Acquisition and Mesa de trabajo
 
-## Phase 2: Local Canonical Service and Evidence Custody
+Adapt current scrapers/extractors behind generic source/representation contracts.
+Add safe handling for:
 
-**Goal:** establish one durable local writer without changing public outputs.
+- PDF/DOCX/text/HTML;
+- spreadsheets where needed;
+- OCR/scan fallback;
+- malformed and unknown material;
+- source authority policy and provenance.
 
-**Build**
+**Gate:** unknown civic type never causes evidence loss; unsupported extraction
+fails visibly without corrupting custody.
 
-- Profile-scoped SQLite WAL store with versioned migrations.
-- Content-addressed archive with SHA-256 fixity verification and custody
-  receipts.
-- Source policy, source-run, acquisition-attempt, and source-health records.
-- Atomic writes, restricted file permissions, backup/restore verification, and
-  fail-closed unsupported-schema behavior.
+## Phase 4 — Lector and Broad Claim Extraction
 
-**Proof**
-
-- Same bytes from distinct sources preserve distinct provenance.
-- Missing archive bytes degrade custody but do not erase history.
-- Partial/failing source runs do not imply deletion.
-- Stale writers cannot advance a newer revision.
-- Restart preserves canonical data and invalidates only ephemeral state.
-
-## Phase 3: One New Acta Vertical Slice
-
-**Goal:** prove the system with the first official Esparza acta after Acta 161.
-
-**Flow**
+Implement replaceable processors:
 
 ```text
-source admission
--> acquire and archive original bytes
--> verify fixity and source policy
--> extract representation
--> record extraction/AI proposal occurrence
--> human review
--> approve claims and episode
--> render local acta dossier and Hilo update
--> generate citation packet
+rules/parsers
+AI providers/local models
+human entry
 ```
 
-**Constraints**
+Extract civically relevant claims broadly, plus retrieval-relevant entities,
+tags, and simple relations. Store exact process provenance and evidence links.
 
-- No historical regeneration.
-- No live Nextcloud publishing.
-- No claim reaches an approved Hilo without evidence links and locators.
-- The human reviewer can reject, correct, return, or defer the proposal.
+**Gate:** a substantial real document can yield many machine-only claims without
+requiring human clicks or losing exact citation traceability.
 
-**Proof**
+## Phase 5 — Mesa de control
 
-- A reader can move from one Hilo assertion through its claim revision and
-  evidence link to a fixed representation/artifact and the exact locator
-  appropriate to that representation; article/item is retained when present.
-- Replaying extraction creates a new proposal, not a silent correction.
-- Re-running integration does not duplicate a claim or rewrite curated Hilos.
-- One interrupted operation recovers without duplicate canonical state.
+Implement:
 
-## Phase 4: Projection and Citation Layer
+- supervised mode as the normal high-volume workflow;
+- strict mode for selected high-consequence scopes;
+- batch review with deterministic subject sets;
+- correction/supersession;
+- privacy/restriction exceptions;
+- one-operator-first UX.
 
-**Goal:** preserve today’s accessible output while making it generated and
-auditable for new records.
+**Gate:** the operator can inspect/correct an important claim quickly, approve a
+batch without claim-by-claim busywork, and always see whether material is
+machine-only or human-reviewed.
 
-**Build**
+## Phase 6 — First Vertical Proof
 
-- Approved acta dossier renderer.
-- Incremental Hilo renderer that preserves explicitly curated context.
-- Citation styles for meeting notes, podcasts, research, and machine clients.
-- Projection manifests with input checkpoint, schema version, build time, and
-  output hashes.
-- Search over approved claims and evidence metadata.
+Use one newly acquired acta as the first end-to-end proof because the current
+pipeline already understands that source class.
 
-**Proof**
+```text
+source
+-> artifact
+-> representation
+-> document profile
+-> broad claim extraction
+-> supervised review state
+-> evidence resolution
+-> query
+```
 
-- Markdown, search, and citation output agree on claim/version/locator.
-- A projection can be deleted and rebuilt identically from its checkpoint.
-- A correction produces a new projection/snapshot rather than editing a prior
-  publication record in place.
+No historical mass rewrite is part of this gate.
 
-## Phase 5: Operator Interfaces and Federation Contract
+**Gate:** a later question about an obscure event can recover a machine-only
+claim, open its exact evidence, review/correct it, and retain that history.
 
-**Goal:** make approved civic evidence safely reusable by people and prepare
-sovereign canton nodes to exchange reviewed public snapshots.
+## Phase 7 — Consultas and Salidas
 
-**Build**
+Implement deterministic search/filtering and saved queries, then a minimal
+Output Type interface.
 
-- Versioned local service protocol and CLI client.
-- Versioned, opt-in public snapshot/export manifest and citation bundle.
-- Node namespace, publicability, correction, and import/adoption rules.
-- Strict input/output schemas, bounded queries, authorization scopes, audit
-  records, and fail-closed validation binding every response to a
-  snapshot/checkpoint.
+The first output proves the boundary by implementing the existing Hilo concept
+outside the core:
 
-**Proof**
+```text
+query -> Hilo output -> Episodes -> Markdown/JSON exporter
+```
 
-- A second node can import a public snapshot only as external evidence and
-  cannot mutate the originating node.
-- A correction or withdrawal remains traceable across exported snapshots.
-- Citation retrieval is deterministic and returns source limitations.
-- Prompt-injection text in a source document cannot alter tool behavior.
+Add at least one structurally different output fixture (for example an agreement
+tracker or timeline) to prove Episode is not universal.
 
-## Phase 6: Controlled Publication and Nextcloud Adapter
+**Gate:** both outputs consume the same Fichero without custom core schema and
+cannot silently mutate claims/evidence.
 
-**Goal:** publish only reviewed immutable snapshots.
+## Phase 8 — Operational 1.0
 
-**Build**
+Harden the smallest useful deployment:
 
-- Publication policy and named publisher approval.
-- Signed or hash-bound publication manifest.
-- Nextcloud adapter that uploads a reviewed snapshot idempotently.
-- Publication receipt and optional external verification.
-- Correction/withdrawal workflow that preserves prior publication history.
+- one supported local installation path;
+- clear configuration and health check;
+- backup/restore commands;
+- migration compatibility;
+- source/extraction failure diagnostics;
+- privacy-safe exports;
+- operator documentation using the native metaphors;
+- real routine use over a meaningful civic work cycle.
 
-**Proof**
+**Gate:** one operator can maintain the installation without understanding the
+internal database, and a read-only consumer can find/cite records without
+operator privileges.
 
-- A plan cannot publish an unapproved claim.
-- A retry does not duplicate or overwrite a newer snapshot.
-- An uncertain remote response remains uncertain until verified.
-- No remote deletion is part of normal publication.
+## Horizon — Only When Earned
 
-## Phase 7: Deliberate Historical Migration
+Design boundaries should allow, but roadmap does not require yet:
 
-**Goal:** improve selected high-value history without inventing provenance.
+- local daemon/RPC and concurrent clients;
+- multiple operator permissions/roles;
+- stable third-party Output Type package SDK/registry;
+- sharing/installing output types between cantons;
+- inter-installation civic-data exchange;
+- signed/federated snapshots;
+- public web/API/automation access;
+- semantic/vector/graph search;
+- alternate database engines;
+- deliberate historical bulk migration.
 
-**Approach**
-
-- Migrate by bounded thematic or acta batches.
-- Preserve legacy source quality and locator limitations explicitly.
-- Record imports as human-reviewed migration proposals.
-- Keep legacy Markdown as an accessible projection and source reference.
-
-**Gate**
-
-Historical migration proceeds only after the new-acta vertical slice has been
-used and reviewed in real work.
-
-## Future Decisions, Not Commitments
-
-- Public hosting and open-data catalog
-- Read-only MCP, REST, or other client adapters
-- IIIF page-image service
-- JSON-LD/RDF, PROV-O, DCAT, and Web Annotation exports
-- National orchestrator or cross-canton discovery service
-- Multi-reviewer governance
-- Public correction/takedown portal
-- Additional source types: press, social media, interviews, budgets, and
-  procurement records
-
-Each requires a separate architecture-impact decision. None is implied by the
-local civic-record core.
+Each moves into an active phase only with a concrete use case and acceptance
+criteria.

@@ -1,6 +1,6 @@
 # actakit
 
-> Pipeline documental para actas de gobierno local — procesamiento con IA y sin lock-in.
+> Herramienta local para adquirir, preservar, extraer, clasificar y consultar registros cívicos públicos — actas primero, sin lock-in de IA.
 
 [![CI](https://github.com/sxntaxis/actakit/actions/workflows/ci.yml/badge.svg)](https://github.com/sxntaxis/actakit/actions)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
@@ -11,9 +11,9 @@
 
 ## English · Quick Summary
 
-**actakit** transforms Costa Rican municipal council meeting minutes (actas)
-into structured, searchable knowledge: topic-based threads (hilos), findings,
-and verifiable documentary records.
+**actakit** currently ships an acta-processing pipeline and is evolving toward a
+self-contained civic-record system for acquiring public records, preserving
+evidence, extracting traceable claims, querying them, and building reusable outputs.
 
 - **What it does**: Download PDFs → extract text → classify with AI → integrate
   into topical threads → generate outputs for civic use.
@@ -30,8 +30,10 @@ and verifiable documentary records.
 
 ## En español · Qué es
 
-**actakit** es una herramienta de código abierto para procesar actas del
-Concejo Municipal de Costa Rica y convertirlas en conocimiento estructurado.
+**actakit** es una herramienta de código abierto cuyo pipeline actual procesa
+actas municipales y cuya arquitectura propuesta amplía ese núcleo a registros
+cívicos públicos: conservar evidencia, extraer claims trazables, buscarlos,
+revisarlos cuando haga falta y construir salidas reutilizables.
 
 Con actakit podés:
 
@@ -62,6 +64,17 @@ locales y archivos JSON/YAML de configuración.
 > [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md),
 > [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md), and
 > [`docs/RELEASE_1_0.md`](docs/RELEASE_1_0.md).
+
+La arquitectura propuesta se explica con siete conceptos nativos:
+
+```text
+Depósito -> Mesa de trabajo -> Lector -> Fichero
+         -> Mesa de control -> Consultas -> Salidas
+```
+
+Estas metáforas son lenguaje de producto/documentación; no obligan a usar esos
+nombres en el árbol de código. `Episode`/`Hilo` pasan a ser conceptos de una
+Salida, no requisitos del núcleo universal.
 
 ```
 ┌──────────────┐   ┌───────────────┐   ┌─────────────────┐

@@ -4,7 +4,7 @@ kind: canonical-contracts
 state: proposed-for-acceptance
 created: 2026-08-19
 authority: architecture-proposal
-summary: Versioned record, review, citation, privacy, and projection contracts for actakit 1.0.
+summary: Minimal durable contracts for evidence custody, civic documents, traceable claims, review policy, queries, and extensible outputs.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-DATA-001
@@ -16,131 +16,105 @@ related:
 
 ## Contract Rules
 
-Canonical records are persisted by the node service in a relational store. They
-are serialized in versioned canonical JSON for hashing, audit, export, and
-tests. Markdown, YAML frontmatter, JSONL, and database rows are formats; none
-alone defines meaning.
+Canonical meaning belongs to ActaKit records and their relationships, not to one
+serialization format. SQLite rows, JSON, YAML, Markdown, and output files are
+representations of contracts.
 
-Every mutable canonical record has:
+Every mutable canonical record has at least:
 
 ```yaml
 id: opaque stable identifier
 schema_version: contract version
-origin_node_id: issuing canton node
 revision: monotonic record-local revision
 created_at: ISO-8601 UTC timestamp
-created_by: human, service, or process identity
-record_hash: SHA-256 of canonical serialization
+created_by: actor/process identity
+record_hash: hash of canonical serialization
 ```
 
-Every authoritative mutation carries an `operation_id`, `actor_role`, and a
-reason when it approves, rejects, corrects, restricts, or releases. A mutation
-of an existing record also carries `expected_revision`.
+Every consequential mutation has an `operation_id`. Replaying the same operation
+with the same request is safe; reusing the ID for a different request is an
+error. Updates to existing records use an expected revision or equivalent stale-
+write guard.
 
-Reusing an operation ID with the same canonical request returns its prior
-receipt. Reusing it with different meaning is rejected. A stale revision is
-rejected or explicitly reconciled; it never silently overwrites.
+Opaque IDs are preferred for canonical identity. Source filenames, URLs,
+document numbers, titles, tag names, and output positions are labels, not keys.
 
-## IDs and Namespaces
+## Sources and Captures
 
-IDs are opaque UUIDv7-compatible values with type prefixes such as `src_`,
-`run_`, `cap_`, `art_`, `rep_`, `doc_`, `part_`, `col_`, `clm_`, `evl_`,
-`ep_`, `hilo_`, `review_`, `corr_`, and `snap_`.
+A `Source` identifies a bounded public information source or source family.
+A versioned `SourcePolicy` controls:
 
-Filenames, municipal acta numbers, URLs, titles, Hilo names, and list positions
-are labels or external identifiers. They are never canonical identity. Every
-federated/public identifier includes the originating node namespace.
+- acquisition hosts/paths/media where relevant;
+- retention and privacy expectations;
+- source authority/scope: what kinds of claims this source can reasonably
+  support;
+- completeness/checkpoint rules when they are knowable.
 
-## Source Admission
+A `SourceRun` is one bounded inspection attempt. A `SourceCapture` records one
+observed resource, retrieval attempt, final URI/locator, supplied metadata,
+time, and resulting artifact or failure.
 
-### Source policy
+Failure or absence in one run never deletes prior knowledge.
 
-A source policy is a versioned, human-approved rule for one source family. It
-records issuer/owner, authority level, allowed hosts/endpoints, permitted
-document types, acquisition method, rate limits, terms/rights note,
-retention/privacy policy, review date, and status:
+## Artifacts and Representations
 
-```text
-draft -> active -> suspended -> retired
-```
-
-A source run pins one active policy revision. Public reachability does not imply
-collection, retention, redistribution, or automated processing permission.
-
-### Source run and capture
-
-A source run is one bounded attempt to inspect a declared scope. It records
-trigger, adapter/configuration version, start/end, count, diagnostics, source
-checkpoint, and outcome:
-
-```text
-queued -> running -> succeeded | partial | failed | cancelled
-```
-
-A source capture records each discovered/fetched/unchanged/unsupported/failed
-resource. It retains requested/final URL, retrieval time, limited safe response
-metadata, source-local identifier, and either an artifact ID or failure reason.
-A partial run cannot delete prior source knowledge.
-
-## Evidence Custody
-
-### Artifact
-
-An evidence artifact is immutable acquired bytes. It requires SHA-256, byte
-length, detected media type, first capture, acquired time, archive locator, and
-fixity/custody status:
+An `Artifact` is immutable acquired bytes with digest, byte length, media type,
+acquisition provenance, archive location, and custody state:
 
 ```text
 pending -> verified | quarantined | rejected | disposed
 ```
 
-The archive writes, hashes, fsyncs, and atomically places bytes before the
-database creates a custody receipt. The same bytes from two source captures may
-share physical storage but retain separate provenance.
+The same bytes acquired from two captures may share physical storage while
+retaining both provenance chains.
 
-### Representation
-
-A representation is a source original, extracted text, OCR output, normalized
-text, page image, transcript, preview, or redacted public derivative. It names
-its immutable parent artifact/representation and records its own digest, media
-type, language/charset, generator version, configuration hash, quality metadata,
-and process run:
+A `Representation` is an inspectable form of an artifact or another
+representation:
 
 ```text
-pending -> validated | failed -> deprecated
+original
+extracted_text
+ocr_text
+page_image
+table
+transcript
+normalized_text
+redacted_derivative
+other
 ```
 
-An OCR or redacted representation never replaces the original evidence.
+It records its parent, digest, media type, generator/process, configuration,
+language/charset where relevant, and quality/diagnostic metadata.
 
-### Process run
+A derivative never replaces its parent.
 
-Extraction, OCR, import, classification, model use, and rendering are process
-runs. Each records exact input IDs/hashes, executor/version, configuration,
-model/provider/prompt identifiers where applicable, time, result IDs, and
-diagnostics. A model result is a proposal, never factual source evidence.
+## Process Runs and the Lector
+
+Every parser, OCR, rule engine, AI model, normalization pass, classifier, or
+human-assisted extraction can be recorded as a `ProcessRun` with exact inputs,
+implementation/model/configuration identifiers, time, outputs, and diagnostics.
+
+A ProcessRun may create claims, entity/tag suggestions, document classification,
+relations, or new representations. AI output is attributable processing output,
+never factual source evidence by itself.
 
 ## Civic Documents, Parts, and Collections
 
-A `CivicDocument` expresses reviewed civic meaning independently of
-representation format. It records normalized/display identity, issuer/body,
-reviewed normalized type, optional subtype/profile, date object, language,
-identity/type confidence and basis, visibility tier, and revision.
+A `CivicDocument` expresses civic/institutional identity independently of file
+format. It records common metadata such as display identity, issuer/body, date,
+language, normalized type, subtype/profile, classification basis, visibility,
+and revision.
 
-Source-supplied metadata belongs to attributable source observations linked to a
-`SourceCapture`, because two repositories may label the same document
-differently. A source observation may record supplied title, type, identifier,
-date text, and other bounded source metadata without overwriting another
-source's observation.
-
-Document typing preserves three distinct facts:
+Source-supplied labels are attributable observations, not values ActaKit silently
+overwrites:
 
 ```text
-source_supplied_type   what the source called it
-normalized_type        ActaKit's reviewed broad civic type
-profile_schema         optional versioned domain structure
+source_supplied_type   what that source called it
+normalized_type        broad ActaKit classification
+profile_schema         optional specialized structure
 ```
 
-Initial broad document types:
+Initial broad document types remain intentionally small:
 
 ```text
 acta, agenda, convocatoria, acuerdo, resolucion, oficio, informe,
@@ -148,174 +122,296 @@ dictamen, presupuesto, plan, reglamento_ordenanza, aviso_publico,
 correspondencia, comunicado_prensa, contrato, dataset, grabacion, otro
 ```
 
-Before classification, `normalized_type` may be `unknown`. `otro` is the
-reviewed safe fallback rather than an ingestion failure. It requires a source
-label when available and review before type-specific assumptions are made. A
-source-supplied type is never silently replaced by normalization. A reviewed
-reclassification creates attributable new document state.
+Before classification the value may be `unknown`. `otro` is a legitimate safe
+classification, not a failure.
 
-Type profiles add only fields requiring domain semantics. Actas require session
-body, date, type, and supplied acta number where available. Reports identify
-reporting body and covered period. Budgets/plans identify their fiscal/planning
-period. Profiles are versioned validated data; a new bureaucratic title does not
-automatically require a new SQL table or profile.
+Profiles such as `acta:v1`, `informe:v1`, or `presupuesto:v1` add validated
+specialized fields only when real semantics justify them. New bureaucratic
+labels do not automatically create new SQL tables or profiles.
 
-A `DocumentPart` optionally identifies meaningful structure inside one civic
-document. Parts may be nested and may have typed anchors into one or more
-representations. Article/item, agreement, table, annex section, or chapter are
-examples. Parts are not required merely to make a locator valid.
+A `DocumentPart` optionally models meaningful structure inside one document.
+A `CivicCollection` groups multiple documents when the civic object is a package,
+case, expediente, procurement process, or similar multi-document object.
 
-A `CivicCollection` groups multiple civic documents when the institutional object
-is a case/file/package. `expediente` and a procurement/`contratacion` process
-are initially collection kinds, not `CivicDocument` types. A collection
-membership records relation/order and its provenance/review. If an official
-expediente index, procurement notice, contract, or cover sheet exists, that item
-may itself be preserved as its own civic document/evidence.
+One artifact may contain multiple documents and one document may have multiple
+representations. Anchors connect those semantic boundaries without rewriting the
+source bytes.
 
-One artifact may physically contain several standalone civic documents; one
-document may also have several representations. Typed document/part anchors
-connect semantic boundaries to representations without changing source bytes.
+## Claims
 
-An unknown date records source text and precision (`day`, `month`, `year`, or
-`unknown`); the system never invents a full date.
+A Claim is an identifiable proposition found in or derived from source material.
+It may exist before human review.
 
-```text
-candidate -> described -> verified | rejected
+A claim revision records at least:
+
+```yaml
+text: exact normalized proposition or explicit question
+kind: source_assertion | derived_inference | community_report | verification_question
+origin_kind: machine | human
+origin_process_id: optional ProcessRun
+attribution: optional speaker/body/source actor
+temporal_scope: optional
+flags:
+  sensitive: false
+  quantitative: false
+status: active | rejected | superseded | retracted | restricted
+epistemic_status: unverified | supported | corroborated | contested | refuted | indeterminate
 ```
 
-Withdrawal of an external document is an observable source condition, not
-deletion of preserved evidence.
-
-## Claims and Evidence Links
-
-An episode is reader-oriented; a claim is the smallest approved proposition.
-Every claim carries exact text, language, classification, temporal scope,
-attribution, sensitivity flags, review state, and revision history.
+Human review level is derived from review decisions and must remain separate from
+epistemic status. At minimum consumers can distinguish:
 
 ```text
-source_assertion
-derived_inference
-community_report
-verification_question
+machine-only
+human-reviewed
 ```
+
+A claim is not split further unless the parts need independent evidence,
+correction, retrieval, or relationships.
+
+### Extraction policy
+
+A versioned extraction policy defines what counts as civically relevant for a
+source/document profile. The default aims for broad capture of relevant:
+
+- decisions, votes, agreements, requests, commitments and responsibilities;
+- money, quantities, deadlines, dates and periods;
+- projects, services, works, contracts and public resources;
+- reported problems, responses, findings, recommendations and outcomes;
+- named institutions, places, public actors and other retrieval-relevant
+  entities;
+- contradictions, uncertainty, or verification questions when material.
+
+The policy should favor later recoverability over guessing today's importance,
+while excluding purely ceremonial/noise content when it has no plausible civic
+retrieval value.
+
+## Evidence Links and Typed Locators
+
+An `EvidenceLink` binds a specific claim revision to a specific representation
+using one relation:
 
 ```text
-draft -> in_review -> accepted | rejected
-accepted -> superseded | retracted | restricted
+supports
+contradicts
+contextualizes
+quotes
+mentions
 ```
 
-An evidence link binds one claim revision to an immutable representation through
-one typed relation:
+It includes:
 
-```text
-supports, contradicts, contextualizes, quotes, mentions
+```yaml
+claim_revision: clm_...@N
+representation_id: rep_...
+relation: supports
+locator_kind: pdf | text | spreadsheet | image | media | json | xml
+locator_version: 1
+locator_payload: validated payload
+document_id: optional civic context
+document_part_id: optional civic context
 ```
 
-It records the representation ID plus a `locator_kind`, `locator_version`, and a
-payload validated against that exact locator contract. Optional document and
-document-part IDs provide civic context; they do not replace the representation
-anchor. The locator payload is not arbitrary JSON.
+Locator payloads are versioned and validated, not arbitrary JSON.
 
-| Representation/locator | Required anchor |
+| Locator | Required anchor |
 |---|---|
-| PDF | Page/folio; region when text is unavailable; quote and article/item when available |
-| Text/HTML | Start/end offsets in a named hashed representation; exact quote plus prefix/suffix |
-| Audio/video | Start/end time; transcript representation/text locator when available |
-| Spreadsheet/table | Sheet/table plus cell/range or row/header coordinates; quoted values |
-| Scan/image | Page/image plus region coordinates; linked OCR/text locator when available |
-| JSON | JSON Pointer/stable path plus observed value/value hash |
-| XML | XPath/equivalent stable path plus observed value/value hash |
+| `pdf:v1` | page/folio; quote or region as available |
+| `text:v1` | start/end offsets in a hashed representation + exact quote/context |
+| `spreadsheet:v1` | sheet/table + cell/range or row/header + observed values |
+| `image:v1` | image/page + region |
+| `media:v1` | start/end time; transcript anchor when available |
+| `json:v1` | stable path/JSON Pointer + observed value/hash |
+| `xml:v1` | stable path/XPath equivalent + observed value/hash |
 
-Locator semantics follow the representation, not the civic document type.
-Article/item, agreement, budget line, and similar labels are optional semantic
-structure, not universal evidence coordinates.
+Semantic labels such as article/item/agreement may strengthen context but are not
+universal locator requirements.
 
-Unknown or malformed source bytes may be preserved without a supported locator.
-Direct source assertions cannot become accepted until at least one active
-supporting evidence link resolves to a reviewer-verifiable locator. Inferences
-name their input claims and rationale. Community reports and questions are not
-rendered as official factual findings by default.
+A malformed artifact can remain in custody without a usable locator. A direct
+source assertion cannot be treated as evidence-backed until an active supporting
+link resolves to a verifiable representation location.
 
-## Review and Editorial Assessment
+## Source Authority Scope
 
-A review targets an immutable subject revision/hash. It records reviewer,
-authority role, checklist, decision, rationale, timestamp, and follow-up:
+Evidence quality is not a single `official=true` flag. SourcePolicy or bounded
+source observations describe what the source can directly demonstrate.
 
-```text
-open -> approved | rejected | returned | deferred
-```
-
-The initial roles are extractor, reviewer, editor, publisher, privacy reviewer,
-node administrator, canton custodian, and recovery custodian. One person may
-temporarily hold several roles, but a publisher cannot be the sole reviewer of
-their own public release without a recorded canton waiver.
-
-An editorial assessment may be `BLOCKED`, `REVIEW`, or `READY`. It measures
-process sufficiency, never truth, legality, or permission to publish.
-
-Quotations require quote-context review. Sensitive claims require a
-harm/minimization review. Quantitative claims require an identified data source
-and either reproduction evidence or a stated reproducibility limitation.
-
-## Episodes and Hilos
-
-An episode groups accepted claims for a reader-facing event or development. It
-has a title, date/date range, concise summary, linked documents, included claims,
-and review state.
-
-Hilos have stable IDs, slugs, titles, aliases, scope/exclusions, parent block,
-and lifecycle:
+Examples:
 
 ```text
-proposed -> active -> deprecated
+formal_record       formal record states/agrees X
+recorded_speech     recording contains statement X
+publisher_statement issuing body announced/claimed X
+reported_observation source reports X
+structured_value    source table/dataset contains value X
 ```
 
-Episode-Hilo membership is a reviewed edge (`primary`, `secondary`, or
-`context`) with rationale. Multiple memberships do not duplicate a canonical
-episode. Generated Markdown renders memberships and claims; curated legacy
-context remains preserved until separately migrated.
+Claim wording and evidence relations must preserve this scope. “The institution
+announced X” must not silently become “X happened.”
 
-## Corrections, Privacy, and Retention
+## Entities, Tags, and Relations
 
-A correction names the target revision, kind, reason, evidence, approver, and
+Entities exist to improve retrieval and linkage, not to build a universal civic
+ontology. Initial useful classes may include person, organization/institution,
+place, project, legal instrument, and other locally justified entities.
+
+Tags/topics are local, versioned vocabulary. A canton may create, import, or
+share a taxonomy without making it globally canonical.
+
+Relations are simple typed edges only when they improve retrieval or integrity,
+for example:
 
 ```text
-clarify, replace, retract, redact, unlink_evidence, merge
+claim -> mentions -> entity
+claim -> concerns -> place
+project -> managed_by -> institution
+claim -> contradicts -> claim
 ```
 
-Corrections create new state and a supersession chain. A redacted public
-representation is a derivative; it never silently overwrites a restricted
-original.
+Do not normalize every noun, date, or number into its own table before use cases
+require it.
 
-Every retained record has an access tier and privacy/retention classification.
-Public derivatives are default-deny until classified. Contact details, precise
-home addresses, medical data, minors' identifying information, and individual
-political-preference inferences are blocked from public output by default.
-Legal holds stop automatic disposal. Retention actions preserve a minimal audit
-receipt without retaining prohibited content.
+## Review Policies and Decisions
 
-## Publication and Federation
+Review is a policy layer over records, not the condition for a Claim to exist.
+A `ReviewPolicy` may select mode by installation, source, document profile,
+output, sensitivity, or other bounded criteria.
 
-A publication snapshot is an immutable package of exact approved record
-revisions and public-safe representations:
+Initial modes:
 
 ```text
-draft -> validated -> released -> superseded | retracted
+strict
+batch
+supervised
 ```
 
-The snapshot manifest includes schema version, origin node, input checkpoint,
-record/representation list, hashes, build process, approvals, publicability
-policy, correction status, and output hashes.
+### Strict
 
-A node exports only explicit public snapshots. A peer imports a valid snapshot
-as external evidence in a separate read-only namespace. Imported material never
-becomes locally authoritative, is never auto-republished, and cannot mutate the
-originating node. Omission from a later package is not withdrawal; withdrawal
-is a signed explicit record.
+Protected use requires an explicit human review decision on the relevant claim
+or deterministic review set.
 
-## Legacy Compatibility
+### Batch
 
-Existing Markdown actas and Hilos remain authoritative legacy content until
-their records are imported and reviewed. The importer creates proposals with
-stated provenance limits. No mass regeneration, automatic normalization, or
-revision rewriting is allowed.
+A `ReviewBatch` identifies an immutable deterministic set of subject revisions
+and its set hash. One human action can approve/reject that set while exceptions
+receive individual decisions.
+
+### Supervised
+
+Machine-only claims are immediately available for permitted internal search.
+Human review occurs on demand or when another policy requires it.
+
+A `ReviewDecision` records subject revision/batch hash, actor, action, rationale
+when needed, time, and policy revision. The ordinary installation may have one
+operator performing all actions; authority is recorded as an action/capability,
+not a required staffing role.
+
+Sensitive data, public publication, or other high-consequence contexts may force
+human review independently of the default ingestion mode.
+
+## Corrections
+
+Claim/document revisions preserve history. Ordinary edits use revision lineage.
+A separate explicit correction event is reserved for actions whose meaning must
+itself be retained, such as:
+
+```text
+retract
+public_correct
+redact
+unlink_evidence
+merge_identity
+```
+
+A redacted public representation never overwrites the restricted original.
+
+## Queries
+
+A query is read-only. It selects records by documented fields such as text,
+entity, tag, source/document type, date, review level, epistemic status, or other
+supported indexes.
+
+A query may be ephemeral or saved as a versioned `SavedQuery` with parameters.
+Results do not become canonical civic claims merely because they were returned
+or ranked.
+
+## Output Types
+
+An `OutputType` is a versioned extension that consumes a bounded query/read model
+and organizes it for a purpose. The core contract separates:
+
+```text
+OutputType      logic/schema/capabilities
+OutputInstance  configured local use of that type
+OutputState     optional derived/curated state owned by that output namespace
+Exporter        serialization/transport such as Markdown, JSON, CSV, HTML
+```
+
+An OutputType declares at least:
+
+```yaml
+output_type_id: stable package/type identity
+version: semantic/schema version
+input_capabilities: required read/query capabilities
+config_schema: validated configuration schema
+state_schema: optional validated derived/curation state schema
+exporters: supported serializers
+permissions: read-only core access by default
+```
+
+Output state may contain human curation specific to that presentation, but it
+cannot silently rewrite claims, evidence, review decisions, or artifacts. Any
+canonical mutation must use an explicit core operation.
+
+Output Types may be shared between installations independently of civic data.
+
+### Hilo
+
+`Hilo` is one Output Type. Its own schema may define:
+
+```text
+Hilo
+episode
+membership
+reader summary
+chronological rendering
+```
+
+`Episode` is therefore not a universal canonical record. It is Hilo-specific
+reader organization over claims.
+
+## Publication Snapshots
+
+When an output is deliberately released, ActaKit may create an immutable
+snapshot containing exact input claim/document revisions, output type/version,
+configuration, policy state, output hashes, and publication decision.
+
+Later correction creates a new snapshot. Omission from a later snapshot is not
+implicit deletion.
+
+## Privacy
+
+Public output is default-deny for sensitive classes such as precise home
+addresses, medical data, identifying information about minors, personal contact
+details, and inferred individual political preference unless an accepted policy
+explicitly permits the case.
+
+Preservation of original public evidence does not imply unrestricted
+republication.
+
+## Storage Boundary
+
+The first implementation uses a local ActaKit core as the sole canonical writer
+to SQLite and the evidence archive. A daemon/RPC service is optional future
+infrastructure, not a canonical semantic requirement.
+
+Clients, Output Types, exporters, and external adapters never write SQLite
+schema/tables directly.
+
+## Compatibility Principle
+
+Semantic contracts are versioned so implementation details can evolve without
+rewriting history. The project designs stable IDs, provenance, evidence links,
+revision lineage, Output Type boundaries, and export schemas before they become
+expensive to change; it does not implement unused distributed machinery merely
+because those boundaries could support it later.
