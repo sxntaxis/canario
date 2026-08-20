@@ -59,6 +59,7 @@ locales y archivos JSON/YAML de configuración.
 > [`docs/ROADMAP.md`](docs/ROADMAP.md), and [`docs/STATUS.md`](docs/STATUS.md).
 > The full proposed 1.0 contracts, implementation plan, and distribution gates
 > are in [`docs/CONTRACTS.md`](docs/CONTRACTS.md),
+> [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md),
 > [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md), and
 > [`docs/RELEASE_1_0.md`](docs/RELEASE_1_0.md).
 

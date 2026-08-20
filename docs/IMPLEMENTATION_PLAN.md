@@ -8,6 +8,7 @@ summary: Ordered work packages, dependencies, and proof gates for reaching a dis
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-CONTRACTS-001
+  - ACTAKIT-DATA-001
   - ACTAKIT-RELEASE-001
 ---
 
@@ -29,7 +30,7 @@ node service from the first persistent write onward.
 
 **Deliverables**
 
-- Accepted/amended architecture and contracts.
+- Accepted/amended architecture, contracts, and conceptual data model.
 - Node role charter: two canton custodians, administrator, reviewer/publisher,
   privacy contact, recovery custodian, and support escalation.
 - Versioned source admission, privacy/minimization, correction, retention,
@@ -78,8 +79,8 @@ versioned outside production implementation.
   schema versions, and typed errors.
 - Immutable in-memory contract objects from `CONTRACTS.md`.
 - Canonical JSON serialization and hashing.
-- Source, claim, evidence-link, locator, review, correction, and snapshot
-  validation.
+- Source, civic-document classification, document part/collection, claim,
+  evidence-link, typed locator, review, correction, and snapshot validation.
 - Pure editorial-readiness assessment.
 - Import readers for legacy Markdown v1 and current frontmatter v2. Readers do
   not mutate the vault.
@@ -89,7 +90,12 @@ versioned outside production implementation.
 - AI proposal cannot support a factual claim.
 - Quote without locator/context check is blocked.
 - Claim with no required evidence is blocked.
-- Citation cannot resolve to URL-only or page-only provenance.
+- Citation cannot resolve to URL-only provenance; a page number alone is not
+  accepted where the locator contract requires stronger anchoring.
+- Locator kind is validated from the representation, not inferred from civic
+  document type.
+- Unknown civic type can be preserved under `otro` without granting a specialized
+  profile; malformed/unsupported representation cannot support an approved fact.
 - Same operation ID with different request is rejected.
 - Stale mutation is rejected.
 - Personal-data classifications prevent public rendering.
@@ -104,7 +110,8 @@ pass unit and property tests. No database or UI hides an undefined semantic rule
 **Deliverables**
 
 - One unprivileged local node service and client protocol over a Unix socket.
-- SQLite WAL canonical database with explicit migrations and foreign keys.
+- SQLite WAL canonical database with explicit migrations and foreign keys,
+  reviewed against `DATA_MODEL.md` before the first persistent write.
 - Content-addressed evidence archive with atomic write, fsync, hash verification,
   restrictive permissions, and custody receipts.
 - Source policy, source run, source capture, artifact, representation, process
@@ -144,10 +151,14 @@ pass unit and property tests. No database or UI hides an undefined semantic rule
 - Sandboxed PDF/DOCX extraction with no network, non-root execution, bounded
   CPU/memory/time, and representation/process-run registration.
 - File-type and hash verification adapted from current tools.
+- Representation classification and locator-capability registration independent
+  of civic document classification.
 
 **Gate:** the system correctly handles a changed document at the same URL,
 duplicate filenames, malformed documents, scan/OCR failure, redirects, source
 outage, and interrupted extraction. Every retained output names its parent.
+Unknown/malformed evidence can be preserved without pretending it has a usable
+locator or specialized civic type.
 
 ## Work Package 5: Reviewable Civic Interpretation
 
@@ -159,16 +170,23 @@ outage, and interrupted extraction. Every retained output names its parent.
   entity suggestions, announcements, and report findings.
 - Named reviewer/editor workflows that approve, reject, return, defer, correct,
   or restrict a concrete record revision.
+- Reviewed document classification preserving source-supplied type separately
+  from normalized type, with `otro` as a safe fallback.
 - Acta profile: session details, articles/items, agreements, announcements,
   episodes, and Hilo memberships.
-- Generic report/officio/budget profiles with document-specific fields but the
-  same claim/evidence/review core.
+- Generic report/officio/budget profiles with document-specific validated fields
+  but the same claim/evidence/review core.
+- `DocumentPart` for meaningful internal structure and `CivicCollection` for
+  multi-document objects such as expedientes; concatenated PDFs may resolve to
+  multiple civic documents without splitting/rewriting original bytes.
 - Exception queue for weak locators, date ambiguity, duplicate identity,
   unknown topics, contradictory evidence, and sensitive content.
 
 **Gate:** no approved claim, episode, or Hilo membership can be created without
-evidence, locators, and review decision. The operator can see unresolved
-conflicts and source limitations without reading database rows.
+evidence, representation-appropriate locators, and review decision. A new civic
+document label can enter as `otro` without schema migration, and a later
+reclassification preserves the source label and history. The operator can see
+unresolved conflicts and source limitations without reading database rows.
 
 ## Work Package 6: First End-to-End Esparza Proof
 
@@ -184,7 +202,7 @@ source policy
 -> named review
 -> accepted claims and episode
 -> local acta dossier/Hilo projection
--> citation packet
+-> citation packet resolving claim revision -> representation locator -> artifact
 ```
 
 **Constraints**
@@ -195,9 +213,11 @@ source policy
 - A human reviewer can reject or correct each material proposal.
 
 **Gate:** a meeting participant, podcast researcher, and scholarly reader can
-each trace one rendered Hilo statement to a fixed artifact, representation,
-page/article/item, quote, review decision, and source limitation. The node can
-rebuild that projection after deletion without changing canonical history.
+each trace one rendered Hilo statement through its exact claim revision to a
+fixed representation/artifact, the representation-appropriate locator,
+quote/value/transcript where applicable, article/item when present, review
+decision, and source limitation. The node can rebuild that projection after
+deletion without changing canonical history.
 
 ## Work Package 7: Projections, Search, and Local Operator Experience
 

@@ -7,6 +7,7 @@ authority: architecture-proposal
 summary: Versioned record, review, citation, privacy, and projection contracts for actakit 1.0.
 related:
   - ACTAKIT-ARCH-001
+  - ACTAKIT-DATA-001
   - ACTAKIT-IMPLEMENTATION-001
   - ACTAKIT-RELEASE-001
 ---
@@ -43,8 +44,8 @@ rejected or explicitly reconciled; it never silently overwrites.
 ## IDs and Namespaces
 
 IDs are opaque UUIDv7-compatible values with type prefixes such as `src_`,
-`run_`, `cap_`, `art_`, `rep_`, `doc_`, `clm_`, `evl_`, `ep_`, `hilo_`,
-`review_`, `corr_`, and `snap_`.
+`run_`, `cap_`, `art_`, `rep_`, `doc_`, `part_`, `col_`, `clm_`, `evl_`,
+`ep_`, `hilo_`, `review_`, `corr_`, and `snap_`.
 
 Filenames, municipal acta numbers, URLs, titles, Hilo names, and list positions
 are labels or external identifiers. They are never canonical identity. Every
@@ -118,27 +119,65 @@ runs. Each records exact input IDs/hashes, executor/version, configuration,
 model/provider/prompt identifiers where applicable, time, result IDs, and
 diagnostics. A model result is a proposal, never factual source evidence.
 
-## Civic Documents
+## Civic Documents, Parts, and Collections
 
-All civic documents share a `CivicDocument` identity with source-supplied title,
-issuer/body, controlled type, supplied/normalized identifiers, date object,
-language, representations, identity confidence, and visibility tier.
+A `CivicDocument` expresses reviewed civic meaning independently of
+representation format. It records normalized/display identity, issuer/body,
+reviewed normalized type, optional subtype/profile, date object, language,
+identity/type confidence and basis, visibility tier, and revision.
 
-Supported 1.0 types:
+Source-supplied metadata belongs to attributable source observations linked to a
+`SourceCapture`, because two repositories may label the same document
+differently. A source observation may record supplied title, type, identifier,
+date text, and other bounded source metadata without overwriting another
+source's observation.
+
+Document typing preserves three distinct facts:
+
+```text
+source_supplied_type   what the source called it
+normalized_type        ActaKit's reviewed broad civic type
+profile_schema         optional versioned domain structure
+```
+
+Initial broad document types:
 
 ```text
 acta, agenda, convocatoria, acuerdo, resolucion, oficio, informe,
-dictamen, presupuesto, plan, contratacion, expediente,
-reglamento_ordenanza, aviso_publico, correspondencia, comunicado_prensa,
-audio_video, dataset, otro
+dictamen, presupuesto, plan, reglamento_ordenanza, aviso_publico,
+correspondencia, comunicado_prensa, contrato, dataset, grabacion, otro
 ```
 
-`otro` requires a label and review. Type profiles add only fields needing domain
-semantics. Actas require session body, date, type, and supplied acta number
-where available. Reports identify reporting body and covered period.
-Budgets/plans identify their fiscal/planning period. An unknown date records
-source text and precision (`day`, `month`, `year`, or `unknown`); the system
-never invents a full date.
+Before classification, `normalized_type` may be `unknown`. `otro` is the
+reviewed safe fallback rather than an ingestion failure. It requires a source
+label when available and review before type-specific assumptions are made. A
+source-supplied type is never silently replaced by normalization. A reviewed
+reclassification creates attributable new document state.
+
+Type profiles add only fields requiring domain semantics. Actas require session
+body, date, type, and supplied acta number where available. Reports identify
+reporting body and covered period. Budgets/plans identify their fiscal/planning
+period. Profiles are versioned validated data; a new bureaucratic title does not
+automatically require a new SQL table or profile.
+
+A `DocumentPart` optionally identifies meaningful structure inside one civic
+document. Parts may be nested and may have typed anchors into one or more
+representations. Article/item, agreement, table, annex section, or chapter are
+examples. Parts are not required merely to make a locator valid.
+
+A `CivicCollection` groups multiple civic documents when the institutional object
+is a case/file/package. `expediente` and a procurement/`contratacion` process
+are initially collection kinds, not `CivicDocument` types. A collection
+membership records relation/order and its provenance/review. If an official
+expediente index, procurement notice, contract, or cover sheet exists, that item
+may itself be preserved as its own civic document/evidence.
+
+One artifact may physically contain several standalone civic documents; one
+document may also have several representations. Typed document/part anchors
+connect semantic boundaries to representations without changing source bytes.
+
+An unknown date records source text and precision (`day`, `month`, `year`, or
+`unknown`); the system never invents a full date.
 
 ```text
 candidate -> described -> verified | rejected
@@ -165,27 +204,36 @@ draft -> in_review -> accepted | rejected
 accepted -> superseded | retracted | restricted
 ```
 
-An evidence link binds a claim to an immutable representation through one typed
-relation:
+An evidence link binds one claim revision to an immutable representation through
+one typed relation:
 
 ```text
 supports, contradicts, contextualizes, quotes, mentions
 ```
 
-It includes an exact locator. Minimum locators are artifact digest,
-representation ID, and page/folio or article/item. Strong locators add exact
-quote, prefix/suffix, and offsets in a named hashed text representation.
+It records the representation ID plus a `locator_kind`, `locator_version`, and a
+payload validated against that exact locator contract. Optional document and
+document-part IDs provide civic context; they do not replace the representation
+anchor. The locator payload is not arbitrary JSON.
 
-| Representation | Required locator |
+| Representation/locator | Required anchor |
 |---|---|
-| PDF | Page plus exact quote; article/item when supplied |
-| Text/HTML | Exact quote, prefix, suffix, start/end offsets |
-| Audio/video | Start/end time and transcript quote where available |
-| Spreadsheet/table | Sheet/table, row, column/header, quoted value |
-| Scan/image | Page/image and region coordinates; OCR quote when available |
+| PDF | Page/folio; region when text is unavailable; quote and article/item when available |
+| Text/HTML | Start/end offsets in a named hashed representation; exact quote plus prefix/suffix |
+| Audio/video | Start/end time; transcript representation/text locator when available |
+| Spreadsheet/table | Sheet/table plus cell/range or row/header coordinates; quoted values |
+| Scan/image | Page/image plus region coordinates; linked OCR/text locator when available |
+| JSON | JSON Pointer/stable path plus observed value/value hash |
+| XML | XPath/equivalent stable path plus observed value/value hash |
 
-Direct source assertions require an active supporting locator. Inferences name
-their input claims and rationale. Community reports and questions are not
+Locator semantics follow the representation, not the civic document type.
+Article/item, agreement, budget line, and similar labels are optional semantic
+structure, not universal evidence coordinates.
+
+Unknown or malformed source bytes may be preserved without a supported locator.
+Direct source assertions cannot become accepted until at least one active
+supporting evidence link resolves to a reviewer-verifiable locator. Inferences
+name their input claims and rationale. Community reports and questions are not
 rendered as official factual findings by default.
 
 ## Review and Editorial Assessment

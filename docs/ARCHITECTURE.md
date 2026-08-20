@@ -7,6 +7,7 @@ authority: architecture-proposal
 summary: Federated civic-record architecture with sovereign canton nodes, immutable evidence custody, human-reviewed claims, and rebuildable public projections.
 related:
   - ACTAKIT-ROADMAP-001
+  - ACTAKIT-DATA-001
   - ACTAKIT-STATUS-001
 ---
 
@@ -34,9 +35,13 @@ and other approved civic source types without making every source look like a
 meeting.
 
 ```text
-common civic record core
-  source -> artifact -> representation -> document -> claim -> review
-  -> publication snapshot
+evidence custody
+  source -> capture -> artifact -> representation
+
+civic interpretation
+  document -> optional parts/collection membership
+  claim -> evidence link -> representation + typed locator
+  review -> approved revision -> episode/Hilo/publication snapshot
 
 acta profile
   meeting -> agenda article/item -> intervention/agreement -> episode -> Hilo
@@ -44,6 +49,13 @@ acta profile
 report profile
   reporting body -> period -> finding/metric -> recommendation/response
 ```
+
+Document semantics and evidence-location semantics are independent. A document
+may be an acta, oficio, budget, report, or unknown civic type regardless of
+whether the cited representation is PDF, HTML, spreadsheet, scan, or media.
+`DocumentPart` models meaningful structure inside one document; a
+`CivicCollection` groups multiple documents when the civic object is a case or
+package such as an expediente.
 
 Digest is a compatible sibling, not an actakit dependency. Digest may later
 discover or preserve an external source and submit an evidence package. Actakit
@@ -133,8 +145,11 @@ relationships and may later generate a graph/RDF projection.
 | Source policy | Whether and how a source may be acquired, retained, processed, and disclosed | Public availability is not permission for every downstream use. |
 | Source run | One bounded acquisition attempt and its checkpoint/freshness outcome | Failure is not a document or a deletion. |
 | Evidence artifact | Immutable acquired bytes with hash, media type, source URI, capture time, and custody receipt | Source URI, hash, and local storage path are separate identifiers. |
-| Representation | PDF, DOCX, page image, OCR text, normalized text, or redacted derivative | A derivative never replaces its parent evidence. |
-| Process run | Extraction, OCR, model, normalization, or import occurrence | Inputs, implementation/configuration/model versions, outputs, and diagnostics remain attributable. |
+| Representation | PDF, DOCX, page image, OCR text, normalized text, table, transcript, or redacted derivative | A derivative never replaces its parent evidence. |
+| Civic document | Reviewed semantic identity/type of one civic document, independent of file format | Source-supplied type and ActaKit-normalized type remain distinct. |
+| Document part | Optional meaningful structure inside one civic document | Parts strengthen context but are not required for every source. |
+| Civic collection | Reviewed grouping of documents such as an expediente or session packet | A collection is not automatically one giant document or one evidence artifact. |
+| Process run | Extraction, OCR, model, normalization, classification, or import occurrence | Inputs, implementation/configuration/model versions, outputs, and diagnostics remain attributable. |
 | Proposal | Machine or human candidate observation, claim, routing, or relation | A proposal has no public/canonical effect until review. |
 | Claim | One attributable proposition with kind, epistemic status, revision, and sensitivity flags | An episode can contain several claims. |
 | Evidence link | Relation between a claim and an exact artifact representation/locator | Support, contradiction, quotation, and context are distinct. |
@@ -145,7 +160,8 @@ relationships and may later generate a graph/RDF projection.
 | Operation receipt | Idempotent record of a consequential mutation | Same operation ID with different meaning is a conflict. |
 
 Detailed field requirements and lifecycle rules are defined in
-[`CONTRACTS.md`](CONTRACTS.md).
+[`CONTRACTS.md`](CONTRACTS.md). The table-oriented pre-SQL shape is defined in
+[`DATA_MODEL.md`](DATA_MODEL.md).
 
 ## Canonical Storage and Custody
 
@@ -204,26 +220,38 @@ claim records at least:
 
 ```yaml
 claim_id: stable opaque ID
-kind: fact | attributed_assertion | quote | analysis | opinion | forecast
+claim_kind: source_assertion | derived_inference | community_report | verification_question
 epistemic_status: unverified | supported | corroborated | contested | refuted | indeterminate | retracted
-text: normalized proposition
+text: normalized proposition or explicit question
+attribution: source speaker/body when applicable
 flags:
   sensitive: false
   quantitative: false
   ai_material: true
 ```
 
-Each evidence link records an immutable artifact/representation and an exact
-locator. The minimum citation locator is:
+Each evidence link resolves through an immutable representation and a typed,
+versioned locator appropriate to that representation. There is no universal
+`page/article/item` locator because not every source has pages, articles, or
+items. Examples include:
 
 ```text
-artifact digest + representation version + page/folio + article/item
+PDF            -> page/folio + quote or region; article/item when present
+Text/HTML      -> offsets + exact quote + prefix/suffix
+Spreadsheet    -> sheet/table + cell/range or row/header + quoted values
+Image/scan     -> page/image + bounding region; linked OCR when available
+Audio/video    -> start/end time + transcript locator when available
+JSON/XML       -> stable path + observed value/value hash
 ```
 
-When available, add a text quote with prefix/suffix and offsets relative to a
-named, hashed text representation. Page-image coordinates are preserved when
-the source supports them. This enables both a short meeting citation and a
-scholarly verification path.
+The civic document type does not choose the locator. An acta rendered as HTML
+and a report rendered as HTML use the same text/HTML locator rules. Semantic
+labels such as article, item, agreement, or budget line may strengthen context
+without becoming universal evidence coordinates.
+
+Unknown or malformed bytes may still be preserved under custody. A direct
+factual claim remains blocked until a reviewer can verify at least one
+supporting representation through a supported locator contract.
 
 AI output may contextualize or propose a claim. It cannot be the evidentiary
 support for a factual claim.

@@ -7,6 +7,7 @@ authority: roadmap-proposal
 summary: Architecture-first, proof-gated plan for evolving actakit from a file pipeline into a local civic-record service without discarding the existing vault.
 related:
   - ACTAKIT-ARCH-001
+  - ACTAKIT-DATA-001
   - ACTAKIT-STATUS-001
 ---
 
@@ -23,8 +24,9 @@ Do enough architecture now to freeze expensive boundaries, and no more.
 
 **Freeze before implementation:** semantic ownership, evidence identity,
 revision/correction rules, review authority, privacy/publication policy,
-database/archive boundary, projection boundary, operation replay, source-run
-semantics, and MCP read/write boundary.
+database/archive boundary, document-vs-representation typing, typed locator
+semantics, unknown-type fallback, collection/part boundaries, projection
+boundary, operation replay, source-run semantics, and MCP read/write boundary.
 
 **Defer until evidence demands it:** web UI, public hosting, national corpus
 scale, domain-pack plugins, graph database, vector search, IIIF service,
@@ -42,6 +44,7 @@ grow without reassigning authority later.
 - Adopt source-admission, privacy/minimization, correction, and publication
   policies as versioned documents.
 - Define a small schema vocabulary and stable ID rules.
+- Accept or amend `docs/DATA_MODEL.md` before SQL design.
 - Define the first acceptance fixture and the required evidence for Acta 162.
 
 **Gate**
@@ -56,8 +59,9 @@ accepts the architecture and policy set.
 **Build**
 
 - Typed IDs, revisions, digests, timestamps, operation envelopes, and errors.
-- Immutable record contracts for artifacts, representations, claims, evidence
-  links, review decisions, and publication snapshots.
+- Immutable record contracts for artifacts, representations, civic documents,
+  document parts/collections, claims, typed evidence locators/links, review
+  decisions, and publication snapshots.
 - Pure editorial-readiness assessment.
 - Input/output schema validation and stable serialization.
 
@@ -65,6 +69,10 @@ accepts the architecture and policy set.
 
 - AI proposals cannot be factual support.
 - Quotes require exact locators and context review.
+- PDF, text, spreadsheet, image, media, and structured-data locators validate
+  independently of civic document type.
+- Unknown civic types remain ingestible without silently acquiring profile
+  semantics; unsupported representations cannot support approved factual claims.
 - Quantitative claims require a documented source/reproduction limit.
 - Conflicting evidence remains visible.
 - Same operation ID is replay-safe; changed semantics are rejected.
@@ -117,8 +125,9 @@ source admission
 
 **Proof**
 
-- A reader can move from one Hilo assertion to a fixed source artifact and
-  article/item/page locator.
+- A reader can move from one Hilo assertion through its claim revision and
+  evidence link to a fixed representation/artifact and the exact locator
+  appropriate to that representation; article/item is retained when present.
 - Replaying extraction creates a new proposal, not a silent correction.
 - Re-running integration does not duplicate a claim or rewrite curated Hilos.
 - One interrupted operation recovers without duplicate canonical state.

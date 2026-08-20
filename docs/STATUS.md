@@ -96,5 +96,5 @@ architecture or authorize implementation.
 ## 1.0 Planning
 
 The proposed complete plan is in `ARCHITECTURE.md`, `CONTRACTS.md`,
-`IMPLEMENTATION_PLAN.md`, and `RELEASE_1_0.md`. These documents require named
-human acceptance before service/database implementation begins.
+`DATA_MODEL.md`, `IMPLEMENTATION_PLAN.md`, and `RELEASE_1_0.md`. These documents
+require named human acceptance before service/database implementation begins.
