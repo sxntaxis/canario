@@ -1,0 +1,2 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C004,AKS-S006,"Provenance commonly distinguishes entities, activities and agents and links derivation/generation/attribution explicitly.",supports,Map ActaKit provenance vocabulary to PROV semantics without implementing PROV-O storage.

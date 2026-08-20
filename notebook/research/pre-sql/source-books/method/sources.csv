@@ -1,0 +1,4 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S001,Method,Stereo Research Package Protocol,local method,working authority,"Ledger-v1, bounded transfers, current-version rule","Method, not ActaKit product authority",local: stereo bundle / notebook/research/PACKAGE_PROTOCOL.md,2026-08-20
+AKS-S002,Method,Plaza Principles,local method,project principle,Evidence before inference; provenance; identity; standards discipline,"Plaza is a methodological comparator, never an ActaKit dependency",local: Plaza-main.zip / docs/PRINCIPLES.md,2026-08-20
+AKS-S003,Method,Plaza Correctness Audit Report,local scar,empirical audit,Inventory != correctness; derived identity/segmentation can be wrong while raw evidence is sound,Legacy Plaza findings do not directly measure ActaKit,local: Plaza-main.zip / demo/research/source_audits/CORRECTNESS_AUDIT_REPORT.md,2026-08-20

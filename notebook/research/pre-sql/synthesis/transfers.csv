@@ -1,0 +1,31 @@
+transfer_id,source_mechanism,disposition,actakit_area,transfer,stop_condition
+AKS-T001,Web Annotation selectors/state,Adopt semantics,EvidenceLink locator bundle,Use typed selectors + representation state/hash; redundant anchors allowed.,Do not require JSON-LD/RDF/Annotation Protocol.
+AKS-T002,PROV entity/activity/agent vocabulary,Adapt,Provenance naming and mappings,Use generated/derived/associated/attributed semantics where they clarify lineage.,Do not store full PROV graph.
+AKS-T003,PREMIS preservation events,Adapt,Custody events,Persist consequential preservation/transform events.,Do not turn every operation into canonical event.
+AKS-T004,OCFL digest/immutable-version thinking,Adapt,Artifact archive invariants,Content digests and immutable acquired artifact identity.,Do not adopt full OCFL layout until archive scale/interop requires it.
+AKS-T005,BagIt manifests,Adopt at boundary,Backup/export package,Checksummed manifest and validation.,Not internal DB schema.
+AKS-T006,WARC capture-event distinction,Adapt,Source/Acquisition,"Preserve target, time, outcome, digest; optional request/response details.",Do not WARC-wrap every local PDF.
+AKS-T007,Memento resource/time distinction,Adapt,Acquisition version semantics,Resource identity != observed representation at datetime.,No Memento server required.
+AKS-T008,Akoma document/version/format separation,Adapt,CivicDocument/Representation/Artifact,Preserve independence and optional parts.,Do not import full FRBR/XML model into core.
+AKS-T009,ELI legal identity/profile semantics,Defer/profile,Legislation interoperability,Provide mappings when legislation workflows need it.,Not universal ActaKit IDs.
+AKS-T010,RiC contextual relation principle,Adapt lightly,Record context,Context relationships are first-class where needed.,No OWL/RiC-O runtime.
+AKS-T011,Popolo small civic models,Adapt/profile,Votes/motions/memberships,Reuse vocabulary/patterns in civic profiles.,No universal civic ontology.
+AKS-T012,ORG Membership/Post pattern,Adopt pattern,Rich association promotion,Relation becomes object when role/time matter.,No RDF dependency.
+AKS-T013,Wikidata plural sourced assertions,Adapt,Claims/evidence,Allow conflicting claims with sources and context.,Do not make claims atomic property/value snaks.
+AKS-T014,Wikidata qualifiers,Investigate in fixtures,Claim scope,Test explicit time/place/jurisdiction/method fields where meaning changes.,No arbitrary qualifier graph baseline.
+AKS-T015,FollowTheMoney interstitial entity,Adopt heuristic,Rich relations,Use typed association/event for attributed relation.,No generic node/edge data model.
+AKS-T016,FollowTheMoney statement provenance,Reject as universal; retain escape hatch,Merged-field provenance,Only introduce if claim-level provenance fails real fixture.,Avoid one statement row per property/value by default.
+AKS-T017,OpenSanctions reconciliation pipeline,Adapt,Entity resolution,"Candidates, strong IDs, merge/split, unresolved state.",Keep ActaKit stable local IDs; do not expire canonical identity.
+AKS-T018,OpenRefine reconciliation UX,Adopt pattern,Mesa de control,"Ranked candidates, additional context, bulk approve, matched/new/unresolved.",External reconciliation service optional.
+AKS-T019,Open States raw+resolved fields,Adopt,EntityMention/document classification,Preserve source string/classification alongside resolved normalized record.,US classifications not universal.
+AKS-T020,Open States fail-loud scrapers,Adopt,Profile/parser policy,Unexpected specialized source shape = explicit failure/partial.,Generic custody/extraction must still proceed when possible.
+AKS-T021,Paperless original/archive separation,Adopt pattern,Artifact/Representation,Original never overwritten by OCR/archive representation.,Do not import personal-DMS metadata model wholesale.
+AKS-T022,Tropy templates/tags,Adapt,Document profiles/local tags,Structured fields for common semantics; tags for local/idiosyncratic dimensions.,No mandatory template for every document.
+AKS-T023,Zotero separate annotations,Adopt pattern,Claims/EvidenceLink,"Store analysis separately, navigate back to exact source context.",No bibliographic attachment model as core.
+AKS-T024,DocumentCloud page-region notes/bulk OCR,Adapt,Operator/source-context UX,Bulk process/search and page/region annotation are proven workflows.,Hosted newsroom/publication assumptions not imported.
+AKS-T025,Datasette read-only SQLite patterns,Defer/adapter candidate,Consumer query,Potential lightweight read surface over SQLite/projection.,Not a core dependency or canonical writer.
+AKS-T026,Frictionless Data Package,Adapt at output boundary,Shareable Outputs,Small manifests/profiles when output sharing becomes real.,No registry/marketplace baseline.
+AKS-T027,SKOS labels/hierarchy,Defer,Taxonomies,Use semantics if tags become concepts with aliases/hierarchy.,Flat local tags are sufficient initially.
+AKS-T028,SHACL validation separation,Adopt principle,Typed contracts,Versioned validators for locators/profiles/outputs.,Use native schema tooling; no RDF shapes requirement.
+AKS-T029,IIIF/ALTO mappings,Defer/profile,Media/OCR evidence,Interop with structured page/OCR sources when present.,Do not generate them universally.
+AKS-T030,SQLite recursive/FTS/STRICT,Adopt baseline,Storage/query,"Explicit relational tables, recursive traversal, FTS projection, constraints.",No generic graph triples or JSON mega-table.

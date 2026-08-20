@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C024,AKS-S023,Source-supplied labels/classifications and normalized classifications can coexist rather than silently overwriting each other.,supports,Preserve raw type/name and normalized interpretation separately.
+AKS-C025,AKS-S024,Specialized scrapers/parsers should fail loudly on unexpected structure because silent bad structured data is harder to detect than a failed run.,supports,Graceful degradation means preserve/generic-process; specialized profile parse may become partial/failed.
+AKS-C064,"AKS-S041,AKS-S043",A civic record can preserve a raw source-provided person or organization name while the normalized entity link remains absent or is resolved later.,supports,EntityMention is not an optional convenience; it is the safe boundary between extraction and identity resolution.
+AKS-C065,AKS-S042,Cross-jurisdiction normalization can coexist with source-specific classification instead of replacing it.,supports,Keep source_supplied_type/classification separate from normalized_type/profile semantics.

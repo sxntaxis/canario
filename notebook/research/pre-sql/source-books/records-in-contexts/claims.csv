@@ -1,0 +1,2 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C013,AKS-S014,"Archival context can be highly relational, but using an ontology runtime is not required to preserve contextual relations.",supports,Borrow relation semantics selectively; reject RiC-O/OWL baseline.

@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C006,AKS-S008,Content-addressed immutable prior versions and logical/physical path separation are proven preservation patterns.,supports,Use immutable artifact identity/digests; do not make path the identity.
+AKS-C007,AKS-S008,Absolute immutability can collide with legitimate purge/redaction obligations.,collision,Define custody deletion/purge semantics explicitly instead of promising eternal bytes.

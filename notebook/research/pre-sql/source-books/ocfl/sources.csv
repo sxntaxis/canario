@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S008,Preservation,Oxford Common File Layout 1.1,standard,OCFL specification,"Immutable prior versions, digest-addressed content, logical vs physical paths, deduplication",Full OCFL repository machinery is likely excessive; deletion/purge policy can collide with immutability,https://ocfl.io/1.1/spec/,2026-08-20

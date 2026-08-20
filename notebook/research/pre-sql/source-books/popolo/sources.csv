@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S015,Civic entities,Popolo specification,standard/community spec,civic data model,"Small/flexible civic models; Person, Organization, Membership, Post, Motion, VoteEvent, Event; uncertain data tolerated",Do not import whole civic ontology into core,https://www.popoloproject.com/specs/,2026-08-20

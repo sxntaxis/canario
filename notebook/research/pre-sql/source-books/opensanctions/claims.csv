@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C023,AKS-S021,"High-confidence automated matches and human review for ambiguity are compatible, but canonical identity churn is harmful to durable local references.",mixed,Borrow candidate matching; keep ActaKit stable local entity IDs across merge/split.
+AKS-C061,"AKS-S038,AKS-S039",A canonical entity can be a projection over source-scoped records and rich relationship objects while source-level assertions remain separately recoverable.,supports,"Keep Entity as local resolved identity, but do not erase source EntityMentions/provenance when records are reconciled."
+AKS-C062,"AKS-S039,AKS-S040",Collection and entity reconciliation can proceed on different timelines; unresolved or later-merged records remain legitimate intermediate states.,supports,Claim/document ingestion must not block on perfect entity resolution; reconciliation is revisable later.

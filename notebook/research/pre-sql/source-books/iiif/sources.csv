@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S033,Media/page model,IIIF Presentation API 3.0,standard,IIIF Consortium,"Canvas/Range structures and Web Annotation selectors for page, spatial and temporal targeting","Interop/profile possibility, not baseline storage model",https://iiif.io/api/presentation/3.0/,2026-08-20

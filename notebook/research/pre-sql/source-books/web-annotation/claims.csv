@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C001,AKS-S004,Web Annotation is intentionally capable of rich graph-shaped annotation while permitting performant non-graph implementations.,supports,Keep ActaKit graph-shaped but relational; no graph DB baseline.
+AKS-C002,"AKS-S004,AKS-S005","Evidence targeting should separate the resource from the selector that identifies the exact segment and, when needed, the state/version of that resource.",supports,Refine EvidenceLink into representation + typed selector bundle + state anchor.
+AKS-C003,"AKS-S004,AKS-S005",Redundant selectors can make a citation more durable than one coordinate system alone.,supports,"For text/PDF, allow exact quote plus structural/page/offset context instead of one brittle locator."

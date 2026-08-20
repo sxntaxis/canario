@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C019,AKS-S019,Naively equating every real relation with an edge is known to fail when relations themselves carry data.,supports,No universal nodes/edges schema; explicit tables plus optional association objects.
+AKS-C020,AKS-S020,Per-value provenance is possible but materially increases record count and model complexity.,limits,Do not adopt statement-per-field provenance unless fixtures show claim-level provenance is insufficient.

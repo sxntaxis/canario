@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C066,AKS-S045,"A root document can retain stable metadata while file versions carry their own bytes, checksums and extracted text.",supports,Fixture CivicDocument identity separately from Artifact/Representation versions; do not duplicate document identity for every processing version.
+AKS-C067,"AKS-S045,AKS-S046",Bulk edit/reprocess and file integrity checking coexist without making the bulk action itself the durable domain object.,supports,Batch/supervised operations may write many individually attributable results without a permanent ReviewBatch entity.

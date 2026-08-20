@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S016,Organizations,W3C Organization Ontology,standard,W3C Recommendation,Simple memberOf shortcut vs first-class Membership/Post when role/time matters,"Useful pattern, not reason to use RDF",https://www.w3.org/TR/vocab-org/,2026-08-20

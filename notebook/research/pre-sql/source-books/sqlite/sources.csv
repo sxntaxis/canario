@@ -1,0 +1,4 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S035,Storage/query,SQLite recursive CTEs,standard implementation docs,SQLite documentation,Recursive CTEs traverse trees/graphs in ordinary relational storage,Traversal viability does not imply every relationship should be stored,https://www.sqlite.org/lang_with.html,2026-08-20
+AKS-S036,Storage/query,SQLite FTS5,standard implementation docs,SQLite documentation,Full-text search can live in same database and be rebuilt as projection/index,"FTS is search infrastructure, not canonical claim truth",https://www.sqlite.org/fts5.html,2026-08-20
+AKS-S037,Storage/query,SQLite STRICT tables,standard implementation docs,SQLite documentation,Stronger type discipline is available while retaining SQLite simplicity,STRICT does not replace application invariants or migrations,https://www.sqlite.org/stricttables.html,2026-08-20

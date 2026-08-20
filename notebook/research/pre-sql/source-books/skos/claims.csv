@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C033,AKS-S031,Taxonomies can support preferred/alternate labels and hierarchy without forcing one global vocabulary.,supports,Local tags can later adopt SKOS-like semantics; no national topic ontology baseline.
+AKS-C057,AKS-S031,"Aliases and hierarchy are useful when taxonomies mature, but flat tags remain a valid starting point.",supports,Do not build SKOS-like concept tables until local taxonomy needs them.

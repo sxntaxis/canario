@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S006,Provenance,PROV-O,standard,W3C Recommendation,"Entity/Activity/Agent; derivation, generation, attribution, association, revision, primary source",Full PROV graph is unnecessary baseline complexity,https://www.w3.org/TR/prov-o/,2026-08-20

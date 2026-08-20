@@ -1,0 +1,28 @@
+collision_id,tension,risk,bounded_resolution
+AKS-COL001,Archive immutability vs lawful deletion,"OCFL-style immutability is valuable, but personal/sensitive material may need purge.",Never promise absolute immutable bytes; define explicit purge/tombstone policy.
+AKS-COL002,Graceful degradation vs silent corruption,"Unknown type should not block intake, but a known parser seeing unexpected structure must not guess.",Preserve/generic-process; fail specialized parse loudly.
+AKS-COL003,Exhaustive extraction vs review capacity,Broad claims are useful later; per-claim approval does not scale.,Supervised by default; batch review; review state explicit.
+AKS-COL004,Stable IDs vs entity merge/split,Reconciliation can discover sameness later without breaking references.,Stable local IDs + explicit merge/split lineage; never rewrite history silently.
+AKS-COL005,Raw source label vs normalized identity,"Source names/types can be wrong or inconsistent, but are evidence of what source said.",Store both raw and normalized fields with basis.
+AKS-COL006,Claim readability vs atomic triples,Property/value models are machine-friendly but can fragment civic statements beyond human verification.,Claim stays readable proposition; structured enrichments auxiliary.
+AKS-COL007,Direct edge vs rich relationship,Simple updates/contradicts is an edge; role/time/percentage relationship has independent meaning.,Promotion rule to typed association/event when attributes matter.
+AKS-COL008,Graph-shaped record vs graph DB,"Relations are first-class, but workload is bounded and local.",SQLite explicit tables + recursive queries; graph DB only after measurement.
+AKS-COL009,Standards alignment vs standards stack,Many standards solve adjacent problems but bring RDF/OWL/XML assumptions.,Map semantics at boundaries; do not require one runtime stack.
+AKS-COL010,Document identity vs file identity,Same civic document can have PDF/HTML/OCR; one PDF can contain several documents.,"CivicDocument, Representation, Artifact remain separate."
+AKS-COL011,Citation precision vs representation drift,Offsets/page numbers can become stale after reprocessing.,Bind to representation identity/state and allow redundant selectors.
+AKS-COL012,Provenance completeness vs event-log bloat,"Auditability matters, but canonicalizing every function call creates noise.",Persist consequential provenance; logs for ephemeral operations.
+AKS-COL013,Per-field provenance vs model explosion,Statement-level provenance is powerful for merged datasets.,Start claim-level; promote only if fixtures show mixed-source fields inside one claim.
+AKS-COL014,Local taxonomy vs national ontology,Cantons need different topics; interoperable labels/hierarchy may help later.,Local stable tags first; optional SKOS-like mapping/hierarchy later.
+AKS-COL015,Source authority vs source correctness,Official source can contain errors; ActaKit must faithfully report source without becoming truth arbiter.,Store “source asserts X”; allow challenges/contradictions/corrections.
+AKS-COL016,Public transparency vs restricted custody,Evidence may contain personal data not suitable for output.,Custody and publication representations/policies are separate.
+AKS-COL017,AI usefulness vs authority,LLMs find claims/relations well but can hallucinate.,AI origin explicit; machine-only is valid but visibly distinct.
+AKS-COL018,Automated reconciliation vs false merge,Aliases make matching attractive; same-name people are dangerous.,Candidate scoring + strong identifiers + human review for ambiguity.
+AKS-COL019,Source capture completeness vs baseline simplicity,WARC can preserve HTTP exchange precisely but most document imports do not need full web archive machinery.,Minimal Acquisition first; optional WARC capture adapter for dynamic/high-value sources.
+AKS-COL020,Internal archive vs transfer package,OCFL/BagIt solve storage/package concerns that differ from domain records.,Keep domain model independent; package at backup/export boundary.
+AKS-COL021,FTS/vector search vs canonical record,Search indices improve discovery but are derivative.,FTS rebuildable; vector search deferred until lexical+structured retrieval proves insufficient.
+AKS-COL022,Machine relation candidates vs graph contamination,Automated relation extraction can create huge noisy networks.,Filter by origin/state; cap extraction; no inferred transitive edges.
+AKS-COL023,Batch review ergonomics vs ReviewBatch entity,Bulk UX is needed; permanent batch identity often is not.,Atomic multi-record command writing individual review decisions.
+AKS-COL024,Profiles vs unknown documents,Profiles improve typed extraction but can make intake brittle.,Generic baseline always works; profile adds constraints and may fail independently.
+AKS-COL025,One operator vs enterprise authorization,"Audit roles matter semantically, but 8 job titles are fictional locally.",Record action/actor; minimal operator/read-only permissions.
+AKS-COL026,Output extensibility vs mutation/security,"Shareable outputs are useful, arbitrary code with write access is dangerous.",Read-only output boundary first; package/plugin execution model later.
+AKS-COL027,Correctness vs pipeline green lights,Successful download/OCR/parser/schema does not prove semantic correctness.,Ground derived fixtures against source artifacts and expected identity/relations.

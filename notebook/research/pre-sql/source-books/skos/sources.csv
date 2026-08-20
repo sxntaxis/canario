@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S031,Taxonomy,SKOS Reference,standard,W3C Recommendation,"ConceptScheme, Concept, preferred/alternative labels, broader/narrower/mapping relations",Local tags need not become RDF or a national ontology,https://www.w3.org/TR/skos-reference/,2026-08-20

@@ -1,0 +1,30 @@
+book,title,source_count,owned_claim_count,state,question
+akoma-ntoso,Akoma Ntoso — civic/legal document identity and structure,1,1,complete,What document/file/version distinctions survive mature legislative document modeling?
+alto,ALTO — OCR text with layout coordinates,1,0,complete,How can OCR coordinates be reused when a source already provides them?
+bagit,BagIt — integrity packages for backup and export,1,1,complete,What is the smallest robust boundary for moving/verifying a backup or export corpus?
+datasette,Datasette — read-heavy SQLite as a consumer surface,1,0,complete,Can SQLite support broad read-only consumption without becoming a separate service architecture?
+documentcloud,"DocumentCloud — source-context review, OCR, regions, and redaction scars",3,4,complete,What newsroom-scale document handling patterns transfer to civic evidence review?
+eli,ELI — legal identity/version/format as interoperability pressure,1,0,complete,Which legal-resource identity distinctions matter as future interoperability pressure?
+followthemoney,"FollowTheMoney — investigative entities, statements, and rich associations",2,2,complete,"How do mature investigative systems model entities, provenance, and relationships with attributes?"
+frictionless-data-package,Frictionless Data Package — portable output manifests,1,1,complete,How should structured Outputs become portable without becoming canonical storage?
+iiif,IIIF — structured page/spatial/temporal targeting,1,0,complete,How should ActaKit interoperate with pre-existing structured image/page targets?
+memento,Memento — resource identity is not a datetime representation,1,0,complete,How should repeated observations over time differ from resource identity?
+method,Method — Stereo research discipline and Plaza correctness scars,3,4,complete,How should ActaKit research itself before freezing expensive architectural decisions?
+ocfl,OCFL — immutable artifact thinking without repository overkill,1,2,complete,"How should ActaKit think about artifact identity, prior versions, and content addressing?"
+openrefine,OpenRefine — unresolved identity and batch reconciliation,2,2,complete,How should one operator resolve ambiguous entities efficiently and honestly?
+opensanctions,OpenSanctions — stable local identity and reconciliation pressure,4,3,complete,How can reconciliation preserve stable local identity while absorbing changing source identifiers?
+openstates,Open States — raw-versus-normalized civic ingestion and fail-loud parsers,5,4,complete,What ingestion scars matter for civic documents and fragile source parsers?
+paperless-ngx,Paperless-ngx — original/derived custody and operator bulk workflows,4,2,complete,"What does a mature self-hosted document workflow teach about originals, derivatives, typing, and bulk operations?"
+popolo,Popolo — small civic entities and events,1,1,complete,Which civic concepts recur often enough to inform profiles without becoming a national ontology?
+premis,PREMIS — consequential custody events without event-log bloat,1,1,complete,Which preservation actions deserve canonical history and which should remain operational noise?
+prov,W3C PROV — provenance vocabulary without a provenance graph runtime,1,1,complete,What provenance distinctions are durable enough to borrow without implementing a full provenance graph?
+records-in-contexts,Records in Contexts — records gain meaning through context,1,1,complete,How much contextual relation modeling is useful before it becomes an ontology project?
+shacl,SHACL — validation separated from the data model,1,2,complete,How can validation evolve independently from canonical records?
+skos,SKOS — taxonomy semantics without a mandatory ontology,1,2,complete,What taxonomy features are worth preserving if local tags later need aliases or hierarchy?
+sqlite,"SQLite — relational graph traversal, FTS, and type discipline",3,2,complete,Can the expected graph-shaped and full-text queries stay inside one relational baseline?
+tropy,"Tropy — templates, tags, and useful incompleteness",3,1,complete,How should structured templates and local tags coexist when documents vary?
+w3c-org,W3C ORG — when a relationship deserves its own object,1,0,complete,When should a direct relationship be promoted to a first-class association?
+warc,WARC — observation/capture is not the web resource,1,1,complete,What must ActaKit remember about an observation of a web source?
+web-annotation,W3C Web Annotation — evidence targeting without inventing locators,2,3,complete,How should a claim point back to the exact evidence segment without inventing a bespoke locator system?
+wikidata,Wikidata — sourced plural assertions and qualifiers,2,3,complete,How can conflicting sourced assertions coexist without forcing ActaKit into atomic triples?
+zotero,Zotero — annotations remain separate from source evidence,2,1,complete,How should analyst annotations/claims remain linked to but separate from source documents?

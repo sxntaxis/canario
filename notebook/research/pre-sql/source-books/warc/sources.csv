@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S010,Web capture,WARC 1.1,standard,ISO/IIPC web-archive standard,"Capture date, target URI, record IDs, request/response association, payload digests, revisit semantics",Capturing every source as WARC is not required for baseline imports,https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/,2026-08-20

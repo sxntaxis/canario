@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C034,AKS-S032,Validation constraints can be a separate layer from the data vocabulary.,supports,Profiles/locators/outputs should have versioned validators rather than arbitrary JSON.
+AKS-C058,AKS-S032,Typed/versioned validation contracts are a safer extension mechanism than arbitrary payloads.,supports,Locator/profile/output config schemas must be versioned and validated.

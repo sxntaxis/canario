@@ -1,0 +1,2 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C012,AKS-S012,Components/subdocuments can be modeled when structure matters without forcing every document into maximal decomposition.,supports,DocumentPart stays optional.

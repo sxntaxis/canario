@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S030,Packaging,Data Package / Frictionless,standard/community spec,data packaging ecosystem,"Small pieces, loosely joined; profiles/resources; extensible package manifests","Use for exports/interchange patterns, not canonical model",https://datapackage.org/,2026-08-20

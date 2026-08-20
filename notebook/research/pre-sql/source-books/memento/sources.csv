@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S011,Web versioning,Memento RFC 7089,standard,IETF RFC,Original resource vs datetime-specific past representations,Conceptual mapping is useful even if ActaKit does not speak Memento,https://www.rfc-editor.org/rfc/rfc7089.html,2026-08-20

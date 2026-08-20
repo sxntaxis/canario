@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C016,"AKS-S017,AKS-S018",Sourced knowledge systems can preserve multiple conflicting assertions and contextual qualifiers without choosing a single truth.,supports,"ActaKit should store source-bounded claims and contradictions, not a universal truth value."
+AKS-C018,AKS-S018,"Some qualifiers are meaning-changing, especially time, jurisdiction and scope.",supports,"Pre-SQL fixtures must test whether claim scope needs explicit structured qualifiers, but avoid a universal qualifier graph."
+AKS-C054,AKS-S017,A claim should remain meaningful and verifiable even when machine-readable context is absent.,supports,Structured qualifiers/enrichments should augment rather than define the proposition.

@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S032,Validation,SHACL,standard,W3C Recommendation,Validation shapes separated from data model,ActaKit can borrow validation-layer principle with ordinary typed schemas,https://www.w3.org/TR/shacl/,2026-08-20

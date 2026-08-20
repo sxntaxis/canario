@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S029,Query/read model,Datasette,operational tool,mature SQLite publishing/query system,"SQLite can support faceting, FTS, filters, JSON/CSV and broad read-only audiences","Potential adapter, not required dependency or product UI",https://docs.datasette.io/en/stable/,2026-08-20

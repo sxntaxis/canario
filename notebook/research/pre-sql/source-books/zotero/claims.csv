@@ -1,0 +1,2 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C068,"AKS-S027,AKS-S048",Separating annotations from source PDFs avoids rewriting evidence while still allowing exact navigation back to source context.,supports,"Claims/review annotations should remain database records linked to immutable evidence representations, with export embedding only as a derivative output."

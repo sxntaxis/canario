@@ -1,0 +1,2 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S009,Packaging,BagIt RFC 8493,standard,IETF RFC,Payload + checksum manifests; complete vs valid package,Better fit for export/backup/evidence packages than canonical internal store,https://www.rfc-editor.org/rfc/rfc8493.html,2026-08-20

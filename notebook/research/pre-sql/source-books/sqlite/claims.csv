@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C049,AKS-S036,"Full-text search is a rebuildable retrieval index, not evidence authority.",supports,Treat FTS as projection/index that can be rebuilt from canonical text/claims.
+AKS-C050,AKS-S037,SQLite can enforce a stricter relational baseline than loose dynamic typing suggests.,supports,Use explicit columns/FKs/constraints; reserve JSON for versioned extensible payloads such as locators.
