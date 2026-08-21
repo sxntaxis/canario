@@ -1,0 +1,15 @@
+fixture_id: AKF-008
+title: Two people share the same name
+mentions:
+  - text: "Juan Pérez"
+    context: "representante de Asociación A"
+  - text: "Juan Pérez"
+    context: "funcionario de Institución B"
+expected:
+  automatic_merge: false
+  allowed_states:
+    - unresolved
+    - separate_candidate_entities
+    - reviewed_same_entity_if_independent_evidence_exists
+must_not:
+  - merge identities solely because normalized names match

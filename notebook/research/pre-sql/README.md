@@ -15,7 +15,8 @@ This research asks what ActaKit should learn **before** freezing a durable SQLit
 Structure:
 
 - `source-books/` — one Book per coherent external object, each with its own source and claim ledgers;
-- `synthesis/` — only cross-source claims, scenarios, collisions, bounded transfers, gap audit, and current synthesis.
+- `synthesis/` — only cross-source claims, scenarios, collisions, bounded transfers, gap audit, and current synthesis;
+- `fixtures/` — semantic fixtures/counterexamples that pressure-test the model before SQL.
 
 Current horizon:
 
@@ -26,4 +27,4 @@ Current horizon:
 - **27 collisions**;
 - **30 bounded transfers**.
 
-The package is research evidence. It does not authorize SQL or code changes.
+The package is research evidence. It does not authorize SQL or code changes. The current fixture verdict exposes four bounded pre-SQL decisions: raw entity mentions, merge/split lineage, rich-relation promotion, and purge/tombstone policy.

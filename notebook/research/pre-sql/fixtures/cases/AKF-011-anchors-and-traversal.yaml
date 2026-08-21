@@ -1,0 +1,17 @@
+fixture_id: AKF-011
+title: Shared anchor and bounded traversal
+anchors:
+  entity: Puerto Caldera
+  claim_count: 100
+explicit_relations:
+  - A updates B
+  - B updates C
+expected:
+  pairwise_edges_from_shared_anchor: 0
+  query_can_find_all_100_by_entity: true
+  recursive_query_can_walk_A_B_C: true
+  canonical_inferred_A_to_C: false
+  traversal_limits_required: true
+must_not:
+  - generate 4950 pairwise edges
+  - materialize transitive edges without independent basis

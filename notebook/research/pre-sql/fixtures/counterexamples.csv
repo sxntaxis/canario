@@ -1,0 +1,18 @@
+counterexample_id,fixture_id,tempting_wrong_behavior,why_wrong,required_behavior,basis_refs
+AKF-X001,AKF-001,Store page/article/item directly on every claim,Conflates claim semantics with one representation/document profile,Use EvidenceLink plus typed locator bound to representation,AKS-T001
+AKF-X002,AKF-002,Treat URL as artifact identity,Same target can return changed bytes over time,Separate Source/Acquisition/Artifact,AKS-C009
+AKF-X003,AKF-002,Interpret a 404 as record deletion,Observation failure is not civic truth,Retain prior evidence and record failed acquisition,AKS-C044
+AKF-X004,AKF-003,Keep parser green by guessing new HTML structure,Produces plausible semantic corruption,Fail specialized parse loudly while preserving generic custody,AKS-T020
+AKF-X005,AKF-004,Duplicate the same PDF bytes once per contained document,Wastes custody storage and confuses byte identity,Share artifact/representation across document identities,AKS-C010
+AKF-X006,AKF-006,Require 250 human approvals before claims are searchable,Destroys single-operator viability,Allow machine-only supervised records with selective/bulk review,AKS-C003
+AKF-X007,AKF-007,Replace raw text AyA with canonical entity ID,Loses what the source actually said,Preserve EntityMention/raw label plus optional resolution,AKS-C005
+AKF-X008,AKF-008,Merge two Juan Pérez records by name equality,High false-merge risk for people,Remain unresolved/separate absent stronger evidence,AKS-C018
+AKF-X009,AKF-009,Rewrite every old entity link after a merge/split,Loses historical reconciliation decisions,Preserve stable IDs and explicit lineage,AKS-C004
+AKF-X010,AKF-010,Retarget relation endpoints when a claim gets edited,Rewrites historical proposition meaning,Bind exact revisions and create/review replacement relation,AKS-SC021
+AKF-X011,AKF-011,Generate pairwise related_to edges for all claims mentioning Caldera,Creates quadratic noisy graph,Use shared Entity anchor for retrieval,AKS-SC024
+AKF-X012,AKF-011,Persist inferred A updates C because A→B and B→C,Confuses traversal inference with sourced relation,Traverse at query time only,AKS-SC025
+AKF-X013,AKF-012,Use EvidenceLink challenges and ClaimRelation contradicts interchangeably,One is evidence-to-claim and the other proposition-to-proposition,Keep separate contracts,AKS-C015
+AKF-X014,AKF-013,Store role dates amount inside generic relation_payload JSON,Creates a graph-shaped junk drawer,Promote meaningful relationship to typed association/event,AKS-T015
+AKF-X015,AKF-014,Make Episode a core table because Hilo uses it,Forces one presentation model onto all outputs,Keep Episode inside Hilo output domain,AKS-SC029
+AKF-X016,AKF-015,Backup only SQLite,Restored metadata would point to missing evidence bytes,Package DB + archive + integrity manifest,AKS-T005
+AKF-X017,AKF-016,Overwrite original with redacted/public version,Destroys evidence custody,Create separate derivative/output representation,AKS-C016

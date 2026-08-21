@@ -1,0 +1,17 @@
+fixture_id: AKF-015
+title: Backup and restore corpus
+corpus:
+  database: actakit.sqlite
+  artifact_archive:
+    - sha256:AAA
+    - sha256:BBB
+  manifest: checksummed
+restore_target: clean_machine
+expected:
+  restore_verifies:
+    - database integrity
+    - artifact checksums
+    - referenced artifact presence
+    - evidence/relation referential consistency
+must_not:
+  - call a SQLite-only copy a complete ActaKit backup

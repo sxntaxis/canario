@@ -1,0 +1,39 @@
+assertion_id,fixture_id,kind,statement,basis_refs
+AKF-A001,AKF-001,must,One claim revision can point to an exact location in one representation without making page/article/item universal claim fields.,AKS-T001
+AKF-A002,AKF-001,must_not,A claim may not cite only a civic document label when exact representation context is available.,AKS-C029
+AKF-A003,AKF-002,must,Acquisition observations distinguish target/time/outcome from artifact bytes.,AKS-C009
+AKF-A004,AKF-002,must,Repeated identical bytes may reuse artifact storage while preserving a new observation.,AKS-C052
+AKF-A005,AKF-002,must_not,A later 404 or absence may not delete or negate prior evidence.,AKS-C044
+AKF-A006,AKF-003,must,Unknown document typing remains ingestible and searchable when generic extraction works.,AKS-T022
+AKF-A007,AKF-003,must_not,A specialized parser facing unexpected structure may not guess plausible semantic units.,AKS-T020
+AKF-A008,AKF-004,must,One artifact/representation may support more than one CivicDocument identity without duplicating bytes.,AKS-C010
+AKF-A009,AKF-004,may,DocumentPart or collection structure is introduced only if semantic independence/citation requires it.,AKS-T008
+AKF-A010,AKF-005,must,A spreadsheet locator identifies sheet/table/range or row/header context plus observed values under a typed locator contract.,AKS-T001
+AKF-A011,AKF-006,must,Machine-only claims are valid searchable records in supervised mode.,AKS-C028
+AKF-A012,AKF-006,must,One operator action may apply deterministic per-record review decisions to many exact claim revisions.,AKS-C055
+AKF-A013,AKF-006,must_not,Batch UX may not imply one synthetic approval that hides individual claim outcomes.,AKS-C023
+AKF-A014,AKF-007,must,The exact source string for an entity mention survives independently from any resolved Entity.,AKS-C021
+AKF-A015,AKF-007,must,Unresolved entity mentions remain legitimate data.,AKS-C043
+AKF-A016,AKF-007,open,Architecture must decide whether EntityMention is a core record or an equivalent provenance-preserving structure before SQL.,AKS-T019
+AKF-A017,AKF-008,must_not,Equal person names may not merge identities without independent evidence.,AKS-C018
+AKF-A018,AKF-008,must,Candidate resolution can remain unresolved or machine-suggested pending review.,AKS-T018
+AKF-A019,AKF-009,must,Stable local entity identity survives changing observed names.,AKS-T017
+AKF-A020,AKF-009,must,Merge/split reconciliation preserves history rather than silently rewriting old claim anchors.,AKS-C004
+AKF-A021,AKF-009,open,The minimal persistent merge/split mechanism must be chosen before schema freeze.,AKS-C004
+AKF-A022,AKF-010,must,ClaimRelation endpoints bind exact claim revisions.,AKS-C041
+AKF-A023,AKF-010,must,A material claim correction does not silently retarget an existing relation.,AKS-C041
+AKF-A024,AKF-010,must,Machine-only relation candidates preserve origin and inspectable basis/rationale.,AKS-C022
+AKF-A025,AKF-011,must,Many claims can share one Entity/Tag anchor without pairwise claim edges.,AKS-C022
+AKF-A026,AKF-011,must_not,Transitive relations discovered during traversal may not be materialized as canonical edges without independent basis.,AKS-C008
+AKF-A027,AKF-011,must,Recursive relation queries are bounded by depth/result policy.,AKS-T030
+AKF-A028,AKF-012,must,EvidenceLink challenges and ClaimRelation contradicts remain different semantic contracts.,AKS-C015
+AKF-A029,AKF-012,must,Conflicting sourced claims can coexist without ActaKit selecting a universal truth.,AKS-T013
+AKF-A030,AKF-013,must,When role/time/amount belongs to a relationship itself the model has a promotion path beyond a simple ClaimRelation.,AKS-C007
+AKF-A031,AKF-013,must_not,Rich association attributes may not be hidden in arbitrary generic edge JSON by default.,AKS-T015
+AKF-A032,AKF-013,open,The minimal rich-association/event contract must be decided or explicitly deferred with a migration-safe boundary before SQL.,AKS-C042
+AKF-A033,AKF-014,must,Hilo/Episode can be implemented outside core using the same read model as a structurally different output.,AKS-C026
+AKF-A034,AKF-014,must_not,Output code may not silently mutate canonical civic records.,AKS-C026
+AKF-A035,AKF-015,must,A complete backup names both canonical database and evidence archive and verifies checksums/consistency on restore.,AKS-T005
+AKF-A036,AKF-015,may,Transfer packaging can borrow BagIt-like manifests without changing the internal domain model.,AKS-C020
+AKF-A037,AKF-016,must,Public/redacted derivatives remain distinct from custody originals.,AKS-C016
+AKF-A038,AKF-016,open,Lawful deletion/purge requires an explicit policy boundary before claiming immutable custody.,AKS-C001

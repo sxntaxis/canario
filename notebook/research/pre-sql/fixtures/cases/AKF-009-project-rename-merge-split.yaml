@@ -1,0 +1,19 @@
+fixture_id: AKF-009
+title: Project rename then reconciliation correction
+observed_names:
+  - at: 2026-01-10
+    text: "Proyecto de drenaje de Tivives"
+  - at: 2026-05-15
+    text: "Obras pluviales Tivives"
+initial_resolution:
+  same_entity: true
+later_evidence:
+  finding: "The second label actually referred to two separate contracts."
+expected:
+  stable_old_links_preserved: true
+  reconciliation_history_preserved: true
+  split_supported: true
+must_not:
+  - silently rewrite all historical claim anchors to one newly chosen identity
+open:
+  - choose minimal merge/split lineage representation

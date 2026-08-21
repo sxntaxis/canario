@@ -1,0 +1,20 @@
+fixture_id: AKF-005
+title: Budget spreadsheet locator
+input:
+  media_type: text/csv
+  document_type: presupuesto
+  headers: [programa, partida, descripcion, monto]
+  example_row: [II, 5.02.01, "Reparación de caminos", 25800000]
+example_claim:
+  text: "El presupuesto asigna ₡25,8 millones a reparación de caminos en el Programa II."
+expected:
+  locator:
+    kind: tabular
+    row_key: 1
+    headers: [programa, descripcion, monto]
+    observed_values:
+      programa: II
+      descripcion: "Reparación de caminos"
+      monto: 25800000
+must_not:
+  - require page/article/item coordinates

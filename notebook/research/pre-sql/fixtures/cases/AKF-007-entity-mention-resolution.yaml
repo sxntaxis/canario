@@ -1,0 +1,16 @@
+fixture_id: AKF-007
+title: Raw entity mention resolves to organization
+source_text: "AyA informó que continuará las obras."
+expected:
+  mention:
+    exact_text: AyA
+    source_location_preserved: true
+    entity_id: optional
+  later_resolution:
+    canonical_entity: "Instituto Costarricense de Acueductos y Alcantarillados"
+    basis: strong_alias_or_review
+must:
+  - preserve the raw mention even after resolution
+  - allow unresolved mention before reconciliation
+open:
+  - decide the minimal canonical EntityMention contract before SQL

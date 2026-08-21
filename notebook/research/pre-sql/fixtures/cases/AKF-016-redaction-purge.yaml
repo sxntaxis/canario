@@ -1,0 +1,14 @@
+fixture_id: AKF-016
+title: Public redaction and lawful purge
+custody:
+  original_artifact: contains_public-record-plus-sensitive-contact-data
+public_output:
+  derivative: sensitive_contact_removed
+expected:
+  public_derivative_distinct_from_original: true
+  publication_does_not_mutate_custody: true
+  purge_if_legally_required: explicit_policy_operation
+must_not:
+  - overwrite the original merely to create a safe public output
+open:
+  - define minimum purge/tombstone policy before claiming immutable custody or public release guarantees

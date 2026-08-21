@@ -1,0 +1,17 @@
+fixture_id: AKF-013
+title: Relationship with role dates and amount
+facts:
+  person: "Persona X"
+  organization: "Municipalidad Ejemplo"
+  role: "Alcaldía"
+  valid_from: 2024-05-01
+  valid_to: 2028-04-30
+  evidence: "official appointment record"
+expected:
+  simple_entity_anchor_insufficient: true
+  simple_claim_relation_insufficient_if_attributes_belong_to_relationship: true
+  promotion_path_required: typed_association_or_event
+must_not:
+  - hide role and dates in arbitrary generic edge JSON as the default model
+open:
+  - define minimal association/event semantics only far enough to avoid destructive schema assumptions

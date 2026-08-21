@@ -1,0 +1,21 @@
+fixture_id: AKF-006
+title: 250 machine claims plus one bulk review action
+input:
+  machine_claim_count: 250
+  initial_review_state: unreviewed
+  mode: supervised
+operator_action:
+  selected_claims: 40
+  approve: 37
+  reject: 2
+  correct: 1
+expected:
+  searchable_before_review: 250
+  individual_outcomes_after_action:
+    reviewed: 37
+    rejected: 2
+    corrected_lineage_created: 1
+  permanent_review_batch_required: false
+must_not:
+  - synthesize approval for the other 210 claims
+  - require 250 individual clicks before search

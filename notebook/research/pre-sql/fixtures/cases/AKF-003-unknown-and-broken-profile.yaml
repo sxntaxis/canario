@@ -1,0 +1,17 @@
+fixture_id: AKF-003
+title: Unknown document and broken specialized parser
+input:
+  media_type: application/pdf
+  source_supplied_type: "Documento especial"
+  generic_text_available: true
+  specialized_profile: acta:v1
+  profile_result: unexpected_structure
+expected:
+  preserve_artifact: true
+  keep_generic_representation: true
+  normalized_document_type: unknown
+  profile_status: failed_or_partial
+  generic_claim_extraction_allowed: true
+must_not:
+  - invent article/item boundaries to keep the acta parser green
+  - drop the artifact because classification failed

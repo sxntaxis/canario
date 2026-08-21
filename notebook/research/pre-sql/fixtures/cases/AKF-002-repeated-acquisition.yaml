@@ -1,0 +1,27 @@
+fixture_id: AKF-002
+title: Repeated acquisition at one URL
+source: https://example.invalid/documento.pdf
+observations:
+  - at: 2026-08-01T10:00:00Z
+    outcome: success
+    digest: sha256:AAA
+  - at: 2026-08-08T10:00:00Z
+    outcome: success
+    digest: sha256:AAA
+  - at: 2026-08-15T10:00:00Z
+    outcome: success
+    digest: sha256:BBB
+  - at: 2026-08-20T10:00:00Z
+    outcome: not_found
+expected:
+  artifacts:
+    - sha256:AAA
+    - sha256:BBB
+  acquisition_count: 4
+  facts:
+    - the second observation may reuse artifact AAA storage
+    - BBB is a new artifact despite the same URL
+    - not_found does not delete or negate AAA/BBB
+must_not:
+  - use URL as artifact identity
+  - infer civic deletion from not_found

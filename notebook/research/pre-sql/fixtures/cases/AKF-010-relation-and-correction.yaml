@@ -1,0 +1,23 @@
+fixture_id: AKF-010
+title: Claim relation survives claim correction
+claims:
+  - id: clm-A@1
+    text: "La obra estaría terminada en junio."
+  - id: clm-B@1
+    text: "La administración informó un atraso de tres meses."
+relation:
+  id: rel-1@1
+  from: clm-B@1
+  type: updates
+  to: clm-A@1
+  origin: human
+  basis: "Same identified project; later official report updates schedule."
+correction:
+  old: clm-A@1
+  new: clm-A@2
+  text: "La obra estaba programada para terminar en julio."
+expected:
+  rel-1@1_endpoints_unchanged: true
+  replacement_relation_may_be_created: true
+must_not:
+  - silently change rel-1@1 target from clm-A@1 to clm-A@2
