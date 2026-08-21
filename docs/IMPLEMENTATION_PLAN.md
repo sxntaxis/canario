@@ -81,7 +81,7 @@ Implement:
 - SQLite schema reviewed against `DATA_MODEL.md`;
 - logical Artifact custody records separated from content-addressed ArchiveObject storage with atomic verified writes;
 - repositories behind the ActaKit core;
-- migrations plus replay/stale-write guards only where tests require them;
+- a rebaselinable `0001` during pre-release; forward migration history begins only after the declared compatibility boundary; replay/stale-write guards only where tests require them;
 - consistent backup/export and restore verification;
 - fixity/health checks.
 
@@ -216,7 +216,7 @@ canonical database mutation. Package/install lifecycle is not required.
 - Markdown/JSON/CSV exporters as serialization concerns.
 - Immutable output snapshot option for deliberate publication/release.
 - Backup and restore commands with verification.
-- Migration upgrade/downgrade policy based on actual schema needs.
+- Post-compatibility migration upgrade policy based on actual schema needs; pre-release schema changes rebaseline `0001` rather than accumulating compatibility migrations.
 - Spanish-first operator guide using Depósito/Mesa/Lector/Fichero/Consultas/
   Salidas language.
 - One supported installation/update path.

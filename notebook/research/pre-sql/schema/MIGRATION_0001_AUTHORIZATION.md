@@ -102,6 +102,19 @@ A migration runner seeing the already-valid ActaKit schema version 1 may verify
 and open it; it must not replay `0001`, use `INSERT OR REPLACE`, or “repair” an
 unknown/partial foreign database into looking valid.
 
+## Pre-release migration-history policy
+
+ActaKit is still pre-release and has no compatibility-bearing user release.
+Accordingly, this authorization does **not** establish `0001` as an immutable
+historical migration forever. Before the compatibility boundary, a future schema
+change should revise/rebaseline `0001`, invalidate the old freeze authorization,
+and repeat the required freeze/runtime/implementation certification. It should
+**not** create `0002` merely to preserve disposable development databases.
+
+Once `docs/STATUS.md` explicitly declares Beta (or a later public compatibility
+boundary), this rebaseline privilege ends: user databases become compatibility
+inputs and subsequent schema changes must use forward migrations.
+
 ## Frozen-spec rule
 
 Authorization attaches to the exact SQL bytes, not merely the current table
@@ -140,7 +153,7 @@ This checkpoint does **not** authorize:
 - review/purge application services;
 - destructive cleanup of current files;
 - a daemon, RPC service, public API or federation;
-- schema `0002`;
+- schema `0002` as a pre-release compatibility shim; a future post-compatibility forward migration requires its own authorization;
 - loosening the registered SQLite runtime contract;
 - changing the frozen SQL during implementation for convenience.
 

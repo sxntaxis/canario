@@ -107,8 +107,13 @@ The implementation must also set and verify a bounded busy timeout, keep write
 transactions short, and reject unsupported SQLite versions. ActaKit reserves SQLite
 `application_id = 0x414B4954` (`AKIT`, decimal `1095453012`) and migration `0001`
 uses `user_version = 1`; every canonical connection verifies both before treating
-the file as ActaKit authority. Future migrations advance `user_version` through the
-migration mechanism rather than changing `application_id`. A connection that cannot
+the file as ActaKit authority. While ActaKit remains pre-release and has no public
+compatibility boundary, schema changes rebaseline `0001` and may keep
+`user_version = 1`; they must repeat the applicable freeze/runtime certification
+rather than accumulating `0002`, `0003`, ... for disposable development databases.
+After the explicit Beta/public compatibility boundary, forward migrations advance
+`user_version` through the migration mechanism rather than changing
+`application_id`. A connection that cannot
 establish the required invariants is not a writer.
 
 SQLite/WAL must live on local attached storage, never a synced/network filesystem.

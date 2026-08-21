@@ -23,6 +23,15 @@ semantics, evidence locators, review modes, pre-SQL model, revised schema
 candidate, and its artifact/runtime proof gates are accepted. Disposable scratch
 DDL is allowed only as a design proof and is not migration authority.
 
+### Pre-release schema rule
+
+Until ActaKit explicitly enters a compatibility-bearing Beta (or later) release,
+there is no migration-history compatibility promise. Schema evolution is
+**rebaselined into `0001`** and certified again. Do not accumulate `0002`,
+`0003`, ... solely to preserve unreleased development databases. Incremental
+forward migrations become the rule only after that compatibility boundary, when
+real operator data must survive upgrades.
+
 ## Phase 0 — Accept the Model
 
 Agree on:
@@ -59,7 +68,7 @@ as an Output Type fixture without becoming core entities.
 
 Implement:
 
-- SQLite canonical store with explicit migrations;
+- SQLite canonical store with a rebaselinable `0001` during pre-release, then explicit forward migrations after the compatibility boundary;
 - content-addressed evidence archive;
 - core-owned writes only;
 - replay/stale-write protection only on boundaries proven to need it;
@@ -165,7 +174,7 @@ Harden the smallest useful deployment:
 - one supported local installation path;
 - clear configuration and health check;
 - backup/restore commands;
-- migration compatibility;
+- migration compatibility from the declared Beta/public compatibility boundary onward;
 - source/extraction failure diagnostics;
 - privacy-safe exports;
 - operator documentation using the native metaphors;

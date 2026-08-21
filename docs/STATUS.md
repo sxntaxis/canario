@@ -5,6 +5,8 @@ state: deposit-writer-implemented-and-certified
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
+release_phase: prerelease
+schema_compatibility_boundary: not-established
 summary: The semantic model, SQLite 0001 bootstrap, and bounded Depósito custody writer are certified; canonical cutover and semantic Fichero writers remain prohibited.
 related:
   - ACTAKIT-ARCH-001
@@ -12,6 +14,26 @@ related:
 ---
 
 # Current Status
+
+## Pre-release compatibility policy
+
+ActaKit is **pre-release**. There is currently no public/beta compatibility
+commitment and no user SQLite fleet whose historical schema must be preserved.
+Until `release_phase` is explicitly advanced to `beta` (or a later
+compatibility-bearing release) in this operating-status document:
+
+- `0001` is the mutable/rebaselinable schema baseline;
+- a correct schema change updates `MIGRATION_0001_SPEC.sql` and production
+  `0001.sql`, then repeats the applicable freeze/runtime/implementation proofs;
+- development databases may be recreated from a fresh `0001`;
+- do **not** create sequential `0002`/`0003`/... migrations merely to carry
+  pre-release development state forward;
+- do **not** add legacy-compatibility code for unreleased schema shapes.
+
+The migration-history compatibility obligation begins only at the explicit
+compatibility boundary. From that boundary onward, existing user data becomes an
+upgrade constraint and schema evolution must use forward migrations instead of
+rebasing historical `0001`.
 
 ## Current Implementation
 

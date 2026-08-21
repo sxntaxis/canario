@@ -8,6 +8,33 @@
 
 ---
 
+## Política de pre-release y compatibilidad de schema
+
+**ActaKit está en pre-release. No hay usuarios ni instalaciones públicas cuya base
+de datos deba conservar compatibilidad entre commits.** Hasta que el proyecto
+declare explícitamente una frontera de compatibilidad (como mínimo una release
+Beta pública, o una declaración equivalente en `docs/STATUS.md`), el schema
+SQLite se **rebaselina en `0001`** cuando el diseño cambia.
+
+Reglas para agentes y contribuidores durante pre-release:
+
+- no crear `0002`, `0003`, ... para preservar bases de desarrollo desechables;
+- editar la especificación/SQL de `0001` cuando el cambio sea correcto para el
+  producto, y volver a pasar freeze review + certificación del runtime;
+- una base local de desarrollo puede recrearse desde cero; no es autoridad de
+  compatibilidad;
+- no añadir compatibilidad legado, migraciones puente ni transforms de upgrade
+  solo por conservar estados pre-release;
+- `application_id` permanece estable; `user_version` puede seguir en `1` mientras
+  el baseline canónico siga siendo `0001`;
+- la historia incremental de migraciones empieza **solo después** de la frontera
+  de compatibilidad pública. Desde ese punto, las bases de usuarios reales deben
+  poder actualizarse sin reset destructivo.
+
+Cambiar `0001` no significa saltarse los gates: cualquier cambio de SQL sigue
+requiriendo la revisión/certificación que corresponda antes de convertirse en
+autoridad de producción.
+
 ## ¿Qué es actakit?
 
 actakit procesa actas del Conceho Municipal de Costa Rica y las convierte

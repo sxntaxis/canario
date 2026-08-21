@@ -9,6 +9,11 @@
 
 ---
 
+> **Project status: pre-release.** Until ActaKit explicitly enters a
+> compatibility-bearing Beta/public release, SQLite schema changes rebaseline the
+> canonical `0001` rather than accumulating compatibility migrations for
+> development databases. See `docs/STATUS.md` and `AGENTS.md`.
+
 ## English · Quick Summary
 
 **actakit** currently ships an acta-processing pipeline and is evolving toward a
