@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-MIGRATION-0001-AUTH-001
 kind: migration-authorization
-state: authorized-bounded-implementation
+state: migration-0001-implemented-and-certified
 created: 2026-08-21
 authority: implementation-gate
 migration_authorized: true
@@ -173,6 +173,13 @@ bootstrap support.
 
 No unresolved semantic, physical-schema, runtime, restore, purge, or governance
 blocker remains for implementing the bounded `0001` bootstrap.
+
+The bounded implementation at
+`ac098b5ab56afe802f4f7271d790fa1c0696d6cf` has now passed this acceptance gate.
+The result is recorded in
+`MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`. The authorization is consumed
+only for the fresh-database bootstrap/runtime boundary; it does not authorize
+canonical cutover or production semantic writers.
 
 ```text
 migration_authorized: true

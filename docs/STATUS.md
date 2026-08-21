@@ -1,11 +1,11 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: migration-0001-authorized-for-bounded-implementation
+state: migration-0001-implemented-and-certified
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
-summary: The semantic model and SQLite 0001 freeze are accepted and certified; bounded implementation of migration 0001 is authorized while canonical cutover remains prohibited.
+summary: The semantic model, SQLite 0001 freeze, and bounded production bootstrap implementation are certified; canonical cutover and production semantic writers remain prohibited.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -62,14 +62,16 @@ registered SQLite 3.53.4 source ID.
 accepted semantic contracts
 -> certified MIGRATION_0001_SPEC.sql
 -> bounded production implementation of migration/bootstrap 0001
--> implementation proof on exact SQLite 3.53.4
+-> certified implementation proof on exact SQLite 3.53.4
 -> semantic-core/repository integration
 -> explicit canonical-cutover gate later
 ```
 
-Migration `0001` implementation is authorized by
+Migration `0001` implementation was authorized by
 `notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md` only for the
-fresh-database bootstrap/runtime boundary. The frozen SQL hash is:
+fresh-database bootstrap/runtime boundary and is now certified by
+`notebook/research/pre-sql/schema/MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`.
+The frozen SQL hash is:
 
 ```text
 31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
@@ -77,6 +79,9 @@ fresh-database bootstrap/runtime boundary. The frozen SQL hash is:
 
 No production code may silently alter that SQL contract. A changed specification
 must return to freeze review and target-runtime recertification.
+
+The implementation certification does not authorize canonical cutover or
+production semantic writers.
 
 ## Current Prohibitions
 
