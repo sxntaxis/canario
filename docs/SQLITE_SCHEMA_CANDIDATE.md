@@ -95,8 +95,16 @@ PRAGMA trusted_schema = OFF;
 PRAGMA secure_delete = ON;
 ```
 
-The implementation must also set a bounded busy timeout, keep write transactions
-short, and reject unsupported SQLite versions. ActaKit reserves SQLite
+These are **connection-opening invariants**, not a bundle of settings that backup
+bytes are assumed to preserve. In particular, `secure_delete` defaults are
+compile/runtime dependent; a clean-machine restore must open the restored database
+through the same invariant initializer before it is accepted as writable authority,
+then verify every required PRAGMA. `application_id`/`user_version` remain file
+identity checks; WAL mode is also explicitly re-established/verified rather than
+trusted implicitly.
+
+The implementation must also set and verify a bounded busy timeout, keep write
+transactions short, and reject unsupported SQLite versions. ActaKit reserves SQLite
 `application_id = 0x414B4954` (`AKIT`, decimal `1095453012`) and migration `0001`
 uses `user_version = 1`; every canonical connection verifies both before treating
 the file as ActaKit authority. Future migrations advance `user_version` through the

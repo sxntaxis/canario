@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-CRITICAL-REVIEW-001
 type: schema-candidate-critical-review
-state: semantic-operation-proof-pass-runtime-certification-required
+state: semantic-operation-proof-pass-target-runtime-recertification-required
 authority: research
 created: 2026-08-21
 candidate_baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
@@ -12,7 +12,7 @@ migration_authorized: false
 
 ## Verdict
 
-**SCHEMA_CANDIDATE_GATE: SEMANTIC_OPERATION_PROOF_PASS__RUNTIME_CERTIFICATION_REQUIRED**
+**SCHEMA_CANDIDATE_GATE: SEMANTIC_OPERATION_PROOF_PASS__TARGET_RUNTIME_RECERTIFICATION_REQUIRED**
 
 The first candidate was not safe to freeze. Adversarial review found several
 places where a plausible relational sketch contradicted the already-accepted
@@ -328,6 +328,28 @@ functional probes for STRICT, FTS5, WAL and enforced foreign keys.
 `prove_runtime_contract.py` fails closed on the current cloud SQLite 3.46.1; actual
 3.53.4 packaged-runtime certification remains the one open gate.
 
+### CR-031 — restore proof confused connection state with persisted database state
+
+The first real SQLite 3.53.4 certification run reached the storage/restore proof
+after runtime contract, pytest, scratch DDL and selectors all passed, then failed
+on `PRAGMA secure_delete == 1` immediately after clean-machine restore. This was a
+proof defect, not evidence that backup bytes were corrupt: `restore_clean_machine()`
+opened the restored database with a helper that established only foreign keys and
+busy timeout, while the candidate contract already required every writable
+connection to establish `WAL`, `FULL`, `trusted_schema=OFF` and
+`secure_delete=ON` at open time. The assertion therefore relied on a connection
+setting that the restore opener had never set.
+
+The storage harness now has one writable-connection initializer used by live,
+backup-destination and restored writable connections. It establishes the complete
+connection contract before authority checks, and `assert_db_identity()` now verifies
+`foreign_keys`, WAL, FULL synchronous mode, `trusted_schema=OFF`,
+`secure_delete=ON` and the bounded busy timeout in addition to
+`application_id`/`user_version`. The pre-purge backup inspection is opened
+read-only instead of creating an unconfigured writable connection. The corrected
+harness passes again on the available SQLite runtime; the complete suite must now
+be rerun on the exact certified 3.53.4 source ID before the review can close.
+
 ## Decisions closed before scratch DDL
 
 1. initial closed vocabularies;
@@ -365,8 +387,10 @@ DB+archive backup, clean-location restore with FTS rebuild, and purge maintenanc
 covering archive bytes, FTS, WAL/checkpoint/VACUUM plus explicit pre-purge-backup
 scope reporting.
 
-The **only remaining gate** is to rerun the complete proof suite with the actual
-packaged/certified SQLite 3.53.4 runtime and required compile capabilities. The
-current environment cannot honestly certify that runtime, and the new runtime
-contract fails closed rather than treating 3.46.1 as equivalent. Until that gate
-passes, migration `0001` remains unauthorized.
+The target-runtime campaign has now established that the exact SQLite 3.53.4
+source ID, compile contract, pytest, scratch DDL and real selectors pass. Its first
+storage run exposed CR-031 in the proof harness before storage certification could
+complete. After correcting that opener defect, the **only remaining gate** is a
+clean rerun of the complete suite under the same exact packaged/certified SQLite
+3.53.4 runtime. Until that rerun reaches storage/restore/purge PASS and the final
+runtime-contract repeat, migration `0001` remains unauthorized.

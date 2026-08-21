@@ -39,19 +39,31 @@ def write_object(root: Path, data: bytes) -> tuple[str, str]:
     return key, digest(data)
 
 
-def open_db(path: Path) -> sqlite3.Connection:
-    con = sqlite3.connect(path)
+def configure_writable_connection(con: sqlite3.Connection) -> sqlite3.Connection:
+    # Connection PRAGMAs are runtime state, not backup payload. Every writable
+    # authority connection must establish them explicitly, including restore.
     con.execute("PRAGMA foreign_keys=ON")
+    assert con.execute("PRAGMA journal_mode=WAL").fetchone()[0].lower() == "wal"
+    con.execute("PRAGMA synchronous=FULL")
+    con.execute("PRAGMA trusted_schema=OFF")
+    con.execute("PRAGMA secure_delete=ON")
     con.execute("PRAGMA busy_timeout=5000")
     return con
+
+
+def open_db(path: Path) -> sqlite3.Connection:
+    return configure_writable_connection(sqlite3.connect(path))
 
 
 def assert_db_identity(con: sqlite3.Connection) -> None:
     assert con.execute("PRAGMA application_id").fetchone()[0] == APPLICATION_ID
     assert con.execute("PRAGMA user_version").fetchone()[0] == SCHEMA_VERSION
     assert con.execute("PRAGMA foreign_keys").fetchone()[0] == 1
-    assert con.execute("PRAGMA secure_delete").fetchone()[0] == 1
     assert con.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal"
+    assert con.execute("PRAGMA synchronous").fetchone()[0] == 2
+    assert con.execute("PRAGMA trusted_schema").fetchone()[0] == 0
+    assert con.execute("PRAGMA secure_delete").fetchone()[0] == 1
+    assert con.execute("PRAGMA busy_timeout").fetchone()[0] == 5000
 
 
 def referenced_archive_objects(con: sqlite3.Connection) -> list[tuple[str, str, str, int]]:
@@ -240,7 +252,7 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
 def make_backup(con: sqlite3.Connection, archive_root: Path, backup_root: Path) -> Path:
     backup_root.mkdir(parents=True, exist_ok=True)
     db_backup = backup_root / "actakit.sqlite3"
-    dest = sqlite3.connect(db_backup)
+    dest = open_db(db_backup)
     con.backup(dest)
     dest.close()
 
@@ -368,7 +380,8 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
     assert not purge_file.exists()
 
     # The pre-purge backup remains deliberately out of scope and must be reported as such.
-    backup_con = sqlite3.connect(backup_root / "actakit.sqlite3")
+    backup_uri = (backup_root / "actakit.sqlite3").resolve().as_uri() + "?mode=ro"
+    backup_con = sqlite3.connect(backup_uri, uri=True)
     backup_has = backup_con.execute("SELECT count(*) FROM claim_revisions WHERE text LIKE ?", (f"%{SENTINEL}%",)).fetchone()[0] == 1
     backup_con.close()
     manifest = json.loads((backup_root / "manifest.json").read_text())
@@ -393,9 +406,8 @@ def main() -> None:
         archive = live / "archive"
         archive.mkdir()
         db_path = live / "actakit.sqlite3"
-        con = sqlite3.connect(db_path)
+        con = open_db(db_path)
         con.executescript(DDL.read_text())
-        con.execute("PRAGMA foreign_keys=ON")
         assert_db_identity(con)
         populate(con, archive)
 
