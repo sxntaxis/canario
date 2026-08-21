@@ -1,2 +1,3 @@
 claim_id,evidence_refs,statement,evidence_kind,actakit_implication
 AKS-C005,AKS-S007,"Preservation event modeling is valuable for consequential actions, but preservation standards do not imply that every transient operation is canonical civic data.",supports,Persist consequential custody/process events; leave low-value operational noise in logs.
+AKS-C078,AKS-S058,Preservation metadata practice is use-case selective about which events deserve durable records.,limits,"Persist acquisition, transformation, correction and purge events when consequential; keep routine execution noise in logs."

@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-PRE-SQL-SYNTHESIS-001
 type: research-synthesis
-state: review
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -63,8 +63,10 @@ The strongest refinements before SQL are:
 
 Plaza's historical correctness audit is a direct warning: a pipeline may have valid raw evidence, successful processing, and apparently structured output while identity or segmentation is semantically wrong. ActaKit therefore cannot certify a design only because schemas validate or parsers return records. Pre-SQL fixtures must assert identity, evidence location, relation meaning, and correction behavior against the original artifact.
 
-## Research stop condition
+## Deep-audit closure
 
-The source horizon now covers the pending semantic decisions from multiple directions: formal standards, long-running civic/investigative systems, operator document tools, archival/preservation practice, and SQLite itself. The second-pass gap audit found no missing architectural family large enough to justify another broad sweep before fixtures.
+The source horizon now covers the pending pre-SQL decisions from multiple directions: formal standards, long-running civic/investigative systems, operator document tools, archival/preservation practice, and SQLite itself. All 29 Source Books were individually deep-audited against primary/normative evidence, implementation or real-use evidence where applicable, scars/errata/evolution, source-local claims, bounded transfers, explicit do-not-copy boundaries, schema pressure, and residual risk. The expanded source-book ledgers contain 97 source records and 104 source-local research claims.
 
-The next evidence step is **fixtures, not SQL and not more generic browsing**. Research resumes only when a fixture exposes a specific unresolved mechanism or a later requirement crosses a documented horizon boundary.
+The semantic fixture suite and architecture-closure checkpoint have already resolved the bounded pre-SQL questions exposed by the earlier synthesis. The remaining material questions concern candidate schema shape and query/storage mechanics: cardinality, nullability, revision representation, selector payloads, association promotion, indexes, FTS maintenance, connection bootstrap, and backup/restore behavior.
+
+**Research gate:** PASS for designing and testing a candidate SQLite schema only. It does not authorize migrations, production implementation, canonical-data cutover, daemon/federation work, or destructive legacy changes. Research resumes when candidate-schema fixtures expose a specific unsupported mechanism or a requirement crosses a documented residual-risk boundary.

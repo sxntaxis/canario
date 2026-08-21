@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-OCFL-001
+id: ACTAKIT-BOOK-OCFL-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,30 +11,43 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# OCFL — immutable artifact thinking without repository overkill
+# OCFL
 
 ## Question
 
-How should ActaKit think about artifact identity, prior versions, and content addressing?
+How should immutable-by-default artifact custody coexist with exceptional deletion?
+
+## Deep-audit basis
+
+Preservation specification plus implementation notes address version inventories and purge tension.
 
 ## Evidence horizon
 
 - **AKS-S008 — Oxford Common File Layout 1.1:** Immutable prior versions, digest-addressed content, logical vs physical paths, deduplication
+- **AKS-S059 — OCFL implementation notes:** Documents implementation tradeoffs including exceptional purge/reconstruction and digest/version handling
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C006:** Content-addressed immutable prior versions and logical/physical path separation are proven preservation patterns.
-- **AKS-C007:** Absolute immutability can collide with legitimate purge/redaction obligations.
+- **AKS-C006:** Content-addressed immutable prior versions and logical/physical path separation are proven preservation patterns. **ActaKit:** Use immutable artifact identity/digests; do not make path the identity.
+- **AKS-C007:** Absolute immutability can collide with legitimate purge/redaction obligations. **ActaKit:** Define custody deletion/purge semantics explicitly instead of promising eternal bytes.
+- **AKS-C079:** Immutable-version preservation systems still need an exceptional purge path and may require object reconstruction to remove content. **ActaKit:** Model purge as explicit exceptional lifecycle action distinct from ordinary revision/redaction.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C006:** Use immutable artifact identity/digests; do not make path the identity.
-- **AKS-C007:** Define custody deletion/purge semantics explicitly instead of promising eternal bytes.
+Use digest-addressed immutable artifacts/versions and an explicit exceptional purge path.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S008:** Full OCFL repository machinery is likely excessive; deletion/purge policy can collide with immutability
+Do not adopt full OCFL object layout/inventory unless export/scale later proves value.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Artifact identity must not be filesystem path; purge needs lineage/tombstone policy.
+
+## Residual risk
+
+Legal retention requirements vary by deployment and cannot be solved by storage structure alone.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

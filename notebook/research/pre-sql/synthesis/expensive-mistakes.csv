@@ -1,0 +1,16 @@
+mistake_id,mistake,failure_mode,books
+AKM-001,Use source URL/filename/acta number as primary identity,Identity changes/redirects/version replacements break references,"akoma-ntoso,memento,warc,wikidata"
+AKM-002,Resolve entities by normalized name during extraction,Same-name people/projects are falsely merged and raw evidence is lost,"openrefine,openstates,opensanctions,wikidata"
+AKM-003,Store all knowledge as generic nodes/edges/triples,Rich relation attributes and maintenance semantics become ambiguous/complex,"followthemoney,records-in-contexts,popolo"
+AKM-004,Materialize co-occurrence or transitive closure edges,Graph explodes and derived meaning becomes stale,"skos,followthemoney"
+AKM-005,Let external tools/plugins write SQLite directly,"Application invariants, permissions and referential integrity are bypassed","zotero,datasette"
+AKM-006,Put SQLite/WAL on synced or network filesystem,Locking/shared-memory assumptions break and corruption risk rises,"sqlite,tropy,zotero"
+AKM-007,Copy a live SQLite main file as backup,Snapshot can be inconsistent/incomplete under WAL,"sqlite,zotero"
+AKM-008,Make FTS/search index canonical,Index drift/rebuild behavior can contradict source tables,sqlite
+AKM-009,Overwrite original with OCR/redaction/edited PDF,Evidence custody and old locators are destroyed,"paperless-ngx,documentcloud,zotero"
+AKM-010,Treat absence in one scrape as deletion,Coverage/freshness gaps create false lifecycle events,"eli,memento,warc"
+AKM-011,Make specialized parsers “resilient” by guessing changed structure,Plausible bad data silently enters the Fichero,"openstates,alto"
+AKM-012,Allow output manifests/plugins arbitrary URLs or paths,SSRF/local file exfiltration/DoS become extension capabilities,"frictionless-data-package,datasette,bagit"
+AKM-013,Use a universal truth/epistemic status column,"Provenance, review, conflict and assessment are collapsed into one misleading value","wikidata,prov,shacl"
+AKM-014,Universal event sourcing/operation receipts for everything,Noise/storage/privacy/complexity overwhelm the few consequential provenance events,"premis,openrefine,prov"
+AKM-015,Adopt RDF/OWL/XML standard stack as core runtime,Interoperability vocabulary becomes operational complexity unrelated to canton needs,"web-annotation,prov,records-in-contexts,akoma-ntoso,w3c-org,skos,shacl"

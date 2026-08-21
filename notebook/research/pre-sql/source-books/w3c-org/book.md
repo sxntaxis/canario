@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-W3C-ORG-001
+id: ACTAKIT-BOOK-W3C_ORG-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,42 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# W3C ORG — when a relationship deserves its own object
+# W3C ORG
 
 ## Question
 
-When should a direct relationship be promoted to a first-class association?
+What is the minimum reusable organization/membership vocabulary?
+
+## Deep-audit basis
+
+Normative generic model plus evolution diff around Post/change/provenance.
 
 ## Evidence horizon
 
 - **AKS-S016 — W3C Organization Ontology:** Simple memberOf shortcut vs first-class Membership/Post when role/time matters
+- **AKS-S072 — W3C ORG change diff:** Shows evolution around Post, organizational change and PROV alignment after implementation feedback
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- No source-local claim is owned here; this source participates only in cross-source claims in `../../synthesis/claims.csv`.
+- **AKS-C094:** Organization, Role, Membership and Post are reusable primitives but the vocabulary is not a complete accountability model. **ActaKit:** Use small local Entity kinds/associations and extend only when needed; do not import a full RDF organizational ontology.
+- **AKS-C095:** The standard itself evolved around Post and change/provenance modeling, showing generic membership abstractions need domain refinement. **ActaKit:** Keep role/post/association semantics versioned/extensible rather than freezing one civic relationship schema.
 
-## ActaKit pressure
+## Bounded transfer
 
-- See synthesis transfers/collisions before drawing an ActaKit conclusion.
+Use Organization/Role/Post/Membership as design references, not compulsory storage classes.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S016:** Useful pattern, not reason to use RDF
+Do not import RDF ontology or assume it captures civic accountability.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Entity kinds and association records need extension/version boundaries.
+
+## Residual risk
+
+Organization semantics vary across public bodies; source identifiers remain important.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

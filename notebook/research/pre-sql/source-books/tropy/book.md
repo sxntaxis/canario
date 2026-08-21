@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-TROPY-001
+id: ACTAKIT-BOOK-TROPY-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,32 +11,44 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# Tropy — templates, tags, and useful incompleteness
+# Tropy
 
 ## Question
 
-How should structured templates and local tags coexist when documents vary?
+How can structured profiles, local tags and regions coexist in a research workflow?
+
+## Deep-audit basis
+
+Research-document product supports templates, local tags and selections without mutating originals.
 
 ## Evidence horizon
 
 - **AKS-S026 — Tropy documentation:** Local items, multi-page grouping, metadata templates, tags, bulk metadata; standard vocabularies where useful
 - **AKS-S051 — Tropy project view and metadata editing:** Broad project view supports list/grid, bulk metadata and tags; item view supports focused notes/transcription
 - **AKS-S052 — Tropy metadata editing:** Customizable templates can add vocabulary-backed fields and metadata can be edited across multiple items
+- **AKS-S090 — Tropy metadata templates:** Structured templates coexist with flexible project-local metadata and tags
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C071:** Structured templates and local tags can coexist, and both can be edited in bulk across heterogeneous research items.
+- **AKS-C071:** Structured templates and local tags can coexist, and both can be edited in bulk across heterogeneous research items. **ActaKit:** Keep document profiles optional and local tags flexible; do not force every civic document into one closed schema before it becomes useful.
+- **AKS-C121:** Structured templates and flexible local tags coexist in a research-document workflow. **ActaKit:** Document profiles are optional typed enrichments; tags remain local/flexible by default.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C071:** Keep document profiles optional and local tags flexible; do not force every civic document into one closed schema before it becomes useful.
+Optional profiles + flexible tags + region/selectors over source representation.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S026:** Research-photo workflow, not public-record ingestion authority
-- **AKS-S051:** Photo-research UX is not a civic-record authority model
-- **AKS-S052:** Requiring vocabulary mapping for every custom field is stronger than ActaKit needs
+Do not treat every selection as a new document or require one global metadata template.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+DocumentPart/region remains optional and locator-bound.
+
+## Residual risk
+
+Collaboration/multiuser is outside baseline; local-project assumptions should not leak into core identity.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

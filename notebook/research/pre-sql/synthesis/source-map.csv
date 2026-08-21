@@ -1,53 +1,98 @@
-source_id,source_book,title,locator
-AKS-S012,akoma-ntoso,Akoma Ntoso 1.0,https://docs.oasis-open.org/legaldocml/akn-core/v1.0/
-AKS-S034,alto,ALTO,https://www.loc.gov/standards/alto/
-AKS-S009,bagit,BagIt RFC 8493,https://www.rfc-editor.org/rfc/rfc8493.html
-AKS-S029,datasette,Datasette,https://docs.datasette.io/en/stable/
-AKS-S028,documentcloud,DocumentCloud API / notes,https://www.documentcloud.org/help/api/
-AKS-S049,documentcloud,DocumentCloud FAQ,https://next.www.documentcloud.org/help/faq/
-AKS-S050,documentcloud,DocumentCloud Add-Ons,https://next.www.documentcloud.org/help/add-ons/
-AKS-S013,eli,European Legislation Identifier (ELI),https://eur-lex.europa.eu/eli-register/about.html
-AKS-S019,followthemoney,FollowTheMoney,https://followthemoney.tech/docs/
-AKS-S020,followthemoney,FollowTheMoney Statements,https://followthemoney.tech/docs/statements/
-AKS-S030,frictionless-data-package,Data Package / Frictionless,https://datapackage.org/
-AKS-S033,iiif,IIIF Presentation API 3.0,https://iiif.io/api/presentation/3.0/
-AKS-S011,memento,Memento RFC 7089,https://www.rfc-editor.org/rfc/rfc7089.html
-AKS-S001,method,Stereo Research Package Protocol,local: stereo bundle / notebook/research/PACKAGE_PROTOCOL.md
-AKS-S002,method,Plaza Principles,local: Plaza-main.zip / docs/PRINCIPLES.md
-AKS-S003,method,Plaza Correctness Audit Report,local: Plaza-main.zip / demo/research/source_audits/CORRECTNESS_AUDIT_REPORT.md
-AKS-S008,ocfl,Oxford Common File Layout 1.1,https://ocfl.io/1.1/spec/
-AKS-S022,openrefine,OpenRefine Reconciliation,https://openrefine.org/docs/manual/reconciling
-AKS-S044,openrefine,OpenRefine Reconciliation API,https://openrefine.org/docs/technical-reference/reconciliation-api
-AKS-S021,opensanctions,OpenSanctions identifiers and de-duplication,https://www.opensanctions.org/docs/identifiers/
-AKS-S038,opensanctions,OpenSanctions Entity structure,https://www.opensanctions.org/docs/entities/
-AKS-S039,opensanctions,OpenSanctions Statement data model,https://www.opensanctions.org/docs/statements/
-AKS-S040,opensanctions,OpenSanctions monitoring / merge handling,https://www.opensanctions.org/docs/monitoring/
-AKS-S023,openstates,Open States data model,https://docs.openstates.org/
-AKS-S024,openstates,Open States scraper testing guidance,https://docs.openstates.org/contributing/testing-scrapers/
-AKS-S041,openstates,Open States Data Types,https://docs.openstates.org/api-v2/types/
-AKS-S042,openstates,Open States Categorization,https://docs.openstates.org/data/categorization/
-AKS-S043,openstates,Open States Name Matching notes,https://docs.openstates.org/api-v2/other/#name-matching
-AKS-S025,paperless-ngx,Paperless-ngx usage/configuration,https://docs.paperless-ngx.com/usage/
-AKS-S045,paperless-ngx,Paperless-ngx REST API,https://docs.paperless-ngx.com/api/
-AKS-S046,paperless-ngx,Paperless-ngx FAQ,https://docs.paperless-ngx.com/faq/
-AKS-S047,paperless-ngx,Paperless-ngx Advanced Usage,https://docs.paperless-ngx.com/advanced_usage/
-AKS-S015,popolo,Popolo specification,https://www.popoloproject.com/specs/
-AKS-S007,premis,PREMIS 3.0,https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf
-AKS-S006,prov,PROV-O,https://www.w3.org/TR/prov-o/
-AKS-S014,records-in-contexts,Records in Contexts Conceptual Model / Ontology,https://www.ica.org/app/uploads/2023/12/RiC-CM-1.0.pdf
-AKS-S032,shacl,SHACL,https://www.w3.org/TR/shacl/
-AKS-S031,skos,SKOS Reference,https://www.w3.org/TR/skos-reference/
-AKS-S035,sqlite,SQLite recursive CTEs,https://www.sqlite.org/lang_with.html
-AKS-S036,sqlite,SQLite FTS5,https://www.sqlite.org/fts5.html
-AKS-S037,sqlite,SQLite STRICT tables,https://www.sqlite.org/stricttables.html
-AKS-S026,tropy,Tropy documentation,https://docs.tropy.org/
-AKS-S051,tropy,Tropy project view and metadata editing,https://docs.tropy.org/in-the-project-view/view_photos
-AKS-S052,tropy,Tropy metadata editing,https://docs.tropy.org/in-the-project-view/add_metadata
-AKS-S016,w3c-org,W3C Organization Ontology,https://www.w3.org/TR/vocab-org/
-AKS-S010,warc,WARC 1.1,https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/
-AKS-S004,web-annotation,W3C Web Annotation Data Model,https://www.w3.org/TR/annotation-model/
-AKS-S005,web-annotation,W3C Selectors and States / Annotation model selector sections,https://www.w3.org/TR/annotation-model/#selectors
-AKS-S017,wikidata,Wikidata Statements,https://www.wikidata.org/wiki/Help:Statements
-AKS-S018,wikidata,Wikidata Qualifiers / Data Model,https://www.wikidata.org/wiki/Wikidata:Data_model
-AKS-S027,zotero,Zotero PDF reader / annotations,https://www.zotero.org/support/pdf_reader
-AKS-S048,zotero,Zotero annotations in database,https://www.zotero.org/support/kb/annotations_in_database
+source_id,book_id,title,class,locator
+AKS-S001,method,Stereo Research Package Protocol,local method,local: stereo bundle / notebook/research/PACKAGE_PROTOCOL.md
+AKS-S002,method,Plaza Principles,local method,local: Plaza-main.zip / docs/PRINCIPLES.md
+AKS-S003,method,Plaza Correctness Audit Report,local scar,local: Plaza-main.zip / demo/research/source_audits/CORRECTNESS_AUDIT_REPORT.md
+AKS-S004,web-annotation,W3C Web Annotation Data Model,standard,https://www.w3.org/TR/annotation-model/
+AKS-S005,web-annotation,W3C Selectors and States / Annotation model selector sections,standard,https://www.w3.org/TR/annotation-model/#selectors
+AKS-S006,prov,PROV-O,standard,https://www.w3.org/TR/prov-o/
+AKS-S007,premis,PREMIS 3.0,standard,https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf
+AKS-S008,ocfl,Oxford Common File Layout 1.1,standard,https://ocfl.io/1.1/spec/
+AKS-S009,bagit,BagIt RFC 8493,standard,https://www.rfc-editor.org/rfc/rfc8493.html
+AKS-S010,warc,WARC 1.1,standard,https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/
+AKS-S011,memento,Memento RFC 7089,standard,https://www.rfc-editor.org/rfc/rfc7089.html
+AKS-S012,akoma-ntoso,Akoma Ntoso 1.0,standard,https://docs.oasis-open.org/legaldocml/akn-core/v1.0/
+AKS-S013,eli,European Legislation Identifier (ELI),standard,https://eur-lex.europa.eu/eli-register/about.html
+AKS-S014,records-in-contexts,Records in Contexts Conceptual Model / Ontology,standard,https://www.ica.org/app/uploads/2023/12/RiC-CM-1.0.pdf
+AKS-S015,popolo,Popolo specification,standard/community spec,https://www.popoloproject.com/specs/
+AKS-S016,w3c-org,W3C Organization Ontology,standard,https://www.w3.org/TR/vocab-org/
+AKS-S017,wikidata,Wikidata Statements,operational knowledge base,https://www.wikidata.org/wiki/Help:Statements
+AKS-S018,wikidata,Wikidata Qualifiers / Data Model,operational knowledge base,https://www.wikidata.org/wiki/Wikidata:Data_model
+AKS-S019,followthemoney,FollowTheMoney,operational data model,https://followthemoney.tech/docs/
+AKS-S020,followthemoney,FollowTheMoney Statements,operational data model,https://followthemoney.tech/docs/statements/
+AKS-S021,opensanctions,OpenSanctions identifiers and de-duplication,operational system,https://www.opensanctions.org/docs/identifiers/
+AKS-S022,openrefine,OpenRefine Reconciliation,operational tool,https://openrefine.org/docs/manual/reconciling
+AKS-S023,openstates,Open States data model,operational civic system,https://docs.openstates.org/
+AKS-S024,openstates,Open States scraper testing guidance,operational scar,https://docs.openstates.org/contributing/testing-scrapers/
+AKS-S025,paperless-ngx,Paperless-ngx usage/configuration,operational system,https://docs.paperless-ngx.com/usage/
+AKS-S026,tropy,Tropy documentation,operational tool,https://docs.tropy.org/
+AKS-S027,zotero,Zotero PDF reader / annotations,operational tool,https://www.zotero.org/support/pdf_reader
+AKS-S028,documentcloud,DocumentCloud API / notes,operational system,https://www.documentcloud.org/help/api/
+AKS-S029,datasette,Datasette,operational tool,https://docs.datasette.io/en/stable/
+AKS-S030,frictionless-data-package,Data Package / Frictionless,standard/community spec,https://datapackage.org/
+AKS-S031,skos,SKOS Reference,standard,https://www.w3.org/TR/skos-reference/
+AKS-S032,shacl,SHACL,standard,https://www.w3.org/TR/shacl/
+AKS-S033,iiif,IIIF Presentation API 3.0,standard,https://iiif.io/api/presentation/3.0/
+AKS-S034,alto,ALTO,standard,https://www.loc.gov/standards/alto/
+AKS-S035,sqlite,SQLite recursive CTEs,standard implementation docs,https://www.sqlite.org/lang_with.html
+AKS-S036,sqlite,SQLite FTS5,standard implementation docs,https://www.sqlite.org/fts5.html
+AKS-S037,sqlite,SQLite STRICT tables,standard implementation docs,https://www.sqlite.org/stricttables.html
+AKS-S038,opensanctions,OpenSanctions Entity structure,operational system,https://www.opensanctions.org/docs/entities/
+AKS-S039,opensanctions,OpenSanctions Statement data model,operational system,https://www.opensanctions.org/docs/statements/
+AKS-S040,opensanctions,OpenSanctions monitoring / merge handling,operational system,https://www.opensanctions.org/docs/monitoring/
+AKS-S041,openstates,Open States Data Types,operational civic system,https://docs.openstates.org/api-v2/types/
+AKS-S042,openstates,Open States Categorization,operational civic system,https://docs.openstates.org/data/categorization/
+AKS-S043,openstates,Open States Name Matching notes,operational civic system,https://docs.openstates.org/api-v2/other/#name-matching
+AKS-S044,openrefine,OpenRefine Reconciliation API,operational tool / protocol,https://openrefine.org/docs/technical-reference/reconciliation-api
+AKS-S045,paperless-ngx,Paperless-ngx REST API,operational system,https://docs.paperless-ngx.com/api/
+AKS-S046,paperless-ngx,Paperless-ngx FAQ,operational system,https://docs.paperless-ngx.com/faq/
+AKS-S047,paperless-ngx,Paperless-ngx Advanced Usage,operational system,https://docs.paperless-ngx.com/advanced_usage/
+AKS-S048,zotero,Zotero annotations in database,operational tool,https://www.zotero.org/support/kb/annotations_in_database
+AKS-S049,documentcloud,DocumentCloud FAQ,operational system,https://next.www.documentcloud.org/help/faq/
+AKS-S050,documentcloud,DocumentCloud Add-Ons,operational system,https://next.www.documentcloud.org/help/add-ons/
+AKS-S051,tropy,Tropy project view and metadata editing,operational tool,https://docs.tropy.org/in-the-project-view/view_photos
+AKS-S052,tropy,Tropy metadata editing,operational tool,https://docs.tropy.org/in-the-project-view/add_metadata
+AKS-S053,method,Stereo research transfer protocol,local method evidence,local: stereo bundle / notebook/research/TRANSFER_PROTOCOL.md
+AKS-S054,method,Stereo research ledger discipline,local method evidence,local: stereo bundle / notebook/LEDGERS.md
+AKS-S055,method,Plaza quality and validation guidance,local method evidence,local: Plaza-main.zip / docs/QUALITY_AND_VALIDATION.md
+AKS-S056,web-annotation,Web Annotation Protocol,W3C Recommendation,https://www.w3.org/TR/annotation-protocol/
+AKS-S057,prov,PROV implementation report,W3C implementation evidence,https://www.w3.org/TR/2013/NOTE-prov-implementations-20130430/
+AKS-S058,premis,PREMIS preservation events guidance,implementation/community guidance,https://www.loc.gov/standards/premis/pif-presentations/rebecca-SKOS/preservationEvents.html
+AKS-S059,ocfl,OCFL implementation notes,implementation guidance,https://ocfl.io/1.1/implementation-notes/
+AKS-S060,bagit,BagIt path-encoding interoperability bug,implementation scar,https://github.com/LibraryOfCongress/bagit-python/issues/157
+AKS-S061,warc,WARC implementation guidelines,implementation guidance,https://iipc.github.io/warc-specifications/guidelines/warc-implementation-guidelines/
+AKS-S062,warc,Common Crawl WARC revisit Content-Type erratum,long-lived implementation scar,https://commoncrawl.org/errata/warc-content-type-header-in-revisit-records
+AKS-S063,memento,Where Did the Web Archive Go?,longitudinal implementation study,https://arxiv.org/abs/2108.05939
+AKS-S064,memento,Temporal drift in web archive browsing,longitudinal implementation study,https://arxiv.org/abs/1309.5503
+AKS-S065,akoma-ntoso,Akoma Ntoso Naming Convention 1.0,OASIS Standard,https://docs.oasis-open.org/legaldocml/akn-nc/v1.0/akn-nc-v1.0.html
+AKS-S066,akoma-ntoso,Akoma Ntoso 3.1 public-review announcement,standard evolution evidence,https://groups.oasis-open.org/discussion/akoma-ntoso-version-31-schemas-ready-for-public-review-1
+AKS-S067,eli,ELI Pillar IV protocol specification,EU standard/profile,https://eur-lex.europa.eu/content/eli-register/ELI-Pillar-IV-protocol-specification-v1.2.pdf
+AKS-S068,eli,ELI Pillar IV helper documentation,implementation guidance,https://eur-lex.europa.eu/content/eli-register/ELI-pillarIV-helper-documentation_en.pdf
+AKS-S069,records-in-contexts,RiC-O 1.1 repository and release history,standard implementation/evolution evidence,https://github.com/ICA-EGAD/RiC-O
+AKS-S070,records-in-contexts,RiC-O issue #67: rolifying n-ary relation classes,maintainer scar,https://github.com/ICA-EGAD/RiC-O/issues/67
+AKS-S071,popolo,Popolo project principles/specification,civic schema practice,https://www.popoloproject.com/
+AKS-S072,w3c-org,W3C ORG change diff,standard evolution evidence,https://www.w3.org/TR/vocab-org/diff-20131217.html
+AKS-S073,wikidata,Wikidata merge guidance,operational knowledge-base guidance,https://www.wikidata.org/wiki/Help:Merge
+AKS-S074,wikidata,Wikidata redirect guidance,operational knowledge-base guidance,https://www.wikidata.org/wiki/Help:Redirects
+AKS-S075,wikidata,Wikidata qualifiers guidance,operational knowledge-base guidance,https://www.wikidata.org/wiki/Help:Qualifiers
+AKS-S076,wikidata,Wikidata ranking guidance,operational knowledge-base guidance,https://www.wikidata.org/wiki/Help:Ranking
+AKS-S077,followthemoney,FollowTheMoney schema extension principles,implementation documentation,https://followthemoney.tech/docs/custom/
+AKS-S078,followthemoney,FollowTheMoney schema API reference,implementation documentation,https://followthemoney.tech/python/schema/
+AKS-S079,frictionless-data-package,Data Package security guidance,security guidance,https://datapackage.org/standard/security/
+AKS-S080,iiif,IIIF Image API 3.0,standard,https://iiif.io/api/image/3.0/
+AKS-S081,iiif,IIIF Image API implementation notes,implementation guidance/scar,https://iiif.io/api/image/3.0/implementation/
+AKS-S082,iiif,IIIF Image API compliance levels,conformance guidance,https://iiif.io/api/image/3.0/compliance/
+AKS-S083,alto,ALTO implementers registry,implementation evidence,https://www.loc.gov/standards/alto/community/implementers.html
+AKS-S084,alto,ALTO reading-order issue #18,implementation scar,https://github.com/altoxml/schema/issues/18
+AKS-S085,datasette,Datasette authentication and permissions,product documentation/security scar,https://docs.datasette.io/en/latest/authentication.html
+AKS-S086,datasette,Datasette plugin internals,product implementation guidance,https://docs.datasette.io/en/latest/internals.html
+AKS-S087,datasette,Datasette settings and bounded facets,product operational guidance,https://docs.datasette.io/en/latest/settings.html
+AKS-S088,datasette,Datasette 2026 write-SQL changes,product evolution evidence,https://docs.datasette.io/en/latest/changelog.html
+AKS-S089,documentcloud,DocumentCloud API redaction semantics,product documentation,https://next.www.documentcloud.org/help/api/
+AKS-S090,tropy,Tropy metadata templates,product workflow documentation,https://docs.tropy.org/in-the-template-editor/using-templates
+AKS-S091,zotero,Zotero direct SQLite database access guidance,product operational scar,https://www.zotero.org/support/dev/client_coding/direct_sqlite_database_access
+AKS-S092,sqlite,SQLite WAL documentation,database operational documentation,https://www.sqlite.org/wal.html
+AKS-S093,sqlite,SQLite foreign key documentation,database operational documentation,https://www.sqlite.org/foreignkeys.html
+AKS-S094,sqlite,SQLite Online Backup API,database operational documentation,https://www.sqlite.org/backup.html
+AKS-S095,sqlite,SQLite release/change history,database release/bug evidence,https://www.sqlite.org/changes.html
+AKS-S096,skos,SKOS Primer,W3C Working Group Note,https://www.w3.org/TR/skos-primer
+AKS-S097,shacl,SHACL 1.2 Core draft and test suite,W3C standards evolution/conformance evidence,https://www.w3.org/TR/shacl12-core/

@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-ZOTERO-001
+id: ACTAKIT-BOOK-ZOTERO-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,30 +11,44 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# Zotero — annotations remain separate from source evidence
+# Zotero
 
 ## Question
 
-How should analyst annotations/claims remain linked to but separate from source documents?
+What do long-lived local SQLite document tools teach about write boundaries and annotations?
+
+## Deep-audit basis
+
+Operational guidance warns against direct DB writes; annotations remain separate from PDFs.
 
 ## Evidence horizon
 
 - **AKS-S027 — Zotero PDF reader / annotations:** Annotations stored separately from PDF; links reopen source context; source file remains intact
 - **AKS-S048 — Zotero annotations in database:** Annotations are stored separately from PDFs to avoid file conflicts; export can embed them later
+- **AKS-S091 — Zotero direct SQLite database access guidance:** Direct writes are discouraged because they bypass application validation/referential invariants and schema can change
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C068:** Separating annotations from source PDFs avoids rewriting evidence while still allowing exact navigation back to source context.
+- **AKS-C068:** Separating annotations from source PDFs avoids rewriting evidence while still allowing exact navigation back to source context. **ActaKit:** Claims/review annotations should remain database records linked to immutable evidence representations, with export embedding only as a derivative output.
+- **AKS-C122:** Direct SQLite writes can bypass application validation/referential integrity and are discouraged. **ActaKit:** Only ActaKit core writes canonical storage; consumers/adapters use contracts, not direct SQL mutation.
+- **AKS-C123:** Annotations are stored separately from source PDFs, avoiding rewriting source evidence. **ActaKit:** Claims/reviews/evidence links are DB records pointing to immutable representations, not embedded source mutations.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C068:** Claims/review annotations should remain database records linked to immutable evidence representations, with export embedding only as a derivative output.
+Core-only canonical writes; annotations/claims point to source; correct whole-authority backup.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S027:** Bibliographic model is not ActaKit claim model
-- **AKS-S048:** Zotero bibliographic/sync model is not ActaKit claim authority
+Do not expose DB schema as supported write API or embed canonical annotations into source files.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Storage contracts must mediate mutations and backup; locators bind to representation revision.
+
+## Residual risk
+
+Zotero-specific sync semantics are not ActaKit requirements.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

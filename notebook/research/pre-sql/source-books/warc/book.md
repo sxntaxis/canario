@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-WARC-001
+id: ACTAKIT-BOOK-WARC-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,44 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# WARC — observation/capture is not the web resource
+# WARC
 
 ## Question
 
-What must ActaKit remember about an observation of a web source?
+How should repeated acquisition of web resources be identified?
+
+## Deep-audit basis
+
+Standard + implementation guidelines + production erratum expose capture/record/payload distinctions.
 
 ## Evidence horizon
 
 - **AKS-S010 — WARC 1.1:** Capture date, target URI, record IDs, request/response association, payload digests, revisit semantics
+- **AKS-S061 — WARC implementation guidelines:** Separates capture-event records and links request/response/revisit records arising from one retrieval
+- **AKS-S062 — Common Crawl WARC revisit Content-Type erratum:** A WARC example propagated an incorrect revisit Content-Type into crawls spanning 2013–2026
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C010:** A capture can record request/response association, timestamp, target URI and payload digest without claiming the resource changed.
+- **AKS-C010:** A capture can record request/response association, timestamp, target URI and payload digest without claiming the resource changed. **ActaKit:** Acquisition should preserve observation outcome independently from civic-document semantics.
+- **AKS-C082:** One retrieval can produce multiple linked records while still representing a single capture event. **ActaKit:** Separate Acquisition observation from Artifact bytes and allow multiple observations of identical bytes.
+- **AKS-C083:** A specification example mistake propagated into production archive records for years. **ActaKit:** Store parser/format version and raw metadata so normalized interpretations can be repaired without losing the capture.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C010:** Acquisition should preserve observation outcome independently from civic-document semantics.
+Separate source URI, acquisition observation, record identity and payload Artifact; identical bytes can be observed repeatedly.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S010:** Capturing every source as WARC is not required for baseline imports
+Do not require WARC for ordinary source adapters.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Acquisition rows need stable observation identity and raw source metadata/version provenance.
+
+## Residual risk
+
+HTTP/web archives are only one acquisition family; model must remain generic.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

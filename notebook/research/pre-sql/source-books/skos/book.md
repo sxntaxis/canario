@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-SKOS-001
+id: ACTAKIT-BOOK-SKOS-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,30 +11,43 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# SKOS — taxonomy semantics without a mandatory ontology
+# SKOS
 
 ## Question
 
-What taxonomy features are worth preserving if local tags later need aliases or hierarchy?
+How should tags/taxonomies evolve without materializing graph closure?
+
+## Deep-audit basis
+
+W3C vocabulary distinguishes direct broader/narrower links from transitive closure and supports labels/aliases.
 
 ## Evidence horizon
 
 - **AKS-S031 — SKOS Reference:** ConceptScheme, Concept, preferred/alternative labels, broader/narrower/mapping relations
+- **AKS-S096 — SKOS Primer:** Explains preferred/alternate labels, direct hierarchy semantics, transitive closure and extension choices with practical examples
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C033:** Taxonomies can support preferred/alternate labels and hierarchy without forcing one global vocabulary.
-- **AKS-C057:** Aliases and hierarchy are useful when taxonomies mature, but flat tags remain a valid starting point.
+- **AKS-C033:** Taxonomies can support preferred/alternate labels and hierarchy without forcing one global vocabulary. **ActaKit:** Local tags can later adopt SKOS-like semantics; no national topic ontology baseline.
+- **AKS-C057:** Aliases and hierarchy are useful when taxonomies mature, but flat tags remain a valid starting point. **ActaKit:** Do not build SKOS-like concept tables until local taxonomy needs them.
+- **AKS-C129:** SKOS explicitly separates asserted direct hierarchy from optional transitive closure and warns that more advanced collections add application complexity. **ActaKit:** If ActaKit grows hierarchical tags, persist direct links and compute closure; add collections only for demonstrated taxonomy needs.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C033:** Local tags can later adopt SKOS-like semantics; no national topic ontology baseline.
-- **AKS-C057:** Do not build SKOS-like concept tables until local taxonomy needs them.
+Keep flat/local tags initially; if hierarchy appears, persist direct edges and derive closure at query time.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S031:** Local tags need not become RDF or a national ontology
+Do not impose a national SKOS/RDF taxonomy.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+No transitive edge materialization; aliases/hierarchy can be optional extension tables.
+
+## Residual risk
+
+Taxonomy governance is local and may remain simple indefinitely.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

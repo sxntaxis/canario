@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-PROV-001
+id: ACTAKIT-BOOK-PROV-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,43 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# W3C PROV — provenance vocabulary without a provenance graph runtime
+# W3C PROV
 
 ## Question
 
-What provenance distinctions are durable enough to borrow without implementing a full provenance graph?
+Which provenance distinctions are worth preserving?
+
+## Deep-audit basis
+
+Normative model plus implementation report shows real interoperability while keeping provenance separate from truth.
 
 ## Evidence horizon
 
 - **AKS-S006 — PROV-O:** Entity/Activity/Agent; derivation, generation, attribution, association, revision, primary source
+- **AKS-S057 — PROV implementation report:** Documents independent PROV implementations and interoperability experience
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C004:** Provenance commonly distinguishes entities, activities and agents and links derivation/generation/attribution explicitly.
+- **AKS-C004:** Provenance commonly distinguishes entities, activities and agents and links derivation/generation/attribution explicitly. **ActaKit:** Map ActaKit provenance vocabulary to PROV semantics without implementing PROV-O storage.
+- **AKS-C076:** PROV semantics were exercised by multiple independent implementations and interchange tests. **ActaKit:** Borrow stable provenance distinctions, but validate an ActaKit relational mapping rather than importing PROV-O.
+- **AKS-C077:** Provenance describes derivation/generation/attribution; it does not certify the truth of the generated entity. **ActaKit:** Keep provenance separate from review/assessment/truth semantics.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C004:** Map ActaKit provenance vocabulary to PROV semantics without implementing PROV-O storage.
+Borrow Entity/Activity/Agent and derivation/attribution semantics selectively.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S006:** Full PROV graph is unnecessary baseline complexity
+Do not implement PROV-O/RDF globally or make every operation canonical.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Schema needs provenance for consequential derivation/acquisition/review actors without universal event sourcing.
+
+## Residual risk
+
+Exact granularity of process-run persistence remains an implementation tuning problem.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

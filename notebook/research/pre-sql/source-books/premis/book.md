@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-PREMIS-001
+id: ACTAKIT-BOOK-PREMIS-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,42 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# PREMIS — consequential custody events without event-log bloat
+# PREMIS
 
 ## Question
 
-Which preservation actions deserve canonical history and which should remain operational noise?
+Which preservation events deserve durable history?
+
+## Deep-audit basis
+
+Mature preservation standard/community guidance explicitly favors use-case-driven event recording.
 
 ## Evidence horizon
 
 - **AKS-S007 — PREMIS 3.0:** Objects, Events, Agents and preservation-event thinking
+- **AKS-S058 — PREMIS preservation events guidance:** Advises recording preservation events according to concrete use cases rather than treating all activity as preservation metadata
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C005:** Preservation event modeling is valuable for consequential actions, but preservation standards do not imply that every transient operation is canonical civic data.
+- **AKS-C005:** Preservation event modeling is valuable for consequential actions, but preservation standards do not imply that every transient operation is canonical civic data. **ActaKit:** Persist consequential custody/process events; leave low-value operational noise in logs.
+- **AKS-C078:** Preservation metadata practice is use-case selective about which events deserve durable records. **ActaKit:** Persist acquisition, transformation, correction and purge events when consequential; keep routine execution noise in logs.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C005:** Persist consequential custody/process events; leave low-value operational noise in logs.
+Persist consequential custody/validation/migration/purge events.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S007:** Not every ActaKit operation deserves a canonical Event
+Do not store all runtime events forever.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Separate durable custody/process history from operational logs.
+
+## Residual risk
+
+ActaKit is not a preservation repository; transfer only what supports civic evidence custody.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

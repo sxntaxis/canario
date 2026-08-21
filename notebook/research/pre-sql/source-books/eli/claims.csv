@@ -1,1 +1,3 @@
 claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C089,AKS-S067,Finding metadata pages does not prove corpus coverage or freshness; ELI added explicit inventory and update-feed mechanisms to address both.,supports,Source adapters need separate coverage/freshness/checkpoint semantics; absence in one run is not deletion proof.
+AKS-C090,AKS-S068,Periodic full inventory processing and incremental update feeds serve different ingestion guarantees.,supports,Allow adapters to report exhaustive inventory versus incremental discovery instead of pretending all source runs have the same completeness.

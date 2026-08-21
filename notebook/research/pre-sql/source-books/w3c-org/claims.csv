@@ -1,1 +1,3 @@
 claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C094,AKS-S016,"Organization, Role, Membership and Post are reusable primitives but the vocabulary is not a complete accountability model.",limits,Use small local Entity kinds/associations and extend only when needed; do not import a full RDF organizational ontology.
+AKS-C095,AKS-S072,"The standard itself evolved around Post and change/provenance modeling, showing generic membership abstractions need domain refinement.",scar,Keep role/post/association semantics versioned/extensible rather than freezing one civic relationship schema.

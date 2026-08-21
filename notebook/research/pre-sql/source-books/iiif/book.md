@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-IIIF-001
+id: ACTAKIT-BOOK-IIIF-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,45 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# IIIF — structured page/spatial/temporal targeting
+# IIIF
 
 ## Question
 
-How should ActaKit interoperate with pre-existing structured image/page targets?
+How should image/page/spatial/temporal evidence targeting be represented?
+
+## Deep-audit basis
+
+Presentation and Image APIs reuse Web Annotation selectors and document coordinate/compliance implementation differences.
 
 ## Evidence horizon
 
 - **AKS-S033 — IIIF Presentation API 3.0:** Canvas/Range structures and Web Annotation selectors for page, spatial and temporal targeting
+- **AKS-S080 — IIIF Image API 3.0:** Defines explicit pixel/percentage regions and coordinate origin for image targeting
+- **AKS-S081 — IIIF Image API implementation notes:** Documents implementation-dependent rounding and edge-tile calculations
+- **AKS-S082 — IIIF Image API compliance levels:** Servers can legitimately support different selector/region capabilities by compliance level
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- No source-local claim is owned here; this source participates only in cross-source claims in `../../synthesis/claims.csv`.
+- **AKS-C104:** A stable canvas can provide a spatial/temporal reference frame while annotations target specific regions or time spans. **ActaKit:** Evidence locators should target a specific Representation plus a typed spatial/temporal selector.
+- **AKS-C105:** Coordinate/size rounding and edge tiles have implementation-dependent behavior. **ActaKit:** Persist selector scheme/version and sufficient context; do not assume derived pixel coordinates survive every rendering pipeline.
+- **AKS-C106:** Different compliant services may support different targeting capabilities. **ActaKit:** Representation adapters must advertise capabilities; unsupported selectors degrade explicitly rather than being guessed.
 
-## ActaKit pressure
+## Bounded transfer
 
-- See synthesis transfers/collisions before drawing an ActaKit conclusion.
+Representation-scoped typed spatial/temporal locators with explicit coordinate/version semantics.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S033:** Interop/profile possibility, not baseline storage model
+Do not require IIIF server/JSON-LD or assume all capabilities.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Locator payloads need media-specific schema/version and adapter capability flags.
+
+## Residual risk
+
+PDF/image coordinate transformations may still require local normalization tests.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

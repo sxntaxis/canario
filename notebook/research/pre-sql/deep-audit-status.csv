@@ -1,30 +1,30 @@
 book_id,status,second_pass_started,checkpoint_focus
-akoma-ntoso,pending-deep-audit,no,"document identity, versions, components, implementation scars"
-alto,pending-deep-audit,no,"OCR layout coordinates, implementation interoperability"
-bagit,pending-deep-audit,no,"portable integrity packages, restore/export scars"
-datasette,pending-deep-audit,no,"read-heavy SQLite consumption, FTS/faceting operational limits"
-documentcloud,pending-deep-audit,no,"newsroom document custody, OCR/redaction, bulk workflow scars"
-eli,in-progress,yes,"identity/version/format plus coverage and freshness"
-followthemoney,in-progress,yes,"entity provenance, statements, rich associations"
-frictionless-data-package,in-progress,yes,"portable manifests and active-resource security"
-iiif,pending-deep-audit,no,"page/spatial/temporal targeting and implementation behavior"
-memento,in-progress,yes,"capture identity versus resource identity; archive drift"
-method,pending-deep-audit,no,"research closure discipline and anti-false-completion checks"
-ocfl,in-progress,yes,"immutable-by-default custody, purge exception"
-openrefine,in-progress,yes,"raw values, reconciliation candidates, batch review"
-opensanctions,in-progress,yes,"entity IDs, merge/split, non-destructive reconciliation"
-openstates,in-progress,yes,"raw names + resolved identity, scraper fail-loudly behavior"
-paperless-ngx,in-progress,yes,"logical document/original/derived versions, backup boundary"
-popolo,in-progress,yes,"civic roles/memberships and relation promotion"
-premis,in-progress,yes,"selective preservation events and custody provenance"
-prov,in-progress,yes,"provenance semantics, implementation/conformance evidence"
-records-in-contexts,pending-deep-audit,no,"contextual relations versus ontology overreach"
-shacl,in-progress,yes,"validation as separate result, recursion/resource limits"
-skos,in-progress,yes,"direct hierarchy versus transitive closure"
-sqlite,in-progress,yes,"WAL, FKs, backup, FTS, version-specific scars"
-tropy,in-progress,yes,"templates, local tags, selections/regions"
-w3c-org,in-progress,yes,"membership/post/role relation promotion"
-warc,pending-deep-audit,no,"capture/request/response identity and revisit semantics"
-web-annotation,in-progress,yes,"selectors, state, durable evidence targeting"
-wikidata,pending-deep-audit,no,"qualifiers, conflicting sourced assertions, statement scars"
-zotero,in-progress,yes,"canonical write boundary, annotations separate from source"
+akoma-ntoso,deep-audited,yes,"document identity, versions, components, implementation scars"
+alto,deep-audited,yes,"OCR layout coordinates, implementation interoperability"
+bagit,deep-audited,yes,"portable integrity packages, restore/export scars"
+datasette,deep-audited,yes,"read-heavy SQLite consumption, FTS/faceting operational limits"
+documentcloud,deep-audited,yes,"newsroom document custody, OCR/redaction, bulk workflow scars"
+eli,deep-audited,yes,identity/version/format plus coverage and freshness
+followthemoney,deep-audited,yes,"entity provenance, statements, rich associations"
+frictionless-data-package,deep-audited,yes,portable manifests and active-resource security
+iiif,deep-audited,yes,page/spatial/temporal targeting and implementation behavior
+memento,deep-audited,yes,capture identity versus resource identity; archive drift
+method,deep-audited,yes,research closure discipline and anti-false-completion checks
+ocfl,deep-audited,yes,"immutable-by-default custody, purge exception"
+openrefine,deep-audited,yes,"raw values, reconciliation candidates, batch review"
+opensanctions,deep-audited,yes,"entity IDs, merge/split, non-destructive reconciliation"
+openstates,deep-audited,yes,"raw names + resolved identity, scraper fail-loudly behavior"
+paperless-ngx,deep-audited,yes,"logical document/original/derived versions, backup boundary"
+popolo,deep-audited,yes,civic roles/memberships and relation promotion
+premis,deep-audited,yes,selective preservation events and custody provenance
+prov,deep-audited,yes,"provenance semantics, implementation/conformance evidence"
+records-in-contexts,deep-audited,yes,contextual relations versus ontology overreach
+shacl,deep-audited,yes,"validation as separate result, recursion/resource limits"
+skos,deep-audited,yes,direct hierarchy versus transitive closure
+sqlite,deep-audited,yes,"WAL, FKs, backup, FTS, version-specific scars"
+tropy,deep-audited,yes,"templates, local tags, selections/regions"
+w3c-org,deep-audited,yes,membership/post/role relation promotion
+warc,deep-audited,yes,capture/request/response identity and revisit semantics
+web-annotation,deep-audited,yes,"selectors, state, durable evidence targeting"
+wikidata,deep-audited,yes,"qualifiers, conflicting sourced assertions, statement scars"
+zotero,deep-audited,yes,"canonical write boundary, annotations separate from source"

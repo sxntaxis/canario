@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-PRE-SQL-FIXTURES-001
 type: research-fixture-program
-state: review
+state: pass
 authority: evidence
 created: 2026-08-20
 actakit_baseline: 59bab9de30bbf2aa1eec96dddaee3cded31a9f3a
@@ -18,6 +18,12 @@ A fixture may be synthetic. Synthetic fixtures can prove that a conceptual shape
 is coherent; they cannot prove that a real parser/OCR/profile understands public
 records correctly. `proof-requirements.csv` records where an artifact-backed
 fixture is still required before implementation certification.
+
+The first-pass fixture verdict exposed four bounded design questions. Those are
+resolved and revalidated in `revalidation.md`; `verdict.md` and the original
+`open` assertions remain as historical evidence of what the first pass found.
+The current semantic fixture gate is PASS, while artifact-backed operational proof
+remains required later where `proof-requirements.csv` says so.
 
 ## Method
 

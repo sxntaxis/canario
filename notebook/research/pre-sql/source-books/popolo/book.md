@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-POPOLO-001
+id: ACTAKIT-BOOK-POPOLO-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,42 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# Popolo — small civic entities and events
+# Popolo
 
 ## Question
 
-Which civic concepts recur often enough to inform profiles without becoming a national ontology?
+Which civic relationship shapes are genuinely reusable?
+
+## Deep-audit basis
+
+Small civic schema demonstrates Person/Org/Post/Membership/Motion/Vote patterns.
 
 ## Evidence horizon
 
 - **AKS-S015 — Popolo specification:** Small/flexible civic models; Person, Organization, Membership, Post, Motion, VoteEvent, Event; uncertain data tolerated
+- **AKS-S071 — Popolo project principles/specification:** Models Person, Organization, Membership, Post, Motion, Vote and related civic records with intentionally small reusable structures
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- **AKS-C014:** Civic models benefit from being small, extensible and tolerant of imprecise information.
+- **AKS-C014:** Civic models benefit from being small, extensible and tolerant of imprecise information. **ActaKit:** Profiles and local extensions should be bounded; unknown remains valid.
+- **AKS-C093:** Membership/Post demonstrate that civic relationships with role and time often deserve their own record rather than a bare edge. **ActaKit:** Provide a promotion path for rich associations, but only instantiate it for real domain needs.
 
-## ActaKit pressure
+## Bounded transfer
 
-- **AKS-C014:** Profiles and local extensions should be bounded; unknown remains valid.
+Borrow relation-promotion intuition for time/role-bearing memberships/posts.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S015:** Do not import whole civic ontology into core
+Do not make Popolo the national/domain ontology for ActaKit.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Association/Event escape hatch should support role/time/party fields when required.
+
+## Residual risk
+
+Country-specific civic records will need local profiles and raw labels.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.

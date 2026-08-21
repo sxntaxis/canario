@@ -1,3 +1,8 @@
 claim_id,evidence_refs,statement,evidence_kind,actakit_implication
 AKS-C049,AKS-S036,"Full-text search is a rebuildable retrieval index, not evidence authority.",supports,Treat FTS as projection/index that can be rebuilt from canonical text/claims.
 AKS-C050,AKS-S037,SQLite can enforce a stricter relational baseline than loose dynamic typing suggests.,supports,Use explicit columns/FKs/constraints; reserve JSON for versioned extensible payloads such as locators.
+AKS-C124,AKS-S092,"WAL is same-machine only, permits one writer and can grow under long readers/checkpoint starvation.",scar,"Use local attached storage, one canonical writer path, short transactions/read snapshots and explicit checkpoint monitoring."
+AKS-C125,AKS-S093,Foreign-key enforcement must be explicitly enabled on each SQLite connection.,scar,Connection bootstrap must set/verify required PRAGMAs before any canonical read/write service starts.
+AKS-C126,AKS-S094,A live SQLite database requires the backup API or equivalent consistent snapshot mechanism rather than naive file copying.,supports,"Backup/restore design is part of storage correctness, not an afterthought."
+AKS-C127,AKS-S095,Recent SQLite releases have fixed WAL/concurrency corruption and deadlock defects.,scar,Declare/test a minimum SQLite version and include upstream defect history in upgrade policy.
+AKS-C128,AKS-S036,External/contentless FTS indexes can diverge from authoritative content unless maintained and checked.,limits,FTS stays rebuildable and integrity-checkable; never make it canonical evidence/claim storage.

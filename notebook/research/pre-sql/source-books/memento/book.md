@@ -1,7 +1,7 @@
 ---
-id: ACTAKIT-BOOK-MEMENTO-001
+id: ACTAKIT-BOOK-MEMENTO-DEEP-001
 type: research-source-book
-state: complete
+state: deep-audited
 authority: evidence
 created: 2026-08-20
 updated: 2026-08-20
@@ -11,28 +11,43 @@ source_ledger: sources.csv
 claim_ledger: claims.csv
 ---
 
-# Memento — resource identity is not a datetime representation
+# Memento
 
 ## Question
 
-How should repeated observations over time differ from resource identity?
+What does a web-archive URI actually prove about historical identity/time?
+
+## Deep-audit basis
+
+RFC plus longitudinal studies show archive replay drift and locator instability.
 
 ## Evidence horizon
 
 - **AKS-S011 — Memento RFC 7089:** Original resource vs datetime-specific past representations
+- **AKS-S063 — Where Did the Web Archive Go?:** Across 16,627 mementos, archive base-URI changes altered or lost rediscovery of some captures
+- **AKS-S064 — Temporal drift in web archive browsing:** Shows browsing archived links can silently drift far from the requested datetime; sticky target policies reduce drift
 
-## Source-backed findings
+## Claim ledger synopsis
 
-- No source-local claim is owned here; this source participates only in cross-source claims in `../../synthesis/claims.csv`.
+- **AKS-C084:** Archived-resource locator URLs can change, and rediscovered captures can differ in timestamp/status/original-URI or disappear. **ActaKit:** Capture identity cannot be the replay URL; preserve observed archive identity, datetime and source metadata separately.
+- **AKS-C085:** Following archived links can silently shift the effective historical datetime by large amounts. **ActaKit:** A query/output assembling archived evidence must not imply temporal coherence merely because pages are linked.
 
-## ActaKit pressure
+## Bounded transfer
 
-- See synthesis transfers/collisions before drawing an ActaKit conclusion.
+Preserve original-resource URI, capture datetime, observed replay locator and acquisition identity separately.
 
-## Boundaries / do not cargo-cult
+## Do not copy
 
-- **AKS-S011:** Conceptual mapping is useful even if ActaKit does not speak Memento
+Do not assume linked archived pages represent the same historical instant.
 
-## Disposition
+## Schema pressure / expensive mistake avoided
 
-This Book is evidence for the transversal synthesis. It does not independently authorize an architecture or implementation change.
+Source/capture identity must not be a URL alone; query/output must expose temporal uncertainty when relevant.
+
+## Residual risk
+
+External archives can disappear or reinterpret captures beyond ActaKit control.
+
+## Closure verdict
+
+Deep-audited for the pre-SQL decision horizon. This Book contributes evidence and constraints; it does not independently authorize schema or implementation changes.
