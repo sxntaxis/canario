@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-FIXTURE-REVALIDATION-002
 type: research-fixture-revalidation
-state: semantic-operation-proof-pass-target-runtime-recertification-required
+state: critical-review-complete-migration-freeze-review-ready
 authority: evidence
 created: 2026-08-21
 candidate_baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
@@ -67,12 +67,12 @@ The ledger now includes explicit assertions that:
 ## Next gate
 
 The disposable DDL, real selector/RoleAssignment artifact proof, shared-byte purge,
-backup -> clean-location restore -> FTS rebuild, and archive/FTS/WAL purge
-maintenance gates pass on the available runtime. Target SQLite 3.53.4 has separately
-passed its exact source-ID/runtime contract, pytest, the 54-table scratch DDL, all
-16 fixtures and selectors. Its first storage run exposed CR-031: the restore proof
-failed to re-establish the candidate's connection PRAGMAs before asserting them.
-That harness defect is corrected; the one remaining gate is a **clean full rerun on
-the exact packaged SQLite 3.53.4 runtime**, including storage/restore/purge and the
-final runtime-contract repeat. A failure reopens the relevant design/proof; it is
-not patched around in a production migration.
+backup -> clean-location restore -> FTS rebuild, archive/FTS/WAL purge maintenance,
+and the complete target-runtime certification all pass. The exact SQLite 3.53.4
+source-ID/runtime contract, pytest, 54-table scratch DDL, all 16 fixtures,
+selectors, storage/restore/purge, and final runtime-contract repeat are recorded
+in `../schema/TARGET_RUNTIME_CERTIFICATION.md`.
+
+**PRE_SQL_STRUCTURAL_GATE: PASS** and **TARGET_RUNTIME_CERTIFICATION: PASS**.
+The candidate is ready for a separate migration-freeze review; this evidence does
+not authorize migration `0001`.

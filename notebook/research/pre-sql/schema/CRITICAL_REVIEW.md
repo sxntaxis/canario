@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-CRITICAL-REVIEW-001
 type: schema-candidate-critical-review
-state: semantic-operation-proof-pass-target-runtime-recertification-required
+state: critical-review-complete-migration-freeze-review-ready
 authority: research
 created: 2026-08-21
 candidate_baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
@@ -12,7 +12,7 @@ migration_authorized: false
 
 ## Verdict
 
-**SCHEMA_CANDIDATE_GATE: SEMANTIC_OPERATION_PROOF_PASS__TARGET_RUNTIME_RECERTIFICATION_REQUIRED**
+**SCHEMA_CANDIDATE_GATE: CRITICAL_REVIEW_COMPLETE__MIGRATION_FREEZE_REVIEW_READY**
 
 The first candidate was not safe to freeze. Adversarial review found several
 places where a plausible relational sketch contradicted the already-accepted
@@ -388,9 +388,8 @@ covering archive bytes, FTS, WAL/checkpoint/VACUUM plus explicit pre-purge-backu
 scope reporting.
 
 The target-runtime campaign has now established that the exact SQLite 3.53.4
-source ID, compile contract, pytest, scratch DDL and real selectors pass. Its first
-storage run exposed CR-031 in the proof harness before storage certification could
-complete. After correcting that opener defect, the **only remaining gate** is a
-clean rerun of the complete suite under the same exact packaged/certified SQLite
-3.53.4 runtime. Until that rerun reaches storage/restore/purge PASS and the final
-runtime-contract repeat, migration `0001` remains unauthorized.
+source ID, compile contract, pytest, scratch DDL, real selectors, storage/restore,
+purge maintenance, and final runtime-contract repeat all pass. The bounded
+certification evidence is recorded in `TARGET_RUNTIME_CERTIFICATION.md`.
+Migration `0001` remains unauthorized; this closes critical review and makes the
+candidate ready for a separate migration-freeze decision.

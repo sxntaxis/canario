@@ -1576,17 +1576,19 @@ What remains is proof, not unresolved domain semantics:
 7. ~~FTS rebuild/integrity/purge proof~~ — **PASS at candidate-operation level**: ordinary self-content FTS5 rebuilds from canonical rows, integrity checks pass, and FTS `secure-delete` participates in purge maintenance; packaged-runtime repeat remains gate 10;
 8. ~~backup -> clean-machine restore -> FTS rebuild proof~~ — **PASS** with manifest/checksum validation, clean-location restore, `foreign_key_check`, database markers and FTS reconstruction;
 9. ~~purge maintenance proof, including WAL/FTS and backup-scope reporting~~ — **PASS**: exact manifest, archive-byte removal, FTS secure deletion, WAL checkpoint plus VACUUM and explicit reporting that a pre-purge backup remains outside the current purge boundary;
-10. **OPEN — packaged-runtime certification:** run `prove_runtime_contract.py` and
-    the complete candidate proof suite with registered upstream SQLite 3.53.4;
-    verify exact source ID, compile capabilities, STRICT/FTS5/WAL/FK probes and
-    repeat gates 1/4/5/6/7/8/9 on that runtime.
+10. ~~**packaged-runtime certification:** run `prove_runtime_contract.py` and
+     the complete candidate proof suite with registered upstream SQLite 3.53.4;
+     verify exact source ID, compile capabilities, STRICT/FTS5/WAL/FK probes and
+     repeat gates 1/4/5/6/7/8/9 on that runtime~~ — **PASS** under the exact
+     upstream SQLite 3.53.4 source ID; see
+     `notebook/research/pre-sql/schema/TARGET_RUNTIME_CERTIFICATION.md`.
 
 No production migration, canonical-data cutover, or current file-pipeline rewrite
 is authorized until these proofs pass.
 
 ## 25. Candidate verdict
 
-**SCHEMA_CANDIDATE_GATE: SEMANTIC_OPERATION_PROOF_PASS__RUNTIME_CERTIFICATION_REQUIRED**
+**SCHEMA_CANDIDATE_GATE: CRITICAL_REVIEW_COMPLETE__MIGRATION_FREEZE_REVIEW_READY**
 
 The first candidate was not safe to freeze. The critical revision restores
 contract-required document/claim/relation revision provenance and lifecycle,
@@ -1597,8 +1599,7 @@ and correctable, requires attributable process identity for machine/rule writes,
 and makes purge/FTS claims match SQLite's actual behavior.
 
 Disposable scratch DDL, real selector/RoleAssignment artifacts, relation/entity
-correction traversal, shared-byte purge safety, backup/clean restore/FTS rebuild and
-archive+FTS+WAL purge maintenance now pass. The remaining boundary is intentionally
-narrow: certify the **actual packaged SQLite 3.53.4 build** (registered source ID +
-compile/functional capabilities) and repeat the suite on that runtime. Migration
-`0001` remains unauthorized until that proof passes.
+correction traversal, shared-byte purge safety, backup/clean restore/FTS rebuild,
+archive+FTS+WAL purge maintenance, and the exact packaged SQLite 3.53.4 runtime
+certification now pass. The candidate is ready for a separate migration-freeze
+review. Migration `0001` remains unauthorized.
