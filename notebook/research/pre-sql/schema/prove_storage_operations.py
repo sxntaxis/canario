@@ -14,7 +14,7 @@ import sqlite3
 import tempfile
 from pathlib import Path
 
-DDL = Path(__file__).with_name("SCRATCH_DDL.sql")
+DDL = Path(__file__).with_name("MIGRATION_0001_SPEC.sql")
 T = "2026-08-21T07:00:00.000Z"
 APPLICATION_ID = 0x414B4954
 SCHEMA_VERSION = 1
@@ -126,7 +126,7 @@ def rebuild_fts(con: sqlite3.Connection, archive_root: Path) -> None:
         """
         SELECT r.id,r.text
         FROM claim_revisions r
-        WHERE r.lifecycle<>'restricted'
+        WHERE r.lifecycle='active'
           AND NOT EXISTS (SELECT 1 FROM claim_revisions s WHERE s.supersedes_revision_id=r.id)
         ORDER BY r.id
         """
@@ -169,13 +169,15 @@ def assert_fts_coverage(con: sqlite3.Connection, archive_root: Path) -> None:
         for r in con.execute(
             """
             SELECT r.id FROM claim_revisions r
-            WHERE r.lifecycle<>'restricted'
+            WHERE r.lifecycle='active'
               AND NOT EXISTS (SELECT 1 FROM claim_revisions s WHERE s.supersedes_revision_id=r.id)
             """
         )
     }
     actual_claims = {r[0] for r in con.execute("SELECT claim_revision_id FROM claim_fts")}
     assert actual_claims == expected_claims
+    assert con.execute("SELECT count(*) FROM claim_fts").fetchone()[0] == len(expected_claims)
+    assert con.execute("SELECT claim_revision_id FROM claim_fts GROUP BY claim_revision_id HAVING count(*)<>1").fetchall() == []
 
     expected_docs = {
         r[0]
@@ -189,6 +191,8 @@ def assert_fts_coverage(con: sqlite3.Connection, archive_root: Path) -> None:
     }
     actual_docs = {r[0] for r in con.execute("SELECT document_revision_id FROM document_fts")}
     assert actual_docs == expected_docs
+    assert con.execute("SELECT count(*) FROM document_fts").fetchone()[0] == len(expected_docs)
+    assert con.execute("SELECT document_revision_id FROM document_fts GROUP BY document_revision_id HAVING count(*)<>1").fetchall() == []
 
     expected_reps = {
         r[0]
@@ -202,6 +206,8 @@ def assert_fts_coverage(con: sqlite3.Connection, archive_root: Path) -> None:
     }
     actual_reps = {r[0] for r in con.execute("SELECT representation_id FROM representation_fts")}
     assert actual_reps == expected_reps
+    assert con.execute("SELECT count(*) FROM representation_fts").fetchone()[0] == len(expected_reps)
+    assert con.execute("SELECT representation_id FROM representation_fts GROUP BY representation_id HAVING count(*)<>1").fetchall() == []
     for rep_id in expected_reps:
         assert representation_text(con, archive_root, rep_id)
 
@@ -212,7 +218,7 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
     with con:
         con.execute("PRAGMA wal_autocheckpoint=0")
         con.execute("INSERT INTO sources VALUES (?,?,?,?,?)", ("src-op", "manual", "Operational proof source", 1, T))
-        con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?,?,?)", ("loc-op", "src-op", "proof://local", "proof", None, None, T))
+        con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?)", ("loc-op", "src-op", "proof://local", "proof", T))
         con.execute("INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", ("acq-op", "src-op", "loc-op", T, "success", None, "proof", "1", None, T))
 
         for label, data in (("keep", keep), ("purge", purge)):
@@ -236,6 +242,33 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
             )
             con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", (f"ev-{label}", None, f"clmr-{label}", tid, "supports", "human", None, "active", None, T))
 
+        # FTS eligibility is current active canonical claim revisions only.
+        # Review state and sensitivity do not gate internal search; rejected,
+        # retracted, restricted and superseded revisions are excluded.
+        for cid, rid, lifecycle in (
+            ("clm-rejected", "clmr-rejected", "rejected"),
+            ("clm-retracted", "clmr-retracted", "retracted"),
+            ("clm-restricted", "clmr-restricted", "restricted"),
+        ):
+            con.execute("INSERT INTO claims VALUES (?,?)", (cid, T))
+            con.execute(
+                """INSERT INTO claim_revisions(
+                  id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,
+                  process_run_id,attribution_entity_id,attribution_text,temporal_start,temporal_end,
+                  sensitive,quantitative,lifecycle,created_at
+                ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (rid, cid, 1, None, "source_assertion", f"{lifecycle} excluded from FTS", "human", None, None, None, None, None, 0, 0, lifecycle, T),
+            )
+        con.execute("INSERT INTO claims VALUES (?,?)", ("clm-superseded", T))
+        con.execute(
+            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("clmr-superseded-1", "clm-superseded", 1, None, "source_assertion", "old active text", "human", None, None, None, None, None, 0, 0, "active", T),
+        )
+        con.execute(
+            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("clmr-superseded-2", "clm-superseded", 2, "clmr-superseded-1", "source_assertion", "current active text", "human", None, None, None, None, None, 0, 0, "active", T),
+        )
+
         con.execute("INSERT INTO civic_documents VALUES (?,?)", ("doc-keep", T))
         con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("docr-keep", "doc-keep", 1, None, "Water system evidence", None, "2026-08-21", "es", "normal", "human", None, T))
         con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("docrep-keep", None, "doc-keep", "rep-keep", "whole", "target-keep", "human", None, "active", None, T))
@@ -244,6 +277,10 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
     assert_db_identity(con)
     assert_archive_integrity(con, archive_root)
     assert_fts_coverage(con, archive_root)
+    fts_claim_ids = {r[0] for r in con.execute("SELECT claim_revision_id FROM claim_fts")}
+    assert "clmr-superseded-2" in fts_claim_ids
+    assert "clmr-superseded-1" not in fts_claim_ids
+    assert {"clmr-rejected", "clmr-retracted", "clmr-restricted"}.isdisjoint(fts_claim_ids)
     assert con.execute("SELECT count(*) FROM claim_fts WHERE claim_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 1
     assert con.execute("SELECT count(*) FROM representation_fts WHERE representation_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 1
     return {"keep": keep.decode(), "purge": purge.decode()}

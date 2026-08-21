@@ -363,7 +363,7 @@ be rerun on the exact certified 3.53.4 source ID before the review can close.
 
 ## Mechanical proof status
 
-Disposable `SCRATCH_DDL.sql` plus `prove_scratch_ddl.py` now pass on the cloud
+The proof artifacts later frozen/renamed as `MIGRATION_0001_SPEC.sql` plus `prove_migration_0001_spec.py` pass on the cloud
 runtime for the structural questions they can certify:
 
 - 54 STRICT ordinary tables created successfully;

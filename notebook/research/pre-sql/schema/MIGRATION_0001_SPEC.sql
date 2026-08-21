@@ -1,14 +1,7 @@
--- ActaKit SQLite schema candidate scratch DDL
--- NON-AUTHORITATIVE / NON-MIGRATION PROOF ARTIFACT.
--- This file exists only to force the design through real SQLite semantics.
-
-PRAGMA foreign_keys = ON;
-PRAGMA trusted_schema = OFF;
-PRAGMA secure_delete = ON;
-PRAGMA journal_mode = WAL;
-PRAGMA synchronous = FULL;
-PRAGMA application_id = 1095453012; -- 0x414B4954 = ASCII "AKIT"
-PRAGMA user_version = 1;             -- candidate migration 0001 proof marker only
+-- ActaKit migration 0001 frozen SQL specification candidate.
+-- NOTEBOOK DESIGN AUTHORITY ONLY: this is not a production migration or cutover.
+-- Connection PRAGMAs are established by the bootstrap/open contract outside this script.
+-- This script is intended to run inside the migration bootstrap transaction.
 
 CREATE TABLE sources (
   id TEXT PRIMARY KEY,
@@ -34,12 +27,9 @@ CREATE TABLE source_locators (
   source_id TEXT NOT NULL REFERENCES sources(id),
   locator TEXT NOT NULL,
   locator_kind TEXT NOT NULL,
-  valid_from TEXT,
-  valid_to TEXT,
   created_at TEXT NOT NULL,
   UNIQUE(source_id, locator),
-  UNIQUE(id, source_id),
-  CHECK (valid_from IS NULL OR valid_to IS NULL OR valid_from <= valid_to)
+  UNIQUE(id, source_id)
 ) STRICT;
 
 CREATE TABLE acquisitions (
@@ -54,7 +44,8 @@ CREATE TABLE acquisitions (
   error_code TEXT,
   created_at TEXT NOT NULL,
   FOREIGN KEY (source_locator_id, source_id)
-    REFERENCES source_locators(id, source_id)
+    REFERENCES source_locators(id, source_id),
+  CHECK (http_status IS NULL OR (http_status >= 100 AND http_status <= 599))
 ) STRICT;
 
 CREATE TABLE archive_objects (
@@ -66,13 +57,25 @@ CREATE TABLE archive_objects (
   created_at TEXT NOT NULL,
   purged_at TEXT,
   CHECK (
+    content_sha256 IS NULL
+    OR (
+      length(content_sha256)=64
+      AND content_sha256=lower(content_sha256)
+      AND content_sha256 NOT GLOB '*[^0-9a-f]*'
+    )
+  ),
+  CHECK (
     (availability='available' AND content_sha256 IS NOT NULL AND byte_size IS NOT NULL AND storage_key IS NOT NULL AND purged_at IS NULL)
     OR
-    (availability='purged' AND purged_at IS NOT NULL)
+    (availability='purged' AND storage_key IS NULL AND purged_at IS NOT NULL)
   )
 ) STRICT;
-CREATE UNIQUE INDEX archive_objects_sha256_uq ON archive_objects(content_sha256) WHERE content_sha256 IS NOT NULL;
-CREATE UNIQUE INDEX archive_objects_storage_key_uq ON archive_objects(storage_key) WHERE storage_key IS NOT NULL;
+CREATE UNIQUE INDEX archive_objects_sha256_uq
+  ON archive_objects(content_sha256)
+  WHERE availability='available' AND content_sha256 IS NOT NULL;
+CREATE UNIQUE INDEX archive_objects_storage_key_uq
+  ON archive_objects(storage_key)
+  WHERE availability='available' AND storage_key IS NOT NULL;
 
 CREATE TABLE artifacts (
   id TEXT PRIMARY KEY,
@@ -107,10 +110,10 @@ CREATE TABLE process_runs (
   model_provider TEXT,
   model_name TEXT,
   started_at TEXT NOT NULL,
-  finished_at TEXT,
-  outcome TEXT NOT NULL,
+  finished_at TEXT NOT NULL,
+  outcome TEXT NOT NULL CHECK (outcome IN ('success','partial','failed')),
   created_at TEXT NOT NULL,
-  CHECK (finished_at IS NULL OR started_at <= finished_at)
+  CHECK (started_at <= finished_at)
 ) STRICT;
 
 CREATE TABLE representations (
@@ -169,9 +172,7 @@ CREATE TABLE representation_targets (
     (availability='available' AND selector_kind IS NOT NULL AND selector_version IS NOT NULL AND selector_payload_json IS NOT NULL AND purged_at IS NULL)
     OR
     (availability='purged' AND purged_at IS NOT NULL)
-  ),
-  CHECK (selector_payload_json IS NULL OR json_valid(selector_payload_json)),
-  CHECK (state_payload_json IS NULL OR json_valid(state_payload_json))
+  )
 ) STRICT;
 
 CREATE TABLE entities (
@@ -208,7 +209,6 @@ CREATE TABLE civic_document_revisions (
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
 CREATE UNIQUE INDEX civic_document_revisions_one_successor_uq ON civic_document_revisions(supersedes_document_revision_id) WHERE supersedes_document_revision_id IS NOT NULL;
-CREATE INDEX civic_document_revisions_doc_rev_idx ON civic_document_revisions(document_id, revision_no);
 
 CREATE TABLE document_identifiers (
   id TEXT PRIMARY KEY,
@@ -545,6 +545,10 @@ CREATE TABLE claim_relation_revisions (
   CHECK (supersedes_relation_revision_id IS NULL OR supersedes_relation_revision_id <> id),
   CHECK ((revision_no=1 AND supersedes_relation_revision_id IS NULL) OR (revision_no>1 AND supersedes_relation_revision_id IS NOT NULL)),
   CHECK (from_claim_revision_id <> to_claim_revision_id),
+  CHECK (
+    relation_type NOT IN ('contradicts','same_matter_as')
+    OR from_claim_revision_id < to_claim_revision_id
+  ),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
 
@@ -743,7 +747,12 @@ CREATE TABLE purges (
   created_at TEXT NOT NULL,
   executed_at TEXT,
   outcome TEXT NOT NULL CHECK (outcome IN ('planned','completed','partial','failed')),
-  note TEXT
+  note TEXT,
+  CHECK (
+    (outcome='planned' AND executed_at IS NULL)
+    OR
+    (outcome IN ('completed','partial','failed') AND executed_at IS NOT NULL)
+  )
 ) STRICT;
 
 CREATE TABLE purge_targets (
@@ -762,8 +771,13 @@ CREATE TABLE purge_targets (
   action TEXT NOT NULL CHECK (action IN ('delete_record','scrub_payload','detach','delete_bytes')),
   planned_at TEXT NOT NULL,
   executed_at TEXT,
-  outcome TEXT,
-  PRIMARY KEY(purge_id, record_kind, record_id, action)
+  outcome TEXT CHECK (outcome IS NULL OR outcome IN ('completed','failed','skipped')),
+  PRIMARY KEY(purge_id, record_kind, record_id, action),
+  CHECK (
+    (executed_at IS NULL AND outcome IS NULL)
+    OR
+    (executed_at IS NOT NULL AND outcome IS NOT NULL)
+  )
 ) STRICT;
 
 CREATE VIRTUAL TABLE claim_fts USING fts5(
@@ -794,13 +808,94 @@ CREATE INDEX claim_revisions_lifecycle_time_idx ON claim_revisions(lifecycle, cr
 CREATE INDEX evidence_links_claim_idx ON evidence_links(claim_revision_id);
 CREATE INDEX evidence_links_target_idx ON evidence_links(representation_target_id);
 CREATE INDEX entity_mentions_claim_idx ON entity_mentions(claim_revision_id);
-CREATE INDEX mention_resolution_revisions_mention_rev_idx ON mention_resolution_revisions(mention_id, revision_no);
 CREATE UNIQUE INDEX claim_relation_revisions_one_successor_uq ON claim_relation_revisions(supersedes_relation_revision_id) WHERE supersedes_relation_revision_id IS NOT NULL;
 CREATE INDEX claim_relation_revisions_from_idx ON claim_relation_revisions(from_claim_revision_id, relation_type);
 CREATE INDEX claim_relation_revisions_to_idx ON claim_relation_revisions(to_claim_revision_id, relation_type);
-CREATE INDEX claim_reviews_claim_time_idx ON claim_reviews(claim_revision_id, created_at);
+CREATE INDEX claim_reviews_claim_reviewer_time_idx ON claim_reviews(claim_revision_id, reviewer, created_at DESC, id DESC);
 CREATE UNIQUE INDEX role_assignment_revisions_one_successor_uq ON role_assignment_revisions(supersedes_role_assignment_revision_id) WHERE supersedes_role_assignment_revision_id IS NOT NULL;
 CREATE INDEX role_assignment_revisions_subject_org_idx ON role_assignment_revisions(subject_entity_id, organization_entity_id);
 CREATE INDEX role_assignment_revisions_org_role_time_idx ON role_assignment_revisions(organization_entity_id, role_key, valid_from, valid_to);
 
-PRAGMA foreign_key_check;
+-- Reverse-dependency / foreign-key child indexes.
+-- These keep FK enforcement, purge closure, restore validation and provenance walks bounded.
+CREATE INDEX source_authority_scopes_source_fk_idx ON source_authority_scopes(source_id);
+CREATE INDEX representations_process_run_fk_idx ON representations(process_run_id);
+CREATE INDEX representations_archive_object_fk_idx ON representations(archive_object_id);
+CREATE INDEX civic_document_revisions_process_run_fk_idx ON civic_document_revisions(process_run_id);
+CREATE INDEX civic_document_revisions_issuer_entity_fk_idx ON civic_document_revisions(issuer_entity_id);
+CREATE INDEX document_identifiers_process_run_fk_idx ON document_identifiers(process_run_id);
+CREATE INDEX document_identifiers_representation_target_fk_idx ON document_identifiers(representation_target_id);
+CREATE INDEX document_identifiers_issuer_entity_fk_idx ON document_identifiers(issuer_entity_id);
+CREATE INDEX document_identifiers_document_fk_idx ON document_identifiers(document_id);
+CREATE INDEX document_classifications_process_run_fk_idx ON document_classifications(process_run_id);
+CREATE INDEX document_classifications_representation_target_fk_idx ON document_classifications(representation_target_id);
+CREATE INDEX document_representations_representation_target_representation_fk_idx ON document_representations(representation_target_id, representation_id);
+CREATE INDEX document_representations_process_run_fk_idx ON document_representations(process_run_id);
+CREATE INDEX document_representations_representation_fk_idx ON document_representations(representation_id);
+CREATE INDEX claim_revisions_attribution_entity_fk_idx ON claim_revisions(attribution_entity_id);
+CREATE INDEX claim_revisions_process_run_fk_idx ON claim_revisions(process_run_id);
+CREATE INDEX evidence_links_process_run_fk_idx ON evidence_links(process_run_id);
+CREATE INDEX entity_mentions_process_run_fk_idx ON entity_mentions(process_run_id);
+CREATE INDEX entity_mentions_representation_target_fk_idx ON entity_mentions(representation_target_id);
+CREATE INDEX entity_names_process_run_fk_idx ON entity_names(process_run_id);
+CREATE INDEX entity_names_representation_target_fk_idx ON entity_names(representation_target_id);
+CREATE INDEX entity_names_entity_fk_idx ON entity_names(entity_id);
+CREATE INDEX entity_identifiers_process_run_fk_idx ON entity_identifiers(process_run_id);
+CREATE INDEX entity_identifiers_representation_target_fk_idx ON entity_identifiers(representation_target_id);
+CREATE INDEX entity_identifiers_issuer_entity_fk_idx ON entity_identifiers(issuer_entity_id);
+CREATE INDEX entity_identifiers_entity_fk_idx ON entity_identifiers(entity_id);
+CREATE INDEX mention_resolution_candidates_process_run_fk_idx ON mention_resolution_candidates(process_run_id);
+CREATE INDEX mention_resolution_candidates_entity_fk_idx ON mention_resolution_candidates(entity_id);
+CREATE INDEX mention_resolution_revisions_process_run_fk_idx ON mention_resolution_revisions(process_run_id);
+CREATE INDEX mention_resolution_revisions_resolved_entity_fk_idx ON mention_resolution_revisions(resolved_entity_id);
+CREATE INDEX entity_reconciliations_process_run_fk_idx ON entity_reconciliations(process_run_id);
+CREATE INDEX entity_reconciliation_inputs_entity_fk_idx ON entity_reconciliation_inputs(entity_id);
+CREATE INDEX entity_reconciliation_outputs_entity_fk_idx ON entity_reconciliation_outputs(entity_id);
+CREATE INDEX entity_reconciliation_basis_mentions_mention_fk_idx ON entity_reconciliation_basis_mentions(mention_id);
+CREATE INDEX entity_reconciliation_basis_identifiers_entity_identifier_fk_idx ON entity_reconciliation_basis_identifiers(entity_identifier_id);
+CREATE INDEX claim_entity_links_mention_claim_revision_fk_idx ON claim_entity_links(mention_id, claim_revision_id);
+CREATE INDEX claim_entity_links_process_run_fk_idx ON claim_entity_links(process_run_id);
+CREATE INDEX claim_entity_links_claim_revision_fk_idx ON claim_entity_links(claim_revision_id);
+CREATE INDEX claim_tag_links_process_run_fk_idx ON claim_tag_links(process_run_id);
+CREATE INDEX claim_tag_links_claim_revision_fk_idx ON claim_tag_links(claim_revision_id);
+CREATE INDEX claim_relation_revisions_process_run_fk_idx ON claim_relation_revisions(process_run_id);
+CREATE INDEX claim_relation_evidence_links_representation_target_fk_idx ON claim_relation_evidence_links(representation_target_id);
+CREATE INDEX claim_relation_evidence_links_claim_relation_revision_fk_idx ON claim_relation_evidence_links(claim_relation_revision_id);
+CREATE INDEX role_assignment_revisions_process_run_fk_idx ON role_assignment_revisions(process_run_id);
+CREATE INDEX role_assignment_evidence_links_representation_target_fk_idx ON role_assignment_evidence_links(representation_target_id);
+CREATE INDEX role_assignment_evidence_links_role_assignment_revision_fk_idx ON role_assignment_evidence_links(role_assignment_revision_id);
+CREATE INDEX claim_reviews_review_action_fk_idx ON claim_reviews(review_action_id);
+CREATE INDEX document_identifier_reviews_subject_reviewer_time_idx ON document_identifier_reviews(document_identifier_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX document_identifier_reviews_review_action_fk_idx ON document_identifier_reviews(review_action_id);
+CREATE INDEX document_classification_reviews_subject_reviewer_time_idx ON document_classification_reviews(document_classification_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX document_classification_reviews_review_action_fk_idx ON document_classification_reviews(review_action_id);
+CREATE INDEX document_representation_reviews_subject_reviewer_time_idx ON document_representation_reviews(document_representation_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX document_representation_reviews_review_action_fk_idx ON document_representation_reviews(review_action_id);
+CREATE INDEX evidence_link_reviews_subject_reviewer_time_idx ON evidence_link_reviews(evidence_link_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX evidence_link_reviews_review_action_fk_idx ON evidence_link_reviews(review_action_id);
+CREATE INDEX entity_name_reviews_subject_reviewer_time_idx ON entity_name_reviews(entity_name_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX entity_name_reviews_review_action_fk_idx ON entity_name_reviews(review_action_id);
+CREATE INDEX entity_identifier_reviews_subject_reviewer_time_idx ON entity_identifier_reviews(entity_identifier_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX entity_identifier_reviews_review_action_fk_idx ON entity_identifier_reviews(review_action_id);
+CREATE INDEX claim_relation_reviews_subject_reviewer_time_idx ON claim_relation_reviews(claim_relation_revision_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX claim_relation_reviews_review_action_fk_idx ON claim_relation_reviews(review_action_id);
+CREATE INDEX mention_resolution_candidate_reviews_subject_reviewer_time_idx ON mention_resolution_candidate_reviews(mention_resolution_candidate_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX mention_resolution_candidate_reviews_review_action_fk_idx ON mention_resolution_candidate_reviews(review_action_id);
+CREATE INDEX claim_entity_link_reviews_subject_reviewer_time_idx ON claim_entity_link_reviews(claim_entity_link_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX claim_entity_link_reviews_review_action_fk_idx ON claim_entity_link_reviews(review_action_id);
+CREATE INDEX claim_tag_link_reviews_subject_reviewer_time_idx ON claim_tag_link_reviews(claim_tag_link_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX claim_tag_link_reviews_review_action_fk_idx ON claim_tag_link_reviews(review_action_id);
+CREATE INDEX entity_reconciliation_reviews_subject_reviewer_time_idx ON entity_reconciliation_reviews(entity_reconciliation_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX entity_reconciliation_reviews_review_action_fk_idx ON entity_reconciliation_reviews(review_action_id);
+CREATE INDEX role_assignment_reviews_subject_reviewer_time_idx ON role_assignment_reviews(role_assignment_revision_id, reviewer, created_at DESC, id DESC);
+CREATE INDEX role_assignment_reviews_review_action_fk_idx ON role_assignment_reviews(review_action_id);
+
+-- Query-surface indexes not implied by foreign keys.
+CREATE INDEX civic_document_revisions_date_idx ON civic_document_revisions(document_date, document_id);
+CREATE INDEX document_classifications_type_lifecycle_idx ON document_classifications(normalized_type, lifecycle, document_id, created_at);
+CREATE INDEX entity_names_name_lifecycle_idx ON entity_names(name, lifecycle, entity_id);
+CREATE INDEX purge_targets_record_idx ON purge_targets(record_kind, record_id, purge_id);
+
+-- File identity/schema markers are the final writes of migration 0001.
+PRAGMA application_id = 1095453012; -- 0x414B4954 = ASCII "AKIT"
+PRAGMA user_version = 1;

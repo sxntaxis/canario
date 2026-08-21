@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""High-value proof harness for SCRATCH_DDL.sql.
+"""High-value proof harness for MIGRATION_0001_SPEC.sql.
 
-Research-only. This is not a migration test suite or production schema authority.
-It deliberately checks the invariants that changed during critical review.
+Notebook design proof only. This is not a production migration or cutover test.
+It checks the physical invariants proposed for the frozen migration-0001 contract.
 """
 from __future__ import annotations
 
@@ -10,8 +10,12 @@ import sqlite3
 import tempfile
 from pathlib import Path
 
-DDL = Path(__file__).with_name("SCRATCH_DDL.sql")
+DDL = Path(__file__).with_name("MIGRATION_0001_SPEC.sql")
 T = "2026-08-21T06:00:00.000Z"
+H_A = "a" * 64
+H_B = "b" * 64
+H_C = "c" * 64
+H_D = "d" * 64
 
 
 def must_fail(con: sqlite3.Connection, sql: str, params: tuple = ()) -> None:
@@ -24,34 +28,37 @@ def must_fail(con: sqlite3.Connection, sql: str, params: tuple = ()) -> None:
 
 
 def main() -> None:
+    ddl_text = DDL.read_text()
+    assert "json_valid(" not in ddl_text.lower(), "0001 must not require SQLite JSON SQL functions"
     with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
         con = sqlite3.connect(tmp.name)
-        con.executescript(DDL.read_text())
+        con.executescript(ddl_text)
         con.execute("PRAGMA foreign_keys=ON")
 
         # 1. Physical byte identity is independent from logical capture custody.
         with con:
             con.execute("INSERT INTO sources VALUES (?,?,?,?,?)", ("src", "web", "Source", 1, T))
-            con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?,?,?)", ("loc", "src", "https://example.invalid/x.pdf", "url", None, None, T))
+            con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?)", ("loc", "src", "https://example.invalid/x.pdf", "url", T))
             con.execute("INSERT INTO sources VALUES (?,?,?,?,?)", ("src-other", "web", "Other Source", 1, T))
-            con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?,?,?)", ("loc-other", "src-other", "https://other.invalid/x.pdf", "url", None, None, T))
+            con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?)", ("loc-other", "src-other", "https://other.invalid/x.pdf", "url", T))
             for i, day in ((1, "01"), (2, "08")):
                 con.execute("INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", (f"acq{i}", "src", "loc", f"2026-08-{day}T10:00:00Z", "success", 200, "proof", "1", None, T))
-            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobA", "aaa", 3, "sha256/aaa", "available", T, None))
-            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobTable", "bbb", 9, "sha256/bbb", "available", T, None))
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobA", H_A, 3, f"sha256/{H_A}", "available", T, None))
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobTable", H_B, 9, f"sha256/{H_B}", "available", T, None))
             for i in (1, 2):
                 con.execute("INSERT INTO artifacts VALUES (?,?,?,?,?,?,?)", (f"art{i}", "aobA", "application/pdf", "verified", "available", T, None))
                 con.execute("INSERT INTO acquisition_artifacts VALUES (?,?,?,?,?)", (f"art{i}", f"acq{i}", "primary", "x.pdf", "https://example.invalid/x.pdf"))
         assert con.execute("SELECT count(*) FROM artifacts WHERE archive_object_id='aobA'").fetchone()[0] == 2
         # A second isolated repeated-byte pair is reserved for shared-reference purge proof.
         with con:
-            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobShared", "ccc", 12, "sha256/ccc", "available", T, None))
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobShared", H_C, 12, f"sha256/{H_C}", "available", T, None))
             for i in (1, 2):
                 con.execute("INSERT INTO artifacts VALUES (?,?,?,?,?,?,?)", (f"artShare{i}", "aobShared", "application/pdf", "verified", "available", T, None))
                 con.execute("INSERT INTO acquisition_artifacts VALUES (?,?,?,?,?)", (f"artShare{i}", f"acq{i}", "attachment", f"shared{i}.pdf", "https://example.invalid/shared.pdf"))
                 con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (f"repShare{i}", f"artShare{i}", None, None, "original", "application/pdf", None, None, None, "available", T, None))
         must_fail(con, "INSERT INTO acquisition_artifacts VALUES (?,?,?,?,?)", ("art1", "acq2", "primary", None, None))
         must_fail(con, "INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", ("acq-cross", "src", "loc-other", T, "failed", None, "proof", "1", "wrong-source-locator", T))
+        must_fail(con, "INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", ("acq-bad-http", "src", "loc", T, "failed", 99, "proof", "1", "bad-http-domain", T))
 
         # Processing provenance is durable for any non-human generated semantic/derived record.
         with con:
@@ -62,6 +69,13 @@ def main() -> None:
 
         # 2. Purged/archive availability contracts do not permit fake available bytes.
         must_fail(con, "INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("bad-aob", None, None, None, "available", T, None))
+        must_fail(con, "INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("bad-digest", "not-a-sha256", 4, "sha256/bad", "available", T, None))
+        must_fail(con, "INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("bad-purged-storage", H_D, 4, f"sha256/{H_D}", "purged", T, T))
+        with con:
+            # Tombstones may retain a digest for audit without reserving those bytes forever.
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aob-old-ddd", H_D, 4, None, "purged", T, T))
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aob-new-ddd", H_D, 4, f"sha256/{H_D}", "available", T, None))
+        assert con.execute("SELECT availability FROM archive_objects WHERE content_sha256=? ORDER BY id", (H_D,)).fetchall() == [("available",), ("purged",)]
         must_fail(con, "INSERT INTO artifacts VALUES (?,?,?,?,?,?,?)", ("bad-art", None, None, "verified", "available", T, None))
 
         # 3. Representation byte authority and exact-target ownership are unambiguous.
@@ -453,9 +467,16 @@ def main() -> None:
         with con:
             con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("ev-challenge", None, "clmA1", "t2", "challenges", "human", None, "active", None, T))
             con.execute("INSERT INTO claim_relations VALUES (?,?)", ("rel-contradict", T))
-            con.execute("INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel-contradict1", "rel-contradict", 1, None, "clmB1", "clmA1", "contradicts", "human", "analyst_inference", "incompatible propositions", None, "active", T))
+            con.execute("INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel-contradict1", "rel-contradict", 1, None, "clmA1", "clmB1", "contradicts", "human", "analyst_inference", "incompatible propositions", None, "active", T))
         assert con.execute("SELECT relation FROM evidence_links WHERE id='ev-challenge'").fetchone()[0] == "challenges"
         assert con.execute("SELECT relation_type FROM claim_relation_revisions WHERE id='rel-contradict1'").fetchone()[0] == "contradicts"
+        with con:
+            con.execute("INSERT INTO claim_relations VALUES (?,?)", ("rel-reverse-symmetric", T))
+        must_fail(
+            con,
+            "INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("rel-reverse-symmetric-1", "rel-reverse-symmetric", 1, None, "clmB1", "clmA1", "contradicts", "human", "analyst_inference", "reverse duplicate orientation", None, "active", T),
+        )
 
         # 8. RoleAssignment owns role/time and exact evidence; invalid intervals fail.
         with con:
@@ -531,8 +552,11 @@ def main() -> None:
               SELECT 1 FROM claim_relation_revisions successor
               WHERE successor.supersedes_relation_revision_id=claim_relation_revisions.id
             )
-            AND from_claim_revision_id='clmB1'
-            AND to_claim_revision_id='clmA1'
+            AND (
+              (from_claim_revision_id='clmA1' AND to_claim_revision_id='clmB1')
+              OR
+              (from_claim_revision_id='clmB1' AND to_claim_revision_id='clmA1')
+            )
           ORDER BY relation_type
         """).fetchall()
         assert parallel_edges == [("contradicts",), ("updates",)], parallel_edges
@@ -571,7 +595,24 @@ def main() -> None:
           SELECT 'representation/archive', r.id
           FROM representations r JOIN archive_objects o ON o.id=r.archive_object_id
           WHERE r.availability IN ('available','restricted') AND r.kind<>'original' AND o.availability<>'available'
+          UNION ALL
+          SELECT 'target/representation', t.id
+          FROM representation_targets t JOIN representations r ON r.id=t.representation_id
+          WHERE t.availability='available' AND r.availability NOT IN ('available','restricted')
         """
+        assert con.execute(availability_violations).fetchall() == []
+
+        # SQL FKs preserve identity, while the core transaction validator preserves
+        # cross-row availability: an active selector cannot point at purged evidence.
+        con.execute("SAVEPOINT bad_target_parent")
+        con.execute("UPDATE representations SET availability='purged',purged_at=? WHERE id='rep2'", (T,))
+        con.execute(
+            "INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)",
+            ("target-bad-parent", "rep2", "whole", "v1", "{}", None, "available", T, None),
+        )
+        assert con.execute(availability_violations).fetchall() == [("target/representation", "target-bad-parent")]
+        con.execute("ROLLBACK TO bad_target_parent")
+        con.execute("RELEASE bad_target_parent")
         assert con.execute(availability_violations).fetchall() == []
 
         # A logical purge of one Artifact sharing physical bytes must not claim/delete those bytes.
@@ -603,7 +644,31 @@ def main() -> None:
             con.execute("INSERT INTO claim_fts(claim_fts) VALUES('rebuild')")
         assert con.execute("SELECT count(*) FROM claim_fts").fetchone()[0] == 0
 
-        # 13. Purge manifest intentionally has no FK to target record and survives target removal semantics.
+        # 13. Purge lifecycle state is coherent, and the manifest survives target removal semantics.
+        must_fail(con, "INSERT INTO purges VALUES (?,?,?,?,?,?,?,?)", ("purge-bad-planned", "policy", "operator", "minimal_tombstone", T, T, "planned", None))
+        must_fail(con, "INSERT INTO purges VALUES (?,?,?,?,?,?,?,?)", ("purge-bad-complete", "policy", "operator", "minimal_tombstone", T, None, "completed", None))
+        with con:
+            con.execute("INSERT INTO purges VALUES (?,?,?,?,?,?,?,?)", ("purge-lifecycle-proof", "policy", "operator", "minimal_tombstone", T, None, "planned", None))
+        must_fail(con, "INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge-lifecycle-proof", "claim", "clmA", "delete_record", T, None, "completed"))
+        must_fail(con, "INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge-lifecycle-proof", "claim", "clmA", "delete_record", T, T, None))
+        purge_completion_violations = """
+          SELECT p.id
+          FROM purges p
+          WHERE p.outcome='completed'
+            AND EXISTS (
+              SELECT 1 FROM purge_targets t
+              WHERE t.purge_id=p.id
+                AND (t.outcome IS NULL OR t.outcome='failed')
+            )
+          ORDER BY p.id
+        """
+        con.execute("SAVEPOINT bad_completed_purge")
+        con.execute("UPDATE purges SET executed_at=?,outcome='completed' WHERE id='purge-lifecycle-proof'", (T,))
+        con.execute("INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge-lifecycle-proof", "claim", "clmA", "delete_record", T, None, None))
+        assert con.execute(purge_completion_violations).fetchall() == [("purge-lifecycle-proof",)]
+        con.execute("ROLLBACK TO bad_completed_purge")
+        con.execute("RELEASE bad_completed_purge")
+        assert con.execute(purge_completion_violations).fetchall() == []
         with con:
             con.execute("INSERT INTO purges VALUES (?,?,?,?,?,?,?,?)", ("purge", "policy", "operator", "minimal_tombstone", T, None, "planned", None))
             con.execute("INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge", "representation_target", "t1", "scrub_payload", T, None, None))
@@ -623,9 +688,15 @@ def main() -> None:
 
         assert con.execute("PRAGMA foreign_key_check").fetchall() == []
         strict_count = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-        assert strict_count >= 40
+        assert strict_count == 54
+        fts_count = con.execute(
+            "SELECT count(*) FROM pragma_table_list WHERE type='virtual' AND name IN ('claim_fts','representation_fts','document_fts')"
+        ).fetchone()[0]
+        assert fts_count == 3
+        assert con.execute("PRAGMA application_id").fetchone()[0] == 0x414B4954
+        assert con.execute("PRAGMA user_version").fetchone()[0] == 1
 
-        print(f"STRUCTURAL_DDL_PROOF=PASS sqlite={sqlite3.sqlite_version} strict_tables={strict_count}")
+        print(f"MIGRATION_0001_SPEC_PROOF=PASS sqlite={sqlite3.sqlite_version} strict_tables={strict_count} fts_tables={fts_count}")
         print("critical_invariants=16/16 PASS")
         print("semantic_fixture_storage=16/16 REPRESENTABLE")
         print("sqlite_backup_snapshot=PASS (archive/clean-machine restore still separate operational gate)")

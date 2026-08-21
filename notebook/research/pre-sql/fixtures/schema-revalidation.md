@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-FIXTURE-REVALIDATION-002
 type: research-fixture-revalidation
-state: critical-review-complete-migration-freeze-review-ready
+state: migration-0001-freeze-complete-authorization-review-ready
 authority: evidence
 created: 2026-08-21
 candidate_baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
@@ -64,15 +64,16 @@ The ledger now includes explicit assertions that:
 - document identifier/classification/representation-occurrence corrections preserve
   prior assignments and stable document identity.
 
-## Next gate
+## Post-freeze revalidation
 
-The disposable DDL, real selector/RoleAssignment artifact proof, shared-byte purge,
-backup -> clean-location restore -> FTS rebuild, archive/FTS/WAL purge maintenance,
-and the complete target-runtime certification all pass. The exact SQLite 3.53.4
-source-ID/runtime contract, pytest, 54-table scratch DDL, all 16 fixtures,
+The reconciled `MIGRATION_0001_SPEC.sql`, real selector/RoleAssignment artifact
+proof, shared-byte purge, backup -> clean-location restore -> FTS rebuild,
+archive/FTS/WAL purge maintenance, migration-freeze proof, and complete
+post-freeze target-runtime certification all pass. The exact SQLite 3.53.4
+source-ID/runtime contract, pytest, 54-table spec proof, all 16 fixtures,
 selectors, storage/restore/purge, and final runtime-contract repeat are recorded
 in `../schema/TARGET_RUNTIME_CERTIFICATION.md`.
 
-**PRE_SQL_STRUCTURAL_GATE: PASS** and **TARGET_RUNTIME_CERTIFICATION: PASS**.
-The candidate is ready for a separate migration-freeze review; this evidence does
-not authorize migration `0001`.
+**PRE_SQL_STRUCTURAL_GATE: PASS**, **TARGET_RUNTIME_CERTIFICATION: PASS**, and
+**MIGRATION_0001_FREEZE: PASS**. The freeze is ready for a separate authorization
+review; this evidence does not authorize migration `0001`.

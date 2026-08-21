@@ -96,7 +96,7 @@ python -m pytest --collect-only -q                        PASS (3 tests)
 python -m py_compile scripts/*.py and proof scripts       PASS
 prove_runtime_contract.py                                 PASS sqlite=3.53.4
 python -m pytest -q                                       PASS (3 passed)
-prove_scratch_ddl.py                                      PASS; 54 STRICT tables; 16/16 fixtures
+pre-freeze scratch proof (renamed to prove_migration_0001_spec.py)          PASS; 54 STRICT tables; 16/16 fixtures
 prove_selectors.py                                        PASS; real PDF/text/table artifact
 prove_storage_operations.py                               PASS
 prove_runtime_contract.py                                 PASS sqlite=3.53.4
@@ -128,3 +128,41 @@ PyMuPDF and pdfplumber were installed only in a disposable certification
 environment and were not added to ActaKit project/runtime dependencies.
 
 Migration `0001` remains unauthorized.
+
+## Post-freeze recertification
+
+This section records the post-freeze rerun after reconciling the sibling freeze
+delta onto the runtime-certified lineage.
+
+```text
+reconciled_parent: 6deafab40d40ea3f70e5e8c96433015ac5e54f6b
+freeze_delta: afb72626743628c26a07fe5ea6058302e791b726
+spec_sha256: 31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
+sqlite_version: 3.53.4
+sqlite_source_id: 2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e09459bcc
+```
+
+Post-freeze results:
+
+```text
+MIGRATION_0001_SPEC_PROOF=PASS sqlite=3.53.4 strict_tables=54 fts_tables=3
+critical_invariants=16/16 PASS
+semantic_fixture_storage=16/16 REPRESENTABLE
+MIGRATION_FREEZE_PROOF=PASS sqlite=3.53.4
+schema_inventory=PASS strict_tables=54 fts_tables=3 app_triggers=0
+rowid_strategy=PASS ordinary_rowid_tables=54 without_rowid=0
+index_inventory=PASS explicit=114 exact_duplicates=0 simple_prefix_redundancy=0
+foreign_key_child_plans=PASS checked=118 scans=0
+sql_json_dependency=ABSENT
+SELECTOR_ARTIFACT_PROOF=PASS
+STORAGE_OPERATION_PROOF=PASS sqlite=3.53.4
+clean_machine_restore_and_fts_rebuild=PASS
+purge_manifest_archive_fts_wal_vacuum=PASS
+target_runtime_repeat=PASS
+RUNTIME_CONTRACT=PASS sqlite=3.53.4
+```
+
+The freeze specification is certified for authorization review. This remains a
+design/evidence result: system SQLite was not replaced, certification-only
+dependencies were not added to ActaKit, and migration `0001` was not created or
+authorized.

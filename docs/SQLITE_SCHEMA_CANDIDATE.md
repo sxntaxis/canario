@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-001
 kind: schema-candidate
-state: critical-review-revised
+state: migration-0001-freeze-complete-authorization-review-ready
 created: 2026-08-21
 updated: 2026-08-21
 authority: design-proposal
@@ -147,6 +147,12 @@ erasure. Exceptional purge has stronger maintenance rules in section 16.
   integrity.
 - Genuinely optional fields never participate in a composite primary key. This
   matters under `STRICT`, where every PK component is implicitly `NOT NULL`.
+- Operation retries preallocate stable opaque IDs and timestamps before the write
+  transaction. Retrying the same operation reuses those IDs: a PK collision is
+  treated as success only after the core verifies the existing immutable payload is
+  identical; a different payload under the same ID is a hard collision. `0001`
+  deliberately has no generic idempotency table and canonical writes never use
+  `INSERT OR REPLACE`.
 
 ## 4. Closed 1.0 vocabularies
 
@@ -163,6 +169,12 @@ source_authority_scope:
 
 acquisition_outcome:
   success | partial | not_found | failed
+
+acquisition_artifact_role:
+  primary | attachment | response_body | other
+
+process_outcome:
+  success | partial | failed
 
 artifact_validation:
   pending | verified | quarantined | rejected
@@ -182,6 +194,18 @@ document_type:
 
 document_visibility:
   normal | restricted
+
+document_occurrence_kind:
+  whole | contained | attachment | other
+
+entity_name_kind:
+  official | alias | former | display | other
+
+mention_resolution_state:
+  resolved | cleared
+
+entity_reconciliation_kind:
+  merge | split
 
 claim_kind:
   source_assertion | derived_inference | community_report | verification_question
@@ -218,8 +242,14 @@ semantic_link_lifecycle:
   # for correctable semantic metadata/links such as EvidenceLink, identity metadata,
   # document occurrence/classification, ClaimEntityLink / ClaimTagLink / EntityReconciliation
 
+review_mode:
+  strict | batch | supervised
+
 review_decision:
   accepted | rejected | needs_work
+
+evidence_basis_role:
+  source_basis | context
 
 purge_target_kind:
   source | source_authority_scope | source_locator | acquisition | acquisition_artifact |
@@ -240,8 +270,12 @@ purge_action:
   delete_record | scrub_payload | detach | delete_bytes
 ```
 
-Local taxonomies such as tags and normalized role keys remain namespaced and
-extensible; they are not promoted into global enums.
+Local taxonomies and registered adapter contracts remain deliberately open text rather
+than global enums. In `0001` this includes tag namespaces/keys, normalized role
+keys, identifier schemes, locator kinds, selector kind/version, process kinds,
+adapter keys/versions, parser profile keys/versions, error codes, and implementation/
+model identifiers. These values are validated by the owning registry/adapter contract;
+they are not permission for arbitrary unregistered strings.
 
 ## 5. Source and acquisition — Depósito ingress
 
@@ -288,14 +322,15 @@ budget dataset         -> dataset_value
 ### `source_locators`
 
 Observed/known addresses for a source. URI change does not change source identity.
+`SourceLocator` is the stable known address, not a validity episode: observation
+history belongs to `Acquisition.observed_at`. Re-observing an old URI later therefore
+does not require manufacturing a second locator row.
 
 ```text
 id PK
 source_id FK -> sources
 locator
 locator_kind
-valid_from nullable
-valid_to nullable
 created_at
 UNIQUE(source_id, locator)
 UNIQUE(id, source_id)              -- supports same-Source composite FK from Acquisition
@@ -455,10 +490,16 @@ configuration_hash nullable
 model_provider nullable
 model_name nullable
 started_at
-finished_at nullable
-outcome
+finished_at
+outcome                   -- success | partial | failed
 created_at
 ```
+
+`ProcessRun` is terminal provenance, not the scheduler/job-state table. A persisted
+row represents a completed attempt, so `finished_at` is required and must not precede
+`started_at`. Failed runs may remain for audit, but canonical machine/rule outputs
+may reference only `success` or `partial` runs; that cross-row rule is enforced by
+the core transaction validator.
 
 Any persisted semantic row whose `origin_kind` is `machine` or `rule` requires an
 exact `process_run_id` in `0001`; human-origin rows may omit it. Likewise every
@@ -1208,6 +1249,13 @@ Same shape, FK to `role_assignment_revisions`.
 Separate review tables intentionally preserve FK integrity rather than using a
 polymorphic universal review subject.
 
+Review rows are immutable assessments, not semantic-row revisions. A reviewer who
+changes their judgment appends another review row for the same exact subject. The
+effective state for that reviewer is the latest row under the deterministic order
+`(created_at DESC, id DESC)`; reviews by different reviewers remain independent and
+are combined by the applicable policy rather than collapsed into one global truth
+flag. The physical indexes support this per-subject/per-reviewer lookup.
+
 No review row means **unreviewed**, which is valid and searchable in supervised
 mode.
 
@@ -1368,9 +1416,21 @@ document_fts
   title
 ```
 
-`representation_fts` indexes only policy-permitted textual Representations. It
-does not flatten an arbitrary “current extracted text” into CivicDocument,
-which would hide representation identity and complicate purge/reprocessing.
+Eligibility is deterministic and rebuildable from canonical authority:
+
+- `claim_fts` contains exactly current (non-superseded) ClaimRevisions whose
+  `lifecycle='active'`. Human review is not required for internal supervised search;
+  `rejected`, `retracted` and `restricted` revisions are excluded. The `sensitive`
+  flag is an output/access-policy concern rather than a synthetic review gate.
+- `document_fts` contains exactly current CivicDocumentRevisions with
+  `visibility='normal'` and a non-null title.
+- `representation_fts` contains only `availability='available'` textual
+  Representations whose registered media type is supported by the rebuild reader.
+  Restricted/purged representations are excluded.
+
+`representation_fts` does not flatten an arbitrary “current extracted text” into
+CivicDocument, which would hide representation identity and complicate
+purge/reprocessing.
 
 All three projections:
 
@@ -1404,10 +1464,20 @@ claim_entity_links(entity_id, claim_revision_id)
 claim_tag_links(tag_id, claim_revision_id)
 claim_relation_revisions(from_claim_revision_id, relation_type)
 claim_relation_revisions(to_claim_revision_id, relation_type)
-claim_reviews(claim_revision_id, created_at)
+claim_reviews(claim_revision_id, reviewer, created_at, id)
 role_assignment_revisions(subject_entity_id, organization_entity_id)
 role_assignment_revisions(organization_entity_id, role_key, valid_from, valid_to)
 ```
+
+### Rowid strategy
+
+All 54 ordinary `0001` tables remain ordinary SQLite rowid tables. Application
+contracts never expose or persist the hidden `rowid`; stable text IDs/composite
+keys remain the only civic identity. `WITHOUT ROWID` is intentionally not frozen
+without workload measurements: it can save a B-tree for non-integer/composite PKs,
+but secondary indexes then carry the full PK and the benefit depends on real row
+size/index mix. It may be evaluated later as a storage optimization without
+changing semantic identity.
 
 ## 18. Query graph boundary
 
@@ -1562,6 +1632,16 @@ The eight questions left open by `8b98010` are now closed at design level:
 These decisions do **not** authorize migration. They remove semantic ambiguity so
 DDL can now be attacked mechanically.
 
+## 23A. Migration 0001 freeze
+
+The post-certification physical freeze work is documented in
+`notebook/research/pre-sql/schema/MIGRATION_0001_FREEZE_REVIEW.md` and materialized
+as `MIGRATION_0001_SPEC.sql`. That review closes bootstrap, SQL/core invariant
+boundaries, FTS eligibility, rowid strategy, idempotent retry semantics, physical
+index coverage and the remaining closed-vocabulary mismatches. The reconciled
+specification has been re-run on the authoritative SQLite 3.53.4 runtime and
+retains the prior target-runtime certification evidence.
+
 ## 24. Remaining proof gates before migration `0001`
 
 What remains is proof, not unresolved domain semantics:
@@ -1584,11 +1664,12 @@ What remains is proof, not unresolved domain semantics:
      `notebook/research/pre-sql/schema/TARGET_RUNTIME_CERTIFICATION.md`.
 
 No production migration, canonical-data cutover, or current file-pipeline rewrite
-is authorized until these proofs pass.
+is authorized by this design freeze. A separate explicit authorization checkpoint
+is required.
 
 ## 25. Candidate verdict
 
-**SCHEMA_CANDIDATE_GATE: CRITICAL_REVIEW_COMPLETE__MIGRATION_FREEZE_REVIEW_READY**
+**SCHEMA_CANDIDATE_GATE: MIGRATION_0001_FREEZE_COMPLETE__AUTHORIZATION_REVIEW_READY**
 
 The first candidate was not safe to freeze. The critical revision restores
 contract-required document/claim/relation revision provenance and lifecycle,
@@ -1598,8 +1679,9 @@ association, fixes the nullable-PK/STRICT contradiction, makes entity/tag anchor
 and correctable, requires attributable process identity for machine/rule writes,
 and makes purge/FTS claims match SQLite's actual behavior.
 
-Disposable scratch DDL, real selector/RoleAssignment artifacts, relation/entity
-correction traversal, shared-byte purge safety, backup/clean restore/FTS rebuild,
-archive+FTS+WAL purge maintenance, and the exact packaged SQLite 3.53.4 runtime
-certification now pass. The candidate is ready for a separate migration-freeze
-review. Migration `0001` remains unauthorized.
+The migration spec proof, migration-freeze bootstrap/inventory proof, real
+selector/RoleAssignment artifacts, relation/entity correction traversal,
+shared-byte purge safety, backup/clean restore/FTS rebuild,
+archive+FTS+WAL purge maintenance, and the exact packaged SQLite 3.53.4
+post-freeze certification all pass. The frozen specification is ready for a
+separate authorization review. Migration `0001` remains unauthorized.
