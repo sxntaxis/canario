@@ -1,11 +1,11 @@
 ---
 id: ACTAKIT-DEPOSIT-WRITER-IMPL-001
 kind: implementation-evidence
-state: local-proof-pass-target-runtime-reconciliation-required
+state: deposit-writer-implemented-and-certified
 created: 2026-08-21
 authority: implementation-evidence
 deposit_writer_implemented: true
-deposit_writer_target_runtime_certified: false
+deposit_writer_target_runtime_certified: true
 canonical_cutover_authorized: false
 semantic_fichero_writers_authorized: false
 ---
@@ -39,9 +39,9 @@ actakit/deposit/
 ```
 
 The public `DepositWriter` uses `open_writable_v1` by default, so production
-writes inherit the already-certified SQLite runtime/source-ID guard. Tests inject
-the private no-runtime-check bootstrap opener only because this cloud environment
-loads SQLite 3.46.1; target-runtime certification remains a separate gate.
+writes inherit the certified SQLite runtime/source-ID guard. The public smoke
+also exercises this default path without injecting the private no-runtime-check
+opener.
 
 ## IDs and timestamps
 
@@ -133,19 +133,9 @@ single acquisition observation.
 
 Changed bytes at the same SourceLocator produce a new digest/ArchiveObject.
 
-## Local proof results
+## Certified proof results
 
-Available cloud runtime:
-
-```text
-SQLite 3.46.1
-```
-
-Production runtime certification therefore remains pending; the following tests
-use an injected schema-v1 connection factory solely to exercise domain/write
-logic without weakening the production default runtime guard.
-
-Current local results:
+The complete suite passed under the exact registered SQLite 3.53.4 source ID:
 
 ```text
 python -m pytest -q
@@ -165,6 +155,9 @@ PASS
 
 STORAGE_OPERATION_PROOF
 PASS — backup/clean restore/FTS/purge/WAL/VACUUM
+
+PRODUCTION_DEPOSIT_SMOKE
+PASS — public DepositWriter and default runtime guard
 
 git diff --check
 PASS
@@ -207,7 +200,7 @@ This implementation does not:
 - change backup format;
 - authorize canonical cutover.
 
-## Lineage/revalidation requirement
+## Lineage/revalidation result
 
 This implementation delta descends from:
 
@@ -222,15 +215,14 @@ SQLite 3.53.4 bootstrap implementation certification is the sibling commit:
 d43d6b6435e20136951ee5a81a6d79da4c68e006
 ```
 
-The final Depósito certification must apply this delta onto `d43d6b6`, preserve
-`MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`, and rerun the entire suite using
-the exact registered SQLite 3.53.4 source ID.
-
-Until that succeeds:
+The delta was applied onto `d43d6b6`, the prior
+`MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md` was preserved, and the entire
+suite passed using the exact registered SQLite 3.53.4 source ID. Full evidence
+is recorded in `DEPOSIT_WRITER_CERTIFICATION.md`.
 
 ```text
 deposit_writer_implemented: true
-deposit_writer_target_runtime_certified: false
+deposit_writer_target_runtime_certified: true
 canonical_cutover_authorized: false
 semantic_fichero_writers_authorized: false
 ```

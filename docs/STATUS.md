@@ -1,11 +1,11 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: migration-0001-implemented-and-certified
+state: deposit-writer-implemented-and-certified
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
-summary: The semantic model, SQLite 0001 freeze, and bounded production bootstrap implementation are certified; canonical cutover and production semantic writers remain prohibited.
+summary: The semantic model, SQLite 0001 bootstrap, and bounded Depósito custody writer are certified; canonical cutover and semantic Fichero writers remain prohibited.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -63,7 +63,9 @@ accepted semantic contracts
 -> certified MIGRATION_0001_SPEC.sql
 -> bounded production implementation of migration/bootstrap 0001
 -> certified implementation proof on exact SQLite 3.53.4
--> semantic-core/repository integration
+-> certified bounded Depósito custody writer
+-> source-adapter integration/shadow-ingestion review
+-> Mesa de trabajo and semantic writers later
 -> explicit canonical-cutover gate later
 ```
 
@@ -81,14 +83,17 @@ No production code may silently alter that SQL contract. A changed specification
 must return to freeze review and target-runtime recertification.
 
 The implementation certification does not authorize canonical cutover or
-production semantic writers.
+production semantic writers. The bounded Depósito writer is now certified by
+`notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`.
 
 ## Current Prohibitions
 
 - No canonical-data cutover or historical mass import is authorized yet.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
-- No acquisition, Claim, review, purge, or archive writer is authorized merely
-  because the empty schema can now be implemented.
+- No semantic Fichero, Claim, review, purge, or archive/GC writer is authorized
+  beyond the bounded Depósito custody writer certified in this checkpoint.
+- No current scraper integration, shadow ingestion, or historical import is
+  authorized by this checkpoint.
 - No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
 - No claim may conceal whether it is machine-only or human-reviewed.
