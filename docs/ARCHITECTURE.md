@@ -50,7 +50,7 @@ names for maintainability.
 
 | Human concept | Question | Technical responsibility |
 |---|---|---|
-| **Depósito** | ¿Qué conseguimos realmente? | Source capture, immutable artifacts, custody |
+| **Depósito** | ¿Qué conseguimos realmente? | Source capture, immutable-by-default artifacts, custody |
 | **Mesa de trabajo** | ¿Cómo podemos leerlo? | Representations: text, OCR, tables, transcripts |
 | **Lector** | ¿Qué contiene? | Parsers, rules, AI, or humans extracting structure |
 | **Fichero** | ¿Qué afirma el material, dónde y cómo se conecta? | Claims, evidence links, entities, tags, connections |
@@ -123,7 +123,7 @@ Around the claim are lightweight structures useful for retrieval:
 
 ```text
 Claim
-├── entity anchors
+├── raw EntityMentions -> optional resolved Entity anchors
 ├── tags/topics
 ├── explicit ClaimRelations
 ├── dates/periods when useful
@@ -141,7 +141,7 @@ and a human-readable document identity are different things.
 ```text
 source
   -> acquisition observation
-  -> immutable artifact bytes
+  -> immutable-by-default artifact bytes
   -> one or more representations
 ```
 
@@ -356,9 +356,22 @@ Its universal core stays small:
 
 - claims and claim revisions;
 - exact evidence links;
-- entities needed as shared anchors for retrieval;
+- raw `EntityMention`s preserving what the source actually said;
+- entities needed as shared resolved anchors for retrieval;
 - local tags/topics;
 - explicit claim-to-claim relations when they carry real meaning.
+
+### Raw mentions before resolved identity
+
+The Lector must not collapse a source string directly into canonical identity. A
+raw occurrence such as `"AyA"`, `"Municipalidad Esparza"`, or `"Juan Pérez"`
+is preserved first as an `EntityMention` with its exact observed text,
+representation/locator context, extraction origin, and optional claim context.
+
+An `EntityMention` may remain unresolved indefinitely. Candidate or confirmed
+resolution to an `Entity` is a separate attributable decision. This preserves
+what the source actually contained and prevents name equality from becoming
+identity truth.
 
 There are two different kinds of connection.
 
@@ -395,6 +408,35 @@ This gives ActaKit a **graph-shaped civic record** without requiring a graph
 database. The baseline persists typed entities, joins, and claim relations in
 SQLite. A specialized graph engine is justified only if real traversal/query
 workloads later exceed what the relational model can handle cleanly.
+
+### Entity reconciliation lineage
+
+Entity identity is stable and local, but reconciliation can improve over time.
+Aliases alone are not enough when later evidence shows that two local entities
+are the same thing or that one mistaken entity actually represented several.
+
+Merge/split decisions therefore create a small append-only reconciliation
+lineage recording the input entity IDs, output/survivor entity IDs, actor/process,
+time, and rationale/basis. Old claim/entity links are not silently rewritten.
+Queries may follow accepted merge lineage for current retrieval; after a split,
+ambiguous old links remain historically explainable and individual mentions/links
+can be re-resolved deliberately.
+
+This lineage is an identity-maintenance mechanism, **not** a generic entity graph.
+
+### When a relation becomes a civic object
+
+`ClaimRelation` remains intentionally narrow: it expresses proposition-to-
+proposition meaning such as `updates`, `contradicts`, or `responds_to`. Do not
+turn it into a generic edge payload.
+
+When a relationship has independent civic attributes or identity — for example a
+role with start/end dates, a contract with amount/term, or a membership with a
+percentage — it crosses a promotion boundary and belongs in a typed
+Association/Event-style record with its own evidence/provenance. Concrete
+Association/Event tables may be deferred until a real 1.0 fixture needs one, but
+the claim-relation schema must stay narrow enough that later promotion does not
+require unpacking arbitrary edge JSON.
 
 Tags/taxonomies are local by default and may be shared deliberately. ActaKit
 must not impose one national topic taxonomy.
@@ -497,15 +539,34 @@ replay/concurrency/import failure mode requires them; they are not universal tax
 on every mutation. Original/derived bytes live in the archive, not as database
 blobs by default.
 
-## Corrections and History
+## Corrections, History, and Purge
 
 No important state is silently overwritten. Correcting a claim creates a new
 revision/supersession relationship. Ordinary revision history need not create a
 separate heavyweight “correction case”; explicit correction records are
-reserved for events such as retraction, public correction, redaction, or
-evidence unlinking where the action itself matters.
+reserved for events such as retraction, public correction, redaction, evidence
+unlinking, identity reconciliation, or purge where the action itself matters.
 
-Absence from a new acquisition observation, query, output, or export never means deletion.
+Absence from a new acquisition observation, query, output, or export never means
+deletion.
+
+Evidence custody is **immutable by default, not absolutely undeletable**. Normal
+editing never mutates or overwrites acquired bytes; redaction creates a separate
+derivative. A lawful or safety-driven purge is an exceptional explicit policy
+operation that removes the targeted bytes and derived copies/indexes that retain
+the purged content.
+
+When policy and law permit, ActaKit keeps a minimal non-sensitive tombstone:
+opaque record identity, purge time, attributable authority/action, broad reason
+code, and enough lineage to explain that material once existed. The tombstone
+must not retain the very content, raw mention, locator, digest, or metadata whose
+retention the purge forbids. If even that audit metadata cannot lawfully remain,
+the policy may require its removal as well.
+
+`restricted` and `purged` are different: restricted material still exists under
+access controls; purged material does not. Claims or evidence links affected by
+purge must become visibly unavailable/reviewable according to policy rather than
+silently appearing fully evidenced.
 
 ## Privacy and Publication
 

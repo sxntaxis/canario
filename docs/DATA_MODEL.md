@@ -41,9 +41,12 @@ Source -> AcquisitionObservation -> Artifact -> Representation
 
 Claim -> ClaimRevision -> EvidenceLink -> Representation + typed locator
                          |
+                         +-> EntityMention -> optional Entity resolution
                          +-> ClaimEntityLink -> Entity
                          +-> TagAssignment -> Tag
                          +-> ClaimRelationRevision -> another ClaimRevision
+
+Entity -> append-only EntityReconciliation (merge/split lineage)
 
 ReviewDecision -> exact claim/relation revision(s) or reproducible subject set
 ```
@@ -67,7 +70,9 @@ Final SQL may merge/split these after fixture/query tests.
 | civic document | stable civic identity/classification separate from representation |
 | claim identity + revisions | proposition lineage, origin, lifecycle, attribution/time/flags |
 | evidence link | exact claim revision -> representation locator + evidence relation |
-| entity + observed names/identifiers | stable local retrieval anchor without name-equality merging |
+| entity mention | exact observed source text + representation/locator context + origin + optional resolution |
+| entity + identifiers/aliases | stable local resolved retrieval anchor without name-equality merging |
+| entity reconciliation | append-only merge/split lineage preserving old links and ambiguity |
 | claim-entity link | exact claim revision -> entity + role/origin |
 | tag + assignment | local topic vocabulary + attributable assignment |
 | claim relation identity + revisions | exact claim-revision endpoints + type/origin/basis/lifecycle |
@@ -82,8 +87,8 @@ Final SQL may merge/split these after fixture/query tests.
 | civic collections + memberships | expediente/package/case spans multiple documents |
 | profile data | acta/report/budget semantics need validated specialized fields |
 | explicit processing-run record | one execution produces many outputs or replay/audit needs shared run identity |
-| entity merge/split event | identity reconciliation must preserve a decision/history |
-| explicit correction event | retraction/redaction/public correction/unlinking itself matters |
+| typed association/event | a relationship carries independent role/time/amount/term identity that does not fit ClaimRelation |
+| explicit correction/purge event | retraction/redaction/public correction/unlinking/purge itself matters |
 | batch review record | compact subject-set representation cannot be reconstructed cleanly from decisions alone |
 | publication snapshot | deliberate release needs reproducible immutable history |
 
@@ -153,7 +158,26 @@ forced document types.
 ## Networked Fichero
 
 The Fichero is graph-shaped, but the baseline SQL should stay explicit and
-relational. There are two intentionally different connection mechanisms.
+relational. Raw mention, resolved identity, shared-anchor membership, and direct
+claim relation are distinct facts.
+
+### Raw mentions and resolved identity
+
+```text
+representation occurrence -> EntityMention -> optional Entity resolution
+claim revision -----------------------------> ClaimEntityLink -> Entity
+```
+
+`EntityMention` is core because the exact source occurrence must survive even
+when resolution is unknown, machine-suggested, later corrected, merged, or split.
+The SQL shape may use separate resolution-decision rows rather than a mutable
+`resolved_entity` column if that better preserves history. What is non-negotiable
+is that reconciliation never overwrites the raw mention.
+
+Entity merge/split uses a narrow append-only reconciliation lineage with
+input/output entity IDs plus attribution/basis. It is not a universal identity
+graph. Accepted merge lineage may inform current retrieval; splits do not cause
+silent mass retargeting of old links.
 
 ### Shared anchors
 
@@ -192,6 +216,15 @@ relational tables provide stronger invariants and simpler code for the known
 core. If future traversal workloads justify a specialized graph index/engine, it
 can be derived from these canonical records rather than becoming a second source
 of truth.
+
+### Rich relationship promotion boundary
+
+The first schema must keep `ClaimRelation` narrow. A relationship that has its
+own role/time/amount/term or otherwise needs independent identity is **not**
+serialized into arbitrary edge JSON. It is promoted to a typed Association/Event
+record when a real fixture requires one. Concrete association/event tables may be
+absent from migration `0001`; the migration-safe boundary is the prohibition on
+using ClaimRelation as a generic attributed edge.
 
 ## Claim Data
 
@@ -300,6 +333,27 @@ same Fichero/read model
 If later outputs need durable configured state, add namespaced output persistence
 without making presentation state evidence authority.
 
+## Custody Status, Purge, and Tombstones
+
+Artifact/representation bytes are immutable under normal operation. The model
+must nevertheless represent the exceptional case where policy requires physical
+purge. This is not ordinary deletion and must not be inferred from absence.
+
+The schema design must be able to distinguish at least conceptually:
+
+```text
+available   bytes retained and usable
+restricted  bytes retained but access-limited
+purged      bytes intentionally removed by explicit policy action
+```
+
+A purge propagates to derived bytes/search indexes/caches that retain the scoped
+content. A minimal tombstone may remain only when lawful and non-sensitive; its
+contract must not require retaining a digest, locator, raw text, or metadata that
+the purge itself is meant to remove. Claims/evidence depending on purged material
+remain historically explainable only to the extent policy permits and must not be
+presented as if their evidence were still inspectable.
+
 ## Single-Operator-First Storage
 
 The baseline assumes one writer/operator process at a time, occasionally two
@@ -312,7 +366,7 @@ controls at its boundary without rewriting civic history.
 
 ## Pre-SQL Questions That Must Be Answered
 
-Before migration `0001`, prove with realistic fixtures:
+Before migration `0001`, semantic fixtures must show that the model can represent:
 
 1. PDF acta, spreadsheet budget, HTML notice, and unknown document use the same
    evidence/claim core without invented structure.
@@ -324,8 +378,9 @@ Before migration `0001`, prove with realistic fixtures:
 5. Source authority limitations are representable without a trust score/policy
    engine.
 6. Many claims can share one entity/tag without pairwise-edge explosion.
-7. Entity aliases/strong identifiers work, and an identity merge/split can
-   preserve history without silent mass rewrite.
+7. Raw `EntityMention` survives unresolved/candidate/resolved identity states,
+   and aliases/strong identifiers plus merge/split lineage preserve history
+   without silent mass rewrite.
 8. An active claim relation always has exact endpoints, attributable origin, and
    an inspectable basis; candidates can remain unreviewed.
 9. Claim correction does not silently retarget an old relation.
@@ -334,7 +389,14 @@ Before migration `0001`, prove with realistic fixtures:
 11. Evidence `challenges` and claim `contradicts` remain unambiguous in queries/UI.
 12. Hilo can define Episodes outside core, and a tiny non-Episode output can use
     the same read model.
-13. Backup/restore verifies database + archive + relation/evidence consistency.
+13. The backup/restore boundary includes database + archive + relation/evidence consistency; operational restore proof follows implementation.
+14. Rich role/time/amount relationships cannot be forced into ClaimRelation; the
+    promotion boundary to typed Association/Event remains migration-safe even if
+    concrete tables are deferred.
+15. Restricted material and explicit purge are distinguishable; lawful purge can
+    remove bytes/derivatives without requiring prohibited tombstone content.
 
-Only after these pass should final SQL tables, constraints, indexes, cached
-current pointers, idempotency keys, or record hashes be reviewed and accepted.
+Only after these semantic gates pass should final SQL tables, constraints,
+indexes, cached current pointers, idempotency keys, or record hashes be reviewed
+and accepted. Artifact-backed parser/locator proofs and operational backup/restore
+proofs remain required after the corresponding implementation exists.

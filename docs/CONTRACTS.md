@@ -51,13 +51,17 @@ must preserve the same invariant:
 
 ## Artifacts and Representations
 
-An `Artifact` is immutable acquired bytes with digest, byte length, media type,
-acquisition provenance, archive location, and custody state:
+An `Artifact` is immutable-by-default acquired bytes with digest, byte length,
+media type, acquisition provenance, archive location, and **separate** validation
+and availability state. Do not compress these axes into one lifecycle:
 
 ```text
-pending -> verified | quarantined | rejected | disposed
+validation:   pending | verified | quarantined | rejected
+availability: available | restricted | purged
 ```
 
+`restricted` retains bytes under access limits. `purged` is reachable only by the
+explicit purge contract defined below; it is not an ordinary edit/delete state.
 The same bytes acquired from two captures may share physical storage while
 retaining both provenance chains.
 
@@ -242,7 +246,28 @@ announced X” must not silently become “X happened.”
 
 ## Entities, Tags, and Claim Connections
 
-### Entities are shared anchors
+### EntityMention preserves the source occurrence
+
+An `EntityMention` is the provenance-preserving occurrence of a possible entity
+in source-derived material **before canonical identity resolution**. Minimum
+semantics:
+
+```yaml
+mention_id: emn_...
+representation_ref: rep_...
+locator: typed locator or equivalent exact occurrence context
+observed_text: "AyA"
+claim_revision_ref: optional clm_...@N
+origin_kind: machine | rule | human
+origin_process_ref: optional attributable process
+```
+
+A mention may remain unresolved. Candidate matching and confirmed resolution are
+separate from the observed text; resolution never overwrites `observed_text`.
+When a resolution decision changes, history remains attributable rather than
+mutating the source occurrence.
+
+### Entities are shared resolved anchors
 
 An `Entity` gives a retrieval-relevant thing a stable **local** identity.
 Initial classes may include person, organization/institution, place, project,
@@ -251,18 +276,43 @@ classes.
 
 Identity resolution is explicit rather than name-equality magic:
 
-- preserve every observed/source-supplied label that matters;
+- preserve source occurrences through `EntityMention`;
 - attach strong external identifiers when available (legal ID, contract number,
   official expediente/agreement identifier, etc.);
 - do not merge people merely because names match;
 - projects/places/organizations may have aliases and changing display names;
+- unresolved or machine-suggested mention resolution is valid;
 - merge/split decisions preserve history and provenance instead of silently
   rewriting every old link.
 
 A `ClaimEntityLink` binds an exact claim revision to an entity using a small,
 extensible relation/role vocabulary such as `mentions`, `about`, `actor`,
 `responsible`, or `place` when useful. It records origin and processing/review
-provenance as needed.
+provenance as needed. It may be created from an accepted mention resolution or
+other explicit evidence; it is not proof that every matching raw string denotes
+the same entity.
+
+### Entity reconciliation is append-only
+
+A minimal `EntityReconciliation` lineage records identity changes without
+becoming a general graph:
+
+```yaml
+reconciliation_id: erc_...
+kind: merge | split
+input_entities: [ent_...]
+output_entities: [ent_...]
+origin_kind: human | rule | machine
+origin_process_ref: optional
+basis_refs: exact mention/document/identifier references when available
+rationale: concise explanation when needed
+created_at: ...
+```
+
+For `merge`, accepted current retrieval may follow the lineage to the survivor or
+replacement entity while old links remain historically intact. For `split`, old
+links are not bulk-rewritten: affected mentions/links are re-resolved when enough
+evidence exists, and unresolved historical ambiguity remains visible.
 
 Shared entity membership is a retrieval fact, not a semantic shortcut:
 
@@ -304,6 +354,15 @@ confirmed. Promotion to active follows the relation policy and basis minimum.
 
 Relation types remain a small versioned vocabulary. Do not encode a universal
 civic ontology in relation names.
+
+`ClaimRelation` is only for relationships whose meaning is adequately expressed
+by the typed proposition-to-proposition edge plus provenance/review. If the
+relationship itself carries independent civic identity or attributes — role,
+start/end dates, amount, percentage, contract term, or similar — it must be
+promoted to a typed Association/Event-style record rather than hidden inside a
+generic relation payload. The baseline may defer concrete association/event
+tables until a real fixture requires them; this contract forbids designing
+`ClaimRelation` as the future junk drawer.
 
 When a claim revision changes materially, existing relations keep their original
 revision endpoints. The core may propose/review a replacement relation; it does
@@ -381,6 +440,21 @@ merge_identity
 ```
 
 A redacted public representation never overwrites the restricted original.
+
+### Purge and tombstones
+
+Normal custody is immutable-by-default: no edit operation mutates acquired bytes.
+`purge` is a separate exceptional policy action for a lawful/safety-driven need
+to remove retained material. It must identify the affected canonical records,
+remove the targeted bytes plus derived copies/index entries that preserve the
+purged content, and record attributable authority/reason to the extent retention
+of that audit information is itself lawful.
+
+A tombstone, when permitted, contains only the minimum non-sensitive facts needed
+to explain the deletion (opaque identity, time, action/authority, broad reason,
+and safe lineage). It must not preserve prohibited content indirectly through raw
+text, exact locators, digests, or sensitive metadata. `restricted` means bytes
+still exist; `purged` means they do not.
 
 ## Queries
 

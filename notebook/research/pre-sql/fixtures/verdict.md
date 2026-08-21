@@ -1,7 +1,8 @@
 ---
 id: ACTAKIT-PRE-SQL-FIXTURE-VERDICT-001
 type: research-fixture-verdict
-state: review
+state: superseded
+superseded_by: ACTAKIT-PRE-SQL-FIXTURE-REVALIDATION-001
 authority: evidence
 created: 2026-08-20
 architecture_baseline: 59bab9de30bbf2aa1eec96dddaee3cded31a9f3a
@@ -9,6 +10,10 @@ research_baseline: f790517ea7dd16796a1484289275ff4ddc93cc84
 ---
 
 # Fixture verdict before SQLite
+
+> Historical first-pass verdict. The four open design questions below are resolved
+> by `revalidation.md`; this file preserves what the fixture pass exposed before
+> the bounded architecture patch.
 
 ## Verdict
 
