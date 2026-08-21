@@ -1,17 +1,18 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: ingress-001-implemented-and-certified
+state: esparza-connector-local-proof-target-runtime-certification-required
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The semantic model, SQLite 0001 bootstrap, bounded Depósito custody writer, and terrain-neutral INGRESS-001 boundary are certified; real connector integration and cutover remain prohibited.
+summary: INGRESS-001 is certified and the first real Esparza Source Connector has local shadow-mode proof; target-runtime connector certification and any canonical cutover remain pending.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
   - ACTAKIT-INGRESS-001
+  - ACTAKIT-CONNECTOR-ESPARZA-001
 ---
 
 # Current Status
@@ -88,7 +89,9 @@ accepted semantic contracts
 -> certified implementation proof on exact SQLite 3.53.4
 -> certified bounded Depósito custody writer
 -> certified INGRESS-001 Source Connector SPI + Inbox
--> Esparza connector as first real SPI consumer in shadow mode
+-> Esparza connector local shadow implementation/proof
+-> exact SQLite 3.53.4 connector certification
+-> real network shadow dogfood/comparison
 -> Mesa de trabajo Representation processors later
 -> semantic writers and explicit canonical-cutover gate later
 ```
@@ -136,9 +139,10 @@ connector-run/checkpoint persistence remain unfrozen.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
 - No semantic Fichero, Claim, review, purge, or archive/GC writer is authorized
   beyond the bounded Depósito custody writer certified in this checkpoint.
-- No current scraper integration, real Source Connector, shadow ingestion, or
-  historical import is authorized by this checkpoint. INGRESS-001 certifies only
-  the terrain-neutral SPI/Inbox boundary and synthetic proving connectors.
+- The Esparza Source Connector exists only as a shadow-mode SPI consumer. It does
+  not modify the current scraper/Hilo path and is not canonical. Real network
+  dogfood waits for its exact SQLite 3.53.4 certification; historical import and
+  cutover remain unauthorized.
 - No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
 - No claim may conceal whether it is machine-only or human-reviewed.

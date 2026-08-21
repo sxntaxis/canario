@@ -112,10 +112,14 @@ fixtures **before** adapting Esparza.
 
 ### WP4B — Real source connectors / shadow ingestion
 
-Implement Esparza as the first consumer of the SPI, not as its reference model.
-Run it in shadow mode beside the legacy pipeline. Source outage, changed bytes at
-the same locator, duplicate filename, malformed body, redirects and connector
-structure changes must preserve honest acquisition state. No canonical cutover.
+**Current:** the Esparza CMS connector is implemented as the first SPI consumer
+and has local proof. It preserves listing HTML before parsing, handles source
+outage/changed bytes/duplicates/malformed bodies/redirects fail-closed, and has a
+separate isolated shadow host. Exact SQLite 3.53.4 certification and real-network
+shadow dogfood remain the gate before this work package is complete.
+
+Esparza remains a consumer of the SPI, not its reference model. No canonical
+cutover, historical import, or semantic writer is authorized.
 
 ### WP4C — Mesa de trabajo Representation processors
 
