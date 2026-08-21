@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-INGRESS-IMPL-001
 kind: implementation-evidence
-state: local-proof-pass-target-runtime-certification-pending
+state: ingress-001-implemented-and-certified
 created: 2026-08-21
 authority: implementation-evidence
 related:
@@ -145,9 +145,9 @@ bounded Depósito writer. It is not a commitment that future large-media adapter
 must buffer unlimited objects in memory; streaming/resource limits must be proven
 by a real source before that transport mechanism is frozen.
 
-## Local proof
+## Certified proof
 
-Commands/results on the available local SQLite 3.46.1 runtime:
+Commands/results on the exact registered SQLite 3.53.4 runtime:
 
 ```text
 python -m pytest -q tests/test_ingress_spi.py       8 passed
@@ -165,5 +165,6 @@ Production/frozen SQL remains byte-identical:
 31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
 ```
 
-The exact SQLite 3.53.4 runtime certification remains a separate gate before the
-first real source connector is authorized.
+The exact runtime gate is now closed. Full evidence is recorded in
+`INGRESS_001_CERTIFICATION.md`; the real source connector remains a separate
+shadow-mode review.

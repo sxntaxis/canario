@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: ingress-001-implemented-local-proof
+state: ingress-001-implemented-and-certified
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The semantic model, SQLite 0001 bootstrap, and bounded Depósito custody writer are certified; terrain-neutral INGRESS-001 is implemented with local proof while real connector integration/cutover remain prohibited.
+summary: The semantic model, SQLite 0001 bootstrap, bounded Depósito custody writer, and terrain-neutral INGRESS-001 boundary are certified; real connector integration and cutover remain prohibited.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -87,8 +87,7 @@ accepted semantic contracts
 -> bounded production implementation of migration/bootstrap 0001
 -> certified implementation proof on exact SQLite 3.53.4
 -> certified bounded Depósito custody writer
--> INGRESS-001 Source Connector SPI + Inbox local proof
--> exact-runtime INGRESS-001 certification
+-> certified INGRESS-001 Source Connector SPI + Inbox
 -> Esparza connector as first real SPI consumer in shadow mode
 -> Mesa de trabajo Representation processors later
 -> semantic writers and explicit canonical-cutover gate later
@@ -127,10 +126,9 @@ Connector code does not receive `DepositWriter` or canonical Source/persistence
 identity. `DepositInbox` is host-bound to those core concerns. Specialized
 connector failures propagate while already accepted custody remains preserved.
 
-This is a local proof on the repository's available SQLite runtime. Exact SQLite
-3.53.4 certification is still required before adapting the real Esparza source.
-Plugin packaging and durable connector-run/checkpoint persistence remain
-unfrozen.
+This boundary is certified on the exact SQLite 3.53.4 runtime. The certification
+does not authorize adapting the real Esparza source. Plugin packaging and durable
+connector-run/checkpoint persistence remain unfrozen.
 
 ## Current Prohibitions
 
@@ -139,9 +137,8 @@ unfrozen.
 - No semantic Fichero, Claim, review, purge, or archive/GC writer is authorized
   beyond the bounded Depósito custody writer certified in this checkpoint.
 - No current scraper integration, real Source Connector, shadow ingestion, or
-  historical import is authorized by this checkpoint. INGRESS-001 currently
-  authorizes only the terrain-neutral SPI/Inbox boundary and synthetic proving
-  connectors.
+  historical import is authorized by this checkpoint. INGRESS-001 certifies only
+  the terrain-neutral SPI/Inbox boundary and synthetic proving connectors.
 - No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
 - No claim may conceal whether it is machine-only or human-reviewed.
