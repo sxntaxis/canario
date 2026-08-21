@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-FIXTURE-REVALIDATION-002
 type: research-fixture-revalidation
-state: ddl-shape-proof-pass-artifact-proof-required
+state: semantic-operation-proof-pass-runtime-certification-required
 authority: evidence
 created: 2026-08-21
 candidate_baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
@@ -55,11 +55,20 @@ The ledger now includes explicit assertions that:
   multigraph;
 - a wrong machine Tag anchor is rejected/corrected append-only rather than deleted;
 - machine/rule semantic outputs retain exact ProcessRun identity;
-- an Acquisition locator, when present, must belong to the same Source.
+- an Acquisition locator, when present, must belong to the same Source;
+- EvidenceLink correction is append-only and current positive evidence uses only a
+  non-superseded active supporting link;
+- a reconciliation cannot remain operative when an EntityIdentifier used as its
+  identity basis has been superseded/rejected without a new reconciliation
+  decision;
+- document identifier/classification/representation-occurrence corrections preserve
+  prior assignments and stable document identity.
 
 ## Next gate
 
-The disposable DDL gate passed. Next proof must use real/controlled civic
-artifacts for selector/parser behavior and then certify archive+DB restore, purge
-maintenance, and the actual >=3.51.3 packaged runtime. A failure reopens design;
-it is not patched around in a production migration.
+The disposable DDL, real selector/RoleAssignment artifact proof, shared-byte purge,
+backup -> clean-location restore -> FTS rebuild, and archive/FTS/WAL purge
+maintenance gates pass. The one remaining certification gate is the **actual
+packaged SQLite 3.53.4 runtime**, including the registered upstream source ID,
+required compile capabilities and functional runtime probes. A failure reopens
+design; it is not patched around in a production migration.

@@ -222,11 +222,11 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
                 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (f"clmr-{label}", f"clm-{label}", 1, None, "source_assertion", text, "human", None, None, None, None, None, int(label == "purge"), 0, "active", T),
             )
-            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?)", (f"ev-{label}", f"clmr-{label}", tid, "supports", "human", None, T))
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", (f"ev-{label}", None, f"clmr-{label}", tid, "supports", "human", None, "active", None, T))
 
         con.execute("INSERT INTO civic_documents VALUES (?,?)", ("doc-keep", T))
         con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("docr-keep", "doc-keep", 1, None, "Water system evidence", None, "2026-08-21", "es", "normal", "human", None, T))
-        con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?)", ("docrep-keep", "doc-keep", "rep-keep", "whole", "target-keep", T))
+        con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("docrep-keep", None, "doc-keep", "rep-keep", "whole", "target-keep", "human", None, "active", None, T))
         rebuild_fts(con, archive_root)
 
     assert_db_identity(con)

@@ -63,6 +63,24 @@ a new no-legacy deployment, the support set therefore starts at 3.53.4, the
 current stable maintenance release at this review boundary, rather than using a
 numeric floor that accidentally admits a withdrawn release. The packaged runtime
 must still be certified by exact version/source ID and required compile options.
+The numeric floor is necessary but **not sufficient**: ActaKit uses a positive
+registry of runtime releases/source IDs that have passed this proof suite. An
+unknown newer SQLite is rejected until certified rather than being trusted merely
+because its version number compares greater. The initial certification target is
+SQLite 3.53.4 with upstream `SQLITE_SOURCE_ID`
+`2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e09459bcc`.
+
+Required runtime capabilities for `0001` are deliberately small:
+
+- FTS5 compiled in (`ENABLE_FTS5`);
+- SQLite mutex/thread-safety code present (`THREADSAFE=1|2`, never `0`);
+- WAL, foreign keys and trigger support not omitted (`OMIT_WAL`,
+  `OMIT_FOREIGN_KEY`, `OMIT_TRIGGER` are disallowed);
+- functional startup probes must actually create/use `STRICT`, FTS5, WAL and
+  enforced foreign keys rather than trusting compile-option strings alone.
+
+No JSON SQL extension is required by the schema: selector JSON is validated by
+ActaKit core contracts, not by making SQLite a JSON-domain authority.
 
 All canonical ordinary tables are `STRICT`. FTS5 virtual tables are the explicit
 exception.
@@ -187,9 +205,10 @@ relation_lifecycle:
   candidate | active | rejected
   # superseded is derived from revision/link/reconciliation lineage
 
-anchor_lifecycle:
+semantic_link_lifecycle:
   candidate | active | rejected
-  # for ClaimEntityLink / ClaimTagLink / EntityReconciliation
+  # for correctable semantic metadata/links such as EvidenceLink, identity metadata,
+  # document occurrence/classification, ClaimEntityLink / ClaimTagLink / EntityReconciliation
 
 review_decision:
   accepted | rejected | needs_work
@@ -197,9 +216,11 @@ review_decision:
 purge_target_kind:
   source | source_authority_scope | source_locator | acquisition | acquisition_artifact |
   archive_object | artifact | process_run | representation | representation_target | civic_document |
-  civic_document_revision | document_identifier | document_classification |
-  document_representation | claim | claim_revision | evidence_link | entity_mention | entity |
-  entity_name | entity_identifier | mention_resolution_candidate |
+  civic_document_revision | document_identifier | document_identifier_review |
+  document_classification | document_classification_review | document_representation |
+  document_representation_review | claim | claim_revision | evidence_link | evidence_link_review |
+  entity_mention | entity | entity_name | entity_name_review | entity_identifier |
+  entity_identifier_review | mention_resolution_candidate |
   mention_resolution_revision | entity_reconciliation | claim_entity_link |
   claim_entity_link_review | entity_reconciliation_review | tag | claim_tag_link |
   claim_tag_link_review | claim_relation | claim_relation_revision | claim_relation_evidence_link |
@@ -569,27 +590,41 @@ type and normalized interpretation have different semantics.
 
 ### `document_identifiers`
 
+Document identifiers participate in identity resolution, so they are attributable
+and correctable rather than immortal strings attached to a Document.
+
 ```text
 id PK
+supersedes_document_identifier_id FK nullable
 document_id FK
 scheme
 value
 issuer_entity_id FK nullable
+representation_target_id FK nullable
+origin_kind              -- human | rule | machine
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                 -- candidate | active | rejected
+rationale nullable
 created_at
 ```
 
-Identifier uniqueness across documents is **not** globally assumed unless a
-scheme contract proves it. Scheme-specific uniqueness is validated by the core;
+A correction supersedes a prior identifier **for the same CivicDocument**; the old
+value remains auditably historical but is not a current identifier leaf. Multiple
+independent active identifiers are legitimate because a document may carry several
+schemes. Identifier uniqueness across documents is **not** globally assumed unless
+a scheme contract proves it. Scheme-specific uniqueness is validated by the core;
 nullable issuer scope is not hidden inside a fragile SQL UNIQUE key.
 
 ### `document_classifications`
 
 Append-only classification history. Source wording and normalized interpretation
 live in the same attributable observation rather than silently overwriting each
-other.
+other. Classification is query-significant semantic metadata, so a mistaken parser
+result must be rejectable/correctable without deletion.
 
 ```text
 id PK
+supersedes_document_classification_id FK nullable
 document_id FK
 source_supplied_type nullable
 source_type_label nullable
@@ -598,13 +633,17 @@ subtype nullable
 profile_key nullable
 profile_version nullable
 confidence nullable
+representation_target_id FK nullable
 origin_kind              -- human | rule | machine
 process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                 -- candidate | active | rejected
+rationale nullable
 created_at
 ```
 
-Current classification is selected deterministically by policy/query, not by
-silently overwriting history.
+Current classification is the non-superseded active leaf. Core transaction
+validation permits competing **candidate** roots but rejects more than one
+non-superseded `active` classification for the same CivicDocument.
 
 ### `document_representations`
 
@@ -614,17 +653,24 @@ compound representation.
 
 ```text
 id PK
+supersedes_document_representation_id FK nullable
 document_id FK
 representation_id FK
 occurrence_kind          -- whole | contained | attachment | other
 representation_target_id FK nullable
+origin_kind              -- human | rule | machine
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                 -- candidate | active | rejected
+rationale nullable
 created_at
 ```
 
 If `representation_target_id` is present, its representation must match
-`representation_id`. Scratch DDL should enforce this with a composite FK to
-`representation_targets(id, representation_id)` rather than leaving an easy
-cross-representation mismatch to application convention.
+`representation_id`. The composite FK enforces that ownership. Detection of a
+Document occurrence can itself be wrong (especially in compound PDFs), so the
+mapping is attributable and corrected by same-Document supersession rather than
+deleting the prior occurrence. Multiple independent active occurrences remain
+valid when the same logical Document genuinely appears in multiple Representations.
 
 ### `document_parts` / `document_collections` decision
 
@@ -686,20 +732,28 @@ wording remains in the Claim/Evidence.
 ### `evidence_links`
 
 Evidence is revision-bound and targets a reusable exact representation location.
+The link itself is semantic: a locator can be wrong, or `supports` can later be
+judged `contextualizes`/`challenges`. That correction must not erase the historical
+link.
 
 ```text
 id PK
+supersedes_evidence_link_id FK nullable
 claim_revision_id FK
 representation_target_id FK
 relation                 -- evidence_relation
 origin_kind              -- machine | rule | human
 process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                 -- candidate | active | rejected
+rationale nullable
 created_at
 ```
 
-A source assertion should normally have at least one evidence link before it can
-be treated as evidenced. Cross-table minima are semantic-core invariants rather
-than fake CHECK constraints.
+Supersession is constrained to the same ClaimRevision and is linear. Multiple
+independent EvidenceLinks may coexist. A source assertion counts as evidenced only
+through at least one **non-superseded active `supports` link** whose
+RepresentationTarget remains available. Cross-table minima are semantic-core
+invariants rather than fake CHECK constraints. Review remains a separate axis.
 
 ## 11. Raw mentions and entity identity
 
@@ -733,31 +787,55 @@ created_at
 
 ### `entity_names`
 
+Names/aliases are retrieval and reconciliation inputs, not timeless properties.
+They therefore retain attributable source context and correction lineage.
+
 ```text
 id PK
+supersedes_entity_name_id FK nullable
 entity_id FK
 name
 name_kind                -- official | alias | former | display | other
-source_document_id FK nullable
+representation_target_id FK nullable
 valid_from nullable
 valid_to nullable
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                 -- candidate | active | rejected
+rationale nullable
 created_at
 ```
 
+A corrected/rejected alias supersedes a prior row for the **same Entity**; it does
+not rewrite raw EntityMentions. Multiple independent active names are legitimate.
+
 ### `entity_identifiers`
+
+Identifiers are stronger identity inputs than names and receive the same bounded
+provenance/correction treatment.
 
 ```text
 id PK
+supersedes_entity_identifier_id FK nullable
 entity_id FK
 scheme
 value
 issuer_entity_id FK nullable
+representation_target_id FK nullable
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                 -- candidate | active | rejected
+rationale nullable
 created_at
 ```
 
 Global uniqueness is not assumed for an arbitrary scheme. Schemes that prove a
 strong uniqueness scope receive explicit core validation/indexing rather than
-pretending every `(scheme,value)` is globally unique.
+pretending every `(scheme,value)` is globally unique. An operative
+EntityReconciliation may use identifier basis only while those exact identifier
+rows remain non-superseded and active; correcting identity evidence therefore
+forces the dependent reconciliation to be revisited/superseded instead of silently
+continuing on stale evidence.
 
 ### `mention_resolution_candidates`
 
@@ -1073,6 +1151,21 @@ reviewer
 reason nullable
 created_at
 ```
+
+### Identity/evidence/document-metadata reviews
+
+The same typed review shape is available for the correctable semantic metadata
+whose mistakes can change identity, evidence, or document interpretation:
+
+- `document_identifier_reviews` -> `document_identifiers`;
+- `document_classification_reviews` -> `document_classifications`;
+- `document_representation_reviews` -> `document_representations`;
+- `evidence_link_reviews` -> `evidence_links`;
+- `entity_name_reviews` -> `entity_names`;
+- `entity_identifier_reviews` -> `entity_identifiers`.
+
+Review records judgment; it does not mutate the semantic row. Actual correction
+uses the corresponding supersession chain.
 
 ### `claim_relation_reviews`
 
@@ -1465,25 +1558,27 @@ DDL can now be attacked mechanically.
 
 What remains is proof, not unresolved domain semantics:
 
-1. ~~executable **scratch DDL** proving critical nullability/FK/CHECK/STRICT constraints~~ — **PASS** in the disposable proof harness (48 STRICT tables; target runtime certification remains separate);
+1. ~~executable **scratch DDL** proving critical nullability/FK/CHECK/STRICT constraints~~ — **PASS** in the disposable proof harness (54 STRICT tables; target runtime certification remains separate);
 2. ~~selector validation against real PDF/text/table artifacts, including reopening
    the exact evidence location~~ — **PASS** against the preserved TSE `alcaldias_pu.pdf` artifact: physical PDF page quote, decoded-text offsets, and derived-table row/value coordinates all reopen exactly;
 3. ~~RoleAssignment proof against a real appointment/office-holder source~~ — **PASS** against TSE resolution 2160-E11-2024, now including exact selector reopening under gate 2;
 4. ~~repeated-byte/archive-object proof including shared-reference purge behavior~~ — **PASS** in the scratch operation proof: one logical capture can be purged without deleting shared bytes, while an attempted physical purge with a surviving retained reference is detected and forbidden;
 5. ~~ClaimRelation basis/revision/review traversal proof~~ — **PASS** with exact revision-bound source basis, typed review, linear supersession, current-leaf filtering, directed/symmetric behavior and parallel-edge traversal;
 6. ~~entity resolution merge/split/correction proof~~ — **PASS** with candidate→active supersession, mention re-resolution/anchor correction, merge/split history, review and active-operation cardinality validation;
-7. FTS rebuild/integrity/purge proof on supported SQLite;
-8. backup -> clean-machine restore -> FTS rebuild proof;
-9. purge maintenance proof, including WAL/FTS and backup-scope reporting;
-10. runtime certification that the actual packaged/local SQLite satisfies the
-    3.53.4 floor and required compile options.
+7. ~~FTS rebuild/integrity/purge proof~~ — **PASS at candidate-operation level**: ordinary self-content FTS5 rebuilds from canonical rows, integrity checks pass, and FTS `secure-delete` participates in purge maintenance; packaged-runtime repeat remains gate 10;
+8. ~~backup -> clean-machine restore -> FTS rebuild proof~~ — **PASS** with manifest/checksum validation, clean-location restore, `foreign_key_check`, database markers and FTS reconstruction;
+9. ~~purge maintenance proof, including WAL/FTS and backup-scope reporting~~ — **PASS**: exact manifest, archive-byte removal, FTS secure deletion, WAL checkpoint plus VACUUM and explicit reporting that a pre-purge backup remains outside the current purge boundary;
+10. **OPEN — packaged-runtime certification:** run `prove_runtime_contract.py` and
+    the complete candidate proof suite with registered upstream SQLite 3.53.4;
+    verify exact source ID, compile capabilities, STRICT/FTS5/WAL/FK probes and
+    repeat gates 1/4/5/6/7/8/9 on that runtime.
 
 No production migration, canonical-data cutover, or current file-pipeline rewrite
 is authorized until these proofs pass.
 
 ## 25. Candidate verdict
 
-**SCHEMA_CANDIDATE_GATE: DDL_PROOF_PASS__ARTIFACT_RUNTIME_PROOF_REQUIRED**
+**SCHEMA_CANDIDATE_GATE: SEMANTIC_OPERATION_PROOF_PASS__RUNTIME_CERTIFICATION_REQUIRED**
 
 The first candidate was not safe to freeze. The critical revision restores
 contract-required document/claim/relation revision provenance and lifecycle,
@@ -1493,7 +1588,9 @@ association, fixes the nullable-PK/STRICT contradiction, makes entity/tag anchor
 and correctable, requires attributable process identity for machine/rule writes,
 and makes purge/FTS claims match SQLite's actual behavior.
 
-Disposable scratch DDL now passes its structural proof harness. Next, close the
-artifact-backed selector/real-civic-source proofs and certify the actual packaged
-SQLite runtime plus archive/backup/purge operations against this exact candidate.
-Migration `0001` remains unauthorized.
+Disposable scratch DDL, real selector/RoleAssignment artifacts, relation/entity
+correction traversal, shared-byte purge safety, backup/clean restore/FTS rebuild and
+archive+FTS+WAL purge maintenance now pass. The remaining boundary is intentionally
+narrow: certify the **actual packaged SQLite 3.53.4 build** (registered source ID +
+compile/functional capabilities) and repeat the suite on that runtime. Migration
+`0001` remains unauthorized until that proof passes.

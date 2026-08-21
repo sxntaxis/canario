@@ -80,14 +80,14 @@ def main() -> None:
             con.execute("INSERT INTO entities VALUES (?,?,?,?)", ("org", "organization", "Municipalidad", T))
             con.execute("INSERT INTO civic_documents VALUES (?,?)", ("doc", T))
             con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("doc1", "doc", 1, None, "Acta", "org", "2026-08-01", "es", "normal", "human", None, T))
-            con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?)", ("dr1", "doc", "rep1", "whole", "t1", T))
+            con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("dr1", None, "doc", "rep1", "whole", "t1", "human", None, "active", None, T))
             # AKF-003: unknown classification is a valid durable state.
-            con.execute("INSERT INTO document_classifications VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("dc-unknown", "doc", "mystery", "Tipo raro", "unknown", None, None, None, None, "human", None, T))
+            con.execute("INSERT INTO document_classifications VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", ("dc-unknown", None, "doc", "mystery", "Tipo raro", "unknown", None, None, None, None, None, "human", None, "active", None, T))
             # AKF-004: one representation can contain multiple civic documents without duplicating bytes.
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t2", "rep1", "pdf_page_quote", "v1", '{"page_ordinal":2,"exact":"second"}', None, "available", T, None))
             con.execute("INSERT INTO civic_documents VALUES (?,?)", ("doc2", T))
             con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("doc2-1", "doc2", 1, None, "Segundo documento", "org", "2026-08-01", "es", "normal", "human", None, T))
-            con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?)", ("dr2", "doc2", "rep1", "contained", "t2", T))
+            con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("dr2", None, "doc2", "rep1", "contained", "t2", "human", None, "active", None, T))
             # AKF-005: non-PDF/table locator remains representation-specific and typed/versioned.
             con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-table", "art1", "aobTable", "rep1", "table", "text/csv", "es", "utf-8", "pr", "available", T, None))
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t-table", "rep-table", "table_range", "v1", '{"sheet":"Presupuesto","a1_range":"B2:C3","observed_values":[[1,2],[3,4]]}', None, "available", T, None))
@@ -101,11 +101,73 @@ def main() -> None:
               WHERE r.artifact_id=a.id AND r.kind='original' AND r.availability IN ('available','restricted')
             )
         """).fetchall() == []
-        must_fail(con, "INSERT INTO document_representations VALUES (?,?,?,?,?,?)", ("dr-bad", "doc", "rep2", "whole", "t1", T))
+        must_fail(con, "INSERT INTO document_representations VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("dr-bad", None, "doc", "rep2", "whole", "t1", "human", None, "active", None, T))
         must_fail(con, "INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("doc2-bad", "doc2", 2, "doc1", "Wrong cross-document correction", "org", "2026-08-02", "es", "normal", "human", None, T))
         with con:
             con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("doc1-2", "doc", 2, "doc1", "Acta corregida", "org", "2026-08-01", "es", "normal", "human", None, T))
         assert con.execute("SELECT title FROM civic_document_revisions WHERE document_id='doc' ORDER BY revision_no").fetchall() == [("Acta",), ("Acta corregida",)]
+
+        # Identity-bearing document metadata/occurrence mappings are correctable without deleting history.
+        with con:
+            con.execute(
+                "INSERT INTO document_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("did1", None, "doc", "source-id", "ABC-123", "org", "t1", "human", None, "active", "observed identifier", T),
+            )
+            con.execute(
+                "INSERT INTO document_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("did2", "did1", "doc", "source-id", "ABC-124", "org", "t2", "human", None, "active", "corrected source identifier", T),
+            )
+            con.execute(
+                "INSERT INTO document_classifications VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("dc-resolved", "dc-unknown", "doc", "Resolución", "Resolución administrativa", "resolucion", None, None, None, 1.0, "t1", "human", None, "active", "manual correction", T),
+            )
+            con.execute(
+                "INSERT INTO document_representations VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                ("dr1-corrected", "dr1", "doc", "rep1", "contained", "t1", "human", None, "active", "compound-document correction", T),
+            )
+        must_fail(
+            con,
+            "INSERT INTO document_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("did-branch", "did1", "doc", "source-id", "ABC-125", "org", "t1", "human", None, "active", "branch", T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO document_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("did-cross", "did2", "doc2", "source-id", "ABC-124", "org", "t2", "human", None, "active", "cross-document", T),
+        )
+        assert con.execute("""
+          SELECT id,value FROM document_identifiers d
+          WHERE document_id='doc' AND lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM document_identifiers s WHERE s.supersedes_document_identifier_id=d.id)
+        """).fetchall() == [("did2", "ABC-124")]
+        assert con.execute("""
+          SELECT id,normalized_type FROM document_classifications d
+          WHERE document_id='doc' AND lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM document_classifications s WHERE s.supersedes_document_classification_id=d.id)
+        """).fetchall() == [("dc-resolved", "resolucion")]
+        assert con.execute("""
+          SELECT id,occurrence_kind FROM document_representations d
+          WHERE document_id='doc' AND lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM document_representations s WHERE s.supersedes_document_representation_id=d.id)
+        """).fetchall() == [("dr1-corrected", "contained")]
+
+        # Exactly one operative classification leaf per CivicDocument; competing proposals stay candidate.
+        current_classification_violations = """
+          SELECT document_id
+          FROM document_classifications d
+          WHERE lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM document_classifications s WHERE s.supersedes_document_classification_id=d.id)
+          GROUP BY document_id HAVING count(*) > 1
+        """
+        assert con.execute(current_classification_violations).fetchall() == []
+        con.execute("SAVEPOINT ambiguous_classification")
+        con.execute(
+            "INSERT INTO document_classifications VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("dc-conflict", None, "doc", None, None, "informe", None, None, None, None, None, "human", None, "active", "conflicting active root", T),
+        )
+        assert con.execute(current_classification_violations).fetchall() == [("doc",)]
+        con.execute("ROLLBACK TO ambiguous_classification")
+        con.execute("RELEASE ambiguous_classification")
 
         # 4. Claim revision lineage cannot cross stable Claim identity.
         with con:
@@ -136,7 +198,28 @@ def main() -> None:
               ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
             """, ("clmA2", "clmA", 2, "clmA1", "source_assertion", "A2", "human", 0, 0, "active", T))
             # AKF-001: exact evidence target is independent from document identity.
-            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?)", ("evA", "clmA1", "t1", "supports", "human", None, T))
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("evA", None, "clmA1", "t1", "supports", "human", None, "active", None, T))
+            # A locator/relationship correction supersedes the old EvidenceLink rather than deleting it.
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("evA2", "evA", "clmA1", "t2", "supports", "human", None, "active", "corrected exact target", T))
+        must_fail(
+            con,
+            "INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("evA-branch", "evA", "clmA1", "t1", "supports", "human", None, "active", "branch", T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("evA-cross", "evA2", "clmB1", "t2", "supports", "human", None, "active", "cross-claim correction", T),
+        )
+        current_support = con.execute("""
+          SELECT e.id,e.representation_target_id
+          FROM evidence_links e
+          JOIN representation_targets t ON t.id=e.representation_target_id
+          WHERE e.claim_revision_id='clmA1' AND e.relation='supports' AND e.lifecycle='active'
+            AND t.availability='available'
+            AND NOT EXISTS (SELECT 1 FROM evidence_links s WHERE s.supersedes_evidence_link_id=e.id)
+        """).fetchall()
+        assert current_support == [("evA2", "t2")], current_support
         # Revision history is a chain: no second root and no branching successor.
         must_fail(con, """
           INSERT INTO claim_revisions(
@@ -160,6 +243,40 @@ def main() -> None:
                 "INSERT INTO claim_entity_links VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                 ("cel-direct", None, "clmA1", "entX", None, None, None, "human", None, "active", "direct anchor", T),
             )
+            con.execute(
+                "INSERT INTO entity_names VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("en1", None, "entX", "Lugar X preliminar", "alias", "t1", None, None, "human", None, "active", "observed alias", T),
+            )
+            con.execute(
+                "INSERT INTO entity_names VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("en2", "en1", "entX", "Lugar X", "official", "t2", None, None, "human", None, "active", "corrected name", T),
+            )
+            con.execute(
+                "INSERT INTO entity_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("ei1", None, "entX", "registry", "X-001", "org", "t1", "human", None, "active", "observed identifier", T),
+            )
+            con.execute(
+                "INSERT INTO entity_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("ei2", "ei1", "entX", "registry", "X-002", "org", "t2", "human", None, "active", "corrected identifier", T),
+            )
+        must_fail(
+            con,
+            "INSERT INTO entity_names VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("en-cross", "en2", "entY", "Y", "official", "t2", None, None, "human", None, "active", "cross-entity", T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO entity_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("ei-cross", "ei2", "entY", "registry", "Y-001", "org", "t2", "human", None, "active", "cross-entity", T),
+        )
+        assert con.execute("""
+          SELECT id,name FROM entity_names n WHERE entity_id='entX' AND lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM entity_names s WHERE s.supersedes_entity_name_id=n.id)
+        """).fetchall() == [("en2", "Lugar X")]
+        assert con.execute("""
+          SELECT id,value FROM entity_identifiers i WHERE entity_id='entX' AND lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM entity_identifiers s WHERE s.supersedes_entity_identifier_id=i.id)
+        """).fetchall() == [("ei2", "X-002")]
 
         # 6. Mention-derived anchors cite the exact accepted resolution revision.
         with con:
@@ -211,6 +328,15 @@ def main() -> None:
         with con:
             for eid in ("proj-old", "proj-alias", "proj-current", "proj-split"):
                 con.execute("INSERT INTO entities VALUES (?,?,?,?)", (eid, "project", eid, T))
+            # Source identifiers are themselves attributable/correctable identity evidence.
+            con.execute(
+                "INSERT INTO entity_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pid-old", None, "proj-old", "contract", "C-77", "org", "t1", "human", None, "active", "official contract id", T),
+            )
+            con.execute(
+                "INSERT INTO entity_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pid-alias", None, "proj-alias", "contract", "C-77", "org", "t2", "human", None, "active", "official contract id", T),
+            )
             con.execute("INSERT INTO entity_reconciliations VALUES (?,?,?,?,?,?,?,?,?)", ("rec-merge-cand", None, "merge", "machine", "pr", None, "candidate match", "candidate", T))
             con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-merge-cand", "proj-old"))
             con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-merge-cand", "proj-alias"))
@@ -219,6 +345,8 @@ def main() -> None:
             con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-merge", "proj-old"))
             con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-merge", "proj-alias"))
             con.execute("INSERT INTO entity_reconciliation_outputs VALUES (?,?)", ("rec-merge", "proj-current"))
+            con.execute("INSERT INTO entity_reconciliation_basis_identifiers VALUES (?,?)", ("rec-merge", "pid-old"))
+            con.execute("INSERT INTO entity_reconciliation_basis_identifiers VALUES (?,?)", ("rec-merge", "pid-alias"))
             con.execute("INSERT INTO entity_reconciliations VALUES (?,?,?,?,?,?,?,?,?)", ("rec-split", None, "split", "human", None, "reviewer", "later evidence separates identities", "active", T))
             con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-split", "proj-current"))
             con.execute("INSERT INTO entity_reconciliation_outputs VALUES (?,?)", ("rec-split", "proj-current"))
@@ -226,6 +354,32 @@ def main() -> None:
         assert con.execute("SELECT lifecycle FROM entity_reconciliations WHERE id='rec-merge-cand'").fetchone()[0] == "candidate"
         assert con.execute("SELECT supersedes_entity_reconciliation_id,lifecycle FROM entity_reconciliations WHERE id='rec-merge'").fetchone() == ("rec-merge-cand", "active")
         must_fail(con, "INSERT INTO entity_reconciliations VALUES (?,?,?,?,?,?,?,?,?)", ("rec-merge-branch", "rec-merge-cand", "merge", "human", None, "reviewer", "branch must not fork accepted history", "active", T))
+
+        # An operative reconciliation cannot silently continue to rely on an identifier
+        # that has since been corrected/rejected. Core validation surfaces the stale basis.
+        stale_identifier_basis = """
+          SELECT DISTINCT r.id
+          FROM entity_reconciliations r
+          JOIN entity_reconciliation_basis_identifiers b ON b.reconciliation_id=r.id
+          JOIN entity_identifiers i ON i.id=b.entity_identifier_id
+          WHERE r.lifecycle='active'
+            AND NOT EXISTS (SELECT 1 FROM entity_reconciliations rs WHERE rs.supersedes_entity_reconciliation_id=r.id)
+            AND (i.lifecycle<>'active' OR EXISTS (SELECT 1 FROM entity_identifiers s WHERE s.supersedes_entity_identifier_id=i.id))
+          ORDER BY r.id
+        """
+        assert con.execute(stale_identifier_basis).fetchall() == []
+        with con:
+            con.execute(
+                "INSERT INTO entity_identifiers VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pid-old-correction", "pid-old", "proj-old", "contract", "C-88", "org", "t1", "human", None, "active", "source correction", T),
+            )
+        assert con.execute(stale_identifier_basis).fetchall() == [("rec-merge",)]
+        with con:
+            con.execute("INSERT INTO entity_reconciliations VALUES (?,?,?,?,?,?,?,?,?)", ("rec-merge-invalidated", "rec-merge", "merge", "human", None, "reviewer", "identifier basis changed; prior merge no longer operative", "rejected", T))
+            con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-merge-invalidated", "proj-old"))
+            con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-merge-invalidated", "proj-alias"))
+            con.execute("INSERT INTO entity_reconciliation_outputs VALUES (?,?)", ("rec-merge-invalidated", "proj-current"))
+        assert con.execute(stale_identifier_basis).fetchall() == []
 
         # Cross-table cardinality is a core transaction invariant: active merge >=2->1,
         # active split 1->>=2. Demonstrate that the validator detects a bad 1->1 merge.
@@ -297,7 +451,7 @@ def main() -> None:
 
         # AKF-012: evidence challenge and proposition contradiction remain separate contracts.
         with con:
-            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?)", ("ev-challenge", "clmA1", "t2", "challenges", "human", None, T))
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("ev-challenge", None, "clmA1", "t2", "challenges", "human", None, "active", None, T))
             con.execute("INSERT INTO claim_relations VALUES (?,?)", ("rel-contradict", T))
             con.execute("INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel-contradict1", "rel-contradict", 1, None, "clmB1", "clmA1", "contradicts", "human", "analyst_inference", "incompatible propositions", None, "active", T))
         assert con.execute("SELECT relation FROM evidence_links WHERE id='ev-challenge'").fetchone()[0] == "challenges"
@@ -316,11 +470,23 @@ def main() -> None:
             con.execute("INSERT INTO review_actions VALUES (?,?,?,?,?)", ("ra", "reviewer", "batch", T, "proof"))
             con.execute("INSERT INTO claim_reviews VALUES (?,?,?,?,?,?,?)", ("crA", "ra", "clmA1", "accepted", "reviewer", None, T))
             con.execute("INSERT INTO claim_reviews VALUES (?,?,?,?,?,?,?)", ("crB", "ra", "clmB1", "needs_work", "reviewer", "verify", T))
+            con.execute("INSERT INTO document_identifier_reviews VALUES (?,?,?,?,?,?,?)", ("dir", "ra", "did2", "accepted", "reviewer", "correct identifier", T))
+            con.execute("INSERT INTO document_classification_reviews VALUES (?,?,?,?,?,?,?)", ("dcr", "ra", "dc-resolved", "accepted", "reviewer", "correct type", T))
+            con.execute("INSERT INTO document_representation_reviews VALUES (?,?,?,?,?,?,?)", ("drr", "ra", "dr1-corrected", "accepted", "reviewer", "correct occurrence", T))
+            con.execute("INSERT INTO evidence_link_reviews VALUES (?,?,?,?,?,?,?)", ("evr", "ra", "evA2", "accepted", "reviewer", "locator reopened", T))
+            con.execute("INSERT INTO entity_name_reviews VALUES (?,?,?,?,?,?,?)", ("enr", "ra", "en2", "accepted", "reviewer", "name verified", T))
+            con.execute("INSERT INTO entity_identifier_reviews VALUES (?,?,?,?,?,?,?)", ("eir", "ra", "ei2", "accepted", "reviewer", "identifier verified", T))
             con.execute("INSERT INTO claim_entity_link_reviews VALUES (?,?,?,?,?,?,?)", ("celr", "ra", "cel-mention2", "accepted", "reviewer", "corrected anchor", T))
             con.execute("INSERT INTO claim_tag_link_reviews VALUES (?,?,?,?,?,?,?)", ("ctlr", "ra", "ctl2", "rejected", "reviewer", "wrong topic", T))
             con.execute("INSERT INTO entity_reconciliation_reviews VALUES (?,?,?,?,?,?,?)", ("err", "ra", "rec-merge", "accepted", "reviewer", None, T))
             con.execute("INSERT INTO claim_relation_reviews VALUES (?,?,?,?,?,?,?)", ("relr", "ra", "rel1-2", "accepted", "reviewer", "basis reopened", T))
         assert con.execute("SELECT count(*) FROM claim_reviews WHERE review_action_id='ra'").fetchone()[0] == 2
+        assert con.execute("SELECT count(*) FROM document_identifier_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
+        assert con.execute("SELECT count(*) FROM document_classification_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
+        assert con.execute("SELECT count(*) FROM document_representation_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
+        assert con.execute("SELECT count(*) FROM evidence_link_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
+        assert con.execute("SELECT count(*) FROM entity_name_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
+        assert con.execute("SELECT count(*) FROM entity_identifier_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
         assert con.execute("SELECT count(*) FROM claim_entity_link_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
         assert con.execute("SELECT count(*) FROM claim_tag_link_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
         assert con.execute("SELECT count(*) FROM entity_reconciliation_reviews WHERE review_action_id='ra'").fetchone()[0] == 1

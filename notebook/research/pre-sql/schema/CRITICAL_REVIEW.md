@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-CRITICAL-REVIEW-001
 type: schema-candidate-critical-review
-state: ddl-proof-pass-artifact-runtime-proof-required
+state: semantic-operation-proof-pass-runtime-certification-required
 authority: research
 created: 2026-08-21
 candidate_baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
@@ -12,7 +12,7 @@ migration_authorized: false
 
 ## Verdict
 
-**SCHEMA_CANDIDATE_GATE: DDL_PROOF_PASS__ARTIFACT_RUNTIME_PROOF_REQUIRED**
+**SCHEMA_CANDIDATE_GATE: SEMANTIC_OPERATION_PROOF_PASS__RUNTIME_CERTIFICATION_REQUIRED**
 
 The first candidate was not safe to freeze. Adversarial review found several
 places where a plausible relational sketch contradicted the already-accepted
@@ -30,7 +30,7 @@ candidate exposed an implementation-level uncertainty that could change schema:
 - 111 source-book research claims;
 - 14 schema pressures;
 - 21 expensive mistakes;
-- 16 semantic fixtures, now backed by 56 explicit assertions.
+- 16 semantic fixtures, now backed by 59 explicit assertions.
 
 New SQLite evidence establishes STRICT-primary-key nullability behavior,
 database/FTS deletion scars, and a durability-relevant version floor. Existing
@@ -290,6 +290,44 @@ candidate now reserves `0x414B4954` (`AKIT`, decimal 1095453012) and uses
 `user_version=1` for the `0001` schema candidate. These values in scratch proof do
 not authorize the migration; they make the proposed invariant concrete.
 
+### CR-028 — EvidenceLink correction was not append-only
+
+The contract distinguished `supports`, `challenges` and `context`, and current
+evidence queries implicitly relied on an active supporting link, but the first
+candidate gave EvidenceLink no lifecycle or supersession. A correct ClaimRevision
+with a wrong page/range could therefore be repaired only by deleting history or
+leaving the stale locator apparently current. EvidenceLink is now a correctable
+semantic link: candidate/active/rejected lifecycle, same-ClaimRevision linear
+supersession, exact RepresentationTarget, typed review, and current-evidence
+queries restricted to non-superseded active `supports` links whose target remains
+available.
+
+### CR-029 — identity-bearing semantic metadata could outlive corrected evidence
+
+Entity identifiers/names can influence reconciliation, while document identifiers,
+classifications and representation occurrences influence canonical retrieval and
+interpretation. Those rows previously lacked a bounded correction history. A wrong
+machine identifier could therefore continue to justify a merge after the source
+interpretation was corrected, and a wrong document occurrence could only be
+mutated or deleted. These five families now use attributable append-only
+supersession and typed review; source-backed rows point to exact
+RepresentationTargets. Core validation additionally forbids an operative
+EntityReconciliation from depending on a superseded/rejected EntityIdentifier.
+This is deliberately **not** universal field-level provenance: it is limited to
+semantic identity/occurrence records whose stale state can change retrieval or
+reconciliation.
+
+### CR-030 — runtime certification was underspecified by version number alone
+
+A `3.53.4+` comparison cannot prove that FTS5, WAL, foreign keys, triggers or
+thread-safety were compiled into the packaged library, and an unknown later
+release has not run this candidate's durability proofs merely because its version
+number is larger. The runtime contract now uses a positive registry of certified
+SQLite source IDs, starting with upstream 3.53.4, checks compile options, and runs
+functional probes for STRICT, FTS5, WAL and enforced foreign keys.
+`prove_runtime_contract.py` fails closed on the current cloud SQLite 3.46.1; actual
+3.53.4 packaged-runtime certification remains the one open gate.
+
 ## Decisions closed before scratch DDL
 
 1. initial closed vocabularies;
@@ -306,7 +344,7 @@ not authorize the migration; they make the proposed invariant concrete.
 Disposable `SCRATCH_DDL.sql` plus `prove_scratch_ddl.py` now pass on the cloud
 runtime for the structural questions they can certify:
 
-- 48 STRICT ordinary tables created successfully;
+- 54 STRICT ordinary tables created successfully;
 - FK/CHECK/nullability ownership constraints exercised, including same-Source
   acquisition locators, same-Document/Claim revision lineage, same-Relation revision
   lineage, RepresentationTarget ownership, ClaimEntityLink mention context, append-only Tag anchors, and generated-row process provenance;
@@ -319,6 +357,16 @@ runtime for the structural questions they can certify:
 - SQLite backup API snapshot restores with `foreign_key_check` clean.
 
 The cloud Python runtime embeds SQLite 3.46.1, below the candidate's 3.53.4
-durability floor, so this is **not** packaged-runtime certification. The real RoleAssignment shape is now independently proven by TSE resolution 2160-E11-2024. Selector/parser reopening now passes against a preserved official TSE artifact. Remaining gates are shared-byte purge maintenance, full archive+DB clean-machine restore, WAL/FTS/backup purge maintenance, and certification on the actual supported runtime/compile options. None is reclassified as optional.
+durability floor, so this is **not** packaged-runtime certification. The real
+RoleAssignment shape is independently proven by TSE resolution 2160-E11-2024 and
+selector/parser reopening passes against a preserved official TSE artifact. The
+storage-operation harness now also passes shared-byte purge safety, consistent
+DB+archive backup, clean-location restore with FTS rebuild, and purge maintenance
+covering archive bytes, FTS, WAL/checkpoint/VACUUM plus explicit pre-purge-backup
+scope reporting.
 
-Until those pass, migration `0001` remains unauthorized.
+The **only remaining gate** is to rerun the complete proof suite with the actual
+packaged/certified SQLite 3.53.4 runtime and required compile capabilities. The
+current environment cannot honestly certify that runtime, and the new runtime
+contract fails closed rather than treating 3.46.1 as equivalent. Until that gate
+passes, migration `0001` remains unauthorized.

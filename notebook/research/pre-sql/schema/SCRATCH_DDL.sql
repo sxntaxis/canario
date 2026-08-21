@@ -212,16 +212,29 @@ CREATE INDEX civic_document_revisions_doc_rev_idx ON civic_document_revisions(do
 
 CREATE TABLE document_identifiers (
   id TEXT PRIMARY KEY,
+  supersedes_document_identifier_id TEXT,
   document_id TEXT NOT NULL REFERENCES civic_documents(id),
   scheme TEXT NOT NULL,
   value TEXT NOT NULL,
   issuer_entity_id TEXT REFERENCES entities(id),
-  created_at TEXT NOT NULL
+  representation_target_id TEXT REFERENCES representation_targets(id),
+  origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
+  process_run_id TEXT REFERENCES process_runs(id),
+  lifecycle TEXT NOT NULL CHECK (lifecycle IN ('candidate','active','rejected')),
+  rationale TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(id, document_id),
+  FOREIGN KEY (supersedes_document_identifier_id, document_id)
+    REFERENCES document_identifiers(id, document_id),
+  CHECK (supersedes_document_identifier_id IS NULL OR supersedes_document_identifier_id <> id),
+  CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX document_identifiers_one_successor_uq ON document_identifiers(supersedes_document_identifier_id) WHERE supersedes_document_identifier_id IS NOT NULL;
 CREATE INDEX document_identifiers_lookup_idx ON document_identifiers(scheme, value);
 
 CREATE TABLE document_classifications (
   id TEXT PRIMARY KEY,
+  supersedes_document_classification_id TEXT,
   document_id TEXT NOT NULL REFERENCES civic_documents(id),
   source_supplied_type TEXT,
   source_type_label TEXT,
@@ -230,22 +243,41 @@ CREATE TABLE document_classifications (
   profile_key TEXT,
   profile_version TEXT,
   confidence REAL CHECK (confidence IS NULL OR (confidence >= 0.0 AND confidence <= 1.0)),
+  representation_target_id TEXT REFERENCES representation_targets(id),
   origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
   process_run_id TEXT REFERENCES process_runs(id),
+  lifecycle TEXT NOT NULL CHECK (lifecycle IN ('candidate','active','rejected')),
+  rationale TEXT,
   created_at TEXT NOT NULL,
+  UNIQUE(id, document_id),
+  FOREIGN KEY (supersedes_document_classification_id, document_id)
+    REFERENCES document_classifications(id, document_id),
+  CHECK (supersedes_document_classification_id IS NULL OR supersedes_document_classification_id <> id),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX document_classifications_one_successor_uq ON document_classifications(supersedes_document_classification_id) WHERE supersedes_document_classification_id IS NOT NULL;
 
 CREATE TABLE document_representations (
   id TEXT PRIMARY KEY,
+  supersedes_document_representation_id TEXT,
   document_id TEXT NOT NULL REFERENCES civic_documents(id),
   representation_id TEXT NOT NULL REFERENCES representations(id),
   occurrence_kind TEXT NOT NULL CHECK (occurrence_kind IN ('whole','contained','attachment','other')),
   representation_target_id TEXT,
+  origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
+  process_run_id TEXT REFERENCES process_runs(id),
+  lifecycle TEXT NOT NULL CHECK (lifecycle IN ('candidate','active','rejected')),
+  rationale TEXT,
   created_at TEXT NOT NULL,
+  UNIQUE(id, document_id),
   FOREIGN KEY (representation_target_id, representation_id)
-    REFERENCES representation_targets(id, representation_id)
+    REFERENCES representation_targets(id, representation_id),
+  FOREIGN KEY (supersedes_document_representation_id, document_id)
+    REFERENCES document_representations(id, document_id),
+  CHECK (supersedes_document_representation_id IS NULL OR supersedes_document_representation_id <> id),
+  CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX document_representations_one_successor_uq ON document_representations(supersedes_document_representation_id) WHERE supersedes_document_representation_id IS NOT NULL;
 
 CREATE TABLE claims (
   id TEXT PRIMARY KEY,
@@ -281,14 +313,22 @@ CREATE TABLE claim_revisions (
 
 CREATE TABLE evidence_links (
   id TEXT PRIMARY KEY,
+  supersedes_evidence_link_id TEXT,
   claim_revision_id TEXT NOT NULL REFERENCES claim_revisions(id),
   representation_target_id TEXT NOT NULL REFERENCES representation_targets(id),
   relation TEXT NOT NULL CHECK (relation IN ('supports','challenges','contextualizes','quotes','mentions')),
   origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
   process_run_id TEXT REFERENCES process_runs(id),
+  lifecycle TEXT NOT NULL CHECK (lifecycle IN ('candidate','active','rejected')),
+  rationale TEXT,
   created_at TEXT NOT NULL,
+  UNIQUE(id, claim_revision_id),
+  FOREIGN KEY (supersedes_evidence_link_id, claim_revision_id)
+    REFERENCES evidence_links(id, claim_revision_id),
+  CHECK (supersedes_evidence_link_id IS NULL OR supersedes_evidence_link_id <> id),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX evidence_links_one_successor_uq ON evidence_links(supersedes_evidence_link_id) WHERE supersedes_evidence_link_id IS NOT NULL;
 
 CREATE TABLE entity_mentions (
   id TEXT PRIMARY KEY,
@@ -304,24 +344,47 @@ CREATE TABLE entity_mentions (
 
 CREATE TABLE entity_names (
   id TEXT PRIMARY KEY,
+  supersedes_entity_name_id TEXT,
   entity_id TEXT NOT NULL REFERENCES entities(id),
   name TEXT NOT NULL,
   name_kind TEXT NOT NULL CHECK (name_kind IN ('official','alias','former','display','other')),
-  source_document_id TEXT REFERENCES civic_documents(id),
+  representation_target_id TEXT REFERENCES representation_targets(id),
   valid_from TEXT,
   valid_to TEXT,
+  origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
+  process_run_id TEXT REFERENCES process_runs(id),
+  lifecycle TEXT NOT NULL CHECK (lifecycle IN ('candidate','active','rejected')),
+  rationale TEXT,
   created_at TEXT NOT NULL,
-  CHECK (valid_from IS NULL OR valid_to IS NULL OR valid_from <= valid_to)
+  UNIQUE(id, entity_id),
+  FOREIGN KEY (supersedes_entity_name_id, entity_id)
+    REFERENCES entity_names(id, entity_id),
+  CHECK (supersedes_entity_name_id IS NULL OR supersedes_entity_name_id <> id),
+  CHECK (valid_from IS NULL OR valid_to IS NULL OR valid_from <= valid_to),
+  CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX entity_names_one_successor_uq ON entity_names(supersedes_entity_name_id) WHERE supersedes_entity_name_id IS NOT NULL;
 
 CREATE TABLE entity_identifiers (
   id TEXT PRIMARY KEY,
+  supersedes_entity_identifier_id TEXT,
   entity_id TEXT NOT NULL REFERENCES entities(id),
   scheme TEXT NOT NULL,
   value TEXT NOT NULL,
   issuer_entity_id TEXT REFERENCES entities(id),
-  created_at TEXT NOT NULL
+  representation_target_id TEXT REFERENCES representation_targets(id),
+  origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
+  process_run_id TEXT REFERENCES process_runs(id),
+  lifecycle TEXT NOT NULL CHECK (lifecycle IN ('candidate','active','rejected')),
+  rationale TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(id, entity_id),
+  FOREIGN KEY (supersedes_entity_identifier_id, entity_id)
+    REFERENCES entity_identifiers(id, entity_id),
+  CHECK (supersedes_entity_identifier_id IS NULL OR supersedes_entity_identifier_id <> id),
+  CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX entity_identifiers_one_successor_uq ON entity_identifiers(supersedes_entity_identifier_id) WHERE supersedes_entity_identifier_id IS NOT NULL;
 CREATE INDEX entity_identifiers_lookup_idx ON entity_identifiers(scheme, value);
 
 CREATE TABLE mention_resolution_candidates (
@@ -552,6 +615,66 @@ CREATE TABLE claim_reviews (
   created_at TEXT NOT NULL
 ) STRICT;
 
+CREATE TABLE document_identifier_reviews (
+  id TEXT PRIMARY KEY,
+  review_action_id TEXT REFERENCES review_actions(id),
+  document_identifier_id TEXT NOT NULL REFERENCES document_identifiers(id),
+  decision TEXT NOT NULL CHECK (decision IN ('accepted','rejected','needs_work')),
+  reviewer TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+) STRICT;
+
+CREATE TABLE document_classification_reviews (
+  id TEXT PRIMARY KEY,
+  review_action_id TEXT REFERENCES review_actions(id),
+  document_classification_id TEXT NOT NULL REFERENCES document_classifications(id),
+  decision TEXT NOT NULL CHECK (decision IN ('accepted','rejected','needs_work')),
+  reviewer TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+) STRICT;
+
+CREATE TABLE document_representation_reviews (
+  id TEXT PRIMARY KEY,
+  review_action_id TEXT REFERENCES review_actions(id),
+  document_representation_id TEXT NOT NULL REFERENCES document_representations(id),
+  decision TEXT NOT NULL CHECK (decision IN ('accepted','rejected','needs_work')),
+  reviewer TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+) STRICT;
+
+CREATE TABLE evidence_link_reviews (
+  id TEXT PRIMARY KEY,
+  review_action_id TEXT REFERENCES review_actions(id),
+  evidence_link_id TEXT NOT NULL REFERENCES evidence_links(id),
+  decision TEXT NOT NULL CHECK (decision IN ('accepted','rejected','needs_work')),
+  reviewer TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+) STRICT;
+
+CREATE TABLE entity_name_reviews (
+  id TEXT PRIMARY KEY,
+  review_action_id TEXT REFERENCES review_actions(id),
+  entity_name_id TEXT NOT NULL REFERENCES entity_names(id),
+  decision TEXT NOT NULL CHECK (decision IN ('accepted','rejected','needs_work')),
+  reviewer TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+) STRICT;
+
+CREATE TABLE entity_identifier_reviews (
+  id TEXT PRIMARY KEY,
+  review_action_id TEXT REFERENCES review_actions(id),
+  entity_identifier_id TEXT NOT NULL REFERENCES entity_identifiers(id),
+  decision TEXT NOT NULL CHECK (decision IN ('accepted','rejected','needs_work')),
+  reviewer TEXT NOT NULL,
+  reason TEXT,
+  created_at TEXT NOT NULL
+) STRICT;
+
 CREATE TABLE claim_relation_reviews (
   id TEXT PRIMARY KEY,
   review_action_id TEXT REFERENCES review_actions(id),
@@ -628,8 +751,8 @@ CREATE TABLE purge_targets (
   record_kind TEXT NOT NULL CHECK (record_kind IN (
     'source','source_authority_scope','source_locator','acquisition','acquisition_artifact',
     'archive_object','artifact','process_run','representation','representation_target',
-    'civic_document','civic_document_revision','document_identifier','document_classification','document_representation',
-    'claim','claim_revision','evidence_link','entity_mention','entity','entity_name','entity_identifier',
+    'civic_document','civic_document_revision','document_identifier','document_identifier_review','document_classification','document_classification_review','document_representation','document_representation_review',
+    'claim','claim_revision','evidence_link','evidence_link_review','entity_mention','entity','entity_name','entity_name_review','entity_identifier','entity_identifier_review',
     'mention_resolution_candidate','mention_resolution_revision','entity_reconciliation',
     'claim_entity_link','claim_entity_link_review','entity_reconciliation_review','tag','claim_tag_link','claim_tag_link_review','claim_relation','claim_relation_revision','claim_relation_evidence_link',
     'role_assignment','role_assignment_revision','role_assignment_evidence_link','review_action','claim_review',
