@@ -1,7 +1,8 @@
 ---
 id: ACTAKIT-DATA-001
 kind: conceptual-data-model
-state: proposed-for-acceptance
+state: accepted
+accepted: 2026-08-21
 created: 2026-08-20
 authority: architecture-proposal
 summary: Pre-SQL model for a small networked civic-record core with traceable claims, first-class connections, configurable review, queries, and output extensions.

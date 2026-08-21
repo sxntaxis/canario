@@ -1,7 +1,8 @@
 ---
 id: ACTAKIT-ARCH-001
 kind: target-architecture
-state: proposed-for-acceptance
+state: accepted
+accepted: 2026-08-21
 created: 2026-08-19
 authority: architecture-proposal
 summary: Self-contained civic-record architecture for acquiring public documents, extracting traceable claims, reviewing when needed, querying the record, and producing extensible outputs.

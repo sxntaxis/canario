@@ -1,7 +1,8 @@
 ---
 id: ACTAKIT-CONTRACTS-001
 kind: canonical-contracts
-state: proposed-for-acceptance
+state: accepted
+accepted: 2026-08-21
 created: 2026-08-19
 authority: architecture-proposal
 summary: Minimal durable contracts for evidence custody, civic documents, traceable claims, review policy, queries, and extensible outputs.

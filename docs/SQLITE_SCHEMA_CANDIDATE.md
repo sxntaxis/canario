@@ -1,12 +1,12 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-001
 kind: schema-candidate
-state: migration-0001-freeze-complete-authorization-review-ready
+state: migration-0001-authorized-for-bounded-implementation
 created: 2026-08-21
 updated: 2026-08-21
 authority: design-proposal
 baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
-summary: Critically revised SQLite candidate derived from deep pre-SQL research, semantic fixtures, contract cross-checking, and SQLite runtime scars. Not migration or implementation authorization.
+summary: Critically reviewed and runtime-certified SQLite 1.0 contract; migration 0001 is authorized only for bounded implementation of the frozen specification.
 ---
 
 # SQLite Schema Candidate
@@ -1683,5 +1683,38 @@ The migration spec proof, migration-freeze bootstrap/inventory proof, real
 selector/RoleAssignment artifacts, relation/entity correction traversal,
 shared-byte purge safety, backup/clean restore/FTS rebuild,
 archive+FTS+WAL purge maintenance, and the exact packaged SQLite 3.53.4
-post-freeze certification all pass. The frozen specification is ready for a
-separate authorization review. Migration `0001` remains unauthorized.
+post-freeze certification all pass. At the freeze checkpoint the specification was
+ready for a separate authorization review and migration `0001` remained
+unauthorized. Section 26 records the subsequent bounded authorization.
+
+## 26. Migration 0001 authorization
+
+The separate authorization review is recorded in
+`notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md`.
+
+Authorization is intentionally narrower than “start using SQLite everywhere”. It
+permits implementation of the **fresh-database migration/bootstrap boundary** for
+this exact frozen artifact:
+
+```text
+MIGRATION_0001_SPEC.sql
+SHA256 31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
+```
+
+The implementation may add the migration runner, writable/read-only connection
+openers, fail-closed runtime/source-ID capability guard, schema identity checks,
+and tests needed to prove installation/reopen/failure behavior. The production
+`0001` SQL must remain byte-identical to the frozen specification or be proven to
+have the exact same recorded SHA256. Any SQL/invariant change invalidates this
+authorization and returns the work to migration-freeze review and target-runtime
+recertification.
+
+This authorization does **not** authorize canonical-data cutover, historical
+import, legacy Markdown/Hilo mutation, acquisition/claim writers, archive-data
+migration, daemon/RPC work, or a schema `0002`.
+
+```text
+MIGRATION_0001_AUTHORIZATION: PASS_BOUNDED_IMPLEMENTATION_AUTHORIZED
+migration_authorized: true
+canonical_cutover_authorized: false
+```

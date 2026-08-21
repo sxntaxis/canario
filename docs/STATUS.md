@@ -1,10 +1,11 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: sqlite-candidate-critical-review
+state: migration-0001-authorized-for-bounded-implementation
 created: 2026-08-19
+updated: 2026-08-21
 authority: operating
-summary: Current acta pipeline remains intact while the revised SQLite schema candidate clears artifact/runtime proof gates before migration 0001.
+summary: The semantic model and SQLite 0001 freeze are accepted and certified; bounded implementation of migration 0001 is authorized while canonical cutover remains prohibited.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -35,56 +36,63 @@ This source gap remains a useful real-world proof case for the future model:
 source occurrence, source authority, artifact acquisition, and formal written
 record are not interchangeable.
 
-## Architecture Revision Under Review
+## Accepted Architecture Baseline
 
-The current proposal now defines ActaKit as a self-contained civic-record system
-using this native product language:
+The semantic authority for the durable core is accepted in:
+
+- `ARCHITECTURE.md`;
+- `CONTRACTS.md`;
+- `DATA_MODEL.md`.
+
+ActaKit remains a self-contained civic-record system using:
 
 ```text
 Depósito -> Mesa de trabajo -> Lector -> Fichero
          -> Mesa de control -> Consultas -> Salidas
 ```
 
-Key revisions awaiting acceptance:
-
-- claims may exist machine-only and searchable before human review;
-- extraction aims for broad civic relevance, not only editorial highlights;
-- review supports strict, batch, and supervised modes;
-- one operator is the default organizational assumption;
-- Episode/Hilo move out of the universal core into an Output Type;
-- queries become first-class read operations;
-- Output Types are extensible/shareable without sharing civic data;
-- daemon/RPC/federation/public APIs move to the horizon;
-- product architecture no longer depends on external named workspaces/services.
+The SQLite candidate then passed deep pre-SQL research, adversarial critical
+review, exact-artifact selector proofs, operational backup/restore/purge proofs,
+a physical migration-freeze review, and post-freeze certification on the exact
+registered SQLite 3.53.4 source ID.
 
 ## Active Edge
 
 ```text
-revised SQLite candidate after adversarial review
--> artifact-backed selector and real civic relation proofs
--> archive/purge/backup + packaged SQLite runtime certification
--> freeze migration 0001
--> implement semantic kernel and local durable Fichero
+accepted semantic contracts
+-> certified MIGRATION_0001_SPEC.sql
+-> bounded production implementation of migration/bootstrap 0001
+-> implementation proof on exact SQLite 3.53.4
+-> semantic-core/repository integration
+-> explicit canonical-cutover gate later
 ```
 
-The pre-SQL Book/fixture gate and disposable DDL-shape gate have passed. Migration
-`0001` remains explicitly unauthorized until the remaining artifact/operational
-proofs pass. `docs/SQLITE_SCHEMA_CANDIDATE.md` and
-`notebook/research/pre-sql/schema/CRITICAL_REVIEW.md` are the current gate
-authorities.
+Migration `0001` implementation is authorized by
+`notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md` only for the
+fresh-database bootstrap/runtime boundary. The frozen SQL hash is:
 
-## Prohibitions Until Acceptance
+```text
+31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
+```
 
-- No persistent canonical SQLite schema is authorized by these proposal docs.
+No production code may silently alter that SQL contract. A changed specification
+must return to freeze review and target-runtime recertification.
+
+## Current Prohibitions
+
+- No canonical-data cutover or historical mass import is authorized yet.
+- No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
+- No acquisition, Claim, review, purge, or archive writer is authorized merely
+  because the empty schema can now be implemented.
 - No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
-- No historical mass rewrite.
 - No claim may conceal whether it is machine-only or human-reviewed.
 - No AI output may serve as factual source evidence for its own claim.
 - No individual political-preference profiling or targeted-persuasion use.
 
 ## Planning Documents
 
-The proposed design is defined by `ARCHITECTURE.md`, `CONTRACTS.md`,
-`DATA_MODEL.md`, `ROADMAP.md`, `IMPLEMENTATION_PLAN.md`, and
-`RELEASE_1_0.md`. The accepted semantic direction authorizes candidate/proof work only; it does not authorize migration `0001`, canonical cutover, or every horizon feature mentioned there.
+`ROADMAP.md`, `IMPLEMENTATION_PLAN.md`, and `RELEASE_1_0.md` remain planning
+artifacts. Their future work packages do not expand this authorization. The
+current authority for migration `0001` is the accepted semantic contract, the
+certified freeze, and the bounded authorization record.
