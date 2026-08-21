@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-CONNECTOR-ESPARZA-001
 kind: source-connector-contract
-state: local-proof
+state: certified-bounded-shadow-dogfood-pass
 created: 2026-08-21
 authority: implementation
 parent_contract: ACTAKIT-INGRESS-001

@@ -1,7 +1,7 @@
 ---
 id: ACTAKIT-ESPARZA-CONNECTOR-001
 kind: implementation-record
-state: local-proof-pass-target-runtime-certification-required
+state: ESPARZA_CONNECTOR_001_IMPLEMENTED_CERTIFIED__BOUNDED_SHADOW_DOGFOOD_PASS
 created: 2026-08-21
 authority: implementation
 parent: ACTAKIT-INGRESS-001
@@ -54,11 +54,12 @@ The tests cover:
 - source-binding tamper rejection;
 - section-filter validation.
 
-## Local evidence
+## Certified evidence
 
-At this checkpoint the available environment uses SQLite 3.46.1, so it cannot
-close the registered target-runtime gate. Before commit, the complete local suite
-must remain green and `0001` must remain byte-identical to the certified freeze.
+The exact registered SQLite 3.53.4 runtime certification passed. The complete
+repository suite passed (`51 passed`) and the Esparza-specific suite passed
+(`16 passed`). Frozen `0001` remains byte-identical with SHA256
+`31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc`.
 
 ## Coverage caveat
 
@@ -66,8 +67,15 @@ A `complete_inventory` result means complete traversal of the configured CMS
 listings, not proof that the municipality has published every expected written
 record or that no later session exists on another channel.
 
-## Next gate
+## Bounded shadow result
 
-Run the complete repository + ingress + Esparza connector proofs on exact SQLite
-3.53.4. Only after that certification may a real network shadow run be treated as
-dogfood evidence. Canonical cutover remains separate and unauthorized.
+After Gate A, a bounded real-network run against the official CMS was executed
+twice with `section=concejo`, `year=2026`, and `max_documents=3`. Both runs
+returned `ESPARZA_SHADOW_RUN=PASS coverage=unknown emitted=4`. The first run
+retained one listing HTML acquisition and three PDF resource acquisitions. The
+second run reused the same host-owned Source binding and locators while adding
+new observation history. All artifacts remained `pending`; no semantic rows were
+written. Full hashes and custody counts are in
+`ESPARZA_CONNECTOR_001_CERTIFICATION.md`.
+
+Canonical cutover, historical import, and semantic writers remain unauthorized.
