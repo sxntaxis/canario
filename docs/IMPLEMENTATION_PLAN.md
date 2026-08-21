@@ -90,11 +90,37 @@ CLI/workers call the core directly initially.
 **Gate:** kill/restart, duplicate capture with shared physical bytes but distinct Artifact provenance, changed file, archive mismatch, stale
 write, and clean restore cases pass.
 
-## WP4 — Source and Representation Adapters
+## WP4 — Source Connector SPI, Inbox, and Representation Processors
 
-Refactor current acquisition/extraction scripts behind bounded interfaces:
+### WP4A — Source Connector SPI + Inbox (`INGRESS-001`)
 
-- source discovery/acquisition;
+Freeze the terrain-neutral ownership boundary, not source geography or plugin
+packaging:
+
+- `SourceConnector` is a swappable inbound adapter;
+- `InboxPort.accept(CaptureEnvelope)` is the common socket;
+- ActaKit binds Source identity, connector key/version and custody policy;
+- connector DTOs contain only acquisition facts/bytes, never CivicDocument or
+  Fichero semantics;
+- generic capabilities describe pull/push, inventory/incremental and checkpointing;
+- run coverage is explicit; checkpoint bytes are opaque to core;
+- specialized assumptions fail loudly while already accepted custody survives;
+- plugin loading/entry-point packaging remains unfrozen.
+
+Prove the SPI with incompatible HTML-inventory, incremental-API and manual-push
+fixtures **before** adapting Esparza.
+
+### WP4B — Real source connectors / shadow ingestion
+
+Implement Esparza as the first consumer of the SPI, not as its reference model.
+Run it in shadow mode beside the legacy pipeline. Source outage, changed bytes at
+the same locator, duplicate filename, malformed body, redirects and connector
+structure changes must preserve honest acquisition state. No canonical cutover.
+
+### WP4C — Mesa de trabajo Representation processors
+
+Only after original custody, adapt extraction behind a separate boundary:
+
 - PDF/DOCX/text/HTML extraction;
 - spreadsheet/table representation where required;
 - OCR/scan path when needed;
@@ -102,10 +128,13 @@ Refactor current acquisition/extraction scripts behind bounded interfaces:
 - representation/locator capability registration.
 
 Security requirements: bounded size/time/resources, safe paths, redirect/host
-policy, no document-controlled shell/network behavior.
+policy, no document-controlled shell/network behavior. Large-object/streaming
+transport is added when a real source proves the need rather than assuming all
+payloads are small.
 
-**Gate:** source outage, malformed file, changed bytes at same URL, duplicate
-filename, unknown type, and extraction failure preserve honest state.
+**Gate:** source geography cannot leak through Inbox; source outage/malformed
+material preserve custody honestly; unsupported extraction fails visibly without
+corrupting original evidence.
 
 ## WP5 — Lector and Claim Extraction
 

@@ -34,21 +34,45 @@ Every attributable action records enough provenance to answer who/what created
 or changed it and when. Source filenames, URLs, document numbers, titles, tag
 names, and output positions are labels, not canonical keys.
 
-## Sources and Acquisition
+## Sources, Source Connectors, Inbox, and Acquisition
 
 A `Source` identifies a bounded public information source or source family.
 The baseline stores bounded acquisition configuration and authority scope only as
 needed by real adapters; it does not require a general-purpose policy engine.
 
-An `AcquisitionObservation` records one concrete observation/retrieval attempt:
-source, resource locator/URI, supplied metadata, time, outcome, and resulting
-artifact or failure.
+Source-specific terrain belongs to a **Source Connector**. Connectors implement
+the accepted `ACTAKIT-INGRESS-001` SPI and terminate at the `InboxPort`; they do
+not call canonical writers directly. The Inbox is host-bound to canonical Source
+identity plus `ConnectorDescriptor(key, version)`, so connector code cannot choose
+its own canonical source, adapter attribution, validation state, or persistence
+identity.
 
-A discovery adapter may later introduce explicit run/checkpoint objects when it
-needs completeness reporting, retries, or incremental crawling. Those structures
-must preserve the same invariant:
+The terrain-neutral boundary DTO is `CaptureEnvelope`: observation time/outcome,
+an optional open-kind locator, optional transport status/error, and zero or more
+`CapturePayload` byte bodies with bounded observed metadata. It contains no acta,
+municipality, HTML/API/browser, document-ontology, or Fichero concepts.
+
+An `AcquisitionObservation` records one concrete observation/retrieval attempt:
+source, resource locator/URI, time, outcome, connector key/version, and resulting
+artifact or failure. The bounded Inbox maps accepted envelopes to the certified
+Depósito writer; incoming Artifact validation begins as `pending` rather than
+letting a connector self-certify captured bytes.
+
+Discovery is not universal: pull crawlers, APIs, browser automation, feeds,
+filesystem/manual push and future transports may all use different private
+mechanics. A connector reports run coverage only as `unknown`, `incremental`, or
+`complete_inventory`; the latter two require matching generic capabilities.
+Opaque checkpoints may be passed only to connectors advertising checkpointing.
+The core does not interpret checkpoint contents. Durable run/checkpoint storage is
+not part of INGRESS-001 and must be justified by a real connector.
+
+Specialized connector assumptions fail loudly. Already accepted custody remains
+preserved when a later part of the connector run fails. In all cases:
 
 > failure or absence in one observation/run never deletes prior knowledge.
+
+Source Connectors stop at original custody. PDF/DOCX/OCR/table/transcript work is
+a separate Representation-processing boundary in the Mesa de trabajo.
 
 ## Artifacts and Representations
 

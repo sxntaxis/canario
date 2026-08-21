@@ -35,6 +35,43 @@ Cambiar `0001` no significa saltarse los gates: cualquier cambio de SQL sigue
 requiriendo la revisión/certificación que corresponda antes de convertirse en
 autoridad de producción.
 
+## Ingress / Source Connector architecture
+
+The current `scripts/scrape_actas.py` is a **legacy/source-specific adapter**, not
+the architectural template for acquisition. Future source integrations must
+implement the accepted `docs/INGRESS.md` boundary:
+
+```text
+source-specific terrain
+-> SourceConnector
+-> CaptureEnvelope
+-> InboxPort
+-> DepositWriter
+-> Depósito
+```
+
+Rules for agents/contributors:
+
+- do not put Esparza/CMS/HTML/API/browser assumptions in `actakit.ingress`;
+- Source Connectors stop at `InboxPort` and do not call `DepositWriter`, SQLite,
+  ArchiveObject, CivicDocument, Claim, Entity, FTS, or review writers directly;
+- connector code reports observations/bytes, not semantic document truth;
+- ActaKit owns canonical Source binding, connector attribution, persistence IDs,
+  validation state and custody policy;
+- discovery is connector-private: there is no universal `scrape()` or
+  `discover()` requirement;
+- absence in one run is never deletion evidence; run coverage must remain
+  explicit (`unknown`, `incremental`, `complete_inventory`);
+- connector checkpoints are opaque to core and durable checkpoint storage is not
+  added until a real source proves it necessary;
+- PDF/DOCX/OCR/table/transcript extraction is **not** a Source Connector concern;
+  it starts later at the Mesa de trabajo Representation boundary;
+- plugin installation/discovery mechanics are deliberately unfrozen; do not add
+  a registry/framework merely because the SPI exists.
+
+The old Markdown processing `inbox/` is unrelated to the architectural source
+Inbox.
+
 ## ¿Qué es actakit?
 
 actakit procesa actas del Conceho Municipal de Costa Rica y las convierte

@@ -1,16 +1,17 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: deposit-writer-implemented-and-certified
+state: ingress-001-implemented-local-proof
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The semantic model, SQLite 0001 bootstrap, and bounded Depósito custody writer are certified; canonical cutover and semantic Fichero writers remain prohibited.
+summary: The semantic model, SQLite 0001 bootstrap, and bounded Depósito custody writer are certified; terrain-neutral INGRESS-001 is implemented with local proof while real connector integration/cutover remain prohibited.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
+  - ACTAKIT-INGRESS-001
 ---
 
 # Current Status
@@ -69,8 +70,8 @@ The semantic authority for the durable core is accepted in:
 ActaKit remains a self-contained civic-record system using:
 
 ```text
-Depósito -> Mesa de trabajo -> Lector -> Fichero
-         -> Mesa de control -> Consultas -> Salidas
+Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
+                  -> Mesa de control -> Consultas -> Salidas
 ```
 
 The SQLite candidate then passed deep pre-SQL research, adversarial critical
@@ -86,9 +87,11 @@ accepted semantic contracts
 -> bounded production implementation of migration/bootstrap 0001
 -> certified implementation proof on exact SQLite 3.53.4
 -> certified bounded Depósito custody writer
--> source-adapter integration/shadow-ingestion review
--> Mesa de trabajo and semantic writers later
--> explicit canonical-cutover gate later
+-> INGRESS-001 Source Connector SPI + Inbox local proof
+-> exact-runtime INGRESS-001 certification
+-> Esparza connector as first real SPI consumer in shadow mode
+-> Mesa de trabajo Representation processors later
+-> semantic writers and explicit canonical-cutover gate later
 ```
 
 Migration `0001` implementation was authorized by
@@ -108,14 +111,37 @@ The implementation certification does not authorize canonical cutover or
 production semantic writers. The bounded Depósito writer is now certified by
 `notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`.
 
+## INGRESS-001 current boundary
+
+`docs/INGRESS.md` is accepted. The implementation lives in `actakit/ingress/` and
+proves that HTML-inventory, incremental JSON-API, and manual-push fixtures all
+terminate at one `InboxPort` without importing their terrain into the core DTO.
+
+The bridge is intentionally one-way:
+
+```text
+SourceConnector -> CaptureEnvelope -> InboxPort -> DepositWriter
+```
+
+Connector code does not receive `DepositWriter` or canonical Source/persistence
+identity. `DepositInbox` is host-bound to those core concerns. Specialized
+connector failures propagate while already accepted custody remains preserved.
+
+This is a local proof on the repository's available SQLite runtime. Exact SQLite
+3.53.4 certification is still required before adapting the real Esparza source.
+Plugin packaging and durable connector-run/checkpoint persistence remain
+unfrozen.
+
 ## Current Prohibitions
 
 - No canonical-data cutover or historical mass import is authorized yet.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
 - No semantic Fichero, Claim, review, purge, or archive/GC writer is authorized
   beyond the bounded Depósito custody writer certified in this checkpoint.
-- No current scraper integration, shadow ingestion, or historical import is
-  authorized by this checkpoint.
+- No current scraper integration, real Source Connector, shadow ingestion, or
+  historical import is authorized by this checkpoint. INGRESS-001 currently
+  authorizes only the terrain-neutral SPI/Inbox boundary and synthetic proving
+  connectors.
 - No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
 - No claim may conceal whether it is machine-only or human-reviewed.

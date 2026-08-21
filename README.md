@@ -60,26 +60,34 @@ locales y archivos JSON/YAML de configuración.
 
 ## Arquitectura
 
-> The current file pipeline is stable for existing work. The proposed durable
+> The current file pipeline is stable for existing work. The accepted durable
 > civic-record architecture and implementation gates are in
 > [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
 > [`docs/ROADMAP.md`](docs/ROADMAP.md), and [`docs/STATUS.md`](docs/STATUS.md).
-> The full proposed 1.0 contracts, implementation plan, and distribution gates
+> The accepted core contracts plus the current implementation plan/distribution gates
 > are in [`docs/CONTRACTS.md`](docs/CONTRACTS.md),
 > [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md),
 > [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md), and
 > [`docs/RELEASE_1_0.md`](docs/RELEASE_1_0.md).
 
-La arquitectura propuesta se explica con siete conceptos nativos:
+La arquitectura durable se explica con ocho conceptos nativos:
 
 ```text
-Depósito -> Mesa de trabajo -> Lector -> Fichero
-         -> Mesa de control -> Consultas -> Salidas
+Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
+                  -> Mesa de control -> Consultas -> Salidas
 ```
+
+El **Inbox** es la frontera de ingreso: HTML, APIs, browser automation, feeds,
+filesystem o carga manual pueden usar Source Connectors completamente distintos,
+pero todos terminan en el mismo `CaptureEnvelope -> InboxPort`. El scraper actual
+de Esparza es una herramienta legado y futuro connector, no el molde del core.
+Ver [`docs/INGRESS.md`](docs/INGRESS.md).
 
 Estas metáforas son lenguaje de producto/documentación; no obligan a usar esos
 nombres en el árbol de código. `Episode`/`Hilo` pasan a ser conceptos de una
 Salida, no requisitos del núcleo universal.
+
+**Pipeline de archivos legado/actual (preservado durante la transición):**
 
 ```
 ┌──────────────┐   ┌───────────────┐   ┌─────────────────┐

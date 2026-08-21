@@ -51,6 +51,7 @@ names for maintainability.
 
 | Human concept | Question | Technical responsibility |
 |---|---|---|
+| **Inbox** | ¿Qué está entrando desde afuera? | Terrain-neutral ingress port for interchangeable Source Connectors |
 | **Depósito** | ¿Qué conseguimos realmente? | Source capture, immutable-by-default artifacts, custody |
 | **Mesa de trabajo** | ¿Cómo podemos leerlo? | Representations: text, OCR, tables, transcripts |
 | **Lector** | ¿Qué contiene? | Parsers, rules, AI, or humans extracting structure |
@@ -62,6 +63,9 @@ names for maintainability.
 The whole program can therefore be visualized as:
 
 ```text
+INBOX
+  interchangeable source connectors terminate at one ingress contract
+    ↓
 DEPÓSITO
   public source material as actually acquired
     ↓
@@ -135,6 +139,33 @@ Claim
 
 Review and outputs are deliberately **not** prerequisites for a claim to exist.
 They act on top of the traceable record.
+
+## Source ingress: Connector -> Inbox
+
+External sources have incompatible terrain. ActaKit therefore does not define its
+acquisition architecture by the current Esparza scraper or by a universal
+`scrape()` method. A **Source Connector** owns source-specific discovery/fetching
+and terminates at the terrain-neutral **Inbox** ingress port.
+
+```text
+HTML/API/browser/feed/filesystem/manual/...
+                 ↓
+          Source Connector
+                 ↓
+          CaptureEnvelope
+                 ↓
+          Inbox / IngressPort
+                 ↓
+              Depósito
+```
+
+The connector may not write canonical custody or semantic tables directly.
+ActaKit binds the Inbox to canonical Source identity, connector key/version and
+core-owned custody policy. Discovery/checkpoint mechanics remain source-specific;
+coverage is reported explicitly so absence in one run is never deletion proof.
+
+The focused accepted contract is `INGRESS.md`. Source Connector acquisition is
+separate from downstream Representation processors such as PDF extraction/OCR.
 
 ## Evidence Custody: the Depósito
 

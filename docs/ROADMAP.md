@@ -79,19 +79,36 @@ Do **not** require a daemon. CLI/local worker can call the core directly.
 **Gate:** interrupted writes, duplicate acquisitions, changed source bytes, and
 restore all preserve evidence/history correctly.
 
-## Phase 3 — Acquisition and Mesa de trabajo
+## Phase 3 — Source Connectors, Inbox, and Mesa de trabajo
 
-Adapt current scrapers/extractors behind generic source/representation contracts.
-Add safe handling for:
+First standardize acquisition at `ACTAKIT-INGRESS-001`:
+
+```text
+arbitrary external terrain
+-> Source Connector
+-> CaptureEnvelope
+-> InboxPort
+-> Depósito
+```
+
+The current Esparza scraper becomes one connector **after** the socket contract is
+proved independently. Source connectors may privately use HTML, APIs, browser
+automation, feeds, filesystems, or manual/push acquisition. Their common boundary
+is the Inbox, not a common discovery algorithm. Explicit coverage/checkpoint
+semantics prevent scrape absence from becoming deletion evidence.
+
+Separately, implement Mesa de trabajo Representation processors for:
 
 - PDF/DOCX/text/HTML;
 - spreadsheets where needed;
 - OCR/scan fallback;
 - malformed and unknown material;
-- source authority policy and provenance.
+- media/transcript only when a real source requires it.
 
-**Gate:** unknown civic type never causes evidence loss; unsupported extraction
-fails visibly without corrupting custody.
+**Gate:** three deliberately different connector terrains can use one Inbox
+without source-specific fields leaking inward; real shadow ingestion preserves
+honest custody; unknown civic type never causes evidence loss; unsupported
+extraction fails visibly without corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 
