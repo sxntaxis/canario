@@ -32,6 +32,7 @@ Current database docs plus 2026 release scars cover WAL, FK bootstrap, backup, F
 - **AKS-S095 — SQLite release/change history:** 2026 releases include WAL-related corruption/deadlock fixes, showing version choice is an operational invariant
 - **AKS-S098 — SQLite secure_delete pragma:** ordinary deletion can leave recoverable bytes; forensic scrubbing requires explicit handling and has virtual-table limits
 - **AKS-S099 — SQLite FTS5 secure-delete and projection modes:** old indexed terms can survive normal deletes; FTS projection modes carry different consistency/rebuild tradeoffs
+- **AKS-S100 — SQLite 3.53 release line and withdrawal status:** 3.52.0 was withdrawn; 3.53.0 re-released the line with WAL-reset fixed; 3.53.4 is the current maintenance release at review time
 
 ## Claim ledger synopsis
 
@@ -45,9 +46,10 @@ Current database docs plus 2026 release scars cover WAL, FK bootstrap, backup, F
 - **AKS-C131:** STRICT primary-key components are implicitly non-null. **ActaKit:** optional role/mention fields cannot double as composite primary-key columns; give such links stable row identity.
 - **AKS-C132:** SQLite logical deletion is not physical scrubbing. **ActaKit:** purge must explicitly scrub database remnants rather than equating `DELETE` with erasure.
 - **AKS-C133:** FTS5 needs its own secure-delete handling in addition to SQLite core scrubbing. **ActaKit:** purge propagates through FTS with explicit secure-delete/rebuild policy.
-- **AKS-C134:** the WAL-reset corruption bug is fixed in 3.51.3+. **ActaKit:** initial runtime floor is 3.51.3 unless a patched earlier build is specifically certified.
+- **AKS-C134:** the WAL-reset corruption bug is fixed in 3.51.3+. **ActaKit:** treat 3.51.3 as the upstream fix boundary, not alone as the final support-set rule.
 - **AKS-C135:** external/contentless FTS modes add consistency/rowid/rebuild tradeoffs that ActaKit does not need at canton scale. **ActaKit:** ordinary self-content FTS is the simpler disposable projection baseline.
 - **AKS-C136:** recursive CTE `UNION` suppresses repeated rows while `UNION ALL` preserves them; SQLite uses `UNION` in its graph example to avoid cycle repetition. **ActaKit:** distinguish deduplicated node reachability from relation-edge/path enumeration in the ClaimRelation multigraph.
+- **AKS-C137:** a numeric `>=3.51.3` rule admits the withdrawn 3.52.0 release. **ActaKit:** use SQLite 3.53.4 as the initial no-legacy runtime floor and certify the exact packaged build/options.
 
 ## Bounded transfer
 

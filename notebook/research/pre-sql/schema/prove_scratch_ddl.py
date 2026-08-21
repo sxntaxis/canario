@@ -38,10 +38,18 @@ def main() -> None:
             for i, day in ((1, "01"), (2, "08")):
                 con.execute("INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", (f"acq{i}", "src", "loc", f"2026-08-{day}T10:00:00Z", "success", 200, "proof", "1", None, T))
             con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobA", "aaa", 3, "sha256/aaa", "available", T, None))
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobTable", "bbb", 9, "sha256/bbb", "available", T, None))
             for i in (1, 2):
                 con.execute("INSERT INTO artifacts VALUES (?,?,?,?,?,?,?)", (f"art{i}", "aobA", "application/pdf", "verified", "available", T, None))
                 con.execute("INSERT INTO acquisition_artifacts VALUES (?,?,?,?,?)", (f"art{i}", f"acq{i}", "primary", "x.pdf", "https://example.invalid/x.pdf"))
         assert con.execute("SELECT count(*) FROM artifacts WHERE archive_object_id='aobA'").fetchone()[0] == 2
+        # A second isolated repeated-byte pair is reserved for shared-reference purge proof.
+        with con:
+            con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobShared", "ccc", 12, "sha256/ccc", "available", T, None))
+            for i in (1, 2):
+                con.execute("INSERT INTO artifacts VALUES (?,?,?,?,?,?,?)", (f"artShare{i}", "aobShared", "application/pdf", "verified", "available", T, None))
+                con.execute("INSERT INTO acquisition_artifacts VALUES (?,?,?,?,?)", (f"artShare{i}", f"acq{i}", "attachment", f"shared{i}.pdf", "https://example.invalid/shared.pdf"))
+                con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (f"repShare{i}", f"artShare{i}", None, None, "original", "application/pdf", None, None, None, "available", T, None))
         must_fail(con, "INSERT INTO acquisition_artifacts VALUES (?,?,?,?,?)", ("art1", "acq2", "primary", None, None))
         must_fail(con, "INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", ("acq-cross", "src", "loc-other", T, "failed", None, "proof", "1", "wrong-source-locator", T))
 
@@ -56,13 +64,18 @@ def main() -> None:
         must_fail(con, "INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("bad-aob", None, None, None, "available", T, None))
         must_fail(con, "INSERT INTO artifacts VALUES (?,?,?,?,?,?,?)", ("bad-art", None, None, "verified", "available", T, None))
 
-        # 3. Exact target must belong to the same Representation occurrence.
+        # 3. Representation byte authority and exact-target ownership are unambiguous.
         with con:
-            con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep1", "art1", "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))
-            con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep2", "art2", "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))
+            # Original Representations inherit physical bytes through Artifact; they never duplicate the pointer.
+            con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep1", "art1", None, None, "original", "application/pdf", None, None, None, "available", T, None))
+            con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep2", "art2", None, None, "original", "application/pdf", None, None, None, "available", T, None))
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t1", "rep1", "pdf_page_quote", "v1", '{"page_ordinal":1,"exact":"x"}', None, "available", T, None))
-        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-orphan", None, "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))
-        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-cross-parent", "art2", "aobA", "rep1", "extracted_text", "text/plain", "es", "utf-8", None, "available", T, None))
+        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-original-own-bytes", "art1", "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))
+        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-original-second", "art1", None, None, "original", "application/pdf", None, None, None, "available", T, None))
+        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-orphan", None, None, None, "original", "application/pdf", None, None, None, "available", T, None))
+        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-derived-no-parent", "art1", "aobTable", None, "table", "text/csv", "es", "utf-8", "pr", "available", T, None))
+        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-derived-no-process", "art1", "aobTable", "rep1", "table", "text/csv", "es", "utf-8", None, "available", T, None))
+        must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-cross-parent", "art2", "aobTable", "rep1", "extracted_text", "text/plain", "es", "utf-8", "pr", "available", T, None))
         with con:
             con.execute("INSERT INTO entities VALUES (?,?,?,?)", ("org", "organization", "Municipalidad", T))
             con.execute("INSERT INTO civic_documents VALUES (?,?)", ("doc", T))
@@ -76,8 +89,18 @@ def main() -> None:
             con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("doc2-1", "doc2", 1, None, "Segundo documento", "org", "2026-08-01", "es", "normal", "human", None, T))
             con.execute("INSERT INTO document_representations VALUES (?,?,?,?,?,?)", ("dr2", "doc2", "rep1", "contained", "t2", T))
             # AKF-005: non-PDF/table locator remains representation-specific and typed/versioned.
-            con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-table", "art1", "aobA", "rep1", "table", "text/csv", "es", "utf-8", "pr", "available", T, None))
+            con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-table", "art1", "aobTable", "rep1", "table", "text/csv", "es", "utf-8", "pr", "available", T, None))
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t-table", "rep-table", "table_range", "v1", '{"sheet":"Presupuesto","a1_range":"B2:C3","observed_values":[[1,2],[3,4]]}', None, "available", T, None))
+        # Core transaction validation can detect any retained Artifact missing its one original Representation.
+        assert con.execute("""
+          SELECT a.id
+          FROM artifacts a
+          WHERE a.availability IN ('available','restricted')
+            AND NOT EXISTS (
+              SELECT 1 FROM representations r
+              WHERE r.artifact_id=a.id AND r.kind='original' AND r.availability IN ('available','restricted')
+            )
+        """).fetchall() == []
         must_fail(con, "INSERT INTO document_representations VALUES (?,?,?,?,?,?)", ("dr-bad", "doc", "rep2", "whole", "t1", T))
         must_fail(con, "INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("doc2-bad", "doc2", 2, "doc1", "Wrong cross-document correction", "org", "2026-08-02", "es", "normal", "human", None, T))
         with con:
@@ -114,6 +137,19 @@ def main() -> None:
             """, ("clmA2", "clmA", 2, "clmA1", "source_assertion", "A2", "human", 0, 0, "active", T))
             # AKF-001: exact evidence target is independent from document identity.
             con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?)", ("evA", "clmA1", "t1", "supports", "human", None, T))
+        # Revision history is a chain: no second root and no branching successor.
+        must_fail(con, """
+          INSERT INTO claim_revisions(
+            id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,
+            sensitive,quantitative,lifecycle,created_at
+          ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
+        """, ("clmA3-root", "clmA", 3, None, "source_assertion", "bad second root", "human", 0, 0, "active", T))
+        must_fail(con, """
+          INSERT INTO claim_revisions(
+            id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,
+            sensitive,quantitative,lifecycle,created_at
+          ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
+        """, ("clmA3-branch", "clmA", 3, "clmA1", "source_assertion", "bad branch", "human", 0, 0, "active", T))
 
         # 5. Direct claim/entity anchors are valid without pretending they came from a mention.
         with con:
@@ -189,6 +225,35 @@ def main() -> None:
             con.execute("INSERT INTO entity_reconciliation_outputs VALUES (?,?)", ("rec-split", "proj-split"))
         assert con.execute("SELECT lifecycle FROM entity_reconciliations WHERE id='rec-merge-cand'").fetchone()[0] == "candidate"
         assert con.execute("SELECT supersedes_entity_reconciliation_id,lifecycle FROM entity_reconciliations WHERE id='rec-merge'").fetchone() == ("rec-merge-cand", "active")
+        must_fail(con, "INSERT INTO entity_reconciliations VALUES (?,?,?,?,?,?,?,?,?)", ("rec-merge-branch", "rec-merge-cand", "merge", "human", None, "reviewer", "branch must not fork accepted history", "active", T))
+
+        # Cross-table cardinality is a core transaction invariant: active merge >=2->1,
+        # active split 1->>=2. Demonstrate that the validator detects a bad 1->1 merge.
+        cardinality_violations = """
+          SELECT r.id
+          FROM entity_reconciliations r
+          WHERE r.lifecycle='active' AND (
+            (r.kind='merge' AND (
+              (SELECT count(*) FROM entity_reconciliation_inputs i WHERE i.reconciliation_id=r.id) < 2
+              OR (SELECT count(*) FROM entity_reconciliation_outputs o WHERE o.reconciliation_id=r.id) <> 1
+            ))
+            OR
+            (r.kind='split' AND (
+              (SELECT count(*) FROM entity_reconciliation_inputs i WHERE i.reconciliation_id=r.id) <> 1
+              OR (SELECT count(*) FROM entity_reconciliation_outputs o WHERE o.reconciliation_id=r.id) < 2
+            ))
+          )
+          ORDER BY r.id
+        """
+        assert con.execute(cardinality_violations).fetchall() == []
+        con.execute("SAVEPOINT bad_reconciliation")
+        con.execute("INSERT INTO entity_reconciliations VALUES (?,?,?,?,?,?,?,?,?)", ("rec-bad-cardinality", None, "merge", "human", None, "reviewer", "invalid 1-to-1 merge", "active", T))
+        con.execute("INSERT INTO entity_reconciliation_inputs VALUES (?,?)", ("rec-bad-cardinality", "proj-old"))
+        con.execute("INSERT INTO entity_reconciliation_outputs VALUES (?,?)", ("rec-bad-cardinality", "proj-current"))
+        assert con.execute(cardinality_violations).fetchall() == [("rec-bad-cardinality",)]
+        con.execute("ROLLBACK TO bad_reconciliation")
+        con.execute("RELEASE bad_reconciliation")
+        assert con.execute(cardinality_violations).fetchall() == []
 
         # AKF-011: tag anchors are append-only/correctable like entity anchors.
         with con:
@@ -212,8 +277,23 @@ def main() -> None:
             con.execute("INSERT INTO claim_relations VALUES (?,?)", ("rel2", T))
             con.execute("INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel1", "rel", 1, None, "clmB1", "clmA1", "updates", "human", "source_evidence", "later report", None, "active", T))
             con.execute("INSERT INTO claim_relation_evidence_links VALUES (?,?,?,?,?)", ("rel-e1", "rel1", "t1", "source_basis", T))
+            con.execute("INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel1-2", "rel", 2, "rel1", "clmB1", "clmA1", "updates", "human", "source_evidence", "corrected basis target", None, "active", T))
+            con.execute("INSERT INTO claim_relation_evidence_links VALUES (?,?,?,?,?)", ("rel-e2", "rel1-2", "t2", "source_basis", T))
         must_fail(con, "INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel2bad", "rel2", 1, "rel1", "clmB1", "clmA2", "updates", "human", "analyst_inference", "bad cross lineage", None, "active", T))
+        must_fail(con, "INSERT INTO claim_relation_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("rel1-branch", "rel", 3, "rel1", "clmB1", "clmA1", "updates", "human", "analyst_inference", "branch", None, "candidate", T))
         assert con.execute("SELECT to_claim_revision_id FROM claim_relation_revisions WHERE id='rel1'").fetchone()[0] == "clmA1"
+        current_rel = con.execute("""
+          SELECT r.id, r.basis_kind, e.representation_target_id
+          FROM claim_relation_revisions r
+          LEFT JOIN claim_relation_evidence_links e
+            ON e.claim_relation_revision_id=r.id AND e.basis_role='source_basis'
+          WHERE r.claim_relation_id='rel' AND r.lifecycle='active'
+            AND NOT EXISTS (
+              SELECT 1 FROM claim_relation_revisions s
+              WHERE s.supersedes_relation_revision_id=r.id
+            )
+        """).fetchall()
+        assert current_rel == [("rel1-2", "source_evidence", "t2")], current_rel
 
         # AKF-012: evidence challenge and proposition contradiction remain separate contracts.
         with con:
@@ -239,10 +319,12 @@ def main() -> None:
             con.execute("INSERT INTO claim_entity_link_reviews VALUES (?,?,?,?,?,?,?)", ("celr", "ra", "cel-mention2", "accepted", "reviewer", "corrected anchor", T))
             con.execute("INSERT INTO claim_tag_link_reviews VALUES (?,?,?,?,?,?,?)", ("ctlr", "ra", "ctl2", "rejected", "reviewer", "wrong topic", T))
             con.execute("INSERT INTO entity_reconciliation_reviews VALUES (?,?,?,?,?,?,?)", ("err", "ra", "rec-merge", "accepted", "reviewer", None, T))
+            con.execute("INSERT INTO claim_relation_reviews VALUES (?,?,?,?,?,?,?)", ("relr", "ra", "rel1-2", "accepted", "reviewer", "basis reopened", T))
         assert con.execute("SELECT count(*) FROM claim_reviews WHERE review_action_id='ra'").fetchone()[0] == 2
         assert con.execute("SELECT count(*) FROM claim_entity_link_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
         assert con.execute("SELECT count(*) FROM claim_tag_link_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
         assert con.execute("SELECT count(*) FROM entity_reconciliation_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
+        assert con.execute("SELECT count(*) FROM claim_relation_reviews WHERE review_action_id='ra'").fetchone()[0] == 1
 
         # AKF-014: presentation-specific Hilo/Episode state is not universal core storage.
         names = {r[0] for r in con.execute("SELECT name FROM sqlite_schema WHERE type='table'")}
@@ -268,6 +350,10 @@ def main() -> None:
             SELECT r.to_claim_revision_id, walk.depth+1
             FROM walk JOIN claim_relation_revisions r ON r.from_claim_revision_id=walk.node
             WHERE r.lifecycle='active' AND walk.depth < 2
+              AND NOT EXISTS (
+                SELECT 1 FROM claim_relation_revisions successor
+                WHERE successor.supersedes_relation_revision_id=r.id
+              )
           ) SELECT node, depth FROM walk ORDER BY depth, node
         """).fetchall()
         assert rows == [("clmC1", 0), ("clmB1", 1), ("clmA1", 2)], rows
@@ -275,6 +361,10 @@ def main() -> None:
           SELECT relation_type
           FROM claim_relation_revisions
           WHERE lifecycle='active'
+            AND NOT EXISTS (
+              SELECT 1 FROM claim_relation_revisions successor
+              WHERE successor.supersedes_relation_revision_id=claim_relation_revisions.id
+            )
             AND from_claim_revision_id='clmB1'
             AND to_claim_revision_id='clmA1'
           ORDER BY relation_type
@@ -284,17 +374,60 @@ def main() -> None:
           SELECT CASE WHEN from_claim_revision_id=? THEN to_claim_revision_id ELSE from_claim_revision_id END
           FROM claim_relation_revisions
           WHERE lifecycle='active' AND relation_type IN ('contradicts','same_matter_as')
+            AND NOT EXISTS (
+              SELECT 1 FROM claim_relation_revisions successor
+              WHERE successor.supersedes_relation_revision_id=claim_relation_revisions.id
+            )
             AND (? IN (from_claim_revision_id,to_claim_revision_id))
         """, ("clmA1", "clmA1")).fetchall()
         assert symmetric_from_a == [("clmB1",)], symmetric_from_a
         reverse_updates = con.execute("""
           SELECT count(*) FROM claim_relation_revisions
           WHERE lifecycle='active' AND relation_type='updates'
+            AND NOT EXISTS (
+              SELECT 1 FROM claim_relation_revisions successor
+              WHERE successor.supersedes_relation_revision_id=claim_relation_revisions.id
+            )
             AND from_claim_revision_id='clmA1' AND to_claim_revision_id='clmB1'
         """).fetchone()[0]
         assert reverse_updates == 0
 
-        # 11. FTS is disposable/self-content and secure-delete mode is persistent.
+        # 11. Cross-table availability and shared-byte purge semantics are validated as one operation.
+        availability_violations = """
+          SELECT 'artifact/archive', a.id
+          FROM artifacts a JOIN archive_objects o ON o.id=a.archive_object_id
+          WHERE a.availability IN ('available','restricted') AND o.availability<>'available'
+          UNION ALL
+          SELECT 'representation/artifact', r.id
+          FROM representations r JOIN artifacts a ON a.id=r.artifact_id
+          WHERE r.availability IN ('available','restricted') AND a.availability NOT IN ('available','restricted')
+          UNION ALL
+          SELECT 'representation/archive', r.id
+          FROM representations r JOIN archive_objects o ON o.id=r.archive_object_id
+          WHERE r.availability IN ('available','restricted') AND r.kind<>'original' AND o.availability<>'available'
+        """
+        assert con.execute(availability_violations).fetchall() == []
+
+        # A logical purge of one Artifact sharing physical bytes must not claim/delete those bytes.
+        with con:
+            con.execute("INSERT INTO purges VALUES (?,?,?,?,?,?,?,?)", ("purge-shared-one", "policy", "operator", "minimal_tombstone", T, T, "completed", "physical bytes retained: artShare2 still references aobShared"))
+            con.execute("INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge-shared-one", "representation", "repShare1", "detach", T, T, "completed"))
+            con.execute("INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge-shared-one", "artifact", "artShare1", "detach", T, T, "completed"))
+            con.execute("UPDATE representations SET artifact_id=NULL,media_type=NULL,language=NULL,charset=NULL,availability='purged',purged_at=? WHERE id='repShare1'", (T,))
+            con.execute("UPDATE artifacts SET archive_object_id=NULL,media_type=NULL,availability='purged',purged_at=? WHERE id='artShare1'", (T,))
+        assert con.execute("SELECT availability FROM archive_objects WHERE id='aobShared'").fetchone()[0] == 'available'
+        assert con.execute("SELECT archive_object_id,availability FROM artifacts WHERE id='artShare2'").fetchone() == ('aobShared','available')
+        assert con.execute(availability_violations).fetchall() == []
+
+        # Purging the shared ArchiveObject while a retained reference survives is detectable and forbidden by core validation.
+        con.execute("SAVEPOINT bad_shared_byte_purge")
+        con.execute("UPDATE archive_objects SET content_sha256=NULL,byte_size=NULL,storage_key=NULL,availability='purged',purged_at=? WHERE id='aobShared'", (T,))
+        assert con.execute(availability_violations).fetchall() == [('artifact/archive', 'artShare2')]
+        con.execute("ROLLBACK TO bad_shared_byte_purge")
+        con.execute("RELEASE bad_shared_byte_purge")
+        assert con.execute(availability_violations).fetchall() == []
+
+        # 12. FTS is disposable/self-content and secure-delete mode is persistent.
         with con:
             con.execute("INSERT INTO claim_fts(claim_revision_id,text) VALUES (?,?)", ("clmA1", "obra junio"))
         assert con.execute("SELECT count(*) FROM claim_fts WHERE claim_fts MATCH 'junio'").fetchone()[0] == 1
@@ -304,7 +437,7 @@ def main() -> None:
             con.execute("INSERT INTO claim_fts(claim_fts) VALUES('rebuild')")
         assert con.execute("SELECT count(*) FROM claim_fts").fetchone()[0] == 0
 
-        # 12. Purge manifest intentionally has no FK to target record and survives target removal semantics.
+        # 13. Purge manifest intentionally has no FK to target record and survives target removal semantics.
         with con:
             con.execute("INSERT INTO purges VALUES (?,?,?,?,?,?,?,?)", ("purge", "policy", "operator", "minimal_tombstone", T, None, "planned", None))
             con.execute("INSERT INTO purge_targets VALUES (?,?,?,?,?,?,?)", ("purge", "representation_target", "t1", "scrub_payload", T, None, None))
@@ -319,7 +452,7 @@ def main() -> None:
             restored.execute("PRAGMA foreign_keys=ON")
             assert restored.execute("PRAGMA foreign_key_check").fetchall() == []
             assert restored.execute("SELECT count(*) FROM claims").fetchone()[0] == con.execute("SELECT count(*) FROM claims").fetchone()[0]
-            assert restored.execute("SELECT count(*) FROM purge_targets").fetchone()[0] == 1
+            assert restored.execute("SELECT count(*) FROM purge_targets").fetchone()[0] == con.execute("SELECT count(*) FROM purge_targets").fetchone()[0]
             restored.close()
 
         assert con.execute("PRAGMA foreign_key_check").fetchall() == []
@@ -330,7 +463,7 @@ def main() -> None:
         print("critical_invariants=16/16 PASS")
         print("semantic_fixture_storage=16/16 REPRESENTABLE")
         print("sqlite_backup_snapshot=PASS (archive/clean-machine restore still separate operational gate)")
-        print("target_runtime_floor=NOT_CERTIFIED_HERE (candidate requires SQLite >=3.51.3)")
+        print("target_runtime_floor=NOT_CERTIFIED_HERE (candidate requires SQLite >=3.53.4)")
         con.close()
 
 

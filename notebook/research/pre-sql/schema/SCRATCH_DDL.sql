@@ -7,6 +7,8 @@ PRAGMA trusted_schema = OFF;
 PRAGMA secure_delete = ON;
 PRAGMA journal_mode = WAL;
 PRAGMA synchronous = FULL;
+PRAGMA application_id = 1095453012; -- 0x414B4954 = ASCII "AKIT"
+PRAGMA user_version = 1;             -- candidate migration 0001 proof marker only
 
 CREATE TABLE sources (
   id TEXT PRIMARY KEY,
@@ -128,13 +130,29 @@ CREATE TABLE representations (
   FOREIGN KEY (parent_representation_id, artifact_id)
     REFERENCES representations(id, artifact_id),
   CHECK (
-    (availability IN ('available','restricted') AND artifact_id IS NOT NULL AND archive_object_id IS NOT NULL AND purged_at IS NULL)
+    (availability IN ('available','restricted') AND artifact_id IS NOT NULL AND purged_at IS NULL)
     OR
     (availability='purged' AND purged_at IS NOT NULL)
   ),
   CHECK (parent_representation_id IS NULL OR parent_representation_id <> id),
-  CHECK (kind='original' OR process_run_id IS NOT NULL)
+  CHECK (
+    availability='purged'
+    OR (
+      kind='original'
+      AND archive_object_id IS NULL
+      AND parent_representation_id IS NULL
+      AND process_run_id IS NULL
+    )
+    OR (
+      kind<>'original'
+      AND archive_object_id IS NOT NULL
+      AND parent_representation_id IS NOT NULL
+      AND process_run_id IS NOT NULL
+    )
+  )
 ) STRICT;
+CREATE UNIQUE INDEX representations_one_original_per_artifact_uq
+  ON representations(artifact_id) WHERE kind='original';
 
 CREATE TABLE representation_targets (
   id TEXT PRIMARY KEY,
@@ -186,8 +204,10 @@ CREATE TABLE civic_document_revisions (
   FOREIGN KEY (supersedes_document_revision_id, document_id)
     REFERENCES civic_document_revisions(id, document_id),
   CHECK (supersedes_document_revision_id IS NULL OR supersedes_document_revision_id <> id),
+  CHECK ((revision_no=1 AND supersedes_document_revision_id IS NULL) OR (revision_no>1 AND supersedes_document_revision_id IS NOT NULL)),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX civic_document_revisions_one_successor_uq ON civic_document_revisions(supersedes_document_revision_id) WHERE supersedes_document_revision_id IS NOT NULL;
 CREATE INDEX civic_document_revisions_doc_rev_idx ON civic_document_revisions(document_id, revision_no);
 
 CREATE TABLE document_identifiers (
@@ -254,6 +274,7 @@ CREATE TABLE claim_revisions (
   FOREIGN KEY (supersedes_revision_id, claim_id)
     REFERENCES claim_revisions(id, claim_id),
   CHECK (supersedes_revision_id IS NULL OR supersedes_revision_id <> id),
+  CHECK ((revision_no=1 AND supersedes_revision_id IS NULL) OR (revision_no>1 AND supersedes_revision_id IS NOT NULL)),
   CHECK (temporal_start IS NULL OR temporal_end IS NULL OR temporal_start <= temporal_end),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
@@ -349,7 +370,7 @@ CREATE TABLE entity_reconciliations (
   CHECK (supersedes_entity_reconciliation_id IS NULL OR supersedes_entity_reconciliation_id <> id),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
-CREATE INDEX entity_reconciliations_supersedes_idx ON entity_reconciliations(supersedes_entity_reconciliation_id);
+CREATE UNIQUE INDEX entity_reconciliations_one_successor_uq ON entity_reconciliations(supersedes_entity_reconciliation_id) WHERE supersedes_entity_reconciliation_id IS NOT NULL;
 
 CREATE TABLE entity_reconciliation_inputs (
   reconciliation_id TEXT NOT NULL REFERENCES entity_reconciliations(id),
@@ -403,6 +424,7 @@ CREATE TABLE claim_entity_links (
   ),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX claim_entity_links_one_successor_uq ON claim_entity_links(supersedes_claim_entity_link_id) WHERE supersedes_claim_entity_link_id IS NOT NULL;
 CREATE INDEX claim_entity_links_entity_claim_idx ON claim_entity_links(entity_id, claim_revision_id);
 CREATE INDEX claim_entity_links_resolution_idx ON claim_entity_links(mention_resolution_revision_id);
 
@@ -431,6 +453,7 @@ CREATE TABLE claim_tag_links (
   CHECK (supersedes_claim_tag_link_id IS NULL OR supersedes_claim_tag_link_id <> id),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
+CREATE UNIQUE INDEX claim_tag_links_one_successor_uq ON claim_tag_links(supersedes_claim_tag_link_id) WHERE supersedes_claim_tag_link_id IS NOT NULL;
 CREATE INDEX claim_tag_links_tag_claim_idx ON claim_tag_links(tag_id, claim_revision_id);
 
 CREATE TABLE claim_relations (
@@ -457,6 +480,7 @@ CREATE TABLE claim_relation_revisions (
   FOREIGN KEY (supersedes_relation_revision_id, claim_relation_id)
     REFERENCES claim_relation_revisions(id, claim_relation_id),
   CHECK (supersedes_relation_revision_id IS NULL OR supersedes_relation_revision_id <> id),
+  CHECK ((revision_no=1 AND supersedes_relation_revision_id IS NULL) OR (revision_no>1 AND supersedes_relation_revision_id IS NOT NULL)),
   CHECK (from_claim_revision_id <> to_claim_revision_id),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
 ) STRICT;
@@ -496,6 +520,7 @@ CREATE TABLE role_assignment_revisions (
   FOREIGN KEY (supersedes_role_assignment_revision_id, role_assignment_id)
     REFERENCES role_assignment_revisions(id, role_assignment_id),
   CHECK (supersedes_role_assignment_revision_id IS NULL OR supersedes_role_assignment_revision_id <> id),
+  CHECK ((revision_no=1 AND supersedes_role_assignment_revision_id IS NULL) OR (revision_no>1 AND supersedes_role_assignment_revision_id IS NOT NULL)),
   CHECK (subject_entity_id <> organization_entity_id),
   CHECK (valid_from IS NULL OR valid_to IS NULL OR valid_from <= valid_to),
   CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
@@ -601,7 +626,7 @@ CREATE TABLE purges (
 CREATE TABLE purge_targets (
   purge_id TEXT NOT NULL REFERENCES purges(id),
   record_kind TEXT NOT NULL CHECK (record_kind IN (
-    'source','source_authority_scope','source_locator','acquisition',
+    'source','source_authority_scope','source_locator','acquisition','acquisition_artifact',
     'archive_object','artifact','process_run','representation','representation_target',
     'civic_document','civic_document_revision','document_identifier','document_classification','document_representation',
     'claim','claim_revision','evidence_link','entity_mention','entity','entity_name','entity_identifier',
@@ -641,14 +666,17 @@ CREATE INDEX representations_parent_idx ON representations(parent_representation
 CREATE INDEX representation_targets_rep_kind_idx ON representation_targets(representation_id, selector_kind);
 CREATE INDEX document_classifications_doc_time_idx ON document_classifications(document_id, created_at);
 CREATE INDEX document_representations_doc_rep_idx ON document_representations(document_id, representation_id);
+CREATE UNIQUE INDEX claim_revisions_one_successor_uq ON claim_revisions(supersedes_revision_id) WHERE supersedes_revision_id IS NOT NULL;
 CREATE INDEX claim_revisions_lifecycle_time_idx ON claim_revisions(lifecycle, created_at);
 CREATE INDEX evidence_links_claim_idx ON evidence_links(claim_revision_id);
 CREATE INDEX evidence_links_target_idx ON evidence_links(representation_target_id);
 CREATE INDEX entity_mentions_claim_idx ON entity_mentions(claim_revision_id);
 CREATE INDEX mention_resolution_revisions_mention_rev_idx ON mention_resolution_revisions(mention_id, revision_no);
+CREATE UNIQUE INDEX claim_relation_revisions_one_successor_uq ON claim_relation_revisions(supersedes_relation_revision_id) WHERE supersedes_relation_revision_id IS NOT NULL;
 CREATE INDEX claim_relation_revisions_from_idx ON claim_relation_revisions(from_claim_revision_id, relation_type);
 CREATE INDEX claim_relation_revisions_to_idx ON claim_relation_revisions(to_claim_revision_id, relation_type);
 CREATE INDEX claim_reviews_claim_time_idx ON claim_reviews(claim_revision_id, created_at);
+CREATE UNIQUE INDEX role_assignment_revisions_one_successor_uq ON role_assignment_revisions(supersedes_role_assignment_revision_id) WHERE supersedes_role_assignment_revision_id IS NOT NULL;
 CREATE INDEX role_assignment_revisions_subject_org_idx ON role_assignment_revisions(subject_entity_id, organization_entity_id);
 CREATE INDEX role_assignment_revisions_org_role_time_idx ON role_assignment_revisions(organization_entity_id, role_key, valid_from, valid_to);
 

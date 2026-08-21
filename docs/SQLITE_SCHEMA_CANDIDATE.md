@@ -54,12 +54,15 @@ semantic/custody record.
 
 ### Runtime floor
 
-Initial supported SQLite version: **3.51.3 or newer**.
+Initial supported SQLite version: **3.53.4 or newer**.
 
 Reason: ActaKit intentionally uses WAL and long-lived evidence custody. SQLite's
-WAL-reset corruption bug affected versions through 3.51.2 and was fixed in
-3.51.3. A specifically patched earlier build may be certified later, but it is
-not part of the default support contract.
+WAL-reset corruption bug affected ordinary upstream releases through 3.51.2 and
+was first fixed in 3.51.3, but the intervening 3.52.0 release was withdrawn. For
+a new no-legacy deployment, the support set therefore starts at 3.53.4, the
+current stable maintenance release at this review boundary, rather than using a
+numeric floor that accidentally admits a withdrawn release. The packaged runtime
+must still be certified by exact version/source ID and required compile options.
 
 All canonical ordinary tables are `STRICT`. FTS5 virtual tables are the explicit
 exception.
@@ -75,9 +78,12 @@ PRAGMA secure_delete = ON;
 ```
 
 The implementation must also set a bounded busy timeout, keep write transactions
-short, reject unsupported SQLite versions, and record/check `application_id` and
-schema version. A connection that cannot establish required invariants is not a
-writer.
+short, and reject unsupported SQLite versions. ActaKit reserves SQLite
+`application_id = 0x414B4954` (`AKIT`, decimal `1095453012`) and migration `0001`
+uses `user_version = 1`; every canonical connection verifies both before treating
+the file as ActaKit authority. Future migrations advance `user_version` through the
+migration mechanism rather than changing `application_id`. A connection that cannot
+establish the required invariants is not a writer.
 
 SQLite/WAL must live on local attached storage, never a synced/network filesystem.
 There is one canonical writer/checkpoint authority. Readers must not keep
@@ -95,11 +101,17 @@ erasure. Exceptional purge has stronger maintenance rules in section 16.
 - External numbers, URLs, filenames, acta numbers, names, and hashes are
   identifiers/attributes, never primary identity.
 - Material semantic changes use append-only revisions where history matters.
-- Revision rows may point to the exact prior revision they supersede; supersession
-  is then derived without mutating the old row.
+- Revision rows point to the exact prior revision they supersede; revisioned stable
+  identities are **linear histories**, not revision DAGs. Numbered families use
+  revision 1 as the only root, later revisions must name a predecessor, and a row
+  may have at most one successor. Core write validation also requires monotonically
+  consecutive revision numbers. Supersession/current-leaf state is derived without
+  mutating the old row.
 - Candidate/active/rejected transitions on revisioned/link-like semantic records
   are append-only: promotion or correction writes a new revision/link/reconciliation
-  that supersedes the prior row. Review decisions never rewrite the reviewed row.
+  that supersedes the prior row. A superseded row has at most one successor;
+  competing proposals start as independent candidate roots rather than branching an
+  accepted history. Review decisions never rewrite the reviewed row.
 - `created_at` is stored as UTC RFC3339 text with subsecond precision; civic
   source dates/periods are separate domain fields. Date-only civic values are
   normalized as ISO `YYYY-MM-DD`; any interval comparison in SQLite is permitted
@@ -183,8 +195,8 @@ review_decision:
   accepted | rejected | needs_work
 
 purge_target_kind:
-  source | source_authority_scope | source_locator | acquisition | archive_object |
-  artifact | process_run | representation | representation_target | civic_document |
+  source | source_authority_scope | source_locator | acquisition | acquisition_artifact |
+  archive_object | artifact | process_run | representation | representation_target | civic_document |
   civic_document_revision | document_identifier | document_classification |
   document_representation | claim | claim_revision | evidence_link | entity_mention | entity |
   entity_name | entity_identifier | mention_resolution_candidate |
@@ -307,9 +319,11 @@ UNIQUE(content_sha256) WHERE content_sha256 IS NOT NULL
 UNIQUE(storage_key) WHERE storage_key IS NOT NULL
 ```
 
-A purge policy may require clearing digest/size/storage metadata. Stable
-`archive_object` identity survives only when the selected tombstone policy
-permits it.
+While `availability=available`, digest, byte size and storage key are all
+required; their column nullability exists only so an allowed purge tombstone can
+clear recoverable storage metadata. A purge policy may require clearing those
+fields. Stable `archive_object` identity survives only when the selected tombstone
+policy permits it.
 
 ### `artifacts`
 
@@ -327,7 +341,11 @@ purged_at nullable
 ```
 
 Two captures of identical bytes may point to one `archive_object` while retaining
-separate Artifact IDs and separate provenance/restriction/purge decisions.
+separate Artifact IDs and separate provenance/restriction/purge decisions. Core
+transaction validation also enforces the cross-row availability invariant: every
+retained Artifact points to an `available` ArchiveObject; an ArchiveObject cannot
+be marked purged while any retained Artifact or material derivative still depends
+on it.
 
 ### `acquisition_artifacts`
 
@@ -354,7 +372,7 @@ OCR, normalization, redaction, or edited derivatives.
 ```text
 id PK
 artifact_id FK nullable            -- required while retained; nullable only in an allowed purge tombstone
-archive_object_id FK nullable      -- physical bytes for this representation
+archive_object_id FK nullable      -- derivative bytes only; original bytes are inherited from Artifact
 parent_representation_id FK nullable
 kind                              -- representation_kind
 media_type nullable
@@ -366,17 +384,32 @@ created_at
 purged_at nullable
 ```
 
-Every available/restricted Representation belongs to one logical Artifact custody
-chain. If `parent_representation_id` is present, a composite FK requires parent
+Every available/restricted Representation belongs to one retained logical Artifact
+custody chain; a retained material derivative also points to an `available`
+ArchiveObject. These cross-row availability rules are core transaction invariants
+because row CHECK constraints cannot inspect the referenced row's lifecycle. If
+`parent_representation_id` is present, a composite FK requires parent
 and child to carry the same `artifact_id`; a derivative cannot silently jump to a
 different capture. A purge tombstone may clear those links only under the explicit
 purge policy.
 
-An original representation may have no `process_run_id`; a derivative does.
-`parent_representation_id + process_run_id` gives the exact transformation input
-and generator provenance without a generic process-output graph. A future
-transformation that genuinely combines multiple Artifacts needs a separately
-proven typed input contract rather than abusing one parent pointer.
+`original` is a view of the Artifact's captured bytes, not a second custody byte
+pointer: while retained it has no `archive_object_id`, no parent and no
+`process_run_id`, and there is at most one original Representation per Artifact.
+The original's physical bytes resolve through `Artifact.archive_object_id`.
+Every retained non-original Representation is a material derivative: it has its
+own `archive_object_id`, an exact same-Artifact parent Representation, and the
+`process_run_id` that created it. This prevents an impossible state where an
+"original" silently points to bytes other than its Artifact, and it prevents a
+derivative from existing without an attributable transformation input.
+
+`parent_representation_id + process_run_id` therefore gives the exact
+transformation input and generator provenance without a generic process-output
+graph. Creating the one required original Representation together with a retained
+Artifact is a core transaction invariant; the partial unique index enforces only
+"at most one" because SQLite cannot express "at least one child row" with a row
+CHECK. A future transformation that genuinely combines multiple Artifacts needs a
+separately proven typed input contract rather than abusing one parent pointer.
 
 ### `process_runs`
 
@@ -458,8 +491,12 @@ required: exact
 optional: prefix, suffix, start_char, end_char
 rules:
   - exact is non-empty
+  - offsets address the decoded text Representation, not the source PDF/HTML bytes
+  - start_char/end_char are 0-based Unicode-code-point offsets
+  - start_char is inclusive; end_char is exclusive
   - start/end either both absent or both present
-  - 0 <= start_char <= end_char
+  - 0 <= start_char < end_char <= text length
+  - when offsets are present, text[start_char:end_char] == exact exactly
 ```
 
 `pdf_page_quote:v1`
@@ -469,7 +506,11 @@ required: page_ordinal
 optional: exact, prefix, suffix, page_label
 rules:
   - page_ordinal is a 1-based physical page sequence
+  - page_label is corroborating display metadata, never the physical coordinate
   - when machine-readable text exists, exact quote is preferred
+  - v1 quote matching applies Unicode NFC, collapses each Unicode-whitespace run
+    to one ASCII space, and trims outer whitespace
+  - v1 performs no case folding, punctuation substitution, dehyphenation, or OCR repair
 ```
 
 `table_range:v1`
@@ -478,8 +519,12 @@ rules:
 optional: sheet, table_name, a1_range, row_start, row_end, headers, observed_values
 rules:
   - at least one structural coordinate is required
-  - observed_values preserves the values used to make the claim when practical
-  - row_start/row_end either both absent or both present
+  - row_start/row_end are 1-based inclusive row ordinals within the represented table
+  - row_start/row_end either both absent or both present, with 1 <= start <= end
+  - a1_range uses standard A1 coordinates only when the represented format preserves them
+  - sheet/table_name are used only when those names exist in the Representation
+  - headers, when supplied, preserve ordered observed header labels
+  - observed_values preserves the exact selected cell values used to make the claim when practical
 ```
 
 The payload may contain redundant coordinates because durable evidence targeting
@@ -790,6 +835,11 @@ reconciliation_id FK
 entity_identifier_id FK
 PRIMARY KEY(reconciliation_id, entity_identifier_id)
 ```
+
+Core validation enforces the actual operation shape before an operative row is
+committed: `merge` has at least two distinct inputs and exactly one output; `split`
+has exactly one input and at least two distinct outputs. Input and output may share
+an Entity when a surviving local ID is intentionally retained.
 
 Old entity IDs remain explainable; historical claim anchors are not silently
 mass-retargeted. Candidate promotion/correction is append-only: a new reconciliation
@@ -1109,9 +1159,11 @@ PRIMARY KEY(purge_id, record_kind, record_id, action)
 
 `purge_target_kind` is a closed list of canonical content-bearing record families
 that the implementation knows how to purge; it is **not** an open plugin
-namespace or generic civic subject type. The core validates target existence and
-allowed action before freezing a plan. After execution the row intentionally
-remains an operational manifest even when its target no longer exists.
+namespace or generic civic subject type. `acquisition_artifact` is included because
+its observed filename/URL can itself retain prohibited source metadata even though
+the row also acts as a join. The core validates target existence and allowed action
+before freezing a plan. After execution the row intentionally remains an
+operational manifest even when its target no longer exists.
 
 Roots such as Artifact/Representation are expanded by dependency traversal into
 every exact in-scope canonical/derived record that still retains the prohibited
@@ -1132,8 +1184,12 @@ example:
 - a type-specific record such as EntityMention may be scrubbed only if its DDL
   has an explicit tombstone contract that removes observed text/locator material.
 
-Otherwise the record and all FK dependents that cannot survive without it are
-included in the exact purge plan. There is no silent dangling reference.
+Otherwise the content-bearing record and all content-bearing dependents that cannot
+survive without it are included in the exact purge plan. Pure referential join-row
+cleanup with no independent payload is deterministic execution closure rather than
+inventing opaque IDs for every composite-key join; the purge executor reports its
+per-table cleanup counts separately. There is no silent dangling reference or
+unreported content-bearing deletion.
 
 `minimal_tombstone` keeps only what policy permits: opaque record identity,
 purge time/action, broad reason code, and enough non-sensitive lineage to explain
@@ -1254,8 +1310,10 @@ role_assignment_revisions(organization_entity_id, role_key, valid_from, valid_to
 
 ## 18. Query graph boundary
 
-SQLite recursive CTEs may traverse **explicit ClaimRelations only**. Default query
-depth and result count are bounded. Storage keeps one attributable edge orientation,
+SQLite recursive CTEs may traverse **explicit ClaimRelations only**. Canonical
+traversal uses only non-superseded operative ClaimRelationRevision leaves; historical
+revisions remain queryable for audit but never appear as duplicate current edges.
+Default query depth and result count are bounded. Storage keeps one attributable edge orientation,
 but relation-type semantics matter: `contradicts` and `same_matter_as` are
 symmetric for retrieval and are expanded from either endpoint; the other initial
 types are directed and are not silently reversed. A symmetric relation is not
@@ -1392,7 +1450,7 @@ The eight questions left open by `8b98010` are now closed at design level:
    by independent documents + repeated representation occurrences/targets.
 5. **Rich association:** AKF-013 already proves one; `RoleAssignment` is concrete in
    `0001`, while unrelated rich families remain typed future additions.
-6. **SQLite floor:** 3.51.3+ baseline.
+6. **SQLite floor:** 3.53.4+ baseline.
 7. **FTS mode:** ordinary self-content FTS5 projection, application-rebuilt from
    canonical rows, with FTS secure-delete enabled.
 8. **Purge retention:** a frozen exact `purge_targets` manifest plus
@@ -1408,17 +1466,17 @@ DDL can now be attacked mechanically.
 What remains is proof, not unresolved domain semantics:
 
 1. ~~executable **scratch DDL** proving critical nullability/FK/CHECK/STRICT constraints~~ — **PASS** in the disposable proof harness (48 STRICT tables; target runtime certification remains separate);
-2. selector validation against real PDF/text/table artifacts, including reopening
-   the exact evidence location;
-3. ~~RoleAssignment proof against a real appointment/office-holder source~~ — **PASS** against TSE resolution 2160-E11-2024 (exact selector reopening remains under gate 2);
-4. repeated-byte/archive-object proof including shared-reference purge behavior;
-5. ClaimRelation basis/revision/review traversal proof;
-6. entity resolution merge/split/correction proof;
+2. ~~selector validation against real PDF/text/table artifacts, including reopening
+   the exact evidence location~~ — **PASS** against the preserved TSE `alcaldias_pu.pdf` artifact: physical PDF page quote, decoded-text offsets, and derived-table row/value coordinates all reopen exactly;
+3. ~~RoleAssignment proof against a real appointment/office-holder source~~ — **PASS** against TSE resolution 2160-E11-2024, now including exact selector reopening under gate 2;
+4. ~~repeated-byte/archive-object proof including shared-reference purge behavior~~ — **PASS** in the scratch operation proof: one logical capture can be purged without deleting shared bytes, while an attempted physical purge with a surviving retained reference is detected and forbidden;
+5. ~~ClaimRelation basis/revision/review traversal proof~~ — **PASS** with exact revision-bound source basis, typed review, linear supersession, current-leaf filtering, directed/symmetric behavior and parallel-edge traversal;
+6. ~~entity resolution merge/split/correction proof~~ — **PASS** with candidate→active supersession, mention re-resolution/anchor correction, merge/split history, review and active-operation cardinality validation;
 7. FTS rebuild/integrity/purge proof on supported SQLite;
 8. backup -> clean-machine restore -> FTS rebuild proof;
 9. purge maintenance proof, including WAL/FTS and backup-scope reporting;
 10. runtime certification that the actual packaged/local SQLite satisfies the
-    3.51.3 floor and required compile options.
+    3.53.4 floor and required compile options.
 
 No production migration, canonical-data cutover, or current file-pipeline rewrite
 is authorized until these proofs pass.

@@ -164,7 +164,11 @@ relationships; it is not a substitute for original evidence bytes.
 
 ## Representations: the Mesa de trabajo
 
-A representation is something the Lector can inspect or cite:
+A representation is something the Lector can inspect or cite. The `original`
+Representation is the inspectable view of its Artifact's captured bytes; it does
+not duplicate the Artifact -> ArchiveObject pointer. Derived material forms keep
+their own bytes plus an exact parent and attributable process provenance:
+
 
 ```text
 PDF original

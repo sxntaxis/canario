@@ -26,8 +26,8 @@ The deep Book gate remains the basis. It was reopened **narrowly** where the
 candidate exposed an implementation-level uncertainty that could change schema:
 
 - 29/29 Books deep-audited;
-- 99 source records;
-- 110 source-book research claims;
+- 100 source records;
+- 111 source-book research claims;
 - 14 schema pressures;
 - 21 expensive mistakes;
 - 16 semantic fixtures, now backed by 56 explicit assertions.
@@ -108,9 +108,11 @@ rebuild/deletion tradeoffs of contentless mode. FTS remains non-authoritative.
 
 ### CR-009 — version floor is part of durability
 
-The initial support floor is SQLite 3.51.3+, where the documented WAL-reset
-corruption defect affecting earlier unpatched releases is fixed. A deliberately
-patched older runtime could be certified later, but is not the default contract.
+SQLite version selection is part of durability because upstream has shipped
+WAL/concurrency defects with corruption consequences. The first review therefore
+made an explicit runtime floor instead of accepting arbitrary host SQLite. CR-022
+subsequently tightens the exact support set after accounting for the withdrawn
+3.52.0 release.
 
 ### CR-010 — fixture evidence trace itself had stale/misaligned refs
 
@@ -203,6 +205,91 @@ contract now registers directionality per relation type. Storage preserves one
 attributable edge; query expansion handles symmetry without manufacturing reverse
 canonical relations.
 
+### CR-020 — original Representation duplicated custody byte authority
+
+Artifact already owns the physical bytes captured by an Acquisition, but the
+Representation table independently allowed `kind=original` to point at any
+ArchiveObject. A perfectly FK-valid state could therefore say that Artifact A
+was captured as bytes X while its "original" Representation exposed bytes Y.
+Derived Representations could also claim material output without naming the
+parent input. The candidate now makes `original` inherit bytes exclusively through
+Artifact, permits at most one original per Artifact, and requires every retained
+non-original Representation to have its own ArchiveObject, same-Artifact parent,
+and ProcessRun. Creating the required original together with a retained Artifact
+is a core transaction invariant because a row CHECK cannot require a child row.
+
+### CR-021 — selector coordinates were typed but not fully defined
+
+The first selector contracts named offsets and row bounds without defining their
+index base, interval semantics, or PDF quote normalization. Two conforming readers
+could therefore reopen different content from the same stored payload. `text_quote:v1`
+now uses 0-based Unicode-code-point offsets with an exclusive end; `table_range:v1`
+uses 1-based inclusive row ordinals within the represented table; and
+`pdf_page_quote:v1` has a deliberately narrow NFC + whitespace-collapse matching
+rule with no case/punctuation/OCR repair. A preserved official TSE PDF now proves
+that PDF, decoded-text and table selectors reopen the intended Esparza office-holder
+record exactly.
+
+### CR-022 — `>=3.51.3` was not a safe release-set definition
+
+3.51.3 is the first patch release that fixes the WAL-reset defect, but a simple
+numeric `>=3.51.3` support rule also admits SQLite 3.52.0, which upstream withdrew.
+Because ActaKit has no legacy runtime compatibility requirement at this schema
+boundary, the initial candidate now requires **SQLite 3.53.4+**, the current stable
+maintenance release at review time. Runtime certification still records the exact
+SQLite version/source ID and compile options; the version number is not a substitute
+for that proof.
+
+### CR-023 — append-only lineage could branch and make “current” ambiguous
+
+The candidate said current state was derivable from supersession, but the DDL
+allowed two rows to supersede the same predecessor and numbered histories could
+create additional roots. That turns a correction chain into a revision DAG and
+makes “current revision” ambiguous without adding the mutable pointer the design
+explicitly avoided. Numbered CivicDocument/Claim/ClaimRelation/RoleAssignment
+histories now have one root, require a predecessor after revision 1, and permit at
+most one successor; link/reconciliation correction chains also permit at most one
+successor. Core writes additionally require consecutive revision numbers.
+Competing unaccepted proposals remain possible as independent candidate roots.
+
+### CR-024 — merge/split labels had no cardinality semantics
+
+`EntityReconciliation(kind=merge|split)` could previously be populated as a 1→1
+operation and still look operative. The core contract now requires merge >=2→1
+and split 1→>=2 before activation. This remains a transaction validator rather
+than trigger machinery because the invariant spans child-set cardinalities; the
+scratch proof exercises both valid shapes and detects an invalid operative shape.
+
+### CR-025 — FK-valid availability states could contradict physical custody
+
+An Artifact could remain `available` while its ArchiveObject was marked `purged`,
+and a retained Representation could point through a purged Artifact/derived-byte
+object. Foreign keys prove identity existence, not compatible lifecycle state.
+The core transaction contract now validates retained Artifact→available
+ArchiveObject and retained Representation→retained Artifact/available derivative
+ArchiveObject. The shared-byte purge proof exercises the important consequence:
+purging one logical capture must leave shared bytes intact, while byte deletion is
+rejected until every retained reference is in scope.
+
+### CR-026 — purge vocabulary omitted content-bearing acquisition metadata
+
+`acquisition_artifacts` was treated as a join and omitted from `purge_target_kind`,
+but it retains observed filename and URL. A purge could therefore scrub the
+Artifact bytes while leaving prohibited source metadata outside its supposedly
+exact manifest. `acquisition_artifact` is now a registered purge target family.
+The contract also distinguishes exact content-bearing manifest targets from
+deterministic payload-free FK join cleanup, which is execution closure and must be
+reported by table/count rather than disguised as invented generic record IDs.
+
+### CR-027 — database identity was required but not assigned
+
+The operating contract said every connection must verify SQLite `application_id`
+and schema version, but the candidate had not assigned either value. That makes the
+check non-executable and weakens wrong-file protection during backup/restore. The
+candidate now reserves `0x414B4954` (`AKIT`, decimal 1095453012) and uses
+`user_version=1` for the `0001` schema candidate. These values in scratch proof do
+not authorize the migration; they make the proposed invariant concrete.
+
 ## Decisions closed before scratch DDL
 
 1. initial closed vocabularies;
@@ -210,7 +297,7 @@ canonical relations.
 3. no generic process input/output graph in `0001`;
 4. no DocumentPart/Collection table until a proving query/fixture requires one;
 5. concrete `RoleAssignment` as the first rich relationship;
-6. SQLite 3.51.3+ support floor;
+6. SQLite 3.53.4+ support floor;
 7. ordinary self-content FTS5 as disposable projection;
 8. frozen exact purge manifest + explicit tombstone/scrub/storage boundary.
 
@@ -224,13 +311,14 @@ runtime for the structural questions they can certify:
   acquisition locators, same-Document/Claim revision lineage, same-Relation revision
   lineage, RepresentationTarget ownership, ClaimEntityLink mention context, append-only Tag anchors, and generated-row process provenance;
 - all 16 fixture shapes are representable;
-- ClaimRelation multigraph reachability and parallel-edge preservation are both
-  exercised;
+- ClaimRelation revision-bound basis/review, current-leaf multigraph reachability and parallel-edge preservation are exercised;
+- EntityReconciliation merge/split cardinality, promotion/review and correction history are exercised;
+- shared ArchiveObject references survive record-scoped purge and block false physical-erasure claims;
 - ordinary self-content FTS5 + persistent FTS secure-delete command works on the
   available runtime;
 - SQLite backup API snapshot restores with `foreign_key_check` clean.
 
-The cloud Python runtime embeds SQLite 3.46.1, below the candidate's 3.51.3
-durability floor, so this is **not** packaged-runtime certification. The real RoleAssignment shape is now independently proven by TSE resolution 2160-E11-2024. Remaining gates are artifact-backed selector/parser reopening, shared-byte purge maintenance, full archive+DB clean-machine restore, WAL/FTS/backup purge maintenance, and certification on the actual >=3.51.3 runtime/compile options. None is reclassified as optional.
+The cloud Python runtime embeds SQLite 3.46.1, below the candidate's 3.53.4
+durability floor, so this is **not** packaged-runtime certification. The real RoleAssignment shape is now independently proven by TSE resolution 2160-E11-2024. Selector/parser reopening now passes against a preserved official TSE artifact. Remaining gates are shared-byte purge maintenance, full archive+DB clean-machine restore, WAL/FTS/backup purge maintenance, and certification on the actual supported runtime/compile options. None is reclassified as optional.
 
 Until those pass, migration `0001` remains unauthorized.

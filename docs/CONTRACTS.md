@@ -83,10 +83,13 @@ redacted_derivative
 other
 ```
 
-It records its parent, digest, media type, generator/process, configuration,
-language/charset where relevant, and quality/diagnostic metadata.
+The `original` Representation reuses the Artifact's captured ArchiveObject rather
+than duplicating a physical-byte pointer. A material derivative records its own
+physical bytes, exact parent Representation, media type, generator/process,
+configuration, language/charset where relevant, and quality/diagnostic metadata.
 
-A derivative never replaces its parent.
+A derivative never replaces its parent, and a retained derivative never exists
+without both an attributable parent and generator/process.
 
 ## Processing Provenance and the Lector
 

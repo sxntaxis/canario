@@ -68,7 +68,7 @@ Final SQL may merge/split these after fixture/query tests.
 | acquisition observation | where/when/how a resource was observed or failed; resulting artifact if any |
 | archive object | physical content-addressed bytes, digest/size/storage key, availability |
 | artifact | logical acquisition/custody identity pointing to physical bytes; validation/availability independent of digest |
-| representation | parent, kind, physical bytes when present, attributable generation provenance |
+| representation | original view of Artifact bytes or material derivative with own bytes + exact parent + attributable generation provenance |
 | civic document identity + revisions | stable civic identity separate from representation; title/issuer/date/language corrections are revisioned |
 | claim identity + revisions | proposition lineage, origin, lifecycle, attribution/time/flags |
 | evidence link | exact claim revision -> representation locator + evidence relation |
