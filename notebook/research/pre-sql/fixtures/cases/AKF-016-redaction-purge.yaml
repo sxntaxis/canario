@@ -8,7 +8,9 @@ expected:
   public_derivative_distinct_from_original: true
   publication_does_not_mutate_custody: true
   purge_if_legally_required: explicit_policy_operation
+  purge_plan: frozen_exact_target_manifest
+  database_scrub: secure_delete_plus_fts_secure_delete_and_policy_maintenance
+  backup_scope_reported: true
+  shared_archive_reference_checked: true
 must_not:
   - overwrite the original merely to create a safe public output
-open:
-  - define minimum purge/tombstone policy before claiming immutable custody or public release guarantees

@@ -6,6 +6,11 @@ input:
   generic_text_available: true
   specialized_profile: acta:v1
   profile_result: unexpected_structure
+metadata_correction:
+  initial_title: "Informe preliminar"
+  corrected_title: "Resolución administrativa"
+  stable_document_identity: true
+  prior_metadata_revision_preserved: true
 expected:
   preserve_artifact: true
   keep_generic_representation: true

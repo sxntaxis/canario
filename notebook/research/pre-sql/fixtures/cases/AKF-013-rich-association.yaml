@@ -1,5 +1,5 @@
 fixture_id: AKF-013
-title: Relationship with role dates and amount
+title: Relationship with role and validity dates
 facts:
   person: "Persona X"
   organization: "Municipalidad Ejemplo"
@@ -10,8 +10,25 @@ facts:
 expected:
   simple_entity_anchor_insufficient: true
   simple_claim_relation_insufficient_if_attributes_belong_to_relationship: true
-  promotion_path_required: typed_association_or_event
+  concrete_record: RoleAssignment
+  relationship_fields:
+    - subject_entity
+    - organization_entity
+    - role_label
+    - valid_from
+    - valid_to
+    - origin_kind
+    - basis_kind
+    - exact_evidence_target
 must_not:
   - hide role and dates in arbitrary generic edge JSON as the default model
-open:
-  - define minimal association/event semantics only far enough to avoid destructive schema assumptions
+real_proof:
+  status: pass
+  source: "TSE 2160-E11-2024"
+  source_url: "https://www.tse.go.cr/juris/relevantes/2160-E11-2024.html"
+  subject: "Bienvenido Venegas Porras"
+  organization: "Municipalidad de Esparza"
+  role: "Alcalde"
+  valid_from: 2024-05-01
+  valid_to: 2028-04-30
+  proof_note: "../artifact-proofs/AKF-013-role-assignment.md"

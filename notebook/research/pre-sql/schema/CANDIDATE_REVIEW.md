@@ -1,7 +1,8 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-REVIEW-001
 type: schema-candidate-review
-state: wip-checkpoint
+state: superseded
+superseded_by: ACTAKIT-SQLITE-CANDIDATE-CRITICAL-REVIEW-001
 authority: research
 created: 2026-08-21
 baseline: 1fc39e24800550ac14c0764bebc6b05a3d2b9dbf
@@ -38,3 +39,7 @@ universal event store, plugin registry, daemon, or RDF runtime.
 - need for concrete rich Association/Event tables.
 
 Until those are reviewed, `migration 0001` remains unauthorized.
+
+## Supersession note — 2026-08-21
+
+The first candidate was deliberately attacked before DDL freeze. The critical review found contract regressions and SQLite-specific failures that this checkpoint did not yet model. See `CRITICAL_REVIEW.md`; migration `0001` remained unauthorized throughout.

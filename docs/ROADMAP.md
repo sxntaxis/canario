@@ -18,8 +18,10 @@ related:
 ActaKit builds the smallest durable civic-record system that solves real work.
 Future complexity is anticipated through boundaries, not preimplemented.
 
-No persistent canonical database work begins until the architecture, claim
-semantics, evidence locators, review modes, and pre-SQL model are accepted.
+No persistent canonical database migration begins until the architecture, claim
+semantics, evidence locators, review modes, pre-SQL model, revised schema
+candidate, and its artifact/runtime proof gates are accepted. Disposable scratch
+DDL is allowed only as a design proof and is not migration authority.
 
 ## Phase 0 — Accept the Model
 
@@ -44,7 +46,7 @@ language and the pre-SQL examples expose no unresolved semantic contradiction.
 Implement dependency-light types/validation for:
 
 - stable IDs and revision lineage where civic meaning requires it;
-- documents/parts/collections;
+- CivicDocuments plus Representation occurrences/targets; DocumentPart/Collection only when a proving fixture/query requires them;
 - claims, evidence links and typed locators;
 - entities, claim-entity links, tags, and first-class claim relations;
 - strict/batch/supervised review semantics and decisions;

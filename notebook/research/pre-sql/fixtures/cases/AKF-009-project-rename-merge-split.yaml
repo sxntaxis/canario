@@ -15,5 +15,8 @@ expected:
   split_supported: true
 must_not:
   - silently rewrite all historical claim anchors to one newly chosen identity
-open:
+historical_open:
   - choose minimal merge/split lineage representation
+resolved:
+  - append-only EntityReconciliation with typed input/output entity sets, candidate/active/rejected lifecycle, explicit supersession and typed review; old claim anchors are not mass-retargeted
+  - corrected mention-derived claim anchors supersede prior ClaimEntityLink rows while retaining the exact historical resolution basis

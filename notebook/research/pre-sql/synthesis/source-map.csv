@@ -96,3 +96,5 @@ AKS-S094,sqlite,SQLite Online Backup API,database operational documentation,http
 AKS-S095,sqlite,SQLite release/change history,database release/bug evidence,https://www.sqlite.org/changes.html
 AKS-S096,skos,SKOS Primer,W3C Working Group Note,https://www.w3.org/TR/skos-primer
 AKS-S097,shacl,SHACL 1.2 Core draft and test suite,W3C standards evolution/conformance evidence,https://www.w3.org/TR/shacl12-core/
+AKS-S098,sqlite,SQLite secure_delete pragma,database deletion/forensic behavior documentation,https://www.sqlite.org/pragma.html#pragma_secure_delete
+AKS-S099,sqlite,SQLite FTS5 secure-delete and projection modes,full-text index operational documentation,https://www.sqlite.org/fts5.html

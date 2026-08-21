@@ -1,7 +1,8 @@
 ---
 id: ACTAKIT-PRE-SQL-FIXTURE-REVALIDATION-001
 type: research-fixture-revalidation
-state: pass
+state: superseded
+superseded_by: ACTAKIT-SQLITE-FIXTURE-REVALIDATION-002
 authority: evidence
 created: 2026-08-20
 fixture_checkpoint: b0dc51dd6f50a98cdbec52d28b092a55c2ecd098

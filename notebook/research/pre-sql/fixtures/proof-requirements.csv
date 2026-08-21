@@ -9,3 +9,4 @@ AKP-007,AKF-008,public corpus with ambiguous same-name people,At least one ambig
 AKP-008,AKF-012,two public sources about same matter,Two sources making materially incompatible/competing assertions,Plural claims and contradiction/challenge semantics,required
 AKP-009,AKF-015,local generated corpus,A complete generated DB+archive test corpus restored into a clean location,Backup/restore integrity,post-schema
 AKP-010,AKF-016,policy fixture,A controlled document containing data allowed in custody but inappropriate for public output,Redaction/publication separation,required-before-publication
+AKP-011,AKF-013,official office-holder declaration,One official civic source naming an office-holder plus the bounded term of office,Concrete RoleAssignment promotion boundary,satisfied

@@ -12,6 +12,7 @@ relation:
   to: clm-A@1
   origin: human
   basis: "Same identified project; later official report updates schedule."
+  evidence_target: "exact location in later official report"
 correction:
   old: clm-A@1
   new: clm-A@2
@@ -19,5 +20,6 @@ correction:
 expected:
   rel-1@1_endpoints_unchanged: true
   replacement_relation_may_be_created: true
+  source_backed_relation_basis_reopenable: true
 must_not:
   - silently change rel-1@1 target from clm-A@1 to clm-A@2

@@ -14,14 +14,18 @@ observations:
   - at: 2026-08-20T10:00:00Z
     outcome: not_found
 expected:
-  artifacts:
+  acquisition_count: 4
+  logical_artifact_count: 3
+  archive_objects:
     - sha256:AAA
     - sha256:BBB
-  acquisition_count: 4
   facts:
-    - the second observation may reuse artifact AAA storage
-    - BBB is a new artifact despite the same URL
+    - each observation locator belongs to the same Source recorded by the Acquisition
+    - the first and second successful observations create distinct Artifact custody records
+    - those two Artifacts may share one sha256:AAA ArchiveObject
+    - BBB is a new Artifact and ArchiveObject despite the same URL
     - not_found does not delete or negate AAA/BBB
 must_not:
-  - use URL as artifact identity
+  - pair a Source with a locator owned by a different Source
+  - use URL or digest as logical Artifact identity
   - infer civic deletion from not_found

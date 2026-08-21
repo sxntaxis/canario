@@ -14,3 +14,9 @@ AKM-012,Allow output manifests/plugins arbitrary URLs or paths,SSRF/local file e
 AKM-013,Use a universal truth/epistemic status column,"Provenance, review, conflict and assessment are collapsed into one misleading value","wikidata,prov,shacl"
 AKM-014,Universal event sourcing/operation receipts for everything,Noise/storage/privacy/complexity overwhelm the few consequential provenance events,"premis,openrefine,prov"
 AKM-015,Adopt RDF/OWL/XML standard stack as core runtime,Interoperability vocabulary becomes operational complexity unrelated to canton needs,"web-annotation,prov,records-in-contexts,akoma-ntoso,w3c-org,skos,shacl"
+AKM-016,Treat SQL DELETE or FTS row removal as completed lawful purge,"Sensitive content can remain recoverable in SQLite pages, FTS shadow/index structures, WAL files, snapshots or backups","sqlite,premis,ocfl"
+AKM-017,Collapse logical custody identity into one digest-unique artifact row,Independent provenance/restriction/purge scopes become coupled merely because captured bytes are identical,"warc,memento,ocfl"
+AKM-018,Treat a Claim-to-Tag assignment as an unversioned pair that must be deleted to correct it,Retrieval history and machine/rule provenance are lost when an anchor is corrected,"openrefine,prov,skos"
+AKM-019,Record machine/rule origin without exact attributable process identity,Generated semantic data claims provenance that cannot be reproduced or audited,prov
+AKM-020,Store mutable civic-document metadata directly on the stable document identity,Reprocessing or correction silently rewrites title/issuer/date/language history,"akoma-ntoso,paperless-ngx,openstates"
+AKM-021,Treat every ClaimRelation type as having identical directionality,Symmetric relations disappear from reverse queries or get duplicated as fake canonical reverse edges,"sqlite,wikidata,skos"

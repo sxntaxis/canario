@@ -21,8 +21,8 @@ Structure:
 Current horizon:
 
 - **29 source Books**;
-- **97 source records**;
-- **104 source-book research claims**, plus the pre-existing cross-source synthesis ledgers;
+- **99 source records**;
+- **110 source-book research claims**, plus the pre-existing cross-source synthesis ledgers;
 - **36 scenarios**;
 - **27 collisions**;
 - **30 bounded transfers**.

@@ -79,7 +79,7 @@ work without special-case crashes.
 Implement:
 
 - SQLite schema reviewed against `DATA_MODEL.md`;
-- content-addressed archive with atomic verified writes;
+- logical Artifact custody records separated from content-addressed ArchiveObject storage with atomic verified writes;
 - repositories behind the ActaKit core;
 - migrations plus replay/stale-write guards only where tests require them;
 - consistent backup/export and restore verification;
@@ -87,7 +87,7 @@ Implement:
 
 CLI/workers call the core directly initially.
 
-**Gate:** kill/restart, duplicate capture, changed file, archive mismatch, stale
+**Gate:** kill/restart, duplicate capture with shared physical bytes but distinct Artifact provenance, changed file, archive mismatch, stale
 write, and clean restore cases pass.
 
 ## WP4 — Source and Representation Adapters

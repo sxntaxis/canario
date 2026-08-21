@@ -51,9 +51,11 @@ must preserve the same invariant:
 
 ## Artifacts and Representations
 
-An `Artifact` is immutable-by-default acquired bytes with digest, byte length,
-media type, acquisition provenance, archive location, and **separate** validation
-and availability state. Do not compress these axes into one lifecycle:
+An `Artifact` is a stable logical custody record created by one acquisition
+observation. It points to an `ArchiveObject` holding the physical content-addressed
+bytes. Digest, byte length and storage key therefore belong to ArchiveObject;
+Artifact retains acquisition provenance, media/custody context, and **separate**
+validation and availability state. Do not compress these axes into one lifecycle:
 
 ```text
 validation:   pending | verified | quarantined | rejected
@@ -62,8 +64,9 @@ availability: available | restricted | purged
 
 `restricted` retains bytes under access limits. `purged` is reachable only by the
 explicit purge contract defined below; it is not an ordinary edit/delete state.
-The same bytes acquired from two captures may share physical storage while
-retaining both provenance chains.
+The same bytes acquired from two captures create two Artifact identities that may
+share one ArchiveObject. Physical deduplication must never collapse acquisition,
+restriction, review or purge provenance.
 
 A `Representation` is an inspectable form of an artifact or another
 representation:
@@ -98,12 +101,17 @@ contract is **reproducible attribution**, not a mandatory table per tool call.
 
 AI output is processing output, never factual source evidence by itself.
 
+For canonical storage, `machine` and `rule` origin require exact attributable
+ProcessRun identity; `origin_kind` by itself is not sufficient provenance. Human
+origin may omit a ProcessRun when no automated transformation occurred.
+
 ## Civic Documents, Parts, and Collections
 
-A `CivicDocument` expresses civic/institutional identity independently of file
-format. It records common metadata such as display identity, issuer/body, date,
-language, normalized type, subtype/profile, classification basis, visibility,
-and revision.
+A `CivicDocument` expresses stable civic/institutional identity independently of
+file format. Common mutable metadata such as title/display identity, issuer/body,
+date, language and visibility belongs to append-only `CivicDocumentRevision`;
+normalized type/subtype/profile remains separate attributable classification
+history. A metadata correction never mutates the stable document row.
 
 Source-supplied labels are attributable observations, not values ActaKit silently
 overwrites:
@@ -288,9 +296,11 @@ Identity resolution is explicit rather than name-equality magic:
 A `ClaimEntityLink` binds an exact claim revision to an entity using a small,
 extensible relation/role vocabulary such as `mentions`, `about`, `actor`,
 `responsible`, or `place` when useful. It records origin and processing/review
-provenance as needed. It may be created from an accepted mention resolution or
-other explicit evidence; it is not proof that every matching raw string denotes
-the same entity.
+provenance. If derived from a mention resolution it cites the exact accepted
+resolution revision; later resolution correction must not leave the old anchor
+appearing current. Link correction is append-only/superseding rather than silent
+retargeting. A direct claim-level anchor may exist without a literal mention; no
+matching raw string alone proves entity identity.
 
 ### Entity reconciliation is append-only
 
@@ -299,20 +309,28 @@ becoming a general graph:
 
 ```yaml
 reconciliation_id: erc_...
+supersedes_reconciliation: optional erc_...
 kind: merge | split
 input_entities: [ent_...]
 output_entities: [ent_...]
 origin_kind: human | rule | machine
-origin_process_ref: optional
+origin_process_ref: required for rule/machine; optional for human
 basis_refs: exact mention/document/identifier references when available
 rationale: concise explanation when needed
 created_at: ...
 ```
 
 For `merge`, accepted current retrieval may follow the lineage to the survivor or
-replacement entity while old links remain historically intact. For `split`, old
-links are not bulk-rewritten: affected mentions/links are re-resolved when enough
-evidence exists, and unresolved historical ambiguity remains visible.
+replacement entity while old links remain historically intact. Candidate promotion
+or correction creates a superseding reconciliation row rather than mutating the
+old event. For `split`, old links are not bulk-rewritten: affected mentions/links
+are re-resolved when enough evidence exists, and unresolved historical ambiguity
+remains visible.
+
+A tag assignment follows the same correction principle as an entity anchor: it
+has attributable origin, an operative/candidate/rejected state, and append-only
+supersession when corrected. Flat local tags remain intentionally simpler than
+entities; no taxonomy graph is required in `0001`.
 
 Shared entity membership is a retrieval fact, not a semantic shortcut:
 
@@ -352,17 +370,49 @@ Review is derived from review decisions just as for claims. In supervised mode a
 machine/rule candidate may remain searchable without masquerading as human-
 confirmed. Promotion to active follows the relation policy and basis minimum.
 
-Relation types remain a small versioned vocabulary. Do not encode a universal
-civic ontology in relation names.
+Relation types remain a small versioned vocabulary with explicit directionality.
+In the initial vocabulary `updates`, `corrects`, `responds_to`, `implements` and
+`supersedes` are directed; `contradicts` and `same_matter_as` are symmetric for
+retrieval. Store one attributable relation record rather than manufacturing a
+reverse duplicate for symmetric types. `other` is treated as directed unless a
+future typed contract replaces it. Do not encode a universal civic ontology in
+relation names.
 
 `ClaimRelation` is only for relationships whose meaning is adequately expressed
 by the typed proposition-to-proposition edge plus provenance/review. If the
 relationship itself carries independent civic identity or attributes — role,
 start/end dates, amount, percentage, contract term, or similar — it must be
 promoted to a typed Association/Event-style record rather than hidden inside a
-generic relation payload. The baseline may defer concrete association/event
-tables until a real fixture requires them; this contract forbids designing
-`ClaimRelation` as the future junk drawer.
+generic relation payload. AKF-013 already requires one concrete rich family: `RoleAssignment`, with stable
+identity/revisions for subject entity, organization entity, role label/key,
+validity interval, attributable origin/basis/lifecycle, and exact evidence.
+Other association/event families remain deferred until a real fixture requires
+them; this contract forbids designing `ClaimRelation` as the future junk drawer.
+
+### RoleAssignment is the first rich civic relation
+
+A `RoleAssignment` represents a person/entity holding a named role in an
+organization over an optional interval. The role and dates belong to the
+relationship, not to either entity and not to a ClaimRelation. Its revision
+records at minimum:
+
+```yaml
+subject_entity: ent_...
+organization_entity: ent_...
+role_label: source-compatible human label
+role_key: optional normalized local key
+valid_from: optional civic date
+valid_to: optional civic date
+origin_kind: machine | rule | human
+basis_kind: source_evidence | analyst_inference | mechanical_identity | other
+evidence_refs: exact RepresentationTarget references when source-backed
+rationale: optional concise explanation
+lifecycle: candidate | active | rejected
+```
+
+Material correction creates a new revision rather than mutating the historical
+assignment. Rich relationships with materially different attributes get their
+own typed family rather than overloading RoleAssignment.
 
 When a claim revision changes materially, existing relations keep their original
 revision endpoints. The core may propose/review a replacement relation; it does

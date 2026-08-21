@@ -28,7 +28,7 @@ Preservation specification plus implementation notes address version inventories
 
 ## Claim ledger synopsis
 
-- **AKS-C006:** Content-addressed immutable prior versions and logical/physical path separation are proven preservation patterns. **ActaKit:** Use immutable artifact identity/digests; do not make path the identity.
+- **AKS-C006:** Content-addressed immutable prior versions and logical/physical path separation are proven preservation patterns. **ActaKit:** Use content-addressed ArchiveObject byte identity behind stable logical Artifact custody identity; do not make path or digest the whole provenance record.
 - **AKS-C007:** Absolute immutability can collide with legitimate purge/redaction obligations. **ActaKit:** Define custody deletion/purge semantics explicitly instead of promising eternal bytes.
 - **AKS-C079:** Immutable-version preservation systems still need an exceptional purge path and may require object reconstruction to remove content. **ActaKit:** Model purge as explicit exceptional lifecycle action distinct from ordinary revision/redaction.
 

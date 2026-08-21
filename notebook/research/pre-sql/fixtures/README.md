@@ -20,10 +20,11 @@ records correctly. `proof-requirements.csv` records where an artifact-backed
 fixture is still required before implementation certification.
 
 The first-pass fixture verdict exposed four bounded design questions. Those are
-resolved and revalidated in `revalidation.md`; `verdict.md` and the original
-`open` assertions remain as historical evidence of what the first pass found.
-The current semantic fixture gate is PASS, while artifact-backed operational proof
-remains required later where `proof-requirements.csv` says so.
+resolved and revalidated in `revalidation.md`; `verdict.md` preserves the
+historical first-pass wording, while current case files label former questions as
+`historical_open` and record their `resolved` decision explicitly. The current
+semantic fixture gate is PASS, while artifact-backed operational proof remains
+required where `proof-requirements.csv` says so.
 
 ## Method
 
@@ -32,7 +33,8 @@ Each case has four kinds of expectations:
 - **must** — the future model must represent this without ambiguity;
 - **must_not** — behavior that would silently corrupt identity/evidence/meaning;
 - **may** — implementation freedom that should not be frozen pre-SQL;
-- **open** — a real design decision exposed by the fixture.
+- **historical_open** — a design question exposed by the first pass and retained for lineage;
+- **resolved** — the current decision that closed that historical question.
 
 Ledgers:
 
@@ -41,6 +43,7 @@ fixtures.csv            fixture catalog and research pressure
 assertions.csv          stable requirements extracted from cases
 counterexamples.csv     tempting but invalid shortcuts
 proof-requirements.csv  where real public artifacts are still needed
+artifact-proofs/*.md     completed real-artifact semantic proofs
 verdict.md               cross-fixture review before SQLite
 cases/*.yaml             compact semantic examples; not SQL schemas
 ```

@@ -1,25 +1,28 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-001
 kind: schema-candidate
-state: draft-for-review
+state: critical-review-revised
 created: 2026-08-21
+updated: 2026-08-21
 authority: design-proposal
-baseline: 1fc39e24800550ac14c0764bebc6b05a3d2b9dbf
-summary: Reviewable SQLite candidate derived from the deep pre-SQL research, semantic fixtures, schema pressures, and expensive-mistake ledger. Not a migration or implementation authorization.
+baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
+summary: Critically revised SQLite candidate derived from deep pre-SQL research, semantic fixtures, contract cross-checking, and SQLite runtime scars. Not migration or implementation authorization.
 ---
 
 # SQLite Schema Candidate
 
 ## Status and rule
 
-This document is a **candidate**, not migration `0001`. It converts the accepted
-semantic model and deep research into a relational shape that can be attacked by
-fixtures before code exists.
+This document is a **candidate**, not migration `0001`. The first candidate at
+`8b98010` fit the semantic fixtures at a high level but the adversarial review
+found several places where it silently dropped already-accepted contract meaning
+or encoded an impossible/unsafe SQLite shape. This revision repairs those design
+faults before any DDL is frozen.
 
 Design rule:
 
 > Store civic authority in explicit relational records. Use JSON only at bounded,
-> versioned extension seams where the shape is selected by a closed kind/version
+> versioned selector/state seams whose shape is selected by a closed kind/version
 > contract. Search indexes, caches, Outputs, and inferred graph closure are not
 > authority.
 
@@ -42,7 +45,24 @@ meaning by filenames. Stable opaque IDs connect both.
 Only the ActaKit core writes canonical tables. Outputs, importers, AI readers,
 and external tools use core contracts; they do not write SQLite directly.
 
+Logical civic/custody identity and physical byte deduplication are distinct. Two
+captures may retain independent Artifact provenance while referencing one shared
+archive object. A digest therefore identifies physical content, **not** the
+semantic/custody record.
+
 ## 2. SQLite operating invariants
+
+### Runtime floor
+
+Initial supported SQLite version: **3.51.3 or newer**.
+
+Reason: ActaKit intentionally uses WAL and long-lived evidence custody. SQLite's
+WAL-reset corruption bug affected versions through 3.51.2 and was fixed in
+3.51.3. A specifically patched earlier build may be certified later, but it is
+not part of the default support contract.
+
+All canonical ordinary tables are `STRICT`. FTS5 virtual tables are the explicit
+exception.
 
 Every writable connection must establish and verify at open time:
 
@@ -51,6 +71,7 @@ PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = WAL;
 PRAGMA synchronous = FULL;
 PRAGMA trusted_schema = OFF;
+PRAGMA secure_delete = ON;
 ```
 
 The implementation must also set a bounded busy timeout, keep write transactions
@@ -59,35 +80,168 @@ schema version. A connection that cannot establish required invariants is not a
 writer.
 
 SQLite/WAL must live on local attached storage, never a synced/network filesystem.
-There is one canonical writer path. Concurrency does not justify a daemon until
-real clients require it.
+There is one canonical writer/checkpoint authority. Readers must not keep
+unbounded read transactions open. WAL size/checkpoint health is operationally
+observable rather than assumed.
+
+`secure_delete = ON` is a baseline defense, **not** a claim of device-level secure
+erasure. Exceptional purge has stronger maintenance rules in section 16.
 
 ## 3. ID and revision rules
 
 - Stable civic identities use opaque text IDs, UUIDv7-compatible with readable
-  prefixes at the API boundary (`src_`, `acq_`, `art_`, `rep_`, `doc_`, `clm_`,
-  `ent_`, `rel_`, ...).
+  prefixes at the API boundary (`src_`, `acq_`, `aob_`, `art_`, `rep_`, `doc_`,
+  `clm_`, `ent_`, `rel_`, `ras_`, ...).
 - External numbers, URLs, filenames, acta numbers, names, and hashes are
   identifiers/attributes, never primary identity.
 - Material semantic changes use append-only revisions where history matters.
+- Revision rows may point to the exact prior revision they supersede; supersession
+  is then derived without mutating the old row.
+- Candidate/active/rejected transitions on revisioned/link-like semantic records
+  are append-only: promotion or correction writes a new revision/link/reconciliation
+  that supersedes the prior row. Review decisions never rewrite the reviewed row.
 - `created_at` is stored as UTC RFC3339 text with subsecond precision; civic
-  source dates/periods are separate domain fields.
+  source dates/periods are separate domain fields. Date-only civic values are
+  normalized as ISO `YYYY-MM-DD`; any interval comparison in SQLite is permitted
+  only after core validation has established the normalized form.
 - Foreign keys are real SQLite FKs wherever the target type is known. Avoid a
   universal polymorphic `subject_type + subject_id` table that forfeits FK
   integrity.
+- Genuinely optional fields never participate in a composite primary key. This
+  matters under `STRICT`, where every PK component is implicitly `NOT NULL`.
 
-## 4. Source and acquisition — Depósito ingress
+## 4. Closed 1.0 vocabularies
+
+These are the initial semantic enums. Adding a new value is a deliberate contract
+change, not arbitrary text written by importers.
+
+```text
+source_kind:
+  web | api | feed | filesystem | manual | other
+
+source_authority_scope:
+  formal_record | recorded_speech | issuer_statement | reported_statement |
+  dataset_value | visual_record | other
+
+acquisition_outcome:
+  success | partial | not_found | failed
+
+artifact_validation:
+  pending | verified | quarantined | rejected
+
+availability:
+  available | restricted | purged
+
+representation_kind:
+  original | extracted_text | ocr_text | normalized_text | table | page_image |
+  transcript | redacted_derivative | other
+
+document_type:
+  unknown | acta | agenda | convocatoria | acuerdo | resolucion | oficio |
+  informe | dictamen | presupuesto | plan | reglamento_ordenanza |
+  aviso_publico | correspondencia | comunicado_prensa | contrato | dataset |
+  grabacion | otro
+
+document_visibility:
+  normal | restricted
+
+claim_kind:
+  source_assertion | derived_inference | community_report | verification_question
+
+origin_kind:
+  machine | rule | human
+
+claim_lifecycle:
+  active | rejected | retracted | restricted
+  # superseded is derived from a later revision's supersedes_revision_id
+
+evidence_relation:
+  supports | challenges | contextualizes | quotes | mentions
+
+entity_kind:
+  person | organization | place | project | legal_instrument | contract |
+  program | other
+
+relation_type:
+  updates | contradicts | corrects | responds_to | implements | supersedes |
+  same_matter_as | other
+  directed: updates | corrects | responds_to | implements | supersedes | other
+  symmetric: contradicts | same_matter_as
+
+relation_basis_kind:
+  source_evidence | analyst_inference | mechanical_identity | other
+
+relation_lifecycle:
+  candidate | active | rejected
+  # superseded is derived from revision/link/reconciliation lineage
+
+anchor_lifecycle:
+  candidate | active | rejected
+  # for ClaimEntityLink / ClaimTagLink / EntityReconciliation
+
+review_decision:
+  accepted | rejected | needs_work
+
+purge_target_kind:
+  source | source_authority_scope | source_locator | acquisition | archive_object |
+  artifact | process_run | representation | representation_target | civic_document |
+  civic_document_revision | document_identifier | document_classification |
+  document_representation | claim | claim_revision | evidence_link | entity_mention | entity |
+  entity_name | entity_identifier | mention_resolution_candidate |
+  mention_resolution_revision | entity_reconciliation | claim_entity_link |
+  claim_entity_link_review | entity_reconciliation_review | tag | claim_tag_link |
+  claim_tag_link_review | claim_relation | claim_relation_revision | claim_relation_evidence_link |
+  role_assignment | role_assignment_revision | role_assignment_evidence_link | review_action |
+  claim_review | claim_relation_review | mention_resolution_candidate_review |
+  role_assignment_review
+
+purge_action:
+  delete_record | scrub_payload | detach | delete_bytes
+```
+
+Local taxonomies such as tags and normalized role keys remain namespaced and
+extensible; they are not promoted into global enums.
+
+## 5. Source and acquisition — Depósito ingress
 
 ### `sources`
 
-Stable logical place/provider being observed.
+Stable bounded public information source/family being observed.
 
 ```text
 id PK
-kind
+kind                     -- source_kind
 name
 active
 created_at
+```
+
+A municipal acta archive and the same municipality's press-release feed may be
+separate Sources because their authority scopes differ.
+
+### `source_authority_scopes`
+
+Persist the bounded kinds of statements a source family can reasonably evidence.
+This guides extraction without laundering “official-looking” material into
+universal truth.
+
+```text
+id PK
+source_id FK -> sources
+scope_kind               -- source_authority_scope
+valid_from nullable
+valid_to nullable
+note nullable
+created_at
+```
+
+Examples:
+
+```text
+approved acta archive -> formal_record
+session recordings    -> recorded_speech
+municipal news feed    -> issuer_statement
+budget dataset         -> dataset_value
 ```
 
 ### `source_locators`
@@ -103,6 +257,7 @@ valid_from nullable
 valid_to nullable
 created_at
 UNIQUE(source_id, locator)
+UNIQUE(id, source_id)              -- supports same-Source composite FK from Acquisition
 ```
 
 ### `acquisitions`
@@ -115,79 +270,123 @@ id PK
 source_id FK
 source_locator_id FK nullable
 observed_at
-outcome                 -- success | partial | not_found | failed
+outcome                  -- acquisition_outcome
 http_status nullable
 adapter_key
 adapter_version
 error_code nullable
 created_at
+FK(source_locator_id, source_id) -> source_locators(id, source_id)
 ```
 
-No universal crawl event log is required. This record exists because acquisition
-identity is itself semantically necessary.
+If a locator is present, it must belong to the same Source as the Acquisition; a
+plain independent FK would permit an impossible observation such as “acquire
+Source A through Source B's locator”. No universal crawl event log is required.
+This record exists because acquisition identity is itself semantically necessary.
 
-## 5. Artifacts and representations — Depósito / Mesa de trabajo
+## 6. Physical archive objects vs logical custody
 
-### `artifacts`
+### `archive_objects`
 
-Logical custody record for acquired bytes.
+Physical content-addressed storage object. This is where byte deduplication lives.
 
 ```text
 id PK
 content_sha256 nullable
 byte_size nullable
-media_type nullable
 storage_key nullable
-availability            -- available | restricted | purged
-validation_state         -- unchecked | verified | invalid
+availability             -- available | purged
 created_at
 purged_at nullable
 ```
 
-Important: artifact identity is **not** its digest. During lawful purge, policy may
-require clearing digest/size/storage metadata. Use a partial unique index on
-`content_sha256` only while a digest is retained.
+While retained:
+
+```text
+UNIQUE(content_sha256) WHERE content_sha256 IS NOT NULL
+UNIQUE(storage_key) WHERE storage_key IS NOT NULL
+```
+
+A purge policy may require clearing digest/size/storage metadata. Stable
+`archive_object` identity survives only when the selected tombstone policy
+permits it.
+
+### `artifacts`
+
+Logical custody record for bytes captured from a source observation. Artifact
+identity is not its digest.
+
+```text
+id PK
+archive_object_id FK -> archive_objects nullable
+media_type nullable
+validation_state       -- artifact_validation
+availability           -- available | restricted | purged
+created_at
+purged_at nullable
+```
+
+Two captures of identical bytes may point to one `archive_object` while retaining
+separate Artifact IDs and separate provenance/restriction/purge decisions.
 
 ### `acquisition_artifacts`
 
-Many acquisition observations may yield the same bytes; one acquisition can also
-produce multiple captured artifacts.
+One acquisition may yield multiple logical artifacts. Each Artifact belongs to
+exactly one acquisition observation: repeated identical bytes create a new
+Artifact but may reuse the same physical `archive_object`. This keeps capture
+provenance, restriction and purge decisions independent.
 
 ```text
+artifact_id PK FK
 acquisition_id FK
-artifact_id FK
-role                     -- primary | attachment | response_body | other
+role                    -- primary | attachment | response_body | other
 observed_filename nullable
 observed_url nullable
-PRIMARY KEY(acquisition_id, artifact_id, role)
 ```
+
+## 7. Representations and process provenance — Mesa de trabajo
 
 ### `representations`
 
-Derived or directly usable representations. Originals are never overwritten by
+Derived or directly usable inspectable forms. Originals are never overwritten by
 OCR, normalization, redaction, or edited derivatives.
 
 ```text
 id PK
-artifact_id FK nullable            -- ultimate source artifact when known
+artifact_id FK nullable            -- required while retained; nullable only in an allowed purge tombstone
+archive_object_id FK nullable      -- physical bytes for this representation
 parent_representation_id FK nullable
-kind                              -- pdf | text | html | table | image | audio | video | json | xml | other
+kind                              -- representation_kind
 media_type nullable
-content_sha256 nullable
-byte_size nullable
-storage_key nullable
+language nullable
+charset nullable
+process_run_id FK nullable
 availability                     -- available | restricted | purged
 created_at
+purged_at nullable
 ```
+
+Every available/restricted Representation belongs to one logical Artifact custody
+chain. If `parent_representation_id` is present, a composite FK requires parent
+and child to carry the same `artifact_id`; a derivative cannot silently jump to a
+different capture. A purge tombstone may clear those links only under the explicit
+purge policy.
+
+An original representation may have no `process_run_id`; a derivative does.
+`parent_representation_id + process_run_id` gives the exact transformation input
+and generator provenance without a generic process-output graph. A future
+transformation that genuinely combines multiple Artifacts needs a separately
+proven typed input contract rather than abusing one parent pointer.
 
 ### `process_runs`
 
-Bounded provenance for transformations/readers that actually create canonical
+Bounded provenance for transformations/readers that materially create canonical
 representations or extracted records. This is **not** universal event sourcing.
 
 ```text
 id PK
-process_kind                      -- extract_text | ocr | classify | extract_claims | reconcile | other registered kind
+process_kind              -- extract_text | ocr | classify | extract_claims |
+                             extract_relations | reconcile | other registered kind
 implementation
 implementation_version
 configuration_hash nullable
@@ -196,58 +395,166 @@ model_name nullable
 started_at
 finished_at nullable
 outcome
+created_at
 ```
 
-### `process_inputs` / `process_outputs`
+Any persisted semantic row whose `origin_kind` is `machine` or `rule` requires an
+exact `process_run_id` in `0001`; human-origin rows may omit it. Likewise every
+derived Representation (anything other than `original`) requires the ProcessRun
+that created it. This prevents a row from claiming machine/rule provenance while
+retaining no reproducible process identity.
 
-Typed joins from a process run to representations/artifacts or produced
-representations. Exact table shape may be narrowed after implementation spike;
-these joins must not become a generic graph of every operation in ActaKit.
+There are **no generic `process_inputs/process_outputs` tables in `0001`**.
+Outputs point directly to the run that created them, while exact semantic inputs
+are already represented by parent representation, EvidenceLink, EntityMention,
+relation endpoints, or other typed FKs. A future process that genuinely consumes
+an otherwise-unrepresented input may add a typed join then; this avoids a generic
+operation graph.
 
-## 6. Civic document identity
+## 8. Reusable exact representation targets
 
-### `civic_documents`
+The first candidate duplicated selector payloads in EvidenceLink and
+EntityMention and could not naturally attach exact source evidence to a
+ClaimRelation or rich association. `representation_targets` factors only the
+**where in this representation** concern; semantic link tables remain typed.
 
-Stable logical document identity, independent of bytes and encoding.
+### `representation_targets`
 
 ```text
 id PK
-title nullable
-issuer_entity_id FK nullable
-source_supplied_type nullable
-source_type_label nullable
+representation_id FK
+selector_kind nullable
+selector_version nullable
+selector_payload_json nullable
+state_payload_json nullable
+availability              -- available | purged
+created_at
+purged_at nullable
+```
+
+A normal target has non-null selector kind/version/payload and must validate
+against its registered contract. A minimal purge tombstone may retain the stable
+target ID and parent Representation while clearing selector material and setting
+`availability=purged`; no EvidenceLink then falsely resolves to content that no
+longer exists.
+
+JSON is allowed only under a registered `selector_kind + selector_version`
+contract validated by core code.
+
+### Initial selector contracts
+
+`whole:v1`
+
+```json
+{}
+```
+
+Use only when the entire representation is genuinely the smallest honest target.
+
+`text_quote:v1`
+
+```text
+required: exact
+optional: prefix, suffix, start_char, end_char
+rules:
+  - exact is non-empty
+  - start/end either both absent or both present
+  - 0 <= start_char <= end_char
+```
+
+`pdf_page_quote:v1`
+
+```text
+required: page_ordinal
+optional: exact, prefix, suffix, page_label
+rules:
+  - page_ordinal is a 1-based physical page sequence
+  - when machine-readable text exists, exact quote is preferred
+```
+
+`table_range:v1`
+
+```text
+optional: sheet, table_name, a1_range, row_start, row_end, headers, observed_values
+rules:
+  - at least one structural coordinate is required
+  - observed_values preserves the values used to make the claim when practical
+  - row_start/row_end either both absent or both present
+```
+
+The payload may contain redundant coordinates because durable evidence targeting
+sometimes needs both quote/context and position. These are bounded selector
+bundles, not arbitrary application JSON.
+
+## 9. Civic document identity
+
+### `civic_documents`
+
+Stable logical document identity only, independent of bytes, encoding and mutable
+metadata.
+
+```text
+id PK
 created_at
 ```
+
+### `civic_document_revisions`
+
+```text
+id PK
+document_id FK
+revision_no
+supersedes_document_revision_id FK nullable
+title nullable
+issuer_entity_id FK nullable
+document_date nullable
+language nullable
+visibility               -- normal | restricted
+origin_kind              -- human | rule | machine
+process_run_id FK         -- required for machine/rule; optional for human
+created_at
+UNIQUE(document_id, revision_no)
+```
+
+Title/issuer/date/language are civic metadata, not document identity. Ordinary
+correction or improved extraction therefore writes a new revision and preserves
+the old values. The self-FK is scoped to the same stable CivicDocument.
+Classification remains a separate append-only observation because source-supplied
+type and normalized interpretation have different semantics.
 
 ### `document_identifiers`
 
 ```text
 id PK
 document_id FK
-scheme                   -- acta_number | oficio_number | procurement_id | uri | local_source_id | other registered scheme
+scheme
 value
 issuer_entity_id FK nullable
 created_at
-UNIQUE(document_id, scheme, value)
 ```
 
-Identifier uniqueness across documents is **not** globally assumed unless the
-scheme contract proves it.
+Identifier uniqueness across documents is **not** globally assumed unless a
+scheme contract proves it. Scheme-specific uniqueness is validated by the core;
+nullable issuer scope is not hidden inside a fragile SQL UNIQUE key.
 
 ### `document_classifications`
 
-Append-only classification history; source wording is preserved separately.
+Append-only classification history. Source wording and normalized interpretation
+live in the same attributable observation rather than silently overwriting each
+other.
 
 ```text
 id PK
 document_id FK
-normalized_type          -- broad civic type incl. unknown/otro
+source_supplied_type nullable
+source_type_label nullable
+normalized_type          -- document_type
 subtype nullable
 profile_key nullable
 profile_version nullable
 confidence nullable
-basis_kind               -- human | rule | machine
-process_run_id FK nullable
+origin_kind              -- human | rule | machine
+process_run_id FK         -- required for machine/rule; optional for human
 created_at
 ```
 
@@ -256,30 +563,37 @@ silently overwriting history.
 
 ### `document_representations`
 
-One artifact/representation may contain multiple documents; one logical document
-may have multiple representations.
+One representation may contain multiple documents; one logical document may have
+multiple representations; the same document may occur more than once in a
+compound representation.
 
 ```text
+id PK
 document_id FK
 representation_id FK
 occurrence_kind          -- whole | contained | attachment | other
-locator_kind nullable
-locator_version nullable
-locator_payload_json nullable
-PRIMARY KEY(document_id, representation_id)
+representation_target_id FK nullable
+created_at
 ```
 
-`locator_payload_json` is a bounded exception: it is accepted only for registered
-`locator_kind + locator_version` contracts and must be validated by the core.
-It is not arbitrary application JSON.
+If `representation_target_id` is present, its representation must match
+`representation_id`. Scratch DDL should enforce this with a composite FK to
+`representation_targets(id, representation_id)` rather than leaving an easy
+cross-representation mismatch to application convention.
 
-### Optional proof-only structures
+### `document_parts` / `document_collections` decision
 
-`document_parts` and `document_collections` are added only when an artifact-backed
-fixture proves they are needed. The candidate preserves IDs/FKs so adding them
-later does not require identity collapse.
+They are **not in `0001`**. AKF-004 is satisfied by independent CivicDocument IDs
+plus repeated `document_representations` occurrences with exact targets. No
+current artifact-backed fixture requires a separately citable part identity or a
+durable cross-document case/package identity. Both structures are purely
+additive later because CivicDocument identity and occurrence targets are already
+separate.
 
-## 7. Claims and revisions — Fichero
+This is a closed 1.0 decision, not permission to stuff collection semantics into
+JSON.
+
+## 10. Claims and evidence — Fichero
 
 ### `claims`
 
@@ -296,57 +610,53 @@ created_at
 id PK
 claim_id FK
 revision_no
-claim_kind               -- source_assertion | derived_inference | community_report | verification_question
+supersedes_revision_id FK nullable
+claim_kind               -- claim_kind
 text
-process_run_id FK nullable
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
+attribution_entity_id FK nullable
+attribution_text nullable
+temporal_start nullable
+temporal_end nullable
+sensitive                 -- boolean
+quantitative              -- boolean
+lifecycle                 -- claim_lifecycle
 created_at
 UNIQUE(claim_id, revision_no)
 ```
 
 A claim can exist machine-only. Human review is a separate axis. `corrected` is
-not a status: correction creates a new revision. Contradiction/dispute is not a
-truth flag on the row.
+not a status: correction creates a new revision whose `supersedes_revision_id`
+points to the exact prior revision. The prior revision becomes *effectively
+superseded* by lineage rather than being rewritten.
 
-No universal `epistemic_status` column exists.
+Contradiction/dispute is not a truth flag on the row. No universal
+`epistemic_status` column exists.
 
-## 8. Exact evidence targeting
+`temporal_start/end` are optional normalized civic scope, not creation time. More
+complex uncertainty/recurrence is not forced into `0001`; the exact source
+wording remains in the Claim/Evidence.
 
 ### `evidence_links`
 
-Evidence is revision-bound.
+Evidence is revision-bound and targets a reusable exact representation location.
 
 ```text
 id PK
 claim_revision_id FK
-representation_id FK
-relation                  -- supports | challenges | contextualizes | quotes | mentions
-selector_kind
-selector_version
-selector_payload_json
-state_payload_json nullable
+representation_target_id FK
+relation                 -- evidence_relation
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
 created_at
 ```
 
-The selector/state model is inspired by W3C Web Annotation: target a specific
-representation using a typed selector, and optionally capture state needed to
-re-anchor/version-check it.
+A source assertion should normally have at least one evidence link before it can
+be treated as evidenced. Cross-table minima are semantic-core invariants rather
+than fake CHECK constraints.
 
-JSON is permitted here only because selector families differ structurally. Both
-payloads are validated against closed, versioned core schemas; unknown selector
-kinds cannot become factual support until supported explicitly.
-
-Initial selector kinds should be limited to fixtures actually proven for 1.0,
-for example:
-
-```text
-text_quote:v1
-pdf_page_quote:v1
-table_range:v1
-```
-
-Other kinds remain an extension seam, not pre-created tables.
-
-## 9. Raw mentions and entity identity
+## 11. Raw mentions and entity identity
 
 ### `entity_mentions`
 
@@ -354,23 +664,22 @@ Raw observed occurrence **before** reconciliation.
 
 ```text
 id PK
-representation_id FK
+representation_target_id FK
 claim_revision_id FK nullable
 observed_text
-selector_kind
-selector_version
-selector_payload_json
-process_run_id FK nullable
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
 created_at
 ```
 
-The exact mention is never overwritten by canonical naming.
+The exact mention is never overwritten by canonical naming. Core validation
+requires the target to identify the source occurrence being preserved.
 
 ### `entities`
 
 ```text
 id PK
-kind                     -- organization | person | place | project | contract | program | other
+kind                     -- entity_kind
 canonical_name nullable
 created_at
 ```
@@ -385,6 +694,8 @@ entity_id FK
 name
 name_kind                -- official | alias | former | display | other
 source_document_id FK nullable
+valid_from nullable
+valid_to nullable
 created_at
 ```
 
@@ -397,26 +708,48 @@ scheme
 value
 issuer_entity_id FK nullable
 created_at
-UNIQUE(entity_id, scheme, value)
 ```
 
-### `mention_resolutions`
+Global uniqueness is not assumed for an arbitrary scheme. Schemes that prove a
+strong uniqueness scope receive explicit core validation/indexing rather than
+pretending every `(scheme,value)` is globally unique.
 
-Resolution is explicit and reversible; unresolved is valid.
+### `mention_resolution_candidates`
+
+Machine/rule/human suggestions are proposals, not current identity.
 
 ```text
 id PK
 mention_id FK
 entity_id FK
-resolution_kind          -- candidate | accepted | rejected
 score nullable
-basis_kind               -- human | rule | machine
-process_run_id FK nullable
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
 created_at
 ```
 
-Current resolution is derived from decisions/policy. Name equality never creates
-identity automatically.
+### `mention_resolution_revisions`
+
+Accepted current resolution is append-only and reversible.
+
+```text
+id PK
+mention_id FK
+revision_no
+resolved_entity_id FK nullable
+resolution_state         -- resolved | cleared
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
+actor nullable
+rationale nullable
+created_at
+UNIQUE(mention_id, revision_no)
+```
+
+No resolution row means unresolved. `cleared` explicitly removes a prior
+resolution without deleting history. Current resolution is the highest revision
+number. A strong deterministic rule may resolve a mention without human review;
+the origin remains visible.
 
 ### `entity_reconciliations`
 
@@ -424,9 +757,13 @@ Narrow append-only merge/split lineage.
 
 ```text
 id PK
+supersedes_entity_reconciliation_id FK nullable
 kind                     -- merge | split
-basis
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
 actor nullable
+rationale
+lifecycle                 -- candidate | active | rejected
 created_at
 ```
 
@@ -438,25 +775,66 @@ entity_id FK
 PRIMARY KEY(reconciliation_id, entity_id)
 ```
 
-Old entity IDs remain explainable; historical claim anchors are not silently
-mass-retargeted.
+### `entity_reconciliation_basis_mentions`
 
-## 10. Claim anchors, tags, and direct relations
+```text
+reconciliation_id FK
+mention_id FK
+PRIMARY KEY(reconciliation_id, mention_id)
+```
+
+### `entity_reconciliation_basis_identifiers`
+
+```text
+reconciliation_id FK
+entity_identifier_id FK
+PRIMARY KEY(reconciliation_id, entity_identifier_id)
+```
+
+Old entity IDs remain explainable; historical claim anchors are not silently
+mass-retargeted. Candidate promotion/correction is append-only: a new reconciliation
+row may supersede the prior candidate rather than mutating it in place. Current
+retrieval considers only non-superseded operative reconciliation rows and the
+applicable review policy. Splits do not silently decide which old ambiguous link
+belongs to which output entity. Review is recorded separately in section 15.
+
+## 12. Claim anchors and tags
 
 ### `claim_entity_links`
 
+The first candidate used nullable `role` and `mention_id` inside the composite PK,
+which is incompatible with `STRICT`. Links therefore receive their own identity.
+
 ```text
+id PK
+supersedes_claim_entity_link_id FK nullable
 claim_revision_id FK
 entity_id FK
 mention_id FK nullable
+mention_resolution_revision_id FK nullable
 role nullable
-basis_kind               -- observed | human | rule | machine
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                -- candidate | active | rejected
+rationale nullable
 created_at
-PRIMARY KEY(claim_revision_id, entity_id, role, mention_id)
 ```
 
-Shared entity anchors support retrieval. They **do not** imply pairwise semantic
-relations between claims.
+A machine resolution candidate does not automatically become an active shared
+anchor. A mention-derived ClaimEntityLink points to the **exact accepted
+MentionResolutionRevision** that resolved that same mention to that same Entity;
+composite FKs enforce both same-Claim context and same resolved Entity. `mention`
+and `mention_resolution_revision` are therefore both present or both absent. A
+direct claim-level anchor not derived from a literal mention leaves both null.
+
+ClaimEntityLink is append-only semantic metadata, not a mutable cache. If an
+anchor itself is corrected, a new row supersedes the prior link for the same
+ClaimRevision; the old row remains explainable. Current retrieval uses the
+non-superseded operative link and, for mention-derived anchors, can verify that
+its resolution revision is still the current accepted resolution. This prevents a
+later `AyA -> different Entity` correction from leaving a stale anchor that looks
+current. Idempotency remains a core write invariant; optional fields are not
+abused as primary-key components.
 
 ### `tags`
 
@@ -469,18 +847,29 @@ created_at
 UNIQUE(namespace, key)
 ```
 
-### `claim_tags`
+### `claim_tag_links`
 
 ```text
+id PK
+supersedes_claim_tag_link_id FK nullable
 claim_revision_id FK
 tag_id FK
-basis_kind
+origin_kind              -- machine | rule | human
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                -- candidate | active | rejected
+rationale nullable
 created_at
-PRIMARY KEY(claim_revision_id, tag_id)
 ```
 
-Tag taxonomies are local/extensible; the core does not impose a national civic
-ontology.
+A tag is a shared retrieval anchor, so its assignment must be correctable without
+deleting history or forcing a new ClaimRevision merely to fix metadata. The same
+append-only rule therefore applies as for ClaimEntityLink: a correction/rejection
+supersedes the prior link for that exact ClaimRevision, while review is recorded
+separately. Current retrieval uses only the non-superseded operative assignment.
+Tag taxonomies remain local/extensible; the core does not impose a national civic
+ontology or tag hierarchy.
+
+## 13. Direct ClaimRelations with inspectable basis
 
 ### `claim_relations`
 
@@ -497,25 +886,119 @@ created_at
 id PK
 claim_relation_id FK
 revision_no
+supersedes_relation_revision_id FK nullable
 from_claim_revision_id FK
 to_claim_revision_id FK
-relation_type            -- updates | contradicts | responds_to | corrects | other registered direct semantic relation
-basis_kind               -- source | analyst_inference | machine_inference
+relation_type            -- relation_type
+origin_kind              -- machine | rule | human
+basis_kind               -- relation_basis_kind
 rationale nullable
-process_run_id FK nullable
+process_run_id FK         -- required for machine/rule; optional for human
+lifecycle                -- relation_lifecycle
 created_at
 UNIQUE(claim_relation_id, revision_no)
 ```
 
+Origin and basis are separate. `machine` says **who/what proposed it**;
+`source_evidence` or `analyst_inference` says **why the relation is asserted**.
+The first candidate incorrectly collapsed those dimensions.
+
+### `claim_relation_evidence_links`
+
+A relation whose basis is source evidence can cite the exact source segment; it
+must not rely only on a prose rationale.
+
+```text
+id PK
+claim_relation_revision_id FK
+representation_target_id FK
+basis_role                -- source_basis | context
+created_at
+```
+
+The exact endpoint ClaimRevisions are themselves basis references. Additional
+source evidence is represented through this typed table, preserving real FKs
+without a polymorphic universal basis table.
+
 Only **direct** semantic edges are persisted. Co-occurrence and transitive closure
 are query-time facts, never materialized canonical edges.
 
-If a relationship has independent role/time/amount/identity, it must not be
-stuffed into relation JSON. It is promoted to a typed Association/Event model
-when an artifact-backed 1.0 fixture proves the need. No universal association
-ontology is created preemptively.
+An `active` relation must have attributable origin and inspectable basis. The core
+requires either exact source-basis evidence, a mechanical-identity rule with
+reproducible process, or a concise rationale sufficient for an analyst inference.
+`AI thinks these are related` is not enough to become active.
 
-## 11. Review without a truth column
+## 14. First concrete rich association: RoleAssignment
+
+AKF-013 is already a 1.0 proving fixture: a person/entity holds a role in an
+organization for a bounded period and the role/dates belong to the relationship
+itself. Leaving only an abstract “promotion boundary” would postpone a known
+schema need and risk turning ClaimRelation into a junk drawer.
+
+The first schema therefore includes **one narrow rich-association family**. It is
+not a generic Association table and does not pre-create contracts, ownership,
+amount-bearing interests, events, or every Popolo/FtM relation.
+
+### `role_assignments`
+
+Stable identity.
+
+```text
+id PK
+created_at
+```
+
+### `role_assignment_revisions`
+
+```text
+id PK
+role_assignment_id FK
+revision_no
+supersedes_role_assignment_revision_id FK nullable
+subject_entity_id FK
+organization_entity_id FK
+role_key nullable           -- local normalized role key
+role_label                  -- human-readable/source-compatible role
+valid_from nullable
+valid_to nullable
+origin_kind                 -- machine | rule | human
+basis_kind                  -- relation_basis_kind
+process_run_id FK         -- required for machine/rule; optional for human
+rationale nullable
+lifecycle                   -- candidate | active | rejected
+created_at
+UNIQUE(role_assignment_id, revision_no)
+```
+
+Core validation checks `valid_from <= valid_to` when both are present and applies
+entity-kind expectations (normally person/organization -> organization) without
+pretending SQLite FKs can express every subtype rule.
+
+### `role_assignment_evidence_links`
+
+```text
+id PK
+role_assignment_revision_id FK
+representation_target_id FK
+basis_role                  -- source_basis | context
+created_at
+```
+
+This satisfies AKF-013 directly:
+
+```text
+Persona X
+  -- RoleAssignment(role=Alcaldía, 2024-05-01..2028-04-30) -->
+Municipalidad Ejemplo
+  -- exact evidence --> official appointment record target
+```
+
+Future relationships with amount, ownership percentage, contract term, vote
+participation, etc. get their own typed family only when a fixture/query proves
+one. `RoleAssignment` is the demonstration that promotion is real, not a promise
+that all rich relations share one schema.
+
+## 15. Review without a truth column
 
 Batch review is a UX/action grouping, not a new authority layer.
 
@@ -535,7 +1018,7 @@ note nullable
 id PK
 review_action_id FK nullable
 claim_revision_id FK
-decision                 -- accepted | rejected | needs_work
+decision                 -- review_decision
 reviewer
 reason nullable
 created_at
@@ -545,9 +1028,31 @@ created_at
 
 Same shape, FK to `claim_relation_revisions`.
 
-### `mention_resolution_reviews`
+### `mention_resolution_candidate_reviews`
 
-Same shape, FK to `mention_resolutions` when human adjudication is recorded.
+Same shape, FK to `mention_resolution_candidates`. Accepting a candidate and
+writing the corresponding `mention_resolution_revision` is one canonical
+transaction.
+
+### `claim_entity_link_reviews`
+
+Same shape, FK to `claim_entity_links`.
+
+### `claim_tag_link_reviews`
+
+Same shape, FK to `claim_tag_links`. Review changes the attributable judgment of
+the assignment; correction/removal of the anchor itself is represented by link
+supersession rather than deletion.
+
+### `entity_reconciliation_reviews`
+
+Same shape, FK to `entity_reconciliations`. This keeps candidate/active
+reconciliation provenance inspectable without mutating the append-only merge/split
+record.
+
+### `role_assignment_reviews`
+
+Same shape, FK to `role_assignment_revisions`.
 
 Separate review tables intentionally preserve FK integrity rather than using a
 polymorphic universal review subject.
@@ -555,34 +1060,140 @@ polymorphic universal review subject.
 No review row means **unreviewed**, which is valid and searchable in supervised
 mode.
 
-## 12. Custody restriction and purge
+## 16. Custody restriction and purge
 
 Normal correction never mutates archived bytes. Redaction creates a new
-representation.
+Representation and normally a new ArchiveObject.
 
-An exceptional purge operation is explicit and scoped. The candidate does not
-require a universal operation ledger; it does require a small `purges` record
-because physical destruction changes what evidence remains inspectable.
+A purge is an exceptional maintenance operation, not ordinary row deletion and
+not a universal event ledger. It has two separate questions:
+
+1. **what exact logical/physical records are in scope?**
+2. **what can ActaKit truthfully claim was removed at each storage boundary?**
 
 ### `purges`
 
 ```text
 id PK
-scope_kind               -- artifact | representation | derived_set
-reason
+reason_code
 actor
+retention_mode           -- minimal_tombstone | no_tombstone
 created_at
+executed_at nullable
+outcome                  -- planned | completed | partial | failed
+note nullable
 ```
 
-Target join tables record affected IDs. Purge implementation clears/deletes
-scoped bytes and derived search/cache copies. Artifact/representation rows move
-to `availability = purged`; policy may require nulling hashes, sizes, locators,
-or other metadata. Tombstone content is therefore intentionally minimal and
-policy-dependent.
+### `purge_targets`
 
-## 13. Search is a projection
+The first candidate's three typed purge-target tables covered Artifact,
+Representation and ArchiveObject but missed a harder case: canonical derivative
+rows such as EntityMention, RepresentationTarget or ClaimRevision can themselves
+retain content that policy requires removing. A fixed list of only three target
+tables would therefore make an exact purge claim impossible.
+
+Purge planning is the bounded exception to the normal no-polymorphic-reference
+rule because its target may intentionally cease to exist and therefore cannot
+remain protected by a durable FK.
+
+```text
+purge_id FK
+record_kind              -- closed purge_target_kind vocabulary
+record_id                -- exact opaque ID existing when the plan is frozen
+action                    -- purge_action
+planned_at
+executed_at nullable
+outcome nullable
+PRIMARY KEY(purge_id, record_kind, record_id, action)
+```
+
+`purge_target_kind` is a closed list of canonical content-bearing record families
+that the implementation knows how to purge; it is **not** an open plugin
+namespace or generic civic subject type. The core validates target existence and
+allowed action before freezing a plan. After execution the row intentionally
+remains an operational manifest even when its target no longer exists.
+
+Roots such as Artifact/Representation are expanded by dependency traversal into
+every exact in-scope canonical/derived record that still retains the prohibited
+material. The frozen target manifest is inspectable before execution. A vague
+`derived_set`, search query or dynamically re-evaluated predicate is not an
+acceptable purge target.
+
+### Minimal retained rows and tombstones
+
+When surviving canonical references must remain explainable, the affected type
+may keep only its explicit minimal purge state instead of being deleted. For
+example:
+
+- `Artifact`/`Representation` may retain stable identity, `availability=purged`
+  and `purged_at` while storage/digest metadata is cleared as policy requires;
+- `RepresentationTarget` may retain its ID/parent but clear selector payload and
+  become `availability=purged`;
+- a type-specific record such as EntityMention may be scrubbed only if its DDL
+  has an explicit tombstone contract that removes observed text/locator material.
+
+Otherwise the record and all FK dependents that cannot survive without it are
+included in the exact purge plan. There is no silent dangling reference.
+
+`minimal_tombstone` keeps only what policy permits: opaque record identity,
+purge time/action, broad reason code, and enough non-sensitive lineage to explain
+that material once existed. It must not retain the content, raw mention, locator,
+digest, or metadata the purge is meant to remove.
+
+`no_tombstone` permits removal of even that residue when required. The schema
+supports both product semantics without pretending ActaKit can choose the legal
+rule for every deployment.
+
+### Shared-byte rule
+
+If two retained logical Artifacts reference one `archive_object`, a purge cannot
+claim the physical bytes were erased while another in-scope retained reference
+still lawfully requires them. Because each acquisition gets its own Artifact,
+record-scoped restriction/purge does not accidentally erase another capture.
+
+The operation must either:
+
+1. be logical-record scoped and detach/minimize only the targeted Artifact,
+   explicitly **not** claiming byte erasure; or
+2. expand the content purge to every affected retained reference under the
+   governing policy before the shared ArchiveObject can be deleted.
+
+### SQLite/FTS scrubbing rule
+
+A purge that requires local database-level forensic scrubbing must not finish at
+`DELETE`:
+
+- core `PRAGMA secure_delete = ON` is already required;
+- every FTS5 projection uses FTS5 `secure-delete=1`;
+- affected FTS rows are removed/rebuilt from surviving canonical records;
+- the WAL is checkpointed/truncated under the single-writer maintenance path;
+- a maintenance `VACUUM` or clean `VACUUM INTO`/replacement path is performed
+  when policy requires removal of recoverable free-page content;
+- archive bytes and non-regenerable derived copies are deleted according to the
+  exact frozen target manifest.
+
+This is **database/file-level best effort**, not a promise to defeat SSD wear
+levelling, filesystem snapshots, remote backups, or forensic recovery outside
+ActaKit's controlled storage boundary.
+
+### Backup rule
+
+Every purge policy must state whether existing backups/snapshots are in scope and
+when they expire or are rewritten. ActaKit may report current-authority purge
+complete while separately reporting an out-of-scope retained backup, but it may
+not claim corpus-wide erasure if an in-scope backup still contains the material.
+
+`restricted` remains different from `purged`: restricted bytes still exist;
+purged bytes do not exist inside the declared ActaKit authority boundary.
+
+## 17. Search is a disposable projection
 
 FTS5 is rebuildable and non-authoritative.
+
+The first candidate left external-content vs contentless open. The critical
+review closes this in favor of **ordinary self-content FTS5 virtual tables**.
+At canton scale, small duplicate-text cost is preferable to external-content
+rowid/trigger consistency coupling or contentless rebuild/deletion complexity.
 
 Candidate projections:
 
@@ -591,46 +1202,94 @@ claim_fts
   claim_revision_id UNINDEXED
   text
 
+representation_fts
+  representation_id UNINDEXED
+  text
+
 document_fts
-  document_id UNINDEXED
+  document_revision_id UNINDEXED
   title
-  extracted_text (only when policy permits)
 ```
 
-The exact FTS mode (external-content vs contentless) is an implementation choice,
-but rebuild and integrity-check commands are mandatory. No canonical FK points
-**to** FTS tables.
+`representation_fts` indexes only policy-permitted textual Representations. It
+does not flatten an arbitrary “current extracted text” into CivicDocument,
+which would hide representation identity and complicate purge/reprocessing.
 
-Normal relational indexes should cover:
+All three projections:
+
+- are disposable and can be dropped/recreated from canonical rows;
+- set FTS5 `secure-delete=1`;
+- have an application `rebuild` command that repopulates from canonical records;
+- run FTS5 integrity checks plus a projection-vs-canonical coverage check;
+- are never FK targets and never evidence authority.
+
+Normal relational indexes should cover at least:
 
 ```text
 acquisitions(source_id, observed_at)
-artifacts(content_sha256) WHERE content_sha256 IS NOT NULL
+archive_objects(content_sha256) WHERE content_sha256 IS NOT NULL
+artifacts(archive_object_id)
 representations(artifact_id, kind)
+representations(parent_representation_id)
+representation_targets(representation_id, selector_kind)
 document_identifiers(scheme, value)
+civic_document_revisions(document_id, revision_no)
 document_classifications(document_id, created_at)
+document_representations(document_id, representation_id)
 claim_revisions(claim_id, revision_no)
+claim_revisions(lifecycle, created_at)
 evidence_links(claim_revision_id)
-evidence_links(representation_id)
+evidence_links(representation_target_id)
 entity_mentions(claim_revision_id)
-mention_resolutions(mention_id, created_at)
+mention_resolution_candidates(mention_id, created_at)
+mention_resolution_revisions(mention_id, revision_no)
 claim_entity_links(entity_id, claim_revision_id)
-claim_tags(tag_id, claim_revision_id)
+claim_tag_links(tag_id, claim_revision_id)
 claim_relation_revisions(from_claim_revision_id, relation_type)
 claim_relation_revisions(to_claim_revision_id, relation_type)
 claim_reviews(claim_revision_id, created_at)
+role_assignment_revisions(subject_entity_id, organization_entity_id)
+role_assignment_revisions(organization_entity_id, role_key, valid_from, valid_to)
 ```
 
-## 14. Query graph boundary
+## 18. Query graph boundary
 
-SQLite recursive CTEs may traverse **explicit ClaimRelations only**. Default
-query depth must be bounded. Shared tags/entities are filter/anchor joins, not
-edges to expand into all pairwise claims.
+SQLite recursive CTEs may traverse **explicit ClaimRelations only**. Default query
+depth and result count are bounded. Storage keeps one attributable edge orientation,
+but relation-type semantics matter: `contradicts` and `same_matter_as` are
+symmetric for retrieval and are expanded from either endpoint; the other initial
+types are directed and are not silently reversed. A symmetric relation is not
+materialized twice merely to support reverse lookup. Shared tags/entities and
+RoleAssignments are typed joins/anchors, not instructions to generate pairwise
+Claim edges.
 
-This keeps ActaKit graph-shaped without creating a graph database or a home-grown
-triple store.
+`ClaimRelation` is a **directed multigraph**, not a simple graph: the same two
+ClaimRevisions may legitimately carry more than one direct relation type (for
+example `updates` and `contradicts`) when each edge has independent basis. Query
+APIs therefore separate two semantics:
 
-## 15. Outputs and extensions
+- **reachability / neighborhood** returns deduplicated ClaimRevision nodes and
+  uses cycle-safe bounded traversal (`UNION` or equivalent visited-node policy);
+- **edge/path enumeration** preserves `claim_relation_revision_id` and relation
+  type, so parallel edges remain inspectable instead of being silently collapsed.
+
+A raw `UNION ALL` node walk is not the default reachability primitive: parallel
+edges duplicate destinations and cycles can multiply work even when a depth cap
+prevents infinite recursion. Result caps remain mandatory in both modes.
+
+Examples:
+
+```text
+claims about Entity X
+claims associated with an organization via a RoleAssignment
+A -> updates -> B -> corrects -> C   (bounded recursive ClaimRelation traversal)
+```
+
+Co-occurrence and transitive closure remain derived query results. This keeps
+ActaKit graph-shaped without creating a graph database or a home-grown triple
+store.
+
+## 19. Outputs and extensions
 
 No canonical Output/Hilo/Episode tables are required in migration `0001`.
 Outputs consume a bounded read/query model. Hilo may own Episode internally.
@@ -640,7 +1299,7 @@ without Episode.
 If future Outputs need durable local state, they receive namespaced persistence
 outside core civic tables and no implicit filesystem/network/raw-SQL authority.
 
-## 16. Backup and restore boundary
+## 20. Backup and restore boundary
 
 A complete backup is not `cp actakit.db`.
 
@@ -649,44 +1308,58 @@ It consists of:
 ```text
 consistent SQLite snapshot
 +
-all retained original artifact bytes
+all retained archive-object bytes referenced by retained Artifacts/Representations
 +
 all retained non-regenerable representation bytes
 +
 integrity manifest relating IDs/storage keys/digests where policy permits
++
+backup retention/purge policy metadata
 ```
 
-FTS indexes and explicitly classified caches may be rebuilt. Backup must use the
-SQLite backup API or another documented consistent-snapshot mechanism, not copy a
-live WAL database file blindly. Restore proof must verify foreign keys, archive
-references, retained hashes, and FTS rebuild.
+FTS indexes and explicitly classified caches are rebuilt, not trusted from the
+backup as authority.
 
-## 17. Fixture pressure test
+Backup must use the SQLite backup API, `VACUUM INTO`, or another documented
+consistent-snapshot mechanism, not copy a live WAL main file blindly. Restore
+proof verifies:
 
-| Fixture | Candidate representation |
+- SQLite integrity + foreign keys;
+- archive-object references and retained hashes;
+- Artifact/Representation custody chains;
+- EvidenceLink, ClaimRelation, reconciliation and RoleAssignment FKs;
+- FTS rebuild from canonical rows;
+- purge/tombstone policy state and whether any retained backup is intentionally
+  outside a later purge scope.
+
+## 21. Fixture pressure test after critical revision
+
+| Fixture | Revised candidate representation |
 |---|---|
-| AKF-001 exact PDF evidence | Artifact -> Representation -> EvidenceLink selector |
-| AKF-002 repeated acquisition | Source -> multiple Acquisitions -> same/new Artifact |
+| AKF-001 exact PDF evidence | Artifact -> Representation -> RepresentationTarget(`pdf_page_quote:v1`) -> EvidenceLink |
+| AKF-002 repeated acquisition | two Acquisitions/Artifacts may share one ArchiveObject without collapsing provenance |
 | AKF-003 unknown/broken profile | CivicDocument + classification `unknown`; bytes survive |
-| AKF-004 compound artifact | one Representation -> multiple CivicDocuments via join |
-| AKF-005 spreadsheet locator | typed `table_range:v1` selector |
-| AKF-006 supervised/batch | no review row is valid; `review_actions` groups per-record reviews |
-| AKF-007 raw mention | `entity_mentions` before resolution |
-| AKF-008 same-name people | multiple unresolved/resolved mentions; no name merge |
-| AKF-009 rename/merge/split | names/identifiers + append-only reconciliation lineage |
-| AKF-010 correction/relation | relation endpoints bind exact ClaimRevisions |
-| AKF-011 anchor/traversal | joins through Entity/Tag; explicit relation recursion only |
-| AKF-012 disagreement | EvidenceLink `challenges` distinct from ClaimRelation `contradicts` |
-| AKF-013 rich association | promotion boundary reserved; no JSON edge junk drawer |
+| AKF-004 compound artifact | one Representation -> many document occurrences with independent targets |
+| AKF-005 spreadsheet locator | `table_range:v1` target with structural coordinates + observed values |
+| AKF-006 supervised/batch | no review row is valid; ReviewAction groups exact per-record reviews |
+| AKF-007 raw mention | EntityMention -> exact RepresentationTarget before resolution |
+| AKF-008 same-name people | candidate resolution separated from append-only accepted resolution history |
+| AKF-009 rename/merge/split | names/identifiers + reconciliation input/output lineage + exact basis refs |
+| AKF-010 correction/relation | relation endpoints bind exact ClaimRevisions; supersession explicit |
+| AKF-011 anchor/traversal | Entity/Tag joins; explicit bounded ClaimRelation recursion only |
+| AKF-012 disagreement | EvidenceLink `challenges` remains distinct from ClaimRelation `contradicts` |
+| AKF-013 rich association | concrete RoleAssignment revision + role/time + exact evidence |
 | AKF-014 output independence | no Episode/Hilo core dependency |
-| AKF-015 backup/restore | DB + archive + integrity boundary |
-| AKF-016 redaction/purge | derivative Representation + explicit purge lifecycle |
+| AKF-015 backup/restore | DB + ArchiveObjects + manifest + typed FK consistency |
+| AKF-016 redaction/purge | derivative Representation + frozen exact purge manifest + type-specific tombstone/delete actions + SQLite/FTS/archive scrubbing policy |
 
-All 16 fit structurally. This is **not** operational proof.
+All 16 fit structurally after the adversarial fixes. This is **still not
+operational proof**.
 
-## 18. Expensive-mistake check
+## 22. Expensive-mistake check
 
-The candidate explicitly avoids all current research-ledger mistakes:
+The revised candidate avoids the existing research-ledger mistakes plus the two
+new scars exposed by critical review:
 
 1. no URL/filename/acta-number PK;
 2. no name-based entity merge;
@@ -702,34 +1375,67 @@ The candidate explicitly avoids all current research-ledger mistakes:
 12. Outputs get no arbitrary URL/path capability by default;
 13. no universal truth/epistemic-status column;
 14. no universal event sourcing/operation receipts;
-15. no RDF/OWL/XML runtime stack.
+15. no RDF/OWL/XML runtime stack;
+16. no `DELETE`/FTS-row-removal = completed lawful purge claim;
+17. no digest-unique Artifact identity that couples independent custody chains.
 
-## 19. Deliberate open decisions before migration `0001`
+## 23. Decisions closed by critical review
 
-These are review questions, not permission to defer core semantics indefinitely:
+The eight questions left open by `8b98010` are now closed at design level:
 
-1. Exact initial closed enums for source/document/claim/relation kinds.
-2. Exact selector schemas for the first artifact-backed locator proofs.
-3. Whether `process_inputs/process_outputs` remain two typed joins or collapse to
-   narrower representation-specific FKs after an implementation spike.
-4. Whether document parts/collections are needed in `0001` after real compound
-   civic artifact fixtures.
-5. Whether a real 1.0 attributed relationship requires concrete Association/Event
-   tables in `0001`; if yes, design them before freezing the migration.
-6. Exact SQLite minimum version after local/runtime compatibility testing.
-7. FTS external-content vs contentless implementation after rebuild/integrity
-   tests.
-8. Exact purge metadata-retention policy for the intended jurisdiction/use.
+1. **Closed enums:** initial 1.0 vocabularies are enumerated in section 4.
+2. **Selector schemas:** `whole:v1`, `text_quote:v1`, `pdf_page_quote:v1`, and
+   `table_range:v1` have explicit bounded contracts in section 8.
+3. **Process joins:** no generic process input/output graph in `0001`; typed output
+   provenance + semantic FKs already identify required inputs.
+4. **Document parts/collections:** absent from `0001`; current fixture is satisfied
+   by independent documents + repeated representation occurrences/targets.
+5. **Rich association:** AKF-013 already proves one; `RoleAssignment` is concrete in
+   `0001`, while unrelated rich families remain typed future additions.
+6. **SQLite floor:** 3.51.3+ baseline.
+7. **FTS mode:** ordinary self-content FTS5 projection, application-rebuilt from
+   canonical rows, with FTS secure-delete enabled.
+8. **Purge retention:** a frozen exact `purge_targets` manifest plus
+   `minimal_tombstone|no_tombstone` handles physical and semantic derivatives;
+   operation explicitly scopes archive, SQLite, FTS, WAL and backups and does
+   not claim device-level secure erasure.
 
-None of these reopen the core identity/evidence/relation architecture.
+These decisions do **not** authorize migration. They remove semantic ambiguity so
+DDL can now be attacked mechanically.
 
-## 20. Candidate verdict
+## 24. Remaining proof gates before migration `0001`
 
-**SCHEMA_CANDIDATE_GATE: READY_FOR_CRITICAL_REVIEW**
+What remains is proof, not unresolved domain semantics:
 
-The candidate is relational, FK-oriented, single-writer-first, graph-shaped where
-needed, and keeps flexible JSON at only two bounded seams: evidence/document
-locators and optional state anchors. It does not authorize migration or code.
+1. ~~executable **scratch DDL** proving critical nullability/FK/CHECK/STRICT constraints~~ — **PASS** in the disposable proof harness (48 STRICT tables; target runtime certification remains separate);
+2. selector validation against real PDF/text/table artifacts, including reopening
+   the exact evidence location;
+3. ~~RoleAssignment proof against a real appointment/office-holder source~~ — **PASS** against TSE resolution 2160-E11-2024 (exact selector reopening remains under gate 2);
+4. repeated-byte/archive-object proof including shared-reference purge behavior;
+5. ClaimRelation basis/revision/review traversal proof;
+6. entity resolution merge/split/correction proof;
+7. FTS rebuild/integrity/purge proof on supported SQLite;
+8. backup -> clean-machine restore -> FTS rebuild proof;
+9. purge maintenance proof, including WAL/FTS and backup-scope reporting;
+10. runtime certification that the actual packaged/local SQLite satisfies the
+    3.51.3 floor and required compile options.
 
-Next step: attack this candidate with concrete DDL review and artifact-backed
-fixtures, then either revise it or authorize a migration design.
+No production migration, canonical-data cutover, or current file-pipeline rewrite
+is authorized until these proofs pass.
+
+## 25. Candidate verdict
+
+**SCHEMA_CANDIDATE_GATE: DDL_PROOF_PASS__ARTIFACT_RUNTIME_PROOF_REQUIRED**
+
+The first candidate was not safe to freeze. The critical revision restores
+contract-required document/claim/relation revision provenance and lifecycle,
+separates logical custody from physical byte deduplication, makes exact evidence reusable across
+claims/relations/associations, concretely models the already-proven role/time
+association, fixes the nullable-PK/STRICT contradiction, makes entity/tag anchors append-only
+and correctable, requires attributable process identity for machine/rule writes,
+and makes purge/FTS claims match SQLite's actual behavior.
+
+Disposable scratch DDL now passes its structural proof harness. Next, close the
+artifact-backed selector/real-civic-source proofs and certify the actual packaged
+SQLite runtime plus archive/backup/purge operations against this exact candidate.
+Migration `0001` remains unauthorized.

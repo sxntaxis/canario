@@ -110,7 +110,9 @@ The irreducible evidence/knowledge path is:
 ```text
 Source
   ↓
-Artifact
+Acquisition observation
+  ↓
+Artifact ──> ArchiveObject (physical bytes; shareable by digest)
   ↓
 Representation
   ↓
@@ -141,7 +143,8 @@ and a human-readable document identity are different things.
 ```text
 source
   -> acquisition observation
-  -> immutable-by-default artifact bytes
+  -> logical Artifact custody record
+  -> content-addressed ArchiveObject bytes
   -> one or more representations
 ```
 
@@ -149,12 +152,15 @@ The baseline only needs enough acquisition history to answer **where, when, and
 how these bytes were observed**. A discovery adapter may later justify separate
 run/checkpoint structures, but those are not universal semantic requirements.
 
-The same bytes acquired twice may share physical storage while retaining distinct
-provenance observations. A changed file at the same URL is a new artifact.
+The same bytes acquired twice create distinct logical Artifacts while their
+Artifacts may reference one shared physical ArchiveObject. This keeps acquisition
+provenance, restriction and purge decisions independent without duplicating bytes.
+A changed file at the same URL is a new Artifact and a different ArchiveObject.
 Failure or absence during a later acquisition never deletes prior evidence.
 
-Artifacts are content-addressed and hash-verified. The canonical database stores
-metadata and relationships; it is not a substitute for original evidence bytes.
+ArchiveObjects are content-addressed and hash-verified. Artifacts are stable
+custody identities, not hashes. The canonical database stores metadata and
+relationships; it is not a substitute for original evidence bytes.
 
 ## Representations: the Mesa de trabajo
 
@@ -432,11 +438,12 @@ turn it into a generic edge payload.
 
 When a relationship has independent civic attributes or identity — for example a
 role with start/end dates, a contract with amount/term, or a membership with a
-percentage — it crosses a promotion boundary and belongs in a typed
-Association/Event-style record with its own evidence/provenance. Concrete
-Association/Event tables may be deferred until a real 1.0 fixture needs one, but
-the claim-relation schema must stay narrow enough that later promotion does not
-require unpacking arbitrary edge JSON.
+percentage — it crosses a promotion boundary and belongs in a typed rich record
+with its own evidence/provenance. AKF-013 already proves one such 1.0 family, so
+`RoleAssignment` is concrete in the first schema: subject entity, organization,
+role, validity interval, origin/basis/lifecycle and exact evidence. Other rich
+families remain absent until their own fixture/query proves them. `ClaimRelation`
+stays narrow rather than becoming an attributed-edge junk drawer.
 
 Tags/taxonomies are local by default and may be shared deliberately. ActaKit
 must not impose one national topic taxonomy.
@@ -628,5 +635,8 @@ This document is proposed architecture, not implementation authorization.
 Acceptance freezes the **semantic boundaries**, not every future module, SQL
 column, plugin API, deployment mechanism, or release ceremony.
 
-The next concrete design review is the pre-SQL model in `DATA_MODEL.md` and the
-contracts in `CONTRACTS.md`.
+The pre-SQL model has now been exercised by the Book/fixture gate and a revised
+SQLite candidate. The current concrete gate is the artifact/runtime proof list in
+`SQLITE_SCHEMA_CANDIDATE.md` and the adversarial findings in
+`notebook/research/pre-sql/schema/CRITICAL_REVIEW.md`; migration `0001` remains
+unauthorized until those proofs pass.

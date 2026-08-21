@@ -1,10 +1,10 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: architecture-revision-proposed
+state: sqlite-candidate-critical-review
 created: 2026-08-19
 authority: operating
-summary: Current acta pipeline remains intact while a self-contained civic-record architecture is being reviewed before persistent canonical implementation.
+summary: Current acta pipeline remains intact while the revised SQLite schema candidate clears artifact/runtime proof gates before migration 0001.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -60,13 +60,18 @@ Key revisions awaiting acceptance:
 ## Active Edge
 
 ```text
-review/accept architecture revision
--> validate pre-SQL model with realistic fixtures
--> design first SQLite schema
--> implement semantic kernel
--> implement local custody/Fichero
--> prove one new acta end to end
+revised SQLite candidate after adversarial review
+-> artifact-backed selector and real civic relation proofs
+-> archive/purge/backup + packaged SQLite runtime certification
+-> freeze migration 0001
+-> implement semantic kernel and local durable Fichero
 ```
+
+The pre-SQL Book/fixture gate and disposable DDL-shape gate have passed. Migration
+`0001` remains explicitly unauthorized until the remaining artifact/operational
+proofs pass. `docs/SQLITE_SCHEMA_CANDIDATE.md` and
+`notebook/research/pre-sql/schema/CRITICAL_REVIEW.md` are the current gate
+authorities.
 
 ## Prohibitions Until Acceptance
 
@@ -82,5 +87,4 @@ review/accept architecture revision
 
 The proposed design is defined by `ARCHITECTURE.md`, `CONTRACTS.md`,
 `DATA_MODEL.md`, `ROADMAP.md`, `IMPLEMENTATION_PLAN.md`, and
-`RELEASE_1_0.md`. Acceptance authorizes the semantic direction and the next
-pre-SQL/schema work, not every horizon feature mentioned there.
+`RELEASE_1_0.md`. The accepted semantic direction authorizes candidate/proof work only; it does not authorize migration `0001`, canonical cutover, or every horizon feature mentioned there.

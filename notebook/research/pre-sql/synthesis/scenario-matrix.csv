@@ -1,8 +1,8 @@
 scenario_id,scenario,expected_behavior,pressure
 AKS-SC001,Clean municipal acta PDF,"Acquire PDF, extract embedded text, claims point to page+quote; no DocumentPart required.",Artifact/Representation/EvidenceLocator minimal path
 AKS-SC002,Scanned acta,Preserve PDF; OCR representation carries process info; evidence can use page+bbox+quote.,Original/derived separation
-AKS-SC003,"Same URL, changed bytes",Two acquisitions share source URI but point to different artifact digests.,Source != Acquisition != Artifact
-AKS-SC004,"Same URL, identical bytes later",New acquisition observation points to existing artifact; no duplicate bytes required.,Observation history without storage duplication
+AKS-SC003,"Same URL, changed bytes",Two acquisitions share source URI; each successful capture has its own Artifact while changed bytes produce a different ArchiveObject.,Source != Acquisition != Artifact != ArchiveObject
+AKS-SC004,"Same URL, identical bytes later",New acquisition observation creates a new logical Artifact that may share the existing ArchiveObject; no duplicate bytes required.,Observation/custody history without storage duplication
 AKS-SC005,Temporary 404,Record failed observation; prior document/artifact remains valid.,Absence is not deletion
 AKS-SC006,Specialized parser sees changed HTML,Preserve response; mark profile parse failed/partial; do not emit guessed structure.,Fail loud + graceful degradation
 AKS-SC007,Unknown PDF type,"Store document with unknown/other classification, generic text/claims still possible.",Typing optional

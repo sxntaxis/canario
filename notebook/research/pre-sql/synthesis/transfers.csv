@@ -2,7 +2,7 @@ transfer_id,source_mechanism,disposition,actakit_area,transfer,stop_condition
 AKS-T001,Web Annotation selectors/state,Adopt semantics,EvidenceLink locator bundle,Use typed selectors + representation state/hash; redundant anchors allowed.,Do not require JSON-LD/RDF/Annotation Protocol.
 AKS-T002,PROV entity/activity/agent vocabulary,Adapt,Provenance naming and mappings,Use generated/derived/associated/attributed semantics where they clarify lineage.,Do not store full PROV graph.
 AKS-T003,PREMIS preservation events,Adapt,Custody events,Persist consequential preservation/transform events.,Do not turn every operation into canonical event.
-AKS-T004,OCFL digest/immutable-version thinking,Adapt,Artifact archive invariants,Content digests and immutable acquired artifact identity.,Do not adopt full OCFL layout until archive scale/interop requires it.
+AKS-T004,OCFL digest/immutable-version thinking,Adapt,ArchiveObject/Artifact custody invariants,Content-address physical bytes; retain independent logical custody identity for each acquisition.,Do not adopt full OCFL layout until archive scale/interop requires it.
 AKS-T005,BagIt manifests,Adopt at boundary,Backup/export package,Checksummed manifest and validation.,Not internal DB schema.
 AKS-T006,WARC capture-event distinction,Adapt,Source/Acquisition,"Preserve target, time, outcome, digest; optional request/response details.",Do not WARC-wrap every local PDF.
 AKS-T007,Memento resource/time distinction,Adapt,Acquisition version semantics,Resource identity != observed representation at datetime.,No Memento server required.

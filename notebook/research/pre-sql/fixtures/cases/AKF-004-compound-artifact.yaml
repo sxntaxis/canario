@@ -17,5 +17,7 @@ expected:
   artifact_count: 1
   civic_document_count: 3
   byte_duplication_required: false
-open:
+historical_open:
   - choose DocumentPart versus multiple CivicDocuments according to semantic independence and citation needs
+resolved:
+  - migration 0001 uses multiple CivicDocuments plus representation occurrences/targets; no DocumentPart/Collection table until a proving fixture/query requires one

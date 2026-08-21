@@ -35,7 +35,8 @@ fixture proves it**, and what belongs to the **horizon**. This document is not a
 promise to create one SQL table per noun.
 
 ```text
-Source -> AcquisitionObservation -> Artifact -> Representation
+Source -> AcquisitionObservation -> Artifact -> ArchiveObject
+                                      \-> Representation
                                             |
                                             +-> CivicDocument
 
@@ -65,17 +66,19 @@ Final SQL may merge/split these after fixture/query tests.
 |---|---|
 | source | stable source identity + bounded authority/acquisition configuration |
 | acquisition observation | where/when/how a resource was observed or failed; resulting artifact if any |
-| artifact | immutable digest, size/media, archive locator, custody/provenance |
-| representation | parent, kind, digest/media, attributable generation provenance |
-| civic document | stable civic identity/classification separate from representation |
+| archive object | physical content-addressed bytes, digest/size/storage key, availability |
+| artifact | logical acquisition/custody identity pointing to physical bytes; validation/availability independent of digest |
+| representation | parent, kind, physical bytes when present, attributable generation provenance |
+| civic document identity + revisions | stable civic identity separate from representation; title/issuer/date/language corrections are revisioned |
 | claim identity + revisions | proposition lineage, origin, lifecycle, attribution/time/flags |
 | evidence link | exact claim revision -> representation locator + evidence relation |
 | entity mention | exact observed source text + representation/locator context + origin + optional resolution |
 | entity + identifiers/aliases | stable local resolved retrieval anchor without name-equality merging |
 | entity reconciliation | append-only merge/split lineage preserving old links and ambiguity |
-| claim-entity link | exact claim revision -> entity + role/origin |
+| claim-entity link | append-only/superseding exact claim revision -> entity anchor, optional exact mention-resolution basis, role/origin/lifecycle/review |
 | tag + assignment | local topic vocabulary + attributable assignment |
 | claim relation identity + revisions | exact claim-revision endpoints + type/origin/basis/lifecycle |
+| role assignment identity + revisions | subject + organization + role/time + origin/basis/lifecycle + exact evidence |
 | review decision | exact revision(s)/reproducible set + actor/action/time/rationale as needed |
 
 ### Optional with a proving fixture/use case
@@ -175,19 +178,26 @@ The SQL shape may use separate resolution-decision rows rather than a mutable
 is that reconciliation never overwrites the raw mention.
 
 Entity merge/split uses a narrow append-only reconciliation lineage with
-input/output entity IDs plus attribution/basis. It is not a universal identity
-graph. Accepted merge lineage may inform current retrieval; splits do not cause
-silent mass retargeting of old links.
+input/output entity IDs plus attribution/basis. Candidate promotion/correction
+creates a superseding reconciliation row rather than mutating history. It is not
+a universal identity graph. Accepted non-superseded merge lineage may inform
+current retrieval; splits do not cause silent mass retargeting of old links.
 
 ### Shared anchors
 
 ```text
 claim_revision -> claim_entity_link -> entity
-claim_revision -> tag_assignment -> tag
+claim_revision -> ClaimTagLink -> tag
 ```
 
 These allow broad retrieval without creating an edge between every pair of
-claims that mention the same place, project, institution, or topic.
+claims that mention the same place, project, institution, or topic. Entity and
+tag links are append-only/correctable metadata: fixing an anchor does not erase
+its prior machine/rule/human provenance or require rewriting the ClaimRevision.
+
+Relation directionality is type semantics: contradiction/same-matter are
+symmetric for retrieval; update/correction/response/implementation/supersession
+are directed. Symmetric reverse lookup never creates a duplicate canonical edge.
 
 ### Direct claim relations
 
@@ -221,10 +231,12 @@ of truth.
 
 The first schema must keep `ClaimRelation` narrow. A relationship that has its
 own role/time/amount/term or otherwise needs independent identity is **not**
-serialized into arbitrary edge JSON. It is promoted to a typed Association/Event
-record when a real fixture requires one. Concrete association/event tables may be
-absent from migration `0001`; the migration-safe boundary is the prohibition on
-using ClaimRelation as a generic attributed edge.
+serialized into arbitrary edge JSON. AKF-013 already proves `RoleAssignment`, so
+that one rich family belongs in migration `0001`: subject entity, organization,
+role label/key, validity interval, origin/basis/lifecycle and exact evidence.
+Other association/event families remain absent until a fixture/query proves them;
+the migration-safe boundary is the prohibition on using ClaimRelation as a
+generic attributed edge.
 
 ## Claim Data
 
@@ -308,7 +320,7 @@ SQLite should initially support ordinary deterministic retrieval:
 - indexes for dates, document type, source, lifecycle/review visibility;
 - entity and tag joins;
 - direct claim-relation lookup;
-- bounded recursive traversal over explicit claim relations;
+- bounded recursive traversal over explicit claim relations, with deduplicated node reachability separate from edge/path enumeration in the ClaimRelation multigraph;
 - evidence resolution.
 
 Queries are ephemeral by default. Saved-query persistence is added only if real
