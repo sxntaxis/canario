@@ -1,0 +1,4 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+TES-S001,tesseract,Tesseract input formats,primary-project-docs,mechanism-limit,Image inputs; PDF is not a native input format.,Does not describe orchestration around PDF rasterization.,https://tesseract-ocr.github.io/tessdoc/InputFormats.html,2026-08-21
+TES-S002,tesseract,Tesseract command-line usage,primary-project-docs,outputs,"Text, PDF, hOCR and TSV output; TSV/hOCR expose geometry and confidence-related fields.","Confidence is engine-specific, not globally calibrated.",https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html,2026-08-21
+TES-S003,tesseract,Tesseract release notes,primary-project-docs,current-version,5.5.x current lineage including 2026 maintenance.,Release notes do not establish civic-document accuracy.,https://github.com/tesseract-ocr/tessdoc/blob/main/ReleaseNotes.md,2026-08-21

@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+SYM-C001,SYM-S002;SYM-S003,Marker 2 operationalizes a fast native-text path with surgical VLM repair and full-page escalation only when needed.,direct,Strong precedent for ActaKit’s proposed escalation philosophy.
+SYM-C002,SYM-S001;SYM-S002,Surya/Marker code is permissive but current model weights have additional commercial terms.,direct-license,Do not make these models unconditional shipped defaults without a model-license decision.
+SYM-C003,SYM-S001,Surya provides modern OCR/layout/table capabilities and can be used by other frameworks such as Docling.,direct-context,Benchmark Surya as a backend without necessarily adopting Marker wholesale.
+SYM-C004,SYM-S003,Selective repair can preserve efficiency better than whole-document VLM processing.,bounded-inference,Escalation unit should support page/block granularity when provenance and backend permit.

@@ -97,18 +97,36 @@ automation, feeds, filesystems, or manual/push acquisition. Their common boundar
 is the Inbox, not a common discovery algorithm. Explicit coverage/checkpoint
 semantics prevent scrape absence from becoming deletion evidence.
 
-Separately, implement Mesa de trabajo Representation processors for:
+Separately, implement Mesa de trabajo Representation processors as a curated
+built-in ActaKit ladder. Swappable backends are an escape hatch for hardware,
+licensing, unusual formats and local/cloud policy; ActaKit owns the default
+processing/escalation policy.
 
-- PDF/DOCX/text/HTML;
-- spreadsheets where needed;
-- OCR/scan fallback;
-- malformed and unknown material;
-- media/transcript only when a real source requires it.
+The state-of-the-art research gate precedes implementation and currently nominates:
 
-**Gate:** three deliberately different connector terrains can use one Inbox
-without source-specific fields leaking inward; real shadow ingestion preserves
-honest custody; unknown civic type never causes evidence loss; unsupported
-extraction fails visibly without corrupting custody.
+```text
+native/direct parse
+-> Poppler/pdftotext
+-> OCRmyPDF + Tesseract
+-> Docling structured processing
+-> specialized local visual AI (PaddleOCR-VL candidate)
+-> general local multimodal AI / explicit opt-in cloud Document AI
+-> human review
+```
+
+Cover PDF/DOCX/text/HTML, spreadsheets/tables where needed, malformed/unknown
+material, OCR/scan escalation and difficult handwriting/visual material. Audio/
+transcript remains researched but activates only when a real source requires it.
+No universal numeric confidence spans these engines: preserve typed quality
+evidence and let core policy accept, escalate or quarantine/review. Original
+custody is immutable; every processor attempt/output is attributable.
+
+**Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion and the processor
+state-of-the-art package are complete. Before WP4C implementation freeze, run the
+Civic Processor Bench on representative civic material and pin selected
+backend/model/version/license identities, quality/escalation criteria and resource/
+egress budgets. Unsupported or low-quality extraction must fail visibly or
+escalate without corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 

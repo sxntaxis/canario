@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+MIS-C001,MIS-S001;MIS-S003,"Mistral OCR 4.1 provides structured blocks, bounding boxes and confidence beyond plain text transcription.",direct,Good cloud D4 escalation candidate for hard documents.
+MIS-C002,MIS-S002,Provider confidence can be requested at page/block/word granularity.,direct,"Capture it as namespaced QualityEvidence, not global confidence."
+MIS-C003,MIS-S004,Cloud OCR has explicit per-page marginal cost.,direct,Escalation policy should avoid cloud processing when cheaper local rungs already pass quality gates.
+MIS-C004,MIS-S003,Using the hosted processor sends source material to an external provider.,direct-context,"Cloud processing must be explicit opt-in with source/privacy policy, egress provenance and retention controls."

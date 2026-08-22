@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+PAD-C001,PAD-S001,PaddleOCR code is Apache 2.0 and supports a broad local OCR/document-processing stack.,direct,Licensing is comparatively attractive for an optional built-in local escalation.
+PAD-C002,PAD-S002;PAD-S004,PaddleOCR-VL-1.6 is a compact specialized VLM with independently reproduced top-tier OmniDocBench performance.,direct+independent,Strong D4 local specialized document-AI candidate.
+PAD-C003,PAD-S002;PAD-S003,The stack handles layout/text/tables/formulas/seals rather than only plain OCR.,direct,Escalate hard pages/documents here when classical OCR or structured parsing is insufficient.
+PAD-C004,PAD-S004,External benchmark leadership does not prove Costa Rican civic-document performance.,benchmark-limit,Require Civic Processor Bench before adoption/freeze.

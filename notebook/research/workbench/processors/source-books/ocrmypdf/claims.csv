@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+OMP-C001,OMP-S001,"OCRmyPDF already handles conservative PDF OCR orchestration tasks such as rotation, deskew and oversampling.",direct,Reuse it rather than reimplementing PDF-to-image/OCR grafting.
+OMP-C002,OMP-S001,Some preprocessing/force modes rasterize pages or can remove desirable visual content.,direct-risk,Original Representation is immutable; preprocessing/OCR always produces derivatives with explicit parameters.
+OMP-C003,OMP-S002;OMP-S003,OCRmyPDF 17 deliberately supports replaceable OCR engines and non-OCR preprocessing.,direct,It can serve as D2 orchestration while ActaKit retains its own higher-level escalation policy.
+OMP-C004,OMP-S004,A reliable PDF OCR stack includes rasterizer/text-layer/system dependencies beyond the OCR engine itself.,direct,Treat deployment capability detection as part of processor availability.

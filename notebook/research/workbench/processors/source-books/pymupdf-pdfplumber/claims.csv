@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+PYP-C001,PYP-S001;PYP-S002,PyMuPDF exposes high-granularity text and geometry suitable for diagnostic/reopenable PDF locators.,direct,Keep it in benchmark/tooling candidates for geometry-sensitive extraction.
+PYP-C002,PYP-S003,PyMuPDF is not a frictionless permissive dependency for a distributable kit.,direct,Do not make it an unquestioned core dependency; require license review or keep as optional tooling.
+PYP-C003,PYP-S004,pdfplumber offers table extraction and visual debugging and explicitly works best on machine-generated PDFs.,direct,"Useful as a table/diagnostic fallback and benchmark tool, not scan OCR."
+PYP-C004,PYP-S004;PYP-S005,"Current pdfplumber licensing metadata is not perfectly consistent across its own prose, though current package metadata says MIT.",source-collision,Pin/version review must verify exact package license rather than copying a stale comparison table.
+PYP-C005,PYP-S001;PYP-S004,Neither library removes the need for a quality/escalation policy on malformed reading order or scans.,bounded-inference,"Treat both as tools/backends, not the architecture."

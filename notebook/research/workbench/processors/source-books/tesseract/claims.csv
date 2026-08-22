@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+TES-C001,TES-S001,"Tesseract OCRs images, not PDFs directly.",direct,PDF OCR needs a rasterization/orchestration layer such as OCRmyPDF.
+TES-C002,TES-S002,Tesseract can emit hOCR/TSV geometry and word-level confidence-like evidence.,direct,Capture engine-native quality evidence without pretending it is a universal confidence score.
+TES-C003,TES-S001;TES-S002,Classical OCR is deterministic/local enough to be a cheaper rung than VLM processing for ordinary scans.,bounded-inference,Use Tesseract as D2 baseline for clean Spanish scans before AI escalation.
+TES-C004,TES-S002,Language/model choice and page segmentation materially influence recognition.,direct-context,"Record language pack, engine version and parameters in ProcessRun."

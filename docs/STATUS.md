@@ -1,18 +1,19 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: ESPARZA_CONNECTOR_001_IMPLEMENTED_CERTIFIED__BOUNDED_SHADOW_DOGFOOD_PASS
+state: PROCESSOR_SOTA_RESEARCH_COMPLETE__CIVIC_BENCH_REQUIRED_BEFORE_WORKBENCH_FREEZE
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: INGRESS-001 and the first real Esparza Source Connector are certified with bounded shadow dogfood; canonical cutover, historical import, and semantic writers remain prohibited.
+summary: Ingress and the Esparza shadow connector are certified; the WP4C processor state-of-the-art research gate is complete and Civic Processor Bench is now required before Representation-processor freeze or implementation.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
   - ACTAKIT-INGRESS-001
   - ACTAKIT-CONNECTOR-ESPARZA-001
+  - ACTAKIT-REPRESENTATION-PROCESSOR-RESEARCH-001
 ---
 
 # Current Status
@@ -90,7 +91,9 @@ accepted semantic contracts
 -> certified bounded Depósito custody writer
 -> certified INGRESS-001 Source Connector SPI + Inbox
 -> certified Esparza connector and bounded real network shadow dogfood
--> Mesa de trabajo Representation processors later
+-> processor state-of-the-art Source Books + synthesis complete
+-> Civic Processor Bench REQUIRED before WORKBENCH-001 freeze
+-> Representation processor implementation after benchmark selection
 -> semantic writers and explicit canonical-cutover gate later
 ```
 
@@ -127,9 +130,42 @@ Connector code does not receive `DepositWriter` or canonical Source/persistence
 identity. `DepositInbox` is host-bound to those core concerns. Specialized
 connector failures propagate while already accepted custody remains preserved.
 
-This boundary is certified on the exact SQLite 3.53.4 runtime. The certification
-does not authorize adapting the real Esparza source. Plugin packaging and durable
-connector-run/checkpoint persistence remain unfrozen.
+This boundary is certified on the exact SQLite 3.53.4 runtime. The Esparza CMS
+connector is now the first certified real consumer and has passed bounded shadow
+dogfood without changing the SPI. Plugin packaging and durable connector-run/
+checkpoint persistence remain unfrozen.
+
+## WP4C processor research gate
+
+The state-of-the-art package at
+`notebook/research/workbench/processors/` is complete for the selection horizon.
+It does **not** authorize an `actakit/processors` implementation. The research
+selects a benchmark slate and an escalation philosophy:
+
+```text
+native/direct parse
+-> Poppler/pdftotext
+-> OCRmyPDF + Tesseract
+-> Docling structured processing
+-> PaddleOCR-VL specialized visual AI
+-> Qwen3-VL local multimodal or explicit opt-in cloud Document AI
+-> human review
+```
+
+Processors are intended to be a curated built-in ActaKit capability. Backend
+replaceability is an escape hatch for hardware, licensing, new/hard formats,
+local/cloud policy and benchmarking; WP4C is not a plugin-marketplace project.
+
+No universal numeric processor confidence is accepted. The pending design uses
+typed, processor-attributable `QualityEvidence` and policy decisions equivalent
+to `ACCEPT | ESCALATE | QUARANTINE_REVIEW`. Every transformation remains a
+derived Representation with ProcessRun provenance; original custody is immutable.
+
+**Current gate:** construct and run the Civic Processor Bench described in
+`notebook/research/workbench/processors/synthesis/evaluation-plan.md`. Exact
+processor/model/version/license pins and escalation thresholds are not frozen
+until that benchmark closes. Audio/diarization research is preserved but no ASR
+runtime dependency is justified until a real source enters scope.
 
 ## Current Prohibitions
 

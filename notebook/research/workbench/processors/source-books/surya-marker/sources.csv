@@ -1,0 +1,4 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+SYM-S001,surya-marker,Surya OCR current PyPI,primary-package-registry,capability-license,"0.22.1 current; code Apache 2.0, model weights modified Open Rail-M with commercial thresholds.",Code license alone does not describe model-weight obligations.,https://pypi.org/project/surya-ocr/,2026-08-21
+SYM-S002,surya-marker,Marker 2.0 current PyPI,primary-package-registry,strategy-license,"Balanced and fast modes; fast uses native text plus surgical VLM repair; code Apache 2.0, weights carry modified Open Rail-M terms.",Project benchmarks are vendor-maintained.,https://pypi.org/project/marker-pdf/,2026-08-21
+SYM-S003,surya-marker,Marker 2.0 release,primary-project-release,strategy,Device-aware fast vs balanced routing and minimal/full-page VLM escalation.,"Specific thresholds/modes are Marker policy, not necessarily ActaKit policy.",https://github.com/datalab-to/marker/releases,2026-08-21

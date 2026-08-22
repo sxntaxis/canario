@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+PDT-C001,PDT-S001,pdftotext defaults toward reading-order text while -layout instead tries to preserve physical layout.,direct,Use plain extraction first; request layout mode only for a specific downstream need.
+PDT-C002,PDT-S001,"pdftotext can emit word/block/line bounding boxes via -bbox, -bbox-layout and -tsv.",direct,A deterministic PDF rung can preserve coordinate evidence without invoking OCR or AI.
+PDT-C003,PDT-S001;PDT-S002,Raw content-stream order is explicitly discouraged; layout/reading-order choices are heuristic rather than universal truth.,direct-limit,ActaKit must record extraction mode/version and assess quality instead of treating one order as authoritative.
+PDT-C004,PDT-S001,Hyphen removal is configurable and therefore can change the textual representation.,direct,Normalization choices are processor parameters and must be captured in ProcessRun provenance.
+PDT-C005,PDT-S001,A digital-text extractor solves only PDFs with usable text layers; it does not solve image-only or badly encoded pages.,bounded-inference,"Make pdftotext D1, not the universal PDF processor; quality failure escalates."

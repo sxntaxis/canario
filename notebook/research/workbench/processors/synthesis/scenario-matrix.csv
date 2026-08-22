@@ -1,0 +1,14 @@
+scenario,rung,primary_candidate,escalation,acceptance_evidence
+born-digital single-column PDF,D1,pdftotext,Docling only if quality gate fails,text completeness; replacement chars; locator reopenability
+born-digital multi-column PDF,D1,pdftotext + geometry,Docling D3,reading order; column mixing; bbox reopenability
+clean scanned PDF,D2,OCRmyPDF + Tesseract,Docling/PaddleOCR-VL,page coverage; OCR word evidence; language plausibility
+mixed native + scanned pages,D1/D2 per page,native where valid; OCR failing pages,Docling D3,page-type detection; no duplicate/omitted text
+skewed/rotated/noisy photocopy,D2,conservative OCRmyPDF preprocess + Tesseract,PaddleOCR-VL,orientation/deskew confidence; CER; visual artifact warnings
+table-heavy municipal PDF,D3,Docling/TableFormer candidate,PaddleOCR-VL or pdfplumber diagnostic,TEDS/cell fidelity; reading order; locators
+stamps/signatures/handwritten annotations,D4,PaddleOCR-VL candidate,Qwen3-VL then human,false insertion rate; exact visual anchors; disagreement
+severely handwritten form/note,D4/D5,specialized VLM then Qwen3-VL,human review,CER/field accuracy; hallucination; missing marks
+malformed/unsupported document,D0,safe detector/parser attempt,quarantine/human,no crash/custody mutation; explicit unsupported state
+DOCX/HTML/text,D0,native parser/Docling benchmark,broad parser fallback,structure retention; hyperlinks/tables; determinism
+XLSX/CSV,D0/D3,native structured parse/Docling,specialist spreadsheet path if proven,cell values/formulas/sheets; table identity
+audio meeting,A2,faster-whisper benchmark,whisper.cpp alternate,WER; timestamps; no-speech; VAD; runtime
+multi-speaker audio/video,A2/A3,ASR then optional diarization,human speaker correction,speaker-turn DER/alignment; transcript WER

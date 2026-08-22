@@ -112,33 +112,71 @@ fixtures **before** adapting Esparza.
 
 ### WP4B — Real source connectors / shadow ingestion
 
-**Current:** the Esparza CMS connector is implemented as the first SPI consumer
-and has local proof. It preserves listing HTML before parsing, handles source
-outage/changed bytes/duplicates/malformed bodies/redirects fail-closed, and has a
-separate isolated shadow host. Exact SQLite 3.53.4 certification and real-network
-shadow dogfood remain the gate before this work package is complete.
+**Current:** the Esparza CMS connector is certified on the exact SQLite 3.53.4
+runtime as the first SPI consumer and passed bounded real-network shadow dogfood
+(two runs; stable Source/provenance; legacy pipeline untouched). It preserves
+listing HTML before parsing and handles source outage/changed
+bytes/duplicates/malformed bodies/redirects fail-closed.
 
 Esparza remains a consumer of the SPI, not its reference model. No canonical
-cutover, historical import, or semantic writer is authorized.
+cutover, historical import, or semantic writer is authorized. **WP4B is complete
+for this bounded pre-release gate.**
 
 ### WP4C — Mesa de trabajo Representation processors
 
-Only after original custody, adapt extraction behind a separate boundary:
+Only after original custody, process Representations behind a separate boundary.
+Processors are a **curated built-in ActaKit capability**; backend swappability is
+an escape hatch for hardware/OS constraints, licensing, hard/new formats,
+local-vs-cloud policy and future superior engines, not a plan to outsource WP4C
+to a plugin ecosystem.
+
+The mandatory pre-implementation research gate is complete in
+`notebook/research/workbench/processors/`. Its current candidate escalation ladder
+is:
+
+```text
+D0 native/direct format parsing
+D1 Poppler/pdftotext for born-digital PDF
+D2 OCRmyPDF + Tesseract classical OCR
+D3 Docling structured document processing
+D4 PaddleOCR-VL specialized local visual AI
+D5 Qwen3-VL local multimodal escape hatch or explicit opt-in cloud Document AI
+D6 human review
+```
+
+Escalation is quality-driven and may be page/block scoped; it is not mandatory
+that every document traverse every rung. No universal numeric confidence is
+accepted. Processors emit typed/namespaced quality evidence and the host decides
+`ACCEPT`, `ESCALATE`, or `QUARANTINE_REVIEW`. Every attempt is attributable to a
+ProcessRun and every successful output is a derived Representation; the custody
+original is never overwritten.
+
+WP4C must cover:
 
 - PDF/DOCX/text/HTML extraction;
 - spreadsheet/table representation where required;
-- OCR/scan path when needed;
-- media/transcript path only when a real source requires it;
-- representation/locator capability registration.
+- OCR/scan escalation for low-quality material;
+- local visual/multimodal AI for difficult scans/handwriting where justified;
+- explicit opt-in cloud escalation only where egress policy permits it;
+- media/transcript processing only when a real source requires it;
+- representation/locator capability registration and typed quality evidence.
 
-Security requirements: bounded size/time/resources, safe paths, redirect/host
-policy, no document-controlled shell/network behavior. Large-object/streaming
-transport is added when a real source proves the need rather than assuming all
-payloads are small.
+Security requirements: bounded size/time/resources, safe paths, no
+document-controlled shell/network behavior, local processors network-off by
+default after explicit model acquisition, and explicit provider/model/egress
+provenance for cloud processing. Large-object/streaming transport is added when a
+real source/benchmark proves the need rather than assuming all payloads are small.
 
-**Gate:** source geography cannot leak through Inbox; source outage/malformed
-material preserve custody honestly; unsupported extraction fails visibly without
-corrupting original evidence.
+**Mandatory next gate:** build and run the Civic Processor Bench before freezing
+or implementing production processor defaults. Benchmark representative civic
+PDFs/scans/tables/handwriting/office formats for accuracy, hallucination, locator
+reopenability, runtime/memory, determinism, provenance and escalation cost. Public
+leaderboards inform candidates but do not choose the stack.
+
+**WP4C implementation gate:** unsupported or low-quality extraction fails visibly
+or escalates without corrupting original custody; the selected ladder passes the
+Civic Processor Bench with pinned backend/model/license identities and bounded
+resource/egress policy.
 
 ## WP5 — Lector and Claim Extraction
 

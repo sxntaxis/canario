@@ -1,0 +1,17 @@
+processor,rung,decision,execution,license_boundary,relative_cost,quality_evidence,output_role,next_action
+Poppler/pdftotext,D1 digital PDF,adopt-candidate,local deterministic,permissive/system package; verify distro,very-low,reading-order/empty/garble checks,born-digital text + optional bbox/TSV,Civic Bench then built-in default
+OCRmyPDF + Tesseract,D2 classical OCR,adopt-candidate,local classical OCR,mixed system deps; audit exact distro,low-medium,Tesseract word confidence + coverage + warnings,OCR text/PDF/geometry derivative,Civic Bench then built-in baseline
+Docling,D3 structured document,adopt-after-benchmark,local structured ML/rules,MIT code; model licenses separate,medium-high,Docling categorical grades + structure checks,lossless structured document + text/tables/layout,Primary framework candidate; benchmark mandatory
+PaddleOCR-VL 1.6,D4 specialized visual AI,adapt-after-benchmark,local specialized VLM,Apache-2.0 code; verify model card,high,provider/model evidence + cross-check,structured visual parse,Optional built-in specialist if Civic Bench wins
+Qwen3-VL family,D4/D5 general multimodal,adapt-after-benchmark,local general VLM,Apache-2.0 for studied 32B model; pin exact model,very-high,cross-processor disagreement + constrained-schema validation,visual transcription/structured candidate,Escape hatch for handwriting/weird visuals
+Mistral OCR 4.1,D4 cloud document AI,optional-cloud-adapter,remote hosted AI,commercial service terms,variable monetary + egress,page/block/word provider confidence + local validation,structured OCR derivative,Explicit opt-in last-resort automated cloud rung
+PyMuPDF,diagnostic/alternate PDF,reference,local native library,AGPL/commercial,low,extraction/geometry checks,text/geometry,Optional tooling pending license decision
+pdfplumber,table/diagnostic PDF,adapt-or-reference,local Python,current metadata MIT; verify pin,medium,table/geometry validation,tables/objects/text,Narrow table diagnostic/fallback candidate
+Apache Tika,broad-format fallback,defer,local Java,Apache-2.0,medium,format/parser-specific,broad text/metadata,Use only if chosen primary stack misses important formats
+Unstructured,strategy reference,reference,local/cloud variants,audit exact selected components,medium-high,strategy-specific,partitioned elements,"Architecture precedent/benchmark, not core abstraction"
+Surya,D3/D4 specialist backend,benchmark,local VLM/OCR,Apache code; modified model-weight terms,high,model-specific,OCR/layout/table,Benchmark as backend; model-license gate
+Marker,pipeline reference,reference,local pipeline,Apache code; modified model-weight terms,medium-high,mode-specific,Markdown/structured parse,"Adopt selective-escalation pattern, not dependency by default"
+MinerU,structured parser comparator,defer,local structured AI,custom MinerU license,high,framework-specific,Markdown/JSON parse,Benchmark/reference only unless unique gap appears
+faster-whisper,A2 ASR,provisional-adopt,local ASR,MIT code; model licenses separate,medium-high,avg_logprob/no_speech/compression/word probs/VAD,timestamped transcript,Benchmark when real audio fixture enters scope
+whisper.cpp,A2 ASR alternate,adapt,local portable ASR,MIT code; model licenses separate,low-high,backend/model signals,transcript,Portable/AMD/edge alternate
+pyannote.audio,A3 diarization,defer,local ML + optional premium,code/model/user conditions; verify pin,high,turn coverage/overlap,speaker-turn annotation,Only when speaker attribution is proven necessary

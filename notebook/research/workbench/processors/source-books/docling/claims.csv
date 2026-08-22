@@ -1,0 +1,7 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+DOC-C001,DOC-S001,Docling offers a single structured intermediate representation across many document types.,direct,Strong candidate for the built-in structured-document framework behind ActaKit Representations.
+DOC-C002,DOC-S002;DOC-S004,Docling already separates OCR/layout/table/VLM backends.,direct,ActaKit can own policy/provenance while reusing Docling internals rather than creating another document engine framework.
+DOC-C003,DOC-S003,"Docling explicitly warns that its numeric confidence scores are internal and may change, while grades are the intended interpretation.",direct-limit,Ingest named QualityEvidence; never normalize Docling 0..1 to a universal ActaKit confidence.
+DOC-C004,DOC-S007,Docling code is MIT but enabled models have separate licenses.,direct,"Processor capability registry must record model identity/license, not just Python package license."
+DOC-C005,DOC-S005,Docling can process audio/video but current limitations include no word-level timestamps in its export.,direct-limit,Do not force all media through Docling if a direct ASR backend preserves better locator/quality evidence.
+DOC-C006,DOC-S006,Docling is rapidly evolving in 2026.,direct-context,Pin exact versions/models and benchmark before freeze; avoid coupling core schema to Docling private objects.

@@ -1,0 +1,5 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+MIN-S001,mineru,MinerU 3.4.4 PyPI,primary-package-registry,current-version,3.4.4 released 2026-07-10; document parsing package.,A 4.0 pre-release exists but is not the stable baseline.,https://pypi.org/project/mineru/,2026-08-21
+MIN-S002,mineru,MinerU current license,primary-project-license,license,Apache-2.0-based custom license with commercial thresholds and online-service attribution.,License terms require policy/legal review if adopted.,https://github.com/opendatalab/MinerU/blob/master/LICENSE.md,2026-08-21
+MIN-S003,mineru,MinerU current pyproject,primary-project-metadata,capability-license,"PDF/images/DOCX/PPTX/XLSX, OCR/VLM ecosystem; custom LicenseRef.",Dependency surface is large and can overlap other chosen frameworks.,https://github.com/opendatalab/MinerU/blob/master/pyproject.toml,2026-08-21
+MIN-S004,mineru,OmniDocBench v1.6 leaderboard,independent-benchmark-project,benchmark,MinerU2.5-Pro remains a top specialized parser.,Benchmark score does not measure integration complexity/license fit.,https://github.com/opendatalab/OmniDocBench/blob/main/README.md,2026-08-21

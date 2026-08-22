@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+ODB-C001,ODB-S001,"Document parsing quality is multidimensional: text, table structure, formula and reading order can move independently.",direct,"ActaKit benchmark must score multiple dimensions, not a single “OCR accuracy”."
+ODB-C002,ODB-S001,Current v1.6 leaderboard places PaddleOCR-VL-1.6 at 96.34 overall.,direct-benchmark,"Use as an external sanity signal for D4 candidates, not a selection verdict."
+ODB-C003,ODB-S001;ODB-S002,"Public benchmark leadership may not predict performance on municipal scans, stamps, photocopies or handwriting.",benchmark-limit,Create an ActaKit Civic Processor Bench with real representative fixtures.
+ODB-C004,ODB-S001,Reading order and table structure deserve explicit metrics.,direct,"Benchmark locator reopenability, reading order and tables separately from raw text similarity."
