@@ -268,11 +268,10 @@ class WorkbenchWriter:
     def replay_if_present(
         self,
         request: ProcessingRequest,
-        descriptor: ProcessorDescriptor,
     ) -> AttemptReceipt | None:
         con = self._connect(self.database_path)
         try:
-            return self._verify_existing_run(con, request, descriptor)
+            return self._verify_existing_run(con, request, None)
         finally:
             con.close()
 
@@ -570,13 +569,21 @@ class WorkbenchWriter:
         target_ids = {scope.id for scope in material.scopes}
         if any(signal.target_id not in target_ids for signal in result.evidence):
             raise WorkbenchInvariantError("QualityEvidence targets scope outside ProcessRun input")
+        signal_identities = [
+            (signal.target_id, signal.signal_key, signal.signal_version)
+            for signal in result.evidence
+        ]
+        if len(set(signal_identities)) != len(signal_identities):
+            raise WorkbenchInvariantError(
+                "a ProcessRun target cannot emit duplicate QualityEvidence signal identities"
+            )
         if descriptor.requires_egress:
             if material.artifact_restricted:
                 raise WorkbenchInvariantError("restricted Artifact cannot egress")
             if not request.egress.allowed:
                 raise WorkbenchInvariantError("processor requires explicit egress authorization")
-            if result.egress_bytes is None:
-                raise WorkbenchInvariantError("egress processor must report actual bytes egressed")
+            if result.egress_bytes is None or result.egress_bytes <= 0:
+                raise WorkbenchInvariantError("egress processor must report positive actual bytes egressed")
         elif result.egress_bytes is not None:
             raise WorkbenchInvariantError("non-egress processor cannot report egress bytes")
         if len(decisions) != len(material.scopes):
@@ -612,7 +619,7 @@ class WorkbenchWriter:
         self,
         con: sqlite3.Connection,
         request: ProcessingRequest,
-        descriptor: ProcessorDescriptor,
+        descriptor: ProcessorDescriptor | None,
     ) -> AttemptReceipt | None:
         row = con.execute(
             """
@@ -624,19 +631,24 @@ class WorkbenchWriter:
         ).fetchone()
         if row is None:
             return None
-        expected_prefix = (
-            descriptor.capability_key,
-            descriptor.key,
-            descriptor.implementation_version,
-            descriptor.execution_venue,
-            request.configuration_hash,
-            descriptor.model_provider,
-            descriptor.model_name,
-        )
-        if row[:7] != expected_prefix:
+        if row[0] != request.capability_key or row[4] != request.configuration_hash:
             raise WorkbenchIdentityCollision(
-                f"ProcessRun {request.process_run_id} exists with different immutable descriptor/configuration"
+                f"ProcessRun {request.process_run_id} exists with different immutable capability/configuration"
             )
+        if descriptor is not None:
+            expected_prefix = (
+                descriptor.capability_key,
+                descriptor.key,
+                descriptor.implementation_version,
+                descriptor.execution_venue,
+                request.configuration_hash,
+                descriptor.model_provider,
+                descriptor.model_name,
+            )
+            if row[:7] != expected_prefix:
+                raise WorkbenchIdentityCollision(
+                    f"ProcessRun {request.process_run_id} exists with different immutable descriptor/configuration"
+                )
         inputs = con.execute(
             """
             SELECT representation_id,representation_target_id
@@ -656,7 +668,7 @@ class WorkbenchWriter:
             """,
             (request.process_run_id,),
         ).fetchone()
-        if descriptor.requires_egress:
+        if egress is not None:
             expected_egress = (
                 request.egress.policy_profile,
                 request.egress.data_control_profile,
@@ -667,9 +679,14 @@ class WorkbenchWriter:
                 raise WorkbenchIdentityCollision(
                     f"ProcessRun {request.process_run_id} replay changed egress policy identity"
                 )
-        elif egress is not None:
-            raise WorkbenchIdentityCollision("local ProcessRun unexpectedly has egress provenance")
+            if descriptor is not None and not descriptor.requires_egress:
+                raise WorkbenchIdentityCollision(
+                    "non-egress processor unexpectedly collided with egress ProcessRun"
+                )
+        elif descriptor is not None and descriptor.requires_egress:
+            raise WorkbenchIdentityCollision("egress ProcessRun is missing egress provenance")
 
+        self._validate_committed_attempt(con, request.process_run_id)
         decisions = tuple(
             PersistedDecision(*decision)
             for decision in con.execute(

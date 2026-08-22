@@ -72,27 +72,41 @@ class ProcessorDescriptor:
         require_token(self.execution_venue, "execution venue")
         if not isinstance(self.input_media_types, frozenset) or not self.input_media_types:
             raise ValueError("input_media_types must be a non-empty frozenset")
-        if not all(value and value.strip() for value in self.input_media_types):
-            raise ValueError("input media types must be non-empty")
-        if not isinstance(self.output_kinds, frozenset):
-            raise TypeError("output_kinds must be a frozenset")
+        if not all(isinstance(value, str) and value.strip() for value in self.input_media_types):
+            raise ValueError("input media types must be non-empty strings")
+        if not isinstance(self.output_kinds, frozenset) or not self.output_kinds:
+            raise ValueError("output_kinds must be a non-empty frozenset")
+        if not all(isinstance(value, str) for value in self.output_kinds):
+            raise TypeError("output Representation kinds must be strings")
         unknown_kinds = self.output_kinds - REPRESENTATION_KINDS
         if unknown_kinds:
             raise ValueError(f"unknown output Representation kinds: {sorted(unknown_kinds)!r}")
         if not isinstance(self.scope_kinds, frozenset) or not self.scope_kinds:
             raise ValueError("scope_kinds must be a non-empty frozenset")
         for kind in self.scope_kinds:
+            if not isinstance(kind, str):
+                raise TypeError("scope kinds must be strings")
             require_token(kind, "scope kind")
+        if not isinstance(self.requires_egress, bool):
+            raise TypeError("requires_egress must be boolean")
         if self.model_provider is not None:
             require_token(self.model_provider, "model provider")
         if self.model_name is not None:
             require_nonempty(self.model_name, "model name")
         if (self.model_provider is None) != (self.model_name is None):
             raise ValueError("model provider/name must either both be present or both be absent")
-        if self.max_input_bytes is not None and self.max_input_bytes <= 0:
-            raise ValueError("max_input_bytes must be positive")
-        if self.max_scopes is not None and self.max_scopes <= 0:
-            raise ValueError("max_scopes must be positive")
+        if self.max_input_bytes is not None and (
+            isinstance(self.max_input_bytes, bool)
+            or not isinstance(self.max_input_bytes, int)
+            or self.max_input_bytes <= 0
+        ):
+            raise ValueError("max_input_bytes must be a positive integer")
+        if self.max_scopes is not None and (
+            isinstance(self.max_scopes, bool)
+            or not isinstance(self.max_scopes, int)
+            or self.max_scopes <= 0
+        ):
+            raise ValueError("max_scopes must be a positive integer")
 
 
 @dataclass(frozen=True, slots=True)
@@ -106,6 +120,8 @@ class EgressAuthorization:
     endpoint_profile: str | None = None
 
     def __post_init__(self) -> None:
+        if not isinstance(self.allowed, bool):
+            raise TypeError("egress allowed must be boolean")
         require_token(self.policy_profile, "egress policy profile")
         require_token(self.data_control_profile, "data-control profile")
         validate_sha256(self.request_template_hash, "request template hash")
@@ -229,6 +245,10 @@ class ProcessorResult:
             raise ValueError(f"invalid process outcome: {self.outcome!r}")
         if not isinstance(self.outputs, tuple) or not isinstance(self.evidence, tuple):
             raise TypeError("processor outputs/evidence must be tuples")
+        if not all(isinstance(output, DerivativeOutput) for output in self.outputs):
+            raise TypeError("processor outputs must contain DerivativeOutput values")
+        if not all(isinstance(signal, QualitySignal) for signal in self.evidence):
+            raise TypeError("processor evidence must contain QualitySignal values")
         if self.outcome == "failed" and self.outputs:
             raise ValueError("failed ProcessRun cannot emit canonical derivative outputs")
         if self.outcome == "success" and self.error_code is not None:
@@ -237,10 +257,18 @@ class ProcessorResult:
             raise ValueError("failed ProcessRun requires a bounded error_code")
         if self.error_code is not None:
             require_token(self.error_code, "process error code")
+        if not isinstance(self.diagnostic_codes, tuple):
+            raise TypeError("diagnostic_codes must be a tuple")
         for code in self.diagnostic_codes:
+            if not isinstance(code, str):
+                raise TypeError("diagnostic codes must be strings")
             require_token(code, "diagnostic code")
-        if self.egress_bytes is not None and self.egress_bytes < 0:
-            raise ValueError("egress_bytes cannot be negative")
+        if self.egress_bytes is not None and (
+            isinstance(self.egress_bytes, bool)
+            or not isinstance(self.egress_bytes, int)
+            or self.egress_bytes < 0
+        ):
+            raise ValueError("egress_bytes must be a non-negative integer")
 
 
 @runtime_checkable

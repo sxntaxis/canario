@@ -15,7 +15,11 @@ class ProcessorRegistry:
             raise TypeError("processors must be an explicit tuple")
         seen: set[str] = set()
         for processor in processors:
+            if not isinstance(processor, Processor):
+                raise TypeError("registered processors must implement the Processor protocol")
             descriptor = processor.descriptor
+            if not isinstance(descriptor, ProcessorDescriptor):
+                raise TypeError("processor descriptor must be ProcessorDescriptor")
             if descriptor.key in seen:
                 raise ValueError(f"duplicate processor key: {descriptor.key}")
             seen.add(descriptor.key)

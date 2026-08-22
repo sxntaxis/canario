@@ -103,9 +103,9 @@ CREATE INDEX acquisition_artifacts_acquisition_idx ON acquisition_artifacts(acqu
 
 CREATE TABLE process_runs (
   id TEXT PRIMARY KEY,
-  process_kind TEXT NOT NULL,
-  implementation TEXT NOT NULL,
-  implementation_version TEXT NOT NULL,
+  process_kind TEXT NOT NULL CHECK (length(trim(process_kind)) > 0),
+  implementation TEXT NOT NULL CHECK (length(trim(implementation)) > 0),
+  implementation_version TEXT NOT NULL CHECK (length(trim(implementation_version)) > 0),
   execution_venue TEXT NOT NULL CHECK (length(trim(execution_venue)) > 0),
   configuration_hash TEXT,
   model_provider TEXT,
@@ -117,6 +117,21 @@ CREATE TABLE process_runs (
   created_at TEXT NOT NULL,
   CHECK (started_at <= finished_at),
   CHECK (
+    configuration_hash IS NULL
+    OR (
+      length(configuration_hash)=64
+      AND configuration_hash=lower(configuration_hash)
+      AND configuration_hash NOT GLOB '*[^0-9a-f]*'
+    )
+  ),
+  CHECK (
+    (model_provider IS NULL AND model_name IS NULL)
+    OR (
+      model_provider IS NOT NULL AND length(trim(model_provider)) > 0
+      AND model_name IS NOT NULL AND length(trim(model_name)) > 0
+    )
+  ),
+  CHECK (
     (outcome='success' AND error_code IS NULL)
     OR outcome='partial'
     OR (outcome='failed' AND error_code IS NOT NULL)
@@ -125,11 +140,11 @@ CREATE TABLE process_runs (
 
 CREATE TABLE process_run_egress (
   process_run_id TEXT PRIMARY KEY REFERENCES process_runs(id),
-  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed >= 0),
+  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed > 0),
   policy_profile TEXT NOT NULL CHECK (length(trim(policy_profile)) > 0),
   data_control_profile TEXT NOT NULL CHECK (length(trim(data_control_profile)) > 0),
   request_template_hash TEXT,
-  endpoint_profile TEXT,
+  endpoint_profile TEXT CHECK (endpoint_profile IS NULL OR length(trim(endpoint_profile)) > 0),
   created_at TEXT NOT NULL,
   CHECK (
     request_template_hash IS NULL
@@ -220,11 +235,14 @@ CREATE TABLE quality_evidence (
   signal_key TEXT NOT NULL CHECK (length(trim(signal_key)) > 0),
   signal_version TEXT NOT NULL CHECK (length(trim(signal_version)) > 0),
   payload_json TEXT NOT NULL,
-  interpretation_key TEXT,
+  interpretation_key TEXT CHECK (interpretation_key IS NULL OR length(trim(interpretation_key)) > 0),
   created_at TEXT NOT NULL,
   UNIQUE(process_run_id, ordinal),
+  UNIQUE(process_run_id, representation_target_id, signal_key, signal_version),
   FOREIGN KEY (representation_target_id, representation_id)
-    REFERENCES representation_targets(id, representation_id)
+    REFERENCES representation_targets(id, representation_id),
+  FOREIGN KEY (process_run_id, representation_target_id)
+    REFERENCES process_run_inputs(process_run_id, representation_target_id)
 ) STRICT;
 
 CREATE TABLE quality_decisions (
@@ -241,6 +259,8 @@ CREATE TABLE quality_decisions (
   UNIQUE(process_run_id, representation_target_id),
   FOREIGN KEY (representation_target_id, representation_id)
     REFERENCES representation_targets(id, representation_id),
+  FOREIGN KEY (process_run_id, representation_target_id)
+    REFERENCES process_run_inputs(process_run_id, representation_target_id),
   CHECK (
     (decision='escalate' AND next_capability_key IS NOT NULL AND length(trim(next_capability_key)) > 0)
     OR (decision IN ('accept','quarantine_review') AND next_capability_key IS NULL)

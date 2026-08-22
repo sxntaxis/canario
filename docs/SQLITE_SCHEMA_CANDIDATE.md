@@ -562,7 +562,9 @@ payload_json                 -- validated by registered bounded contract
 interpretation_key nullable
 created_at
 UNIQUE(process_run_id, ordinal)
+UNIQUE(process_run_id, representation_target_id, signal_key, signal_version)
 composite target/representation FK
+composite run/target FK -> process_run_inputs(process_run_id, representation_target_id)
 ```
 
 `signal_key + signal_version` is registered in core/adapter composition. The JSON
@@ -586,6 +588,7 @@ next_capability_key nullable  -- required only for escalate
 created_at
 UNIQUE(process_run_id, representation_target_id)
 composite target/representation FK
+composite run/target FK -> process_run_inputs(process_run_id, representation_target_id)
 ```
 
 A technically successful OCR run may therefore persist `outcome=success` while
@@ -1799,7 +1802,7 @@ actakit/persistence/migrations/0001.sql
 with SHA256:
 
 ```text
-cc8bbdb22a62349494004de642ec21b4ef2f9d30f22d33f1cf5cba08ed28e7a3
+adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a
 ```
 
 Physical inventory in the portable proof environment:
@@ -1809,7 +1812,7 @@ ordinary STRICT tables: 58
 FTS5 virtual tables:     3
 application triggers:    0
 explicit indexes:        118
-FK child paths checked:  125
+FK child paths checked:  127
 FK child table scans:    0
 SQLite JSON dependency:  absent
 ```

@@ -84,6 +84,7 @@ def main() -> None:
             con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep1", "art1", None, None, "original", "application/pdf", None, None, None, "available", T, None))
             con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep2", "art2", None, None, "original", "application/pdf", None, None, None, "available", T, None))
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t1", "rep1", "pdf_page_quote", "v1", '{"page_ordinal":1,"exact":"x"}', None, "available", T, None))
+            con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t-unattempted", "rep1", "pdf_page_quote", "v1", '{"page_ordinal":2,"exact":"y"}', None, "available", T, None))
         # WORKBENCH-001: terminal execution provenance is distinct from exact input scope,
         # typed quality evidence and policy decisions.
         with con:
@@ -114,6 +115,22 @@ def main() -> None:
             "INSERT INTO quality_decisions VALUES (?,?,?,?,?,?,?,?,?,?)",
             ("qd-bad", "pr", "rep1", "t1", "escalate", "reference_document_processing", "v1", "needs_ocr", None, T),
         )
+        # Quality evidence/decisions must refer to a target that was actually an input of this ProcessRun.
+        must_fail(
+            con,
+            "INSERT INTO quality_evidence VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("qe-unattempted", "pr", 1, "rep1", "t-unattempted", "native.page_text_present", "v1", "true", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO quality_decisions VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("qd-unattempted", "pr", "rep1", "t-unattempted", "accept", "reference_document_processing", "v1", "bad_scope", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO quality_evidence VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("qe-duplicate-signal", "pr", 1, "rep1", "t1", "native.page_text_present", "v1", "false", None, T),
+        )
         must_fail(
             con,
             "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
@@ -128,6 +145,21 @@ def main() -> None:
             con,
             "INSERT INTO process_run_egress VALUES (?,?,?,?,?,?,?)",
             ("pr", 1, "public_civic", "operator_enabled", "bad-hash", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("pr-bad-config", "proof", "proof", "1", "local_deterministic", "bad-hash", None, None, T, T, "success", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("pr-half-model", "proof", "proof", "1", "subscription_agent", None, "openai", None, T, T, "success", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO process_run_egress VALUES (?,?,?,?,?,?,?)",
+            ("pr-cloud", 0, "public_civic", "operator_enabled", "e" * 64, "codex_cli", T),
         )
 
         must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-original-own-bytes", "art1", "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))

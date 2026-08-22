@@ -12,7 +12,7 @@ from .runtime import verify_runtime_contract
 
 APPLICATION_ID = 0x414B4954  # ASCII "AKIT"
 SCHEMA_VERSION = 1
-MIGRATION_0001_SHA256 = "cc8bbdb22a62349494004de642ec21b4ef2f9d30f22d33f1cf5cba08ed28e7a3"
+MIGRATION_0001_SHA256 = "adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a"
 _MIGRATION_0001 = Path(__file__).with_name("migrations") / "0001.sql"
 
 RuntimeGuard = Callable[[], None]

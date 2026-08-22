@@ -1,8 +1,8 @@
 # WORKBENCH-001 — Prerelease `0001` Schema Rebaseline
 
-**Input HEAD:** `497b09b3f922676d7c1fd19ab102f3d905a48dd6`  
-**Old `0001` SHA256:** `31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc`  
-**New candidate SHA256:** `cc8bbdb22a62349494004de642ec21b4ef2f9d30f22d33f1cf5cba08ed28e7a3`  
+**Input HEAD:** `497b09b3f922676d7c1fd19ab102f3d905a48dd6`
+**Old `0001` SHA256:** `31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc`
+**New candidate SHA256:** `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a`
 **State:** `IMPLEMENTED__INDEPENDENT_CERTIFICATION_PENDING`
 
 ## Why a rebaseline is required
@@ -24,10 +24,12 @@ rebasing `0001` rather than inventing `0002`.
 
 ## Physical delta
 
-`process_runs` gains:
+`process_runs` gains and hardens:
 
 ```text
 execution_venue NOT NULL registered-open key
+configuration_hash canonical SHA-256 when present
+model_provider/model_name paired provenance
 error_code nullable; required for failed, forbidden for success
 ```
 
@@ -43,19 +45,22 @@ quality_decisions
 `process_run_inputs` records ordered exact RepresentationTarget scope and uses a
 composite FK to prove target ownership by the input Representation.
 
-`process_run_egress` stores only non-secret bytes/policy/data-control/template/
-endpoint provenance.
+`process_run_egress` stores only non-secret positive-byte/policy/data-control/template/
+endpoint provenance. A claimed egress execution with zero bytes is rejected.
 
 `quality_evidence` stores registered `signal_key + signal_version` payloads for an
-exact run target. Core code validates bounded payload contracts; SQL JSON is not a
-runtime dependency.
+exact run target. A composite FK proves that target was actually an input of that
+ProcessRun, and one run/target/signal/version identity is unique. Core code validates
+bounded payload contracts; SQL JSON is not a runtime dependency.
 
 `quality_decisions` stores `accept | escalate | quarantine_review` separately from
 `ProcessRun.outcome`, with policy/version/reason provenance and a next capability
-only for escalation.
+only for escalation. A composite FK likewise requires every decision target to be
+an exact input of that ProcessRun.
 
-Purge target vocabulary is extended to cover the four new Workbench record
-families.
+Purge target vocabulary gains addressable Workbench records where a stable scalar ID exists.
+`process_run_inputs` is deliberately a dependent child keyed by `(process_run_id, ordinal)`,
+not an independently addressable purge target.
 
 ## Candidate physical inventory
 
@@ -66,7 +71,7 @@ STRICT tables:        58
 FTS5 virtual tables:  3
 application triggers: 0
 explicit indexes:     118
-FK child paths:       125
+FK child paths:       127
 FK child scans:       0
 WITHOUT ROWID:        0
 SQL JSON dependency:  absent

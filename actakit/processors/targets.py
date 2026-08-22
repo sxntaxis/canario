@@ -13,6 +13,8 @@ from .contracts import JSONValue, require_token
 
 TargetValidator = Callable[[dict[str, JSONValue]], None]
 _A1_RE = re.compile(r"^[A-Z]+[1-9][0-9]*(?::[A-Z]+[1-9][0-9]*)?$")
+_MAX_SELECTOR_JSON_BYTES = 64 * 1024
+_MAX_SELECTOR_TEXT_CHARS = 16 * 1024
 
 
 class TargetContractError(ValueError):
@@ -38,6 +40,8 @@ def _only(payload: dict[str, JSONValue], allowed: set[str]) -> None:
 def _nonempty_string(value: JSONValue, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise TargetContractError(f"{field} must be a non-empty string")
+    if len(value) > _MAX_SELECTOR_TEXT_CHARS:
+        raise TargetContractError(f"{field} exceeds the bounded selector text limit")
     return value
 
 
@@ -101,8 +105,22 @@ def _validate_table_range(payload: dict[str, JSONValue]) -> None:
             raise TargetContractError("table row bounds must satisfy 1 <= start <= end")
     if "headers" in payload:
         headers = payload["headers"]
-        if not isinstance(headers, list) or not all(isinstance(v, str) for v in headers):
-            raise TargetContractError("headers must be an ordered JSON string array")
+        if (
+            not isinstance(headers, list)
+            or len(headers) > 256
+            or not all(isinstance(v, str) and len(v) <= 4096 for v in headers)
+        ):
+            raise TargetContractError("headers must be a bounded ordered JSON string array")
+    if "observed_values" in payload:
+        rows = payload["observed_values"]
+        if not isinstance(rows, list) or len(rows) > 256:
+            raise TargetContractError("observed_values must be a bounded row array")
+        for row in rows:
+            if not isinstance(row, list) or len(row) > 64:
+                raise TargetContractError("each observed_values row must be a bounded cell array")
+            for cell in row:
+                if isinstance(cell, (list, dict)) or (isinstance(cell, str) and len(cell) > 4096):
+                    raise TargetContractError("observed_values cells must be bounded JSON scalars")
 
 
 DEFAULT_TARGET_CONTRACTS: dict[tuple[str, str], TargetValidator] = {
@@ -140,7 +158,10 @@ class TargetRegistry:
             raise TargetContractError(f"unknown selector contract: {kind}:{version}")
         payload = _json_object(payload_json)
         validator(payload)
-        return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        if len(canonical.encode("utf-8")) > _MAX_SELECTOR_JSON_BYTES:
+            raise TargetContractError("selector payload exceeds 64 KiB canonical limit")
+        return canonical
 
     def knows(self, kind: str, version: str) -> bool:
         return (kind, version) in self._contracts

@@ -86,13 +86,16 @@ class WorkbenchHost:
 
     def run_attempt(self, request: ProcessingRequest) -> AttemptReceipt:
         material = self.writer.load_input(request)
-        processor = self._resolve(request, material)
-        descriptor = processor.descriptor
 
-        replay = self.writer.replay_if_present(request, descriptor)
+        # A committed stable attempt is canonical independently of whether its
+        # adapter remains installed after an upgrade. New work resolves a current
+        # curated processor only after replay has been ruled out.
+        replay = self.writer.replay_if_present(request)
         if replay is not None:
             return replay
 
+        processor = self._resolve(request, material)
+        descriptor = processor.descriptor
         started_at = utc_now()
         result = processor.process(self.writer.invocation(request, material))
         finished_at = utc_now()
@@ -101,8 +104,15 @@ class WorkbenchHost:
 
         # Validate every signal before policy sees it. Unknown/malformed backend
         # metadata therefore cannot influence or enter canonical decisions.
+        signal_identities: set[tuple[str, str, str]] = set()
         for signal in result.evidence:
             self.writer.quality_registry.validate(signal)
+            identity = (signal.target_id, signal.signal_key, signal.signal_version)
+            if identity in signal_identities:
+                raise ProcessorContractError(
+                    "processor emitted duplicate QualityEvidence signal identity"
+                )
+            signal_identities.add(identity)
 
         context = PolicyContext(
             self.processors.available_capabilities(

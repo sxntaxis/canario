@@ -230,9 +230,11 @@ class ReferenceEscalationPolicy:
             )
 
         capability = descriptor.capability_key
+        has_material_output = bool(result.outputs)
         if capability == "text_extract":
             present = _signal_value(evidence, "native.page_text_present")
-            if present is True:
+            nonempty = _signal_value(evidence, "core.output_nonempty")
+            if present is True and nonempty is True and has_material_output:
                 return QualityDecision(
                     target.id, "accept", self.key, self.version, "native_text_present"
                 )
@@ -256,7 +258,7 @@ class ReferenceEscalationPolicy:
         if capability == "ocr":
             needs_visual = _signal_value(evidence, "ocr.needs_visual_review")
             nonempty = _signal_value(evidence, "core.output_nonempty")
-            if needs_visual is False and nonempty is True:
+            if needs_visual is False and nonempty is True and has_material_output:
                 return QualityDecision(
                     target.id, "accept", self.key, self.version, "ocr_accepted"
                 )
@@ -280,7 +282,8 @@ class ReferenceEscalationPolicy:
         if capability == "visual_transcribe":
             schema_valid = _signal_value(evidence, "multimodal.schema_valid")
             uncertain = _signal_value(evidence, "multimodal.uncertain_span_count")
-            if schema_valid is True and uncertain == 0:
+            nonempty = _signal_value(evidence, "core.output_nonempty")
+            if schema_valid is True and uncertain == 0 and nonempty is True and has_material_output:
                 return QualityDecision(
                     target.id, "accept", self.key, self.version, "visual_transcription_valid"
                 )
@@ -293,7 +296,7 @@ class ReferenceEscalationPolicy:
             )
 
         nonempty = _signal_value(evidence, "core.output_nonempty")
-        if nonempty is True:
+        if nonempty is True and has_material_output:
             return QualityDecision(
                 target.id, "accept", self.key, self.version, "generic_output_present"
             )

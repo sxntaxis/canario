@@ -23,10 +23,13 @@ from actakit.processors import (
     PlannedStep,
     ProcessingPlan,
     ProcessingRequest,
+    ProcessorContractError,
     ProcessorDescriptor,
     ProcessorRegistry,
+    ProcessorResolutionError,
     ProcessorResult,
     QualityContractError,
+    QualityDecision,
     QualityRegistry,
     QualitySignal,
     TargetContractError,
@@ -144,6 +147,11 @@ class WorkbenchTests(unittest.TestCase):
                 "Bad Key", "text_extract", "1", "local_deterministic",
                 frozenset({"application/pdf"}), frozenset(), frozenset({"whole"})
             )
+        with self.assertRaises(ValueError):
+            ProcessorDescriptor(
+                "fixture.empty_outputs", "text_extract", "1", "local_deterministic",
+                frozenset({"application/pdf"}), frozenset(), frozenset({"whole"})
+            )
         with self.assertRaises(TargetContractError):
             self.writer.register_target(
                 TargetRegistration(new_id("rtgt_"), self.rep_id, "whole", "v1", '{"x":1}', T)
@@ -153,6 +161,47 @@ class WorkbenchTests(unittest.TestCase):
             registry.validate(QualitySignal(self.whole_target, "vendor.magic", "v1", True))
         with self.assertRaises(QualityContractError):
             registry.validate(QualitySignal(self.whole_target, "native.page_text_coverage", "v1", 1.5))
+        with self.assertRaises(ValueError):
+            QualityDecision(
+                self.whole_target, "maybe", "reference_document_processing", "v1", "invalid"
+            )
+
+
+    def test_registry_rejects_unsupported_media_and_scope_before_invocation(self):
+        text_only = FixtureProcessor(
+            ProcessorDescriptor(
+                "fixture.text_only",
+                "text_extract",
+                "1",
+                "local_deterministic",
+                frozenset({"text/plain"}),
+                frozenset({"extracted_text"}),
+                frozenset({"whole"}),
+            ),
+            lambda inv: self.fail("unsupported media must not invoke processor"),
+        )
+        host = WorkbenchHost(self.writer, ProcessorRegistry((text_only,)))
+        with self.assertRaises(ProcessorResolutionError):
+            host.run_attempt(ProcessingRequest(self.rep_id, (self.whole_target,), "text_extract"))
+        self.assertEqual(text_only.calls, 0)
+
+        page = self._target(self.rep_id, "pdf_page_quote", '{"page_ordinal":6}')
+        whole_only = FixtureProcessor(
+            ProcessorDescriptor(
+                "fixture.whole_only",
+                "text_extract",
+                "1",
+                "local_deterministic",
+                frozenset({"application/pdf"}),
+                frozenset({"extracted_text"}),
+                frozenset({"whole"}),
+            ),
+            lambda inv: self.fail("unsupported scope must not invoke processor"),
+        )
+        scope_host = WorkbenchHost(self.writer, ProcessorRegistry((whole_only,)))
+        with self.assertRaises(ProcessorResolutionError):
+            scope_host.run_attempt(ProcessingRequest(self.rep_id, (page,), "text_extract"))
+        self.assertEqual(whole_only.calls, 0)
 
     def test_success_persists_scope_evidence_decision_derivative_and_replays_without_invocation(self):
         proc = FixtureProcessor(
@@ -160,7 +209,10 @@ class WorkbenchTests(unittest.TestCase):
             lambda inv: ProcessorResult(
                 "success",
                 (DerivativeOutput(b"texto", "extracted_text", "text/plain", "es", "utf-8"),),
-                (QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),),
+                (
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
             ),
         )
         host = WorkbenchHost(self.writer, ProcessorRegistry((proc,)))
@@ -175,6 +227,14 @@ class WorkbenchTests(unittest.TestCase):
         self.assertTrue(replay.replayed)
         self.assertEqual(proc.calls, 1)
         self.assertEqual(replay.outputs[0].content_sha256, receipt.outputs[0].content_sha256)
+
+        # Canonical retry does not require the historical adapter to remain
+        # registered after an upgrade/removal.
+        replay_without_adapter = WorkbenchHost(
+            self.writer, ProcessorRegistry(())
+        ).run_attempt(request)
+        self.assertTrue(replay_without_adapter.replayed)
+        self.assertEqual(replay_without_adapter.outputs, replay.outputs)
 
         con = self._con()
         try:
@@ -263,6 +323,7 @@ class WorkbenchTests(unittest.TestCase):
                 (
                     QualitySignal(inv.scopes[0].id, "multimodal.schema_valid", "v1", True),
                     QualitySignal(inv.scopes[0].id, "multimodal.uncertain_span_count", "v1", 0),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
                 ),
                 egress_bytes=1234,
             ),
@@ -363,7 +424,10 @@ class WorkbenchTests(unittest.TestCase):
             lambda inv: ProcessorResult(
                 "success",
                 (DerivativeOutput(b"same derivative", "extracted_text", "text/plain"),),
-                (QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),),
+                (
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
             ),
         )
         host = WorkbenchHost(self.writer, ProcessorRegistry((proc,)))
@@ -386,7 +450,10 @@ class WorkbenchTests(unittest.TestCase):
             lambda inv: ProcessorResult(
                 "success",
                 (DerivativeOutput(data, "extracted_text", "text/plain"),),
-                (QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),),
+                (
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
             ),
         )
         host = WorkbenchHost(self.writer, ProcessorRegistry((proc,)))
@@ -405,6 +472,193 @@ class WorkbenchTests(unittest.TestCase):
         finally:
             con.close()
         self.assertFalse(self.writer.archive.path_for_key(self.writer.archive.key_for_digest(digest)).exists())
+
+
+    def test_multiple_targets_preserve_order_and_receive_independent_decisions(self):
+        page2 = self._target(self.rep_id, "pdf_page_quote", '{"page_ordinal":2}')
+        page5 = self._target(self.rep_id, "pdf_page_quote", '{"page_ordinal":5}')
+
+        def run(inv):
+            evidence = []
+            for scope in inv.scopes:
+                evidence.extend(
+                    (
+                        QualitySignal(scope.id, "native.page_text_present", "v1", True),
+                        QualitySignal(scope.id, "core.output_nonempty", "v1", True),
+                    )
+                )
+            return ProcessorResult(
+                "success",
+                (DerivativeOutput(b"combined pages", "extracted_text", "text/plain"),),
+                tuple(evidence),
+            )
+
+        proc = FixtureProcessor(descriptor("text_extract"), run)
+        host = WorkbenchHost(self.writer, ProcessorRegistry((proc,)))
+        request = ProcessingRequest(self.rep_id, (page5, page2), "text_extract")
+        receipt = host.run_attempt(request)
+        self.assertEqual([d.target_id for d in receipt.decisions], [page5, page2])
+        self.assertEqual([d.decision for d in receipt.decisions], ["accept", "accept"])
+        con = self._con()
+        try:
+            self.assertEqual(
+                con.execute(
+                    "SELECT representation_target_id FROM process_run_inputs "
+                    "WHERE process_run_id=? ORDER BY ordinal",
+                    (request.process_run_id,),
+                ).fetchall(),
+                [(page5,), (page2,)],
+            )
+        finally:
+            con.close()
+
+    def test_reference_policy_never_accepts_text_or_visual_without_material_output_signal(self):
+        page = self._target(self.rep_id, "pdf_page_quote", '{"page_ordinal":4}')
+        native = FixtureProcessor(
+            descriptor("text_extract"),
+            lambda inv: ProcessorResult(
+                "success", (),
+                (
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
+            ),
+        )
+        ocr = FixtureProcessor(
+            descriptor("ocr", output_kinds=frozenset({"ocr_text"})),
+            lambda inv: ProcessorResult(
+                "success",
+                (DerivativeOutput(b"fallback", "ocr_text", "text/plain"),),
+                (
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "ocr.needs_visual_review", "v1", False),
+                ),
+            ),
+        )
+        host = WorkbenchHost(self.writer, ProcessorRegistry((native, ocr)))
+        plan = ProcessingPlan(
+            self.rep_id,
+            (page,),
+            (PlannedStep.allocate("text_extract"), PlannedStep.allocate("ocr")),
+        )
+        receipt = host.run_plan(plan)
+        self.assertEqual([a.decisions[0].decision for a in receipt.attempts], ["escalate", "accept"])
+
+        visual = FixtureProcessor(
+            descriptor(
+                "visual_transcribe",
+                output_kinds=frozenset({"extracted_text"}),
+                requires_egress=True,
+                venue="subscription_agent",
+                model=True,
+            ),
+            lambda inv: ProcessorResult(
+                "success", (),
+                (
+                    QualitySignal(inv.scopes[0].id, "multimodal.schema_valid", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "multimodal.uncertain_span_count", "v1", 0),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
+                egress_bytes=10,
+            ),
+        )
+        visual_host = WorkbenchHost(self.writer, ProcessorRegistry((visual,)))
+        result = visual_host.run_attempt(
+            ProcessingRequest(
+                self.rep_id,
+                (page,),
+                "visual_transcribe",
+                egress=EgressAuthorization(True, "public_civic", "operator_enabled"),
+            )
+        )
+        self.assertEqual(result.decisions[0].decision, "quarantine_review")
+
+    def test_unauthorized_cloud_processor_is_rejected_before_invocation(self):
+        visual = FixtureProcessor(
+            descriptor(
+                "visual_transcribe",
+                requires_egress=True,
+                venue="subscription_agent",
+                model=True,
+            ),
+            lambda inv: self.fail("unauthorized cloud processor must not be invoked"),
+        )
+        host = WorkbenchHost(self.writer, ProcessorRegistry((visual,)))
+        with self.assertRaises(ProcessorResolutionError):
+            host.run_attempt(
+                ProcessingRequest(self.rep_id, (self.whole_target,), "visual_transcribe")
+            )
+        self.assertEqual(visual.calls, 0)
+
+    def test_duplicate_quality_signal_identity_is_rejected_before_persistence(self):
+        proc = FixtureProcessor(
+            descriptor("text_extract"),
+            lambda inv: ProcessorResult(
+                "success",
+                (DerivativeOutput(b"text", "extracted_text", "text/plain"),),
+                (
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", False),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
+            ),
+        )
+        host = WorkbenchHost(self.writer, ProcessorRegistry((proc,)))
+        request = ProcessingRequest(self.rep_id, (self.whole_target,), "text_extract")
+        with self.assertRaises(ProcessorContractError):
+            host.run_attempt(request)
+        con = self._con()
+        try:
+            self.assertEqual(
+                con.execute("SELECT count(*) FROM process_runs WHERE id=?", (request.process_run_id,)).fetchone()[0],
+                0,
+            )
+        finally:
+            con.close()
+
+    def test_failed_attempt_using_shared_derivative_bytes_never_removes_shared_archive_object(self):
+        data = b"shared derivative"
+        proc = FixtureProcessor(
+            descriptor("text_extract"),
+            lambda inv: ProcessorResult(
+                "success",
+                (DerivativeOutput(data, "extracted_text", "text/plain"),),
+                (
+                    QualitySignal(inv.scopes[0].id, "native.page_text_present", "v1", True),
+                    QualitySignal(inv.scopes[0].id, "core.output_nonempty", "v1", True),
+                ),
+            ),
+        )
+        host = WorkbenchHost(self.writer, ProcessorRegistry((proc,)))
+        first = host.run_attempt(
+            ProcessingRequest(self.rep_id, (self.whole_target,), "text_extract")
+        )
+        shared = first.outputs[0]
+        second_request = ProcessingRequest(self.rep_id, (self.whole_target,), "text_extract")
+        with mock.patch.object(
+            self.writer,
+            "_validate_committed_attempt",
+            side_effect=WorkbenchInvariantError("forced rollback"),
+        ):
+            with self.assertRaises(WorkbenchInvariantError):
+                host.run_attempt(second_request)
+        self.writer.archive.verify(shared.storage_key, shared.content_sha256, shared.byte_size)
+        con = self._con()
+        try:
+            self.assertEqual(
+                con.execute(
+                    "SELECT count(*) FROM archive_objects WHERE id=?", (shared.archive_object_id,)
+                ).fetchone()[0],
+                1,
+            )
+            self.assertEqual(
+                con.execute(
+                    "SELECT count(*) FROM process_runs WHERE id=?", (second_request.process_run_id,)
+                ).fetchone()[0],
+                0,
+            )
+        finally:
+            con.close()
 
     def test_purged_target_is_rejected(self):
         con = self._con()
