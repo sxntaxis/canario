@@ -194,19 +194,26 @@ ProcessRun inputs, non-secret egress provenance, typed/namespaced QualityEvidenc
 and a quality decision distinct from execution outcome. `WorkbenchWriter` owns
 derivative custody; processors never receive SQLite/archive authority.
 
-`PROCESSOR-DIRECT-001` is the first concrete bounded adapter candidate. It uses
-Poppler `pdftotext` + `pdfinfo` + `pdfimages` for `application/pdf`, explicit
-`whole:v1` / `pdf_page:v1` processing scope, deterministic UTF-8/layout output,
-and registered native-text/raster evidence. A successful Poppler exit with empty
-or mixed native page coverage escalates instead of masquerading as a complete
-extraction. `pdf_page_quote:v1` remains an evidence locator and is deliberately not
-overloaded as a whole-page processing selector.
+`PROCESSOR-DIRECT-001` is independently certified for Poppler native PDF text
+extraction with explicit `whole:v1` / `pdf_page:v1` scope. It records exact empty
+page ordinals instead of treating Poppler exit success as completeness.
 
-**WP4C implementation gate:** independently certify PROCESSOR-DIRECT-001 against
-the tracked controlled fixture and exact hash-recorded natural Esparza page when
-available; then add D2 OCR in its own bounded unit. Unsupported or low-quality
-extraction fails visibly or escalates without corrupting original custody.
-Backend/model/license pins are required when that backend is actually selected.
+`PROCESSOR-OCR-001` is the current D2 candidate. It uses OCRmyPDF + Tesseract in a
+fixed bounded skip-text configuration so exact empty pages can be OCRed while
+native pages in a mixed document remain preserved. Canonical output is `ocr_text`;
+OCRmyPDF searchable-PDF intermediates remain temporary. The adapter records
+runtime-observable OCR coverage/count evidence and sets
+`ocr.needs_visual_review:v1=true` conservatively; the closed bench did not justify
+an automatic acceptance threshold from Tesseract confidence or other one-number
+signals.
+
+**WP4C implementation gate:** independently certify PROCESSOR-OCR-001 against the
+existing controlled D2 variants and exact hash-grounded natural Esparza layout
+proof. After D2 certification, implement the bounded official Codex CLI
+`visual_transcribe` adapter without changing the generic Workbench/schema.
+Unsupported or low-quality extraction must fail visibly or escalate without
+corrupting original custody. Backend/model/license pins are required when that
+backend is actually selected.
 
 ## WP5 — Lector and Claim Extraction
 

@@ -122,13 +122,15 @@ immutable; every processor attempt/output is attributable.
 **Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion, processor
 research, the Civic Processor Bench, and the generic `WORKBENCH-001` substrate are
 complete; WORKBENCH-001 is independently certified on the registered SQLite 3.53.4
-runtime. `PROCESSOR-DIRECT-001` is now the first concrete adapter candidate:
-Poppler born-digital PDF extraction with explicit whole/page scope, deterministic
-UTF-8/layout output, page-level native-text evidence, and visible escalation for
-empty/mixed native coverage. Independent adapter certification is the next gate;
-D2 OCR lands only after it closes. Exact pins/licenses for optional backends become
-mandatory when selected/enabled. Unsupported or low-quality extraction must fail
-visibly or escalate without corrupting custody.
+runtime. `PROCESSOR-DIRECT-001` is independently certified for Poppler born-digital PDF
+extraction. `PROCESSOR-OCR-001` is the current bounded candidate: OCRmyPDF +
+Tesseract consumes exact whole/page targets, preserves native pages in mixed PDFs,
+writes `ocr_text` only through WorkbenchWriter, and deliberately escalates every
+successful OCR target for visual/human review because no reliable universal
+runtime-only OCR acceptance threshold was established. Independent D2 adapter
+certification is the next gate. Exact pins/licenses for later optional backends
+become mandatory when selected/enabled. Unsupported or low-quality extraction must
+fail visibly or escalate without corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 

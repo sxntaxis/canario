@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: PROCESSOR_DIRECT_001_IMPLEMENTED__CERTIFICATION_PENDING
+state: PROCESSOR_OCR_001_IMPLEMENTED__CERTIFICATION_PENDING
 created: 2026-08-19
 updated: 2026-08-22
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001 is independently certified on the exact registered SQLite 3.53.4 runtime. PROCESSOR-DIRECT-001 now implements the first concrete Poppler born-digital PDF adapter on that frozen boundary and awaits independent adapter certification.
+summary: WORKBENCH-001 and PROCESSOR-DIRECT-001 are independently certified. PROCESSOR-OCR-001 now implements the bounded OCRmyPDF + Tesseract D2 adapter on the frozen processor boundary and awaits independent certification.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -94,8 +94,8 @@ accepted semantic contracts
 -> processor state-of-the-art Source Books + synthesis complete
 -> Civic Processor Bench complete
 -> WORKBENCH-001 generic processor substrate independently certified
--> PROCESSOR-DIRECT-001 Poppler native-PDF adapter implemented; independent certification pending
--> D2 OCR adapter only after direct-adapter certification
+-> PROCESSOR-DIRECT-001 Poppler native-PDF adapter independently certified
+-> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter implemented; independent certification pending
 -> semantic writers and explicit canonical-cutover gate later
 ```
 
@@ -176,18 +176,20 @@ decision (`ACCEPT | ESCALATE | QUARANTINE_REVIEW`) for each exact input target.
 Every material transformation remains a derived Representation with ProcessRun
 provenance; original custody is immutable.
 
-**Current gate:** the generic Workbench boundary is certified. The first concrete
-D0/D1 candidate, `PROCESSOR-DIRECT-001`, uses the trusted Poppler `pdftotext` /
-`pdfinfo` / `pdfimages` CLI suite for born-digital PDF under explicit whole/page
-scope. It emits page-presence/coverage/character/raster evidence, creates only
-`extracted_text` derivatives through `WorkbenchWriter`, and escalates empty or
-mixed native-page coverage rather than accepting Poppler exit status as quality.
-The closure bench retains exact natural Esparza, FECOMUDI, Quepos and spreadsheet
-artifacts, corrected page-level D2 evidence with process-tree RSS, independent truth
-for two natural hard pages, and controlled plus diagnostic official Codex CLI runs. Docling is optional rather than default because its disposable
-footprint was material and no quality advantage was measured. Exact pins for
-future optional backends, broader natural thresholds, handwriting and
-multi-column coverage remain follow-up work. Personal Plus/Pro Codex use is
+**Current gate:** the generic Workbench boundary and `PROCESSOR-DIRECT-001` are
+independently certified. `PROCESSOR-OCR-001` is the current D2 candidate: it uses
+OCRmyPDF + Tesseract through explicit whole/page Workbench scope, preflights native
+text, sends only pages that actually need OCR, preserves native pages in mixed
+documents, and creates only `ocr_text` derivatives through `WorkbenchWriter`. The
+reference policy deliberately sends every successful OCR target to bounded visual
+review/escalation rather than deriving acceptance from Tesseract confidence or any
+universal score. The closure bench retains exact natural Esparza, FECOMUDI, Quepos
+and spreadsheet artifacts, corrected page-level D2 evidence with process-tree RSS,
+independent truth for two natural hard pages, and controlled plus diagnostic
+official Codex CLI runs. Docling is optional rather than default because its
+disposable footprint was material and no quality advantage was measured. Exact
+pins/licenses for future optional backends, broader natural thresholds, handwriting
+and multi-column coverage remain follow-up work. Personal Plus/Pro Codex use is
 limited to approved public material; Business/Enterprise/Edu controls must be
 verified per deployment. Credential values remain external host secrets and must
 never enter SQLite, ProcessRun evidence or logs.

@@ -124,9 +124,11 @@ The generic boundary requires exact target-backed ProcessRun inputs,
 typed/namespaced `QualityEvidence`, a separate durable quality decision, explicit
 egress provenance, immutable custody and visible failure/escalation. Processor
 implementations never receive SQLite/archive authority. `PROCESSOR-DIRECT-001` is
-the first concrete adapter candidate: Poppler native PDF extraction under explicit
-`whole:v1` or `pdf_page:v1` scope. It must escalate empty/mixed native coverage
-instead of treating a successful Poppler return code as completeness.
+independently certified for Poppler native PDF extraction. `PROCESSOR-OCR-001` is
+the current D2 candidate: OCRmyPDF + Tesseract under explicit `whole:v1` /
+`pdf_page:v1` scope, skip-text preservation for mixed PDFs, bounded local execution,
+and conservative `ocr.needs_visual_review:v1=true` because the closed bench did not
+justify a universal OCR acceptance threshold.
 
 Exact developer-host fingerprinting is not durable project evidence. Do not persist
 hostname, username, exact kernel/distribution build, exact CPU/GPU model, total
