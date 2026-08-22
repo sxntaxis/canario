@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: PROCESSOR_OCR_001_IMPLEMENTED__CERTIFICATION_PENDING
+state: PROCESSOR_CODEX_001_IMPLEMENTED__CERTIFICATION_PENDING
 created: 2026-08-19
 updated: 2026-08-22
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001 and PROCESSOR-DIRECT-001 are independently certified. PROCESSOR-OCR-001 now implements the bounded OCRmyPDF + Tesseract D2 adapter on the frozen processor boundary and awaits independent certification.
+summary: WORKBENCH-001, Poppler D1, and OCRmyPDF/Tesseract D2 are independently certified. PROCESSOR-CODEX-001 implements bounded one-page subscription-backed visual transcription and awaits independent certification together with a minimal prerelease egress-schema rebaseline.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -95,7 +95,8 @@ accepted semantic contracts
 -> Civic Processor Bench complete
 -> WORKBENCH-001 generic processor substrate independently certified
 -> PROCESSOR-DIRECT-001 Poppler native-PDF adapter independently certified
--> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter implemented; independent certification pending
+-> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
+-> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter implemented; certification pending
 -> semantic writers and explicit canonical-cutover gate later
 ```
 
@@ -105,14 +106,20 @@ fresh-database bootstrap/runtime boundary and is now certified by
 `notebook/research/pre-sql/schema/MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`.
 WORKBENCH-001 required a prerelease `0001` rebaseline so exact ProcessRun scope,
 typed quality evidence, quality decisions, and egress provenance survive restart.
-The current implementation candidate SQL hash is:
+The current PROCESSOR-CODEX-001 candidate SQL hash is:
 
 ```text
-adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a
+5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb
 ```
 
-The prior `31cac5...` hash remains historical evidence. The rebaselined `0001`
-was independently certified on the exact registered upstream SQLite 3.53.4 source
+The independently certified WORKBENCH/DIRECT/OCR baseline
+`adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior
+`31cac5...` baseline remain historical evidence. The new candidate changes only the
+`process_run_egress.bytes_egressed` lower bound from positive to non-negative so a
+cloud-capable attempt that fails before external handoff can truthfully persist zero
+source bytes plus policy provenance. Independent Codex certification must recertify the
+exact SQLite runtime before this new hash becomes current authority. The WORKBENCH
+rebaseline was independently certified on the exact registered upstream SQLite 3.53.4 source
 ID; the first attempt correctly rejected a patched build with a mismatched source
 ID. No `0002` exists: prerelease policy requires rebaselining `0001` instead.
 
@@ -176,14 +183,15 @@ decision (`ACCEPT | ESCALATE | QUARANTINE_REVIEW`) for each exact input target.
 Every material transformation remains a derived Representation with ProcessRun
 provenance; original custody is immutable.
 
-**Current gate:** the generic Workbench boundary and `PROCESSOR-DIRECT-001` are
-independently certified. `PROCESSOR-OCR-001` is the current D2 candidate: it uses
-OCRmyPDF + Tesseract through explicit whole/page Workbench scope, preflights native
-text, sends only pages that actually need OCR, preserves native pages in mixed
-documents, and creates only `ocr_text` derivatives through `WorkbenchWriter`. The
-reference policy deliberately sends every successful OCR target to bounded visual
-review/escalation rather than deriving acceptance from Tesseract confidence or any
-universal score. The closure bench retains exact natural Esparza, FECOMUDI, Quepos
+**Current gate:** WORKBENCH-001, `PROCESSOR-DIRECT-001`, and
+`PROCESSOR-OCR-001` are independently certified. `PROCESSOR-CODEX-001` is the
+current candidate: it accepts exactly one explicit `pdf_page:v1`, renders that page
+locally, removes the source PDF before external handoff, and invokes the official Codex
+CLI through a dedicated keyring-backed profile and private scratch HOME. Whole/multi-
+page cloud scope, restricted material, missing egress authorization, or mismatched
+endpoint/prompt/config identity are rejected before Codex invocation. Schema-valid
+zero-uncertainty material may be accepted; uncertainty, empty material or failed/schema-
+invalid output ends in human review. No API-key/provider-API path is part of this unit. The closure bench retains exact natural Esparza, FECOMUDI, Quepos
 and spreadsheet artifacts, corrected page-level D2 evidence with process-tree RSS,
 independent truth for two natural hard pages, and controlled plus diagnostic
 official Codex CLI runs. Docling is optional rather than default because its

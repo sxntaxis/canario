@@ -198,22 +198,26 @@ derivative custody; processors never receive SQLite/archive authority.
 extraction with explicit `whole:v1` / `pdf_page:v1` scope. It records exact empty
 page ordinals instead of treating Poppler exit success as completeness.
 
-`PROCESSOR-OCR-001` is the current D2 candidate. It uses OCRmyPDF + Tesseract in a
-fixed bounded skip-text configuration so exact empty pages can be OCRed while
-native pages in a mixed document remain preserved. Canonical output is `ocr_text`;
-OCRmyPDF searchable-PDF intermediates remain temporary. The adapter records
-runtime-observable OCR coverage/count evidence and sets
-`ocr.needs_visual_review:v1=true` conservatively; the closed bench did not justify
-an automatic acceptance threshold from Tesseract confidence or other one-number
-signals.
+`PROCESSOR-OCR-001` is independently certified for the bounded OCRmyPDF +
+Tesseract D2 path. It preserves native pages in mixed PDFs, OCRs only pages lacking
+native text, emits exact OCR page ordinals, and remains conservatively visual-review
+bound rather than inventing a universal confidence threshold.
 
-**WP4C implementation gate:** independently certify PROCESSOR-OCR-001 against the
-existing controlled D2 variants and exact hash-grounded natural Esparza layout
-proof. After D2 certification, implement the bounded official Codex CLI
-`visual_transcribe` adapter without changing the generic Workbench/schema.
-Unsupported or low-quality extraction must fail visibly or escalate without
-corrupting original custody. Backend/model/license pins are required when that
-backend is actually selected.
+`PROCESSOR-CODEX-001` is the current candidate for the bounded official Codex CLI
+`visual_transcribe` step. It is deliberately one `pdf_page:v1` per ProcessRun, uses
+ChatGPT subscription authentication owned by Codex in a dedicated keyring-backed
+profile, starts from isolated scratch, and records only non-secret model/config/template/
+egress provenance. Integrating the first cloud backend exposed one generic prerelease
+schema defect: a selected egress processor may fail locally before sending source bytes.
+Candidate `0001` therefore changes only `bytes_egressed > 0` to `>= 0`; no `0002`
+exists and independent certification must repeat the exact-runtime schema/regression
+proofs.
+
+**WP4C implementation gate:** independently certify PROCESSOR-CODEX-001 on the
+qualified Codex CLI/model, the controlled TSE hard page, exact-hash natural Esparza
+page, and the rebaselined SQLite 3.53.4 authority. Unsupported/uncertain output must
+end visibly in review without corrupting custody. No provider API or heavyweight local
+VLM is required for the reference path.
 
 ## WP5 — Lector and Claim Extraction
 

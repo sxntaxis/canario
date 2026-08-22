@@ -124,11 +124,15 @@ The generic boundary requires exact target-backed ProcessRun inputs,
 typed/namespaced `QualityEvidence`, a separate durable quality decision, explicit
 egress provenance, immutable custody and visible failure/escalation. Processor
 implementations never receive SQLite/archive authority. `PROCESSOR-DIRECT-001` is
-independently certified for Poppler native PDF extraction. `PROCESSOR-OCR-001` is
-the current D2 candidate: OCRmyPDF + Tesseract under explicit `whole:v1` /
+independently certified for Poppler native PDF extraction. `PROCESSOR-OCR-001` uses OCRmyPDF + Tesseract under explicit `whole:v1` /
 `pdf_page:v1` scope, skip-text preservation for mixed PDFs, bounded local execution,
-and conservative `ocr.needs_visual_review:v1=true` because the closed bench did not
-justify a universal OCR acceptance threshold.
+and conservative `ocr.needs_visual_review:v1=true`; both D1 and D2 are independently
+certified.
+`PROCESSOR-CODEX-001` is the current candidate and may satisfy only one exact
+`pdf_page:v1` visual-transcription request through the official Codex CLI after explicit
+egress authorization. It uses a dedicated private keyring-backed CODEX_HOME and private scratch HOME;
+bundled/user/admin skills are excluded from the transcription execution, and ActaKit
+never reads ChatGPT credentials or exposes whole-document cloud scope.
 
 Exact developer-host fingerprinting is not durable project evidence. Do not persist
 hostname, username, exact kernel/distribution build, exact CPU/GPU model, total

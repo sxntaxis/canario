@@ -227,7 +227,10 @@ Processors themselves cannot write SQLite/archive state. Capability and executio
 venue are orthogonal, so `visual_transcribe` may later be satisfied by Codex, a
 provider API, or an optional local model without changing custody or policy
 contracts. Cloud egress is authorized before invocation and credentials stay with
-the trusted executor boundary. The Workbench inherits `restricted` onto its derivatives and has no declassification authority; a later explicit reviewed redaction/release operation may publish a `redacted_derivative` without mutating the restricted original.
+the trusted executor boundary. The reference Codex adapter further restricts visual
+transcription to one exact `pdf_page:v1` per ProcessRun, renders that page locally, and
+starts Codex from isolated scratch with a dedicated private keyring-backed CODEX_HOME and bundled skills disabled; whole-
+document cloud execution is not a reference capability. The Workbench inherits `restricted` onto its derivatives and has no declassification authority; a later explicit reviewed redaction/release operation may publish a `redacted_derivative` without mutating the restricted original.
 
 Evidence locators therefore follow the representation:
 

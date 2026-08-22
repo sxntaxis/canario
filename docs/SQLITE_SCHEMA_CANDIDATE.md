@@ -529,8 +529,11 @@ run preserves deterministic target order.
 
 ### `process_run_egress`
 
-Optional non-secret egress provenance for runs whose trusted adapter sends source
-material outside the local deployment:
+Optional non-secret egress provenance for runs whose trusted adapter is authorized to
+send source material outside the local deployment. The byte count means measured
+source/evidence payload bytes handed to the external executor, not guessed total
+wire/protocol traffic. Zero preserves truthful policy provenance when local preparation
+fails before handoff:
 
 ```text
 process_run_id PK/FK
@@ -1803,7 +1806,30 @@ requirements. Because ActaKit remains pre-release, those requirements rebaseline
 
 ## 27. WORKBENCH-001 prerelease rebaseline
 
-The current candidate baseline is byte-identical between:
+WORKBENCH-001 rebaselined `0001` to add terminal execution venue/error provenance,
+ordered exact ProcessRun inputs, non-secret egress provenance, typed/namespaced
+quality evidence, and durable quality decisions. That baseline was independently
+certified on the exact registered upstream SQLite 3.53.4 runtime with SHA256:
+
+```text
+adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a
+```
+
+Its certified inventory is 58 ordinary STRICT tables, 3 FTS5 tables, 118 explicit
+indexes, 127 checked FK child paths with zero child-table scans, and no SQL JSON
+runtime dependency. DIRECT-001 and OCR-001 were independently certified against
+that same baseline.
+
+## 28. PROCESSOR-CODEX-001 prerelease egress correction
+
+The first production egress backend exposed one generic assumption that the local
+backends could not exercise: an egress-capable processor may terminate during local
+page preparation before the external executor receives source bytes. The previous
+`bytes_egressed > 0` CHECK could only represent that failure by dropping terminal
+provenance or lying about egress.
+
+Because ActaKit remains pre-release, the current candidate is again byte-identical
+between:
 
 ```text
 notebook/research/pre-sql/schema/MIGRATION_0001_SPEC.sql
@@ -1813,10 +1839,21 @@ actakit/persistence/migrations/0001.sql
 with SHA256:
 
 ```text
-adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a
+5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb
 ```
 
-Physical inventory in the portable proof environment:
+The only SQL semantic delta from the independently certified pre-Codex baseline is:
+
+```text
+process_run_egress.bytes_egressed: > 0  ->  >= 0
+```
+
+Here the byte count means measured source/evidence payload bytes handed to the
+external executor, not guessed total wire/protocol traffic. `0` therefore means the
+selected egress processor terminated before external handoff while preserving its
+policy/data-control/template/endpoint provenance. Negative values remain forbidden.
+
+Physical inventory is unchanged:
 
 ```text
 ordinary STRICT tables: 58
@@ -1828,18 +1865,13 @@ FK child table scans:    0
 SQLite JSON dependency:  absent
 ```
 
-The rebaseline adds `process_runs.execution_venue/error_code`,
-`process_run_inputs`, `process_run_egress`, `quality_evidence`, and
-`quality_decisions`. It does not alter SourceConnector/Inbox/DepositWriter
-semantics or authorize semantic Claim/Fichero writers.
-
-The portable migration-spec, freeze, storage-operation, persistence, Ingress and
-Workbench tests pass in the implementation checkout. The exact registered SQLite
-3.53.4 runtime is not available in this environment, so target-runtime repeat and
-independent WORKBENCH-001 certification remain an explicit next gate.
+Portable migration-spec, freeze, storage, Workbench, DIRECT and OCR regressions pass
+in the implementation checkout. Independent PROCESSOR-CODEX-001 certification must
+repeat these proofs on the exact registered SQLite 3.53.4 runtime before this hash
+becomes current certified authority. No `0002` exists.
 
 ```text
-WORKBENCH_001_SCHEMA_REBASELINE: IMPLEMENTED__CERTIFICATION_PENDING
+PROCESSOR_CODEX_001_SCHEMA_REBASELINE: IMPLEMENTED__CERTIFICATION_PENDING
 canonical_cutover_authorized: false
 forward_migration_0002_created: false
 ```

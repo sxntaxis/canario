@@ -151,8 +151,10 @@ validated by `signal_key + signal_version`; arbitrary metadata dictionaries and 
 universal confidence value are forbidden. Provider-specific confidence may exist
 only under its own registered namespace.
 
-Cloud/agent execution records only non-secret egress provenance such as bytes
-sent and policy/data-control/template/endpoint profile identity. Credentials,
+Cloud/agent execution records only non-secret egress provenance such as source/evidence
+payload bytes handed to the external executor and policy/data-control/template/endpoint
+profile identity. Zero bytes is valid only when an egress-capable terminal attempt fails
+before external handoff. This is not a fabricated total network-traffic counter. Credentials,
 OAuth tokens, account identity and secret paths never enter Processor requests,
 SQLite, QualityEvidence or derivative Representations.
 
