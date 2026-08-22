@@ -21,7 +21,7 @@ connection contract passed the clean-machine restore, FTS rebuild, purge, WAL,
 and VACUUM checks.
 
 Certification timestamp: `2026-08-21T12:08:23-06:00`
-Host: Linux `7.1.5-1-cachyos` x86_64
+Platform class: Linux x86_64
 Starting commit: `863edaaed76bd5f3a49f3a896bafd167a5efdc7a`
 
 ## Environment

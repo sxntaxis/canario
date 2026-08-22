@@ -26,7 +26,7 @@ SourceConnector -> CaptureEnvelope -> InboxPort -> DepositWriter
 Input HEAD: `aae886df2d0e1b16c987248576807a3d164b1c5b`
 Parent: `909230ee72abe99fe7ed14effde11bf23aa848c6`
 Certification timestamp: `2026-08-21T14:37:18-06:00`
-Host: Linux `7.1.5-1-cachyos` x86_64
+Platform class: Linux x86_64
 
 ## Frozen runtime and SQL
 

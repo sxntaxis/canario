@@ -102,36 +102,31 @@ built-in ActaKit ladder. Swappable backends are an escape hatch for hardware,
 licensing, unusual formats and local/cloud policy; ActaKit owns the default
 processing/escalation policy.
 
-The state-of-the-art research gate precedes implementation and currently nominates:
+The state-of-the-art research gate is closed. Its accepted reference path is:
 
 ```text
-native/direct parse
+native/direct parse (D0/D1)
 -> Poppler/pdftotext
 -> OCRmyPDF + Tesseract
--> Docling structured processing
--> specialized visual/document AI (local or cloud by policy)
--> frontier multimodal AI (local or cloud by policy)
-   - Qwen3-VL local candidate
-   - OpenAI cloud candidate
-   - OpenAI-compatible endpoint escape hatch after capability checks
+-> bounded official Codex CLI escalation
 -> human review
 ```
 
-Cover PDF/DOCX/text/HTML, spreadsheets/tables where needed, malformed/unknown
-material, OCR/scan escalation and difficult handwriting/visual material. Audio/
-transcript remains researched but activates only when a real source requires it.
-No universal numeric confidence spans these engines: preserve typed quality
-evidence and let core policy accept, escalate or quarantine/review. Original
-custody is immutable; every processor attempt/output is attributable.
+Docling is optional and not the reference default. Heavy local VLMs, provider APIs
+and OpenAI-compatible endpoints are specialized future venues, not freeze blockers.
+Spreadsheet cells use direct deterministic structured parsing by default. No
+universal numeric confidence spans these engines: preserve typed quality evidence
+and let core policy accept, escalate or quarantine/review. Original custody is
+immutable; every processor attempt/output is attributable.
 
-**Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion and the processor
-state-of-the-art package are complete. Before WP4C implementation freeze, run the
-Civic Processor Bench on representative civic material and pin selected
-backend/model/version/license/provider identities, quality/escalation criteria and
-resource/egress budgets. The hard-case bench must compare best-local against
-best-cloud rather than binding architecture to developer hardware; API credentials
-remain external secrets. Unsupported or low-quality extraction must fail visibly
-or escalate without corrupting custody.
+**Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion, the processor
+state-of-the-art package and Civic Processor Bench are complete. The generic
+`WORKBENCH-001` boundary is freeze-ready. Next Phase-3 work is `WORKBENCH-001`
+design/implementation authorization grounded in the closure evidence. Exact
+pins/licenses for optional backends become required only when selected/enabled;
+public/restricted egress policy and credential ownership remain explicit.
+Unsupported or low-quality extraction must fail visibly or escalate without
+corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 

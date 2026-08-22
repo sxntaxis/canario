@@ -35,7 +35,7 @@ Reconciled implementation HEAD before certification documentation:
 `eb25de6` (`dd6aff0998233487b7f4757cfb71db2f20f93a6b`)
 
 Certification timestamp: `2026-08-21T14:37:18-06:00`
-Host: Linux `7.1.5-1-cachyos` x86_64
+Platform class: Linux x86_64
 
 ## Frozen migration identity
 

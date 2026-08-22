@@ -75,17 +75,16 @@ Inbox.
 ## Mesa de trabajo / Representation Processor policy
 
 The processor state-of-the-art research package lives at
-`notebook/research/workbench/processors/`. **Do not implement/freeze WORKBENCH-001
-until the Civic Processor Bench closes.** The current evidence-backed direction is
-a curated built-in escalation ladder, not a processor marketplace:
+`notebook/research/workbench/processors/`. The Civic Processor Bench is closed and
+the generic `WORKBENCH-001` boundary is freeze-ready. The next authorized unit is
+the formal `WORKBENCH-001` design/implementation gate, not ad-hoc processor code.
+The accepted reference path is a curated built-in escalation ladder, not a
+processor marketplace:
 
 ```text
-native/direct
--> Poppler/pdftotext
+ D0/D1 deterministic/native (Poppler/pdftotext)
 -> OCRmyPDF + Tesseract
--> structured processing (Docling candidate)
--> specialized visual/document AI
--> frontier multimodal AI
+-> bounded official Codex CLI escalation
 -> human review
 ```
 
@@ -95,8 +94,9 @@ Rules for agents/contributors:
 - deterministic extraction is preferred before expensive AI, but AI rungs may run
   **locally or in explicitly authorized cloud** depending on source policy,
   available hardware, benchmarked quality, latency and cost;
-- OpenAI is a first-class cloud multimodal benchmark candidate; Qwen3-VL is a
-  local frontier candidate; Mistral OCR is a specialized cloud-document candidate;
+- official Codex CLI authenticated through a ChatGPT subscription is the reference
+  cloud/agent executor; Docling, heavyweight local AI and provider APIs remain
+  optional venues;
 - OpenAI-compatible `base_url + api_key + model` endpoints are an escape-hatch
   transport convention only. They are **not** assumed to implement every OpenAI
   endpoint/parameter/modality; capability declaration/probing is required;
@@ -107,18 +107,27 @@ Rules for agents/contributors:
   endpoint/request-template identity plus the fact/scope of egress and deployment
   retention/data-control profile; never infer zero retention from API use alone;
 - no-egress/restricted source policy can forbid cloud completely;
-- weak hosts may legitimately choose cloud D4/D5 rather than load heavyweight
-  local models; do not architect around the developer machine;
+- restricted/no-egress deployments fall back to local deterministic processing plus
+  human review;
+- Codex CLI owns ChatGPT authentication. ActaKit must never inspect or store those
+  credentials;
+- page/block escalation is allowed; no universal backend/model winner is frozen;
 - no universal numeric `confidence` spans OCR/document/VLM/audio engines. Preserve
   typed processor-attributable QualityEvidence and let policy decide
   `ACCEPT | ESCALATE | QUARANTINE_REVIEW`;
 - original custody is immutable and AI output never authenticates itself as source
   evidence.
 
-Current gate: build/run the Civic Processor Bench, including the same hard civic
-fixtures through the best qualified local path and an explicitly egress-safe
-OpenAI cloud path. No production `actakit/processors` or credential facility is
-authorized by the research package yet.
+The current gate is closed for the generic boundary: use typed/namespaced
+`QualityEvidence`, explicit egress policy, immutable custody and visible failure or
+escalation. Do not create production `actakit/processors` merely because research
+is closed; implementation requires the formal `WORKBENCH-001` gate and design.
+
+Exact developer-host fingerprinting is not durable project evidence. Do not persist
+hostname, username, exact kernel/distribution build, exact CPU/GPU model, total
+RAM/swap, device IDs, home paths, or environment dumps unless a narrowly scoped
+certification proves that exact fact is itself required. Prefer tool/runtime
+identity and process-scoped resource measurements.
 
 ## ¿Qué es actakit?
 

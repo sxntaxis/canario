@@ -21,7 +21,7 @@ The bounded production SQLite bootstrap implementation at
 runtime and implementation proof suite.
 
 Certification timestamp: `2026-08-21T14:37:18-06:00`
-Host: Linux `7.1.5-1-cachyos` x86_64
+Platform class: Linux x86_64
 
 The production migration is byte-identical to the frozen specification:
 

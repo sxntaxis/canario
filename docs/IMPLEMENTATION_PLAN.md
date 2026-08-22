@@ -162,7 +162,8 @@ WP4C must cover:
 - visual/multimodal AI for difficult scans/handwriting where justified;
 - execution-venue selection: local when required/preferred, cloud when egress is
   allowed and quality/hardware/cost policy favors it;
-- first-class OpenAI cloud escalation plus specialized Mistral benchmarking;
+- bounded official Codex CLI escalation for approved public egress;
+- provider APIs and heavyweight local AI remain optional alternate venues;
 - capability-gated OpenAI-compatible endpoint support as an escape hatch, not a
   universal compatibility assumption;
 - media/transcript processing only when a real source requires it;
@@ -177,14 +178,19 @@ endpoint/request-template identity and egress facts. Large-object/streaming
 transport is added when a real source/benchmark proves the need rather than
 assuming all payloads are small.
 
-**Mandatory next gate:** build and run the Civic Processor Bench before freezing
-or implementing production processor defaults. Benchmark representative civic
-PDFs/scans/tables/handwriting/office formats for accuracy, hallucination, locator
-reopenability, runtime/memory, determinism, provenance and escalation cost. On the
-hard subset, explicitly compare the best qualified local path with the best allowed
-cloud path (OpenAI current multimodal candidate; Mistral specialist where useful),
-including monetary cost, latency and bytes/pages egressed. Public leaderboards
-inform candidates but do not choose the stack.
+**Research gate complete:** the Civic Processor Bench closed with the generic
+`WORKBENCH-001` boundary freeze-ready. The accepted reference path is
+`D0/D1 -> D2 -> bounded official Codex CLI -> D6`. Docling is optional and not the
+reference default; heavyweight local AI and provider APIs are optional alternate
+venues. Spreadsheet structured parsing is direct/deterministic by default rather
+than OCR/AI. Exact pins/licenses for optional backends become mandatory only when
+that backend is selected/enabled. Public/restricted egress policy and credential
+ownership remain explicit; Codex CLI owns ChatGPT authentication and ActaKit never
+inspects or stores those credentials.
+
+`WORKBENCH-001` may now freeze/implement the generic boundary under these design
+inputs, but production implementation still requires its formal gate. Public
+leaderboards do not choose the stack.
 
 **WP4C implementation gate:** unsupported or low-quality extraction fails visibly
 or escalates without corrupting original custody; the selected ladder passes the

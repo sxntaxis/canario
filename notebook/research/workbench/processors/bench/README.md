@@ -87,16 +87,19 @@ The current runner records normalized CER/WER, token precision/recall, required-
 row recovery, elapsed time, process-tree peak RSS and Tesseract word-confidence statistics. These
 measurements inform typed evidence and policy; they do not create a universal confidence score.
 
-## Cloud/OpenAI bench rule
+## Cloud/Codex bench rule
 
-OpenAI is a first-class cloud D5 candidate, but the bench must require an explicit host model and secret.
-Do not hard-code a default API key or silently choose a model. A cloud result must record provider/model,
-request-template identity, input pages/bytes sent, latency, reported usage/cost inputs and the applicable
-retention/data-control profile. The secret value is never recorded.
+The official Codex CLI authenticated through a ChatGPT subscription is the reference
+subscription-backed agent executor. The CLI owns ChatGPT authentication; ActaKit
+and the bench do not inspect auth files or persist credentials. Only public or
+explicitly approved egress is allowed under source policy, and results record
+non-secret executor/model/request identity, bytes/pages sent, latency and the
+applicable data-control profile.
 
-An OpenAI-compatible endpoint is evaluated as a transport capability profile, not assumed feature parity.
-
-The benchmark intentionally keeps provider invocation separate from scoring. A host-side OpenAI/Mistral/compatible runner may use its secret in process memory/environment, write only the derived text into `work/`, then `record_cloud_text_run.py` computes the same truth metrics and produces a non-secret evidence record. This prevents the benchmark recorder itself from becoming a credential store or premature production provider abstraction.
+Provider APIs remain optional deployment venues with their own secret, cost,
+retention and egress controls. OpenAI-compatible endpoints remain capability-gated
+transport escape hatches, not assumed feature parity. No universal backend/model
+winner is frozen, and provider invocation remains separate from scoring.
 
 ## Gate outcome
 

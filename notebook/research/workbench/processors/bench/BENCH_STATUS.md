@@ -99,12 +99,16 @@ Controlled coverage now exercises:
 - mixed native + scan;
 - malformed/truncated PDF.
 
-The natural increment added five ignored source artifacts: a certified Esparza
-39-page born-digital PDF, its HTML listing, an official Esparza DOCX, FECOMUDI
-Sesion Ordinaria 14-2025 (56 pages), and Quepos Acta 086-2021 (35 pages). All
-natural material is `UNSCORED_NATURAL`. The listing exposes 40 public DOCX links.
-Cartago could not be promoted: local TLS verification failed and an explicit
-retry returned HTTP 404.
+The natural source artifacts remain hash-recorded: a certified Esparza 39-page
+born-digital PDF, its HTML listing, an official Esparza DOCX, FECOMUDI Sesion
+Ordinaria 14-2025 (56 pages), Quepos Acta 086-2021 (35 pages), and an official
+spreadsheet. Two selected real civic-layout pages, Esparza p4 and Quepos p14,
+have independent truth and scored controlled-degradation D1/D2/Codex evidence.
+Other actual natural artifacts/pages remain `UNSCORED_NATURAL`; the bounded actual
+natural Codex diagnostic is also unscored without independent truth. Direct
+spreadsheet structured evidence is recorded separately. The listing exposes 40
+public DOCX links. Cartago could not be promoted: local TLS verification failed
+and an explicit retry returned HTTP 404.
 
 Natural D1 inventory found non-empty Poppler text on every page of the three
 natural PDFs. This is coverage/behavior evidence only, not quality scoring.
@@ -125,15 +129,11 @@ Residual specialized work after the generic gate:
 
 ## Cloud benchmark boundary
 
-Cloud remains benchmark-first-class but explicit. A cloud attempt must record executor/model,
-request-template identity, pages/bytes egressed, latency, and non-secret execution policy. Codex is
-classified as a subscription-backed agent executor whose CLI owns authentication and remote execution;
-it is not treated as an API transport or OAuth workaround. API-key/token values never enter benchmark
-artifacts.
-
-The bench intentionally does not hard-code an OpenAI model default. The local operator supplies the exact
-model being evaluated; that model identity becomes evidence. OpenAI-compatible endpoints are recorded as
-capability profiles rather than assumed equivalent from URL shape.
+The official Codex CLI is the reference subscription-backed agent executor; its
+CLI owns authentication and remote execution, and the bench never inspects auth
+files. Public/approved egress is required. Provider APIs remain optional venues
+with independent secret/cost/retention controls. OpenAI-compatible endpoints are
+capability-gated transport profiles rather than assumed equivalent from URL shape.
 
 ## Gate
 
