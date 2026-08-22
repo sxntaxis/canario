@@ -56,6 +56,12 @@ explicit `whole:v1` target. Ordered multi-target requests are persisted in
 
 Failed runs therefore retain exact scope even when they produce no derivative.
 
+Every material derivative produced by one ProcessRun is attributed to that run's
+**full ordered input scope**. WORKBENCH-001 deliberately does not add an arbitrary
+per-output edge language. If an adapter needs narrower provenance for separate
+outputs, it must split those outputs into separate bounded ProcessRuns/scopes (or
+produce one combined derivative for the batched scope).
+
 ### 3. Processor capability and venue are orthogonal
 
 A `ProcessorDescriptor` carries a registered semantic `capability_key`, trusted
@@ -117,9 +123,11 @@ official Codex CLI. WORKBENCH-001 contains no Codex credential handling.
 ### 8. Replay and identity
 
 `ProcessingRequest.process_run_id` is the stable canonical retry token. If that
-run already exists, the host verifies immutable descriptor/input provenance and
-returns the persisted receipt without invoking the processor again. Reusing the
-same ID with different immutable input or descriptor data fails loudly.
+run already exists, the host verifies immutable capability/configuration/input
+provenance and returns the persisted receipt **before processor resolution**, so a
+canonical retry does not depend on the historical adapter still being installed.
+A concurrent same-ID write is additionally checked against the exact selected
+descriptor. Reusing the same ID with different immutable request data fails loudly.
 
 A newly allocated ProcessRun ID is a genuinely distinct attempt even when input
 bytes/configuration are identical. Physical derivative bytes may deduplicate by

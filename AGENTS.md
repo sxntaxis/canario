@@ -76,8 +76,9 @@ Inbox.
 
 The processor state-of-the-art research package lives at
 `notebook/research/workbench/processors/`. The Civic Processor Bench is closed and
-the generic `WORKBENCH-001` boundary is freeze-ready. The next authorized unit is
-the formal `WORKBENCH-001` design/implementation gate, not ad-hoc processor code.
+the generic `WORKBENCH-001` boundary is now implemented in `actakit/processors/`.
+That implementation remains **certification-pending**; do not add concrete backend
+adapters until the independent WORKBENCH-001 certification gate closes.
 The accepted reference path is a curated built-in escalation ladder, not a
 processor marketplace:
 
@@ -118,10 +119,11 @@ Rules for agents/contributors:
 - original custody is immutable and AI output never authenticates itself as source
   evidence.
 
-The current gate is closed for the generic boundary: use typed/namespaced
-`QualityEvidence`, explicit egress policy, immutable custody and visible failure or
-escalation. Do not create production `actakit/processors` merely because research
-is closed; implementation requires the formal `WORKBENCH-001` gate and design.
+The generic boundary now requires exact target-backed ProcessRun inputs,
+typed/namespaced `QualityEvidence`, a separate durable quality decision, explicit
+egress provenance, immutable custody and visible failure/escalation. Processor
+implementations never receive SQLite/archive authority. The next gate is independent
+certification of WORKBENCH-001; only after that may a concrete D0/D1 adapter land.
 
 Exact developer-host fingerprinting is not durable project evidence. Do not persist
 hostname, username, exact kernel/distribution build, exact CPU/GPU model, total

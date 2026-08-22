@@ -216,6 +216,17 @@ redacted public derivative
 Document semantics and locator semantics are independent. An acta can be PDF,
 HTML, scan, or transcript; an informe can use the same representation formats.
 
+WORKBENCH-001 makes transformation attempts first-class without creating a generic
+operation graph. A processor receives retained bytes plus explicit registered
+RepresentationTarget scope, never a caller-controlled path. The core Workbench
+persists one terminal ProcessRun, its ordered exact inputs, typed/namespaced
+QualityEvidence, a separate policy decision, and any derived Representation bytes.
+Processors themselves cannot write SQLite/archive state. Capability and execution
+venue are orthogonal, so `visual_transcribe` may later be satisfied by Codex, a
+provider API, or an optional local model without changing custody or policy
+contracts. Cloud egress is authorized before invocation and credentials stay with
+the trusted executor boundary. The Workbench inherits `restricted` onto its derivatives and has no declassification authority; a later explicit reviewed redaction/release operation may publish a `redacted_derivative` without mutating the restricted original.
+
 Evidence locators therefore follow the representation:
 
 ```text

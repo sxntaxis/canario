@@ -188,14 +188,18 @@ that backend is selected/enabled. Public/restricted egress policy and credential
 ownership remain explicit; Codex CLI owns ChatGPT authentication and ActaKit never
 inspects or stores those credentials.
 
-`WORKBENCH-001` may now freeze/implement the generic boundary under these design
-inputs, but production implementation still requires its formal gate. Public
+`WORKBENCH-001` has now implemented the generic boundary under these design inputs.
+It rebaselines prerelease `0001` to persist exact ProcessRun inputs, non-secret
+egress provenance, typed/namespaced QualityEvidence, and a quality decision that
+is distinct from execution outcome. `WorkbenchWriter` owns derivative custody;
+processors never receive SQLite/archive authority. The implementation is pending
+independent certification before concrete adapters are authorized. Public
 leaderboards do not choose the stack.
 
-**WP4C implementation gate:** unsupported or low-quality extraction fails visibly
-or escalates without corrupting original custody; the selected ladder passes the
-Civic Processor Bench with pinned backend/model/license identities and bounded
-resource/egress policy.
+**WP4C implementation gate:** certify the generic substrate, then add the concrete
+reference adapters in bounded units. Unsupported or low-quality extraction fails
+visibly or escalates without corrupting original custody. Backend/model/license
+pins are required when that backend is actually selected.
 
 ## WP5 — Lector and Claim Extraction
 

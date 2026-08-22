@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: CIVIC_PROCESSOR_BENCH_COMPLETE__WORKBENCH_001_FREEZE_READY
+state: WORKBENCH_001_IMPLEMENTED__CERTIFICATION_PENDING
 created: 2026-08-19
 updated: 2026-08-22
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: Ingress and the Esparza shadow connector are certified; the Civic Processor Bench supports freezing the generic Processor boundary and reference escalation policy, while production processor implementation and specialized backend selection remain deferred.
+summary: The generic WORKBENCH-001 Processor boundary is implemented on a rebaselined prerelease 0001 with exact scope, typed QualityEvidence, durable quality decisions, derivative custody, replay and egress policy; independent local certification is pending before concrete adapters are authorized.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -92,8 +92,9 @@ accepted semantic contracts
 -> certified INGRESS-001 Source Connector SPI + Inbox
 -> certified Esparza connector and bounded real network shadow dogfood
 -> processor state-of-the-art Source Books + synthesis complete
--> Civic Processor Bench complete (WORKBENCH-001 generic boundary freeze-ready; specialized backend work deferred)
--> Representation processor implementation after benchmark selection
+-> Civic Processor Bench complete (generic boundary freeze-ready)
+-> WORKBENCH-001 generic processor substrate implemented; independent certification pending
+-> concrete D0/D1 reference adapter only after certification
 -> semantic writers and explicit canonical-cutover gate later
 ```
 
@@ -101,14 +102,19 @@ Migration `0001` implementation was authorized by
 `notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md` only for the
 fresh-database bootstrap/runtime boundary and is now certified by
 `notebook/research/pre-sql/schema/MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`.
-The frozen SQL hash is:
+WORKBENCH-001 required a prerelease `0001` rebaseline so exact ProcessRun scope,
+typed quality evidence, quality decisions, and egress provenance survive restart.
+The current implementation candidate SQL hash is:
 
 ```text
-31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
+adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a
 ```
 
-No production code may silently alter that SQL contract. A changed specification
-must return to freeze review and target-runtime recertification.
+The prior `31cac5...` hash remains historical evidence. Because this checkout does
+not contain the certified SQLite 3.53.4 runtime, the new baseline has passed the
+portable schema/freeze/storage proofs here but still requires independent repeat
+on the registered runtime before certification. No `0002` exists: prerelease policy
+requires rebaselining `0001` instead.
 
 The implementation certification does not authorize canonical cutover or
 production semantic writers. The bounded Depósito writer is now certified by
@@ -139,8 +145,9 @@ checkpoint persistence remain unfrozen.
 
 The state-of-the-art package at
 `notebook/research/workbench/processors/` is complete for the selection horizon.
-It does **not** authorize an `actakit/processors` implementation. The research
-selects a benchmark slate and an escalation philosophy:
+It authorized the now-implemented generic `actakit/processors` boundary while
+leaving concrete backend adapters for later certified units. The closed research
+selected this escalation philosophy:
 
 ```text
 native/direct parse
@@ -163,10 +170,11 @@ Cloud frontier capacity is optional but first-class: a weak host may escalate to
 bounded Codex escalation instead of attempting a heavyweight local VLM, while
 no-egress deployments remain fully local.
 
-No universal numeric processor confidence is accepted. The pending design uses
-typed, processor-attributable `QualityEvidence` and policy decisions equivalent
-to `ACCEPT | ESCALATE | QUARANTINE_REVIEW`. Every transformation remains a
-derived Representation with ProcessRun provenance; original custody is immutable.
+No universal numeric processor confidence is accepted. WORKBENCH-001 now stores
+typed, processor-attributable `QualityEvidence` plus a separate durable policy
+decision (`ACCEPT | ESCALATE | QUARANTINE_REVIEW`) for each exact input target.
+Every material transformation remains a derived Representation with ProcessRun
+provenance; original custody is immutable.
 
 **Current gate:** the closure bench has exact natural Esparza, FECOMUDI, Quepos and
 spreadsheet artifacts, corrected page-level D2 evidence with process-tree RSS,
@@ -185,8 +193,9 @@ never enter SQLite, ProcessRun evidence or logs.
 
 - No canonical-data cutover or historical mass import is authorized yet.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
-- No semantic Fichero, Claim, review, purge, or archive/GC writer is authorized
-  beyond the bounded Depósito custody writer certified in this checkpoint.
+- No semantic Fichero, Claim, civic-review, purge, or archive/GC writer is authorized.
+  The only additional canonical writer in the WORKBENCH-001 candidate is the bounded
+  processor provenance/QualityEvidence/derived-Representation writer.
 - The Esparza Source Connector is certified only as a bounded shadow-mode SPI
   consumer. Its two dogfood runs do not modify the current scraper/Hilo path and
   are not canonical. Coverage is unknown because the runs were intentionally

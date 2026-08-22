@@ -119,14 +119,14 @@ universal numeric confidence spans these engines: preserve typed quality evidenc
 and let core policy accept, escalate or quarantine/review. Original custody is
 immutable; every processor attempt/output is attributable.
 
-**Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion, the processor
-state-of-the-art package and Civic Processor Bench are complete. The generic
-`WORKBENCH-001` boundary is freeze-ready. Next Phase-3 work is `WORKBENCH-001`
-design/implementation authorization grounded in the closure evidence. Exact
-pins/licenses for optional backends become required only when selected/enabled;
-public/restricted egress policy and credential ownership remain explicit.
-Unsupported or low-quality extraction must fail visibly or escalate without
-corrupting custody.
+**Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion, processor
+research and the Civic Processor Bench are complete. The generic `WORKBENCH-001`
+boundary is implemented with exact target-backed run scope, typed QualityEvidence,
+separate durable quality decisions, safe derived custody, replay semantics and
+explicit egress policy. Independent certification is now required before the first
+concrete D0/D1 adapter. Exact pins/licenses for optional backends become required
+only when selected/enabled. Unsupported or low-quality extraction must fail
+visibly or escalate without corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 

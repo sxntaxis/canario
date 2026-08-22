@@ -70,6 +70,10 @@ Final SQL may merge/split these after fixture/query tests.
 | archive object | physical content-addressed bytes, digest/size/storage key, availability |
 | artifact | logical acquisition/custody identity pointing to physical bytes; validation/availability independent of digest |
 | representation | original view of Artifact bytes or material derivative with own bytes + exact parent + attributable generation provenance |
+| process run + exact inputs | terminal processor provenance plus ordered exact RepresentationTarget scope, including failed attempts |
+| quality evidence | typed/namespaced processor-attributable runtime signals for one exact run target; no universal confidence |
+| quality decision | ACCEPT/ESCALATE/QUARANTINE_REVIEW policy result separate from execution outcome, with policy/version/reason provenance |
+| process egress | non-secret egress bytes/profile/template provenance for cloud/agent runs; credentials remain external |
 | civic document identity + revisions | stable civic identity separate from representation; title/issuer/date/language corrections are revisioned |
 | claim identity + revisions | proposition lineage, origin, lifecycle, attribution/time/flags |
 | evidence link | exact claim revision -> representation locator + evidence relation |
@@ -90,7 +94,6 @@ Final SQL may merge/split these after fixture/query tests.
 | document parts | meaningful internal structure improves citation/query integrity |
 | civic collections + memberships | expediente/package/case spans multiple documents |
 | profile data | acta/report/budget semantics need validated specialized fields |
-| explicit processing-run record | one execution produces many outputs or replay/audit needs shared run identity |
 | typed association/event | a relationship carries independent role/time/amount/term identity that does not fit ClaimRelation |
 | explicit correction/purge event | retraction/redaction/public correction/unlinking/purge itself matters |
 | batch review record | compact subject-set representation cannot be reconstructed cleanly from decisions alone |
