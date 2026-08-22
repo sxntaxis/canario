@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: WORKBENCH_001_IMPLEMENTED__CERTIFICATION_PENDING
+state: PROCESSOR_DIRECT_001_IMPLEMENTED__CERTIFICATION_PENDING
 created: 2026-08-19
 updated: 2026-08-22
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The generic WORKBENCH-001 Processor boundary is implemented on a rebaselined prerelease 0001 with exact scope, typed QualityEvidence, durable quality decisions, derivative custody, replay and egress policy; independent local certification is pending before concrete adapters are authorized.
+summary: WORKBENCH-001 is independently certified on the exact registered SQLite 3.53.4 runtime. PROCESSOR-DIRECT-001 now implements the first concrete Poppler born-digital PDF adapter on that frozen boundary and awaits independent adapter certification.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -92,9 +92,10 @@ accepted semantic contracts
 -> certified INGRESS-001 Source Connector SPI + Inbox
 -> certified Esparza connector and bounded real network shadow dogfood
 -> processor state-of-the-art Source Books + synthesis complete
--> Civic Processor Bench complete (generic boundary freeze-ready)
--> WORKBENCH-001 generic processor substrate implemented; independent certification pending
--> concrete D0/D1 reference adapter only after certification
+-> Civic Processor Bench complete
+-> WORKBENCH-001 generic processor substrate independently certified
+-> PROCESSOR-DIRECT-001 Poppler native-PDF adapter implemented; independent certification pending
+-> D2 OCR adapter only after direct-adapter certification
 -> semantic writers and explicit canonical-cutover gate later
 ```
 
@@ -110,11 +111,10 @@ The current implementation candidate SQL hash is:
 adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a
 ```
 
-The prior `31cac5...` hash remains historical evidence. Because this checkout does
-not contain the certified SQLite 3.53.4 runtime, the new baseline has passed the
-portable schema/freeze/storage proofs here but still requires independent repeat
-on the registered runtime before certification. No `0002` exists: prerelease policy
-requires rebaselining `0001` instead.
+The prior `31cac5...` hash remains historical evidence. The rebaselined `0001`
+was independently certified on the exact registered upstream SQLite 3.53.4 source
+ID; the first attempt correctly rejected a patched build with a mismatched source
+ID. No `0002` exists: prerelease policy requires rebaselining `0001` instead.
 
 The implementation certification does not authorize canonical cutover or
 production semantic writers. The bounded Depósito writer is now certified by
@@ -145,8 +145,8 @@ checkpoint persistence remain unfrozen.
 
 The state-of-the-art package at
 `notebook/research/workbench/processors/` is complete for the selection horizon.
-It authorized the now-implemented generic `actakit/processors` boundary while
-leaving concrete backend adapters for later certified units. The closed research
+It authorized the generic `actakit/processors` boundary, which is now independently
+certified, and concrete backends now land as separate bounded adapter units. The closed research
 selected this escalation philosophy:
 
 ```text
@@ -176,12 +176,15 @@ decision (`ACCEPT | ESCALATE | QUARANTINE_REVIEW`) for each exact input target.
 Every material transformation remains a derived Representation with ProcessRun
 provenance; original custody is immutable.
 
-**Current gate:** the closure bench has exact natural Esparza, FECOMUDI, Quepos and
-spreadsheet artifacts, corrected page-level D2 evidence with process-tree RSS,
-independent truth for two natural hard pages, and controlled plus diagnostic
-official Codex CLI runs. The generic Processor boundary, typed QualityEvidence,
-page/block escalation, immutable custody and explicit egress policy are
-freeze-ready. Docling is optional rather than default because its disposable
+**Current gate:** the generic Workbench boundary is certified. The first concrete
+D0/D1 candidate, `PROCESSOR-DIRECT-001`, uses the trusted Poppler `pdftotext` /
+`pdfinfo` / `pdfimages` CLI suite for born-digital PDF under explicit whole/page
+scope. It emits page-presence/coverage/character/raster evidence, creates only
+`extracted_text` derivatives through `WorkbenchWriter`, and escalates empty or
+mixed native-page coverage rather than accepting Poppler exit status as quality.
+The closure bench retains exact natural Esparza, FECOMUDI, Quepos and spreadsheet
+artifacts, corrected page-level D2 evidence with process-tree RSS, independent truth
+for two natural hard pages, and controlled plus diagnostic official Codex CLI runs. Docling is optional rather than default because its disposable
 footprint was material and no quality advantage was measured. Exact pins for
 future optional backends, broader natural thresholds, handwriting and
 multi-column coverage remain follow-up work. Personal Plus/Pro Codex use is
@@ -194,7 +197,7 @@ never enter SQLite, ProcessRun evidence or logs.
 - No canonical-data cutover or historical mass import is authorized yet.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
 - No semantic Fichero, Claim, civic-review, purge, or archive/GC writer is authorized.
-  The only additional canonical writer in the WORKBENCH-001 candidate is the bounded
+  The only additional certified canonical writer is the bounded Workbench
   processor provenance/QualityEvidence/derived-Representation writer.
 - The Esparza Source Connector is certified only as a bounded shadow-mode SPI
   consumer. Its two dogfood runs do not modify the current scraper/Hilo path and

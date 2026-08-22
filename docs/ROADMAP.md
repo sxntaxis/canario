@@ -120,12 +120,14 @@ and let core policy accept, escalate or quarantine/review. Original custody is
 immutable; every processor attempt/output is attributable.
 
 **Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion, processor
-research and the Civic Processor Bench are complete. The generic `WORKBENCH-001`
-boundary is implemented with exact target-backed run scope, typed QualityEvidence,
-separate durable quality decisions, safe derived custody, replay semantics and
-explicit egress policy. Independent certification is now required before the first
-concrete D0/D1 adapter. Exact pins/licenses for optional backends become required
-only when selected/enabled. Unsupported or low-quality extraction must fail
+research, the Civic Processor Bench, and the generic `WORKBENCH-001` substrate are
+complete; WORKBENCH-001 is independently certified on the registered SQLite 3.53.4
+runtime. `PROCESSOR-DIRECT-001` is now the first concrete adapter candidate:
+Poppler born-digital PDF extraction with explicit whole/page scope, deterministic
+UTF-8/layout output, page-level native-text evidence, and visible escalation for
+empty/mixed native coverage. Independent adapter certification is the next gate;
+D2 OCR lands only after it closes. Exact pins/licenses for optional backends become
+mandatory when selected/enabled. Unsupported or low-quality extraction must fail
 visibly or escalate without corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction

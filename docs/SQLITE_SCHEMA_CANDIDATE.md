@@ -656,6 +656,17 @@ rules:
   - when offsets are present, text[start_char:end_char] == exact exactly
 ```
 
+`pdf_page:v1`
+
+```text
+required: page_ordinal
+optional: page_label
+rules:
+  - page_ordinal is a 1-based physical page sequence
+  - page_label is corroborating display metadata, never the physical coordinate
+  - this selector denotes the full physical page as a processing scope
+```
+
 `pdf_page_quote:v1`
 
 ```text

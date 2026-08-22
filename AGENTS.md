@@ -76,9 +76,10 @@ Inbox.
 
 The processor state-of-the-art research package lives at
 `notebook/research/workbench/processors/`. The Civic Processor Bench is closed and
-the generic `WORKBENCH-001` boundary is now implemented in `actakit/processors/`.
-That implementation remains **certification-pending**; do not add concrete backend
-adapters until the independent WORKBENCH-001 certification gate closes.
+the generic `WORKBENCH-001` boundary in `actakit/processors/` is independently
+certified on the exact registered SQLite 3.53.4 runtime. Concrete adapters must
+land as bounded units on that frozen boundary rather than redesigning custody,
+QualityEvidence, scope or egress around one backend.
 The accepted reference path is a curated built-in escalation ladder, not a
 processor marketplace:
 
@@ -119,11 +120,13 @@ Rules for agents/contributors:
 - original custody is immutable and AI output never authenticates itself as source
   evidence.
 
-The generic boundary now requires exact target-backed ProcessRun inputs,
+The generic boundary requires exact target-backed ProcessRun inputs,
 typed/namespaced `QualityEvidence`, a separate durable quality decision, explicit
 egress provenance, immutable custody and visible failure/escalation. Processor
-implementations never receive SQLite/archive authority. The next gate is independent
-certification of WORKBENCH-001; only after that may a concrete D0/D1 adapter land.
+implementations never receive SQLite/archive authority. `PROCESSOR-DIRECT-001` is
+the first concrete adapter candidate: Poppler native PDF extraction under explicit
+`whole:v1` or `pdf_page:v1` scope. It must escalate empty/mixed native coverage
+instead of treating a successful Poppler return code as completeness.
 
 Exact developer-host fingerprinting is not durable project evidence. Do not persist
 hostname, username, exact kernel/distribution build, exact CPU/GPU model, total

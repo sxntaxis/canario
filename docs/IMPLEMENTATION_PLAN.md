@@ -188,18 +188,25 @@ that backend is selected/enabled. Public/restricted egress policy and credential
 ownership remain explicit; Codex CLI owns ChatGPT authentication and ActaKit never
 inspects or stores those credentials.
 
-`WORKBENCH-001` has now implemented the generic boundary under these design inputs.
-It rebaselines prerelease `0001` to persist exact ProcessRun inputs, non-secret
-egress provenance, typed/namespaced QualityEvidence, and a quality decision that
-is distinct from execution outcome. `WorkbenchWriter` owns derivative custody;
-processors never receive SQLite/archive authority. The implementation is pending
-independent certification before concrete adapters are authorized. Public
-leaderboards do not choose the stack.
+`WORKBENCH-001` has implemented and independently certified the generic boundary
+under these design inputs. It rebaselines prerelease `0001` to persist exact
+ProcessRun inputs, non-secret egress provenance, typed/namespaced QualityEvidence,
+and a quality decision distinct from execution outcome. `WorkbenchWriter` owns
+derivative custody; processors never receive SQLite/archive authority.
 
-**WP4C implementation gate:** certify the generic substrate, then add the concrete
-reference adapters in bounded units. Unsupported or low-quality extraction fails
-visibly or escalates without corrupting original custody. Backend/model/license
-pins are required when that backend is actually selected.
+`PROCESSOR-DIRECT-001` is the first concrete bounded adapter candidate. It uses
+Poppler `pdftotext` + `pdfinfo` + `pdfimages` for `application/pdf`, explicit
+`whole:v1` / `pdf_page:v1` processing scope, deterministic UTF-8/layout output,
+and registered native-text/raster evidence. A successful Poppler exit with empty
+or mixed native page coverage escalates instead of masquerading as a complete
+extraction. `pdf_page_quote:v1` remains an evidence locator and is deliberately not
+overloaded as a whole-page processing selector.
+
+**WP4C implementation gate:** independently certify PROCESSOR-DIRECT-001 against
+the tracked controlled fixture and exact hash-recorded natural Esparza page when
+available; then add D2 OCR in its own bounded unit. Unsupported or low-quality
+extraction fails visibly or escalates without corrupting original custody.
+Backend/model/license pins are required when that backend is actually selected.
 
 ## WP5 — Lector and Claim Extraction
 

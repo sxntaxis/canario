@@ -218,8 +218,10 @@ HTML, scan, or transcript; an informe can use the same representation formats.
 
 WORKBENCH-001 makes transformation attempts first-class without creating a generic
 operation graph. A processor receives retained bytes plus explicit registered
-RepresentationTarget scope, never a caller-controlled path. The core Workbench
-persists one terminal ProcessRun, its ordered exact inputs, typed/namespaced
+RepresentationTarget scope, never a caller-controlled path. `pdf_page:v1`
+represents a whole physical PDF page for processing while `pdf_page_quote:v1`
+remains an evidence locator with quote context. The core Workbench persists one
+terminal ProcessRun, its ordered exact inputs, typed/namespaced
 QualityEvidence, a separate policy decision, and any derived Representation bytes.
 Processors themselves cannot write SQLite/archive state. Capability and execution
 venue are orthogonal, so `visual_transcribe` may later be satisfied by Codex, a
