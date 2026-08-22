@@ -92,7 +92,6 @@ accepted semantic contracts
 -> certified INGRESS-001 Source Connector SPI + Inbox
 -> certified Esparza connector and bounded real network shadow dogfood
 -> processor state-of-the-art Source Books + synthesis complete
--> Civic Processor Bench IN PROGRESS (natural corpus + D1 PASS; D2-D5 partial)
 -> Civic Processor Bench PARTIAL (controlled D1/D2/Codex; natural/D3 partial)
 -> Representation processor implementation after benchmark selection
 -> semantic writers and explicit canonical-cutover gate later
