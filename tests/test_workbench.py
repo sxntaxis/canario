@@ -359,6 +359,71 @@ class WorkbenchTests(unittest.TestCase):
         finally:
             con.close()
 
+    def test_failed_egress_attempt_can_persist_zero_bytes_before_executor_handoff_and_replay(self):
+        page = self._target(self.rep_id, "pdf_page_quote", '{"page_ordinal":4}')
+        visual = FixtureProcessor(
+            descriptor(
+                "visual_transcribe",
+                output_kinds=frozenset({"transcript"}),
+                requires_egress=True,
+                venue="subscription_agent",
+                model=True,
+            ),
+            lambda inv: ProcessorResult(
+                "failed", error_code="local_render_failed", egress_bytes=0
+            ),
+        )
+        host = WorkbenchHost(self.writer, ProcessorRegistry((visual,)))
+        run_id = new_id("prun_")
+        auth = EgressAuthorization(
+            True,
+            "public_civic",
+            "chatgpt_personal_operator_enabled",
+            "d" * 64,
+            "codex_cli",
+        )
+        request = ProcessingRequest(
+            self.rep_id, (page,), "visual_transcribe", None, auth, run_id
+        )
+        receipt = host.run_attempt(request)
+        self.assertEqual(receipt.outcome, "failed")
+        self.assertEqual(receipt.decisions[0].decision, "quarantine_review")
+        self.assertEqual(visual.calls, 1)
+
+        con = self._con()
+        try:
+            self.assertEqual(
+                con.execute(
+                    "SELECT bytes_egressed,policy_profile,data_control_profile,request_template_hash,endpoint_profile "
+                    "FROM process_run_egress WHERE process_run_id=?",
+                    (run_id,),
+                ).fetchone(),
+                (0, "public_civic", "chatgpt_personal_operator_enabled", "d" * 64, "codex_cli"),
+            )
+        finally:
+            con.close()
+
+        replay = WorkbenchHost(self.writer, ProcessorRegistry(())).run_attempt(request)
+        self.assertTrue(replay.replayed)
+        self.assertEqual(visual.calls, 1)
+
+        changed = ProcessingRequest(
+            self.rep_id,
+            (page,),
+            "visual_transcribe",
+            None,
+            EgressAuthorization(
+                True,
+                "public_civic",
+                "different_data_control",
+                "d" * 64,
+                "codex_cli",
+            ),
+            run_id,
+        )
+        with self.assertRaises(WorkbenchIdentityCollision):
+            WorkbenchHost(self.writer, ProcessorRegistry(())).run_attempt(changed)
+
     def test_restricted_source_never_invokes_egress_processor_and_ends_human_review(self):
         restricted_rep = self._capture(b"%PDF restricted", availability="restricted")
         target = self._target(restricted_rep, "whole", "{}")

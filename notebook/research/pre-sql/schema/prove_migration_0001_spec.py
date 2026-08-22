@@ -156,10 +156,21 @@ def main() -> None:
             "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
             ("pr-half-model", "proof", "proof", "1", "subscription_agent", None, "openai", None, T, T, "success", None, T),
         )
+        # Egress-capable runs may fail during local preparation before any source bytes leave
+        # the host; zero is therefore a valid actual byte count with policy provenance intact.
+        with con:
+            con.execute(
+                "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pr-cloud-zero", "visual_transcribe", "codex-proof", "1", "subscription_agent", None, "openai", "proof-model", T, T, "failed", "pre_egress_failure", T),
+            )
+            con.execute(
+                "INSERT INTO process_run_egress VALUES (?,?,?,?,?,?,?)",
+                ("pr-cloud-zero", 0, "public_civic", "operator_enabled", "e" * 64, "codex_cli", T),
+            )
         must_fail(
             con,
             "INSERT INTO process_run_egress VALUES (?,?,?,?,?,?,?)",
-            ("pr-cloud", 0, "public_civic", "operator_enabled", "e" * 64, "codex_cli", T),
+            ("pr-cloud-zero", -1, "public_civic", "operator_enabled", "e" * 64, "codex_cli", T),
         )
 
         must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-original-own-bytes", "art1", "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))

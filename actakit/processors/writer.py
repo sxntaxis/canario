@@ -582,8 +582,8 @@ class WorkbenchWriter:
                 raise WorkbenchInvariantError("restricted Artifact cannot egress")
             if not request.egress.allowed:
                 raise WorkbenchInvariantError("processor requires explicit egress authorization")
-            if result.egress_bytes is None or result.egress_bytes <= 0:
-                raise WorkbenchInvariantError("egress processor must report positive actual bytes egressed")
+            if result.egress_bytes is None:
+                raise WorkbenchInvariantError("egress processor must report actual bytes egressed")
         elif result.egress_bytes is not None:
             raise WorkbenchInvariantError("non-egress processor cannot report egress bytes")
         if len(decisions) != len(material.scopes):

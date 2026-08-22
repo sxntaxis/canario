@@ -140,7 +140,7 @@ CREATE TABLE process_runs (
 
 CREATE TABLE process_run_egress (
   process_run_id TEXT PRIMARY KEY REFERENCES process_runs(id),
-  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed > 0),
+  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed >= 0),
   policy_profile TEXT NOT NULL CHECK (length(trim(policy_profile)) > 0),
   data_control_profile TEXT NOT NULL CHECK (length(trim(data_control_profile)) > 0),
   request_template_hash TEXT,
