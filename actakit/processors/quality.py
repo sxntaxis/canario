@@ -44,6 +44,15 @@ def _nonnegative_int(value: JSONValue) -> None:
         raise QualityContractError("quality count must be a non-negative integer")
 
 
+def _positive_int_list(value: JSONValue) -> None:
+    if not isinstance(value, list) or len(value) > 4096:
+        raise QualityContractError("quality page ordinals must be a bounded list")
+    if any(isinstance(item, bool) or not isinstance(item, int) or item < 1 for item in value):
+        raise QualityContractError("quality page ordinals must be positive integers")
+    if value != sorted(set(value)):
+        raise QualityContractError("quality page ordinals must be unique and strictly ordered")
+
+
 def _word_confidence_summary(value: JSONValue) -> None:
     if not isinstance(value, dict) or set(value) != {"mean_percent", "word_count"}:
         raise QualityContractError(
@@ -63,6 +72,12 @@ DEFAULT_QUALITY_CONTRACTS: dict[tuple[str, str], QualityValidator] = {
     ("native.page_text_present", "v1"): _bool,
     ("native.page_text_coverage", "v1"): _ratio,
     ("native.replacement_character_ratio", "v1"): _ratio,
+    ("native.page_character_count", "v1"): _nonnegative_int,
+    ("native.page_raster_image_count", "v1"): _nonnegative_int,
+    ("native.selected_page_count", "v1"): _nonnegative_int,
+    ("native.empty_page_count", "v1"): _nonnegative_int,
+    ("native.empty_page_ordinals", "v1"): _positive_int_list,
+    ("native.mixed_page_modes", "v1"): _bool,
     ("ocr.word_confidence_summary", "v1"): _word_confidence_summary,
     ("ocr.page_text_coverage", "v1"): _ratio,
     ("ocr.needs_visual_review", "v1"): _bool,

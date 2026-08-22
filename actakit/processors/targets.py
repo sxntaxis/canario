@@ -50,6 +50,15 @@ def _validate_whole(payload: dict[str, JSONValue]) -> None:
         raise TargetContractError("whole:v1 selector must be exactly {}")
 
 
+def _validate_pdf_page_scope(payload: dict[str, JSONValue]) -> None:
+    _only(payload, {"page_ordinal", "page_label"})
+    ordinal = payload.get("page_ordinal")
+    if not isinstance(ordinal, int) or isinstance(ordinal, bool) or ordinal < 1:
+        raise TargetContractError("pdf_page:v1 page_ordinal must be a positive integer")
+    if "page_label" in payload:
+        _nonempty_string(payload["page_label"], "page_label")
+
+
 def _validate_pdf_page(payload: dict[str, JSONValue]) -> None:
     _only(payload, {"page_ordinal", "exact", "prefix", "suffix", "page_label"})
     ordinal = payload.get("page_ordinal")
@@ -125,6 +134,7 @@ def _validate_table_range(payload: dict[str, JSONValue]) -> None:
 
 DEFAULT_TARGET_CONTRACTS: dict[tuple[str, str], TargetValidator] = {
     ("whole", "v1"): _validate_whole,
+    ("pdf_page", "v1"): _validate_pdf_page_scope,
     ("pdf_page_quote", "v1"): _validate_pdf_page,
     ("text_quote", "v1"): _validate_text_quote,
     ("table_range", "v1"): _validate_table_range,

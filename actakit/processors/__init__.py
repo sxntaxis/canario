@@ -12,6 +12,12 @@ from .contracts import (
     TargetSnapshot,
 )
 from .host import PlanReceipt, PlannedStep, ProcessingPlan, ProcessorContractError, WorkbenchHost
+from .poppler import (
+    PopplerConfigurationError,
+    PopplerPdfTextConfig,
+    PopplerPdfTextProcessor,
+    PopplerUnavailableError,
+)
 from .quality import (
     PolicyContext,
     QualityContractError,
@@ -41,6 +47,10 @@ __all__ = [
     "PlanReceipt",
     "PlannedStep",
     "PolicyContext",
+    "PopplerConfigurationError",
+    "PopplerPdfTextConfig",
+    "PopplerPdfTextProcessor",
+    "PopplerUnavailableError",
     "ProcessingPlan",
     "ProcessingRequest",
     "Processor",
