@@ -1,0 +1,5 @@
+claim_id,evidence_refs,claim_text,claim_kind,actakit_transfer
+COD-C001,COD-S001;COD-S002,"The official Codex CLI provides a documented non-interactive codex exec surface suitable for bounded research subprocess invocation.",direct,"Keep the research harness outside actakit/ and pass only selected material plus a fixed prompt/schema."
+COD-C002,COD-S002,"codex exec supports ephemeral execution, read-only sandbox defaults, image attachments, explicit model selection and output-schema structured final responses.",direct,"Use the least-permission sandbox, --ephemeral, selected images and a committed schema; never expose the repository."
+COD-C003,COD-S001;COD-S003,"Codex can be authenticated through a ChatGPT plan separately from API-key authentication.",direct,"Classify Codex as subscription-backed agent execution; ActaKit never reads or stores the credential."
+COD-C004,COD-S003,"ChatGPT/Codex allowance and limits are account/plan dependent and are not a per-call API price signal.",direct,"Record subscription billing mode without fabricating dollar cost, quota, account identity or usage-dashboard data."

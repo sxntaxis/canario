@@ -6,8 +6,11 @@ rungs describe what capability is needed; deployment policy chooses where a qual
 ## Provider classes in the current research horizon
 
 ```text
-first-party frontier cloud
-  -> OpenAI API candidate
+subscription-backed agent executor
+  -> official Codex CLI + ChatGPT subscription (primary reference path)
+
+first-party frontier API
+  -> OpenAI API candidate (optional)
 
 specialized cloud Document AI
   -> Mistral OCR candidate
@@ -49,6 +52,8 @@ Credential values are **host secrets**. They are never civic evidence and are ne
 
 A later implementation may resolve a non-secret credential slot from environment variables, an OS secret
 service/keyring or deployment secret manager. The research package does not freeze that mechanism yet.
+The Codex path is different: the official CLI owns ChatGPT sign-in and refresh; ActaKit must invoke it as a
+bounded executor without taking custody of that credential material.
 
 ## Egress policy
 
@@ -80,5 +85,6 @@ D4/D5 required
   -> if neither qualified: QUARANTINE_REVIEW
 ```
 
-This lets a modest laptop use frontier cloud capacity without making cloud mandatory for installations
-that need offline/no-egress operation.
+For the reference deployment, a modest laptop may use subscription-backed Codex without a separate ActaKit
+API key or per-token API account. This does not imply that the subscription is free or unlimited, and it
+does not make cloud mandatory for installations that need offline/no-egress operation.

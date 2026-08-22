@@ -1,0 +1,207 @@
+{
+  "bench_state": "CIVIC_PROCESSOR_BENCH_PARTIAL__D2_LIGHTWEIGHT_LOCAL",
+  "environment": {
+    "python": "3.14.7",
+    "ocrmypdf": "17.10.0",
+    "tesseract": "tesseract 5.5.3",
+    "qpdf": "qpdf version 12.4.0",
+    "ghostscript": "10.07.1",
+    "tesseract_languages": "spa+eng+osd"
+  },
+  "runs": [
+    {
+      "backend": "ocrmypdf+tesseract",
+      "label": "clean_scan_300",
+      "input_sha256": "25af1e8ea3decfcae4fe76b73e47c3322dde0e6fe3e835dd5b1d034032809ee8",
+      "input_bytes": 336136,
+      "config": {
+        "language": "spa+eng",
+        "deskew": true,
+        "rotate_pages": true,
+        "force_ocr": true,
+        "mixed_skip_existing_text": false
+      },
+      "returncode": 0,
+      "stderr": "    1 page is facing \u21e7, confidence 4.85 - no change\nParsing 1 pages with HocrParser\nPostprocessing...\nImage optimization ratio: 2.31 savings: 56.7%\nTotal file size ratio: 2.34 savings: 57.2%\n",
+      "wall_seconds": 5.081284323998261,
+      "max_rss_kib": null,
+      "output_sha256": "aa8c662b3362f1b49af4f462d72f4ff4a03f297c1405d8503f1a7222206639ea",
+      "output_bytes": 143915,
+      "output_size_expansion": 0.42814515553228455,
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.01167883211678832,
+        "wer": 0.07766990291262135,
+        "token_precision": 0.9223300970873787,
+        "token_recall": 0.9223300970873787,
+        "token_f1": 0.9223300970873787,
+        "unexpected_token_count": 8,
+        "missing_token_count": 8,
+        "required_span_recall": 0.42857142857142855,
+        "required_span_hits": [
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC"
+        ]
+      },
+      "page_1_text_chars": 1216,
+      "page_2_text_chars": 0
+    },
+    {
+      "backend": "ocrmypdf+tesseract",
+      "label": "lowdpi_110",
+      "input_sha256": "34abf964967b439d384a7b6481b73548b49411f71a6d0f3d9ab6efb05cb2c4b2",
+      "input_bytes": 71865,
+      "config": {
+        "language": "spa+eng",
+        "deskew": true,
+        "rotate_pages": true,
+        "force_ocr": true,
+        "mixed_skip_existing_text": false
+      },
+      "returncode": 0,
+      "stderr": "    1 [tesseract] Too few characters. Skipping this page\n    1 [tesseract] Error during processing.\n    1 page is facing \u21e7, confidence 0.00 - no change\nParsing 1 pages with HocrParser\nPostprocessing...\nImage optimization ratio: 1.59 savings: 36.9%\nTotal file size ratio: 1.42 savings: 29.5%\n",
+      "wall_seconds": 2.3749885260040173,
+      "max_rss_kib": null,
+      "output_sha256": "8d1f82a7909adc47ea68d19ebe83b3041fa63340b4ff8b80fb4cabe536981561",
+      "output_bytes": 50776,
+      "output_size_expansion": 0.7065469978431782,
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 682,
+        "cer": 0.02335766423357664,
+        "wer": 0.14563106796116504,
+        "token_precision": 0.8627450980392157,
+        "token_recall": 0.8543689320388349,
+        "token_f1": 0.8585365853658536,
+        "unexpected_token_count": 14,
+        "missing_token_count": 15,
+        "required_span_recall": 0.42857142857142855,
+        "required_span_hits": [
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC"
+        ]
+      },
+      "page_1_text_chars": 1146,
+      "page_2_text_chars": 0
+    },
+    {
+      "backend": "ocrmypdf+tesseract",
+      "label": "skew_noise_300",
+      "input_sha256": "9e552413cb5b921253668fb0817081327decb26482eee3bed7ad86256d401678",
+      "input_bytes": 348710,
+      "config": {
+        "language": "spa+eng",
+        "deskew": true,
+        "rotate_pages": true,
+        "force_ocr": true,
+        "mixed_skip_existing_text": false
+      },
+      "returncode": 0,
+      "stderr": "    1 page is facing \u21e7, confidence 8.51 - no change\nParsing 1 pages with HocrParser\nPostprocessing...\nImage optimization ratio: 1.47 savings: 31.9%\nTotal file size ratio: 1.46 savings: 31.6%\n",
+      "wall_seconds": 5.42529155399825,
+      "max_rss_kib": null,
+      "output_sha256": "4f14b745ea5ec43a75519abd3572e8ca5689717811bf9217941edc828cec9743",
+      "output_bytes": 238677,
+      "output_size_expansion": 0.6844569986521751,
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 699,
+        "cer": 0.4686131386861314,
+        "wer": 0.7184466019417476,
+        "token_precision": 0.6810344827586207,
+        "token_recall": 0.7669902912621359,
+        "token_f1": 0.7214611872146118,
+        "unexpected_token_count": 37,
+        "missing_token_count": 24,
+        "required_span_recall": 0.42857142857142855,
+        "required_span_hits": [
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC"
+        ]
+      },
+      "page_1_text_chars": 2029,
+      "page_2_text_chars": 0
+    },
+    {
+      "backend": "ocrmypdf+tesseract",
+      "label": "mixed_native_scan",
+      "input_sha256": "0bea8d06ace688a502ef8051630316c84e2ed60a9498487610d7b613ea5f3c88",
+      "input_bytes": 450177,
+      "config": {
+        "language": "spa+eng",
+        "deskew": true,
+        "rotate_pages": true,
+        "force_ocr": false,
+        "mixed_skip_existing_text": true
+      },
+      "returncode": 0,
+      "stderr": "Starting processing with 2 workers concurrently\n    1 skipping all processing on this page\n    2 page is facing \u21e7, confidence 4.85 - no change\nParsing 1 pages with HocrParser\nPostprocessing...\nImage optimization ratio: 1.82 savings: 44.9%\nTotal file size ratio: 1.84 savings: 45.7%\n",
+      "wall_seconds": 4.75413766199199,
+      "max_rss_kib": null,
+      "output_sha256": "a8dd3f275056ed8e43ec65efface099df45f0df24f264fe85e6cdd5979ca994c",
+      "output_bytes": 231175,
+      "output_size_expansion": 0.5135202375954346,
+      "metrics": {
+        "truth_chars": 1371,
+        "observed_chars": 1371,
+        "cer": 0.005835156819839533,
+        "wer": 0.038834951456310676,
+        "token_precision": 0.9611650485436893,
+        "token_recall": 0.9611650485436893,
+        "token_f1": 0.9611650485436893,
+        "unexpected_token_count": 8,
+        "missing_token_count": 8,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "page_1_text_chars": 1138,
+      "page_2_text_chars": 1216
+    },
+    {
+      "backend": "ocrmypdf+tesseract",
+      "label": "malformed_truncated",
+      "input_sha256": "5c4b0fd40ca89fd739a1dd4a42093db6b5b88b3f5f79d46ef6a64c299ba33318",
+      "returncode": 2,
+      "stderr": "InputFileError\n",
+      "wall_seconds": 0.588708619994577,
+      "max_rss_kib": null,
+      "expected_failure_observed": true
+    }
+  ],
+  "notes": [
+    "OCRmyPDF is benchmark-only and installed outside ActaKit runtime packaging.",
+    "Natural fixtures remain unscored; this run uses independently curated controlled truth.",
+    "Tesseract confidence remains namespaced evidence, not universal confidence."
+  ]
+}

@@ -15,3 +15,4 @@ openai-compatible-api,ACTAKIT-BOOK-OPENAI_COMPATIBLE_API-001,OpenAI-compatible i
 audio-whisper,ACTAKIT-BOOK-AUDIO_WHISPER-001,Whisper-family local ASR: faster-whisper and whisper.cpp,provisional-adopt-defer-dependency,4,4,2026-08-21
 pyannote,ACTAKIT-BOOK-PYANNOTE-001,pyannote.audio,defer-until-source-need,3,4,2026-08-21
 omnidocbench,ACTAKIT-BOOK-OMNIDOCBENCH-001,OmniDocBench,adopt-evaluation-principles,2,4,2026-08-21
+openai-codex-subscription-agent,ACTAKIT-BOOK-OPENAI_CODEX_SUBSCRIPTION_AGENT-001,OpenAI Codex CLI subscription-backed agent executor,first-class-subscription-agent-benchmark-candidate,3,4,2026-08-22

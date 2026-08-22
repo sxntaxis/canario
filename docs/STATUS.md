@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: CIVIC_PROCESSOR_BENCH_IN_PROGRESS__NATURAL_CORPUS_AND_D3_D5_PARTIAL
+state: CIVIC_PROCESSOR_BENCH_PARTIAL__D1_D2_CODEX_CONTROLLED__NATURAL_AND_D3_PARTIAL
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: Ingress and the Esparza shadow connector are certified; the Civic Processor Bench has natural corpus and D1 evidence but D2-D5 remain partial, so WORKBENCH-001 freeze and processor implementation remain blocked.
+summary: Ingress and the Esparza shadow connector are certified; the Civic Processor Bench has controlled D1, D2, and subscription-backed Codex evidence, while natural truth and D3 remain partial, so WORKBENCH-001 freeze and processor implementation remain blocked.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -93,6 +93,7 @@ accepted semantic contracts
 -> certified Esparza connector and bounded real network shadow dogfood
 -> processor state-of-the-art Source Books + synthesis complete
 -> Civic Processor Bench IN PROGRESS (natural corpus + D1 PASS; D2-D5 partial)
+-> Civic Processor Bench PARTIAL (controlled D1/D2/Codex; natural/D3 partial)
 -> Representation processor implementation after benchmark selection
 -> semantic writers and explicit canonical-cutover gate later
 ```
@@ -150,7 +151,8 @@ native/direct parse
 -> specialized visual/document AI (local or cloud by policy)
 -> frontier multimodal AI (local or cloud by policy)
    - local candidate: Qwen3-VL family
-   - cloud candidate: OpenAI multimodal API
+   - subscription-backed cloud candidate: official Codex CLI + ChatGPT subscription
+   - optional API candidate: OpenAI multimodal API
    - specialist cloud candidate: Mistral OCR
 -> human review
 ```

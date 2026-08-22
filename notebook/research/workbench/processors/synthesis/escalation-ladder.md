@@ -43,6 +43,20 @@ OpenAI is a first-class D5 cloud benchmark candidate. Mistral remains a speciali
 candidate. An OpenAI-compatible endpoint may satisfy a rung only after capability declaration/probing;
 API shape alone is not proof of vision, structured-output, audio or security equivalence.
 
+## Reference deployment decision table
+
+| Scenario | Inspect | Accept | Escalate | Quarantine/review | Venue boundary |
+|---|---|---|---|---|---|
+| Native text is present and complete | D1 text, page coverage, reading order | required spans and structure pass | missing/garbled page or block -> D2 | contradictory or unopenable source | local deterministic |
+| Native extraction is empty/incomplete | D1 empty output and page coverage | never accept empty output as complete | D2 OCR on affected pages | malformed input or custody failure | local, no egress |
+| D2 OCR output | CER/WER where truth exists, required-span recall, false insertions, page coverage, OCR signal namespaced | benchmarked threshold and structure checks pass | hard page/block -> Codex controlled request | disagreement, poor coverage, restricted source | Codex only with explicit egress; CLI owns auth |
+| Table/reading-order failure | row/cell fidelity and coordinates, not text CER alone | rows reopen and preserve source order | compare bounded Docling or Codex page/block run | unresolved structure or invented cells | D3 local if justified; Codex if egress allowed |
+| Restricted or no-egress hard visual | same quality evidence plus source policy | qualified local result | optional future local-heavy backend | human review when no qualified local backend | no cloud; local heavyweight remains optional |
+
+The controlled evidence currently supports D2 for mixed-page recovery and Codex
+for selected hard-page escalation. It does not establish production thresholds,
+natural-scene quality, or a mandatory D3/local-heavy dependency.
+
 Escalation may be page- or block-scoped when the upstream representation and processor preserve stable
 coordinates. Do not rerun a whole 400-page file through a VLM because one page is bad.
 

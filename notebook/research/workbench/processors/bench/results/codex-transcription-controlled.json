@@ -1,0 +1,166 @@
+{
+  "bench_state": "CIVIC_PROCESSOR_BENCH_PARTIAL__CODEX_CONTROLLED_HARD_SUBSET",
+  "executor": "official_codex_cli",
+  "executor_family": "subscription_agent",
+  "codex_cli_version": "codex-cli 0.149.0",
+  "model": "gpt-5.6-sol",
+  "execution_venue": "cloud",
+  "exec_mode": {
+    "ephemeral": true,
+    "sandbox": "read-only",
+    "repository_exposed": false
+  },
+  "request_template": {
+    "version": "codex_transcription_prompt_v1",
+    "sha256": "00166cf1dcf582e9a7a993a44db6d45c23f9197412044ef2a816874f6c2a3bdf"
+  },
+  "output_schema": {
+    "path": "codex_transcription_schema.json",
+    "sha256": "3f24ec5e42023ff5904305e4c57af5f73f06c706113c274870e83cbb91206448"
+  },
+  "billing": {
+    "billing_mode": "chatgpt_subscription",
+    "per_call_api_cost_usd": "NOT_APPLICABLE",
+    "subscription_quota_consumption": "NOT_RECORDED"
+  },
+  "secret_recorded": false,
+  "pages_egressed": 4,
+  "bytes_egressed": 3309289,
+  "wall_seconds": 89.93834893399617,
+  "returncode": 0,
+  "stderr_not_recorded": true,
+  "inputs": [
+    {
+      "page_id": "clean_scan_300",
+      "sha256": "3c5d4081a24556e8b9f75edc848df2357359ad252759f2520c73a66d834334f7",
+      "bytes": 87749
+    },
+    {
+      "page_id": "lowdpi_110",
+      "sha256": "a63c4e13e5e962642b9647836de9833e6917272b0e1c08c07b3e7039233a37b1",
+      "bytes": 58345
+    },
+    {
+      "page_id": "skew_noise_300",
+      "sha256": "29972937b11bf8d6fbbb1c402bb19384ea92dc976a8e7ce2552456922c8c0e08",
+      "bytes": 2642368
+    },
+    {
+      "page_id": "mixed_scan_page2",
+      "sha256": "9bea7a9659f43131ee5bbe658f6671911ddf9dc2e3f097b223788ad497425d78",
+      "bytes": 520827
+    }
+  ],
+  "status": "PASS_SCHEMA_VALID",
+  "pages": [
+    {
+      "page_id": "clean_scan_300",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.00145985401459854,
+        "wer": 0.009708737864077669,
+        "token_precision": 0.9902912621359223,
+        "token_recall": 0.9902912621359223,
+        "token_f1": 0.9902912621359223,
+        "unexpected_token_count": 1,
+        "missing_token_count": 1,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "uncertain_span_count": 0,
+      "table_count": 1
+    },
+    {
+      "page_id": "lowdpi_110",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.00145985401459854,
+        "wer": 0.009708737864077669,
+        "token_precision": 0.9902912621359223,
+        "token_recall": 0.9902912621359223,
+        "token_f1": 0.9902912621359223,
+        "unexpected_token_count": 1,
+        "missing_token_count": 1,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "uncertain_span_count": 0,
+      "table_count": 1
+    },
+    {
+      "page_id": "skew_noise_300",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.00145985401459854,
+        "wer": 0.009708737864077669,
+        "token_precision": 0.9902912621359223,
+        "token_recall": 0.9902912621359223,
+        "token_f1": 0.9902912621359223,
+        "unexpected_token_count": 1,
+        "missing_token_count": 1,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "uncertain_span_count": 0,
+      "table_count": 1
+    },
+    {
+      "page_id": "mixed_scan_page2",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.00145985401459854,
+        "wer": 0.009708737864077669,
+        "token_precision": 0.9902912621359223,
+        "token_recall": 0.9902912621359223,
+        "token_f1": 0.9902912621359223,
+        "unexpected_token_count": 1,
+        "missing_token_count": 1,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALD\u00cdA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALD\u00cdA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "uncertain_span_count": 0,
+      "table_count": 1
+    }
+  ],
+  "output_sha256": "0cb043598a4f345c30dfa0442c64cf94b4af07f19efaf1c75c5e44722bc6e9f6"
+}

@@ -1,6 +1,6 @@
 # Civic Processor Bench status
 
-State: **CIVIC_PROCESSOR_BENCH_IN_PROGRESS__NATURAL_CORPUS_AND_D3_D5_PARTIAL**
+State: **CIVIC_PROCESSOR_BENCH_PARTIAL__D1_D2_CODEX_CONTROLLED__NATURAL_AND_D3_PARTIAL**
 
 The bench infrastructure is operational. This is **not** a processor-stack selection and does not
 unblock `WORKBENCH-001` yet.
@@ -56,6 +56,36 @@ Exact environment details and every raw metric are in
 
 None of those observations freeze production thresholds yet.
 
+## D2 lightweight local run
+
+OCRmyPDF `17.10.0` with Tesseract `5.5.3`, qpdf `12.4.0`, Ghostscript `10.07.1`,
+and `spa+eng+osd` was run in a disposable environment. The controlled result is
+`results/d2-ocrmypdf-controlled.json`.
+
+The mixed policy used `--skip-text`: it preserved the native page and OCRed the
+missing scanned page, giving whole-document CER `0.00584` and required-span recall
+`1.000`. Pure scans remained imperfect (`clean` CER `0.01168`, low-DPI CER
+`0.02336`, skew/noise CER `0.46861`), while the malformed PDF failed explicitly.
+Peak RSS was not captured, so D2 resource evidence is incomplete.
+
+## Subscription-backed Codex controlled run
+
+The research-only harness `run_codex_transcription.py` invoked official
+`codex-cli 0.149.0` with model `gpt-5.6-sol`, `--ephemeral`, `--sandbox
+read-only`, `--skip-git-repo-check`, image attachments, and a committed JSON
+output schema. The disposable working directory contained only four selected
+controlled page images, the prompt, and the schema; the repository was not
+exposed. Result: `results/codex-transcription-controlled.json`.
+
+All four pages were schema-valid and recovered all seven required spans. Each
+page measured CER `0.00146`, WER `0.00971`, token precision/recall `0.99029`,
+and one unexpected plus one missing token. The run egressed four rendered pages
+totalling `3,309,289` bytes. Subscription/account data and secrets were not
+recorded; per-call API cost is `NOT_APPLICABLE`.
+
+This supports Codex as a bounded D4/D5 escalation candidate, not as evidence for
+an unrestricted autonomous processor or a production SPI.
+
 ## Scenario coverage
 
 Controlled coverage now exercises:
@@ -84,19 +114,21 @@ Still required before the gate can close:
 - natural difficult scan/photocopy and stamps/signatures;
 - lawful handwriting-heavy civic material;
 - XLSX/CSV multi-table material;
-- D2 OCRmyPDF/Tesseract runs (blocked by missing system dependencies on this host);
+- natural D2 OCRmyPDF/Tesseract run if a lawful difficult scan is reacquired;
 - D3 Docling runs (blocked by missing benchmark dependency);
-- D4 specialized document-AI runs (blocked by missing runtime/GPU);
-- D5 local frontier multimodal run (blocked by missing runtime/GPU);
-- D5 OpenAI cloud run over the **same explicitly egress-safe hard subset** (blocked by absent explicit authorization);
+- D4 specialized document-AI runs remain optional comparisons;
+- D5 local frontier multimodal run remains optional and non-blocking;
+- Codex natural public subset and independent natural truth;
 - optional Mistral specialist comparison;
 - exact licenses/model-weight terms/pins and resource/cost evidence.
 
 ## Cloud benchmark boundary
 
-Cloud remains benchmark-first-class but explicit. A cloud attempt must record provider/model/endpoint
-profile, request-template identity, pages/bytes egressed, latency, usage/cost inputs and a declared
-retention/data-control profile. API-key/token values never enter benchmark artifacts.
+Cloud remains benchmark-first-class but explicit. A cloud attempt must record executor/model,
+request-template identity, pages/bytes egressed, latency, and non-secret execution policy. Codex is
+classified as a subscription-backed agent executor whose CLI owns authentication and remote execution;
+it is not treated as an API transport or OAuth workaround. API-key/token values never enter benchmark
+artifacts.
 
 The bench intentionally does not hard-code an OpenAI model default. The local operator supplies the exact
 model being evaluated; that model identity becomes evidence. OpenAI-compatible endpoints are recorded as
@@ -104,7 +136,9 @@ capability profiles rather than assumed equivalent from URL shape.
 
 ## Gate
 
-`WORKBENCH-001` remains blocked. The next bench increment must curate independent
-truth for a small natural hard subset and run D2-D5 in an environment with the
-required dependencies/hardware or explicit cloud authorization. Exact evidence
-is recorded in `results/natural-corpus-d1-and-availability.json`.
+`WORKBENCH-001` remains blocked. The controlled D2 and Codex results support the
+reference path `D0/D1 -> D2 -> bounded Codex escalation`, but independent natural
+truth, natural hard-page evidence, D3 value, peak-resource measurements, and the
+final escalation table remain incomplete. Heavy local AI and provider API rows are
+optional rather than freeze blockers. Exact natural availability evidence remains
+in `results/natural-corpus-d1-and-availability.json`.

@@ -8,20 +8,23 @@
 - The architecture must keep processor/model quality evidence typed and namespaced rather than force a
   universal confidence score.
 - Code, model-weight and cloud-service licenses are distinct and must be pinned separately.
-- Local-vs-cloud is an execution-venue choice orthogonal to the processing rung; OpenAI is a first-class
-  frontier cloud candidate and OpenAI-compatible transport is only an escape hatch with capability gates.
+- Local-vs-cloud is an execution-venue choice orthogonal to the processing rung; official Codex CLI is a
+  first-class subscription-backed agent executor, while OpenAI-compatible transport is only an escape hatch
+  with capability gates.
 
 ## Decision-threatening gaps that remain
 
 1. **Civic corpus performance:** the controlled TSE civic baseline now proves bench mechanics and exposes coverage/confidence failure modes, but natural Esparza/municipal corpus coverage is still too small to select shipped defaults.
-2. **Docling vs simpler stack:** need measured evidence that Docling's structure value justifies its
+2. **Natural hard-page performance:** the controlled Codex result is strong, but independent natural truth
+   and a small public hard-page run are still needed to show the path is not merely synthetic.
+3. **Docling vs simpler stack:** need measured evidence that Docling's structure value justifies its
    runtime/model footprint for the default built-in path.
 3. **Spanish handwriting:** public capability claims are insufficient; need legal real/representative fixtures.
 4. **Exact model licenses:** freeze must pin every enabled Docling/Paddle/Qwen model artifact and terms.
 5. **Resource budgets:** target CPU/RAM/GPU envelope is not yet measured on representative hardware.
-6. **Cloud provider policy:** Civic Bench must compare the best local hard-case path with OpenAI and,
-   where useful, Mistral; deployment must verify retention/region/provider terms and egress authorization.
-   Exact OpenAI model choice is intentionally not frozen by this research snapshot.
+6. **Cloud provider policy:** the reference path now has a controlled Codex run, but deployment must still
+   verify source-specific egress authorization and applicable provider data-control terms. Separate provider
+   APIs remain optional comparison venues.
 7. **Audio:** no current canonical source requires ASR; keep research ready but defer runtime dependency.
 8. **Large-object transport:** current ingress uses bytes; WORKBENCH may need stream/file handles after
    benchmark reveals realistic page/media sizes.
@@ -40,17 +43,17 @@
 
 ## Bench execution update
 
-The natural corpus increment is present in the ignored bench work area and is
-hash-recorded in `bench/corpus.yaml`. D1 Poppler inventory ran on Esparza,
-FECOMUDI and Quepos PDFs without independent quality scoring. Tesseract,
-OCRmyPDF, Docling, PaddleOCR-VL and Qwen3-VL were not runnable on this host;
-OpenAI/Mistral were not authorized. Exact blockers are recorded in
+The natural corpus increment is hash-recorded in `bench/corpus.yaml`. D1 Poppler
+inventory ran on Esparza, FECOMUDI and Quepos PDFs without independent quality
+scoring. Controlled D2 and official Codex runs are recorded in the bench results.
+Docling, PaddleOCR-VL and Qwen3-VL remain optional unrun venues; no provider API
+was used. Natural availability is recorded in
 `bench/results/natural-corpus-d1-and-availability.json`.
 
 ## Next research action
 
-Curate independent truth for a small natural hard subset and run D2-D5 in a
-capable local environment or under explicit cloud authorization. Only after
-those results exist should WORKBENCH-001 freeze the Processor interface,
-built-in ladder, exact backend pins and quality/escalation policy. The controlled
-and natural D1 evidence is not enough to freeze WORKBENCH-001.
+Curate independent truth for a small natural hard subset, attempt a bounded
+public Codex run, and measure whether Docling adds value before Codex escalation.
+Only after those results exist should WORKBENCH-001 freeze the Processor
+interface, built-in ladder, exact backend pins and quality/escalation policy. The
+controlled D1/D2/Codex evidence is not enough to freeze WORKBENCH-001.

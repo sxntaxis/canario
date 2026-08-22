@@ -59,7 +59,7 @@ At minimum compare:
 - Docling with selected OCR backend on scans;
 - PaddleOCR-VL on hard-document subset;
 - Qwen3-VL-family local candidate on handwriting/weird-visual subset;
-- OpenAI current multimodal model candidate on the **same** explicitly egress-safe hard subset;
+- official Codex CLI with ChatGPT subscription on the **same** explicitly egress-safe hard subset;
 - optional Mistral OCR specialist on an explicitly egress-safe document subset;
 - an OpenAI-compatible endpoint capability test (local vLLM or equivalent) to verify the transport escape hatch without assuming feature parity;
 - pdfplumber diagnostics on table fixtures;
@@ -81,9 +81,11 @@ model/provider snapshot, input rendering strategy, prompt/schema template, local
 latency and egress bytes/pages. A cloud path is allowed to win because the target host is weak; a local
 path is allowed to win because egress is forbidden or quality/cost is better.
 
-The OpenAI run must use a host-provided API credential and never write the key into fixtures, benchmark
-results or provenance. Benchmark artifacts record only non-secret provider/model/request-template identity
-and the applicable provider data-control/retention profile observed for the run.
+The reference cloud run uses the official Codex CLI authenticated by the operator's ChatGPT subscription.
+The CLI owns authentication and remote execution; the bench never reads or persists credential material.
+Benchmark artifacts record only non-secret executor/model/request-template identity, selected input hashes,
+egress bytes and execution policy. Separate OpenAI and Mistral API billing are optional future venues, not
+requirements for the reference deployment.
 
 ## Bench implementation status
 
@@ -105,9 +107,9 @@ Research can nominate candidates; Civic Processor Bench chooses the shipped defa
 
 ## Current execution checkpoint
 
-The controlled D1 baseline reproduced its semantic findings on Poppler 26.07.0,
-but this host lacks Tesseract/OCRmyPDF/qpdf and the D3-D5 local runtimes. The
-natural increment added ignored Esparza PDF/DOCX/HTML, FECOMUDI and Quepos
-fixtures, all marked `UNSCORED_NATURAL`. Cloud execution was not attempted:
-explicit OpenAI/Mistral authorization, model identity and budget were absent.
-The result is partial benchmark evidence, not a freeze decision.
+The controlled D1 baseline remains reproduced. D2 OCRmyPDF/Tesseract now has a
+controlled run, and official Codex CLI has a schema-valid scored hard-subset run
+under a ChatGPT subscription. Natural artifacts remain `UNSCORED_NATURAL`; no
+natural Codex run or independent natural truth was available in this clean
+checkout. D3 and heavyweight local AI remain optional. The result is stronger
+partial benchmark evidence, not a freeze decision.

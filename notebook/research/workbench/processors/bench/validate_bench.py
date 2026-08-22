@@ -59,6 +59,7 @@ def main() -> int:
         assert truth_text.exists() and truth_text.read_text(encoding="utf-8").strip()
         assert meta.get("required_spans")
 
+    missing_corpus: list[str] = []
     for item in ready_unscored:
         digest = item.get("source_sha256", "")
         assert re.fullmatch(r"[0-9a-f]{64}", digest), item["id"]
@@ -74,8 +75,17 @@ def main() -> int:
         if args.require_corpus:
             assert source_path, item["id"]
             source = ROOT / source_path
-            assert source.exists(), source
-            assert sha256(source) == digest, f"hash mismatch: {source}"
+            if not source.exists():
+                missing_corpus.append(item["id"])
+            else:
+                assert sha256(source) == digest, f"hash mismatch: {source}"
+
+    if missing_corpus:
+        print(
+            "CIVIC_PROCESSOR_BENCH_STRICT_CORPUS=NOT_AVAILABLE "
+            f"missing={','.join(missing_corpus)}"
+        )
+        return 2
 
     scanned = 0
     for path in BENCH.rglob("*"):
