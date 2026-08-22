@@ -1,5 +1,11 @@
 """Generic Representation Processor / Workbench production boundary."""
 
+from .codex import (
+    CodexConfigurationError,
+    CodexUnavailableError,
+    CodexVisualConfig,
+    CodexVisualTranscriptionProcessor,
+)
 from .contracts import (
     DerivativeOutput,
     EgressAuthorization,
@@ -46,6 +52,10 @@ from .writer import (
 
 __all__ = [
     "AttemptReceipt",
+    "CodexConfigurationError",
+    "CodexUnavailableError",
+    "CodexVisualConfig",
+    "CodexVisualTranscriptionProcessor",
     "DerivativeOutput",
     "DerivedRepresentationReceipt",
     "EgressAuthorization",

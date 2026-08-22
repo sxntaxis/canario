@@ -53,6 +53,13 @@ def _positive_int_list(value: JSONValue) -> None:
         raise QualityContractError("quality page ordinals must be unique and strictly ordered")
 
 
+def _bounded_string_list(value: JSONValue) -> None:
+    if not isinstance(value, list) or len(value) > 64:
+        raise QualityContractError("quality string collection must be a bounded list")
+    if any(not isinstance(item, str) or len(item) > 512 for item in value):
+        raise QualityContractError("quality string collection contains an invalid item")
+
+
 def _word_confidence_summary(value: JSONValue) -> None:
     if not isinstance(value, dict) or set(value) != {"mean_percent", "word_count"}:
         raise QualityContractError(
@@ -91,6 +98,9 @@ DEFAULT_QUALITY_CONTRACTS: dict[tuple[str, str], QualityValidator] = {
     ("table.exact_row_count", "v1"): _nonnegative_int,
     ("multimodal.schema_valid", "v1"): _bool,
     ("multimodal.uncertain_span_count", "v1"): _nonnegative_int,
+    ("multimodal.uncertain_spans", "v1"): _bounded_string_list,
+    ("multimodal.transcription_character_count", "v1"): _nonnegative_int,
+    ("multimodal.table_count", "v1"): _nonnegative_int,
 }
 
 
