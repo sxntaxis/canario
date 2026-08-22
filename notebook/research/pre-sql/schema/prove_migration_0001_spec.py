@@ -63,8 +63,8 @@ def main() -> None:
         # Processing provenance is durable for any non-human generated semantic/derived record.
         with con:
             con.execute(
-                "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                ("pr", "proof", "critical-review-harness", "1", None, None, None, T, T, "success", T),
+                "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pr", "proof", "critical-review-harness", "1", "local_deterministic", None, None, None, T, T, "success", None, T),
             )
 
         # 2. Purged/archive availability contracts do not permit fake available bytes.
@@ -84,6 +84,52 @@ def main() -> None:
             con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep1", "art1", None, None, "original", "application/pdf", None, None, None, "available", T, None))
             con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep2", "art2", None, None, "original", "application/pdf", None, None, None, "available", T, None))
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t1", "rep1", "pdf_page_quote", "v1", '{"page_ordinal":1,"exact":"x"}', None, "available", T, None))
+        # WORKBENCH-001: terminal execution provenance is distinct from exact input scope,
+        # typed quality evidence and policy decisions.
+        with con:
+            con.execute("INSERT INTO process_run_inputs VALUES (?,?,?,?)", ("pr", 0, "rep1", "t1"))
+            con.execute(
+                "INSERT INTO quality_evidence VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("qe1", "pr", 0, "rep1", "t1", "native.page_text_present", "v1", "true", None, T),
+            )
+            con.execute(
+                "INSERT INTO quality_decisions VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("qd1", "pr", "rep1", "t1", "accept", "reference_document_processing", "v1", "native_text_present", None, T),
+            )
+            con.execute(
+                "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pr-cloud", "visual_transcribe", "codex-proof", "1", "subscription_agent", None, "openai", "proof-model", T, T, "success", None, T),
+            )
+            con.execute(
+                "INSERT INTO process_run_egress VALUES (?,?,?,?,?,?,?)",
+                ("pr-cloud", 123, "public_civic", "operator_enabled", "e" * 64, "codex_cli", T),
+            )
+            con.execute(
+                "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("pr-scope", "proof", "scope-proof", "1", "local_deterministic", None, None, None, T, T, "failed", "scope_failed", T),
+            )
+        must_fail(con, "INSERT INTO process_run_inputs VALUES (?,?,?,?)", ("pr-scope", 0, "rep2", "t1"))
+        must_fail(
+            con,
+            "INSERT INTO quality_decisions VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("qd-bad", "pr", "rep1", "t1", "escalate", "reference_document_processing", "v1", "needs_ocr", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("pr-bad-success", "proof", "proof", "1", "local_deterministic", None, None, None, T, T, "success", "should_be_null", T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("pr-bad-failure", "proof", "proof", "1", "local_deterministic", None, None, None, T, T, "failed", None, T),
+        )
+        must_fail(
+            con,
+            "INSERT INTO process_run_egress VALUES (?,?,?,?,?,?,?)",
+            ("pr", 1, "public_civic", "operator_enabled", "bad-hash", None, T),
+        )
+
         must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-original-own-bytes", "art1", "aobA", None, "original", "application/pdf", None, None, None, "available", T, None))
         must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-original-second", "art1", None, None, "original", "application/pdf", None, None, None, "available", T, None))
         must_fail(con, "INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-orphan", None, None, None, "original", "application/pdf", None, None, None, "available", T, None))
@@ -688,7 +734,7 @@ def main() -> None:
 
         assert con.execute("PRAGMA foreign_key_check").fetchall() == []
         strict_count = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-        assert strict_count == 54
+        assert strict_count == 58
         fts_count = con.execute(
             "SELECT count(*) FROM pragma_table_list WHERE type='virtual' AND name IN ('claim_fts','representation_fts','document_fts')"
         ).fetchone()[0]

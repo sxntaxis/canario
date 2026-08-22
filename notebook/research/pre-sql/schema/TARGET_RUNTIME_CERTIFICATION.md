@@ -1,4 +1,7 @@
 ---
+
+> **WORKBENCH-001 note:** The SQLite 3.53.4 binary/source-ID certification remains runtime evidence, but the schema proof counts/hash in this document are for the pre-WORKBENCH `31cac5...` baseline. The WORKBENCH-001 rebaseline requires a fresh schema repeat on that registered runtime.
+
 id: ACTAKIT-SQLITE-TARGET-RUNTIME-CERTIFICATION-001
 type: target-runtime-certification
 state: pass

@@ -1,4 +1,7 @@
 ---
+
+> **WORKBENCH-001 note:** Historical DepositWriter certification was executed against the pre-WORKBENCH baseline. WORKBENCH-001 does not change DepositWriter semantics; regression tests pass, while independent certification of the rebaselined schema remains pending.
+
 id: ACTAKIT-DEPOSIT-WRITER-CERTIFICATION-001
 kind: deposit-writer-certification
 state: deposit-writer-implemented-and-certified

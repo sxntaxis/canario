@@ -12,7 +12,7 @@ from .runtime import verify_runtime_contract
 
 APPLICATION_ID = 0x414B4954  # ASCII "AKIT"
 SCHEMA_VERSION = 1
-MIGRATION_0001_SHA256 = "31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc"
+MIGRATION_0001_SHA256 = "cc8bbdb22a62349494004de642ec21b4ef2f9d30f22d33f1cf5cba08ed28e7a3"
 _MIGRATION_0001 = Path(__file__).with_name("migrations") / "0001.sql"
 
 RuntimeGuard = Callable[[], None]
@@ -98,7 +98,7 @@ def _assert_schema_v1(con: sqlite3.Connection, *, full_integrity: bool) -> None:
     strict_tables = con.execute(
         "SELECT count(*) FROM pragma_table_list WHERE strict=1"
     ).fetchone()[0]
-    if strict_tables != 54:
+    if strict_tables != 58:
         raise DatabaseIdentityError(
             f"ActaKit schema-v1 inventory mismatch: strict_tables={strict_tables}"
         )

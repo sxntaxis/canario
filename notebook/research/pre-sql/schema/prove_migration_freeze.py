@@ -72,7 +72,7 @@ def assert_connection_contract(con: sqlite3.Connection) -> None:
 
 def assert_schema_inventory(con: sqlite3.Connection) -> None:
     strict = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-    assert strict == 54, strict
+    assert strict == 58, strict
     # 0001 deliberately keeps ordinary rowid tables. WITHOUT ROWID remains a later
     # benchmark-driven optimization; no application contract may depend on rowid.
     without_rowid = con.execute(
@@ -122,6 +122,7 @@ def assert_closed_vocabularies(con: sqlite3.Connection) -> None:
         ("acquisitions", "outcome"): {"success", "partial", "not_found", "failed"},
         ("acquisition_artifacts", "role"): {"primary", "attachment", "response_body", "other"},
         ("process_runs", "outcome"): {"success", "partial", "failed"},
+        ("quality_decisions", "decision"): {"accept", "escalate", "quarantine_review"},
         ("archive_objects", "availability"): {"available", "purged"},
         ("artifacts", "availability"): {"available", "restricted", "purged"},
         ("artifacts", "validation_state"): {"pending", "verified", "quarantined", "rejected"},
@@ -186,7 +187,7 @@ def assert_index_inventory(con: sqlite3.Connection) -> None:
     explicit = con.execute(
         "SELECT count(*) FROM sqlite_schema WHERE type='index' AND sql IS NOT NULL"
     ).fetchone()[0]
-    assert explicit == 114, explicit
+    assert explicit == 118, explicit
 
     # Freeze rejects exact duplicate explicit indexes and simple same-predicate
     # prefix redundancy. This is intentionally conservative; planner proof below
@@ -393,7 +394,7 @@ def assert_core_write_contracts(con: sqlite3.Connection) -> None:
     # ProcessRun is terminal provenance, not a job scheduler. Canonical machine/rule
     # outputs may reference only successful or partial runs; failed runs remain audit data.
     with con:
-        con.execute("INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("pr-failed", "extract_claims", "proof", "1", None, None, None, t0, t1, "failed", t1))
+        con.execute("INSERT INTO process_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("pr-failed", "extract_claims", "proof", "1", "local_deterministic", None, None, None, t0, t1, "failed", "proof_failed", t1))
         con.execute("INSERT INTO entity_names VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", ("en-failed", None, "ent-freeze", "X machine", "alias", None, None, None, "machine", "pr-failed", "candidate", None, t1))
     bad_process_refs = con.execute(
         """
@@ -551,11 +552,11 @@ def main() -> None:
         print("bootstrap_transaction=PASS")
         print("bootstrap_failure_rollback=PASS markers=0/0 schema=empty journal_mode=wal")
         print("wrong_file_rejection=PASS")
-        print("schema_inventory=PASS strict_tables=54 fts_tables=3 app_triggers=0")
+        print("schema_inventory=PASS strict_tables=58 fts_tables=3 app_triggers=0")
         print("closed_vocabularies=PASS")
         print("core_write_contracts=PASS revision_leaf_process_review_idempotency")
-        print("rowid_strategy=PASS ordinary_rowid_tables=54 without_rowid=0")
-        print("index_inventory=PASS explicit=114 exact_duplicates=0 simple_prefix_redundancy=0")
+        print("rowid_strategy=PASS ordinary_rowid_tables=58 without_rowid=0")
+        print("index_inventory=PASS explicit=118 exact_duplicates=0 simple_prefix_redundancy=0")
         print(f"foreign_key_child_plans=PASS checked={fk_count} scans=0")
         print("query_surface_indexes=PASS")
         print("readonly_open_contract=PASS")

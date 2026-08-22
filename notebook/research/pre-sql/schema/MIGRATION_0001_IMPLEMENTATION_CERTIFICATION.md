@@ -1,4 +1,7 @@
 ---
+
+> **WORKBENCH-001 note:** Historical implementation certification for the pre-WORKBENCH `31cac5...` baseline. WORKBENCH-001 changes the prerelease baseline and requires an independent certification repeat.
+
 id: ACTAKIT-SQLITE-MIGRATION-0001-IMPLEMENTATION-CERTIFICATION-001
 kind: migration-implementation-certification
 state: migration-0001-implemented-and-certified

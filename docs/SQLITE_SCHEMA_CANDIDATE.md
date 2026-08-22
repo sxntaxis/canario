@@ -258,7 +258,8 @@ evidence_basis_role:
 
 purge_target_kind:
   source | source_authority_scope | source_locator | acquisition | acquisition_artifact |
-  archive_object | artifact | process_run | representation | representation_target | civic_document |
+  archive_object | artifact | process_run | process_run_egress |
+  quality_evidence | quality_decision | representation | representation_target | civic_document |
   civic_document_revision | document_identifier | document_identifier_review |
   document_classification | document_classification_review | document_representation |
   document_representation_review | claim | claim_revision | evidence_link | evidence_link_review |
@@ -278,8 +279,9 @@ purge_action:
 Local taxonomies and registered adapter contracts remain deliberately open text rather
 than global enums. In `0001` this includes tag namespaces/keys, normalized role
 keys, identifier schemes, locator kinds, selector kind/version, process kinds,
-adapter keys/versions, parser profile keys/versions, error codes, and implementation/
-model identifiers. These values are validated by the owning registry/adapter contract;
+adapter keys/versions, parser profile keys/versions, error codes, execution-venue
+keys, quality signal/policy keys and versions, egress/data-control profile keys, and
+implementation/model identifiers. These values are validated by the owning registry/adapter contract;
 they are not permission for arbitrary unregistered strings.
 
 ## 5. Source and acquisition — Depósito ingress
@@ -482,42 +484,119 @@ separately proven typed input contract rather than abusing one parent pointer.
 
 ### `process_runs`
 
-Bounded provenance for transformations/readers that materially create canonical
-representations or extracted records. This is **not** universal event sourcing.
+Bounded terminal provenance for one completed processing attempt. This is **not**
+a scheduler/job table and not universal event sourcing.
 
 ```text
 id PK
-process_kind              -- extract_text | ocr | classify | extract_claims |
-                             extract_relations | reconcile | other registered kind
-implementation
+process_kind                 -- registered semantic capability/process key
+implementation               -- trusted adapter/executor identity
 implementation_version
-configuration_hash nullable
+execution_venue              -- registered venue key; orthogonal to capability
+configuration_hash nullable  -- non-secret canonical configuration identity
 model_provider nullable
 model_name nullable
 started_at
 finished_at
-outcome                   -- success | partial | failed
+outcome                      -- success | partial | failed
+error_code nullable           -- required for failed; absent for success
 created_at
 ```
 
-`ProcessRun` is terminal provenance, not the scheduler/job-state table. A persisted
-row represents a completed attempt, so `finished_at` is required and must not precede
-`started_at`. Failed runs may remain for audit, but canonical machine/rule outputs
-may reference only `success` or `partial` runs; that cross-row rule is enforced by
-the core transaction validator.
+`outcome` records technical execution only. It is never reused for the quality
+decision. Failed runs remain durable provenance but cannot authorize derivative
+Representations.
 
-Any persisted semantic row whose `origin_kind` is `machine` or `rule` requires an
-exact `process_run_id` in `0001`; human-origin rows may omit it. Likewise every
-derived Representation (anything other than `original`) requires the ProcessRun
-that created it. This prevents a row from claiming machine/rule provenance while
-retaining no reproducible process identity.
+### `process_run_inputs`
 
-There are **no generic `process_inputs/process_outputs` tables in `0001`**.
-Outputs point directly to the run that created them, while exact semantic inputs
-are already represented by parent representation, EvidenceLink, EntityMention,
-relation endpoints, or other typed FKs. A future process that genuinely consumes
-an otherwise-unrepresented input may add a typed join then; this avoids a generic
-operation graph.
+Ordered exact RepresentationTarget scope for every terminal run:
+
+```text
+process_run_id FK
+ordinal >= 0
+representation_id
+representation_target_id
+PK(process_run_id, ordinal)
+UNIQUE(process_run_id, representation_target_id)
+composite FK (representation_target_id, representation_id)
+  -> representation_targets(id, representation_id)
+```
+
+This preserves exact page/block/table/whole scope even when execution fails and no
+derivative exists. Whole-document processing uses an explicit `whole:v1` target;
+absence of a target never implicitly means whole document. A selected multi-target
+run preserves deterministic target order.
+
+### `process_run_egress`
+
+Optional non-secret egress provenance for runs whose trusted adapter sends source
+material outside the local deployment:
+
+```text
+process_run_id PK/FK
+bytes_egressed >= 0
+policy_profile
+data_control_profile
+request_template_hash nullable
+endpoint_profile nullable
+created_at
+```
+
+Credentials, account identity, OAuth/API tokens, environment dumps and secret
+paths are forbidden. Core policy also verifies that local runs have no egress row
+and that cloud/agent runs were explicitly authorized before invocation.
+
+### `quality_evidence`
+
+Processor-attributable runtime evidence for one exact run target:
+
+```text
+id PK
+process_run_id FK
+ordinal >= 0
+representation_id
+representation_target_id
+signal_key
+signal_version
+payload_json                 -- validated by registered bounded contract
+interpretation_key nullable
+created_at
+UNIQUE(process_run_id, ordinal)
+composite target/representation FK
+```
+
+`signal_key + signal_version` is registered in core/adapter composition. The JSON
+column is only a storage encoding for a validated bounded payload; it is not an
+arbitrary metadata bag and there is no universal confidence signal.
+
+### `quality_decisions`
+
+One durable policy decision per exact ProcessRun input target:
+
+```text
+id PK
+process_run_id FK
+representation_id
+representation_target_id
+decision                     -- accept | escalate | quarantine_review
+policy_key
+policy_version
+reason_code
+next_capability_key nullable  -- required only for escalate
+created_at
+UNIQUE(process_run_id, representation_target_id)
+composite target/representation FK
+```
+
+A technically successful OCR run may therefore persist `outcome=success` while
+its target decision is `escalate`. Policy evolution appends new ProcessRuns/
+decisions; it does not rewrite the old execution or its signals.
+
+Every derived Representation (anything other than `original`) still points
+directly to the exact ProcessRun that created it and to its same-Artifact parent.
+`process_run_inputs` does not create a generic process graph: it exists only to
+retain otherwise-lost exact Workbench input scope. Semantic rows continue to use
+their typed FKs/EvidenceLinks rather than this table as a generic provenance edge.
 
 ## 8. Reusable exact representation targets
 
@@ -1476,7 +1555,7 @@ role_assignment_revisions(organization_entity_id, role_key, valid_from, valid_to
 
 ### Rowid strategy
 
-All 54 ordinary `0001` tables remain ordinary SQLite rowid tables. Application
+All 58 ordinary `0001` tables remain ordinary SQLite rowid tables. Application
 contracts never expose or persist the hidden `rowid`; stable text IDs/composite
 keys remain the only civic identity. `WITHOUT ROWID` is intentionally not frozen
 without workload measurements: it can save a B-tree for non-integer/composite PKs,
@@ -1651,7 +1730,7 @@ retains the prior target-runtime certification evidence.
 
 What remains is proof, not unresolved domain semantics:
 
-1. ~~executable **scratch DDL** proving critical nullability/FK/CHECK/STRICT constraints~~ — **PASS** in the disposable proof harness (54 STRICT tables; target runtime certification remains separate);
+1. ~~executable **scratch DDL** proving critical nullability/FK/CHECK/STRICT constraints~~ — **PASS** in the disposable proof harness (58 STRICT tables; target runtime certification remains separate);
 2. ~~selector validation against real PDF/text/table artifacts, including reopening
    the exact evidence location~~ — **PASS** against the preserved TSE `alcaldias_pu.pdf` artifact: physical PDF page quote, decoded-text offsets, and derived-table row/value coordinates all reopen exactly;
 3. ~~RoleAssignment proof against a real appointment/office-holder source~~ — **PASS** against TSE resolution 2160-E11-2024, now including exact selector reopening under gate 2;
@@ -1692,34 +1771,61 @@ post-freeze certification all pass. At the freeze checkpoint the specification w
 ready for a separate authorization review and migration `0001` remained
 unauthorized. Section 26 records the subsequent bounded authorization.
 
-## 26. Migration 0001 authorization
+## 26. Historical migration 0001 authorization
 
-The separate authorization review is recorded in
-`notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md`.
-
-Authorization is intentionally narrower than “start using SQLite everywhere”. It
-permits implementation of the **fresh-database migration/bootstrap boundary** for
-this exact frozen artifact:
+The original bounded migration implementation authorization is recorded in
+`notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md`. It authorized
+the pre-WORKBENCH prerelease baseline with SHA256:
 
 ```text
-MIGRATION_0001_SPEC.sql
-SHA256 31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
+31cac5ccc3440ce555242ba288317df527bb30949b2142026d8ceb2805d3adfc
 ```
 
-The implementation may add the migration runner, writable/read-only connection
-openers, fail-closed runtime/source-ID capability guard, schema identity checks,
-and tests needed to prove installation/reopen/failure behavior. The production
-`0001` SQL must remain byte-identical to the frozen specification or be proven to
-have the exact same recorded SHA256. Any SQL/invariant change invalidates this
-authorization and returns the work to migration-freeze review and target-runtime
-recertification.
+That hash remains historical evidence only. WORKBENCH-001 proved that exact
+ProcessRun scope, typed QualityEvidence, a quality decision separate from
+execution outcome, and non-secret egress provenance are generic durable
+requirements. Because ActaKit remains pre-release, those requirements rebaseline
+`0001` rather than creating `0002`.
 
-This authorization does **not** authorize canonical-data cutover, historical
-import, legacy Markdown/Hilo mutation, acquisition/claim writers, archive-data
-migration, daemon/RPC work, or a schema `0002`.
+## 27. WORKBENCH-001 prerelease rebaseline
+
+The current candidate baseline is byte-identical between:
 
 ```text
-MIGRATION_0001_AUTHORIZATION: PASS_BOUNDED_IMPLEMENTATION_AUTHORIZED
-migration_authorized: true
+notebook/research/pre-sql/schema/MIGRATION_0001_SPEC.sql
+actakit/persistence/migrations/0001.sql
+```
+
+with SHA256:
+
+```text
+cc8bbdb22a62349494004de642ec21b4ef2f9d30f22d33f1cf5cba08ed28e7a3
+```
+
+Physical inventory in the portable proof environment:
+
+```text
+ordinary STRICT tables: 58
+FTS5 virtual tables:     3
+application triggers:    0
+explicit indexes:        118
+FK child paths checked:  125
+FK child table scans:    0
+SQLite JSON dependency:  absent
+```
+
+The rebaseline adds `process_runs.execution_venue/error_code`,
+`process_run_inputs`, `process_run_egress`, `quality_evidence`, and
+`quality_decisions`. It does not alter SourceConnector/Inbox/DepositWriter
+semantics or authorize semantic Claim/Fichero writers.
+
+The portable migration-spec, freeze, storage-operation, persistence, Ingress and
+Workbench tests pass in the implementation checkout. The exact registered SQLite
+3.53.4 runtime is not available in this environment, so target-runtime repeat and
+independent WORKBENCH-001 certification remain an explicit next gate.
+
+```text
+WORKBENCH_001_SCHEMA_REBASELINE: IMPLEMENTED__CERTIFICATION_PENDING
 canonical_cutover_authorized: false
+forward_migration_0002_created: false
 ```

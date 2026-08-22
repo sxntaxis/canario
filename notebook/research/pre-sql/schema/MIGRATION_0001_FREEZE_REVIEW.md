@@ -1,5 +1,8 @@
 # Migration 0001 Freeze Review
 
+> **WORKBENCH-001 note:** Historical freeze review for the pre-WORKBENCH `31cac5...` baseline. The current prerelease candidate is rebaselined by `notebook/implementation/WORKBENCH_001_SCHEMA_REBASELINE.md`; counts/hash below remain historical evidence.
+
+
 **State:** `MIGRATION_0001_FREEZE_COMPLETE__AUTHORIZATION_REVIEW_READY`
 **Migration/implementation authorized:** **NO**
 

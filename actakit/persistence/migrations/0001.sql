@@ -106,14 +106,39 @@ CREATE TABLE process_runs (
   process_kind TEXT NOT NULL,
   implementation TEXT NOT NULL,
   implementation_version TEXT NOT NULL,
+  execution_venue TEXT NOT NULL CHECK (length(trim(execution_venue)) > 0),
   configuration_hash TEXT,
   model_provider TEXT,
   model_name TEXT,
   started_at TEXT NOT NULL,
   finished_at TEXT NOT NULL,
   outcome TEXT NOT NULL CHECK (outcome IN ('success','partial','failed')),
+  error_code TEXT,
   created_at TEXT NOT NULL,
-  CHECK (started_at <= finished_at)
+  CHECK (started_at <= finished_at),
+  CHECK (
+    (outcome='success' AND error_code IS NULL)
+    OR outcome='partial'
+    OR (outcome='failed' AND error_code IS NOT NULL)
+  )
+) STRICT;
+
+CREATE TABLE process_run_egress (
+  process_run_id TEXT PRIMARY KEY REFERENCES process_runs(id),
+  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed >= 0),
+  policy_profile TEXT NOT NULL CHECK (length(trim(policy_profile)) > 0),
+  data_control_profile TEXT NOT NULL CHECK (length(trim(data_control_profile)) > 0),
+  request_template_hash TEXT,
+  endpoint_profile TEXT,
+  created_at TEXT NOT NULL,
+  CHECK (
+    request_template_hash IS NULL
+    OR (
+      length(request_template_hash)=64
+      AND request_template_hash=lower(request_template_hash)
+      AND request_template_hash NOT GLOB '*[^0-9a-f]*'
+    )
+  )
 ) STRICT;
 
 CREATE TABLE representations (
@@ -172,6 +197,53 @@ CREATE TABLE representation_targets (
     (availability='available' AND selector_kind IS NOT NULL AND selector_version IS NOT NULL AND selector_payload_json IS NOT NULL AND purged_at IS NULL)
     OR
     (availability='purged' AND purged_at IS NOT NULL)
+  )
+) STRICT;
+
+CREATE TABLE process_run_inputs (
+  process_run_id TEXT NOT NULL REFERENCES process_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  PRIMARY KEY(process_run_id, ordinal),
+  UNIQUE(process_run_id, representation_target_id),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id)
+) STRICT;
+
+CREATE TABLE quality_evidence (
+  id TEXT PRIMARY KEY,
+  process_run_id TEXT NOT NULL REFERENCES process_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  signal_key TEXT NOT NULL CHECK (length(trim(signal_key)) > 0),
+  signal_version TEXT NOT NULL CHECK (length(trim(signal_version)) > 0),
+  payload_json TEXT NOT NULL,
+  interpretation_key TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(process_run_id, ordinal),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id)
+) STRICT;
+
+CREATE TABLE quality_decisions (
+  id TEXT PRIMARY KEY,
+  process_run_id TEXT NOT NULL REFERENCES process_runs(id),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  decision TEXT NOT NULL CHECK (decision IN ('accept','escalate','quarantine_review')),
+  policy_key TEXT NOT NULL CHECK (length(trim(policy_key)) > 0),
+  policy_version TEXT NOT NULL CHECK (length(trim(policy_version)) > 0),
+  reason_code TEXT NOT NULL CHECK (length(trim(reason_code)) > 0),
+  next_capability_key TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(process_run_id, representation_target_id),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id),
+  CHECK (
+    (decision='escalate' AND next_capability_key IS NOT NULL AND length(trim(next_capability_key)) > 0)
+    OR (decision IN ('accept','quarantine_review') AND next_capability_key IS NULL)
   )
 ) STRICT;
 
@@ -759,7 +831,7 @@ CREATE TABLE purge_targets (
   purge_id TEXT NOT NULL REFERENCES purges(id),
   record_kind TEXT NOT NULL CHECK (record_kind IN (
     'source','source_authority_scope','source_locator','acquisition','acquisition_artifact',
-    'archive_object','artifact','process_run','representation','representation_target',
+    'archive_object','artifact','process_run','process_run_egress','quality_evidence','quality_decision','representation','representation_target',
     'civic_document','civic_document_revision','document_identifier','document_identifier_review','document_classification','document_classification_review','document_representation','document_representation_review',
     'claim','claim_revision','evidence_link','evidence_link_review','entity_mention','entity','entity_name','entity_name_review','entity_identifier','entity_identifier_review',
     'mention_resolution_candidate','mention_resolution_revision','entity_reconciliation',
@@ -801,6 +873,10 @@ CREATE INDEX artifacts_archive_object_idx ON artifacts(archive_object_id);
 CREATE INDEX representations_artifact_kind_idx ON representations(artifact_id, kind);
 CREATE INDEX representations_parent_idx ON representations(parent_representation_id);
 CREATE INDEX representation_targets_rep_kind_idx ON representation_targets(representation_id, selector_kind);
+CREATE INDEX process_run_inputs_representation_idx ON process_run_inputs(representation_id, process_run_id);
+CREATE INDEX process_run_inputs_target_representation_fk_idx ON process_run_inputs(representation_target_id, representation_id);
+CREATE INDEX quality_evidence_target_representation_fk_idx ON quality_evidence(representation_target_id, representation_id);
+CREATE INDEX quality_decisions_target_representation_fk_idx ON quality_decisions(representation_target_id, representation_id);
 CREATE INDEX document_classifications_doc_time_idx ON document_classifications(document_id, created_at);
 CREATE INDEX document_representations_doc_rep_idx ON document_representations(document_id, representation_id);
 CREATE UNIQUE INDEX claim_revisions_one_successor_uq ON claim_revisions(supersedes_revision_id) WHERE supersedes_revision_id IS NOT NULL;

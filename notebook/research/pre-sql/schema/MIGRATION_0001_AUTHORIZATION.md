@@ -1,4 +1,7 @@
 ---
+
+> **WORKBENCH-001 note:** Historical bounded authorization for the pre-WORKBENCH `31cac5...` baseline. It does not certify the WORKBENCH-001 rebaseline; see `notebook/implementation/WORKBENCH_001_SCHEMA_REBASELINE.md`.
+
 id: ACTAKIT-SQLITE-MIGRATION-0001-AUTH-001
 kind: migration-authorization
 state: migration-0001-implemented-and-certified
