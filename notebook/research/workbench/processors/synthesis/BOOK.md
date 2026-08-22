@@ -1,11 +1,11 @@
 ---
 id: ACTAKIT-REPRESENTATION-PROCESSOR-SYNTHESIS-001
 type: research-synthesis
-state: complete-benchmark-required
+state: complete-generic-boundary-freeze-ready
 authority: evidence
 created: 2026-08-21
-updated: 2026-08-21
-researched_through: 2026-08-21
+updated: 2026-08-22
+researched_through: 2026-08-22
 actakit_baseline: 02b5c3c9efad9207397c077d53aafac9f206cc86
 claim_ledger: claims.csv
 transfer_ledger: transfers.csv
@@ -29,19 +29,20 @@ The current strongest candidate stack is:
 D0 format-native parsing
 D1 Poppler/pdftotext
 D2 OCRmyPDF + Tesseract
-D3 Docling structured processing
+D3 optional Docling structured processing
 D4 specialized visual/document AI
    - local candidate: PaddleOCR-VL
    - cloud specialist candidate: Mistral OCR
 D5 frontier general multimodal AI
    - local candidate: Qwen3-VL-family model
-   - cloud candidate: OpenAI multimodal API
+   - subscription-backed cloud candidate: official Codex CLI
    - OpenAI-compatible endpoint: escape-hatch transport, capability-gated
 D6 human review
 ```
 
-This is a research nomination, **not yet an implementation freeze**. The mandatory next gate is the
-Civic Processor Bench in `evaluation-plan.md`.
+This is a research synthesis and **generic-boundary freeze input**. It does not authorize production
+backend implementation. The closure evidence freezes the orchestration, provenance, quality-evidence
+and escalation shape, not a universal engine winner.
 
 ## Why this is the right abstraction
 
@@ -77,9 +78,10 @@ AI results are machine-derived representations, never evidence that authenticate
 - Surya/Marker code is permissive but current model weights add commercial thresholds.
 - MinerU now uses a custom Apache-derived license with thresholds/attribution, adding policy cost.
 - Mistral OCR is a hosted specialist service in the studied configuration; egress is explicit, never silent.
-- OpenAI is a first-class general cloud multimodal candidate; current API credentials are bearer secrets
-  and must remain outside ActaKit evidence/storage. Current provider retention controls are endpoint/account
-  specific, so cloud provenance must not imply zero retention unless deployment policy actually verifies it.
+- Official Codex CLI is a first-class subscription-backed general multimodal candidate; CLI credentials remain
+  host-owned and outside ActaKit evidence/storage. Personal Plus/Pro data controls differ from Business,
+  Enterprise and Edu defaults, so cloud provenance must name the deployment tier and must not imply zero
+  retention or no training without policy evidence.
 - “OpenAI-compatible” is a useful ecosystem transport convention, demonstrated by vLLM, but does not
   guarantee endpoint/parameter/modality parity. Capability declaration/probing is mandatory.
 
@@ -100,10 +102,10 @@ required processor capability
         `-- OpenAI-compatible endpoint escape hatch
 ```
 
-Cloud is **optional but first-class**. Weak hosts may sensibly escalate from Tesseract/Docling directly to
-a frontier cloud model rather than attempt a heavyweight local VLM. Conversely, restricted/no-egress
-sources may forbid cloud entirely. The Civic Processor Bench must therefore compare the best allowed local
-path against the best allowed cloud path instead of treating cloud as a Mistral-only emergency feature.
+Cloud is **optional but first-class**. Weak hosts may sensibly escalate from Tesseract directly to the
+bounded Codex CLI rather than install a heavyweight local VLM. Conversely, restricted/no-egress sources
+may forbid cloud entirely. Personal subscription use is limited to explicitly approved public material;
+managed workspace controls require separate deployment verification.
 
 API keys and equivalent credentials are host secrets, not civic evidence. Future implementation should
 resolve them from environment/OS secret/deployment facilities and never persist secret values in SQLite,

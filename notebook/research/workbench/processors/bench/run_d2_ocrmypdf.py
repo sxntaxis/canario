@@ -28,27 +28,56 @@ def first_line(command: list[str]) -> str:
     return text.splitlines()[0] if text else "unknown"
 
 
+def process_tree(pid: int) -> set[int]:
+    children: dict[int, set[int]] = {}
+    for status in Path("/proc").glob("[0-9]*/stat"):
+        try:
+            fields = status.read_text(encoding="utf-8").rsplit(")", 1)[1].split()
+            child_pid = int(status.parent.name)
+            parent_pid = int(fields[1])
+        except (OSError, ValueError, IndexError):
+            continue
+        children.setdefault(parent_pid, set()).add(child_pid)
+    tree = {pid}
+    pending = [pid]
+    while pending:
+        current = pending.pop()
+        for child in children.get(current, set()):
+            if child not in tree:
+                tree.add(child)
+                pending.append(child)
+    return tree
+
+
+def process_rss_kib(pid: int) -> int:
+    total = 0
+    for member in process_tree(pid):
+        try:
+            for line in (Path("/proc") / str(member) / "status").read_text(encoding="utf-8").splitlines():
+                if line.startswith("VmRSS:"):
+                    total += int(line.split()[1])
+                    break
+        except (OSError, ValueError, IndexError):
+            continue
+    return total
+
+
 def timed(command: list[str]) -> dict[str, object]:
-    with tempfile.TemporaryDirectory() as temporary:
-        timing = Path(temporary) / "time.txt"
-        wrapped = command
-        if Path("/usr/bin/time").exists():
-            wrapped = ["/usr/bin/time", "-f", "%e\t%M", "-o", str(timing), *command]
-        started = time.perf_counter()
-        run = subprocess.run(wrapped, capture_output=True, text=True, check=False)
-        elapsed = time.perf_counter() - started
-        rss = None
-        if timing.exists():
-            fields = timing.read_text(encoding="utf-8").strip().split("\t")
-            if len(fields) == 2:
-                elapsed = float(fields[0])
-                rss = int(fields[1])
-        return {
-            "returncode": run.returncode,
-            "stderr": run.stderr,
-            "wall_seconds": elapsed,
-            "max_rss_kib": rss,
-        }
+    started = time.perf_counter()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    peak_rss = 0
+    while process.poll() is None:
+        peak_rss = max(peak_rss, process_rss_kib(process.pid))
+        time.sleep(0.02)
+    stdout, stderr = process.communicate()
+    peak_rss = max(peak_rss, process_rss_kib(process.pid))
+    return {
+        "returncode": process.returncode,
+        "stdout": stdout,
+        "stderr": stderr,
+        "wall_seconds": time.perf_counter() - started,
+        "peak_process_tree_rss_kib": peak_rss or None,
+    }
 
 
 def page_text(pdf: Path, page: int) -> str:
@@ -98,12 +127,28 @@ def run_case(
         observed_page_2 = page_text(output, 2) if mixed else ""
         text = observed_page_1 + ("\n" + observed_page_2 if mixed else "")
         expected = truth if not mixed else truth + "\n" + truth
+        page_metrics = {
+            "page_1": {
+                "role": "native_preserved" if mixed else "ocr_page",
+                "metrics_against_truth": text_metrics(truth, observed_page_1, spans),
+            }
+        }
+        if mixed:
+            source_page_1 = page_text(source, 1)
+            page_metrics["page_1"]["preservation_against_original_native"] = text_metrics(
+                source_page_1, observed_page_1, []
+            )
+            page_metrics["page_2"] = {
+                "role": "scanned_page_ocr",
+                "metrics_against_truth": text_metrics(truth, observed_page_2, spans),
+            }
         result.update(
             {
                 "output_sha256": sha256(output),
                 "output_bytes": output.stat().st_size,
                 "output_size_expansion": output.stat().st_size / source.stat().st_size,
                 "metrics": text_metrics(expected, text, spans),
+                "page_metrics": page_metrics,
                 "page_1_text_chars": len(observed_page_1.strip()),
                 "page_2_text_chars": len(observed_page_2.strip()),
             }

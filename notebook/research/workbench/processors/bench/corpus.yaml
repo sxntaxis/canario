@@ -33,7 +33,7 @@ fixtures:
     page_count: 39
     acquisition_timestamp: 2026-08-21T23:43:10.186Z
     public_classification: public
-    egress_policy: review_before_cloud
+    egress_policy: allowed_public
     scenarios: [born_digital_pdf]
     ground_truth: UNSCORED_NATURAL
     note: Reused from certified shadow custody; source bytes remain ignored under bench/work and are not committed.
@@ -56,13 +56,14 @@ fixtures:
     note: Official DOCX linked by the certified Esparza listing; not converted from PDF.
 
   - id: esparza-real-html-listing
-    status: ready_unscored
+    status: UPSTREAM_CHANGED
     kind: real_shadow_custody_artifact
     source: certified Esparza shadow Depósito
     source_url: https://muniesparza.go.cr/articulo/230/actas-concejo-municipal
     source_path: notebook/research/workbench/processors/bench/work/natural-corpus/esparza-concejo-listing.html
     local_path_policy: ignored_bench_work_only
     source_sha256: 5dc79c94bbf74587f04560eed0f7915590aa8a46d57de4c699eadfd42ac7c07f
+    observed_sha256: c4e0996e9c6e2ee04a3708cfbf5d65e9f8f4fc0868d51f3f86da54f86c168a74
     bytes: 185663
     media_type: text/html
     acquisition_timestamp: 2026-08-21T23:43:10.186Z
@@ -70,7 +71,7 @@ fixtures:
     egress_policy: review_before_cloud
     scenarios: [html_hierarchy_links]
     ground_truth: UNSCORED_NATURAL
-    note: Listing capture contains public hierarchy and 40 DOCX links; raw HTML remains ignored.
+    note: Current upstream bytes differ from the recorded 2026-08-21 capture; metadata was not silently replaced.
 
 
   - id: cartago-budget-heavy-acta-candidate
@@ -95,7 +96,7 @@ fixtures:
     page_count: 56
     acquisition_timestamp: 2026-08-21T23:17:45.463Z
     public_classification: public
-    egress_policy: review_before_cloud
+    egress_policy: allowed_public
     scenarios: [long_born_digital_pdf, mixed_layout_embedded_material]
     ground_truth: UNSCORED_NATURAL
     note: Official 56-page acta downloaded and structurally inspected; text is non-empty on all pages, but no independent truth is curated.
@@ -113,7 +114,7 @@ fixtures:
     page_count: 35
     acquisition_timestamp: 2026-08-21T23:17:45.108Z
     public_classification: public
-    egress_policy: review_before_cloud
+    egress_policy: allowed_public
     scenarios: [long_born_digital_pdf]
     ground_truth: UNSCORED_NATURAL
     note: Official municipal acta downloaded and structurally inspected; no independent truth is curated.
@@ -132,15 +133,30 @@ fixtures:
     status: generated_from_control_fixture
     scenarios: [malformed_truncated_pdf]
   - id: civic-xlsx-csv
-    status: corpus_gap
-    scenarios: [xlsx_csv_multiple_tables]
-  - id: civic-html
     status: ready_unscored
+    kind: official_public_xlsx
+    authority: Ministerio de Trabajo y Seguridad Social
+    source_url: https://datosabiertos.gob.go.cr/dataset/mtss-liquidacion-presupuestaria-enero-2026
+    resource_url: https://drive.google.com/open?id=15gEk4p_1Rc8VQYDGHIdg3WqaNfvd5Aof
+    resource_id: dbe55040-ef6b-41ad-8949-d31a4f2254da
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/mtss-liquidacion-enero-2026.xlsx
+    local_path_policy: ignored_bench_work_only
+    source_sha256: c98451ffdebc7976757a27ccd9a69a56061c16c37bd808b8d3398b3ffcb8608e
+    bytes: 26468
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    public_classification: public
+    egress_policy: allowed_public
+    scenarios: [xlsx_multiple_tables]
+    ground_truth: UNSCORED_NATURAL
+    note: Official open-data workbook; direct cell/sheet structure is independently inspectable without AI.
+  - id: civic-html
+    status: UPSTREAM_CHANGED
     source: certified Esparza listing capture
     source_url: https://muniesparza.go.cr/articulo/230/actas-concejo-municipal
     source_path: notebook/research/workbench/processors/bench/work/natural-corpus/esparza-concejo-listing.html
     local_path_policy: ignored_bench_work_only
     source_sha256: 5dc79c94bbf74587f04560eed0f7915590aa8a46d57de4c699eadfd42ac7c07f
+    observed_sha256: c4e0996e9c6e2ee04a3708cfbf5d65e9f8f4fc0868d51f3f86da54f86c168a74
     bytes: 185663
     media_type: text/html
     acquisition_timestamp: 2026-08-21T23:43:10.186Z

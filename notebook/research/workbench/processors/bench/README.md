@@ -1,6 +1,6 @@
 # Civic Processor Bench
 
-State: **PARTIAL — natural corpus acquired; D1 reproduced; D2-D5 availability-limited.**
+State: **CLOSURE PASS — freeze-ready for the generic boundary; backend implementation remains unauthorized.**
 
 This directory is the mandatory evidence gate between the processor SOTA research package and any
 production `WORKBENCH-001` freeze/implementation. It is deliberately outside `actakit/`: benchmark
@@ -33,7 +33,7 @@ Neither class alone is sufficient.
 - modify `0001` or semantic schema;
 - store API keys/tokens in Git, SQLite, results, logs or ProcessRun material;
 - treat Tesseract/Docling/VLM self-confidence as a universal comparable probability;
-- claim a winner before the minimum civic scenario matrix has enough natural + controlled coverage.
+ - claim that every civic format is solved or that one backend is universally best.
 
 ## Current controlled fixture
 
@@ -84,9 +84,8 @@ are fully recorded.
 ## Metrics are evidence, not policy
 
 The current runner records normalized CER/WER, token precision/recall, required-span recall, exact table
-row recovery, elapsed time, best-effort subprocess peak RSS and Tesseract word-confidence statistics.
-These measurements **do not yet freeze escalation thresholds**. The final decision table is written only
-after the broader corpus and D3-D5 candidates are measured.
+row recovery, elapsed time, process-tree peak RSS and Tesseract word-confidence statistics. These
+measurements inform typed evidence and policy; they do not create a universal confidence score.
 
 ## Cloud/OpenAI bench rule
 
@@ -99,10 +98,12 @@ An OpenAI-compatible endpoint is evaluated as a transport capability profile, no
 
 The benchmark intentionally keeps provider invocation separate from scoring. A host-side OpenAI/Mistral/compatible runner may use its secret in process memory/environment, write only the derived text into `work/`, then `record_cloud_text_run.py` computes the same truth metrics and produces a non-secret evidence record. This prevents the benchmark recorder itself from becoming a credential store or premature production provider abstraction.
 
-## Gate remains open
+## Gate outcome
 
-The natural increment adds real Esparza PDF/DOCX/HTML plus FECOMUDI and Quepos
-actas. Natural fixtures are unscored until independent truth is curated. This
-host could not execute D2-D5: exact blockers and `NOT_RUN_*` statuses are in
-`results/natural-corpus-d1-and-availability.json`. The controlled local baseline
-and natural D1 inventory prove the **bench**, not the processor stack.
+The natural increment includes exact Esparza PDF/DOCX, FECOMUDI and Quepos actas,
+an official spreadsheet, independent truth for two natural hard pages, and bounded
+public Codex diagnostics. D2 page-level evidence and process-tree RSS are recorded.
+Docling is explicitly optional, not default, because its disposable footprint was
+material and no quality advantage was measured. `WORKBENCH-001` may freeze the
+generic Processor/QualityEvidence/escalation boundary and reference profile; it
+must not freeze a universal backend winner or authorize `actakit/processors`.

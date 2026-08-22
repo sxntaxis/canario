@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: CIVIC_PROCESSOR_BENCH_PARTIAL__D1_D2_CODEX_CONTROLLED__NATURAL_AND_D3_PARTIAL
+state: CIVIC_PROCESSOR_BENCH_COMPLETE__WORKBENCH_001_FREEZE_READY
 created: 2026-08-19
-updated: 2026-08-21
+updated: 2026-08-22
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: Ingress and the Esparza shadow connector are certified; the Civic Processor Bench has controlled D1, D2, and subscription-backed Codex evidence, while natural truth and D3 remain partial, so WORKBENCH-001 freeze and processor implementation remain blocked.
+summary: Ingress and the Esparza shadow connector are certified; the Civic Processor Bench supports freezing the generic Processor boundary and reference escalation policy, while production processor implementation and specialized backend selection remain deferred.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -92,7 +92,7 @@ accepted semantic contracts
 -> certified INGRESS-001 Source Connector SPI + Inbox
 -> certified Esparza connector and bounded real network shadow dogfood
 -> processor state-of-the-art Source Books + synthesis complete
--> Civic Processor Bench PARTIAL (controlled D1/D2/Codex; natural/D3 partial)
+-> Civic Processor Bench complete (WORKBENCH-001 generic boundary freeze-ready; specialized backend work deferred)
 -> Representation processor implementation after benchmark selection
 -> semantic writers and explicit canonical-cutover gate later
 ```
@@ -146,12 +146,12 @@ selects a benchmark slate and an escalation philosophy:
 native/direct parse
 -> Poppler/pdftotext
 -> OCRmyPDF + Tesseract
--> Docling structured processing
+-> Docling structured processing (optional, not default)
 -> specialized visual/document AI (local or cloud by policy)
 -> frontier multimodal AI (local or cloud by policy)
    - local candidate: Qwen3-VL family
    - subscription-backed cloud candidate: official Codex CLI + ChatGPT subscription
-   - optional API candidate: OpenAI multimodal API
+   - optional API candidate: OpenAI multimodal API, after separate policy/capability checks
    - specialist cloud candidate: Mistral OCR
 -> human review
 ```
@@ -160,22 +160,26 @@ Processors are intended to be a curated built-in ActaKit capability. Backend
 replaceability is an escape hatch for hardware, licensing, new/hard formats,
 execution-venue policy and benchmarking; WP4C is not a plugin-marketplace project.
 Cloud frontier capacity is optional but first-class: a weak host may escalate to
-OpenAI instead of attempting a heavyweight local VLM, while no-egress deployments
-remain fully local.
+bounded Codex escalation instead of attempting a heavyweight local VLM, while
+no-egress deployments remain fully local.
 
 No universal numeric processor confidence is accepted. The pending design uses
 typed, processor-attributable `QualityEvidence` and policy decisions equivalent
 to `ACCEPT | ESCALATE | QUARANTINE_REVIEW`. Every transformation remains a
 derived Representation with ProcessRun provenance; original custody is immutable.
 
-**Current gate:** the bench has acquired natural Esparza, FECOMUDI and Quepos
-fixtures and reproduced D1 findings, but D2-D5 execution is partial because the
-host lacks required local runtimes and explicit cloud authorization. Exact
-processor/model/version/license pins and escalation thresholds remain unfrozen.
-The next run must compare the best local difficult-case path against an explicitly
-egress-safe OpenAI cloud path (plus Mistral where useful), measuring quality,
-hallucination, cost, latency and egress. API-key values remain external host
-secrets and must never enter SQLite, ProcessRun evidence or logs.
+**Current gate:** the closure bench has exact natural Esparza, FECOMUDI, Quepos and
+spreadsheet artifacts, corrected page-level D2 evidence with process-tree RSS,
+independent truth for two natural hard pages, and controlled plus diagnostic
+official Codex CLI runs. The generic Processor boundary, typed QualityEvidence,
+page/block escalation, immutable custody and explicit egress policy are
+freeze-ready. Docling is optional rather than default because its disposable
+footprint was material and no quality advantage was measured. Exact pins for
+future optional backends, broader natural thresholds, handwriting and
+multi-column coverage remain follow-up work. Personal Plus/Pro Codex use is
+limited to approved public material; Business/Enterprise/Edu controls must be
+verified per deployment. Credential values remain external host secrets and must
+never enter SQLite, ProcessRun evidence or logs.
 
 ## Current Prohibitions
 

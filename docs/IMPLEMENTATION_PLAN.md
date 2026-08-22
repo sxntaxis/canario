@@ -138,11 +138,11 @@ is:
 D0 native/direct format parsing
 D1 Poppler/pdftotext for born-digital PDF
 D2 OCRmyPDF + Tesseract classical OCR
-D3 Docling structured document processing
+D3 optional Docling structured document processing
 D4 specialized visual/document AI (local/cloud venue selected by policy)
 D5 frontier multimodal AI
    - Qwen3-VL-family local candidate
-   - OpenAI cloud candidate
+   - official Codex CLI subscription-backed cloud candidate
    - OpenAI-compatible endpoint escape hatch after capability checks
 D6 human review
 ```

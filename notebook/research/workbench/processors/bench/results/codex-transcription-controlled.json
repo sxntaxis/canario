@@ -26,7 +26,7 @@
   "secret_recorded": false,
   "pages_egressed": 4,
   "bytes_egressed": 3309289,
-  "wall_seconds": 89.93834893399617,
+  "wall_seconds": 38.84446301199205,
   "returncode": 0,
   "stderr_not_recorded": true,
   "inputs": [
@@ -55,16 +55,45 @@
   "pages": [
     {
       "page_id": "clean_scan_300",
+      "transcription": "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA\nPROVINCIA: PUNTARENAS\nPrimero de mayo de dos mil veinticuatro y el treinta de abril de dos mil veintiocho.\nResoluci\u00f3n Declaratoria de Elecci\u00f3n n.\u00ba 2160-E11-2024 a las nueve horas con cuarenta minutos del ocho de marzo de dos mil veinticuatro.\nPublicada en el Alcance n.\u00ba 61 a La Gaceta n.\u00ba 55 de viernes 22 de marzo de 2024.\nALCALD\u00cdA    601420299    BIENVENIDO VENEGAS PORRAS    PUSC\nVICEALCALD\u00cdA PRIMERA    701450511    YERLIN DE LOS ANGELES DIAZ VARGAS    PUSC\nVICEALCALD\u00cdA SEGUNDA    602940147    HEIDI MARIANELA HIDALGO MADRIGAL    PUSC\n\nJurisprudencia Electoral y Normativa del TSE, IFED\njurisprudencia@tse.go.cr\n2287-5942 / 2287-5941 / 2287-5939 / 2287-5900 exts. 3813, 3814",
+      "uncertain_spans": [],
+      "tables": [
+        {
+          "rows": [
+            [
+              "ALCALD\u00cdA",
+              "601420299",
+              "BIENVENIDO VENEGAS PORRAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA PRIMERA",
+              "701450511",
+              "YERLIN DE LOS ANGELES DIAZ VARGAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA SEGUNDA",
+              "602940147",
+              "HEIDI MARIANELA HIDALGO MADRIGAL",
+              "PUSC",
+              ""
+            ]
+          ]
+        }
+      ],
       "metrics": {
         "truth_chars": 685,
         "observed_chars": 685,
-        "cer": 0.00145985401459854,
-        "wer": 0.009708737864077669,
-        "token_precision": 0.9902912621359223,
-        "token_recall": 0.9902912621359223,
-        "token_f1": 0.9902912621359223,
-        "unexpected_token_count": 1,
-        "missing_token_count": 1,
+        "cer": 0.00291970802919708,
+        "wer": 0.019417475728155338,
+        "token_precision": 0.9805825242718447,
+        "token_recall": 0.9805825242718447,
+        "token_f1": 0.9805825242718447,
+        "unexpected_token_count": 2,
+        "missing_token_count": 2,
         "required_span_recall": 1.0,
         "required_span_hits": [
           "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
@@ -75,23 +104,73 @@
           "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
           "jurisprudencia@tse.go.cr"
         ],
-        "required_span_misses": []
+        "required_span_misses": [],
+        "unexpected_tokens": [
+          {
+            "token": "n.\u00ba",
+            "count": 2
+          }
+        ],
+        "missing_tokens": [
+          {
+            "token": "n.\u00b0",
+            "count": 2
+          }
+        ]
+      },
+      "table_metrics": {
+        "observed_table_count": 1,
+        "observed_row_count": 3,
+        "candidate_row_count": 3,
+        "expected_row_count": 3,
+        "exact_row_recall": 1.0,
+        "cell_fidelity": 1.0,
+        "false_cell_count": 0
       },
       "uncertain_span_count": 0,
       "table_count": 1
     },
     {
       "page_id": "lowdpi_110",
+      "transcription": "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA\nPROVINCIA: PUNTARENAS\nPrimero de mayo de dos mil veinticuatro y el treinta de abril de dos mil veintiocho.\nResoluci\u00f3n Declaratoria de Elecci\u00f3n n.\u00ba 2160-E11-2024 a las nueve horas con cuarenta minutos del ocho de marzo de dos mil veinticuatro.\nPublicada en el Alcance n.\u00ba 61 a La Gaceta n.\u00ba 55 de viernes 22 de marzo de 2024.\nALCALD\u00cdA    601420299    BIENVENIDO VENEGAS PORRAS    PUSC\nVICEALCALD\u00cdA PRIMERA    701450511    YERLIN DE LOS ANGELES DIAZ VARGAS    PUSC\nVICEALCALD\u00cdA SEGUNDA    602940147    HEIDI MARIANELA HIDALGO MADRIGAL    PUSC\n\nJurisprudencia Electoral y Normativa del TSE, IFED\njurisprudencia@tse.go.cr\n2287-5942 / 2287-5941 / 2287-5939 / 2287-5900 exts. 3813, 3814",
+      "uncertain_spans": [],
+      "tables": [
+        {
+          "rows": [
+            [
+              "ALCALD\u00cdA",
+              "601420299",
+              "BIENVENIDO VENEGAS PORRAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA PRIMERA",
+              "701450511",
+              "YERLIN DE LOS ANGELES DIAZ VARGAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA SEGUNDA",
+              "602940147",
+              "HEIDI MARIANELA HIDALGO MADRIGAL",
+              "PUSC",
+              ""
+            ]
+          ]
+        }
+      ],
       "metrics": {
         "truth_chars": 685,
         "observed_chars": 685,
-        "cer": 0.00145985401459854,
-        "wer": 0.009708737864077669,
-        "token_precision": 0.9902912621359223,
-        "token_recall": 0.9902912621359223,
-        "token_f1": 0.9902912621359223,
-        "unexpected_token_count": 1,
-        "missing_token_count": 1,
+        "cer": 0.00291970802919708,
+        "wer": 0.019417475728155338,
+        "token_precision": 0.9805825242718447,
+        "token_recall": 0.9805825242718447,
+        "token_f1": 0.9805825242718447,
+        "unexpected_token_count": 2,
+        "missing_token_count": 2,
         "required_span_recall": 1.0,
         "required_span_hits": [
           "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
@@ -102,23 +181,73 @@
           "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
           "jurisprudencia@tse.go.cr"
         ],
-        "required_span_misses": []
+        "required_span_misses": [],
+        "unexpected_tokens": [
+          {
+            "token": "n.\u00ba",
+            "count": 2
+          }
+        ],
+        "missing_tokens": [
+          {
+            "token": "n.\u00b0",
+            "count": 2
+          }
+        ]
+      },
+      "table_metrics": {
+        "observed_table_count": 1,
+        "observed_row_count": 3,
+        "candidate_row_count": 3,
+        "expected_row_count": 3,
+        "exact_row_recall": 1.0,
+        "cell_fidelity": 1.0,
+        "false_cell_count": 0
       },
       "uncertain_span_count": 0,
       "table_count": 1
     },
     {
       "page_id": "skew_noise_300",
+      "transcription": "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA\nPROVINCIA: PUNTARENAS\nPrimero de mayo de dos mil veinticuatro y el treinta de abril de dos mil veintiocho.\nResoluci\u00f3n Declaratoria de Elecci\u00f3n n.\u00ba 2160-E11-2024 a las nueve horas con cuarenta minutos del ocho de marzo de dos mil veinticuatro.\nPublicada en el Alcance n.\u00ba 61 a La Gaceta n.\u00ba 55 de viernes 22 de marzo de 2024.\nALCALD\u00cdA    601420299    BIENVENIDO VENEGAS PORRAS    PUSC\nVICEALCALD\u00cdA PRIMERA    701450511    YERLIN DE LOS ANGELES DIAZ VARGAS    PUSC\nVICEALCALD\u00cdA SEGUNDA    602940147    HEIDI MARIANELA HIDALGO MADRIGAL    PUSC\n\nJurisprudencia Electoral y Normativa del TSE, IFED\njurisprudencia@tse.go.cr\n2287-5942 / 2287-5941 / 2287-5939 / 2287-5900 exts. 3813, 3814",
+      "uncertain_spans": [],
+      "tables": [
+        {
+          "rows": [
+            [
+              "ALCALD\u00cdA",
+              "601420299",
+              "BIENVENIDO VENEGAS PORRAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA PRIMERA",
+              "701450511",
+              "YERLIN DE LOS ANGELES DIAZ VARGAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA SEGUNDA",
+              "602940147",
+              "HEIDI MARIANELA HIDALGO MADRIGAL",
+              "PUSC",
+              ""
+            ]
+          ]
+        }
+      ],
       "metrics": {
         "truth_chars": 685,
         "observed_chars": 685,
-        "cer": 0.00145985401459854,
-        "wer": 0.009708737864077669,
-        "token_precision": 0.9902912621359223,
-        "token_recall": 0.9902912621359223,
-        "token_f1": 0.9902912621359223,
-        "unexpected_token_count": 1,
-        "missing_token_count": 1,
+        "cer": 0.00291970802919708,
+        "wer": 0.019417475728155338,
+        "token_precision": 0.9805825242718447,
+        "token_recall": 0.9805825242718447,
+        "token_f1": 0.9805825242718447,
+        "unexpected_token_count": 2,
+        "missing_token_count": 2,
         "required_span_recall": 1.0,
         "required_span_hits": [
           "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
@@ -129,23 +258,73 @@
           "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
           "jurisprudencia@tse.go.cr"
         ],
-        "required_span_misses": []
+        "required_span_misses": [],
+        "unexpected_tokens": [
+          {
+            "token": "n.\u00ba",
+            "count": 2
+          }
+        ],
+        "missing_tokens": [
+          {
+            "token": "n.\u00b0",
+            "count": 2
+          }
+        ]
+      },
+      "table_metrics": {
+        "observed_table_count": 1,
+        "observed_row_count": 3,
+        "candidate_row_count": 3,
+        "expected_row_count": 3,
+        "exact_row_recall": 1.0,
+        "cell_fidelity": 1.0,
+        "false_cell_count": 0
       },
       "uncertain_span_count": 0,
       "table_count": 1
     },
     {
       "page_id": "mixed_scan_page2",
+      "transcription": "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA\nPROVINCIA: PUNTARENAS\nPrimero de mayo de dos mil veinticuatro y el treinta de abril de dos mil veintiocho.\nResoluci\u00f3n Declaratoria de Elecci\u00f3n n.\u00ba 2160-E11-2024 a las nueve horas con cuarenta minutos del ocho de marzo de dos mil veinticuatro.\nPublicada en el Alcance n.\u00ba 61 a La Gaceta n.\u00ba 55 de viernes 22 de marzo de 2024.\nALCALD\u00cdA    601420299    BIENVENIDO VENEGAS PORRAS    PUSC\nVICEALCALD\u00cdA PRIMERA    701450511    YERLIN DE LOS ANGELES DIAZ VARGAS    PUSC\nVICEALCALD\u00cdA SEGUNDA    602940147    HEIDI MARIANELA HIDALGO MADRIGAL    PUSC\n\nJurisprudencia Electoral y Normativa del TSE, IFED\njurisprudencia@tse.go.cr\n2287-5942 / 2287-5941 / 2287-5939 / 2287-5900 exts. 3813, 3814",
+      "uncertain_spans": [],
+      "tables": [
+        {
+          "rows": [
+            [
+              "ALCALD\u00cdA",
+              "601420299",
+              "BIENVENIDO VENEGAS PORRAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA PRIMERA",
+              "701450511",
+              "YERLIN DE LOS ANGELES DIAZ VARGAS",
+              "PUSC",
+              ""
+            ],
+            [
+              "VICEALCALD\u00cdA SEGUNDA",
+              "602940147",
+              "HEIDI MARIANELA HIDALGO MADRIGAL",
+              "PUSC",
+              ""
+            ]
+          ]
+        }
+      ],
       "metrics": {
         "truth_chars": 685,
         "observed_chars": 685,
-        "cer": 0.00145985401459854,
-        "wer": 0.009708737864077669,
-        "token_precision": 0.9902912621359223,
-        "token_recall": 0.9902912621359223,
-        "token_f1": 0.9902912621359223,
-        "unexpected_token_count": 1,
-        "missing_token_count": 1,
+        "cer": 0.00291970802919708,
+        "wer": 0.019417475728155338,
+        "token_precision": 0.9805825242718447,
+        "token_recall": 0.9805825242718447,
+        "token_f1": 0.9805825242718447,
+        "unexpected_token_count": 2,
+        "missing_token_count": 2,
         "required_span_recall": 1.0,
         "required_span_hits": [
           "ALCALD\u00cdA Y VICEALCALD\u00cdAS ESPARZA",
@@ -156,11 +335,32 @@
           "VICEALCALD\u00cdA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
           "jurisprudencia@tse.go.cr"
         ],
-        "required_span_misses": []
+        "required_span_misses": [],
+        "unexpected_tokens": [
+          {
+            "token": "n.\u00ba",
+            "count": 2
+          }
+        ],
+        "missing_tokens": [
+          {
+            "token": "n.\u00b0",
+            "count": 2
+          }
+        ]
+      },
+      "table_metrics": {
+        "observed_table_count": 1,
+        "observed_row_count": 3,
+        "candidate_row_count": 3,
+        "expected_row_count": 3,
+        "exact_row_recall": 1.0,
+        "cell_fidelity": 1.0,
+        "false_cell_count": 0
       },
       "uncertain_span_count": 0,
       "table_count": 1
     }
   ],
-  "output_sha256": "0cb043598a4f345c30dfa0442c64cf94b4af07f19efaf1c75c5e44722bc6e9f6"
+  "output_sha256": "e7f839a6a51f1250e73694ec67f8695f4ebfac91fe805234b2cfd92c76ba60b0"
 }

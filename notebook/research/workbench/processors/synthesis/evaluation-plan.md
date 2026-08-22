@@ -1,4 +1,4 @@
-# Civic Processor Bench — required before WORKBENCH-001 freeze
+# Civic Processor Bench — closure evidence for WORKBENCH-001
 
 Public benchmarks establish that strong processors exist; they do not answer which stack is best for
 ActaKit's civic sources. Build a small, adversarial, legally usable fixture corpus before production
@@ -94,22 +94,22 @@ controlled civic fixture uses the official TSE Esparza mayoralties page with man
 deterministic scan/mixed/malformed derivatives. The initial Poppler/Tesseract/pdfplumber run is recorded
 in `bench/results/local-controlled-baseline.json`; see `bench/BENCH_STATUS.md` for measured findings.
 
-This closes **bench mechanics only**. It does not replace the minimum natural corpus or D3-D5 candidate
-runs listed above.
+This closes the benchmark mechanics and the current generic-boundary evidence gate. It does not claim
+the minimum corpus is representative of every civic format or that optional backends are selected.
 
 ## Gate
 
-Do not freeze or implement the production processor ladder until the benchmark produces a decision table
-for each rung, including exact versions/models/licenses/providers, execution-venue policy, resource/egress
-budgets and escalation thresholds. The final D4/D5 decision must explicitly state when a weak host should
-prefer cloud instead of attempting heavyweight local AI.
-Research can nominate candidates; Civic Processor Bench chooses the shipped defaults.
+Freeze the generic Processor ladder only with a decision table covering the enabled reference path,
+execution-venue policy, resource/egress budgets and explicit residual gaps. Optional backend pins and
+quality thresholds remain per-deployment work. The current D4/D5 decision explicitly prefers bounded
+Codex cloud escalation for approved public material on weak hosts, while no-egress deployments remain
+local or human-review only.
 
 ## Current execution checkpoint
 
-The controlled D1 baseline remains reproduced. D2 OCRmyPDF/Tesseract now has a
-controlled run, and official Codex CLI has a schema-valid scored hard-subset run
-under a ChatGPT subscription. Natural artifacts remain `UNSCORED_NATURAL`; no
-natural Codex run or independent natural truth was available in this clean
-checkout. D3 and heavyweight local AI remain optional. The result is stronger
-partial benchmark evidence, not a freeze decision.
+The controlled D1 baseline remains reproduced. D2 OCRmyPDF/Tesseract has corrected
+page-level quality and process-tree RSS evidence. Official Codex CLI has a
+schema-valid controlled run plus scored and diagnostic natural public pages with
+independent truth for two pages. Spreadsheet structure is directly evidenced.
+Docling footprint evidence records it as optional, not default. The result is
+freeze-ready for the generic boundary, with specialized follow-up gaps recorded.

@@ -1,9 +1,9 @@
 # Civic Processor Bench status
 
-State: **CIVIC_PROCESSOR_BENCH_PARTIAL__D1_D2_CODEX_CONTROLLED__NATURAL_AND_D3_PARTIAL**
+State: **CIVIC_PROCESSOR_BENCH_COMPLETE__WORKBENCH_001_FREEZE_READY**
 
-The bench infrastructure is operational. This is **not** a processor-stack selection and does not
-unblock `WORKBENCH-001` yet.
+The bench infrastructure is operational. This is **not** a universal processor-stack selection; it
+does support the generic `WORKBENCH-001` boundary and reference escalation policy.
 
 ## First controlled civic baseline
 
@@ -63,10 +63,11 @@ and `spa+eng+osd` was run in a disposable environment. The controlled result is
 `results/d2-ocrmypdf-controlled.json`.
 
 The mixed policy used `--skip-text`: it preserved the native page and OCRed the
-missing scanned page, giving whole-document CER `0.00584` and required-span recall
-`1.000`. Pure scans remained imperfect (`clean` CER `0.01168`, low-DPI CER
-`0.02336`, skew/noise CER `0.46861`), while the malformed PDF failed explicitly.
-Peak RSS was not captured, so D2 resource evidence is incomplete.
+missing scanned page. Page-level evidence records native-page exact preservation
+and scanned-page CER `0.0116788`, WER `0.0776699`, and required-span recall
+`0.4285714`; whole-document recall is not used as the gate metric. Peak process-tree
+RSS was `302868 KiB`. Pure scans remained imperfect and the malformed PDF failed
+explicitly.
 
 ## Subscription-backed Codex controlled run
 
@@ -108,19 +109,19 @@ retry returned HTTP 404.
 Natural D1 inventory found non-empty Poppler text on every page of the three
 natural PDFs. This is coverage/behavior evidence only, not quality scoring.
 
-Still required before the gate can close:
+Residual specialized work after the generic gate:
 
 - multi-column civic PDF;
 - natural difficult scan/photocopy and stamps/signatures;
 - lawful handwriting-heavy civic material;
-- XLSX/CSV multi-table material;
+- broader XLSX/CSV multi-table material;
 - natural D2 OCRmyPDF/Tesseract run if a lawful difficult scan is reacquired;
-- D3 Docling runs (blocked by missing benchmark dependency);
+- bounded D3 Docling quality run if a real structured-layout source justifies its footprint;
 - D4 specialized document-AI runs remain optional comparisons;
 - D5 local frontier multimodal run remains optional and non-blocking;
-- Codex natural public subset and independent natural truth;
+- broader Codex natural public subsets and independent natural truth;
 - optional Mistral specialist comparison;
-- exact licenses/model-weight terms/pins and resource/cost evidence.
+- exact licenses/model-weight terms/pins and resource/cost evidence for future optional comparisons.
 
 ## Cloud benchmark boundary
 
@@ -136,9 +137,9 @@ capability profiles rather than assumed equivalent from URL shape.
 
 ## Gate
 
-`WORKBENCH-001` remains blocked. The controlled D2 and Codex results support the
-reference path `D0/D1 -> D2 -> bounded Codex escalation`, but independent natural
-truth, natural hard-page evidence, D3 value, peak-resource measurements, and the
-final escalation table remain incomplete. Heavy local AI and provider API rows are
-optional rather than freeze blockers. Exact natural availability evidence remains
-in `results/natural-corpus-d1-and-availability.json`.
+`WORKBENCH-001` is freeze-ready for the generic boundary and reference policy. The
+reference path is `D0/D1 -> D2 -> bounded Codex escalation -> D6`; Docling is
+optional and not the default. Heavy local AI, provider API rows, broader natural
+coverage, handwriting and multi-column evidence remain specialized follow-up, not
+reasons to widen the custody or Processor contract. Exact natural availability
+evidence remains in `results/natural-corpus-d1-and-availability.json`.

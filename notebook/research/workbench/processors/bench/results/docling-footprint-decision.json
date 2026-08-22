@@ -1,0 +1,16 @@
+{
+  "artifact_type": "d3-footprint-decision",
+  "status": "SELECT_D3_OPTIONAL_NOT_DEFAULT",
+  "runner": "disposable evaluation environment only",
+  "observed": {
+    "standard_install": "timed_out_during_heavy_torch_cuda_dependency_resolution",
+    "slim_install": "approximately 424MB before optional conversion/model dependencies",
+    "representative_page_output": "NOT_RUN",
+    "downloaded_model_artifacts": [],
+    "model_license": "NOT_APPLICABLE",
+    "production_dependencies_changed": false
+  },
+  "decision": "Keep Docling as an explicitly optional structured-document backend. Do not make it the reference default or a mandatory rung: the disposable footprint was material and no quality advantage was measured in this closure pass. Re-open with a bounded page run when a real source requires structure beyond direct parsing and OCR.",
+  "boundary_implication": "The Processor boundary must support optional structured/layout backends, but does not require Docling-specific types, models, or installation at freeze time.",
+  "date": "2026-08-22"
+}

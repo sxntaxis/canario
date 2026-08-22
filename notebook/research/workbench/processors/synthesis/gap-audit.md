@@ -12,27 +12,15 @@
   first-class subscription-backed agent executor, while OpenAI-compatible transport is only an escape hatch
   with capability gates.
 
-## Decision-threatening gaps that remain
+## Residual gaps after closure
 
-1. **Civic corpus performance:** the controlled TSE civic baseline now proves bench mechanics and exposes coverage/confidence failure modes, but natural Esparza/municipal corpus coverage is still too small to select shipped defaults.
-2. **Natural hard-page performance:** the controlled Codex result is strong, but independent natural truth
-   and a small public hard-page run are still needed to show the path is not merely synthetic.
-3. **Docling vs simpler stack:** need measured evidence that Docling's structure value justifies its
-   runtime/model footprint for the default built-in path.
-3. **Spanish handwriting:** public capability claims are insufficient; need legal real/representative fixtures.
-4. **Exact model licenses:** freeze must pin every enabled Docling/Paddle/Qwen model artifact and terms.
-5. **Resource budgets:** target CPU/RAM/GPU envelope is not yet measured on representative hardware.
-6. **Cloud provider policy:** the reference path now has a controlled Codex run, but deployment must still
-   verify source-specific egress authorization and applicable provider data-control terms. Separate provider
-   APIs remain optional comparison venues.
-7. **Audio:** no current canonical source requires ASR; keep research ready but defer runtime dependency.
-8. **Large-object transport:** current ingress uses bytes; WORKBENCH may need stream/file handles after
-   benchmark reveals realistic page/media sizes.
-9. **Quality policy thresholds:** must be learned from Civic Processor Bench, not guessed from vendor scores.
-10. **Provider capability contract:** WORKBENCH design still must decide static declaration vs runtime probe
-    for OpenAI-compatible endpoints and how provider-specific options stay outside the processor contract.
-11. **Secret facility:** processor implementation needs a host secret-resolution boundary before any cloud
-    provider ships; this research explicitly forbids storing credential values in SQLite/provenance.
+1. **Corpus breadth:** the natural truth set is intentionally small and cannot select universal shipped quality thresholds.
+2. **Multi-column and handwriting:** no representative handwriting truth was authorized; difficult reading order and handwriting remain specialized escalation/human-review cases.
+3. **Backend pins:** no Docling/Paddle/Qwen model is enabled by this freeze, so their future model licenses remain future work.
+4. **Deployment resource budgets:** D2 process-tree RSS is measured, but representative hardware envelopes for every optional backend remain deployment work.
+5. **Provider capability contract:** OpenAI-compatible endpoints remain an escape hatch requiring capability declaration/probing and deployment policy.
+6. **Secret facility:** any production cloud provider still needs a host secret-resolution boundary; credential values remain forbidden in evidence and logs.
+7. **Audio and large-object transport:** deferred until a real source requires them.
 
 ## Non-gaps / deliberate non-goals
 
@@ -46,14 +34,16 @@
 The natural corpus increment is hash-recorded in `bench/corpus.yaml`. D1 Poppler
 inventory ran on Esparza, FECOMUDI and Quepos PDFs without independent quality
 scoring. Controlled D2 and official Codex runs are recorded in the bench results.
-Docling, PaddleOCR-VL and Qwen3-VL remain optional unrun venues; no provider API
-was used. Natural availability is recorded in
+Docling was evaluated only for disposable footprint and is recorded as optional,
+not default, in `bench/results/docling-footprint-decision.json`. PaddleOCR-VL and
+Qwen3-VL remain optional unrun venues; no provider API was used. Natural availability is recorded in
 `bench/results/natural-corpus-d1-and-availability.json`.
 
-## Next research action
+## Freeze implication
 
-Curate independent truth for a small natural hard subset, attempt a bounded
-public Codex run, and measure whether Docling adds value before Codex escalation.
-Only after those results exist should WORKBENCH-001 freeze the Processor
-interface, built-in ladder, exact backend pins and quality/escalation policy. The
-controlled D1/D2/Codex evidence is not enough to freeze WORKBENCH-001.
+The independent natural truth, bounded public Codex diagnostics, corrected page-
+level D2 evidence, spreadsheet structure evidence, Codex privacy policy, and
+resource evidence now support freezing the generic Processor interface and
+quality/escalation shape. They do not authorize production backend code or claim
+that every format is solved. Future specialized work must add fixtures and pins
+without changing the custody/provenance boundary.

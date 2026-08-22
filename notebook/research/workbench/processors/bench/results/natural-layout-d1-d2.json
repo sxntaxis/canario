@@ -1,0 +1,132 @@
+{
+  "bench_state": "CIVIC_PROCESSOR_BENCH_PARTIAL__NATURAL_LAYOUT_CONTROLLED_D1_D2",
+  "environment": {
+    "ocrmypdf": "17.10.0",
+    "tesseract": "tesseract 5.5.3",
+    "rendering_dpi": 300,
+    "language": "spa+eng"
+  },
+  "ground_truth_policy": "Native text was independently inspected against each rendered page; candidate OCR/Codex output was not used as truth.",
+  "runs": [
+    {
+      "fixture_id": "natural-layout-esparza-p4",
+      "scoring_class": "NATURAL_SOURCE_CONTROLLED_DEGRADATION",
+      "source_sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd",
+      "source_page": 4,
+      "truth_sha256": "671a66a3176a0efc21ad75238efcc8649286fd59f480ce98c5b09262892d69f4",
+      "truth_method": "Native pdftotext -layout representation independently checked against the rendered public page; not produced by OCR or Codex.",
+      "rendered_input_sha256": "9d012e1053ab4d5fa2cf65f404be5c439226a4724ce79122a4efc2bbd15bccec",
+      "rendered_input_bytes": 847371,
+      "native_d1_metrics": {
+        "truth_chars": 4103,
+        "observed_chars": 4103,
+        "cer": 0.0,
+        "wer": 0.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "token_f1": 1.0,
+        "unexpected_token_count": 0,
+        "missing_token_count": 0,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "SE ACUERDA",
+          "Comité Cantonal de la Persona Joven de Esparza",
+          "CCPJE-068-2026",
+          "ACUERDO DEFINITIVAMENTE APROBADO POR UNANIMIDAD",
+          "Contraloría General de la República"
+        ],
+        "required_span_misses": []
+      },
+      "d2": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "    1 page is facing ⇧, confidence 23.27 - rotation appears correct\nParsing 1 pages with HocrParser\nPostprocessing...\nImage optimization ratio: 1.08 savings: 7.3%\nTotal file size ratio: 1.10 savings: 9.2%\n",
+        "wall_seconds": 14.362154232992907,
+        "peak_process_tree_rss_kib": 317568,
+        "output_sha256": "3f826295493449f2a37291eacbfb080b41235ff73e181c877989a571ba121983",
+        "metrics": {
+          "truth_chars": 4103,
+          "observed_chars": 3972,
+          "cer": 0.05313185474043383,
+          "wer": 0.16838995568685378,
+          "token_precision": 0.8980891719745223,
+          "token_recall": 0.8330871491875923,
+          "token_f1": 0.8643678160919539,
+          "unexpected_token_count": 64,
+          "missing_token_count": 113,
+          "required_span_recall": 0.8,
+          "required_span_hits": [
+            "SE ACUERDA",
+            "Comité Cantonal de la Persona Joven de Esparza",
+            "CCPJE-068-2026",
+            "ACUERDO DEFINITIVAMENTE APROBADO POR UNANIMIDAD"
+          ],
+          "required_span_misses": [
+            "Contraloría General de la República"
+          ]
+        },
+        "output_bytes": 1150036
+      }
+    },
+    {
+      "fixture_id": "natural-layout-quepos-p14",
+      "scoring_class": "NATURAL_SOURCE_CONTROLLED_DEGRADATION",
+      "source_sha256": "944f362c66e6a14abc3b31044968b467ed272b1ab04a52eb91ae7cafdfc23ac0",
+      "source_page": 14,
+      "truth_sha256": "b47754f59280b156fba4904da3657fbed2e38ed52dd9da6d9a917951d05777f9",
+      "truth_method": "Native pdftotext -layout representation independently checked against the rendered public page; not produced by OCR or Codex.",
+      "rendered_input_sha256": "91f5f2ee8577a7c0b8c24417cfd678db85aed85d25dbe063eb20c8e4e5519f4b",
+      "rendered_input_bytes": 619817,
+      "native_d1_metrics": {
+        "truth_chars": 3585,
+        "observed_chars": 3585,
+        "cer": 0.0,
+        "wer": 0.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "token_f1": 1.0,
+        "unexpected_token_count": 0,
+        "missing_token_count": 0,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "Acta N° 086-2021 Ordinaria",
+          "ACUERDO NO. 13",
+          "Edwin Prado Rodríguez",
+          "José Luis Castro Valverde",
+          "HASTA AQUÍ LA TRANSCRIPCIÓN"
+        ],
+        "required_span_misses": []
+      },
+      "d2": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "    1 page is facing ⇧, confidence 33.55 - rotation appears correct\nParsing 1 pages with HocrParser\nPostprocessing...\nImage optimization ratio: 1.11 savings: 10.2%\nTotal file size ratio: 1.24 savings: 19.2%\n",
+        "wall_seconds": 11.283750510003301,
+        "peak_process_tree_rss_kib": 295752,
+        "output_sha256": "1f01e0e55181eb085743674e7bf834bac00ed9a67d820e1ea1c291ecb90a32bf",
+        "metrics": {
+          "truth_chars": 3585,
+          "observed_chars": 3237,
+          "cer": 0.13472803347280335,
+          "wer": 0.14568345323741008,
+          "token_precision": 0.8763636363636363,
+          "token_recall": 0.8669064748201439,
+          "token_f1": 0.8716094032549729,
+          "unexpected_token_count": 68,
+          "missing_token_count": 74,
+          "required_span_recall": 0.6,
+          "required_span_hits": [
+            "Acta N° 086-2021 Ordinaria",
+            "ACUERDO NO. 13",
+            "José Luis Castro Valverde"
+          ],
+          "required_span_misses": [
+            "Edwin Prado Rodríguez",
+            "HASTA AQUÍ LA TRANSCRIPCIÓN"
+          ]
+        },
+        "output_bytes": 772628
+      }
+    }
+  ]
+}

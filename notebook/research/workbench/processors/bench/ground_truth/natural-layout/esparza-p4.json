@@ -1,0 +1,16 @@
+{
+  "fixture_id": "natural-layout-esparza-p4",
+  "source_fixture": "esparza-real-born-digital-acta",
+  "source_sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd",
+  "source_page": 4,
+  "truth_text": "ground_truth/natural-layout/esparza-p4.txt",
+  "truth_method": "Native pdftotext -layout representation independently checked against the rendered public page; not produced by OCR or Codex.",
+  "scoring_class": "NATURAL_SOURCE_CONTROLLED_DEGRADATION",
+  "required_spans": [
+    "SE ACUERDA",
+    "Comité Cantonal de la Persona Joven de Esparza",
+    "CCPJE-068-2026",
+    "ACUERDO DEFINITIVAMENTE APROBADO POR UNANIMIDAD",
+    "Contraloría General de la República"
+  ]
+}

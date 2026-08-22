@@ -7,11 +7,11 @@ import hashlib
 import json
 import shutil
 import subprocess
-import tempfile
 import time
+from collections import Counter
 from pathlib import Path
 
-from metrics import read_text, text_metrics
+from metrics import normalize_text, read_text, text_metrics
 
 
 def sha256(path: Path) -> str:
@@ -55,6 +55,53 @@ def validate_output(value: object, page_ids: list[str]) -> None:
         seen.add(page["page_id"])
 
 
+def token_diff(truth: str, observed: str) -> dict[str, list[dict[str, object]]]:
+    expected = Counter(normalize_text(truth).split())
+    actual = Counter(normalize_text(observed).split())
+    return {
+        "unexpected_tokens": [
+            {"token": token, "count": count} for token, count in sorted((actual - expected).items())
+        ],
+        "missing_tokens": [
+            {"token": token, "count": count} for token, count in sorted((expected - actual).items())
+        ],
+    }
+
+
+def table_metrics(observed_tables: list[object], expected_rows: list[list[str]]) -> dict[str, object]:
+    rows: list[list[str]] = []
+    for table in observed_tables:
+        if isinstance(table, dict) and isinstance(table.get("rows"), list):
+            rows.extend(row for row in table["rows"] if isinstance(row, list) and all(isinstance(cell, str) for cell in row))
+    expected_by_key = {normalize_text(row[0]): row for row in expected_rows}
+    candidates = [row for row in rows if row and normalize_text(row[0]) in expected_by_key]
+    matched_rows = 0
+    matched_cells = 0
+    false_cells = 0
+    for row in candidates:
+        expected = expected_by_key[normalize_text(row[0])]
+        matches = sum(
+            index < len(row) and normalize_text(row[index]) == normalize_text(cell)
+            for index, cell in enumerate(expected)
+        )
+        matched_cells += matches
+        matched_rows += matches == len(expected)
+        false_cells += sum(
+            1 for index, cell in enumerate(row) if index >= len(expected) and normalize_text(cell)
+        )
+        false_cells += len(expected) - matches
+    expected_cell_count = sum(len(row) for row in expected_rows)
+    return {
+        "observed_table_count": len(observed_tables),
+        "observed_row_count": len(rows),
+        "candidate_row_count": len(candidates),
+        "expected_row_count": len(expected_rows),
+        "exact_row_recall": matched_rows / len(expected_rows) if expected_rows else 1.0,
+        "cell_fidelity": matched_cells / expected_cell_count if expected_cell_count else 1.0,
+        "false_cell_count": false_cells,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
@@ -69,6 +116,7 @@ def main() -> int:
     metadata = json.loads(source.read_text(encoding="utf-8"))
     truth = read_text(bench / metadata["truth_text"])
     spans = list(metadata["required_spans"])
+    expected_rows = [list(row) for row in metadata["table_rows"]]
     scratch = args.work_dir / "codex-run"
     if scratch.exists():
         shutil.rmtree(scratch)
@@ -172,7 +220,14 @@ def main() -> int:
             result["pages"] = [
                 {
                     "page_id": page["page_id"],
-                    "metrics": text_metrics(truth, page["transcription"], spans),
+                    "transcription": page["transcription"],
+                    "uncertain_spans": page["uncertain_spans"],
+                    "tables": page["tables"],
+                    "metrics": {
+                        **text_metrics(truth, page["transcription"], spans),
+                        **token_diff(truth, page["transcription"]),
+                    },
+                    "table_metrics": table_metrics(page["tables"], expected_rows),
                     "uncertain_span_count": len(page["uncertain_spans"]),
                     "table_count": len(page["tables"]),
                 }

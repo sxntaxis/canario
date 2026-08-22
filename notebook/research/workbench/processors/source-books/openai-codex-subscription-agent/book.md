@@ -24,6 +24,17 @@ OpenAI-compatible transport, or a production processor implementation.
   the official help page does not establish a per-call dollar price for this
   path. **ActaKit:** record `billing_mode=chatgpt_subscription`,
   `per_call_api_cost_usd=NOT_APPLICABLE`, and do not record quota/account data.
+- **COD-C005:** OpenAI's current Help Center says Codex content processed through
+  individual services, including Codex, may be used to improve models unless the
+  user turns training off in ChatGPT Data Controls; Codex also has separate full-
+  environment training controls. **ActaKit:** personal Plus/Pro use is not an
+  enterprise no-training or zero-retention guarantee.
+- **COD-C006:** The same official documentation says Business, Enterprise and Edu
+  inputs/outputs are not used for training by default, while the business privacy
+  page describes organization controls and retention options. **ActaKit:** a
+  managed workspace may qualify for a stricter deployment policy, but the policy
+  must name the workspace tier and controls rather than generalize from personal
+  subscriptions.
 
 ## Decision
 
@@ -32,3 +43,15 @@ the reference deployment profile. A research harness may test it, but production
 Codex invocation, credential ownership, processor SPI and semantic output remain
 unfrozen. Natural public artifacts require explicit egress policy and remain
 unscored without independent truth.
+
+## Egress policy
+
+The reference small-organization profile may send explicitly public civic pages
+through an operator-approved personal Codex subscription. Restricted/private
+material is **not automatically eligible** under Plus/Pro: it requires a local
+no-egress path, human review, or a deployment-specific approval after Data
+Controls and applicable terms are verified. Business/Enterprise/Edu workspaces
+have stronger default training controls and may support retention/governance
+requirements, but those controls belong to the workspace deployment rather than
+the generic Codex executor contract. The bench records only source policy,
+executor identity, input hashes/bytes, and result status.

@@ -1,0 +1,16 @@
+{
+  "fixture_id": "natural-layout-quepos-p14",
+  "source_fixture": "quepos-long-acta-candidate",
+  "source_sha256": "944f362c66e6a14abc3b31044968b467ed272b1ab04a52eb91ae7cafdfc23ac0",
+  "source_page": 14,
+  "truth_text": "ground_truth/natural-layout/quepos-p14.txt",
+  "truth_method": "Native pdftotext -layout representation independently checked against the rendered public page; not produced by OCR or Codex.",
+  "scoring_class": "NATURAL_SOURCE_CONTROLLED_DEGRADATION",
+  "required_spans": [
+    "Acta N° 086-2021 Ordinaria",
+    "ACUERDO NO. 13",
+    "Edwin Prado Rodríguez",
+    "José Luis Castro Valverde",
+    "HASTA AQUÍ LA TRANSCRIPCIÓN"
+  ]
+}
