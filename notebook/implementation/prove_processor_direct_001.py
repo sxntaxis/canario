@@ -6,8 +6,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 import tempfile
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from actakit.deposit import (
     AcquisitionObservation,
@@ -29,7 +34,6 @@ from actakit.processors import (
 )
 from actakit.processors.poppler import PopplerPdfTextProcessor
 
-ROOT = Path(__file__).resolve().parents[2]
 TSE_PDF = ROOT / "notebook/research/pre-sql/fixtures/artifact-proofs/alcaldias_pu.pdf"
 TSE_TRUTH = (
     ROOT
