@@ -11,6 +11,12 @@ from .contracts import (
     QualitySignal,
     TargetSnapshot,
 )
+from .ocr import (
+    OcrConfigurationError,
+    OcrPdfConfig,
+    OcrPdfProcessor,
+    OcrUnavailableError,
+)
 from .host import PlanReceipt, PlannedStep, ProcessingPlan, ProcessorContractError, WorkbenchHost
 from .poppler import (
     PopplerConfigurationError,
@@ -44,6 +50,10 @@ __all__ = [
     "DerivedRepresentationReceipt",
     "EgressAuthorization",
     "PersistedDecision",
+    "OcrUnavailableError",
+    "OcrPdfProcessor",
+    "OcrPdfConfig",
+    "OcrConfigurationError",
     "PlanReceipt",
     "PlannedStep",
     "PolicyContext",
