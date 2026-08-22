@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: PROCESSOR_SOTA_RESEARCH_COMPLETE__CIVIC_BENCH_REQUIRED_BEFORE_WORKBENCH_FREEZE
+state: CIVIC_PROCESSOR_BENCH_IN_PROGRESS__NATURAL_CORPUS_AND_D3_D5_PARTIAL
 created: 2026-08-19
 updated: 2026-08-21
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: Ingress and the Esparza shadow connector are certified; the WP4C processor state-of-the-art research gate is complete and Civic Processor Bench is now required before Representation-processor freeze or implementation.
+summary: Ingress and the Esparza shadow connector are certified; the Civic Processor Bench has natural corpus and D1 evidence but D2-D5 remain partial, so WORKBENCH-001 freeze and processor implementation remain blocked.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -92,7 +92,7 @@ accepted semantic contracts
 -> certified INGRESS-001 Source Connector SPI + Inbox
 -> certified Esparza connector and bounded real network shadow dogfood
 -> processor state-of-the-art Source Books + synthesis complete
--> Civic Processor Bench REQUIRED before WORKBENCH-001 freeze
+-> Civic Processor Bench IN PROGRESS (natural corpus + D1 PASS; D2-D5 partial)
 -> Representation processor implementation after benchmark selection
 -> semantic writers and explicit canonical-cutover gate later
 ```
@@ -167,16 +167,14 @@ typed, processor-attributable `QualityEvidence` and policy decisions equivalent
 to `ACCEPT | ESCALATE | QUARANTINE_REVIEW`. Every transformation remains a
 derived Representation with ProcessRun provenance; original custody is immutable.
 
-**Current gate:** construct and run the Civic Processor Bench described in
-`notebook/research/workbench/processors/synthesis/evaluation-plan.md`. Exact
-processor/model/version/license pins and escalation thresholds are not frozen
-until that benchmark closes. The bench must compare the best local difficult-case
-path against an explicitly egress-safe OpenAI cloud path (plus Mistral where useful),
-measuring quality, hallucination, cost, latency and egress. OpenAI-compatible
-endpoints are only a capability-gated transport escape hatch, not a universal API
-standard. API-key values remain external host secrets and must never enter SQLite,
-ProcessRun evidence or logs. Audio/diarization research is preserved but no ASR
-runtime dependency is justified until a real source enters scope.
+**Current gate:** the bench has acquired natural Esparza, FECOMUDI and Quepos
+fixtures and reproduced D1 findings, but D2-D5 execution is partial because the
+host lacks required local runtimes and explicit cloud authorization. Exact
+processor/model/version/license pins and escalation thresholds remain unfrozen.
+The next run must compare the best local difficult-case path against an explicitly
+egress-safe OpenAI cloud path (plus Mistral where useful), measuring quality,
+hallucination, cost, latency and egress. API-key values remain external host
+secrets and must never enter SQLite, ProcessRun evidence or logs.
 
 ## Current Prohibitions
 

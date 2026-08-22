@@ -1,0 +1,3 @@
+# Benchmark-only dependencies. Do not add these to ActaKit runtime requirements.
+Pillow==12.3.0
+pdfplumber==0.11.9

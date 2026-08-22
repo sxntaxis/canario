@@ -1,0 +1,21 @@
+{
+  "fixture_id": "tse-esparza-alcaldias-p2",
+  "source_pdf_sha256": "192da0e99878aa310a906f381f3bb25c9678934743b1b7563df747e05a8eb4f3",
+  "page_ordinal": 2,
+  "truth_text": "ground_truth/tse-esparza-alcaldias-p2.txt",
+  "required_spans": [
+    "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+    "PROVINCIA: PUNTARENAS",
+    "2160-E11-2024",
+    "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+    "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+    "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+    "jurisprudencia@tse.go.cr"
+  ],
+  "table_rows": [
+    ["ALCALDÍA", "601420299", "BIENVENIDO VENEGAS PORRAS", "PUSC"],
+    ["VICEALCALDÍA PRIMERA", "701450511", "YERLIN DE LOS ANGELES DIAZ VARGAS", "PUSC"],
+    ["VICEALCALDÍA SEGUNDA", "602940147", "HEIDI MARIANELA HIDALGO MADRIGAL", "PUSC"]
+  ],
+  "ground_truth_method": "Manual transcription from the official TSE page rendering, cross-checked against the preserved PDF text/table selector proof."
+}

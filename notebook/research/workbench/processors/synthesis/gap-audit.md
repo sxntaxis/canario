@@ -13,7 +13,7 @@
 
 ## Decision-threatening gaps that remain
 
-1. **Civic corpus performance:** no studied benchmark substitutes for Costa Rican municipal documents.
+1. **Civic corpus performance:** the controlled TSE civic baseline now proves bench mechanics and exposes coverage/confidence failure modes, but natural Esparza/municipal corpus coverage is still too small to select shipped defaults.
 2. **Docling vs simpler stack:** need measured evidence that Docling's structure value justifies its
    runtime/model footprint for the default built-in path.
 3. **Spanish handwriting:** public capability claims are insufficient; need legal real/representative fixtures.
@@ -38,7 +38,19 @@
 - Reimplementing OCR/layout/VLM engines inside ActaKit is rejected.
 - AI output does not become source evidence; this is already an accepted provenance invariant.
 
+## Bench execution update
+
+The natural corpus increment is present in the ignored bench work area and is
+hash-recorded in `bench/corpus.yaml`. D1 Poppler inventory ran on Esparza,
+FECOMUDI and Quepos PDFs without independent quality scoring. Tesseract,
+OCRmyPDF, Docling, PaddleOCR-VL and Qwen3-VL were not runnable on this host;
+OpenAI/Mistral were not authorized. Exact blockers are recorded in
+`bench/results/natural-corpus-d1-and-availability.json`.
+
 ## Next research action
 
-Construct and run Civic Processor Bench. Only after results exist should WORKBENCH-001 freeze the
-Processor interface, built-in ladder, exact backend pins and quality/escalation policy.
+Curate independent truth for a small natural hard subset and run D2-D5 in a
+capable local environment or under explicit cloud authorization. Only after
+those results exist should WORKBENCH-001 freeze the Processor interface,
+built-in ladder, exact backend pins and quality/escalation policy. The controlled
+and natural D1 evidence is not enough to freeze WORKBENCH-001.

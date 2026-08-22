@@ -1,0 +1,47 @@
+{
+  "bench_state": "CIVIC_PROCESSOR_BENCH_IN_PROGRESS__NATURAL_CORPUS_AND_D3_D5_PARTIAL",
+  "run_date": "2026-08-21",
+  "ground_truth_policy": "Natural fixtures are UNSCORED_NATURAL; no CER/WER is assigned without independent truth.",
+  "environment": {
+    "python": "3.11.14",
+    "pdftotext": "26.07.0",
+    "pdfplumber": "0.11.9",
+    "python_docx": "1.1.0"
+  },
+  "controlled_reproduction": {
+    "source_sha256": "192da0e99878aa310a906f381f3bb25c9678934743b1b7563df747e05a8eb4f3",
+    "poppler": {
+      "native": {"returncode": 0, "cer": 0.0, "wer": 0.0, "required_span_recall": 1.0},
+      "clean_scan": {"returncode": 0, "cer": 1.0, "wer": 1.0, "required_span_recall": 0.0},
+      "lowdpi_scan": {"returncode": 0, "cer": 1.0, "wer": 1.0, "required_span_recall": 0.0},
+      "skew_noise_scan": {"returncode": 0, "cer": 1.0, "wer": 1.0, "required_span_recall": 0.0},
+      "mixed_native_scan": {"returncode": 0, "cer": 0.50036469730124, "wer": 0.5, "required_span_recall": 1.0},
+      "malformed_truncated": {"returncode": 1, "expected_failure_observed": true}
+    },
+    "pdfplumber_native_table": {"exact_row_recall": 1.0, "expected_rows": 3, "exact_rows_matched": 3},
+    "tesseract": "NOT_RUN_MISSING_SYSTEM_DEPENDENCY; tesseract executable and spa data unavailable",
+    "ocrmypdf": "NOT_RUN_MISSING_SYSTEM_DEPENDENCY; ocrmypdf and qpdf unavailable"
+  },
+  "natural_artifacts": [
+    {"fixture": "esparza-real-born-digital-acta", "path": "work/natural-corpus/esparza-2026-concejo.pdf", "sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd", "bytes": 760485, "pages": 39, "nonempty_pages": 39, "ground_truth": "UNSCORED_NATURAL"},
+    {"fixture": "esparza-real-docx", "path": "work/natural-corpus/esparza-acta-147-2026.docx", "sha256": "8ece7541ddf11176155b561d4692e15bfe128057d78c70a7551e6f2e36f4bd31", "bytes": 3724482, "paragraphs": 694, "tables": 0, "ground_truth": "UNSCORED_NATURAL"},
+    {"fixture": "esparza-real-html-listing", "path": "work/natural-corpus/esparza-concejo-listing.html", "sha256": "5dc79c94bbf74587f04560eed0f7915590aa8a46d57de4c699eadfd42ac7c07f", "bytes": 185663, "docx_links": 40, "ground_truth": "UNSCORED_NATURAL"},
+    {"fixture": "fecomudi-long-embedded-acta-candidate", "path": "work/natural-corpus/fecomudi-acta-14-2025.pdf", "sha256": "0e45998587e805e1fb376bd6b5f9ac6a94995d81fad4ce2bdb131b47b63a2de3", "bytes": 3781977, "pages": 56, "nonempty_pages": 56, "ground_truth": "UNSCORED_NATURAL"},
+    {"fixture": "quepos-long-acta-candidate", "path": "work/natural-corpus/quepos-acta-086-2021.pdf", "sha256": "944f362c66e6a14abc3b31044968b467ed272b1ab04a52eb91ae7cafdfc23ac0", "bytes": 619293, "pages": 35, "nonempty_pages": 35, "ground_truth": "UNSCORED_NATURAL"}
+  ],
+  "candidate_availability": {
+    "D3_docling": "NOT_RUN_MISSING_BENCHMARK_DEPENDENCY; docling unavailable",
+    "D4_paddleocr_vl": "NOT_RUN_HARDWARE_OR_RUNTIME; paddleocr/torch unavailable and no GPU detected",
+    "D4_mistral_cloud": "NOT_RUN_MISTRAL_NO_EXPLICIT_CLOUD_AUTH",
+    "D5_qwen3_vl_local": "NOT_RUN_OPTIONAL_LOCAL_AI_NON_BLOCKING; heavyweight local runtime was not installed",
+    "D5_openai_cloud": "NOT_RUN_OPENAI_NO_EXPLICIT_CLOUD_AUTH",
+    "openai_compatible": "NOT_RUN_OPENAI_COMPATIBLE_NO_ENDPOINT",
+    "cartago_budget_acta": "NOT_READY_FETCH_FAILED; local CA verification failed and explicit retry returned HTTP 404"
+  },
+  "cloud": {
+    "attempted": false,
+    "bytes_egressed": 0,
+    "secret_recorded": false,
+    "authorization": "not present; no provider bytes sent"
+  }
+}

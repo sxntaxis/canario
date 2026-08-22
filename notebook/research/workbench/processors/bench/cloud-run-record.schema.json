@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actakit.invalid/bench/cloud-run-record.schema.json",
+  "title": "ActaKit Civic Processor Bench cloud run record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "provider_id",
+    "endpoint_profile",
+    "model_id",
+    "fixture_id",
+    "input_sha256",
+    "input_pages",
+    "input_bytes_egressed",
+    "request_template_id",
+    "request_template_sha256",
+    "latency_ms",
+    "retention_profile",
+    "secret_recorded"
+  ],
+  "properties": {
+    "provider_id": {"type": "string", "minLength": 1},
+    "endpoint_profile": {"type": "string", "minLength": 1},
+    "model_id": {"type": "string", "minLength": 1},
+    "fixture_id": {"type": "string", "minLength": 1},
+    "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "input_pages": {"type": "array", "items": {"type": "integer", "minimum": 1}, "minItems": 1},
+    "input_bytes_egressed": {"type": "integer", "minimum": 1},
+    "request_template_id": {"type": "string", "minLength": 1},
+    "request_template_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "latency_ms": {"type": "number", "minimum": 0},
+    "usage": {"type": ["object", "null"]},
+    "cost_usd": {"type": ["number", "null"], "minimum": 0},
+    "retention_profile": {"type": "string", "minLength": 1},
+    "response_text_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "secret_recorded": {"const": false},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

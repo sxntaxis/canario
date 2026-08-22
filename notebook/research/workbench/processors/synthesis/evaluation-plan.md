@@ -85,6 +85,16 @@ The OpenAI run must use a host-provided API credential and never write the key i
 results or provenance. Benchmark artifacts record only non-secret provider/model/request-template identity
 and the applicable provider data-control/retention profile observed for the run.
 
+## Bench implementation status
+
+The executable research harness now lives at `notebook/research/workbench/processors/bench/`. Its first
+controlled civic fixture uses the official TSE Esparza mayoralties page with manually curated truth and
+deterministic scan/mixed/malformed derivatives. The initial Poppler/Tesseract/pdfplumber run is recorded
+in `bench/results/local-controlled-baseline.json`; see `bench/BENCH_STATUS.md` for measured findings.
+
+This closes **bench mechanics only**. It does not replace the minimum natural corpus or D3-D5 candidate
+runs listed above.
+
 ## Gate
 
 Do not freeze or implement the production processor ladder until the benchmark produces a decision table
@@ -92,3 +102,12 @@ for each rung, including exact versions/models/licenses/providers, execution-ven
 budgets and escalation thresholds. The final D4/D5 decision must explicitly state when a weak host should
 prefer cloud instead of attempting heavyweight local AI.
 Research can nominate candidates; Civic Processor Bench chooses the shipped defaults.
+
+## Current execution checkpoint
+
+The controlled D1 baseline reproduced its semantic findings on Poppler 26.07.0,
+but this host lacks Tesseract/OCRmyPDF/qpdf and the D3-D5 local runtimes. The
+natural increment added ignored Esparza PDF/DOCX/HTML, FECOMUDI and Quepos
+fixtures, all marked `UNSCORED_NATURAL`. Cloud execution was not attempted:
+explicit OpenAI/Mistral authorization, model identity and budget were absent.
+The result is partial benchmark evidence, not a freeze decision.
