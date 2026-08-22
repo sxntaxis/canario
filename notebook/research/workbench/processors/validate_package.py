@@ -60,6 +60,7 @@ def main() -> None:
         "escalation-ladder.md",
         "quality-evidence.md",
         "evaluation-plan.md",
+        "cloud-execution.md",
         "transfers.csv",
         "gap-audit.md",
         "scenario-matrix.csv",

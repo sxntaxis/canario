@@ -10,6 +10,8 @@ surya-marker,ACTAKIT-BOOK-SURYA_MARKER-001,Surya OCR and Marker,pattern-adopt_ba
 mineru,ACTAKIT-BOOK-MINERU-001,MinerU,defer-reference,4,4,2026-08-21
 mistral-document-ai,ACTAKIT-BOOK-MISTRAL_DOCUMENT_AI-001,Mistral OCR 4.1 / Document AI,optional-cloud-adapter,4,4,2026-08-21
 qwen3-vl,ACTAKIT-BOOK-QWEN3_VL-001,Qwen3-VL,adapt-after-benchmark,2,4,2026-08-21
+openai-cloud-ai,ACTAKIT-BOOK-OPENAI_CLOUD_AI-001,OpenAI cloud multimodal API,first-class-cloud-benchmark-candidate,5,5,2026-08-21
+openai-compatible-api,ACTAKIT-BOOK-OPENAI_COMPATIBLE_API-001,OpenAI-compatible inference API convention,adopt-transport-pattern-with-capability-gates,4,4,2026-08-21
 audio-whisper,ACTAKIT-BOOK-AUDIO_WHISPER-001,Whisper-family local ASR: faster-whisper and whisper.cpp,provisional-adopt-defer-dependency,4,4,2026-08-21
 pyannote,ACTAKIT-BOOK-PYANNOTE-001,pyannote.audio,defer-until-source-need,3,4,2026-08-21
 omnidocbench,ACTAKIT-BOOK-OMNIDOCBENCH-001,OmniDocBench,adopt-evaluation-principles,2,4,2026-08-21

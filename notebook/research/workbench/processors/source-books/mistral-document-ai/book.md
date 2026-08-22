@@ -37,7 +37,7 @@ Current OCR 4.1 model/API documentation and pricing.
 
 ## Bounded transfer
 
-Adapt as optional cloud last-resort document-AI provider behind an explicit egress policy and pinned model identity.
+Adapt as an optional specialized cloud Document-AI provider behind an explicit egress policy and pinned model identity.
 
 ## Do not import
 

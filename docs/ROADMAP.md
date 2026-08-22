@@ -109,8 +109,11 @@ native/direct parse
 -> Poppler/pdftotext
 -> OCRmyPDF + Tesseract
 -> Docling structured processing
--> specialized local visual AI (PaddleOCR-VL candidate)
--> general local multimodal AI / explicit opt-in cloud Document AI
+-> specialized visual/document AI (local or cloud by policy)
+-> frontier multimodal AI (local or cloud by policy)
+   - Qwen3-VL local candidate
+   - OpenAI cloud candidate
+   - OpenAI-compatible endpoint escape hatch after capability checks
 -> human review
 ```
 
@@ -124,9 +127,11 @@ custody is immutable; every processor attempt/output is attributable.
 **Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion and the processor
 state-of-the-art package are complete. Before WP4C implementation freeze, run the
 Civic Processor Bench on representative civic material and pin selected
-backend/model/version/license identities, quality/escalation criteria and resource/
-egress budgets. Unsupported or low-quality extraction must fail visibly or
-escalate without corrupting custody.
+backend/model/version/license/provider identities, quality/escalation criteria and
+resource/egress budgets. The hard-case bench must compare best-local against
+best-cloud rather than binding architecture to developer hardware; API credentials
+remain external secrets. Unsupported or low-quality extraction must fail visibly
+or escalate without corrupting custody.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 

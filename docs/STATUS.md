@@ -147,14 +147,20 @@ native/direct parse
 -> Poppler/pdftotext
 -> OCRmyPDF + Tesseract
 -> Docling structured processing
--> PaddleOCR-VL specialized visual AI
--> Qwen3-VL local multimodal or explicit opt-in cloud Document AI
+-> specialized visual/document AI (local or cloud by policy)
+-> frontier multimodal AI (local or cloud by policy)
+   - local candidate: Qwen3-VL family
+   - cloud candidate: OpenAI multimodal API
+   - specialist cloud candidate: Mistral OCR
 -> human review
 ```
 
 Processors are intended to be a curated built-in ActaKit capability. Backend
 replaceability is an escape hatch for hardware, licensing, new/hard formats,
-local/cloud policy and benchmarking; WP4C is not a plugin-marketplace project.
+execution-venue policy and benchmarking; WP4C is not a plugin-marketplace project.
+Cloud frontier capacity is optional but first-class: a weak host may escalate to
+OpenAI instead of attempting a heavyweight local VLM, while no-egress deployments
+remain fully local.
 
 No universal numeric processor confidence is accepted. The pending design uses
 typed, processor-attributable `QualityEvidence` and policy decisions equivalent
@@ -164,7 +170,12 @@ derived Representation with ProcessRun provenance; original custody is immutable
 **Current gate:** construct and run the Civic Processor Bench described in
 `notebook/research/workbench/processors/synthesis/evaluation-plan.md`. Exact
 processor/model/version/license pins and escalation thresholds are not frozen
-until that benchmark closes. Audio/diarization research is preserved but no ASR
+until that benchmark closes. The bench must compare the best local difficult-case
+path against an explicitly egress-safe OpenAI cloud path (plus Mistral where useful),
+measuring quality, hallucination, cost, latency and egress. OpenAI-compatible
+endpoints are only a capability-gated transport escape hatch, not a universal API
+standard. API-key values remain external host secrets and must never enter SQLite,
+ProcessRun evidence or logs. Audio/diarization research is preserved but no ASR
 runtime dependency is justified until a real source enters scope.
 
 ## Current Prohibitions

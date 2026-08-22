@@ -9,6 +9,8 @@ internal or model-specific.
 ```text
 QualityEvidence
 ├── processor_id / processor_version / model_id
+├── execution_venue      # deterministic_local | ml_local | cloud
+├── provider_id? / endpoint_profile?   # non-secret identities only
 ├── scope               # document/page/block/time span
 ├── signal_name         # namespaced, stable ActaKit key
 ├── observed_value      # typed value or bounded JSON payload
@@ -32,6 +34,7 @@ change across pre-release without rewriting source evidence.
 - Docling: categorical `POOR/FAIR/GOOD/EXCELLENT` grades and named component grades; keep numeric internals namespaced;
 - tables: row/column/cell structural checks, TEDS-like fixture score, impossible/empty cell ratios;
 - multimodal AI: constrained-schema validity, missing/extra regions, cross-processor disagreement, hallucinated-token/field checks;
+- cloud execution: provider/model/request-template identity, latency, reported usage/cost inputs, bytes/pages egressed, retention/data-control profile name;
 - Mistral OCR: provider page/block/word confidence retained under provider namespace;
 - ASR: language probability, avg log probability, no-speech probability, compression ratio, word probabilities, VAD coverage;
 - diarization: covered speech time, overlaps, speaker-turn alignment with transcript timestamps.
@@ -44,3 +47,14 @@ is correct when models disagree on consequential content or all automated rungs 
 
 A later implementation may summarize typed evidence to an operator-facing grade, but the underlying
 signals must remain inspectable and processor-attributable.
+
+
+## Credentials are not QualityEvidence
+
+API keys/tokens are bearer secrets and have no evidentiary value. They must never be stored in
+QualityEvidence, ProcessRun configuration, SQLite, benchmark fixtures or logs. A future host may resolve a
+non-secret credential slot/reference through environment variables, an OS secret service or deployment
+secret manager; the resolved secret value stays outside the processor/provenance payload.
+
+Likewise, `OpenAI-compatible` is transport metadata, not a quality grade. The actual provider/server/model
+must still identify its capabilities and produce normal QualityEvidence.

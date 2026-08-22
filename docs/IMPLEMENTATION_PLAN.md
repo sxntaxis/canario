@@ -139,8 +139,11 @@ D0 native/direct format parsing
 D1 Poppler/pdftotext for born-digital PDF
 D2 OCRmyPDF + Tesseract classical OCR
 D3 Docling structured document processing
-D4 PaddleOCR-VL specialized local visual AI
-D5 Qwen3-VL local multimodal escape hatch or explicit opt-in cloud Document AI
+D4 specialized visual/document AI (local/cloud venue selected by policy)
+D5 frontier multimodal AI
+   - Qwen3-VL-family local candidate
+   - OpenAI cloud candidate
+   - OpenAI-compatible endpoint escape hatch after capability checks
 D6 human review
 ```
 
@@ -156,22 +159,32 @@ WP4C must cover:
 - PDF/DOCX/text/HTML extraction;
 - spreadsheet/table representation where required;
 - OCR/scan escalation for low-quality material;
-- local visual/multimodal AI for difficult scans/handwriting where justified;
-- explicit opt-in cloud escalation only where egress policy permits it;
+- visual/multimodal AI for difficult scans/handwriting where justified;
+- execution-venue selection: local when required/preferred, cloud when egress is
+  allowed and quality/hardware/cost policy favors it;
+- first-class OpenAI cloud escalation plus specialized Mistral benchmarking;
+- capability-gated OpenAI-compatible endpoint support as an escape hatch, not a
+  universal compatibility assumption;
 - media/transcript processing only when a real source requires it;
 - representation/locator capability registration and typed quality evidence.
 
 Security requirements: bounded size/time/resources, safe paths, no
 document-controlled shell/network behavior, local processors network-off by
 default after explicit model acquisition, and explicit provider/model/egress
-provenance for cloud processing. Large-object/streaming transport is added when a
-real source/benchmark proves the need rather than assuming all payloads are small.
+provenance for cloud processing. API credential values remain outside SQLite,
+ProcessRun evidence and logs; the provider records only non-secret provider/model/
+endpoint/request-template identity and egress facts. Large-object/streaming
+transport is added when a real source/benchmark proves the need rather than
+assuming all payloads are small.
 
 **Mandatory next gate:** build and run the Civic Processor Bench before freezing
 or implementing production processor defaults. Benchmark representative civic
 PDFs/scans/tables/handwriting/office formats for accuracy, hallucination, locator
-reopenability, runtime/memory, determinism, provenance and escalation cost. Public
-leaderboards inform candidates but do not choose the stack.
+reopenability, runtime/memory, determinism, provenance and escalation cost. On the
+hard subset, explicitly compare the best qualified local path with the best allowed
+cloud path (OpenAI current multimodal candidate; Mistral specialist where useful),
+including monetary cost, latency and bytes/pages egressed. Public leaderboards
+inform candidates but do not choose the stack.
 
 **WP4C implementation gate:** unsupported or low-quality extraction fails visibly
 or escalates without corrupting original custody; the selected ladder passes the
