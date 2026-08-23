@@ -32,6 +32,29 @@ _PAGE_SIZE_RE = re.compile(
 )
 
 _PROMPT_VERSION = "codex_visual_transcription_v1"
+_EXEC_POLICY_VERSION = "codex_exec_policy_v2"
+_STATIC_CODEX_CONFIG_OVERRIDES = (
+    'model_reasoning_effort="none"',
+    'model_reasoning_summary="none"',
+    'hide_agent_reasoning=true',
+    'show_raw_agent_reasoning=false',
+    'project_doc_max_bytes=0',
+    'skills.bundled.enabled=false',
+    'web_search="disabled"',
+    'features.view_image=false',
+    'features.shell_tool=false',
+    'features.unified_exec=false',
+    'features.hooks=false',
+    'features.plugins=false',
+    'features.apps=false',
+    'features.tool_suggest=false',
+    'features.image_generation=false',
+    'features.browser_use=false',
+    'features.browser_use_external=false',
+    'features.computer_use=false',
+    'features.multi_agent=false',
+    'features.multi_agent_v2.enabled=false',
+)
 _PROMPT = """You are performing bounded document representation processing, not civic interpretation.
 Transcribe only the single attached civic-record page image.
 
@@ -215,6 +238,8 @@ class CodexVisualConfig:
                 "codex_timeout_seconds": self.codex_timeout_seconds,
                 "endpoint_profile": self.endpoint_profile,
                 "exec": {
+                    "policy_version": _EXEC_POLICY_VERSION,
+                    "config_overrides": _STATIC_CODEX_CONFIG_OVERRIDES,
                     "ephemeral": True,
                     "ignore_rules": True,
                     "ignore_user_config": True,
@@ -613,26 +638,7 @@ class CodexVisualTranscriptionProcessor:
             "--cd", str(scratch),
             "--image", str(image),
             "-c", f'cli_auth_credentials_store="{self.config.auth_store_mode}"',
-            "-c", 'model_reasoning_effort="none"',
-            "-c", 'model_reasoning_summary="none"',
-            "-c", "hide_agent_reasoning=true",
-            "-c", "show_raw_agent_reasoning=false",
-            "-c", "project_doc_max_bytes=0",
-            "-c", "skills.bundled.enabled=false",
-            "-c", 'web_search="disabled"',
-            "-c", "tools.web_search=false",
-            "-c", "tools.view_image=false",
-            "-c", "features.shell_tool=false",
-            "-c", "features.unified_exec=false",
-            "-c", "features.plugins=false",
-            "-c", "features.apps=false",
-            "-c", "features.tool_suggest=false",
-            "-c", "features.image_generation=false",
-            "-c", "features.browser_use=false",
-            "-c", "features.browser_use_external=false",
-            "-c", "features.computer_use=false",
-            "-c", "features.multi_agent=false",
-            "-c", "features.multi_agent_v2.enabled=false",
+            *[part for override in _STATIC_CODEX_CONFIG_OVERRIDES for part in ("-c", override)],
             "-",
         ]
 

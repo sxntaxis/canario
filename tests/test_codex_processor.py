@@ -21,6 +21,7 @@ from actakit.deposit import (
     new_id,
 )
 from actakit.persistence import database
+import actakit.processors.codex as codex_module
 from actakit.processors import (
     EgressAuthorization,
     ProcessingRequest,
@@ -266,13 +267,23 @@ class CodexProcessorTests(unittest.TestCase):
             "--strict-config", "--ephemeral", "--ignore-user-config", "--ignore-rules",
             "--sandbox read-only", "--skip-git-repo-check", "--model gpt-5.6-sol",
             "skills.bundled.enabled=false",
-            "features.shell_tool=false", "features.unified_exec=false", "features.plugins=false",
+            "features.shell_tool=false", "features.unified_exec=false", "features.hooks=false",
+            "features.plugins=false",
             "features.apps=false", "features.multi_agent=false", "features.multi_agent_v2.enabled=false",
-            'web_search="disabled"', "tools.web_search=false", "tools.view_image=false",
+            'web_search="disabled"', "features.view_image=false",
         ):
             self.assertIn(required, joined)
         self.assertEqual(command[-1], "-")
         self.assertNotIn("--json", command)
+        self.assertNotIn("tools.view_image", joined)
+        self.assertNotIn("tools.web_search", joined)
+        self.assertEqual(command.count("-c"), 21)
+
+    def test_exec_override_policy_is_part_of_configuration_identity(self):
+        base = CodexVisualConfig().canonical_hash()
+        changed = codex_module._STATIC_CODEX_CONFIG_OVERRIDES + ("features.code_mode=false",)
+        with patch.object(codex_module, "_STATIC_CODEX_CONFIG_OVERRIDES", changed):
+            self.assertNotEqual(base, CodexVisualConfig().canonical_hash())
 
     def test_child_environment_excludes_secrets_proxies_and_ambient_codex_configuration(self):
         processor = _SimulatedCodex(self.codex_home)

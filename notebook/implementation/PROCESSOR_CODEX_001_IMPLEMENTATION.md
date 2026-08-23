@@ -30,6 +30,9 @@ POSIX). `auth.json`, ambient `config.toml`, user skills and POSIX
 `/etc/codex/skills` make the profile ineligible. The child receives an empty scratch HOME and a minimal environment.
 The command uses `--ephemeral --ignore-user-config --ignore-rules --strict-config`,
 disables bundled skills for the process, and disables unrelated tools/features.
+The exec policy is versioned in the adapter configuration hash; the corrected
+0.149.0-qualified policy uses `features.view_image=false` and top-level
+`web_search="disabled"`, disables lifecycle hooks, and hashes the exact static Codex override list as part of configuration identity.
 
 The source PDF is used only for local Poppler rendering and is deleted before
 Codex starts. Scratch contains only the single rendered page attachment, static

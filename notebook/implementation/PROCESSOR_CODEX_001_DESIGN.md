@@ -77,7 +77,10 @@ codex exec
 ```
 
 Config overrides disable shell/unified-exec, multi-agent, plugins/apps, web
-search, browser/computer/image-generation and the local image-view tool. Stdout
+search, browser/computer/image-generation and the local image-view feature. The
+Codex 0.149.0 config contract exposes `view_image` under `[features]`, so the
+qualified override is `features.view_image=false`; no unsupported `tools.view_image`
+field is used. Lifecycle hooks are disabled as an unnecessary execution surface. The exact static override list is part of the adapter configuration hash, so changing Codex execution policy changes durable configuration identity. Stdout
 and stderr are discarded. The result accepted by ActaKit is only the final JSON
 value validated against the product contract.
 

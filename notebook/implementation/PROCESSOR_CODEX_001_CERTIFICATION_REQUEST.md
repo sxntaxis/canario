@@ -64,7 +64,9 @@ Verify at minimum:
 - child HOME is private scratch and CODEX_HOME is dedicated;
 - no auth.json/config/user/admin skills are accepted;
 - CLI user config/rules ignored; shell, multi-agent, plugins/apps, web/browser/
-  computer/image-generation surfaces disabled;
+  computer/image-generation surfaces disabled using only Codex 0.149.0-qualified
+  config keys; `features.view_image=false` is present and unsupported
+  `tools.view_image`/redundant `tools.web_search` overrides are absent; lifecycle hooks are disabled; the exact static Codex override list contributes to `configuration_hash`;
 - stdout/stderr are not canonical logs;
 - subprocess does not inherit API keys/proxies/arbitrary CODEX_* values;
 - local rendering and cloud execution have byte/page/megapixel/output/time limits;
