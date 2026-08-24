@@ -22,10 +22,29 @@ from .contracts import (
     TagAssignmentDraft,
     TargetRef,
 )
+from .host import LectorContractError, LectorHost
 from .locators import SemanticLocatorError, reopen_selector
 from .registry import SemanticExtractorRegistry, SemanticExtractorResolutionError
+from .writer import (
+    LectorIdentityCollision,
+    LectorInvariantError,
+    LectorWriteError,
+    LectorWriter,
+    PersistedClaim,
+    PersistedClaimRelation,
+    SemanticReceipt,
+)
 
 __all__ = [
+    "LectorContractError",
+    "LectorHost",
+    "LectorIdentityCollision",
+    "LectorInvariantError",
+    "LectorWriteError",
+    "LectorWriter",
+    "PersistedClaim",
+    "PersistedClaimRelation",
+    "SemanticReceipt",
     "ClaimDraft",
     "ClaimRelationDraft",
     "ClaimRevisionRef",

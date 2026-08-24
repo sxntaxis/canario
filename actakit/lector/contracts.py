@@ -92,6 +92,7 @@ class SemanticExtractorDescriptor:
     max_input_bytes: int | None = None
     max_scopes: int | None = None
     max_claims: int = 1000
+    max_evidence_links: int = 10000
     max_mentions: int = 5000
     max_resolution_candidates: int = 10000
     max_tag_assignments: int = 5000
@@ -139,6 +140,7 @@ class SemanticExtractorDescriptor:
             "max_input_bytes",
             "max_scopes",
             "max_claims",
+            "max_evidence_links",
             "max_mentions",
             "max_resolution_candidates",
             "max_tag_assignments",
@@ -327,9 +329,9 @@ class ClaimDraft:
             isinstance(item, EntityAnchorDraft) for item in self.entity_anchors
         ):
             raise TypeError("claim entity anchors must contain EntityAnchorDraft values")
-        anchor_ids = [item.entity_id for item in self.entity_anchors]
-        if len(anchor_ids) != len(set(anchor_ids)):
-            raise ValueError("one claim cannot repeat the same direct Entity anchor")
+        anchor_identities = [(item.entity_id, item.role) for item in self.entity_anchors]
+        if len(anchor_identities) != len(set(anchor_identities)):
+            raise ValueError("one claim cannot repeat the same direct Entity anchor/role")
         if self.attribution_entity_id is not None:
             validate_id(self.attribution_entity_id, "ent_")
         _optional_bounded(self.attribution_text, "claim attribution text", _MAX_OBSERVED_TEXT)
@@ -400,6 +402,11 @@ class ClaimRelationDraft:
             item.basis_role == "source_basis" for item in self.basis
         ):
             raise ValueError("source_evidence ClaimRelation requires exact source_basis")
+        if self.from_claim.local_claim_key == self.to_claim.local_claim_key:
+            raise ValueError("ClaimRelation endpoints must reference distinct claims")
+        basis_identities = [(item.target, item.basis_role) for item in self.basis]
+        if len(basis_identities) != len(set(basis_identities)):
+            raise ValueError("ClaimRelation cannot repeat the same basis target/role")
         if self.lifecycle == "active" and not self.basis and self.rationale is None:
             raise ValueError("active ClaimRelation requires inspectable basis or rationale")
 
@@ -427,12 +434,30 @@ class SemanticResult:
         ):
             raise TypeError("SemanticResult relations must be a tuple of ClaimRelationDraft")
         known_claims = set(claim_keys)
+        relation_identities: set[tuple[str, str, str]] = set()
         for relation in self.relations:
             for ref in (relation.from_claim, relation.to_claim):
                 if ref.local_claim_key not in known_claims:
                     raise ValueError(
                         f"ClaimRelation references unknown local claim {ref.local_claim_key!r}"
                     )
+            left = relation.from_claim.local_claim_key
+            right = relation.to_claim.local_claim_key
+            if relation.relation_type in SYMMETRIC_RELATION_TYPES and right < left:
+                left, right = right, left
+            identity = (left, relation.relation_type, right)
+            if identity in relation_identities:
+                raise ValueError("SemanticResult cannot repeat the same ClaimRelation")
+            relation_identities.add(identity)
+        for claim in self.claims:
+            evidence_identities = [(item.target, item.relation) for item in claim.evidence]
+            if len(evidence_identities) != len(set(evidence_identities)):
+                raise ValueError(
+                    "one claim cannot repeat the same evidence target/relation"
+                )
+            mention_identities = [(item.observed_text, item.target) for item in claim.mentions]
+            if len(mention_identities) != len(set(mention_identities)):
+                raise ValueError("one claim cannot repeat the same EntityMention occurrence")
         if self.outcome == "failed":
             if self.claims or self.relations:
                 raise ValueError("failed SemanticResult cannot contain semantic outputs")

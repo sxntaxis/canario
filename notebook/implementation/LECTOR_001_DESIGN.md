@@ -1,6 +1,6 @@
-# LECTOR-001 — Semantic extraction boundary (development checkpoint)
+# LECTOR-001 — Semantic extraction boundary
 
-State: **IN PROGRESS — NOT IMPLEMENTED/CERTIFIED**
+State: **IMPLEMENTED — CERTIFICATION PENDING**
 
 Base authority:
 
@@ -8,10 +8,6 @@ Base authority:
 main = 22790895a0e3a106127385d681975db73230990d
 PROCESSOR-CODEX-001 = certified and integrated
 ```
-
-This checkpoint freezes the semantic boundary decisions recovered after the
-initial LECTOR-001 development workspace was lost. It intentionally preserves the
-contracts/selector-reopening work before completing the canonical writer/host.
 
 ## ELI5
 
@@ -35,15 +31,17 @@ evidence-backed and invariant-preserving.
 
 ## Ownership boundary
 
-A SemanticExtractor is replaceable/untrusted. It must not receive SQLite, archive
-write authority, review authority, publication authority, entity-reconciliation
-authority, credentials, or arbitrary tools merely because it extracts semantics.
+A `SemanticExtractor` is replaceable/untrusted. It receives immutable bytes plus
+exact `RepresentationTarget` scopes. It does not receive SQLite, archive write
+authority, review authority, publication authority, entity-reconciliation
+authority, credentials, or ambient tools merely because it extracts semantics.
 
-The core allocates canonical opaque IDs and owns persistence.
+The core allocates canonical opaque IDs and owns persistence through
+`LectorWriter`; `LectorHost` owns selection/orchestration.
 
 ## Initial claim_extract outputs
 
-LECTOR-001 may persist, once the writer is completed:
+LECTOR-001 may persist:
 
 - new `Claim` + revision 1;
 - exact `EvidenceLink`;
@@ -68,10 +66,9 @@ It does **not** own:
 - Hilo/output writes;
 - cross-run/cross-document ClaimRelation comparison.
 
-The last restriction is provenance-driven, not a feature omission: a future
-`claim_relate` process comparing historical ClaimRevisions must durably declare
-those semantic inputs instead of pretending a Representation-only ProcessRun read
-them.
+The last restriction is provenance-driven: a future `claim_relate` process
+comparing historical ClaimRevisions must durably declare those semantic inputs
+instead of pretending a Representation-only ProcessRun read them.
 
 ## Replay and identity
 
@@ -89,23 +86,25 @@ new process_run_id
 ```
 
 Opaque civic IDs are core-owned. `ClaimDraft.local_key` exists only to connect
-claims inside one backend result before canonical IDs exist. Mention/relation local
-keys were deliberately removed because they had no consumer and would become
-speculative pseudo-identity.
-
-Receipts must preserve pairs such as:
+claims inside one backend result before canonical IDs exist. Receipts preserve
+canonical identity pairs:
 
 ```text
 PersistedClaim(claim_id, revision_id)
 PersistedClaimRelation(relation_id, revision_id)
 ```
 
-Do not return separately sorted parallel ID arrays.
+No separately sorted parallel ID arrays are used.
+
+Concurrent callers can still both invoke an external extractor before one commit
+wins. LECTOR-001 therefore guarantees **exactly-once canonical commit**, not
+exactly-once external execution. A future multi-worker/cloud semantic service may
+justify a pre-handoff lease/reservation.
 
 ## Evidence and exact locator reopening
 
-An extractor never writes arbitrary locator JSON directly to EvidenceLink. It
-returns `TargetRef`:
+An extractor never writes arbitrary locator JSON directly to `EvidenceLink`. It
+returns a `TargetRef` pointing to either:
 
 ```text
 existing RepresentationTarget ID
@@ -115,22 +114,26 @@ proposed selector kind/version/payload
 
 For a proposal, core must:
 
-1. validate the typed/versioned selector with `TargetRegistry`;
-2. prove it belongs inside the declared ProcessRun input scope;
+1. validate the selector using `TargetRegistry`;
+2. prove it does not expand beyond the declared ProcessRun input scope;
 3. reopen it deterministically against the exact retained Representation bytes;
-4. reuse an identical canonical target or allocate an opaque `rtgt_`;
-5. only then write semantic links.
+4. reuse an identical canonical target or allocate a core-owned `rtgt_`;
+5. only then write the semantic link.
 
-LECTOR-001 can currently create/reopen:
+LECTOR-001 can create/reopen:
 
-- `text_quote:v1` — exact offsets or uniquely resolved exact+context;
+- `text_quote:v1` — exact offsets or one uniquely resolvable exact+context match;
 - `table_range:v1` — exact rows/observed values reopened from structured JSON.
 
-It does not introduce a second PDF/image/media renderer. Exact pre-existing targets
-of those kinds may be reused when already created by the appropriate subsystem.
+It does not introduce a second PDF/image/media renderer. Pre-existing canonical
+targets may be reused when already established by the appropriate subsystem.
 
-Every automatically extracted Claim requires evidence. A `source_assertion`
-requires at least one **active** `supports` or `quotes` link.
+Every extracted Claim requires evidence. A `source_assertion` requires at least
+one **active** `supports` or `quotes` link.
+
+Pure contracts reject obvious duplicates early; `LectorWriter` repeats duplicate
+checking after target canonicalization so differently formatted JSON that resolves
+to the same target cannot create duplicate evidence, mentions or relation basis.
 
 ## Authority rules stronger than SQL
 
@@ -142,76 +145,97 @@ The SQL schema is intentionally broader than one writer. LECTOR-001 narrows it:
 - a new extractor link may be `candidate|active`, never born `rejected`;
 - machine/rule output cannot set `attribution_entity_id`; preserve
   `attribution_text` + raw EntityMention instead;
+- human attribution Entity IDs must already exist;
 - machine/rule direct Entity anchors remain candidate;
+- one Entity may carry distinct claim roles, but an identical `(entity, role)`
+  anchor cannot repeat within one result;
 - machine ClaimRelations remain candidate;
 - rule ClaimRelations may be active only with `source_evidence` or
   `mechanical_identity` basis;
 - `source_evidence` requires at least one exact `source_basis` target;
 - `context` alone is not proof;
 - symmetric `contradicts` / `same_matter_as` relations are stored once with
-  canonical endpoint ordering.
+  canonical endpoint ordering;
+- claim extraction relations can reference only claims created by the same
+  ProcessRun.
 
-Entity resolution is deliberately separate from extraction. Same-name matching is
-not identity.
+Entity resolution remains separate from extraction. Same-name matching is never
+canonical identity resolution.
 
-## Concurrency boundary
+## Bounded result contract
 
-Stable ProcessRun identity can guarantee **exactly-once canonical commit**, not
-necessarily exactly-once external invocation. Two concurrent callers may both
-invoke an expensive backend before one wins the commit/replay race. A future
-multi-worker/cloud-semantic deployment may justify a pre-handoff lease/reservation;
-LECTOR-001 must not claim that guarantee prematurely.
+Every extractor descriptor declares bounded inputs and outputs. The registry uses
+input bounds for eligibility, and the writer rechecks them before persistence.
+LECTOR-001 bounds include:
 
-## SQLite result so far
+```text
+input bytes
+input scopes
+claims
+evidence links
+entity mentions
+mention resolution candidates
+tag assignments
+entity anchors
+claim relations
+relation basis targets
+```
 
-No schema change has been justified. The first semantic writer is designed to fit
-the already-certified pre-release baseline:
+This prevents a backend from bypassing registry selection and submitting an
+unbounded semantic result directly to the writer.
+
+## Process outcome and partial state
+
+`ProcessRun.outcome` keeps technical completion separate from human review:
+
+```text
+success  -> complete extractor attempt
+partial  -> exact evidence-backed semantic rows may persist with bounded error_code
+failed   -> provenance may persist, but zero semantic output rows
+```
+
+A partial result is not synthetic approval. Human review remains absent until a
+real review row exists.
+
+## Egress and restricted custody
+
+Cloud/agent semantic extraction uses the same non-secret `process_run_egress`
+contract as Workbench:
+
+- restricted input is ineligible for egress;
+- explicit authorization is required;
+- an egress extractor must report source bytes handed to the external executor;
+- zero is valid for failure before external handoff;
+- non-egress extractors cannot report egress bytes;
+- replay requires the same durable egress policy identity.
+
+No credential values enter requests, ProcessRuns or semantic rows.
+
+## SQLite result
+
+No schema change was justified. LECTOR-001 fits the already-certified prerelease
+baseline:
 
 ```text
 0001.sql SHA256
 5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb
 ```
 
-No `0002` is authorized.
+No `0002` exists.
 
-Existing semantic tables already provide the required physical families and
-`process_run_id` indexes for efficient replay reconstruction.
+The existing semantic tables and `process_run_id` indexes support transactionally
+writing and efficiently reconstructing replay receipts.
 
-## Work already proven before checkpoint recovery
+## Functional volume proof
 
-The earlier development workspace reached a 25-test focused Lector suite and a
-full regression of 147 tests + 2 subtests before its final cleanup pass. That
-runtime workspace was subsequently lost, so those numbers are **historical
-working evidence, not certification evidence for this reconstructed checkpoint**.
+The focused implementation suite includes a 300-Claim machine-only batch over one
+ProcessRun. It proves:
 
-The tested behaviors included rich transactional semantic output, replay and
-identity collision, rollback on false locator, narrow-scope enforcement,
-unresolved mentions, no name-equality identity creation, candidate entity
-resolution, Tag/Entity existence checks, attribution/anchor authority limits,
-relation promotion rules, symmetric relation canonicalization, restriction/egress
-policy, concurrency canonical replay, identical-text/new-run separation, and exact
-table-range reopening.
+- all 300 claims persist with exact evidence;
+- no human review rows are fabricated;
+- replay returns the same canonical claim/revision identities;
+- the extractor is not reinvoked on stable replay;
+- no text-based global deduplication collapses a new ProcessRun.
 
-## Checkpoint scope
-
-This recovered checkpoint intentionally contains:
-
-- backend-neutral contracts;
-- explicit curated extractor registry;
-- deterministic locator reopening;
-- focused tests for those reconstructed pieces;
-- this design authority.
-
-Still to reconstruct/finish before `LECTOR-001_IMPLEMENTED`:
-
-1. `LectorWriter` atomic canonical persistence + replay receipts;
-2. `LectorHost` selection/orchestration and result bounds;
-3. transaction-level SQLite tests covering the previously proven cases;
-4. duplicate-output validation inside one SemanticResult;
-5. full current regression after reconstruction;
-6. exact SQLite migration/freeze/storage proofs;
-7. implementation record + independent certification request/bundle.
-
-No real LLM claim extractor belongs in this unit. After this boundary is certified,
-the next unit can exercise it with a real Esparza acta and inspect broad claims and
-citations rather than changing canonical semantics during model integration.
+This is a boundary/volume proof, not a claim-quality benchmark. A real broad
+Esparza extractor is a later unit after LECTOR-001 certification.

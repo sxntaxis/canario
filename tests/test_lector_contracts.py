@@ -7,7 +7,9 @@ from actakit.deposit.ids import new_id
 from actakit.lector import (
     ClaimDraft,
     ClaimRelationDraft,
+    RelationBasisDraft,
     ClaimRevisionRef,
+    EntityAnchorDraft,
     EntityMentionDraft,
     EvidenceDraft,
     ResolutionCandidateDraft,
@@ -138,6 +140,97 @@ class LectorContractTests(unittest.TestCase):
         bad = json.dumps({"row_start": 2, "row_end": 2, "observed_values": [["B", 3]]})
         with self.assertRaises(SemanticLocatorError):
             reopen_selector("table_range", "v1", bad, source_bytes=source, charset="utf-8")
+
+    def test_duplicate_evidence_and_mentions_within_one_claim_are_rejected(self) -> None:
+        target = TargetRef.existing(new_id("rtgt_"))
+        evidence = EvidenceDraft(target)
+        with self.assertRaisesRegex(ValueError, "repeat the same evidence"):
+            SemanticResult(
+                "success",
+                (ClaimDraft("c1", "source_assertion", "A.", (evidence, evidence)),),
+            )
+        mention = EntityMentionDraft("AyA", target)
+        with self.assertRaisesRegex(ValueError, "repeat the same EntityMention"):
+            SemanticResult(
+                "success",
+                (
+                    ClaimDraft(
+                        "c1",
+                        "source_assertion",
+                        "A.",
+                        (evidence,),
+                        mentions=(mention, mention),
+                    ),
+                ),
+            )
+
+    def test_duplicate_and_self_claim_relations_are_rejected(self) -> None:
+        target = TargetRef.existing(new_id("rtgt_"))
+        claim1 = ClaimDraft("c1", "source_assertion", "A.", (EvidenceDraft(target),))
+        claim2 = ClaimDraft("c2", "source_assertion", "B.", (EvidenceDraft(target),))
+        with self.assertRaisesRegex(ValueError, "distinct claims"):
+            ClaimRelationDraft(
+                ClaimRevisionRef.local("c1"),
+                ClaimRevisionRef.local("c1"),
+                "updates",
+                "analyst_inference",
+                rationale="self",
+            )
+        relation = ClaimRelationDraft(
+            ClaimRevisionRef.local("c1"),
+            ClaimRevisionRef.local("c2"),
+            "contradicts",
+            "analyst_inference",
+            rationale="candidate",
+        )
+        reverse = ClaimRelationDraft(
+            ClaimRevisionRef.local("c2"),
+            ClaimRevisionRef.local("c1"),
+            "contradicts",
+            "analyst_inference",
+            rationale="same symmetric relation",
+        )
+        with self.assertRaisesRegex(ValueError, "repeat the same ClaimRelation"):
+            SemanticResult("success", (claim1, claim2), (relation, reverse))
+
+    def test_relation_basis_target_role_cannot_repeat(self) -> None:
+        target = TargetRef.existing(new_id("rtgt_"))
+        basis = RelationBasisDraft(target, "source_basis")
+        with self.assertRaisesRegex(ValueError, "repeat the same basis"):
+            ClaimRelationDraft(
+                ClaimRevisionRef.local("c1"),
+                ClaimRevisionRef.local("c2"),
+                "updates",
+                "source_evidence",
+                (basis, basis),
+                lifecycle="candidate",
+            )
+
+    def test_same_entity_can_have_distinct_roles_but_not_duplicate_role(self) -> None:
+        target = TargetRef.existing(new_id("rtgt_"))
+        entity_id = new_id("ent_")
+        claim = ClaimDraft(
+            "c1",
+            "source_assertion",
+            "AyA actuó y quedó responsable.",
+            (EvidenceDraft(target),),
+            entity_anchors=(
+                EntityAnchorDraft(entity_id, "actor"),
+                EntityAnchorDraft(entity_id, "responsible"),
+            ),
+        )
+        self.assertEqual(len(claim.entity_anchors), 2)
+        with self.assertRaisesRegex(ValueError, "anchor/role"):
+            ClaimDraft(
+                "c1",
+                "source_assertion",
+                "AyA actuó.",
+                (EvidenceDraft(target),),
+                entity_anchors=(
+                    EntityAnchorDraft(entity_id, "actor"),
+                    EntityAnchorDraft(entity_id, "actor"),
+                ),
+            )
 
     def test_registry_blocks_egress_for_restricted_input(self) -> None:
         cloud = StubExtractor(
