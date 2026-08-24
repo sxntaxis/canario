@@ -1,0 +1,7 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C036,AKS-S003,A complete inventory of files does not prove correctness of derived structured records.,supports,"ActaKit fixtures/tests must audit derived claims/identity/relations against artifacts, not only pipeline completion."
+AKS-C037,AKS-S003,Identity errors propagate into downstream records and can make structurally valid data semantically wrong.,supports,Identity reconciliation requires explicit audit and provenance.
+AKS-C039,AKS-S001,Research transfers need explicit stop conditions so external mechanisms do not become accidental architecture authority.,method,Every adopted standard pattern in this Book has a non-transfer boundary.
+AKS-C060,"AKS-S001,AKS-S003","A research horizon is complete when remaining gaps no longer threaten the pending decision, not when source count reaches a quota.",method,Stop this Book at pre-SQL semantics; move unanswered implementation detail into fixtures/SQL study.
+AKS-C072,AKS-S053,"A cross-domain mechanism is transferable only when the shared problem, mechanism, bounded transfer and stop condition are explicit.",method,Every standards-derived schema pressure must include a do-not-copy boundary and stop condition.
+AKS-C073,AKS-S054,Research quality improves when atomic claims and relationships live in ledgers while Markdown is reserved for synthesis and rationale.,method,Keep per-Book claim/source ledgers authoritative for research atoms; do not bury evidence in prose.

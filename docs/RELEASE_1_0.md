@@ -1,224 +1,179 @@
 ---
 id: ACTAKIT-RELEASE-001
-kind: release-and-operations-plan
+kind: release-plan
 state: proposed-for-acceptance
 created: 2026-08-19
 authority: roadmap-proposal
-summary: Deployment, security, federation, migration, support, and evidence gates for a distributable actakit 1.0.
+summary: Minimal operational and evidence gates for a durable self-contained ActaKit 1.0.
 related:
   - ACTAKIT-ARCH-001
-  - ACTAKIT-CONTRACTS-001
+  - ACTAKIT-ROADMAP-001
   - ACTAKIT-IMPLEMENTATION-001
 ---
 
-# Release and Operations Plan for 1.0
+# 1.0 Release Plan
 
-## Distribution Model
+## Version Identity First
 
-1.0 distributes a sovereign canton node, not a hosted national service. The
-supported baseline is an organization-owned Linux LTS workstation or mini-server
-with encrypted local storage, an unprivileged service account, one local node
-service, SQLite WAL, and a content-addressed archive.
+The repository already contains a changelog entry labelled `1.0.0`. Before a
+new stable release, determine whether that version was actually distributed. A
+published version number is never reused. This plan therefore describes the
+**next stable durable release**, even if its final number must be greater than
+`1.0.0`.
 
-The node functions offline after installation. It has no mandatory telemetry,
-cloud account, central identity provider, or remote administrator. macOS and
-other platforms remain preview until they meet the same certification evidence.
+## What Stable Means
 
-```text
-local operator clients
-        |
-  canton node service
-        |
-SQLite WAL + immutable archive + audit trail
-        |
-optional signed public snapshots
-        |
-explicitly trusted peer nodes or removable media
-```
-
-SQLite is safe only on local attached storage. Node database/WAL files must not
-be put on NFS, SMB, Dropbox, Nextcloud sync folders, or shared cloud drives.
-
-## Organization and Roles
-
-Every distributed node requires at least two named canton custodians.
-
-| Role | Authority |
-|---|---|
-| Canton custodian | Node policy, appointments, peer trust, recovery/activation decisions |
-| Node administrator | Install, patch, monitor, back up, restore; no unilateral publication |
-| Records editor | Create and correct local records within assigned scope |
-| Reviewer/publisher | Review and release a public snapshot |
-| Privacy reviewer | Review sensitive-data, minimization, redaction, and retention cases |
-| Federation steward | Add/remove peer trust and import schedules; cannot make imports local authority |
-| Recovery custodian | Holds independently stored recovery material; no routine node access |
-| Support provider | No standing data, key, backup, or publication access |
-
-The publisher cannot be the sole reviewer of their own release unless a recorded
-waiver explains why a small organization cannot separate the roles.
-
-## Node Identity and Federation
-
-A node receives an immutable random `node_id` at installation. It has an offline
-Ed25519 root key and an online snapshot-signing key. The root signs key
-certificates, rotations, and recovery epochs. The online key signs public
-snapshots, feeds, and withdrawal notices.
-
-Private key material stays under canton custody. The root recovery key is
-encrypted and held separately from ordinary backups by recovery custodians.
-Support providers and peer nodes never receive it.
-
-Peer trust is explicit: a federation steward verifies a peer root-key fingerprint
-through an independent canton-controlled channel, then pins it locally. There is
-no trust-on-first-use and no mandatory global registry.
-
-Federation packages use canonical JSON, SHA-256 digests, Ed25519 signatures,
-versioned schemas, fixed size/path limits, expiry, and explicit withdrawals.
+Stable means one local installation can reliably:
 
 ```text
-receive
--> verify path/type/size
--> verify manifest hashes
--> validate schema
--> verify signature and pinned root chain
--> quarantine and preview
--> import as external evidence
+acquire public civic records
+preserve original evidence
+create usable representations
+extract broad traceable claims
+search machine-only and reviewed material distinctly
+review strictly, in batch, or by supervision
+correct without erasing history
+run queries and follow stored claim connections
+build outputs
+back up and restore
 ```
 
-Imported material always shows producing node, snapshot, signer, import time,
-and withdrawal status. No import auto-republishes, merges identity, or modifies
+Stable does **not** mean every horizon feature exists.
 
-## Public Release and Withdrawal
+## Deployment Assumption
 
-The public release builder exports only approved public snapshots and public-safe
-representations. It never exports a database dump, archive root, private source
-policy, credentials, internal review notes, or restricted originals.
+The reference deployment is a normal organization-controlled Linux machine with
+local attached storage. One operator is normal; a second operator is supported
+organizationally but not required for routine operation. Many consumers may use
+read-only outputs/search through whatever local interface is provided.
 
-Every released package identifies exact input revisions, policy/build versions,
-approvals, manifest hash, origin node, and correction status. A correction emits
-a new snapshot. Omission in a later snapshot is not deletion; a signed
-withdrawal names scope, effective time, and non-sensitive reason code.
+SQLite database/WAL files remain on local attached storage, not network shares or
+sync folders. Original evidence lives in the ActaKit archive.
 
-Withdrawal removes material from ordinary local public views after verification,
-but cannot prove that prior recipients deleted their copies. This limitation is
-part of operator and public documentation.
+A daemon, public server, container image, federation keys, or multi-user identity
+provider is not a stable-release requirement unless implementation experience
+proves it necessary.
+
+## Operator Capabilities
+
+ActaKit needs actions, not a fictional staffing chart:
+
+```text
+administer installation
+operate acquisition/processing
+review/correct records
+configure outputs
+export/publish when allowed
+read/search
+```
+
+The same person may perform all operator actions. Every consequential action
+remains attributable.
 
 ## Security Baseline
 
-| Threat | Required 1.0 control |
-|---|---|
-| Hostile municipal site/redirect | Policy allowlist, redirect revalidation, private-address denial, media/size limits, rate limits, source receipts |
-| Malicious PDF/DOCX | Non-root, no-network extraction sandbox; read-only inputs; resource limits; maintained parsers |
-| Local shared-directory attacker | Dedicated OS account, restricted permissions, atomic descriptor-safe writes, symlink/TOCTOU tests |
-| Prompt injection | Documents are data, never instructions; AI has no shell/network/secrets/canonical-write authority |
-| Accidental destructive operation | Node identity preflight, dry run, explicit confirmation, operation receipt, backup |
-| Privacy/civic harm | Evidence/locator requirements, human review, minimization/redaction policy, no individual profiling or targeted persuasion |
-| Supply-chain compromise | Hash-locked dependencies, signed releases, SBOM, license/vulnerability review, reproducible build evidence |
-| Lost keys/backups | Independent recovery custody, encrypted 3-2-1 backups, tested restore/key-loss runbook |
+Stable must address the actual local/document threats:
 
-No public endpoint is enabled by default. Any future endpoint serves only
-approved snapshots and is separately reviewed for authentication, rate limiting,
-logging, abuse handling, and data minimization.
+| Threat | Required control |
+|---|---|
+| Hostile/changing source site | bounded source policy, redirect/host checks, size/media limits, provenance |
+| Malicious document | maintained parsers, no document-controlled shell/network behavior, resource bounds |
+| Path/symlink mistakes | safe path handling, atomic writes, traversal/symlink tests |
+| Prompt injection | source material is data; Lector has no implicit shell/secrets/publication authority |
+| Accidental destructive write | core-owned canonical writes, revision history, targeted replay/stale guards where needed, backups |
+| Privacy harm | sensitive-output defaults, explicit publication policy, traceable source/evidence |
+| Data loss | verified backup/restore and archive/database consistency checks |
+
+Supply-chain hardening should be proportionate to the supported installation
+method. Provide dependency pinning/hashes and release checks appropriate to that
+method; do not require three packaging ecosystems merely to satisfy a checklist.
 
 ## Backup and Restore
 
-Backups use a consistent SQLite backup method, never a copy of a live database
-file that ignores its WAL. Each backup contains database snapshot, referenced
-archive objects, schema/app/configuration versions, policy/taxonomy,
-audit/publication receipts, key certificates, and an encrypted checksum manifest.
-Live secrets and the sole recovery key are not stored beside the backup.
+Provide one documented backup command/process that creates a consistent snapshot
+of:
 
-Use encrypted 3-2-1 custody:
+- SQLite state;
+- referenced archive objects;
+- configuration/taxonomies/output definitions needed to interpret the state;
+- manifest/checksums.
 
-```text
-one local encrypted recovery copy
-one separate-device copy
-one organization-controlled off-site or disconnected copy
-```
+Provide one documented restore/verify process on a clean location/machine.
 
-Before each release, and at least daily during operation, create and verify a
-backup. Restore rehearsals occur at least quarterly on clean isolated hardware.
-A restored node is inactive until database, archive hashes, schema, audit,
-projection, and publication ledgers are verified and a custodian activates it.
+A backup that cannot be restored is not release evidence.
 
-## Packaging, Updates, and Compatibility
+## Output and Sharing Boundary
 
-1.0 ships a signed source distribution, wheel, and rootless OCI image. The
-release includes SHA-256 checksums, SBOM, third-party license report,
-vulnerability report, build provenance, installation instructions, and recovery
-instructions. Dependencies are locked transitively with hashes; build and
-development dependencies are locked separately.
+Stable supports local outputs and exporters over the bounded read model. A
+portable/shareable package format is optional until multiple real outputs or
+installations justify a compatibility contract.
 
-Release channels are `dev`, `beta`, `rc`, and `stable`. No channel performs an
-and a documented compatibility/rollback path. Software update transport never
-receives civic-record data.
+Inter-installation civic-data exchange, signed peer trust, federation, and public
+network services are horizon features, not GA gates.
 
-Version independently:
+## Compatibility
+
+Version independently only where a real compatibility boundary exists:
 
 ```text
 application
-database schema
-canonical record schema
-config schema
-projection/export schema
-federation package schema
+SQLite schema
+canonical record contracts
+configuration
+Output Type/export contracts
 ```
 
-Within `1.x`, additive changes preserve supported compatibility. Breaking
-canonical/config/export changes require a major release, staged migration, and
-coexistence plan. The stable channel supports security fixes for 18 months and
-the current plus previous minor release for routine fixes.
+Do not create version systems for protocols/packages that do not yet exist.
 
-## Migration From Existing Esparza Work
-
-1. Inventory the legacy vault without mutation: source/derived hashes,
-   duplicates, references, unparseable dates, missing citations, symlinks, and
-   source-lineage gaps.
-2. Create an immutable pre-migration backup and fingerprint.
-3. Build an isolated inactive candidate node, never in place.
-4. Import selected records as review proposals with explicit source/locator
-   limitations; preserve legacy Markdown separately.
-5. Reconcile source hashes, document identity, citations, Hilos, privacy status,
-   and projection output. Record accepted, quarantined, rejected, and unresolved
-   items.
-6. Activate only by explicit administrator receipt and fence the old writer.
-
-The first operational proof uses a new acta after Acta 161. Historical material
-is migrated only after the new workflow succeeds in real work.
+Schema migration must preserve evidence, claim history, review state, and output
+references. Upgrade/restore behavior is tested on realistic fixtures.
 
 ## Test and Evidence Program
 
 | Layer | Required proof |
 |---|---|
-| Unit/contract | IDs, revisions, schemas, locators, privacy gates, operation replay, citation rendering |
-| Parser/extraction | PDF/DOCX/OCR variants, malformed files, Spanish dates, Unicode, hostile text, changed sources |
-| Integration | Source run through archive, representation, proposal, review, claim, episode, Hilo, and snapshot |
-| Failure/recovery | Kill, disk full, permission denial, lock contention, timeout, corrupt object/database, restart, stale writer |
-| Security | Path/symlink, SSRF/redirect, parser sandbox, prompt injection, secret redaction, publication authorization |
-| Migration | Legacy candidate, interrupted migration, rollback, split-authority quarantine |
-| Federation | Valid package/import plus invalid hash/signature/key/path/size/withdrawal cases |
-| Operator journey | Named human source review, correction, backup, restore, and public release workflow |
+| Semantic contracts | IDs, revisions, document typing, locators, review policy, corrections |
+| Acquisition/extraction | normal, changed, duplicate, malformed, unknown, hostile inputs |
+| Claim extraction | high-volume supervised extraction with stable provenance/evidence |
+| Review | strict, batch, supervised; sensitive/public trigger cases |
+| Query | text/entity/tag/date/status retrieval, explicit relation traversal, and evidence resolution |
+| Outputs | Hilo/Episode output plus one tiny non-Episode proof over same Fichero |
+| Failure/recovery | interruption, disk/permission failure, corrupt/missing archive object, restore |
+| Security/privacy | paths, prompt injection, restricted output, destructive-operation guards |
+| Operator journey | one person can acquire -> inspect -> search -> review/correct -> output -> backup |
 
-Fixtures are synthetic or explicitly privacy/rights-approved. Expected results
-remain independent from production implementation. CI runs every supported test
-layer; release tests repeat enough times to expose flakes.
+Fixtures are synthetic or deliberately approved for testing. Current production
+working directories are never release fixtures.
 
-## 1.0 General Availability Gates
+## Stable Release Gates
 
-| Gate | Required evidence |
+| Gate | Evidence |
 |---|---|
-| Release identity | Confirm whether `1.0.0` was externally distributed; never reuse a published version |
-| Policies/governance | Accepted role, source, privacy, correction, retention, federation, incident, and release policies |
-| Contracts | Versioned/validated canonical, CLI, configuration, projection, and package contracts |
-| Integrity | Reference corpus has complete source-hash/citation lineage and no unresolved critical misattribution/data loss |
-| Migration | Fresh migration, interruption, stale-writer, rollback, and split-authority drills pass |
-| Recovery | Clean-machine restore verifies database/archive and meets the documented recovery objective |
-| Security | Threat controls, sandbox, path, prompt-injection, secret, privacy, and authorization tests pass |
-| Supply chain | Locked dependencies, SBOM, licenses, vulnerability review, signed artifacts/tag, and provenance are published |
-| Federation | Two isolated pilot nodes exchange valid snapshots and reject invalid/trust-violating packages |
-| Pilot | Two independent FA local organizations complete a documented civic cycle, correction, export, and restore drill |
-| Operations | Spanish-first runbooks, training, support contacts, incident templates, and containment drill complete |
-| Approval | Release, security, privacy/data, and pilot civic authorities sign the GA decision |
+| Version identity | no published version number is reused |
+| Scope | documentation accurately explains what ActaKit is and is not |
+| Integrity | no unresolved critical evidence/claim lineage or data-loss defect |
+| Traceability | claims resolve to exact evidence in multiple representation types |
+| Volume | broad claim extraction works without mandatory one-by-one approval |
+| Review | strict/batch/supervised semantics demonstrated |
+| Degradation | unknown/malformed documents preserve honest partial state |
+| Query | obscure facts and a real relation chain are retrievable without AI rediscovery |
+| Output boundary | Hilo/Episode and a tiny non-Episode proof work without core schema coupling |
+| Recovery | clean restore verifies database + archive consistency |
+| Security/privacy | baseline threat tests pass; sensitive outputs fail safely |
+| Operations | one supported install/update/backup/restore workflow is documented |
+| Real use | at least one real canton/operator completes a meaningful civic work cycle |
+| Approval | named maintainer/operator accepts the evidence and release |
 
-Validation evidence is not release authority. A candidate becomes 1.0 only after
-all gates are recorded, reviewed, and explicitly approved.
+## Not Required for Stable
+
+- federation or signed peer packages;
+- two-person approval for every release/action;
+- root/online signing-key hierarchy;
+- public hosting;
+- public API/automation adapters;
+- OCI plus wheel plus source package simultaneously;
+- specialized graph/vector database;
+- multi-tenant role system;
+- historical bulk migration.
+
+These can be excellent future features. They do not prove the core works.

@@ -4,301 +4,366 @@ kind: implementation-plan
 state: proposed-for-acceptance
 created: 2026-08-19
 authority: roadmap-proposal
-summary: Ordered work packages, dependencies, and proof gates for reaching a distributable actakit 1.0.
+summary: Concrete work packages for a minimal local civic-record core, broad traceable extraction, configurable supervision, queries, and extensible outputs.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-CONTRACTS-001
-  - ACTAKIT-RELEASE-001
+  - ACTAKIT-DATA-001
+  - ACTAKIT-ROADMAP-001
 ---
 
-# Implementation Plan Through 1.0
+# Implementation Plan
 
-## Delivery Rule
+## Implementation Doctrine
 
-Every work package ends with executable evidence, not a design claim. A later
-package may not bypass an earlier gate. Work may be parallelized only when its
-inputs and authority boundaries are explicit.
+- Current scripts are adapters/legacy tools, not future canonical writers.
+- Stable semantic boundaries are implemented before persistence.
+- One operator is the default deployment assumption.
+- The ActaKit core owns canonical writes; no daemon is required until concurrency
+  justifies it.
+- Machine extraction may create searchable claims without human approval.
+- Human review is recorded precisely but can be strict, batch, or supervised.
+- Output-specific concepts do not enter core schema merely because the first
+  workflow uses them.
 
-Current scripts are retained as adapters and legacy import tools. They are not
-incrementally promoted into canonical writers. New authority flows through the
-node service from the first persistent write onward.
+## WP0 — Architecture and Policy Acceptance
 
-## Work Package 0: Acceptance and Operating Policies
+Freeze only what would be expensive to migrate later:
 
-**Purpose:** turn proposed architecture into explicit human authority.
+- product scope;
+- core record distinctions;
+- stable ID/revision/provenance boundaries where civic meaning requires them;
+- typed locators;
+- source authority scope and minimum acquisition provenance;
+- claim/relation/review semantics;
+- privacy/correction rules;
+- Output Type write boundary.
 
-**Deliverables**
+Do not freeze daemon protocol, plugin packaging, federation, or final SQL names.
 
-- Accepted/amended architecture and contracts.
-- Node role charter: two canton custodians, administrator, reviewer/publisher,
-  privacy contact, recovery custodian, and support escalation.
-- Versioned source admission, privacy/minimization, correction, retention,
-  federation, release, incident, and support policies.
-- Supported deployment profile: one organization-owned Linux LTS host/node.
-- Confirmed 1.0 release identity. If `1.0.0` was previously distributed, it is
-  never reused; the first GA release receives a new valid version.
-- A privacy-reviewed synthetic fixture corpus and named first Esparza proof.
+**Gate:** `ARCHITECTURE.md`, `CONTRACTS.md`, and `DATA_MODEL.md` accepted.
 
-**Gate:** named human authority accepts the policy set. No persistent service or
-migration work starts before this gate.
+## WP1 — Repository and Test Foundation
 
-## Work Package 1: Repository Foundation and Test Harness
+- Make the full automated test command actually run all unit tests.
+- Add contract fixtures for PDF, text/HTML, spreadsheet, scan/media, and unknown
+  civic type.
+- Add synthetic acta, report/officio, spreadsheet, concatenated-document, and
+  malformed fixtures.
+- Add deterministic canonical serialization/hash tests.
+- Keep production civic data out of the repository.
 
-**Purpose:** make correctness measurable before changing data authority.
+**Gate:** CI/test command exercises semantic contracts instead of only syntax.
 
-**Deliverables**
+## WP2 — Semantic Core
 
-- Responsibility-oriented package layout: `kernel`, `application`,
-  `infrastructure`, `adapters`, `projections`, and `clients`.
-- One declared test command that discovers all supported tests and excludes
-  archived/non-product material explicitly.
-- Linting, type checking, formatting, dependency lock, contract-schema checks,
-  and import-boundary tests in CI.
-- Fixture corpus with municipal CMS variants, PDFs, DOCX, image-only PDFs,
-  malformed files, changed bytes at same URL, duplicate names, Spanish/OCR
-  defects, hostile document text, and privacy-sensitive cases.
-- Versioning matrix for application, database schema, record schema, config,
-  projection/export schema, and federation package schema.
+Implement pure/domain logic for:
 
-**Reuse:** preserve current parser/extractor tests; promote the current Hilo
-tests into the full test command; keep `tools/MuniEsparzaAPI` isolated until it
-is converted into a source adapter.
+- stable IDs/revision lineage;
+- bounded source authority/acquisition semantics;
+- artifact/representation lineage;
+- CivicDocument typing, profiles, parts and collections;
+- claims/revisions;
+- typed EvidenceLinks;
+- entities/aliases, claim-entity links, tags, and first-class claim relations;
+- strict/batch/supervised review semantics and decisions;
+- query/read boundary and output write restrictions.
 
-**Gate:** CI runs the complete test set from a clean checkout. No test command
-may hide archived failures accidentally. Contracts and fixture expectations are
-versioned outside production implementation.
+No SQLite is needed to prove these transitions.
 
-## Work Package 2: Dependency-Free Semantic Kernel
+**Gate:** impossible/ambiguous states fail in unit tests; `unknown` and `otro`
+work without special-case crashes.
 
-**Purpose:** prove meaning and validation without database/network complexity.
+## WP3 — Local Persistence and Evidence Archive
 
-**Deliverables**
+Implement:
 
-- Typed IDs, UTC timestamps, SHA-256 values, revisions, operations, receipts,
-  schema versions, and typed errors.
-- Immutable in-memory contract objects from `CONTRACTS.md`.
-- Canonical JSON serialization and hashing.
-- Source, claim, evidence-link, locator, review, correction, and snapshot
-  validation.
-- Pure editorial-readiness assessment.
-- Import readers for legacy Markdown v1 and current frontmatter v2. Readers do
-  not mutate the vault.
+- SQLite schema reviewed against `DATA_MODEL.md`;
+- logical Artifact custody records separated from content-addressed ArchiveObject storage with atomic verified writes;
+- repositories behind the ActaKit core;
+- a rebaselinable `0001` during pre-release; forward migration history begins only after the declared compatibility boundary; replay/stale-write guards only where tests require them;
+- consistent backup/export and restore verification;
+- fixity/health checks.
 
-**Required negative tests**
+CLI/workers call the core directly initially.
 
-- AI proposal cannot support a factual claim.
-- Quote without locator/context check is blocked.
-- Claim with no required evidence is blocked.
-- Citation cannot resolve to URL-only or page-only provenance.
-- Same operation ID with different request is rejected.
-- Stale mutation is rejected.
-- Personal-data classifications prevent public rendering.
+**Gate:** kill/restart, duplicate capture with shared physical bytes but distinct Artifact provenance, changed file, archive mismatch, stale
+write, and clean restore cases pass.
 
-**Gate:** all core transitions, invalid states, and canonical serializations
-pass unit and property tests. No database or UI hides an undefined semantic rule.
+## WP4 — Source Connector SPI, Inbox, and Representation Processors
 
-## Work Package 3: Node Service, SQLite, and Evidence Archive
+### WP4A — Source Connector SPI + Inbox (`INGRESS-001`)
 
-**Purpose:** establish durable local authority for one canton node.
+Freeze the terrain-neutral ownership boundary, not source geography or plugin
+packaging:
 
-**Deliverables**
+- `SourceConnector` is a swappable inbound adapter;
+- `InboxPort.accept(CaptureEnvelope)` is the common socket;
+- ActaKit binds Source identity, connector key/version and custody policy;
+- connector DTOs contain only acquisition facts/bytes, never CivicDocument or
+  Fichero semantics;
+- generic capabilities describe pull/push, inventory/incremental and checkpointing;
+- run coverage is explicit; checkpoint bytes are opaque to core;
+- specialized assumptions fail loudly while already accepted custody survives;
+- plugin loading/entry-point packaging remains unfrozen.
 
-- One unprivileged local node service and client protocol over a Unix socket.
-- SQLite WAL canonical database with explicit migrations and foreign keys.
-- Content-addressed evidence archive with atomic write, fsync, hash verification,
-  restrictive permissions, and custody receipts.
-- Source policy, source run, source capture, artifact, representation, process
-  run, operation receipt, audit, and health repositories.
-- Backup/export candidate builder, restore verifier, and schema compatibility
-  checks.
+Prove the SPI with incompatible HTML-inventory, incremental-API and manual-push
+fixtures **before** adapting Esparza.
 
-**Rules**
+### WP4B — Real source connectors / shadow ingestion
 
-- Clients never open SQLite directly for canonical writes.
-- Archive object write/verification precedes its database reference.
-- SQLite files remain on local storage, never sync folders, network shares, or
-  cloud-drive mounts.
-- The service serializes writers and bounds read transactions.
+**Current:** the Esparza CMS connector is certified on the exact SQLite 3.53.4
+runtime as the first SPI consumer and passed bounded real-network shadow dogfood
+(two runs; stable Source/provenance; legacy pipeline untouched). It preserves
+listing HTML before parsing and handles source outage/changed
+bytes/duplicates/malformed bodies/redirects fail-closed.
 
-**Gate**
+Esparza remains a consumer of the SPI, not its reference model. No canonical
+cutover, historical import, or semantic writer is authorized. **WP4B is complete
+for this bounded pre-release gate.**
 
-- Same bytes from two sources retain distinct capture provenance.
-- Missing archive object degrades custody without erasing history.
-- Partial source run does not delete prior records.
-- Restart preserves records; only ephemeral coordination state disappears.
-- Backup/restore reproduces a verified inactive candidate node.
-- Killed/interrupted writes leave no authoritative half-record.
+### WP4C — Mesa de trabajo Representation processors
 
-## Work Package 4: Source Adapters and Representation Pipeline
+Only after original custody, process Representations behind a separate boundary.
+Processors are a **curated built-in ActaKit capability**; backend swappability is
+an escape hatch for hardware/OS constraints, licensing, hard/new formats,
+local-vs-cloud policy and future superior engines, not a plan to outsource WP4C
+to a plugin ecosystem.
 
-**Purpose:** admit official documents safely before interpreting them.
-
-**Deliverables**
-
-- Adapter protocol with source-policy enforcement, bounded network access,
-  redirect revalidation, host allowlists, rate limits, size/media-type limits,
-  safe diagnostics, and source checkpoints.
-- Esparza municipal CMS adapter based on the current generic scraper.
-- Optional Junar adapter refactored from `MuniEsparzaAPI` after the generic path
-  passes the proof.
-- Sandboxed PDF/DOCX extraction with no network, non-root execution, bounded
-  CPU/memory/time, and representation/process-run registration.
-- File-type and hash verification adapted from current tools.
-
-**Gate:** the system correctly handles a changed document at the same URL,
-duplicate filenames, malformed documents, scan/OCR failure, redirects, source
-outage, and interrupted extraction. Every retained output names its parent.
-
-## Work Package 5: Reviewable Civic Interpretation
-
-**Purpose:** turn evidence into controlled civic knowledge.
-
-**Deliverables**
-
-- Proposal creation for extraction, document description, claims, routing,
-  entity suggestions, announcements, and report findings.
-- Named reviewer/editor workflows that approve, reject, return, defer, correct,
-  or restrict a concrete record revision.
-- Acta profile: session details, articles/items, agreements, announcements,
-  episodes, and Hilo memberships.
-- Generic report/officio/budget profiles with document-specific fields but the
-  same claim/evidence/review core.
-- Exception queue for weak locators, date ambiguity, duplicate identity,
-  unknown topics, contradictory evidence, and sensitive content.
-
-**Gate:** no approved claim, episode, or Hilo membership can be created without
-evidence, locators, and review decision. The operator can see unresolved
-conflicts and source limitations without reading database rows.
-
-## Work Package 6: First End-to-End Esparza Proof
-
-**Purpose:** prove the full model against the first available official acta after
-Acta 161.
+The mandatory pre-implementation research gate is complete in
+`notebook/research/workbench/processors/`. Its current candidate escalation ladder
+is:
 
 ```text
-source policy
--> source run and capture
--> immutable original artifact
--> extraction representation
--> AI/human proposals
--> named review
--> accepted claims and episode
--> local acta dossier/Hilo projection
--> citation packet
+D0 native/direct format parsing
+D1 Poppler/pdftotext for born-digital PDF
+D2 OCRmyPDF + Tesseract classical OCR
+D3 optional Docling structured document processing
+D4 specialized visual/document AI (local/cloud venue selected by policy)
+D5 frontier multimodal AI
+   - Qwen3-VL-family local candidate
+   - official Codex CLI subscription-backed cloud candidate
+   - OpenAI-compatible endpoint escape hatch after capability checks
+D6 human review
 ```
 
-**Constraints**
+Escalation is quality-driven and may be page/block scoped; it is not mandatory
+that every document traverse every rung. No universal numeric confidence is
+accepted. Processors emit typed/namespaced quality evidence and the host decides
+`ACCEPT`, `ESCALATE`, or `QUARANTINE_REVIEW`. Every attempt is attributable to a
+ProcessRun and every successful output is a derived Representation; the custody
+original is never overwritten.
 
-- No legacy acta/Hilo is regenerated or modified automatically.
-- No live Nextcloud publication occurs.
-- The same processing run may be replayed without duplicate claims/episodes.
-- A human reviewer can reject or correct each material proposal.
+WP4C must cover:
 
-**Gate:** a meeting participant, podcast researcher, and scholarly reader can
-each trace one rendered Hilo statement to a fixed artifact, representation,
-page/article/item, quote, review decision, and source limitation. The node can
-rebuild that projection after deletion without changing canonical history.
+- PDF/DOCX/text/HTML extraction;
+- spreadsheet/table representation where required;
+- OCR/scan escalation for low-quality material;
+- visual/multimodal AI for difficult scans/handwriting where justified;
+- execution-venue selection: local when required/preferred, cloud when egress is
+  allowed and quality/hardware/cost policy favors it;
+- bounded official Codex CLI escalation for approved public egress;
+- provider APIs and heavyweight local AI remain optional alternate venues;
+- capability-gated OpenAI-compatible endpoint support as an escape hatch, not a
+  universal compatibility assumption;
+- media/transcript processing only when a real source requires it;
+- representation/locator capability registration and typed quality evidence.
 
-## Work Package 7: Projections, Search, and Local Operator Experience
+Security requirements: bounded size/time/resources, safe paths, no
+document-controlled shell/network behavior, local processors network-off by
+default after explicit model acquisition, and explicit provider/model/egress
+provenance for cloud processing. API credential values remain outside SQLite,
+ProcessRun evidence and logs; the provider records only non-secret provider/model/
+endpoint/request-template identity and egress facts. Large-object/streaming
+transport is added when a real source/benchmark proves the need rather than
+assuming all payloads are small.
 
-**Purpose:** make the durable model useful without exposing internal complexity.
+**Research gate complete:** the Civic Processor Bench closed with the generic
+`WORKBENCH-001` boundary freeze-ready. The accepted reference path is
+`D0/D1 -> D2 -> bounded official Codex CLI -> D6`. Docling is optional and not the
+reference default; heavyweight local AI and provider APIs are optional alternate
+venues. Spreadsheet structured parsing is direct/deterministic by default rather
+than OCR/AI. Exact pins/licenses for optional backends become mandatory only when
+that backend is selected/enabled. Public/restricted egress policy and credential
+ownership remain explicit; Codex CLI owns ChatGPT authentication and ActaKit never
+inspects or stores those credentials.
 
-**Deliverables**
+`WORKBENCH-001` has implemented and independently certified the generic boundary
+under these design inputs. It rebaselines prerelease `0001` to persist exact
+ProcessRun inputs, non-secret egress provenance, typed/namespaced QualityEvidence,
+and a quality decision distinct from execution outcome. `WorkbenchWriter` owns
+derivative custody; processors never receive SQLite/archive authority.
 
-- Acta dossier, Hilo, citation, review queue, and source-health renderers.
-- Projection manifests with input checkpoint, build version, output hashes, and
-  publicability tier.
-- Search over approved local claims and metadata only.
-- Spanish-first CLI/operator workflows for intake, review, correction, export,
-  backup verification, and health.
-- Legacy Hilo preservation/import strategy that adds new projected content while
-  maintaining curated historical context.
+`PROCESSOR-DIRECT-001` is independently certified for Poppler native PDF text
+extraction with explicit `whole:v1` / `pdf_page:v1` scope. It records exact empty
+page ordinals instead of treating Poppler exit success as completeness.
 
-**Gate:** deleting a projection and rebuilding it from the same checkpoint yields
-an equivalent result. Search, Markdown, and citation views agree on claim
-revision and evidence locator. Corrections create a new view/snapshot rather
-than a silent prose edit.
+`PROCESSOR-OCR-001` is independently certified for the bounded OCRmyPDF +
+Tesseract D2 path. It preserves native pages in mixed PDFs, OCRs only pages lacking
+native text, emits exact OCR page ordinals, and remains conservatively visual-review
+bound rather than inventing a universal confidence threshold.
 
-## Work Package 8: Controlled Publication and Inter-Canton Exchange
+`PROCESSOR-CODEX-001` is independently certified for the bounded official Codex CLI
+`visual_transcribe` step. It is deliberately one `pdf_page:v1` per ProcessRun, uses
+ChatGPT subscription authentication owned by Codex in a dedicated keyring-backed
+profile, starts from isolated scratch, and records only non-secret model/config/template/
+egress provenance. Integrating the first cloud backend exposed one generic prerelease
+schema defect: a selected egress processor may fail locally before sending source bytes.
+Certified candidate `0001` therefore changes only `bytes_egressed > 0` to `>= 0`; no
+`0002` exists and the exact-runtime schema/regression proofs passed. The remediated
+v2 contract keeps the canonical transcript page-complete
+when supplemental table structure is emitted and fails cross-channel inconsistency
+before derivative acceptance.
 
-**Purpose:** distribute public civic material without centralizing authority.
+**WP4C implementation gate:** PROCESSOR-CODEX-001 is certified on the
+qualified Codex CLI/model, the controlled TSE hard page, exact-hash natural Esparza
+page, and the rebaselined SQLite 3.53.4 authority. Unsupported/uncertain output must
+end visibly in review without corrupting custody. No provider API or heavyweight local
+VLM is required for the reference path.
 
-**Deliverables**
+## WP5 — Lector and Claim Extraction
 
-- Public snapshot builder that permits only approved public-safe records and
-  representations.
-- Signed, hash-bound snapshot manifest, correction, retraction, and withdrawal
-  records.
-- Node identity root and online snapshot signing-key lifecycle.
-- Opt-in peer allowlist, node card, package validation, quarantine/preview, and
-  imported external-evidence namespace.
-- Generic publication adapter contract; Nextcloud is one optional adapter after
-  the generic release workflow passes.
+Create a common processor interface for rule-based, model-based, and human
+extraction.
 
-**Explicit exclusions**
+Initial outputs:
 
-- No shared national database.
-- No automatic peer trust, identity merge, republishing, or conflict resolution.
-- No cross-canton writes.
-- No writable MCP in 1.0.
+- claim revisions with origin/process metadata;
+- exact evidence links;
+- entity mentions;
+- local topic/tag assignments;
+- claim-entity anchors;
+- candidate/direct claim relations with origin/basis;
+- document classification/profile suggestions.
 
-**Gate:** two isolated test nodes exchange a valid public snapshot. Tampered
-hashes, invalid signatures, expired/rotated keys, unsafe paths, oversized
-packages, untrusted peers, and withdrawals fail or quarantine correctly.
-Imported records retain origin and cannot be edited as local authority.
+Default extraction policy aims for comprehensive civic relevance rather than a
+small editorial summary. Shared entity/tag anchors may be created broadly;
+claim-to-claim semantic relations are recorded separately and never inferred
+merely from shared subject matter.
 
-## Work Package 9: Legacy Migration and Operational Hardening
+**Gate:** one long document can produce a large claim set with stable provenance,
+no duplicate explosion on replay, and no review requirement merely to store or
+search those claims/connections; relation replay is idempotent and attributable.
 
-**Purpose:** bring value from existing work without laundering uncertain history
-into new canonical records.
+## WP6 — Review and Operator Workflow
 
-**Deliverables**
-
-- Read-only inventory of the Plaza vault: hashes, duplicates, citations, broken
-  references, source lineage, and ambiguity report.
-- Immutable pre-migration backup and verified migration candidate node.
-- Bounded importer that turns selected legacy records into review proposals with
-  stated provenance/locator limits.
-- Reconciliation report for accepted, quarantined, rejected, and unresolved
-  imports.
-- Recovery, backup, restore, key rotation, update, incident, and downgrade
-  runbooks.
-
-**Gate:** migration activates only by explicit administrator receipt after source
-hash, lineage, citation, privacy, and projection reconciliation. Rollback is a
-new authority activation; it never pretends to retract external publication.
-
-## Work Package 10: Beta, Release Candidate, and 1.0
-
-**Purpose:** prove distribution in real civic organizations before general use.
+Implement review configuration:
 
 ```text
-dev: synthetic fixtures only
--> beta: opt-in pilot nodes with isolated data
--> rc: frozen schema, migrations, and release candidate
--> stable: signed 1.0 release
+strict
+batch
+supervised
 ```
 
-**Beta requirements**
+Operator experience must support:
 
-- At least two independent Frente Amplio local organizations.
-- Thirty days of routine use or equivalent documented civic work cycle.
-- One real document workflow, correction, export, and restore drill per pilot.
-- No unresolved P0/P1 data-integrity, security, privacy, or publication defect.
+- seeing machine-only vs human-reviewed immediately;
+- opening exact source evidence from a claim;
+- correcting/rejecting/restricting a claim;
+- reviewing a whole deterministic batch with exceptions;
+- forcing review for sensitive/public contexts;
+- inspecting unresolved extraction/locator/type conflicts.
 
-**Gate:** all release gates in `RELEASE_1_0.md` are evidenced and signed by
-release, security, privacy/data, and pilot civic authorities.
+Do not build enterprise staffing roles. Record actor/action/capability so a
+future multi-operator system remains possible.
 
-## Work Explicitly Later
+**Gate:** a single operator can process and supervise a high-volume document
+without claim-by-claim approval fatigue.
 
-- Public web application and national hosting.
-- National orchestrator or deputy/presidential dashboard.
-- Graph database, triplestore, SPARQL endpoint, vector database, or semantic
-  search beyond approved local search.
-- IIIF server, DCAT catalog, JSON-LD/RDF public graph, and advanced standards
-  adapters.
-- General press/social/interview intelligence beyond approved civic sources.
-- Writable MCP or autonomous publication.
+## WP7 — Acta Vertical Proof
 
-These may be valuable. They are not prerequisites for a durable, distributable
-1.0 canton node.
+Use a newly available official acta as the first real profile proof:
+
+```text
+acquire original
+-> extract representation
+-> classify acta/session structure
+-> extract broad claims
+-> attach exact evidence
+-> supervised search
+-> review/correct selected important claims
+```
+
+No Episode/Hilo is required for the core proof.
+
+**Gate:** an obscure claim can later be found, verified against the exact source,
+corrected, and traced through revisions/process history.
+
+## WP8 — Queries and Output Types
+
+Implement basic deterministic querying:
+
+- full-text;
+- source/document type/date;
+- entity/tag;
+- direct claim relations and bounded relation traversal;
+- review visibility/lifecycle and optional attributable assessment;
+- evidence resolution.
+
+Then implement the minimal Output read boundary.
+
+### First real output: Hilo
+
+Move reader organization into an output-specific schema:
+
+```text
+Hilo
+  -> Episode
+  -> claim memberships
+  -> chronological rendering
+```
+
+Preserve useful current Hilo behavior but make it consume core claims via the
+query/read interface rather than own civic truth.
+
+### Second proof output
+
+Implement a tiny structurally different non-Episode fixture/output to prove no
+Episode dependency in core; do not build a second full product merely for the gate.
+
+**Gate:** a query can follow a real multi-document relation chain using SQLite,
+and both output shapes consume the same bounded read model without direct
+canonical database mutation. Package/install lifecycle is not required.
+
+## WP9 — Export, Recovery, and Operational Hardening
+
+- Markdown/JSON/CSV exporters as serialization concerns.
+- Immutable output snapshot option for deliberate publication/release.
+- Backup and restore commands with verification.
+- Post-compatibility migration upgrade policy based on actual schema needs; pre-release schema changes rebaseline `0001` rather than accumulating compatibility migrations.
+- Spanish-first operator guide using Depósito/Mesa/Lector/Fichero/Consultas/
+  Salidas language.
+- One supported installation/update path.
+
+**Gate:** clean-machine restore and routine operator workflow pass without manual
+SQL/file surgery.
+
+## WP10 — 1.0 Proof
+
+A release candidate must demonstrate:
+
+- routine use by at least one real canton/operator over a meaningful cycle;
+- broad extraction without mandatory per-claim approval;
+- traceable citations across more than one document/representation type;
+- strict/batch/supervised review behavior;
+- queries and at least two output shapes;
+- backup/restore;
+- no unresolved critical integrity/privacy/security defects;
+- documentation understandable without architecture expertise.
+
+A second independent installation is valuable compatibility evidence but not a
+reason to prebuild federation.
+
+## Explicitly Later
+
+Unless a concrete use case promotes them:
+
+- daemon/RPC/multi-writer architecture;
+- complex account/role system;
+- public server/API/automation adapters;
+- Output Type registry/marketplace;
+- cryptographic inter-canton federation;
+- cross-canton canonical data synchronization;
+- specialized graph/vector databases or indexes;
+- alternate relational engines;
+- mass historical migration.

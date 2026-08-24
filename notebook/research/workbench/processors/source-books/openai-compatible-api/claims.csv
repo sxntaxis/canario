@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+OAC-C001,OAC-S001;OAC-S002,"An OpenAI-compatible HTTP/client shape is a real ecosystem convention and can point the same client style at non-OpenAI servers through base_url, api_key and model.",direct,"ActaKit can support an OpenAI-compatible provider adapter as an escape hatch across local/self-hosted/cloud endpoints."
+OAC-C002,OAC-S001;OAC-S003,"OpenAI-compatible does not mean full API or capability equivalence; supported endpoints/parameters/modalities vary by server and model.",direct,"Provider startup must capability-probe/declare required features instead of assuming compatibility from URL shape."
+OAC-C003,OAC-S004,"An OpenAI-shaped API key is not itself a complete security boundary for compatible servers.",direct,"Remote/self-hosted endpoints need explicit trust/TLS/network policy; credentials must remain external secrets."
+OAC-C004,OAC-S002;OAC-S003,"The compatibility surface can bridge local multimodal servers and cloud-style clients while retaining backend/model differences.",direct,"Transport/provider interface and model capability must be separate concepts in WORKBENCH design."

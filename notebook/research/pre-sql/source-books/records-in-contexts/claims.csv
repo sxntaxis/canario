@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C013,AKS-S014,"Archival context can be highly relational, but using an ontology runtime is not required to preserve contextual relations.",supports,Borrow relation semantics selectively; reject RiC-O/OWL baseline.
+AKS-C091,AKS-S070,Rich archival relation modeling produced substantial property/class maintenance complexity and abstraction pressure.,scar,Keep simple typed relations simple; promote only relations with real attributes to association/event objects.
+AKS-C092,AKS-S069,A stable ontology still required bug-fix releases for relation semantics after 1.0.,scar,Avoid ontology-wide inference rules as canonical ActaKit semantics; explicit relational invariants are easier to audit.

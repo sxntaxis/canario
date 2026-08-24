@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C012,AKS-S012,Components/subdocuments can be modeled when structure matters without forcing every document into maximal decomposition.,supports,DocumentPart stays optional.
+AKS-C086,AKS-S065,Stable identity of a document part can differ from its current display number/name across versions.,supports,"Never use article number, filename or title as the stable primary identity of a mutable civic/document part."
+AKS-C087,AKS-S065,Akoma Ntoso explicitly applies proportionality of impact: rare cases should not complicate frequent cases.,method,Keep DocumentPart/Collection/profile machinery optional and pay complexity only when a fixture requires it.
+AKS-C088,AKS-S066,A mature legal-document vocabulary continued evolving after adoption in response to implementation and interoperability needs.,scar,Version document profiles/locators so ActaKit can evolve without treating the first profile set as final ontology.

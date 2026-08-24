@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+PYA-C001,PYA-S001,Speaker diarization is a separate task from transcription.,direct,"Model it as an optional derived representation/annotation capability, not an ASR requirement."
+PYA-C002,PYA-S002,Exclusive diarization is designed to simplify alignment with transcription timestamps.,direct,Useful if later civic video/audio requires speaker-attributed transcripts.
+PYA-C003,PYA-S002,Community pipeline can run offline after model acquisition.,direct,Diarization need not imply continuous cloud egress.
+PYA-C004,PYA-S002;PYA-S003,Telemetry exists and is optional.,direct,"If integrated, ActaKit should default telemetry off and document model-fetch/network behavior."

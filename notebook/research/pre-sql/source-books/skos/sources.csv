@@ -1,0 +1,3 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S031,Taxonomy,SKOS Reference,standard,W3C Recommendation,"ConceptScheme, Concept, preferred/alternative labels, broader/narrower/mapping relations",Local tags need not become RDF or a national ontology,https://www.w3.org/TR/skos-reference/,2026-08-20
+AKS-S096,Skos,SKOS Primer,W3C Working Group Note,SKOS Primer,"Explains preferred/alternate labels, direct hierarchy semantics, transitive closure and extension choices with practical examples",Do not require RDF/SKOS runtime or advanced collections for simple local tags,https://www.w3.org/TR/skos-primer,2026-08-20

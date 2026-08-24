@@ -1,0 +1,170 @@
+{
+  "executor": "official_codex_cli",
+  "executor_family": "subscription_agent",
+  "codex_cli_version": "codex-cli 0.149.0",
+  "model": "gpt-5.6-sol",
+  "exec_mode": {
+    "ephemeral": true,
+    "sandbox": "read-only",
+    "repository_exposed": false
+  },
+  "request_template_sha256": "00166cf1dcf582e9a7a993a44db6d45c23f9197412044ef2a816874f6c2a3bdf",
+  "output_schema_sha256": "3f24ec5e42023ff5904305e4c57af5f73f06c706113c274870e83cbb91206448",
+  "billing": {
+    "billing_mode": "chatgpt_subscription",
+    "per_call_api_cost_usd": "NOT_APPLICABLE",
+    "subscription_quota_consumption": "NOT_RECORDED"
+  },
+  "pages_egressed": 2,
+  "bytes_egressed": 1467188,
+  "wall_seconds": 43.63133287700475,
+  "returncode": 0,
+  "secret_recorded": false,
+  "inputs": [
+    {
+      "page_id": "natural-layout-esparza-p4",
+      "sha256": "9d012e1053ab4d5fa2cf65f404be5c439226a4724ce79122a4efc2bbd15bccec",
+      "bytes": 847371
+    },
+    {
+      "page_id": "natural-layout-quepos-p14",
+      "sha256": "91f5f2ee8577a7c0b8c24417cfd678db85aed85d25dbe063eb20c8e4e5519f4b",
+      "bytes": 619817
+    }
+  ],
+  "status": "PASS_SCHEMA_VALID",
+  "output_sha256": "ba828a16643c469829e1f4ea0dd5838704a0d7e561676a1f546a99fe5ef9ad97",
+  "pages": [
+    {
+      "page_id": "natural-layout-esparza-p4",
+      "transcription": "1 sábado 08 de agosto, actividad denomina en nuestro plan de trabajo \"Feria\n2 cultural y recreativa en celebración del día internacional de la juventud\".\n3 ACUERDO DEFINITIVAMENTE APROBADO POR UNANIMIDAD.”\n4 Hasta aquí la transcripción de la nota.\n5 SE ACUERDA: Trasladar a la Administración la solicitud realizada por el Comité\n6 Cantonal de la Persona Joven de Esparza, con el fin de que les colabore en la\n7 medida de las posibilidades, para la celebración del Día Internacional de la\n8 Juventud el 8 de agosto en el Parque Pérez. ACUERDO DEFINITIVAMENTE\n9 APROBADO POR UNANIMIDAD.\n10 4- Se conoce nota CCPJE-068-2026 de fecha 05 de mayo de 2026, dirigida al\n11 Concejo Municipal de Esparza y al Alcalde, por el Comité Cantonal de la Persona\n12 Joven de Esparza; texto que se transcribe a continuación:\n13 “Reciba un cordial saludo y a la vez deseándole éxitos en sus labores.\n14 Para conocimiento y fines consiguientes, se transcribe los siguientes acuerdos tomado por\n15 el Comité Cantonal de la Persona Joven de Esparza, según lo indicado en la sección de\n16 acuerdos, de la sesión ordinaria número 33-2026, efectuada el día martes cinco de mayo del\n17 dos mil veintiséis que indica textualmente:\n18 1. SE ACUERDA. Solicitar al Concejo Municipal, al señor alcalde Bienvenido Venegas, se\n19 nos agregue a las actividades del mes de agosto para obtener el permiso del ministerio de\n20 salud y el apoyo de la cruz roja y de la policía municipal, para realizar una mini feria de\n21 emprendimientos, actividad denomina en nuestro plan de trabajo \"Campaña de\n22 emprendimiento joven\" ACUERDO DEFINITIVAMENTE APROBADO POR\n23 UNANIMIDAD.” Hasta aquí la transcripción de la nota.\n24 SE ACUERDA: Trasladar a la Administración la solicitud del Comité Cantonal de\n25 la Persona Joven de Esparza, con el fin de que les colabore en la medida de las\n26 posibilidades. ACUERDO DEFINITIVAMENTE APROBADO POR UNANIMIDAD.\n27 5- Se conoce oficio N° 05687 (DFOE-DEC-1553) de fecha 12 de mayo de 2026,\n28 dirigida a la secretaria del Concejo Municipal de Esparza, por Licda. María\n29 Alejandra Quirós García, Asistente Técnica y Jerson Masís Rodríguez Fiscalizador\n30 Asociado, Contraloría General de la República; texto que se transcribe a\n31 continuación:\n32 “Asunto: Direccionamiento de denuncia\n33 En esta Contraloría General se recibió una denuncia digital en contra de la Municipalidad\n34 de Esparza, por las presuntas irregularidades relacionadas con la falta de apertura al público\n35 de la piscina ubicada en el Polideportivo Las Tres Marías de ese cantón.\n36 Sobre el particular, es importante destacar que a efectos de atender ese requerimiento, este\n37 órgano de fiscalización superior en el ejercicio de sus competencias, llevó a cabo una\n38 valoración de los aspectos contenidos en dicho escrito, además de diligencias de solicitud\n39 de información a ese Concejo, así como al propio Comité de Deportes y Recreación de\n40 Esparza, respecto de lo cual se informa lo siguiente:\n41 En primera instancia, según consta en el oficio Nro. SCM-015-2026 del 28 de abril de 2026,\n42 se logró acreditar que ese Concejo Municipal en la Sesión Ordinaria Nro. 138-2026 del 3\n43 de febrero de 2026, procedió con el traslado hacia el Gestor Jurídico del Concejo Municipal\n44 del documento denominado “PROYECTO DE REGLAMENTO PARA EL USO Y\n45 ADMINISTRACIÓN DE LA PISCINA SEMI OLÍMPICA” del Comité de Deportes y\n46 Recreación de Esparza.”. (La mayúscula corresponde al original).\n47 Con motivo de este requerimiento, el Lic. Olivier Mauricio López Agüero, Gestor Jurídico\n48 del Concejo Municipal de Esparza, emitió el documento Nro. GJCME-023-2026, en el cual\n49 le indicó a ese Concejo lo siguiente: “De conformidad con todo lo anteriormente señalado,\n50 le corresponderá al Concejo Municipal decidir si le solicita al CCDRE que se analicen las\n51 observaciones realizadas en este informe, para que la propuesta de reglamento cumpla con\n52 las disposiciones y los criterios ampliamente mencionados, o bien si por la urgencia y la\n53 necesidad de contar pronto con esta herramienta, aprueba realizar los cambios propuestos",
+      "uncertain_spans": [],
+      "tables": [],
+      "metrics": {
+        "truth_chars": 4103,
+        "observed_chars": 4102,
+        "cer": 0.0021935169388252497,
+        "wer": 0.005908419497784343,
+        "token_precision": 0.9955621301775148,
+        "token_recall": 0.9940915805022157,
+        "token_f1": 0.9948263118994827,
+        "unexpected_token_count": 3,
+        "missing_token_count": 4,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "SE ACUERDA",
+          "Comité Cantonal de la Persona Joven de Esparza",
+          "CCPJE-068-2026",
+          "ACUERDO DEFINITIVAMENTE APROBADO POR UNANIMIDAD",
+          "Contraloría General de la República"
+        ],
+        "required_span_misses": [],
+        "unexpected_tokens": [
+          {
+            "token": "Esparza.”.",
+            "count": 1
+          },
+          {
+            "token": "emprendimiento",
+            "count": 1
+          },
+          {
+            "token": "juventud\".",
+            "count": 1
+          }
+        ],
+        "missing_tokens": [
+          {
+            "token": ".",
+            "count": 1
+          },
+          {
+            "token": "Esparza.”",
+            "count": 1
+          },
+          {
+            "token": "emprendedurismo",
+            "count": 1
+          },
+          {
+            "token": "juventud\"",
+            "count": 1
+          }
+        ]
+      },
+      "table_metrics": "NO_INDEPENDENT_TABLE_TRUTH"
+    },
+    {
+      "page_id": "natural-layout-quepos-p14",
+      "transcription": "Acta N° 086-2021 Ordinaria\n01-06-2021\nPeriodo 2020-2024\n\n1 8. Para continuar con el tramite debe de contar con el anteproyecto a desarrollar en\n2 el área solicitada, debe ser presentado y elaborado según el formato aprobado por\n3 el ICT. Debe ser elaborado por un profesional en arquitectura y firmado por este\n4 y el representante de la sociedad.--------------------------------------------------------\n5 9. Deben realizar un depósito de garantía que puede ser de un 1 hasta un 5 % sobre\n6 el valor total del proyecto a desarrollar. Esa garantía no necesariamente debe ser\n7 en efectivo, Puede ser mediante letra de cambio.--\n8 10. Una vez aprobado por la Municipalidad el ante proyecto a desarrollar debe\n9 solicitar la elaboración del proyecto de resolución para que lo firme el alcalde y\n10 lo pase al concejo municipal para su aprobación. Deben solicitar que la concesión\n11 se les otorgue oportunamente.--\n12 11. Una vez aprobado el Concejo Municipal el proyecto de resolución se tiene que\n13 tomar el acuerdo respectivo en esa misma sesión municipal para que se autorice\n14 al Alcalde a la elaboración y firma del contrato de concesión--\n15 12. Una vez firmado el contrato se debe ordenar cronológicamente el expediente se\n16 debe afiliar y llevarlo a certificar ante el secretario del concejo municipal\n17 13. Una vez certificado se debe remitir ante el departamento de concesiones del ICT.\n18 14. El ICT lo recibe y envía a la funcionaría de la oficina de QUEPOS para que realice\n19 inspección y e informe técnico. Si todo está bien así lo informa .y la aprueban y\n20 le notifican para la protocolización de piezas e inscripción ante el registro--\n21 15. Si el informe técnico encuentra algo irregular lo informa a la oficina del ICT de\n22 san José y este le notifica a la Municipalidad dando un plazo de respecto a lo\n23 solicitado.--\n\n24 Requisitos ampliamente conocidos por esta entidad Municipal, que queremos cumplir a\n25 cabalidad.--------------------------------------------------------------------------------\n\n26 Toda esta tramitología es mi deseo e interés colaborar, y realizar de la forma debida a\n27 satisfacción de las normativas vigentes y de la situación especial que se vive con la\n28 Pandemia y Crisis Sanitaria----------------------------------------------------------------\n29 Pido se me indique los lineamientos uso de suelo, áreas de aproximación y límites de\n30 dichas concesiones para darle el seguimiento debido a este trámite, por medio de\n31 resolución atinente a lo ya presentado en los expedientes y lo que sería necesario para\n32 lograr objetivos de interés.---------------------------------------------------------------\n33 En interés de nuestra condición de solicitantes pedimos la resolución de este consejo y la\n34 dirección de la zona marítima terrestre.” HASTA AQUÍ LA TRANSCRIPCIÓN. ------\n\n35 ACUERDO NO. 13: EL CONCEJO ACUERDA: Trasladar a la Administración\n36 Municipal, la presente nota remitida por los señores Edwin Prado Rodríguez y Edgar A.\n37 Quirós Reyes, para que a través del departamento pertinente se le brinde respuesta. Se\n38 acuerda lo anterior por unanimidad (cinco votos). -----------------------------------------\n\n39 Oficio 14. Nota remitida por el señor José Luis Castro Valverde, Presidente de la ASADA\n40 de San Rafael de Cerros; que textualmente dice: “(…) ---------------------------------------\n\n41 El Suscrito José Luis Castro Valverde cédula número 1-481-988, como Presidente de la\n42 Asada San Rafael de Cerros, me presento con el debido respeto a solicitar lo siguiente.\n\n-14-",
+      "uncertain_spans": [],
+      "tables": [],
+      "metrics": {
+        "truth_chars": 3585,
+        "observed_chars": 3546,
+        "cer": 0.010878661087866108,
+        "wer": 0.01079136690647482,
+        "token_precision": 0.9910071942446043,
+        "token_recall": 0.9910071942446043,
+        "token_f1": 0.9910071942446043,
+        "unexpected_token_count": 5,
+        "missing_token_count": 5,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "Acta N° 086-2021 Ordinaria",
+          "ACUERDO NO. 13",
+          "Edwin Prado Rodríguez",
+          "José Luis Castro Valverde",
+          "HASTA AQUÍ LA TRANSCRIPCIÓN"
+        ],
+        "required_span_misses": [],
+        "unexpected_tokens": [
+          {
+            "token": "---------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "Sanitaria----------------------------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "cabalidad.--------------------------------------------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "interés.---------------------------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "sociedad.--------------------------------------------------------",
+            "count": 1
+          }
+        ],
+        "missing_tokens": [
+          {
+            "token": "------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "Sanitaria-------------------------------------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "cabalidad.----------------------------------------------------------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "interés.--------------------------------------------------------------------------",
+            "count": 1
+          },
+          {
+            "token": "sociedad.----------------------------------------------------------",
+            "count": 1
+          }
+        ]
+      },
+      "table_metrics": "NO_INDEPENDENT_TABLE_TRUTH"
+    }
+  ],
+  "ground_truth_policy": "Independent native text visually checked against each public source page; not candidate-generated."
+}

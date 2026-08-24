@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C066,AKS-S045,"A root document can retain stable metadata while file versions carry their own bytes, checksums and extracted text.",supports,Fixture CivicDocument identity separately from Artifact/Representation versions; do not duplicate document identity for every processing version.
+AKS-C067,"AKS-S045,AKS-S046",Bulk edit/reprocess and file integrity checking coexist without making the bulk action itself the durable domain object.,supports,Batch/supervised operations may write many individually attributable results without a permanent ReviewBatch entity.
+AKS-C118,AKS-S045,Logical document metadata can remain stable while file versions/checksums/text change through processing.,supports,Keep CivicDocument identity separate from Artifact and Representation versions.
+AKS-C119,AKS-S047,Unsafe source-path mutation and nondeterministic preprocessing can damage custody or create duplicate processing outcomes.,scar,Transform only working/derived copies; capture transformation tool/version/config and artifact identity.
+AKS-C120,AKS-S046,Backup/export guidance distinguishes authority-bearing content from regenerable derived material.,supports,Define backup boundary as DB + originals + non-regenerable state; rebuild FTS/thumbnails/derived caches when safe.

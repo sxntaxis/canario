@@ -1,0 +1,12 @@
+proof_id,fixture_id,artifact_kind,minimum_real_artifact_requirement,certifies,status
+AKP-001,AKF-001,public PDF acta,One real public acta with stable page/text evidence and at least one extracted claim,Exact locator and document/artifact separation,required
+AKP-002,AKF-002,versioned public web/document source,A source that can demonstrate repeated observation or a captured controlled equivalent,Acquisition versus artifact identity,required
+AKP-003,AKF-003,unknown/malformed civic document,One real or preserved historical source whose specialized structure is unsupported/changed,Graceful degradation and fail-loud profile behavior,required
+AKP-004,AKF-004,compound public PDF,One artifact containing at least two semantically independent civic documents/attachments,Artifact/document cardinality,required
+AKP-005,AKF-005,public spreadsheet/CSV,One civic budget or dataset where evidence is a row/cell/range rather than page prose,Non-PDF EvidenceLocator,required
+AKP-006,AKF-007,public document with organization alias,At least one raw label that can be independently resolved to a known organization,EntityMention resolution,required
+AKP-007,AKF-008,public corpus with ambiguous same-name people,At least one ambiguity where name equality would be unsafe,Non-merge identity behavior,required
+AKP-008,AKF-012,two public sources about same matter,Two sources making materially incompatible/competing assertions,Plural claims and contradiction/challenge semantics,required
+AKP-009,AKF-015,local generated corpus,A complete generated DB+archive test corpus restored into a clean location,Backup/restore integrity,post-schema
+AKP-010,AKF-016,policy fixture,A controlled document containing data allowed in custody but inappropriate for public output,Redaction/publication separation,required-before-publication
+AKP-011,AKF-013,official office-holder declaration,One official civic source naming an office-holder plus the bounded term of office,Concrete RoleAssignment promotion boundary,satisfied

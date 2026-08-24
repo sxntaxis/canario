@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C019,AKS-S019,Naively equating every real relation with an edge is known to fail when relations themselves carry data.,supports,No universal nodes/edges schema; explicit tables plus optional association objects.
+AKS-C020,AKS-S020,Per-value provenance is possible but materially increases record count and model complexity.,limits,Do not adopt statement-per-field provenance unless fixtures show claim-level provenance is insufficient.
+AKS-C100,AKS-S019,Treating every relation as a generic edge is explicitly identified as a modeling error when interstitial entities carry attributes.,scar,Use ClaimRelation for simple semantics and Association/Event for relations with role/time/amount/other own attributes.
+AKS-C101,AKS-S020,Per-value provenance is powerful but turns normalized values into many statement records.,limits,Use claim/evidence provenance as default; introduce finer-grained value provenance only for demonstrated high-value fields.
+AKS-C102,AKS-S077,FollowTheMoney explicitly frames schema extensions around practical precision rather than modelling domain theory completely.,supports,Version extensible civic profiles; do not build a national civic ontology in core.

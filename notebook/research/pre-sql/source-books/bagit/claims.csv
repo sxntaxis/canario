@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C008,AKS-S009,Checksummed self-describing packages provide a simple integrity boundary for transfer/backup.,supports,Prefer BagIt-like package manifests for export/backup before inventing federation packages.
+AKS-C080,AKS-S060,Even a small transfer standard accumulated cross-implementation path-encoding divergence around percent signs.,scar,Treat package validation/version compatibility as real tests; never assume manifest conformance from library name alone.
+AKS-C081,AKS-S009,Bag integrity checks detect accidental corruption but do not by themselves provide authenticity against an active attacker.,limits,Use hashes for integrity; do not imply cryptographic signer authenticity unless separately implemented.

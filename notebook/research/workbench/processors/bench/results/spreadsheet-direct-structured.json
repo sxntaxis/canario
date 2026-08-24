@@ -1,0 +1,27 @@
+{
+  "bench_state": "CIVIC_PROCESSOR_BENCH_PARTIAL__XLSX_DIRECT_STRUCTURED",
+  "source_sha256": "c98451ffdebc7976757a27ccd9a69a56061c16c37bd808b8d3398b3ffcb8608e",
+  "source_bytes": 26468,
+  "parser": "openpyxl",
+  "parser_version": "3.1.5",
+  "license": "CC BY",
+  "sheets": [
+    {
+      "title": "MTSS",
+      "max_row": 147,
+      "max_column": 15,
+      "formula_count": 0,
+      "formula_cells_sample": [],
+      "selected_cells": {
+        "A1": "Subp.",
+        "C1": "Descripción",
+        "O1": "% Ejec.",
+        "A2": 0,
+        "C2": "REMUNERACIONES",
+        "O2_formula_or_value": 0.09557853868871936,
+        "O2_displayed_value": 0.09557853868871936
+      }
+    }
+  ],
+  "architectural_conclusion": "XLSX enters through a direct structured representation path; OCR/Codex escalation is not the default for workbook cells."
+}

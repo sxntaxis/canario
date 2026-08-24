@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+MIN-C001,MIN-S001;MIN-S003,MinerU is a broad modern document parser with OCR/VLM and structured-output capabilities overlapping Docling/PaddleOCR.,direct,"Use it as a serious benchmark comparator, not automatically another core framework."
+MIN-C002,MIN-S002,Current MinerU license adds thresholds/attribution beyond plain Apache 2.0.,direct,Custom license raises maintenance/deployment cost relative to permissive alternatives.
+MIN-C003,MIN-S004,MinerU demonstrates strong specialized document parsing performance.,independent-benchmark,Include in external benchmark context even if not selected.
+MIN-C004,MIN-S001;MIN-S003,Adopting multiple overlapping structured-document frameworks would increase dependency/model policy complexity.,bounded-inference,Prefer one primary framework plus narrowly justified specialist backends.

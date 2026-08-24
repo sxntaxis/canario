@@ -1,0 +1,30 @@
+fixture_id: AKF-001
+title: Clean acta with exact evidence
+input:
+  source: https://example.invalid/concejo/acta-181.pdf
+  media_type: application/pdf
+  bytes_digest: sha256:fixture-acta-181
+  document_hint: Acta 181
+  representation: embedded_text
+example_claim:
+  text: "El Concejo aprobó una modificación presupuestaria de ₡14 millones para infraestructura deportiva."
+expected:
+  semantic_records:
+    - Source
+    - Acquisition
+    - Artifact
+    - Representation
+    - CivicDocument
+    - Claim
+    - EvidenceLink
+  evidence_locator:
+    kind: pdf_text
+    representation: embedded_text
+    page: 23
+    exact_quote: "Se aprueba la modificación presupuestaria por catorce millones de colones..."
+    semantic_context:
+      article: V
+      item: 2
+must_not:
+  - make page/article/item fields mandatory on Claim
+  - cite only "Acta 181" when exact evidence context exists

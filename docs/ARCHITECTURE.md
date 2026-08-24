@@ -1,12 +1,14 @@
 ---
 id: ACTAKIT-ARCH-001
 kind: target-architecture
-state: proposed-for-acceptance
+state: accepted
+accepted: 2026-08-21
 created: 2026-08-19
 authority: architecture-proposal
-summary: Federated civic-record architecture with sovereign canton nodes, immutable evidence custody, human-reviewed claims, and rebuildable public projections.
+summary: Self-contained civic-record architecture for acquiring public documents, extracting traceable claims, reviewing when needed, querying the record, and producing extensible outputs.
 related:
   - ACTAKIT-ROADMAP-001
+  - ACTAKIT-DATA-001
   - ACTAKIT-STATUS-001
 ---
 
@@ -14,346 +16,679 @@ related:
 
 ## Purpose
 
-actakit is a local civic-record system for municipal actas. It must let people
-find, verify, cite, correct, and reuse public-interest information without
-turning AI summaries, Markdown files, or publication targets into authorities.
+ActaKit is a self-contained local system for **acquiring, preserving, extracting,
+classifying, relating, searching, reviewing, and exporting information contained
+in public civic or governmental records**.
 
-The first durable deployment is a **local civic record**. Public outputs are
-audited exports, not the default authority or a promise of a public archive.
+Actas are the first mature workflow, not the product boundary. The same core must
+handle reports, budgets, official correspondence, resolutions, plans, public
+datasets, recordings, and document types not known in advance.
 
-The 1.0 distribution unit is an autonomous canton node. Nodes may exchange
-explicitly public, signed evidence packages, but they do not share a database,
-operator account store, or canonical writer.
+ActaKit is not a party CRM, strategy workspace, general note system, propaganda
+engine, or political-profiling system. It may interoperate with other tools only
+through generic imports/exports or adapters; no external workspace or service is
+part of its architecture.
 
-## Product Boundary
+## Design Law
 
-actakit is a civic institutional-record system. Actas are its first specialized
-workflow, not its ceiling. Its common record model must admit municipal reports,
-budgets, agreements, official correspondence, public notices, plans, datasets,
-and other approved civic source types without making every source look like a
-meeting.
+> **As simple as possible, as complicated as necessary.**
 
-```text
-common civic record core
-  source -> artifact -> representation -> document -> claim -> review
-  -> publication snapshot
+ActaKit applies this in two directions:
 
-acta profile
-  meeting -> agenda article/item -> intervention/agreement -> episode -> Hilo
+1. **Implement only complexity justified by real use.**
+2. **Choose boundaries now that prevent expensive destructive migrations later.**
 
-report profile
-  reporting body -> period -> finding/metric -> recommendation/response
-```
+A future risk may justify a stable interface, identifier, or separation today.
+It does not automatically justify a daemon, network protocol, federation system,
+plugin registry, graph database, or multi-user permission hierarchy today.
 
-Digest is a compatible sibling, not an actakit dependency. Digest may later
-discover or preserve an external source and submit an evidence package. Actakit
-independently applies its own source policy, review, civic interpretation, and
-publication rules. Actakit must operate fully when Digest is unavailable.
+## Native Human Vocabulary
 
-## Architectural Decisions
+ActaKit should be explainable without database vocabulary. These metaphors are
+part of the product language used in documentation and operator interfaces. They
+are **not mandatory directory or module names**; code uses the clearest technical
+names for maintainability.
 
-1. Each canton operates a sovereign actakit node. A local actakit service is the
-   sole writer of canonical state for that node.
-2. SQLite in WAL mode is the baseline node store for canonical metadata,
-   revisions, approvals, and operation receipts. It is not a substitute for the
-   source files themselves.
-3. An immutable content-addressed archive stores acquired source bytes and
-   derived representations. Raw evidence is restricted by default.
-4. Markdown actas, Hilos, reports, search indexes, Nextcloud manifests, and MCP
-   responses are projections. They never become a second canonical store.
-5. AI, scrapers, OCR, importers, and future clients may propose work. Named humans
-   approve consequential claims, corrections, and publication.
-6. Historical vault content remains a legacy import/projection source. It is not
-   mass-rewritten to fit the new model.
-7. The system begins with the next Esparza acta after Acta 161. A successful
-   first proof is required before historical migration or public publication.
-
-## Non-Negotiable Laws
-
-### Evidence before interpretation
-
-An acquired file, its extracted text, an AI proposal, a human-approved claim,
-and a published statement are distinct records. No later record overwrites the
-prior record or silently inherits its authority.
-
-### Proposal is not approval
-
-```text
-acquisition or extraction proposal
-!= approved source observation
-!= approved claim
-!= publication decision
-```
-
-The same person may act as extractor, reviewer, editor, and publisher at first,
-but every action records its authority role.
-
-### Identity and occurrence are distinct
-
-```text
-Acta identity
-!= downloaded file version
-!= OCR/extraction run
-!= AI processing run
-!= review event
-!= publication snapshot
-```
-
-The same PDF acquired twice is not necessarily two actas. A corrected source,
-newly discovered page, or improved extraction is a new representation or
-revision with explicit lineage.
-
-### No implicit deletion
-
-Absence from a page, source run, model response, Hilo, index, or publication
-does not mean the underlying item ceased to exist. A source run may declare a
-complete scope only when that scope is known and recorded.
-
-### Corrections preserve history
-
-Corrections, clarifications, retractions, and privacy redactions produce new
-attributable state. The public view may show the latest approved state, but the
-internal record preserves the reason, authority, and supersession chain.
-
-### Projections are disposable
-
-Generated Hilos, search indexes, exports, and publication plans declare their
-input checkpoint and build version. They can be rebuilt without destroying
-canonical history. Curated legacy Hilos are preserved until deliberately
-migrated as reviewed projection content.
-
-## Semantic Record Families
-
-The first implementation needs these families. It does not need a universal
-ontology or a graph database. The relational records explicitly model graph
-relationships and may later generate a graph/RDF projection.
-
-| Family | Canonical meaning | Required distinction |
+| Human concept | Question | Technical responsibility |
 |---|---|---|
-| Source policy | Whether and how a source may be acquired, retained, processed, and disclosed | Public availability is not permission for every downstream use. |
-| Source run | One bounded acquisition attempt and its checkpoint/freshness outcome | Failure is not a document or a deletion. |
-| Evidence artifact | Immutable acquired bytes with hash, media type, source URI, capture time, and custody receipt | Source URI, hash, and local storage path are separate identifiers. |
-| Representation | PDF, DOCX, page image, OCR text, normalized text, or redacted derivative | A derivative never replaces its parent evidence. |
-| Process run | Extraction, OCR, model, normalization, or import occurrence | Inputs, implementation/configuration/model versions, outputs, and diagnostics remain attributable. |
-| Proposal | Machine or human candidate observation, claim, routing, or relation | A proposal has no public/canonical effect until review. |
-| Claim | One attributable proposition with kind, epistemic status, revision, and sensitivity flags | An episode can contain several claims. |
-| Evidence link | Relation between a claim and an exact artifact representation/locator | Support, contradiction, quotation, and context are distinct. |
-| Review decision | Named human approval, rejection, return for research, correction, or publication decision | Readiness is process sufficiency, never automatic truth. |
-| Episode | Reader-oriented grouping of approved claims from an acta | Episode prose is a projection over claims, not the evidence model. |
-| Hilo membership | Approved relation between an episode/claim and a topic | A topic view cannot rewrite the acta dossier. |
-| Publication snapshot | Immutable, citable output package for one intended audience | A later correction does not rewrite a prior snapshot. |
-| Operation receipt | Idempotent record of a consequential mutation | Same operation ID with different meaning is a conflict. |
+| **Inbox** | ¿Qué está entrando desde afuera? | Terrain-neutral ingress port for interchangeable Source Connectors |
+| **Depósito** | ¿Qué conseguimos realmente? | Source capture, immutable-by-default artifacts, custody |
+| **Mesa de trabajo** | ¿Cómo podemos leerlo? | Representations: text, OCR, tables, transcripts |
+| **Lector** | ¿Qué contiene? | Parsers, rules, AI, or humans extracting structure |
+| **Fichero** | ¿Qué afirma el material, dónde y cómo se conecta? | Claims, evidence links, entities, tags, connections |
+| **Mesa de control** | ¿Qué necesita atención humana? | Review, correction, privacy, exceptions |
+| **Consultas** | ¿Qué necesito encontrar ahora? | Search and filters; durable saved definitions only if real use requires them |
+| **Salidas** | ¿Cómo quiero usar o presentar esto? | Hilos, timelines, trackers, reports, exports |
 
-Detailed field requirements and lifecycle rules are defined in
-[`CONTRACTS.md`](CONTRACTS.md).
-
-## Canonical Storage and Custody
+The whole program can therefore be visualized as:
 
 ```text
-CLI / review UI / worker / future adapter
-                 |
-                 v
-        local actakit service
-          |                 |
-          v                 v
- SQLite canonical store   content-addressed archive
-          |                 |
-          +--------+--------+
-                   v
-            read-only projections
+INBOX
+  interchangeable source connectors terminate at one ingress contract
+    ↓
+DEPÓSITO
+  public source material as actually acquired
+    ↓
+MESA DE TRABAJO
+  usable representations of that material
+    ↓
+LECTOR
+  software/AI/human extraction and classification
+    ↓
+FICHERO
+  traceable claims + evidence + entities + tags + explicit connections
+    ↓
+MESA DE CONTROL
+  human supervision where policy or importance requires it
+    ↓
+CONSULTAS
+  find the subset relevant to a question
+    ↓
+SALIDAS
+  organize or present that subset for a purpose
 ```
 
-### SQLite canonical store
+## Product Scope
 
-Stores IDs, relationships, revisions, policies, decisions, operation receipts,
-and projection checkpoints for one canton node. Every authoritative mutation includes an
-`operation_id` and, where a record already exists, an `expected_revision`.
-Stale writes are rejected or explicitly reconciled; silent last-write-wins is
-prohibited.
+A civic record is in scope when it is public material that records or evidences
+public decisions, actions, resources, obligations, conditions, claims, or other
+information relevant to civic affairs.
 
-SQLite is chosen for the baseline because canton nodes are autonomous,
-local-first services, not tenants of one national database. Federation does not
-require a shared database engine. A node may later adopt PostgreSQL when its own
-concurrent operators, deployment, access-control, or availability requirements
-justify it; that is a node-local deployment decision, not a federation contract.
+Typical material includes:
 
-### Content-addressed archive
+- actas, agendas, convocatorias, agreements, resolutions, and dictámenes;
+- official correspondence, reports, budgets, plans, regulations, and contracts;
+- public procurement material and public case files;
+- official notices and institutional communications;
+- public datasets, spreadsheets, maps, recordings, or transcripts;
+- records from municipalities, public institutions, public-service bodies, or
+  other organizations acting in a public civic capacity.
 
-Stores source and derivative bytes under a declared digest such as SHA-256.
-Ingest verifies byte count and digest before a custody receipt is recorded.
-The archive records raw source, extracted text, OCR, page images, and redacted
-derivatives as separate representations. Restricted raw material must not enter
-Git or a public projection by default.
+ActaKit does **not** attempt to archive the whole internet or convert every
+sentence into political intelligence. Extraction aims to be comprehensive
+within civic relevance.
 
-### Filesystem roles
+## Core Shape
+
+The irreducible evidence/knowledge path is:
 
 ```text
-vault/3 Fuentes/      legacy and operator-visible source organization
-vault/actas/          human-readable acta dossier projection
-vault/Hilos/          reader-facing thematic projection
-archive/              immutable service-owned evidence archive
-SQLite database       canonical control-plane state
+Source
+  ↓
+Acquisition observation
+  ↓
+Artifact ──> ArchiveObject (physical bytes; shareable by digest)
+  ↓
+Representation
+  ↓
+CivicDocument
+  ↓
+Claim ← EvidenceLink → exact place in Representation
 ```
 
-The exact physical locations may change. Their semantic roles may not.
-
-## Claim and Citation Model
-
-Every consequential public assertion is a claim, not merely a paragraph. A
-claim records at least:
-
-```yaml
-claim_id: stable opaque ID
-kind: fact | attributed_assertion | quote | analysis | opinion | forecast
-epistemic_status: unverified | supported | corroborated | contested | refuted | indeterminate | retracted
-text: normalized proposition
-flags:
-  sensitive: false
-  quantitative: false
-  ai_material: true
-```
-
-Each evidence link records an immutable artifact/representation and an exact
-locator. The minimum citation locator is:
+Around the claim are lightweight structures useful for retrieval:
 
 ```text
-artifact digest + representation version + page/folio + article/item
+Claim
+├── raw EntityMentions -> optional resolved Entity anchors
+├── tags/topics
+├── explicit ClaimRelations
+├── dates/periods when useful
+└── quantities when useful
 ```
 
-When available, add a text quote with prefix/suffix and offsets relative to a
-named, hashed text representation. Page-image coordinates are preserved when
-the source supports them. This enables both a short meeting citation and a
-scholarly verification path.
+Review and outputs are deliberately **not** prerequisites for a claim to exist.
+They act on top of the traceable record.
 
-AI output may contextualize or propose a claim. It cannot be the evidentiary
-support for a factual claim.
+## Source ingress: Connector -> Inbox
 
-## Review, Editorial, and Privacy Policy
-
-### Human roles
-
-- **Extractor** admits or transforms evidence under a source policy.
-- **Reviewer** checks source fidelity, locator quality, and uncertainty.
-- **Editor** approves claim and episode wording for a stated purpose.
-- **Publisher** approves one immutable output snapshot.
-- **Privacy reviewer** handles sensitive-data, minimization, or redaction cases.
-
-The early system may assign all roles to one named operator. The records remain
-separate so multi-person review can be introduced without changing the model.
-
-### Editorial readiness
-
-The system may calculate `BLOCKED`, `REVIEW`, or `READY` based on recorded
-requirements. These states mean only that the configured process is complete or
-incomplete; they never declare a claim true or legally safe to publish.
-
-Public derivatives are minimal by default. Raw official material is retained
-only under source policy and restricted access. actakit does not create
-individual political-preference profiles or targeted-persuasion records.
-
-## Source Authority and Public Claims
-
-Source authority is explicit and field-specific. An official municipal acta,
-an OCR derivative, a secondary report, a community statement, and an AI
-proposal cannot satisfy the same evidentiary requirement.
-
-The system distinguishes at least:
+External sources have incompatible terrain. ActaKit therefore does not define its
+acquisition architecture by the current Esparza scraper or by a universal
+`scrape()` method. A **Source Connector** owns source-specific discovery/fetching
+and terminates at the terrain-neutral **Inbox** ingress port.
 
 ```text
-official source document
-official publication or repository
-operational consolidation/copy
-human testimony or community perception
-secondary reporting
-AI proposal
+HTML/API/browser/feed/filesystem/manual/...
+                 ↓
+          Source Connector
+                 ↓
+          CaptureEnvelope
+                 ↓
+          Inbox / IngressPort
+                 ↓
+              Depósito
 ```
 
-Public wording must disclose relevant limitations rather than claiming that a
-copy, extraction, or model output is the original official authority.
+The connector may not write canonical custody or semantic tables directly.
+ActaKit binds the Inbox to canonical Source identity, connector key/version and
+core-owned custody policy. Discovery/checkpoint mechanics remain source-specific;
+coverage is reported explicitly so absence in one run is never deletion proof.
 
-## Interfaces and Exports
+The focused accepted contract is `INGRESS.md`. Source Connector acquisition is
+separate from downstream Representation processors such as PDF extraction/OCR.
 
-### Federation
+## Evidence Custody: the Depósito
 
-Actakit nodes cooperate through explicit, versioned, opt-in exports. They do
-not directly write one another's canonical records or replicate unreviewed
-private material.
+A source, one observation/acquisition attempt, downloaded bytes, extracted text,
+and a human-readable document identity are different things.
 
 ```text
-Canton node A approved public snapshot
--> versioned export manifest and citation bundle
--> canton node B or future national orchestrator imports as external evidence
--> local human review and local adoption decision
+source
+  -> acquisition observation
+  -> logical Artifact custody record
+  -> content-addressed ArchiveObject bytes
+  -> one or more representations
 ```
 
-Federation requires stable node namespaces, immutable snapshot IDs, source and
-policy metadata, output hashes, publicability status, and correction lineage.
-Raw evidence remains at its originating node unless a source policy explicitly
-allows distribution. A future national orchestrator is a read/import client of
-sovereign nodes; it does not become their canonical writer.
+The baseline only needs enough acquisition history to answer **where, when, and
+how these bytes were observed**. A discovery adapter may later justify separate
+run/checkpoint structures, but those are not universal semantic requirements.
 
-### CLI and service protocol
+The same bytes acquired twice create distinct logical Artifacts while their
+Artifacts may reference one shared physical ArchiveObject. This keeps acquisition
+provenance, restriction and purge decisions independent without duplicating bytes.
+A changed file at the same URL is a new Artifact and a different ArchiveObject.
+Failure or absence during a later acquisition never deletes prior evidence.
 
-The CLI is a client of the local service, not an alternate writer. Requests and
-responses have versioned schemas, bounded inputs, typed errors, and operation
-IDs. The first service may use a local Unix socket; no cloud deployment is
-required.
+ArchiveObjects are content-addressed and hash-verified. Artifacts are stable
+custody identities, not hashes. The canonical database stores metadata and
+relationships; it is not a substitute for original evidence bytes.
 
-### Optional MCP adapter
+## Representations: the Mesa de trabajo
 
-MCP is one possible future access adapter, not an actakit goal or required
-roadmap phase. If adopted, it is read-only at first and serves only approved
-published snapshots. Its initial operations are limited to:
+A representation is something the Lector can inspect or cite. The `original`
+Representation is the inspectable view of its Artifact's captured bytes; it does
+not duplicate the Artifact -> ArchiveObject pointer. Derived material forms keep
+their own bytes plus an exact parent and attributable process provenance:
+
 
 ```text
-search_published_claims
-get_claim_evidence
-get_acta_metadata
-generate_citation
-verify_artifact_fixity
+PDF original
+text extraction
+OCR text
+page image
+spreadsheet/table view
+transcript
+normalized text
+redacted public derivative
 ```
 
-It has no arbitrary URL fetch, filesystem access, SQL/SPARQL execution,
-publication, deletion, or unrestricted export. Every input/output uses a
-versioned schema and fixed result limits. Any future mutation requires a
-separate authorization, review, and audit design.
+Document semantics and locator semantics are independent. An acta can be PDF,
+HTML, scan, or transcript; an informe can use the same representation formats.
 
-### Interoperability
+WORKBENCH-001 makes transformation attempts first-class without creating a generic
+operation graph. A processor receives retained bytes plus explicit registered
+RepresentationTarget scope, never a caller-controlled path. `pdf_page:v1`
+represents a whole physical PDF page for processing while `pdf_page_quote:v1`
+remains an evidence locator with quote context. The core Workbench persists one
+terminal ProcessRun, its ordered exact inputs, typed/namespaced
+QualityEvidence, a separate policy decision, and any derived Representation bytes.
+Processors themselves cannot write SQLite/archive state. Capability and execution
+venue are orthogonal, so `visual_transcribe` may later be satisfied by Codex, a
+provider API, or an optional local model without changing custody or policy
+contracts. Cloud egress is authorized before invocation and credentials stay with
+the trusted executor boundary. The reference Codex adapter further restricts visual
+transcription to one exact `pdf_page:v1` per ProcessRun, renders that page locally, and
+starts Codex from isolated scratch with a dedicated private keyring-backed CODEX_HOME and bundled skills disabled; whole-
+document cloud execution is not a reference capability. The Workbench inherits `restricted` onto its derivatives and has no declassification authority; a later explicit reviewed redaction/release operation may publish a `redacted_derivative` without mutating the restricted original.
 
-The internal model must be able to export PROV-O-like provenance, Web
-Annotation-style locators, JSON-LD/RDF, and DCAT catalog metadata without loss.
-These are export profiles, not the initial operational database. IIIF and
-ClaimReview are later adapters, only when their specific publication use cases
-are genuinely met.
+Evidence locators therefore follow the representation:
+
+```text
+PDF         -> page/folio + quote/region
+Text/HTML   -> offsets + exact quote + context
+Spreadsheet -> sheet/table + cell/range or row/header + values
+Image/scan  -> page/image + region
+Audio/video -> start/end time + transcript anchor when available
+JSON/XML    -> stable path + observed value/hash
+```
+
+Article, item, agreement, budget line, or chapter are useful semantic context,
+not universal evidence coordinates.
+
+## Civic Documents Without a Closed Ontology
+
+A `CivicDocument` describes what a document **means institutionally**, separate
+from how it is encoded.
+
+Typing preserves three facts:
+
+```text
+source-supplied type   what the publisher called it
+normalized type        ActaKit's broad classification
+profile                 optional specialized structure
+```
+
+Unknown material is allowed. A new bureaucratic label does not require a schema
+migration. Before classification a document may be `unknown`; after review an
+unrecognized but legitimate type may remain `otro` with its original label
+preserved.
+
+A `DocumentPart` is optional structure inside one document. A collection groups
+multiple documents when the civic object is a package or case such as an
+expediente. Neither is required for ordinary documents.
+
+## Graceful Degradation
+
+Unknown or malformed material must fail **downward**, not disappear:
+
+```text
+Can preserve bytes?        -> preserve them.
+Can identify media type?   -> record it.
+Can extract usable text?   -> keep the representation.
+Can classify the document? -> classify it.
+Cannot?                    -> keep it unknown.
+Can extract traceable claims? -> keep them.
+Cannot use a specialized profile? -> continue generically.
+```
+
+ActaKit must never invent structure merely to avoid `unknown`. A malformed
+representation may be stored while remaining unusable as exact factual support.
+
+## The Lector Is Not “the AI”
+
+A Lector is anything that inspects a representation and proposes structure:
+
+```text
+parser
+regular expression/rule
+OCR engine
+local model
+remote model
+human entry
+```
+
+Use conventional software when it is sufficient and AI when semantic judgment
+adds value. No provider or model is architectural authority.
+
+Every automated run records its inputs and implementation/model/configuration so
+results can be reproduced, compared, replaced, or reprocessed later.
+
+Documents are always data, never executable instructions to an AI agent. A
+reader has no shell, credential, publication, or unrestricted canonical-write
+authority merely because it can inspect content.
+
+## Claims: Extract Broadly, Keep State Axes Separate
+
+A claim is **an identifiable proposition found in or derived from civic source
+material**, not “a truth approved by a human.”
+
+Extraction should be as comprehensive as practical for politically/civically
+relevant content, including decisions, votes, money, responsibilities, dates,
+projects, deadlines, requests, commitments, reported problems, institutional
+responses, quantitative facts, and other later-searchable developments.
+
+The system should not optimize only for what looks important today. The value of
+ActaKit is partly that an obscure fact can become easy to recover months later.
+
+Do not compress different questions into one status or confidence score:
+
+```text
+origin       machine / rule / human, with exact process/input when applicable
+kind         source assertion / derived inference / community report / question
+lifecycle    active / rejected / superseded / retracted / restricted
+review       no human decision / human-reviewed, derived from review history
+assessment   optional attributable judgment such as supported / contested / refuted
+```
+
+`machine-only` describes review visibility, not lifecycle. `corrected` means a
+new revision or explicit correction event, not a permanent status. An assessment
+is optional and never presented as ActaKit measuring objective truth; evidence
+links and claim relations remain the inspectable basis.
+
+A practical claim boundary is:
+
+> the smallest proposition worth verifying, correcting, searching, or relating
+> independently.
+
+ActaKit does not atomize prose merely because a model can.
+
+## Source Authority: What Can This Evidence Demonstrate?
+
+“Official” is not a universal proof level. Bounded source authority configuration records the kinds of
+assertions a source can reasonably support.
+
+For example:
+
+```text
+approved acta      -> what the formal record says was agreed
+session recording  -> what was said/heard/observed in the recording
+press release      -> what the issuing body announced or claimed
+budget table       -> values represented in that budget document
+secondary article  -> what that publication reported
+```
+
+ActaKit must distinguish “the institution said X” from “X happened” and from
+“the institution formally agreed X.” Evidence links and claim wording carry
+that limitation instead of laundering all official-looking material into the
+same authority class.
+
+AI output can create or contextualize claims. It is never the factual evidence
+supporting a source assertion.
+
+## Review: the Mesa de control
+
+ActaKit is **single-operator-first**. A normal canton installation is expected to
+have one operator, sometimes two, and potentially many read-only consumers.
+The architecture records actions precisely without inventing an organization
+chart that small teams do not have. Claims and explicit claim relations use the
+same supervision principle: unreviewed machine/rule output is allowed, but never
+mislabeled as human-reviewed.
+
+Review policy is configurable. Initial modes:
+
+### `strict`
+
+Claims/relations covered by the policy require explicit human review before
+protected downstream use.
+
+### `batch`
+
+One human action can apply to a deterministic set of exact claim/relation
+revisions, with individually addressable exceptions. **Batch review is a 1.0
+capability; it does not require a heavyweight `ReviewBatch` subsystem or table.**
+The implementation may persist a compact subject-set fingerprint plus exceptions
+if that is sufficient to reconstruct the decision.
+
+### `supervised`
+
+Machine-extracted claims and relations become internally searchable immediately
+with clear unreviewed provenance. Human review happens on demand or when policy
+triggers it.
+
+`supervised` is the expected everyday mode for high-volume extraction. A public
+or sensitive output may independently require human-reviewed material even when
+the internal Fichero allows unreviewed material.
+
+A review decision identifies the exact revision(s) it covered and the actor,
+action, time, and rationale when needed. Readiness means process sufficiency,
+not metaphysical truth.
+
+## The Fichero Is a Network, Not a Pile of Claims
+
+The Fichero is the durable searchable civic record. Claims do not exist in a
+vacuum: durable connections are part of the record, not something an AI must
+rediscover every time a user searches.
+
+Its universal core stays small:
+
+- claims and claim revisions;
+- exact evidence links;
+- raw `EntityMention`s preserving what the source actually said;
+- entities needed as shared resolved anchors for retrieval;
+- local tags/topics;
+- explicit claim-to-claim relations when they carry real meaning.
+
+### Raw mentions before resolved identity
+
+The Lector must not collapse a source string directly into canonical identity. A
+raw occurrence such as `"AyA"`, `"Municipalidad Esparza"`, or `"Juan Pérez"`
+is preserved first as an `EntityMention` with its exact observed text,
+representation/locator context, extraction origin, and optional claim context.
+
+An `EntityMention` may remain unresolved indefinitely. Candidate or confirmed
+resolution to an `Entity` is a separate attributable decision. This preserves
+what the source actually contained and prevents name equality from becoming
+identity truth.
+
+There are two different kinds of connection.
+
+### Shared anchors
+
+Many claims can point to the same entity or tag:
+
+```text
+Claim A -> entity: Puerto Caldera
+Claim B -> entity: Puerto Caldera
+Claim C -> entity: Puerto Caldera
+```
+
+This is enough to retrieve the claims together. It does **not** assert that A, B,
+and C logically update, contradict, or respond to one another. ActaKit must not
+create pairwise edges merely because two claims share a subject.
+
+### Explicit claim relations
+
+When the relationship itself matters, store it as a first-class record:
+
+```text
+Claim B -> updates -> Claim A
+Claim C -> contradicts -> Claim B
+Claim D -> responds_to -> Claim C
+```
+
+The relation records who/what proposed it, its exact endpoint revisions, its
+basis, lifecycle/review state, and exact evidence/claim references or rationale
+needed to understand it. A machine-proposed relation may remain searchable as machine-only; a human
+review is not required merely for the connection to exist.
+
+This gives ActaKit a **graph-shaped civic record** without requiring a graph
+database. The baseline persists typed entities, joins, and claim relations in
+SQLite. A specialized graph engine is justified only if real traversal/query
+workloads later exceed what the relational model can handle cleanly.
+
+### Entity reconciliation lineage
+
+Entity identity is stable and local, but reconciliation can improve over time.
+Aliases alone are not enough when later evidence shows that two local entities
+are the same thing or that one mistaken entity actually represented several.
+
+Merge/split decisions therefore create a small append-only reconciliation
+lineage recording the input entity IDs, output/survivor entity IDs, actor/process,
+time, and rationale/basis. Old claim/entity links are not silently rewritten.
+Queries may follow accepted merge lineage for current retrieval; after a split,
+ambiguous old links remain historically explainable and individual mentions/links
+can be re-resolved deliberately.
+
+This lineage is an identity-maintenance mechanism, **not** a generic entity graph.
+
+### When a relation becomes a civic object
+
+`ClaimRelation` remains intentionally narrow: it expresses proposition-to-
+proposition meaning such as `updates`, `contradicts`, or `responds_to`. Do not
+turn it into a generic edge payload.
+
+When a relationship has independent civic attributes or identity — for example a
+role with start/end dates, a contract with amount/term, or a membership with a
+percentage — it crosses a promotion boundary and belongs in a typed rich record
+with its own evidence/provenance. AKF-013 already proves one such 1.0 family, so
+`RoleAssignment` is concrete in the first schema: subject entity, organization,
+role, validity interval, origin/basis/lifecycle and exact evidence. Other rich
+families remain absent until their own fixture/query proves them. `ClaimRelation`
+stays narrow rather than becoming an attributed-edge junk drawer.
+
+Tags/taxonomies are local by default and may be shared deliberately. ActaKit
+must not impose one national topic taxonomy.
+
+Dates, quantities, locations, or other structured values should become dedicated
+relational structures only when real query/integrity requirements justify it.
+Do not model a universal ontology or generic everything-is-a-node triple store in
+advance.
+
+## Consultas Are First-Class Read Operations
+
+A query selects civic records without changing them:
+
+```text
+“agua” + place + date range
+all claims mentioning institution X
+all budget claims above an amount
+all unresolved commitments in a period
+```
+
+Queries may follow shared entity/tag anchors or explicit claim-relation chains,
+including bounded recursive traversal when useful. Query results are not new
+civic truth and do not create semantic edges.
+
+The baseline needs deterministic query functions and filters. A durable
+versioned `SavedQuery` becomes canonical only when real operator use demonstrates
+that a query definition itself needs identity/history; it is not a mandatory
+first-schema object.
+
+Search must let consumers distinguish/filter unreviewed, human-reviewed,
+rejected, retracted, restricted, or explicitly assessed material according to
+access policy.
+
+## Salidas Are Extensible and Shareable
+
+A **Salida** turns a query/result set into a useful organization or presentation.
+The architectural requirement is a narrow read boundary: output code can query
+and organize the Fichero but cannot silently rewrite canonical claims/evidence.
+
+Examples:
+
+```text
+Hilo
+chronology
+agreement tracker
+budget monitor
+project sheet
+weekly digest
+citation packet
+```
+
+An **Exporter** only serializes a result/output as Markdown, JSON, CSV, HTML, or
+another transport format. Output logic and serialization are separate concepts.
+
+The first implementation does **not** need a plugin marketplace, package registry,
+install lifecycle, or universal `OutputType/OutputInstance/OutputState` tables.
+It only needs a boundary clean enough that Hilo can live outside the core and a
+small structurally different proof can consume the same read model. A richer
+shareable Output API is horizon work once two real outputs justify it.
+
+### Episode belongs to the Hilo output
+
+`Episode` is not universal civic-record structure. It is one useful reader-facing
+unit used by the Hilo output to group related claims into a dated development.
+Another Output Type may use agreements, cards, rows, milestones, or no grouping
+at all.
+
+Hilo-specific state therefore lives in the Hilo output namespace. Deleting or
+rebuilding a Hilo never destroys the claims/evidence from which it was built.
+
+## Canonical Storage
+
+The first durable implementation is intentionally local and simple:
+
+```text
+CLI / local operator UI / worker
+            |
+            v
+       ActaKit core
+        |       |
+        v       v
+     SQLite   archive
+        |
+        v
+queries / outputs / exports
+```
+
+The **ActaKit core is the sole canonical writer**. Clients do not write SQLite
+by hand.
+
+A continuously running local service, Unix socket, RPC protocol, PostgreSQL,
+or multi-writer architecture is **not required initially**. Those become
+implementation choices only when multiple concurrent clients/operators create a
+real need. The authority boundary is designed now; the daemon is not.
+
+SQLite remains on local attached storage and uses explicit migrations, foreign
+keys, recursive queries where justified, and safe backup procedures.
+Idempotency keys, stale-write guards, and record hashes are added where a concrete
+replay/concurrency/import failure mode requires them; they are not universal tax
+on every mutation. Original/derived bytes live in the archive, not as database
+blobs by default.
+
+## Corrections, History, and Purge
+
+No important state is silently overwritten. Correcting a claim creates a new
+revision/supersession relationship. Ordinary revision history need not create a
+separate heavyweight “correction case”; explicit correction records are
+reserved for events such as retraction, public correction, redaction, evidence
+unlinking, identity reconciliation, or purge where the action itself matters.
+
+Absence from a new acquisition observation, query, output, or export never means
+deletion.
+
+Evidence custody is **immutable by default, not absolutely undeletable**. Normal
+editing never mutates or overwrites acquired bytes; redaction creates a separate
+derivative. A lawful or safety-driven purge is an exceptional explicit policy
+operation that removes the targeted bytes and derived copies/indexes that retain
+the purged content.
+
+When policy and law permit, ActaKit keeps a minimal non-sensitive tombstone:
+opaque record identity, purge time, attributable authority/action, broad reason
+code, and enough lineage to explain that material once existed. The tombstone
+must not retain the very content, raw mention, locator, digest, or metadata whose
+retention the purge forbids. If even that audit metadata cannot lawfully remain,
+the policy may require its removal as well.
+
+`restricted` and `purged` are different: restricted material still exists under
+access controls; purged material does not. Claims or evidence links affected by
+purge must become visibly unavailable/reviewable according to policy rather than
+silently appearing fully evidenced.
+
+## Privacy and Publication
+
+Preserving original public evidence and republishing every datum from it are
+different actions. ActaKit can retain source material while minimizing public
+outputs.
+
+Precise home addresses, medical information, identifying information about
+minors, personal contact details, and inferred individual political preference
+are blocked from public outputs by default unless a deliberately accepted policy
+says otherwise.
+
+ActaKit does not automate targeted political persuasion or individual political
+profiling.
+
+Publication, if enabled, is an Output/Export concern over an explicit immutable
+snapshot. It never turns generated Markdown, a search index, or a public site
+into canonical authority.
+
+## Horizon: Design For, Do Not Build Yet
+
+These possibilities justify clean boundaries but are not first-version
+requirements:
+
+- local daemon/RPC for concurrent clients;
+- richer multi-user roles and permissions;
+- a stable third-party Output Type package API/registry;
+- data exchange between independent installations;
+- cryptographically signed inter-canton snapshots;
+- public network/API/automation services;
+- specialized graph/RDF/vector engines or projections;
+- large-scale historical migration;
+- alternate database engines.
+
+They must earn implementation through real use.
 
 ## Verification
 
-Architecture claims are insufficient. Each phase must prove:
+Before the first persistent canonical schema is accepted, demonstrate:
 
-1. contract/unit invariants;
-2. repository and migration integrity;
-3. a realistic civic fixture journey;
-4. idempotent replay and interrupted-write recovery;
-5. a named human review journey;
-6. a citation resolved from public prose to a fixed artifact/locator;
-7. prohibited MCP and publication paths fail closed.
-
-## Explicit Non-Goals
-
-- Public hosting or a national archive before the local proof succeeds.
-- A general-purpose political profiling system.
-- Automated truth, legal advice, or autonomous publication.
-- A graph database, triplestore, vector database, or distributed queue in the
-  first durable vertical slice.
-- Historical mass migration or regeneration of the curated Esparza vault.
-- A web UI before the service, evidence, review, and citation contracts work.
+1. original bytes survive acquisition and reprocessing unchanged;
+2. a claim resolves to exact evidence in multiple representation types;
+3. unknown/misshaped documents degrade gracefully;
+4. machine-only claims are searchable without masquerading as reviewed claims;
+5. `strict`, `batch`, and `supervised` review policies have unambiguous behavior;
+6. claims sharing an entity are jointly retrievable without manufacturing
+   pairwise semantic edges;
+7. an explicit claim relation retains endpoint revisions, origin, basis, and
+   review state and can be traversed later;
+8. a query can retrieve claims across documents, entities, tags, relations, and time;
+9. an Output Type can organize results without canonical-write authority;
+10. a Hilo can define Episodes without making Episode a core record;
+11. correction/reprocessing does not erase history or silently retarget relations;
+12. backup/restore reproduces the Fichero, its connections, and referenced evidence.
 
 ## Acceptance Required
 
-This document is proposed architecture, not an implementation authorization.
-Named human authority must accept it, amend it, or reject it before canonical
-database/service work starts.
+This document is proposed architecture, not implementation authorization.
+Acceptance freezes the **semantic boundaries**, not every future module, SQL
+column, plugin API, deployment mechanism, or release ceremony.
 
-The full implementation sequence and the 1.0 distribution gates are defined in
-[`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) and
-[`RELEASE_1_0.md`](RELEASE_1_0.md).
+The pre-SQL model has now been exercised by the Book/fixture gate and a revised
+SQLite candidate. The current concrete gate is the artifact/runtime proof list in
+`SQLITE_SCHEMA_CANDIDATE.md` and the adversarial findings in
+`notebook/research/pre-sql/schema/CRITICAL_REVIEW.md`; migration `0001` remains
+unauthorized until those proofs pass.

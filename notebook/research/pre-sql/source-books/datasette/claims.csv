@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C109,AKS-S085,Table-level restrictions can be bypassed by arbitrary SQL unless execute-sql permission is also restricted.,scar,"Consumer APIs should expose bounded query capabilities, not unrestricted SQL over canonical/private tables."
+AKS-C110,AKS-S086,"Shared plugin writes create blocking, namespace and privacy risks inside one SQLite database.",scar,Outputs/plugins should be read-oriented and isolated; mutation must route through core capabilities.
+AKS-C111,AKS-S087,Interactive facets/search are explicitly protected with row/time/thread limits.,supports,Queries and graph traversal need bounded depth/result/time budgets.

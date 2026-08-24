@@ -1,0 +1,3 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+AKS-S006,Provenance,PROV-O,standard,W3C Recommendation,"Entity/Activity/Agent; derivation, generation, attribution, association, revision, primary source",Full PROV graph is unnecessary baseline complexity,https://www.w3.org/TR/prov-o/,2026-08-20
+AKS-S057,Prov,PROV implementation report,W3C implementation evidence,PROV implementation report,Documents independent PROV implementations and interoperability experience,Implementation breadth does not justify importing RDF/PROV-O runtime,https://www.w3.org/TR/2013/NOTE-prov-implementations-20130430/,2026-08-20

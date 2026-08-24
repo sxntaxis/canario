@@ -1,217 +1,244 @@
 ---
 id: ACTAKIT-ROADMAP-001
-kind: implementation-roadmap
+kind: roadmap
 state: proposed-for-acceptance
 created: 2026-08-19
 authority: roadmap-proposal
-summary: Architecture-first, proof-gated plan for evolving actakit from a file pipeline into a local civic-record service without discarding the existing vault.
+summary: Proof-gated roadmap from the current acta pipeline to a self-contained civic-record core, with complexity added only when real use requires it.
 related:
   - ACTAKIT-ARCH-001
+  - ACTAKIT-DATA-001
   - ACTAKIT-STATUS-001
 ---
 
-# Implementation Roadmap
+# Roadmap
 
-This is the conceptual phase map. The ordered engineering work packages,
-dependencies, and acceptance evidence through 1.0 are in
-[`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md). The 1.0 distribution and
-operations requirements are in [`RELEASE_1_0.md`](RELEASE_1_0.md).
+## Rule
 
-## How Much Architecture Now
+ActaKit builds the smallest durable civic-record system that solves real work.
+Future complexity is anticipated through boundaries, not preimplemented.
 
-Do enough architecture now to freeze expensive boundaries, and no more.
+No persistent canonical database migration begins until the architecture, claim
+semantics, evidence locators, review modes, pre-SQL model, revised schema
+candidate, and its artifact/runtime proof gates are accepted. Disposable scratch
+DDL is allowed only as a design proof and is not migration authority.
 
-**Freeze before implementation:** semantic ownership, evidence identity,
-revision/correction rules, review authority, privacy/publication policy,
-database/archive boundary, projection boundary, operation replay, source-run
-semantics, and MCP read/write boundary.
+### Pre-release schema rule
 
-**Defer until evidence demands it:** web UI, public hosting, national corpus
-scale, domain-pack plugins, graph database, vector search, IIIF service,
-semantic-web endpoint, scheduler cluster, and national orchestration.
+Until ActaKit explicitly enters a compatibility-bearing Beta (or later) release,
+there is no migration-history compatibility promise. Schema evolution is
+**rebaselined into `0001`** and certified again. Do not accumulate `0002`,
+`0003`, ... solely to preserve unreleased development databases. Incremental
+forward migrations become the rule only after that compatibility boundary, when
+real operator data must survive upgrades.
 
-The outcome is not a speculative platform. It is a durable local core that can
-grow without reassigning authority later.
+## Phase 0 — Accept the Model
 
-## Phase 0: Architecture Acceptance
+Agree on:
 
-**Deliverables**
+- product scope and self-contained boundary;
+- Depósito / Mesa de trabajo / Lector / Fichero / Mesa de control / Consultas /
+  Salidas vocabulary;
+- document typing vs representation/locator typing;
+- claim meaning, shared anchors, first-class claim relations, and broad civic
+  extraction policy;
+- `strict`, `batch`, and `supervised` review semantics;
+- source authority scopes;
+- Output Type boundary and Episode/Hilo placement;
+- privacy and correction principles.
 
-- Accept or amend `docs/ARCHITECTURE.md`.
-- Name the initial human roles and escalation path.
-- Adopt source-admission, privacy/minimization, correction, and publication
-  policies as versioned documents.
-- Define a small schema vocabulary and stable ID rules.
-- Define the first acceptance fixture and the required evidence for Acta 162.
+**Gate:** a non-developer operator can explain the system accurately in ordinary
+language and the pre-SQL examples expose no unresolved semantic contradiction.
 
-**Gate**
+## Phase 1 — Semantic Kernel and Tests
 
-No database, daemon, MCP, or migration code begins until the human authority
-accepts the architecture and policy set.
+Implement dependency-light types/validation for:
 
-## Phase 1: Dependency-Free Semantic Kernel
+- stable IDs and revision lineage where civic meaning requires it;
+- CivicDocuments plus Representation occurrences/targets; DocumentPart/Collection only when a proving fixture/query requires them;
+- claims, evidence links and typed locators;
+- entities, claim-entity links, tags, and first-class claim relations;
+- strict/batch/supervised review semantics and decisions;
+- bounded query/read boundary and output separation.
 
-**Goal:** validate the civic record model before storage/network complexity.
+**Gate:** invalid states fail before touching SQLite. Hilo/Episode can be modeled
+as an Output Type fixture without becoming core entities.
 
-**Build**
+## Phase 2 — Local Durable Depósito and Fichero
 
-- Typed IDs, revisions, digests, timestamps, operation envelopes, and errors.
-- Immutable record contracts for artifacts, representations, claims, evidence
-  links, review decisions, and publication snapshots.
-- Pure editorial-readiness assessment.
-- Input/output schema validation and stable serialization.
+Implement:
 
-**Proof**
+- SQLite canonical store with a rebaselinable `0001` during pre-release, then explicit forward migrations after the compatibility boundary;
+- content-addressed evidence archive;
+- core-owned writes only;
+- replay/stale-write protection only on boundaries proven to need it;
+- backup and restore verification.
 
-- AI proposals cannot be factual support.
-- Quotes require exact locators and context review.
-- Quantitative claims require a documented source/reproduction limit.
-- Conflicting evidence remains visible.
-- Same operation ID is replay-safe; changed semantics are rejected.
+Do **not** require a daemon. CLI/local worker can call the core directly.
 
-## Phase 2: Local Canonical Service and Evidence Custody
+**Gate:** interrupted writes, duplicate acquisitions, changed source bytes, and
+restore all preserve evidence/history correctly.
 
-**Goal:** establish one durable local writer without changing public outputs.
+## Phase 3 — Source Connectors, Inbox, and Mesa de trabajo
 
-**Build**
-
-- Profile-scoped SQLite WAL store with versioned migrations.
-- Content-addressed archive with SHA-256 fixity verification and custody
-  receipts.
-- Source policy, source-run, acquisition-attempt, and source-health records.
-- Atomic writes, restricted file permissions, backup/restore verification, and
-  fail-closed unsupported-schema behavior.
-
-**Proof**
-
-- Same bytes from distinct sources preserve distinct provenance.
-- Missing archive bytes degrade custody but do not erase history.
-- Partial/failing source runs do not imply deletion.
-- Stale writers cannot advance a newer revision.
-- Restart preserves canonical data and invalidates only ephemeral state.
-
-## Phase 3: One New Acta Vertical Slice
-
-**Goal:** prove the system with the first official Esparza acta after Acta 161.
-
-**Flow**
+First standardize acquisition at `ACTAKIT-INGRESS-001`:
 
 ```text
-source admission
--> acquire and archive original bytes
--> verify fixity and source policy
--> extract representation
--> record extraction/AI proposal occurrence
--> human review
--> approve claims and episode
--> render local acta dossier and Hilo update
--> generate citation packet
+arbitrary external terrain
+-> Source Connector
+-> CaptureEnvelope
+-> InboxPort
+-> Depósito
 ```
 
-**Constraints**
+The current Esparza scraper becomes one connector **after** the socket contract is
+proved independently. Source connectors may privately use HTML, APIs, browser
+automation, feeds, filesystems, or manual/push acquisition. Their common boundary
+is the Inbox, not a common discovery algorithm. Explicit coverage/checkpoint
+semantics prevent scrape absence from becoming deletion evidence.
 
-- No historical regeneration.
-- No live Nextcloud publishing.
-- No claim reaches an approved Hilo without evidence links and locators.
-- The human reviewer can reject, correct, return, or defer the proposal.
+Separately, implement Mesa de trabajo Representation processors as a curated
+built-in ActaKit ladder. Swappable backends are an escape hatch for hardware,
+licensing, unusual formats and local/cloud policy; ActaKit owns the default
+processing/escalation policy.
 
-**Proof**
+The state-of-the-art research gate is closed. Its accepted reference path is:
 
-- A reader can move from one Hilo assertion to a fixed source artifact and
-  article/item/page locator.
-- Replaying extraction creates a new proposal, not a silent correction.
-- Re-running integration does not duplicate a claim or rewrite curated Hilos.
-- One interrupted operation recovers without duplicate canonical state.
+```text
+native/direct parse (D0/D1)
+-> Poppler/pdftotext
+-> OCRmyPDF + Tesseract
+-> bounded official Codex CLI escalation
+-> human review
+```
 
-## Phase 4: Projection and Citation Layer
+Docling is optional and not the reference default. Heavy local VLMs, provider APIs
+and OpenAI-compatible endpoints are specialized future venues, not freeze blockers.
+Spreadsheet cells use direct deterministic structured parsing by default. No
+universal numeric confidence spans these engines: preserve typed quality evidence
+and let core policy accept, escalate or quarantine/review. Original custody is
+immutable; every processor attempt/output is attributable.
 
-**Goal:** preserve today’s accessible output while making it generated and
-auditable for new records.
+**Current Phase-3 gate:** Connector SPI, Esparza shadow ingestion, processor
+research, the Civic Processor Bench, and the generic `WORKBENCH-001` substrate are
+complete; WORKBENCH-001 is independently certified on the registered SQLite 3.53.4
+runtime. `PROCESSOR-DIRECT-001` and `PROCESSOR-OCR-001` are independently certified for
+Poppler native extraction and bounded OCRmyPDF/Tesseract D2 respectively.
+`PROCESSOR-CODEX-001` is independently certified: exactly one explicit PDF page may
+be rendered locally and handed to the official subscription-backed Codex CLI after
+policy authorization; whole/multi-page and restricted cloud scope are excluded. Its
+independent certification also recertifies the minimal prerelease egress-byte lower-
+bound fix in `0001`. Exact pins/licenses for later optional backends become mandatory
+when selected/enabled. Unsupported or low-quality extraction must
+fail visibly or escalate without corrupting custody. The remediated v2 contract
+keeps the canonical transcript page-complete when supplemental table structure is
+emitted and fails cross-channel inconsistency before derivative acceptance.
 
-**Build**
+## Phase 4 — Lector and Broad Claim Extraction
 
-- Approved acta dossier renderer.
-- Incremental Hilo renderer that preserves explicitly curated context.
-- Citation styles for meeting notes, podcasts, research, and machine clients.
-- Projection manifests with input checkpoint, schema version, build time, and
-  output hashes.
-- Search over approved claims and evidence metadata.
+Implement replaceable processors:
 
-**Proof**
+```text
+rules/parsers
+AI providers/local models
+human entry
+```
 
-- Markdown, search, and citation output agree on claim/version/locator.
-- A projection can be deleted and rebuilt identically from its checkpoint.
-- A correction produces a new projection/snapshot rather than editing a prior
-  publication record in place.
+Extract civically relevant claims broadly, plus retrieval-relevant entities,
+claim-entity links, tags, and candidate/direct claim relations. Store exact
+process provenance and evidence links. Shared anchors must not create semantic
+pairwise relations automatically.
 
-## Phase 5: Operator Interfaces and Federation Contract
+**Gate:** a substantial real document can yield many machine-only claims without
+requiring human clicks or losing exact citation traceability; entity anchors and
+claim relations retain their own machine/rule/human provenance.
 
-**Goal:** make approved civic evidence safely reusable by people and prepare
-sovereign canton nodes to exchange reviewed public snapshots.
+## Phase 5 — Mesa de control
 
-**Build**
+Implement:
 
-- Versioned local service protocol and CLI client.
-- Versioned, opt-in public snapshot/export manifest and citation bundle.
-- Node namespace, publicability, correction, and import/adoption rules.
-- Strict input/output schemas, bounded queries, authorization scopes, audit
-  records, and fail-closed validation binding every response to a
-  snapshot/checkpoint.
+- supervised mode as the normal high-volume workflow;
+- strict mode for selected high-consequence scopes;
+- batch review with deterministic subject sets;
+- correction/supersession;
+- privacy/restriction exceptions;
+- one-operator-first UX.
 
-**Proof**
+**Gate:** the operator can inspect/correct an important claim quickly, approve a
+batch without claim-by-claim busywork, and always see whether material is
+machine-only or human-reviewed.
 
-- A second node can import a public snapshot only as external evidence and
-  cannot mutate the originating node.
-- A correction or withdrawal remains traceable across exported snapshots.
-- Citation retrieval is deterministic and returns source limitations.
-- Prompt-injection text in a source document cannot alter tool behavior.
+## Phase 6 — First Vertical Proof
 
-## Phase 6: Controlled Publication and Nextcloud Adapter
+Use one newly acquired acta as the first end-to-end proof because the current
+pipeline already understands that source class.
 
-**Goal:** publish only reviewed immutable snapshots.
+```text
+source
+-> artifact
+-> representation
+-> document profile
+-> broad claim extraction
+-> supervised review state
+-> evidence resolution
+-> query
+```
 
-**Build**
+No historical mass rewrite is part of this gate.
 
-- Publication policy and named publisher approval.
-- Signed or hash-bound publication manifest.
-- Nextcloud adapter that uploads a reviewed snapshot idempotently.
-- Publication receipt and optional external verification.
-- Correction/withdrawal workflow that preserves prior publication history.
+**Gate:** a later question about an obscure event can recover a machine-only
+claim, open its exact evidence, review/correct it, and retain that history.
 
-**Proof**
+## Phase 7 — Consultas and Salidas
 
-- A plan cannot publish an unapproved claim.
-- A retry does not duplicate or overwrite a newer snapshot.
-- An uncertain remote response remains uncertain until verified.
-- No remote deletion is part of normal publication.
+Implement deterministic search/filtering, then a minimal Output read boundary.
+Persist saved queries only if operator use proves they need durable identity.
 
-## Phase 7: Deliberate Historical Migration
+The first output proves the boundary by implementing the existing Hilo concept
+outside the core:
 
-**Goal:** improve selected high-value history without inventing provenance.
+```text
+query -> Hilo output -> Episodes -> Markdown/JSON exporter
+```
 
-**Approach**
+Add one tiny structurally different non-Episode output/fixture to prove Episode
+is not universal; it need not be a second full product.
 
-- Migrate by bounded thematic or acta batches.
-- Preserve legacy source quality and locator limitations explicitly.
-- Record imports as human-reviewed migration proposals.
-- Keep legacy Markdown as an accessible projection and source reference.
+**Gate:** queries can use shared anchors and explicit relation chains; both outputs
+consume the same Fichero without custom core schema and cannot silently mutate
+claims/evidence/connections.
 
-**Gate**
+## Phase 8 — Operational 1.0
 
-Historical migration proceeds only after the new-acta vertical slice has been
-used and reviewed in real work.
+Harden the smallest useful deployment:
 
-## Future Decisions, Not Commitments
+- one supported local installation path;
+- clear configuration and health check;
+- backup/restore commands;
+- migration compatibility from the declared Beta/public compatibility boundary onward;
+- source/extraction failure diagnostics;
+- privacy-safe exports;
+- operator documentation using the native metaphors;
+- real routine use over a meaningful civic work cycle.
 
-- Public hosting and open-data catalog
-- Read-only MCP, REST, or other client adapters
-- IIIF page-image service
-- JSON-LD/RDF, PROV-O, DCAT, and Web Annotation exports
-- National orchestrator or cross-canton discovery service
-- Multi-reviewer governance
-- Public correction/takedown portal
-- Additional source types: press, social media, interviews, budgets, and
-  procurement records
+**Gate:** one operator can maintain the installation without understanding the
+internal database, and a read-only consumer can find/cite records without
+operator privileges.
 
-Each requires a separate architecture-impact decision. None is implied by the
-local civic-record core.
+## Horizon — Only When Earned
+
+Design boundaries should allow, but roadmap does not require yet:
+
+- local daemon/RPC and concurrent clients;
+- multiple operator permissions/roles;
+- stable third-party Output Type package SDK/registry;
+- sharing/installing output types between cantons;
+- inter-installation civic-data exchange;
+- signed/federated snapshots;
+- public web/API/automation access;
+- specialized semantic/vector/graph search engines;
+- alternate database engines;
+- deliberate historical bulk migration.
+
+Each moves into an active phase only with a concrete use case and acceptance
+criteria.

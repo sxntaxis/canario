@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C014,AKS-S015,"Civic models benefit from being small, extensible and tolerant of imprecise information.",supports,Profiles and local extensions should be bounded; unknown remains valid.
+AKS-C093,AKS-S015,Membership/Post demonstrate that civic relationships with role and time often deserve their own record rather than a bare edge.,supports,"Provide a promotion path for rich associations, but only instantiate it for real domain needs."

@@ -1,0 +1,4 @@
+source_id,family,title,class,authority_use,contribution,boundary,locator,accessed_at
+PYA-S001,pyannote,pyannote.audio project README,primary-project-docs,capability,Python/PyTorch speaker diarization with community and premium pipelines.,"Diarization identifies speaker turns/clusters, not semantic identity or transcript truth.",https://github.com/pyannote/pyannote-audio,2026-08-21
+PYA-S002,pyannote,pyannote.audio 4.0 release notes,primary-project-release,current-capability,Community-1 exclusive diarization helps reconcile speaker turns with transcription; offline use supported; telemetry optional.,Model hub access/user conditions may apply.,https://github.com/pyannote/pyannote-audio/releases,2026-08-21
+PYA-S003,pyannote,pyannote.audio changelog,primary-project-docs,current-version,4.0.7 released 2026-06-30.,Version does not imply ActaKit needs diarization now.,https://github.com/pyannote/pyannote-audio/blob/main/CHANGELOG.md,2026-08-21

@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+QVL-C001,QVL-S001,"Qwen3-VL explicitly targets OCR under blur, low light, tilt, rare characters and long-document structure.",direct,"A general multimodal rung may recover content that specialized OCR misses, including unusual handwriting/visual context."
+QVL-C002,QVL-S002,At least the 32B Instruct release is Apache-2.0 and locally runnable through standard model tooling.,direct,Local multimodal escalation is viable without mandatory cloud egress.
+QVL-C003,QVL-S001;QVL-S002,Qwen3-VL is generative and general-purpose rather than an OCR-specific deterministic extractor.,direct-context,"Constrain prompts/output schemas, keep image/page provenance, and treat output as machine-derived rather than source truth."
+QVL-C004,QVL-S001,"General VLM OCR capability is a last automated rung, not evidence that every document should use a VLM.",bounded-inference,Escalate only when cheaper/specialized rungs fail quality policy.

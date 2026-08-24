@@ -1,0 +1,17 @@
+fixture_id,title,fixture_class,source_scenarios,research_refs,architecture_pressure,expected_outcome
+AKF-001,Clean acta with exact evidence,synthetic+artifact-proof,AKS-SC001,AKS-T001;AKS-T008;AKS-C029,Artifact/Representation/Document/EvidenceLink separation,FIT
+AKF-002,Repeated acquisition at one URL,synthetic+artifact-proof,AKS-SC003;AKS-SC004;AKS-SC005,AKS-T006;AKS-T007;AKS-C009;AKS-C044;AKS-C052,Source/Acquisition/Artifact identity,FIT
+AKF-003,Unknown document and broken specialized parser,synthetic+artifact-proof,AKS-SC006;AKS-SC007;AKS-SC035,AKS-T020;AKS-T022;AKS-C038,Graceful degradation versus fail-loud interpretation,FIT
+AKF-004,One artifact contains multiple civic documents,synthetic+artifact-proof,AKS-SC009,AKS-T008;AKS-C012;AKS-C087,Document identity independent from container bytes,FIT_WITH_OPTIONAL_STRUCTURE
+AKF-005,Budget spreadsheet locator,synthetic+artifact-proof,AKS-SC010,AKS-T001;AKS-T028;AKS-C035,Representation-specific locators without acta-only fields,FIT
+AKF-006,250 machine claims plus one bulk review action,synthetic,AKS-SC015;AKS-SC016,AKS-T018;AKS-C028;AKS-C055;AKS-C070,Supervised/batch review without ReviewBatch requirement,FIT
+AKF-007,Raw entity mention resolves to organization,synthetic+artifact-proof,AKS-SC018,AKS-T017;AKS-T018;AKS-T019;AKS-C021;AKS-C043;AKS-C064;AKS-C116,Raw mention must survive identity resolution,FIT
+AKF-008,Two people share the same name,synthetic+artifact-proof,AKS-SC019,AKS-T017;AKS-T018;AKS-C022;AKS-C023;AKS-C097,Identity must not equal string equality,FIT
+AKF-009,Project rename then entity merge/split correction,synthetic,AKS-SC020,AKS-T017;AKS-C097;AKS-C115,Stable local identity and reconciliation lineage,FIT
+AKF-010,Claim relation survives claim correction,synthetic,AKS-SC021;AKS-SC022,AKS-T001;AKS-T023;AKS-C029;AKS-C041;AKS-C042,Exact revision endpoints and relation provenance,FIT
+AKF-011,Shared Caldera anchor and bounded relation traversal,synthetic,AKS-SC024;AKS-SC025;AKS-SC033,AKS-T017;AKS-T027;AKS-T030;AKS-C041;AKS-C129,No co-occurrence clique or transitive materialization,FIT
+AKF-012,Two sources disagree and one evidence item challenges a claim,synthetic+artifact-proof,AKS-SC017,AKS-T001;AKS-T013;AKS-C015;AKS-C042,Evidence challenge versus proposition contradiction,FIT
+AKF-013,Relationship with role and validity dates,synthetic,AKS-SC023,AKS-T012;AKS-T015;AKS-C015;AKS-C042;AKS-C093;AKS-C100,Concrete typed RoleAssignment for role/time relationship; no generic rich edge,FIT
+AKF-014,Hilo and non-Episode output use same Fichero,synthetic,AKS-SC028;AKS-SC029,AKS-T026;AKS-C045;AKS-C110,Output extensibility without core Episode/Hilo,FIT
+AKF-015,Backup and restore corpus,synthetic+future-operational-proof,AKS-SC031,AKS-T005;AKS-C008;AKS-C120;AKS-C126,DB plus evidence archive integrity boundary,FIT_CONCEPTUALLY
+AKF-016,Public redaction and lawful purge,synthetic+policy-proof,AKS-SC026;AKS-SC027,AKS-T003;AKS-C007;AKS-C079;AKS-C120;AKS-C132;AKS-C133,Derivative custody plus exact purge target/scrub/backup boundary,FIT

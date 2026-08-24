@@ -1,0 +1,39 @@
+{
+  "artifact_type": "workbench-001-closure-decision",
+  "status": "FREEZE_READY_GENERIC_BOUNDARY",
+  "reference_path": [
+    "D0 native/direct format parsing",
+    "D1 Poppler/pdftotext",
+    "D2 OCRmyPDF + Tesseract",
+    "bounded official Codex CLI escalation for approved public material",
+    "D6 human review"
+  ],
+  "decisions": {
+    "processor_boundary": "FREEZE",
+    "quality_evidence": "FREEZE_TYPED_NAMESPACED",
+    "immutable_custody_and_processrun": "FREEZE",
+    "page_or_block_escalation": "FREEZE",
+    "codex_cli": "SELECT_OPTIONAL_CLOUD_REFERENCE",
+    "docling": "SELECT_OPTIONAL_NOT_DEFAULT",
+    "paddleocr_vl_qwen3_vl_mistral": "DEFER_OPTIONAL_COMPARISON",
+    "universal_backend_winner": "DO_NOT_CLAIM",
+    "production_actakit_processors_package": "NOT_AUTHORIZED"
+  },
+  "evidence": [
+    "results/d2-ocrmypdf-controlled.json",
+    "results/codex-transcription-controlled.json",
+    "results/natural-layout-d1-d2.json",
+    "results/codex-natural-layout-scored.json",
+    "results/codex-natural-diagnostic.json",
+    "results/spreadsheet-direct-structured.json",
+    "results/docling-footprint-decision.json"
+  ],
+  "residual_gaps": [
+    "broader natural corpus thresholds",
+    "multi-column reading-order truth",
+    "lawful handwriting truth",
+    "future optional backend model/license pins",
+    "deployment-specific secret and retention controls"
+  ],
+  "date": "2026-08-22"
+}

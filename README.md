@@ -1,6 +1,6 @@
 # actakit
 
-> Pipeline documental para actas de gobierno local — procesamiento con IA y sin lock-in.
+> Herramienta local para adquirir, preservar, extraer, clasificar y consultar registros cívicos públicos — actas primero, sin lock-in de IA.
 
 [![CI](https://github.com/sxntaxis/actakit/actions/workflows/ci.yml/badge.svg)](https://github.com/sxntaxis/actakit/actions)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
@@ -9,11 +9,16 @@
 
 ---
 
+> **Project status: pre-release.** Until ActaKit explicitly enters a
+> compatibility-bearing Beta/public release, SQLite schema changes rebaseline the
+> canonical `0001` rather than accumulating compatibility migrations for
+> development databases. See `docs/STATUS.md` and `AGENTS.md`.
+
 ## English · Quick Summary
 
-**actakit** transforms Costa Rican municipal council meeting minutes (actas)
-into structured, searchable knowledge: topic-based threads (hilos), findings,
-and verifiable documentary records.
+**actakit** currently ships an acta-processing pipeline and is evolving toward a
+self-contained civic-record system for acquiring public records, preserving
+evidence, extracting traceable claims, querying them, and building reusable outputs.
 
 - **What it does**: Download PDFs → extract text → classify with AI → integrate
   into topical threads → generate outputs for civic use.
@@ -30,8 +35,10 @@ and verifiable documentary records.
 
 ## En español · Qué es
 
-**actakit** es una herramienta de código abierto para procesar actas del
-Concejo Municipal de Costa Rica y convertirlas en conocimiento estructurado.
+**actakit** es una herramienta de código abierto cuyo pipeline actual procesa
+actas municipales y cuya arquitectura propuesta amplía ese núcleo a registros
+cívicos públicos: conservar evidencia, extraer claims trazables, buscarlos,
+revisarlos cuando haga falta y construir salidas reutilizables.
 
 Con actakit podés:
 
@@ -53,14 +60,34 @@ locales y archivos JSON/YAML de configuración.
 
 ## Arquitectura
 
-> The current file pipeline is stable for existing work. The proposed durable
+> The current file pipeline is stable for existing work. The accepted durable
 > civic-record architecture and implementation gates are in
 > [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
 > [`docs/ROADMAP.md`](docs/ROADMAP.md), and [`docs/STATUS.md`](docs/STATUS.md).
-> The full proposed 1.0 contracts, implementation plan, and distribution gates
+> The accepted core contracts plus the current implementation plan/distribution gates
 > are in [`docs/CONTRACTS.md`](docs/CONTRACTS.md),
+> [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md),
 > [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md), and
 > [`docs/RELEASE_1_0.md`](docs/RELEASE_1_0.md).
+
+La arquitectura durable se explica con ocho conceptos nativos:
+
+```text
+Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
+                  -> Mesa de control -> Consultas -> Salidas
+```
+
+El **Inbox** es la frontera de ingreso: HTML, APIs, browser automation, feeds,
+filesystem o carga manual pueden usar Source Connectors completamente distintos,
+pero todos terminan en el mismo `CaptureEnvelope -> InboxPort`. El scraper actual
+de Esparza es una herramienta legado y futuro connector, no el molde del core.
+Ver [`docs/INGRESS.md`](docs/INGRESS.md).
+
+Estas metáforas son lenguaje de producto/documentación; no obligan a usar esos
+nombres en el árbol de código. `Episode`/`Hilo` pasan a ser conceptos de una
+Salida, no requisitos del núcleo universal.
+
+**Pipeline de archivos legado/actual (preservado durante la transición):**
 
 ```
 ┌──────────────┐   ┌───────────────┐   ┌─────────────────┐

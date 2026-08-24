@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AUD-C001,AUD-S001,Whisper transcription exposes multiple heterogeneous quality signals rather than one calibrated confidence.,direct,Represent ASR QualityEvidence as named signals: avg_logprob/no_speech/compression/language/word probability/VAD coverage.
+AUD-C002,AUD-S002;AUD-S003,faster-whisper is a strong Python-local baseline with efficient CTranslate2 inference and permissive code license.,direct,Provisional default ASR candidate for benchmark.
+AUD-C003,AUD-S004,whisper.cpp offers unusually broad hardware portability including Vulkan/ROCm/CPU and quantization.,direct,Keep as a portable/AMD/edge alternate backend rather than forcing one inference stack.
+AUD-C004,AUD-S002;AUD-S004,Performance comparisons are only meaningful with equivalent model/beam/thread settings.,direct-limit,Civic Bench must pin model and decoding policy across ASR backends.

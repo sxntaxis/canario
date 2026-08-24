@@ -1,0 +1,52 @@
+{
+  "executor": "official_codex_cli",
+  "executor_family": "subscription_agent",
+  "codex_cli_version": "codex-cli 0.149.0",
+  "model": "gpt-5.6-sol",
+  "exec_mode": {
+    "ephemeral": true,
+    "sandbox": "read-only",
+    "repository_exposed": false
+  },
+  "request_template_sha256": "00166cf1dcf582e9a7a993a44db6d45c23f9197412044ef2a816874f6c2a3bdf",
+  "output_schema_sha256": "3f24ec5e42023ff5904305e4c57af5f73f06c706113c274870e83cbb91206448",
+  "billing": {
+    "billing_mode": "chatgpt_subscription",
+    "per_call_api_cost_usd": "NOT_APPLICABLE",
+    "subscription_quota_consumption": "NOT_RECORDED"
+  },
+  "pages_egressed": 2,
+  "bytes_egressed": 626952,
+  "wall_seconds": 110.1686626800074,
+  "returncode": 0,
+  "secret_recorded": false,
+  "inputs": [
+    {
+      "page_id": "actual-natural-fecomudi-p30",
+      "sha256": "35d0d5752aba17eb8be368b7105a2c3be151554517dc3805555913306f441c08",
+      "bytes": 208735
+    },
+    {
+      "page_id": "actual-natural-quepos-p14",
+      "sha256": "49007c92286117f96cf62fedd86bb66ce40e85380bd17951aa21cb5b96cd43f1",
+      "bytes": 418217
+    }
+  ],
+  "status": "PASS_SCHEMA_VALID",
+  "output_sha256": "50d3998671bd8dfd30ca4248dedd80bd2d9b7597dd28de140e8ecbc31d6e9d13",
+  "pages": [
+    {
+      "page_id": "actual-natural-fecomudi-p30",
+      "transcription_chars": 532,
+      "uncertain_span_count": 3,
+      "table_count": 1
+    },
+    {
+      "page_id": "actual-natural-quepos-p14",
+      "transcription_chars": 3727,
+      "uncertain_span_count": 3,
+      "table_count": 0
+    }
+  ],
+  "ground_truth": "UNSCORED_NATURAL"
+}

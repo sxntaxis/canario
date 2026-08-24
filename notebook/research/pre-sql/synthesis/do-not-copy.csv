@@ -1,0 +1,30 @@
+book_id,do_not_copy
+akoma-ntoso,Do not import XML/FRBR/IRI vocabulary wholesale.
+alto,Do not require ALTO output or infer reading order from XML order.
+bagit,Do not treat hashes as authenticity or fetch.txt URLs as safe implicit network authority.
+datasette,Do not expose arbitrary SQL or unrestricted plugin writes over canonical DB.
+documentcloud,Do not copy cloud/service topology or make publishing authority implicit.
+eli,Do not adopt ELI RDF/URI identity as core.
+followthemoney,Do not adopt generic node/edge storage or statement-per-field provenance by default.
+frictionless-data-package,Do not make package format the internal database model or auto-fetch arbitrary URLs.
+iiif,Do not require IIIF server/JSON-LD or assume all capabilities.
+memento,Do not assume linked archived pages represent the same historical instant.
+method,Do not turn Notebook bookkeeping into product architecture or source-count theater.
+ocfl,Do not adopt full OCFL object layout/inventory unless export/scale later proves value.
+openrefine,Do not use full universal undo/event history as canonical ActaKit history.
+opensanctions,Do not promise external canonical IDs are permanent or auto-merge by name.
+openstates,Do not import US legislative ontology/categorization wholesale.
+paperless-ngx,Do not copy consumer document-management workflow or tags as ActaKit ontology.
+popolo,Do not make Popolo the national/domain ontology for ActaKit.
+premis,Do not store all runtime events forever.
+prov,Do not implement PROV-O/RDF globally or make every operation canonical.
+records-in-contexts,Do not implement ontology-wide RDF/OWL reasoning or hundreds of generated relation properties.
+shacl,Do not adopt RDF/SHACL runtime for core validation.
+skos,Do not impose a national SKOS/RDF taxonomy.
+sqlite,"Do not use network/synced filesystem, direct external writes, naive live file copy or FTS as authority."
+tropy,Do not treat every selection as a new document or require one global metadata template.
+w3c-org,Do not import RDF ontology or assume it captures civic accountability.
+warc,Do not require WARC for ordinary source adapters.
+web-annotation,Do not import RDF/JSON-LD or graph storage as runtime requirements.
+wikidata,Do not atomize ActaKit into Wikidata property/snaks or implement consensus ranks.
+zotero,Do not expose DB schema as supported write API or embed canonical annotations into source files.

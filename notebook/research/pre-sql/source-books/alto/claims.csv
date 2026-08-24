@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C107,AKS-S083,"ALTO has production use for OCR layout, highlighting, navigation and article tracking across major institutions.",supports,Support ALTO as an importable Representation when available instead of inventing a competing OCR-layout format.
+AKS-C108,AKS-S084,OCR reading order cannot safely be inferred from XML element order; the format added explicit reading-order structures after real use.,scar,Represent/order text according to explicit parser evidence when available; storage order is not semantic order.

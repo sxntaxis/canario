@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C032,AKS-S030,Interchange packages benefit from small composable manifests/profiles rather than product-specific monoliths.,supports,Outputs/exports should have bounded manifests once sharing is real.
+AKS-C103,AKS-S079,"Portable manifests containing untrusted URLs or paths are active security inputs, not passive metadata.",scar,Output/import package handling must confine local paths and default-deny remote fetches unless explicitly authorized.

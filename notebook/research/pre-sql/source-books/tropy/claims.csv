@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C071,"AKS-S026,AKS-S051,AKS-S052","Structured templates and local tags can coexist, and both can be edited in bulk across heterogeneous research items.",supports,Keep document profiles optional and local tags flexible; do not force every civic document into one closed schema before it becomes useful.
+AKS-C121,AKS-S090,Structured templates and flexible local tags coexist in a research-document workflow.,supports,Document profiles are optional typed enrichments; tags remain local/flexible by default.

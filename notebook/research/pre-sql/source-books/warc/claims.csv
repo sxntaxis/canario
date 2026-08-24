@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C010,AKS-S010,"A capture can record request/response association, timestamp, target URI and payload digest without claiming the resource changed.",supports,Acquisition should preserve observation outcome independently from civic-document semantics.
+AKS-C082,AKS-S061,One retrieval can produce multiple linked records while still representing a single capture event.,supports,Separate Acquisition observation from Artifact bytes and allow multiple observations of identical bytes.
+AKS-C083,AKS-S062,A specification example mistake propagated into production archive records for years.,scar,Store parser/format version and raw metadata so normalized interpretations can be repaired without losing the capture.

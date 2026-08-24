@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C104,AKS-S033,A stable canvas can provide a spatial/temporal reference frame while annotations target specific regions or time spans.,supports,Evidence locators should target a specific Representation plus a typed spatial/temporal selector.
+AKS-C105,AKS-S081,Coordinate/size rounding and edge tiles have implementation-dependent behavior.,scar,Persist selector scheme/version and sufficient context; do not assume derived pixel coordinates survive every rendering pipeline.
+AKS-C106,AKS-S082,Different compliant services may support different targeting capabilities.,limits,Representation adapters must advertise capabilities; unsupported selectors degrade explicitly rather than being guessed.

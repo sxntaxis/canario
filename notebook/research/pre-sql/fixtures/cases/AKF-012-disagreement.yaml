@@ -1,0 +1,21 @@
+fixture_id: AKF-012
+title: Source disagreement and evidence challenge
+claims:
+  - id: clm-A@1
+    text: "La institución anunció un costo de ₡20 millones."
+    source: official_press_release
+  - id: clm-B@1
+    text: "El cuadro presupuestario registra ₡25 millones."
+    source: official_budget
+expected:
+  both_claims_can_coexist: true
+  possible_claim_relation:
+    type: contradicts
+    requires_basis: true
+  evidence_link_relation_example:
+    evidence: budget_row
+    relation: challenges
+    target_claim: clm-A@1
+must_not:
+  - collapse challenges and contradicts into one relation type
+  - force ActaKit to choose one universal truth automatically

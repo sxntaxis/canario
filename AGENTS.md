@@ -8,6 +8,142 @@
 
 ---
 
+## Política de pre-release y compatibilidad de schema
+
+**ActaKit está en pre-release. No hay usuarios ni instalaciones públicas cuya base
+de datos deba conservar compatibilidad entre commits.** Hasta que el proyecto
+declare explícitamente una frontera de compatibilidad (como mínimo una release
+Beta pública, o una declaración equivalente en `docs/STATUS.md`), el schema
+SQLite se **rebaselina en `0001`** cuando el diseño cambia.
+
+Reglas para agentes y contribuidores durante pre-release:
+
+- no crear `0002`, `0003`, ... para preservar bases de desarrollo desechables;
+- editar la especificación/SQL de `0001` cuando el cambio sea correcto para el
+  producto, y volver a pasar freeze review + certificación del runtime;
+- una base local de desarrollo puede recrearse desde cero; no es autoridad de
+  compatibilidad;
+- no añadir compatibilidad legado, migraciones puente ni transforms de upgrade
+  solo por conservar estados pre-release;
+- `application_id` permanece estable; `user_version` puede seguir en `1` mientras
+  el baseline canónico siga siendo `0001`;
+- la historia incremental de migraciones empieza **solo después** de la frontera
+  de compatibilidad pública. Desde ese punto, las bases de usuarios reales deben
+  poder actualizarse sin reset destructivo.
+
+Cambiar `0001` no significa saltarse los gates: cualquier cambio de SQL sigue
+requiriendo la revisión/certificación que corresponda antes de convertirse en
+autoridad de producción.
+
+## Ingress / Source Connector architecture
+
+The current `scripts/scrape_actas.py` is a **legacy/source-specific adapter**, not
+the architectural template for acquisition. Future source integrations must
+implement the accepted `docs/INGRESS.md` boundary:
+
+```text
+source-specific terrain
+-> SourceConnector
+-> CaptureEnvelope
+-> InboxPort
+-> DepositWriter
+-> Depósito
+```
+
+Rules for agents/contributors:
+
+- do not put Esparza/CMS/HTML/API/browser assumptions in `actakit.ingress`;
+- Source Connectors stop at `InboxPort` and do not call `DepositWriter`, SQLite,
+  ArchiveObject, CivicDocument, Claim, Entity, FTS, or review writers directly;
+- connector code reports observations/bytes, not semantic document truth;
+- ActaKit owns canonical Source binding, connector attribution, persistence IDs,
+  validation state and custody policy;
+- discovery is connector-private: there is no universal `scrape()` or
+  `discover()` requirement;
+- absence in one run is never deletion evidence; run coverage must remain
+  explicit (`unknown`, `incremental`, `complete_inventory`);
+- connector checkpoints are opaque to core and durable checkpoint storage is not
+  added until a real source proves it necessary;
+- PDF/DOCX/OCR/table/transcript extraction is **not** a Source Connector concern;
+  it starts later at the Mesa de trabajo Representation boundary;
+- plugin installation/discovery mechanics are deliberately unfrozen; do not add
+  a registry/framework merely because the SPI exists.
+
+The old Markdown processing `inbox/` is unrelated to the architectural source
+Inbox.
+
+## Mesa de trabajo / Representation Processor policy
+
+The processor state-of-the-art research package lives at
+`notebook/research/workbench/processors/`. The Civic Processor Bench is closed and
+the generic `WORKBENCH-001` boundary in `actakit/processors/` is independently
+certified on the exact registered SQLite 3.53.4 runtime. Concrete adapters must
+land as bounded units on that frozen boundary rather than redesigning custody,
+QualityEvidence, scope or egress around one backend.
+The accepted reference path is a curated built-in escalation ladder, not a
+processor marketplace:
+
+```text
+ D0/D1 deterministic/native (Poppler/pdftotext)
+-> OCRmyPDF + Tesseract
+-> bounded official Codex CLI escalation
+-> human review
+```
+
+Rules for agents/contributors:
+
+- processor rung/capability and execution venue are separate concepts;
+- deterministic extraction is preferred before expensive AI, but AI rungs may run
+  **locally or in explicitly authorized cloud** depending on source policy,
+  available hardware, benchmarked quality, latency and cost;
+- official Codex CLI authenticated through a ChatGPT subscription is the reference
+  cloud/agent executor; Docling, heavyweight local AI and provider APIs remain
+  optional venues;
+- OpenAI-compatible `base_url + api_key + model` endpoints are an escape-hatch
+  transport convention only. They are **not** assumed to implement every OpenAI
+  endpoint/parameter/modality; capability declaration/probing is required;
+- API keys/tokens are host secrets. Never store secret values in SQLite,
+  ProcessRun/evidence payloads, logs, benchmark fixtures/results, or derivative
+  Representations;
+- cloud processing is explicit data egress. Record non-secret provider/model/
+  endpoint/request-template identity plus the fact/scope of egress and deployment
+  retention/data-control profile; never infer zero retention from API use alone;
+- no-egress/restricted source policy can forbid cloud completely;
+- restricted/no-egress deployments fall back to local deterministic processing plus
+  human review;
+- Codex CLI owns ChatGPT authentication. ActaKit must never inspect or store those
+  credentials;
+- page/block escalation is allowed; no universal backend/model winner is frozen;
+- no universal numeric `confidence` spans OCR/document/VLM/audio engines. Preserve
+  typed processor-attributable QualityEvidence and let policy decide
+  `ACCEPT | ESCALATE | QUARANTINE_REVIEW`;
+- original custody is immutable and AI output never authenticates itself as source
+  evidence.
+
+The generic boundary requires exact target-backed ProcessRun inputs,
+typed/namespaced `QualityEvidence`, a separate durable quality decision, explicit
+egress provenance, immutable custody and visible failure/escalation. Processor
+implementations never receive SQLite/archive authority. `PROCESSOR-DIRECT-001` is
+independently certified for Poppler native PDF extraction. `PROCESSOR-OCR-001` uses OCRmyPDF + Tesseract under explicit `whole:v1` /
+`pdf_page:v1` scope, skip-text preservation for mixed PDFs, bounded local execution,
+and conservative `ocr.needs_visual_review:v1=true`; both D1 and D2 are independently
+certified.
+`PROCESSOR-CODEX-001` is independently certified and satisfies only one exact
+`pdf_page:v1` visual-transcription request through the official Codex CLI after explicit
+egress authorization. Its v2 output contract requires the transcript to remain
+page-complete even when table structure is also emitted; tables supplement rather
+than replace canonical text, and deterministic cross-channel coverage rejects
+internally inconsistent output before derivatives are accepted. It uses a dedicated
+private keyring-backed CODEX_HOME and private scratch HOME; bundled/user/admin skills
+are excluded from the transcription execution, and ActaKit never reads ChatGPT
+credentials or exposes whole-document cloud scope.
+
+Exact developer-host fingerprinting is not durable project evidence. Do not persist
+hostname, username, exact kernel/distribution build, exact CPU/GPU model, total
+RAM/swap, device IDs, home paths, or environment dumps unless a narrowly scoped
+certification proves that exact fact is itself required. Prefer tool/runtime
+identity and process-scoped resource measurements.
+
 ## ¿Qué es actakit?
 
 actakit procesa actas del Conceho Municipal de Costa Rica y las convierte

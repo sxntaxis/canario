@@ -1,0 +1,23 @@
+fixture_id: AKF-004
+title: One artifact contains multiple civic documents
+input:
+  artifact: sha256:COMPOUND
+  representation: pdf-pages-1-18
+detected_units:
+  - pages: 1-2
+    source_label: Oficio ABC-123
+    normalized_type: oficio
+  - pages: 3-15
+    source_label: Informe técnico
+    normalized_type: informe
+  - pages: 16-18
+    source_label: Anexo presupuestario
+    normalized_type: presupuesto
+expected:
+  artifact_count: 1
+  civic_document_count: 3
+  byte_duplication_required: false
+historical_open:
+  - choose DocumentPart versus multiple CivicDocuments according to semantic independence and citation needs
+resolved:
+  - migration 0001 uses multiple CivicDocuments plus representation occurrences/targets; no DocumentPart/Collection table until a proving fixture/query requires one

@@ -1,0 +1,30 @@
+fixture_id: AKF-011
+title: Shared anchor and bounded traversal
+anchors:
+  entity: Puerto Caldera
+  claim_count: 100
+explicit_relations:
+  - A updates B
+  - B updates C
+  - B contradicts C
+tag_correction:
+  initial: machine assigns topic:agua to A
+  later: operator rejects that assignment
+  expected_history_preserved: true
+  expected_current_anchor: false
+expected:
+  pairwise_edges_from_shared_anchor: 0
+  query_can_find_all_100_by_entity: true
+  recursive_query_can_walk_A_B_C: true
+  reachability_deduplicates_parallel_edges: true
+  edge_query_preserves_parallel_relations: true
+  symmetric_contradiction_retrievable_from_either_endpoint: true
+  directed_update_not_silently_reversed: true
+  canonical_inferred_A_to_C: false
+  traversal_limits_required: true
+must_not:
+  - generate 4950 pairwise edges
+  - materialize transitive edges without independent basis
+  - use naive UNION ALL node reachability as the default multigraph traversal
+  - delete a wrong tag assignment merely to make it disappear from current retrieval
+  - materialize duplicate reverse edges merely because a relation type is symmetric

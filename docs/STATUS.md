@@ -1,100 +1,226 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: source-investigation-checkpoint
+state: PROCESSOR_CODEX_001_CODEX_CLI_SUBSCRIPTION_IMPLEMENTED_AND_CERTIFIED
 created: 2026-08-19
+updated: 2026-08-24
 authority: operating
-summary: Official video evidence confirms Concejo sessions through 180 while the web archive remains at Acta 161; an oficio draft is ready for human review.
+release_phase: prerelease
+schema_compatibility_boundary: not-established
+summary: WORKBENCH-001, Poppler D1, OCRmyPDF/Tesseract D2, and PROCESSOR-CODEX-001 are independently certified. The bounded one-page subscription-backed visual transcription adapter and minimal prerelease egress-schema rebaseline are integrated.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
+  - ACTAKIT-INGRESS-001
+  - ACTAKIT-CONNECTOR-ESPARZA-001
+  - ACTAKIT-REPRESENTATION-PROCESSOR-RESEARCH-001
 ---
 
 # Current Status
 
-## Existing Authority
+## Pre-release compatibility policy
 
-- Canonical civic content: `/mnt/Ginebra/Plaza/vault`.
-- Processed baseline: Acta 161, 2026-05-18.
-- Historical actas and curated Hilos are preserved; no mass regeneration is
-  authorized.
-- Nextcloud is a publication target. No live publication is authorized at this
-  checkpoint.
-- Current additive Hilo integration starts after the Acta 161 baseline.
+ActaKit is **pre-release**. There is currently no public/beta compatibility
+commitment and no user SQLite fleet whose historical schema must be preserved.
+Until `release_phase` is explicitly advanced to `beta` (or a later
+compatibility-bearing release) in this operating-status document:
 
-## Architecture Decision Context
+- `0001` is the mutable/rebaselinable schema baseline;
+- a correct schema change updates `MIGRATION_0001_SPEC.sql` and production
+  `0001.sql`, then repeats the applicable freeze/runtime/implementation proofs;
+- development databases may be recreated from a fresh `0001`;
+- do **not** create sequential `0002`/`0003`/... migrations merely to carry
+  pre-release development state forward;
+- do **not** add legacy-compatibility code for unreleased schema shapes.
 
-The next era of actakit is proposed as a federation of sovereign local civic
-record nodes, not a Markdown-only pipeline or a single national database. It
-will use named human approval roles, restricted raw evidence, minimal public
-derivatives, and one new Esparza acta as the first vertical proof.
+The migration-history compatibility obligation begins only at the explicit
+compatibility boundary. From that boundary onward, existing user data becomes an
+upgrade constraint and schema evolution must use forward migrations instead of
+rebasing historical `0001`.
+
+## Current Implementation
+
+The repository currently implements the file/Markdown acta pipeline. Existing
+operator data and curated Hilos are preserved; no mass regeneration or migration
+is authorized by the architecture proposal.
+
+One existing canton configuration contains deployment-specific absolute paths.
+Those paths are legacy deployment configuration, **not** target product
+dependencies. The future durable core must operate from its own configurable
+storage without requiring any named external workspace or application.
+
+## Current Source Checkpoint
+
+The existing source investigation found the official written Concejo archive at
+Acta 161 dated 2026-05-18 while the municipality's official video publication
+showed later sessions through Session 180 in August 2026. The videos establish
+that later sessions occurred; they do not establish the exact content or
+approval status of unavailable written actas.
+
+This source gap remains a useful real-world proof case for the future model:
+source occurrence, source authority, artifact acquisition, and formal written
+record are not interchangeable.
+
+## Accepted Architecture Baseline
+
+The semantic authority for the durable core is accepted in:
+
+- `ARCHITECTURE.md`;
+- `CONTRACTS.md`;
+- `DATA_MODEL.md`.
+
+ActaKit remains a self-contained civic-record system using:
+
+```text
+Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
+                  -> Mesa de control -> Consultas -> Salidas
+```
+
+The SQLite candidate then passed deep pre-SQL research, adversarial critical
+review, exact-artifact selector proofs, operational backup/restore/purge proofs,
+a physical migration-freeze review, and post-freeze certification on the exact
+registered SQLite 3.53.4 source ID.
 
 ## Active Edge
 
 ```text
-confirm post-161 official source coverage
--> review and accept target architecture
--> define policy/schema contracts
--> build semantic kernel
--> build custody/service foundation
--> process one new Esparza acta end to end
+accepted semantic contracts
+-> certified MIGRATION_0001_SPEC.sql
+-> bounded production implementation of migration/bootstrap 0001
+-> certified implementation proof on exact SQLite 3.53.4
+-> certified bounded Depósito custody writer
+-> certified INGRESS-001 Source Connector SPI + Inbox
+-> certified Esparza connector and bounded real network shadow dogfood
+-> processor state-of-the-art Source Books + synthesis complete
+-> Civic Processor Bench complete
+-> WORKBENCH-001 generic processor substrate independently certified
+-> PROCESSOR-DIRECT-001 Poppler native-PDF adapter independently certified
+-> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
+-> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter independently certified
+-> semantic writers and explicit canonical-cutover gate later
 ```
 
-## Official Source Audit
+Migration `0001` implementation was authorized by
+`notebook/research/pre-sql/schema/MIGRATION_0001_AUTHORIZATION.md` only for the
+fresh-database bootstrap/runtime boundary and is now certified by
+`notebook/research/pre-sql/schema/MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`.
+WORKBENCH-001 required a prerelease `0001` rebaseline so exact ProcessRun scope,
+typed quality evidence, quality decisions, and egress provenance survive restart.
+The certified PROCESSOR-CODEX-001 SQL hash is:
 
-Read-only checks on 2026-08-19 found:
+```text
+5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb
+```
 
-- The official [Concejo archive](/articulo/230/actas-concejo-municipal) lists
-  2026 records through Acta 161, dated 2026-05-18, and no later Concejo record.
-- The official [Actas hub](/articulo/229/actas) links the Concejo, permanent
-  commission, special commission, Junta Vial, and VideotecaCR repositories.
-- The 2026 section of [Junta Vial](/articulo/231/actas-junta-vial) is present but
-  contains no listed entries.
-- [Permanent commissions](/articulo/609/actas-de-comisiones) expose one 2026
-  item, `Dictamen Sociales N°1-2026`; this is not a Concejo acta.
-- The official-linked [VideotecaCR archive](https://www.videotecacr.com/muniesparza/pages/galeria.php)
-  renders period/month filters but no indexed video entries in the fetched
-  response.
-- The municipality's `/sesion` and `/video` pages render no embedded session or
-  video in the fetched response.
+The independently certified WORKBENCH/DIRECT/OCR baseline
+`adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior
+`31cac5...` baseline remain historical evidence. The new candidate changes only the
+`process_run_egress.bytes_egressed` lower bound from positive to non-negative so a
+cloud-capable attempt that fails before external handoff can truthfully persist zero
+source bytes plus policy provenance. The WORKBENCH rebaseline was independently certified
+on the exact registered upstream SQLite 3.53.4 source
+ID; the first attempt correctly rejected a patched build with a mismatched source
+ID. No `0002` exists: prerelease policy requires rebaselining `0001` instead.
 
-The official YouTube channel now confirms post-161 session activity. Its streams
-listing includes sessions 162 through 180; the individual page for Session 180
-reports a live broadcast on 2026-08-17 and publication on 2026-08-18. The
-official written archive still ends at Acta 161 on 2026-05-18, creating a
-minimum 93-day written-publication gap as of this checkpoint.
+The implementation certification does not authorize canonical cutover or
+production semantic writers. The bounded Depósito writer is now certified by
+`notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`.
 
-The channel listing includes multiple sessions numbered 162 through 180 (with
-some numbers absent from the visible listing). This proves a publication gap,
-not the contents or approval status of any acta.
-No post-161 written acta has been acquired into the vault. The information-
-request draft now lives in the Plaza vault at
-`4 Salidas/Oficios/Borradores/Oficio_Actas_y_Comisiones_Municipalidad.md`,
-linked to its source evidence note. It remains unsigned and must be reviewed
-before sending.
+## INGRESS-001 current boundary
 
-## Prohibitions Until the Vertical Proof
+`docs/INGRESS.md` is accepted. The implementation lives in `actakit/ingress/` and
+proves that HTML-inventory, incremental JSON-API, and manual-push fixtures all
+terminate at one `InboxPort` without importing their terrain into the core DTO.
 
-- No public client adapter, including writable MCP.
+The bridge is intentionally one-way:
+
+```text
+SourceConnector -> CaptureEnvelope -> InboxPort -> DepositWriter
+```
+
+Connector code does not receive `DepositWriter` or canonical Source/persistence
+identity. `DepositInbox` is host-bound to those core concerns. Specialized
+connector failures propagate while already accepted custody remains preserved.
+
+This boundary is certified on the exact SQLite 3.53.4 runtime. The Esparza CMS
+connector is now the first certified real consumer and has passed bounded shadow
+dogfood without changing the SPI. Plugin packaging and durable connector-run/
+checkpoint persistence remain unfrozen.
+
+## WP4C processor research gate
+
+The state-of-the-art package at
+`notebook/research/workbench/processors/` is complete for the selection horizon.
+It authorized the generic `actakit/processors` boundary, which is now independently
+certified, and concrete backends now land as separate bounded adapter units. The closed research
+selected this escalation philosophy:
+
+```text
+native/direct parse
+-> Poppler/pdftotext
+-> OCRmyPDF + Tesseract
+-> Docling structured processing (optional, not default)
+-> specialized visual/document AI (local or cloud by policy)
+-> frontier multimodal AI (local or cloud by policy)
+   - local candidate: Qwen3-VL family
+   - subscription-backed cloud candidate: official Codex CLI + ChatGPT subscription
+   - optional API candidate: OpenAI multimodal API, after separate policy/capability checks
+   - specialist cloud candidate: Mistral OCR
+-> human review
+```
+
+Processors are intended to be a curated built-in ActaKit capability. Backend
+replaceability is an escape hatch for hardware, licensing, new/hard formats,
+execution-venue policy and benchmarking; WP4C is not a plugin-marketplace project.
+Cloud frontier capacity is optional but first-class: a weak host may escalate to
+bounded Codex escalation instead of attempting a heavyweight local VLM, while
+no-egress deployments remain fully local.
+
+No universal numeric processor confidence is accepted. WORKBENCH-001 now stores
+typed, processor-attributable `QualityEvidence` plus a separate durable policy
+decision (`ACCEPT | ESCALATE | QUARANTINE_REVIEW`) for each exact input target.
+Every material transformation remains a derived Representation with ProcessRun
+provenance; original custody is immutable.
+
+**Current gate:** WORKBENCH-001, `PROCESSOR-DIRECT-001`,
+`PROCESSOR-OCR-001`, and `PROCESSOR-CODEX-001` are independently certified. CODEX-001
+accepts exactly one explicit `pdf_page:v1`, renders that page
+locally, removes the source PDF before external handoff, and invokes the official Codex
+CLI through a dedicated keyring-backed profile and private scratch HOME. Whole/multi-
+page cloud scope, restricted material, missing egress authorization, or mismatched
+endpoint/prompt/config identity are rejected before Codex invocation. Schema-valid
+zero-uncertainty material may be accepted; uncertainty, empty material or failed/schema-
+invalid output ends in human review. No API-key/provider-API path is part of this unit. The closure bench retains exact natural Esparza, FECOMUDI, Quepos
+and spreadsheet artifacts, corrected page-level D2 evidence with process-tree RSS,
+independent truth for two natural hard pages, and controlled plus diagnostic
+official Codex CLI runs. Docling is optional rather than default because its
+disposable footprint was material and no quality advantage was measured. Exact
+pins/licenses for future optional backends, broader natural thresholds, handwriting
+and multi-column coverage remain follow-up work. Personal Plus/Pro Codex use is
+limited to approved public material; Business/Enterprise/Edu controls must be
+verified per deployment. Credential values remain external host secrets and must
+never enter SQLite, ProcessRun evidence or logs.
+
+## Current Prohibitions
+
+- No canonical-data cutover or historical mass import is authorized yet.
+- No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
+- No semantic Fichero, Claim, civic-review, purge, or archive/GC writer is authorized.
+  The only additional certified canonical writer is the bounded Workbench
+  processor provenance/QualityEvidence/derived-Representation writer.
+- The Esparza Source Connector is certified only as a bounded shadow-mode SPI
+  consumer. Its two dogfood runs do not modify the current scraper/Hilo path and
+  are not canonical. Coverage is unknown because the runs were intentionally
+  filtered and bounded; historical import and cutover remain unauthorized.
+- No daemon/RPC/federation implementation is justified yet.
 - No automatic public publication.
-- No live Nextcloud writes.
-- No historical vault regeneration.
-- No claim of source verification without artifact, locator, and review record.
+- No claim may conceal whether it is machine-only or human-reviewed.
+- No AI output may serve as factual source evidence for its own claim.
 - No individual political-preference profiling or targeted-persuasion use.
 
-## Evidence Used For This Checkpoint
+## Planning Documents
 
-- Current actakit implementation and Esparza vault integration.
-- Digest local archive at `/home/sxntax/Downloads/Digest-main.zip`.
-- `/mnt/Tokyo/Lab/Git/Plaza` architecture, data model, safeguards, and demo
-  audits.
-- `sxntaxis/notebook` and `sxntaxis/stereo-dev` architecture studies.
-
-These studies inform the proposal. They do not automatically amend actakit
-architecture or authorize implementation.
-
-## 1.0 Planning
-
-The proposed complete plan is in `ARCHITECTURE.md`, `CONTRACTS.md`,
-`IMPLEMENTATION_PLAN.md`, and `RELEASE_1_0.md`. These documents require named
-human acceptance before service/database implementation begins.
+`ROADMAP.md`, `IMPLEMENTATION_PLAN.md`, and `RELEASE_1_0.md` remain planning
+artifacts. Their future work packages do not expand this authorization. The
+current authority for migration `0001` is the accepted semantic contract, the
+certified freeze, and the bounded authorization record.

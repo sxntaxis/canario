@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+BRD-C001,BRD-S001,Broad format detection/extraction is a solved problem family; ActaKit need not hand-write every office/archive parser.,direct,Prefer mature libraries or converters for common formats.
+BRD-C002,BRD-S003,Unstructured already formalizes fast/high-resolution/OCR routing as different strategies.,direct,Escalation is established practice; ActaKit should own a civic-specific policy rather than inventing the idea.
+BRD-C003,BRD-S001;BRD-S003,Broad parser breadth and high-fidelity document understanding are different optimization targets.,bounded-inference,A catch-all parser can be fallback/detector without becoming the highest-quality processor for every format.
+BRD-C004,BRD-S002,A Java-centric runtime would materially enlarge ActaKit deployment if Tika were core.,direct-context,Keep Tika as reference/fallback candidate unless Civic Bench demonstrates unique value.

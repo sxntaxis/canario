@@ -1,0 +1,13 @@
+transfer_id,source,decision,bounded_transfer,stop_condition,evidence_refs
+WBT-T001,Poppler/pdftotext,adopt,D1 born-digital PDF text with optional geometry,Stop if Civic Bench shows systematic reading-order/encoding failures requiring Docling first.,PDT-C001;PDT-C002;PDT-C005
+WBT-T002,OCRmyPDF + Tesseract,adopt,D2 conservative classical OCR orchestration,Stop/reconfigure if preprocessing damages source-derived visual content or Civic Bench quality is poor.,TES-C001;TES-C002;OMP-C001;OMP-C002
+WBT-T003,Docling,adapt,Primary structured-document framework candidate,Do not freeze until Civic Bench proves acceptable accuracy/cost and exact model licenses are pinned.,DOC-C001;DOC-C002;DOC-C003;DOC-C004
+WBT-T004,PaddleOCR-VL,adapt,Local specialized visual AI rung,Use only for failed/complex lower-rung material; drop if Civic Bench or hardware cost loses to alternatives.,PAD-C002;PAD-C004
+WBT-T005,Qwen3-VL,adapt,General local visual/handwriting escape hatch,Keep optional; no canonical acceptance without constrained output validation and hallucination measurement.,QVL-C001;QVL-C003
+WBT-T006,Mistral OCR 4.1,adapt,Explicit opt-in specialized cloud Document AI,Never automatic for restricted/no-egress sources; re-evaluate provider terms/pricing at deployment.,MIS-C001;MIS-C003;MIS-C004
+WBT-T007,QualityEvidence,adopt,Typed per-processor evidence + policy result,Reject any design that collapses heterogeneous signals to one global numeric confidence.,DOC-C003;TES-C002;MIS-C002;AUD-C001
+WBT-T008,Civic Processor Bench,adopt,Required selection/freeze gate,Do not implement/freeze WP4C production processors until benchmark fixtures and results exist.,ODB-C001;ODB-C003;ODB-C004
+WBT-T009,faster-whisper,adapt,Provisional local ASR baseline,Do not add runtime dependency until a real civic audio fixture is in scope.,AUD-C001;AUD-C002
+WBT-T010,pyannote.audio,defer,Optional speaker diarization,Activate only when speaker-attributed transcript is a proved product/source requirement.,PYA-C001;PYA-C004
+WBT-T011,OpenAI multimodal API,adapt,First-class cloud frontier multimodal venue with external secret handling and explicit egress policy,Never automatic for no-egress/restricted material; exact model must win Civic Bench and deployment data controls must be verified.,OAI-C001;OAI-C002;OAI-C003;OAI-C004;OAI-C005
+WBT-T012,OpenAI-compatible API convention,adapt,Provider transport escape hatch using base URL/API-key-shaped client configuration plus capability gates,Do not ship as universal compatibility; reject endpoints that cannot prove required modality/structured-output/security capabilities.,OAC-C001;OAC-C002;OAC-C003;OAC-C004

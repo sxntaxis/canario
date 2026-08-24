@@ -1,0 +1,3 @@
+claim_id,evidence_refs,statement,evidence_kind,actakit_implication
+AKS-C084,AKS-S063,"Archived-resource locator URLs can change, and rediscovered captures can differ in timestamp/status/original-URI or disappear.",scar,"Capture identity cannot be the replay URL; preserve observed archive identity, datetime and source metadata separately."
+AKS-C085,AKS-S064,Following archived links can silently shift the effective historical datetime by large amounts.,scar,A query/output assembling archived evidence must not imply temporal coherence merely because pages are linked.

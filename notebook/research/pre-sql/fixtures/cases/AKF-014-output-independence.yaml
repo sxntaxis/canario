@@ -1,0 +1,16 @@
+fixture_id: AKF-014
+title: Hilo and non-Episode output share the Fichero
+input_query:
+  subject_entity: "Proyecto X"
+  result_claims: [A, B, C, D]
+outputs:
+  - type: hilo
+    internal_structure: episodes
+  - type: simple_timeline
+    internal_structure: chronological_rows
+expected:
+  same_core_read_model: true
+  episode_required_by_core: false
+  output_write_access_to_claims: false
+must_not:
+  - add Episode to universal core solely for Hilo

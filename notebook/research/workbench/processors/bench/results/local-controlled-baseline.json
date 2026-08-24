@@ -1,0 +1,385 @@
+{
+  "bench_state": "CIVIC_PROCESSOR_BENCH_PARTIAL__CONTROLLED_LOCAL_BASELINE",
+  "fixture": "tse-esparza-alcaldias-p2",
+  "source_sha256": "192da0e99878aa310a906f381f3bb25c9678934743b1b7563df747e05a8eb4f3",
+  "environment": {
+    "python": "3.13.5",
+    "pdftotext": "pdftotext version 25.06.0",
+    "tesseract": "tesseract 5.5.0",
+    "pillow": "12.3.0",
+    "pdfplumber": "0.11.9"
+  },
+  "notes": [
+    "This run validates bench mechanics and local D1/D2 signals; it does not select shipped processor defaults.",
+    "The controlled scan variants are deterministic derivatives of an official public civic PDF and share manually curated ground truth.",
+    "Tesseract confidence is recorded only as a namespaced engine-specific signal, never as universal confidence."
+  ],
+  "runs": [
+    {
+      "backend": "poppler.pdftotext",
+      "label": "tse-p2-native-poppler",
+      "input": "notebook/research/pre-sql/fixtures/artifact-proofs/alcaldias_pu.pdf",
+      "input_sha256": "192da0e99878aa310a906f381f3bb25c9678934743b1b7563df747e05a8eb4f3",
+      "execution_venue": "deterministic_local",
+      "returncode": 0,
+      "wall_seconds": 0.01,
+      "max_rss_kib": 17044,
+      "stderr": "",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.0,
+        "wer": 0.0,
+        "token_precision": 1.0,
+        "token_recall": 1.0,
+        "token_f1": 1.0,
+        "unexpected_token_count": 0,
+        "missing_token_count": 0,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-native-poppler.txt",
+      "observed_text_sha256": "1bf1d87a9c0d277c05b9cb41454d3d561f145bb722d652dacbab56529017bda8"
+    },
+    {
+      "backend": "poppler.pdftotext",
+      "label": "tse-p2-clean_scan_300_pdf-poppler",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-clean-scan-300.pdf",
+      "input_sha256": "aaecb578f2d9b15c5f30ea810643074d04b7615a346929dc5b85a90e0cbbbcfd",
+      "execution_venue": "deterministic_local",
+      "returncode": 0,
+      "wall_seconds": 0.02,
+      "max_rss_kib": 16824,
+      "stderr": "",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 0,
+        "cer": 1.0,
+        "wer": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0,
+        "token_f1": 0.0,
+        "unexpected_token_count": 0,
+        "missing_token_count": 103,
+        "required_span_recall": 0.0,
+        "required_span_hits": [],
+        "required_span_misses": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ]
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-clean_scan_300_pdf-poppler.txt",
+      "observed_text_sha256": "ef6cbd2161eaea7943ce8693b9824d23d1793ffb1c0fca05b600d3899b44c977"
+    },
+    {
+      "backend": "poppler.pdftotext",
+      "label": "tse-p2-lowdpi_110_pdf-poppler",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-lowdpi-110.pdf",
+      "input_sha256": "c01785265f3f6950d81ba3fac9d633bc2e74ac939324d48b76a9932b6199b9c2",
+      "execution_venue": "deterministic_local",
+      "returncode": 0,
+      "wall_seconds": 0.02,
+      "max_rss_kib": 16932,
+      "stderr": "",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 0,
+        "cer": 1.0,
+        "wer": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0,
+        "token_f1": 0.0,
+        "unexpected_token_count": 0,
+        "missing_token_count": 103,
+        "required_span_recall": 0.0,
+        "required_span_hits": [],
+        "required_span_misses": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ]
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-lowdpi_110_pdf-poppler.txt",
+      "observed_text_sha256": "ef6cbd2161eaea7943ce8693b9824d23d1793ffb1c0fca05b600d3899b44c977"
+    },
+    {
+      "backend": "poppler.pdftotext",
+      "label": "tse-p2-skew_noise_300_pdf-poppler",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-skew-noise-300.pdf",
+      "input_sha256": "13f8ec56162c72d59dfca91dc4808e1fc2fdb248054c4bbca5372d31b73e18b9",
+      "execution_venue": "deterministic_local",
+      "returncode": 0,
+      "wall_seconds": 0.01,
+      "max_rss_kib": 16988,
+      "stderr": "",
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 0,
+        "cer": 1.0,
+        "wer": 1.0,
+        "token_precision": 0.0,
+        "token_recall": 0.0,
+        "token_f1": 0.0,
+        "unexpected_token_count": 0,
+        "missing_token_count": 103,
+        "required_span_recall": 0.0,
+        "required_span_hits": [],
+        "required_span_misses": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ]
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-skew_noise_300_pdf-poppler.txt",
+      "observed_text_sha256": "ef6cbd2161eaea7943ce8693b9824d23d1793ffb1c0fca05b600d3899b44c977"
+    },
+    {
+      "backend": "poppler.pdftotext",
+      "label": "tse-p2-mixed-native-scan-poppler",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-mixed-native-scan.pdf",
+      "input_sha256": "7be1e99f2d56c2665f0b9738099e023cc3f7467728b4160e10812b3defbac472",
+      "execution_venue": "deterministic_local",
+      "returncode": 0,
+      "wall_seconds": 0.04,
+      "max_rss_kib": 17192,
+      "stderr": "",
+      "metrics": {
+        "truth_chars": 1371,
+        "observed_chars": 685,
+        "cer": 0.50036469730124,
+        "wer": 0.5,
+        "token_precision": 1.0,
+        "token_recall": 0.5,
+        "token_f1": 0.6666666666666666,
+        "unexpected_token_count": 0,
+        "missing_token_count": 103,
+        "required_span_recall": 1.0,
+        "required_span_hits": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ],
+        "required_span_misses": []
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-mixed-native-scan-poppler.txt",
+      "observed_text_sha256": "1bf1d87a9c0d277c05b9cb41454d3d561f145bb722d652dacbab56529017bda8"
+    },
+    {
+      "backend": "poppler.pdftotext",
+      "label": "tse-p2-malformed-poppler",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-truncated.pdf",
+      "input_sha256": "25233f9166505e94cf5a5d38a5b55999a20c7e10b114110cd50046bbf91a7c74",
+      "execution_venue": "deterministic_local",
+      "returncode": 1,
+      "wall_seconds": 0.016411414000003788,
+      "max_rss_kib": null,
+      "stderr": "Syntax Error: Couldn't find trailer dictionary\nSyntax Error: Couldn't find trailer dictionary\nSyntax Error: Couldn't read xref table\n",
+      "expected_failure_observed": true
+    },
+    {
+      "backend": "tesseract",
+      "label": "tse-p2-clean_scan_300_png-tesseract",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-clean-scan-300.png",
+      "input_sha256": "36e377faeab7d0d342089cc65488d2c9af854435b5cf713ca4faff47ffda2c3b",
+      "execution_venue": "deterministic_local",
+      "config": {
+        "language": "spa",
+        "psm": 3
+      },
+      "returncode": 0,
+      "wall_seconds": 1.33,
+      "max_rss_kib": 64484,
+      "stderr": "Estimating resolution as 310\n",
+      "quality_evidence": [
+        {
+          "signal": "tesseract.word_confidence",
+          "count": 100,
+          "mean": 94.37279891,
+          "median": 96.277222,
+          "p10": 92.225159
+        }
+      ],
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 671,
+        "cer": 0.029197080291970802,
+        "wer": 0.06796116504854369,
+        "token_precision": 0.96,
+        "token_recall": 0.9320388349514563,
+        "token_f1": 0.9458128078817734,
+        "unexpected_token_count": 4,
+        "missing_token_count": 7,
+        "required_span_recall": 0.42857142857142855,
+        "required_span_hits": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024"
+        ],
+        "required_span_misses": [
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ]
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-clean_scan_300_png-tesseract.txt",
+      "observed_text_sha256": "6a26bf1d8355535250bf7fa331912e64e65129167cbd93a89a85af6ee123388f"
+    },
+    {
+      "backend": "tesseract",
+      "label": "tse-p2-lowdpi_110_png-tesseract",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-lowdpi-110.png",
+      "input_sha256": "29873f0468c1a2e527496f0a315aefa4ae8ac2dced12ced8498f11bd4764f143",
+      "execution_venue": "deterministic_local",
+      "config": {
+        "language": "spa",
+        "psm": 3
+      },
+      "returncode": 0,
+      "wall_seconds": 0.51,
+      "max_rss_kib": 49268,
+      "stderr": "",
+      "quality_evidence": [
+        {
+          "signal": "tesseract.word_confidence",
+          "count": 103,
+          "mean": 91.53400839805826,
+          "median": 95.440102,
+          "p10": 84.216621
+        }
+      ],
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 685,
+        "cer": 0.0072992700729927005,
+        "wer": 0.04854368932038835,
+        "token_precision": 0.9514563106796117,
+        "token_recall": 0.9514563106796117,
+        "token_f1": 0.9514563106796117,
+        "unexpected_token_count": 5,
+        "missing_token_count": 5,
+        "required_span_recall": 0.8571428571428571,
+        "required_span_hits": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC"
+        ],
+        "required_span_misses": [
+          "jurisprudencia@tse.go.cr"
+        ]
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-lowdpi_110_png-tesseract.txt",
+      "observed_text_sha256": "21be3f435feb0e17f3cfd90e095ec82e3655b8447a79462007a195b548094237"
+    },
+    {
+      "backend": "tesseract",
+      "label": "tse-p2-skew_noise_300_png-tesseract",
+      "input": "notebook/research/workbench/processors/bench/work/control-tse/tse-p2-skew-noise-300.png",
+      "input_sha256": "3351daca470372d2854833030a7be1fc7b78cb01f6215f6ff49b6096befa7693",
+      "execution_venue": "deterministic_local",
+      "config": {
+        "language": "spa",
+        "psm": 3
+      },
+      "returncode": 0,
+      "wall_seconds": 0.92,
+      "max_rss_kib": 67092,
+      "stderr": "Estimating resolution as 319\n",
+      "quality_evidence": [
+        {
+          "signal": "tesseract.word_confidence",
+          "count": 106,
+          "mean": 93.16547852830189,
+          "median": 96.412567,
+          "p10": 91.656143
+        }
+      ],
+      "metrics": {
+        "truth_chars": 685,
+        "observed_chars": 673,
+        "cer": 0.5313868613138686,
+        "wer": 0.7087378640776699,
+        "token_precision": 0.8584905660377359,
+        "token_recall": 0.883495145631068,
+        "token_f1": 0.8708133971291866,
+        "unexpected_token_count": 15,
+        "missing_token_count": 12,
+        "required_span_recall": 0.2857142857142857,
+        "required_span_hits": [
+          "PROVINCIA: PUNTARENAS",
+          "2160-E11-2024"
+        ],
+        "required_span_misses": [
+          "ALCALDÍA Y VICEALCALDÍAS ESPARZA",
+          "ALCALDÍA 601420299 BIENVENIDO VENEGAS PORRAS PUSC",
+          "VICEALCALDÍA PRIMERA 701450511 YERLIN DE LOS ANGELES DIAZ VARGAS PUSC",
+          "VICEALCALDÍA SEGUNDA 602940147 HEIDI MARIANELA HIDALGO MADRIGAL PUSC",
+          "jurisprudencia@tse.go.cr"
+        ]
+      },
+      "observed_text_path": "notebook/research/workbench/processors/bench/work/control-tse/outputs/tse-p2-skew_noise_300_png-tesseract.txt",
+      "observed_text_sha256": "fae836ce297707694b2b88e5c04d586d73a8d4767a092ea54366316d079725ed"
+    },
+    {
+      "backend": "pdfplumber.table",
+      "label": "tse-p2-native-table",
+      "input": "notebook/research/pre-sql/fixtures/artifact-proofs/alcaldias_pu.pdf",
+      "input_sha256": "192da0e99878aa310a906f381f3bb25c9678934743b1b7563df747e05a8eb4f3",
+      "execution_venue": "deterministic_local",
+      "wall_seconds": 0.03117387200001076,
+      "tables_detected": 1,
+      "expected_rows": 3,
+      "exact_rows_matched": 3,
+      "exact_row_recall": 1.0,
+      "matched_rows": [
+        [
+          "ALCALDÍA",
+          "601420299",
+          "BIENVENIDO VENEGAS PORRAS",
+          "PUSC"
+        ],
+        [
+          "VICEALCALDÍA PRIMERA",
+          "701450511",
+          "YERLIN DE LOS ANGELES DIAZ VARGAS",
+          "PUSC"
+        ],
+        [
+          "VICEALCALDÍA SEGUNDA",
+          "602940147",
+          "HEIDI MARIANELA HIDALGO MADRIGAL",
+          "PUSC"
+        ]
+      ]
+    }
+  ]
+}

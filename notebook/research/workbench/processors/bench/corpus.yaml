@@ -1,0 +1,166 @@
+version: 1
+state: PARTIAL_CORPUS__CONTROLLED_CIVIC_FIXTURE_READY
+fixtures:
+  - id: tse-esparza-alcaldias-p2
+    status: ready
+    kind: official_public_pdf
+    authority: Tribunal Supremo de Elecciones de Costa Rica
+    source_url: https://www.tse.go.cr/pdf/gobernantes/alcaldias_pu.pdf
+    source_path: notebook/research/pre-sql/fixtures/artifact-proofs/alcaldias_pu.pdf
+    source_sha256: 192da0e99878aa310a906f381f3bb25c9678934743b1b7563df747e05a8eb4f3
+    page_ordinal: 2
+    egress_policy: allowed_public
+    scenarios:
+      - born_digital_pdf
+      - table_heavy_pdf
+      - controlled_clean_scan
+      - controlled_low_dpi_scan
+      - controlled_skew_noise_scan
+      - controlled_mixed_native_scan
+      - controlled_malformed_pdf
+    ground_truth: ground_truth/tse-esparza-alcaldias-p2.json
+
+  - id: esparza-real-born-digital-acta
+    status: ready_unscored
+    kind: real_shadow_custody_artifact
+    source: certified Esparza shadow Depósito
+    source_url: https://muniesparza.go.cr/files/folder/e0256fdf-3714-40f5-ae10-aff18f0ca95e.pdf
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/esparza-2026-concejo.pdf
+    local_path_policy: ignored_bench_work_only
+    source_sha256: ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd
+    bytes: 760485
+    media_type: application/pdf
+    page_count: 39
+    acquisition_timestamp: 2026-08-21T23:43:10.186Z
+    public_classification: public
+    egress_policy: allowed_public
+    scenarios: [born_digital_pdf]
+    ground_truth: UNSCORED_NATURAL
+    note: Reused from certified shadow custody; source bytes remain ignored under bench/work and are not committed.
+
+  - id: esparza-real-docx
+    status: ready_unscored
+    kind: real_source_document
+    source: Municipalidad de Esparza public archive
+    source_url: https://muniesparza.go.cr/files/folder/8e6f6f8c-5607-4b0f-ae08-0042f5ebe852.docx
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/esparza-acta-147-2026.docx
+    local_path_policy: ignored_bench_work_only
+    source_sha256: 8ece7541ddf11176155b561d4692e15bfe128057d78c70a7551e6f2e36f4bd31
+    bytes: 3724482
+    media_type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    acquisition_timestamp: 2026-08-21T23:18:30.502Z
+    public_classification: public
+    egress_policy: review_before_cloud
+    scenarios: [docx_headings_lists_tables]
+    ground_truth: UNSCORED_NATURAL
+    note: Official DOCX linked by the certified Esparza listing; not converted from PDF.
+
+  - id: esparza-real-html-listing
+    status: UPSTREAM_CHANGED
+    kind: real_shadow_custody_artifact
+    source: certified Esparza shadow Depósito
+    source_url: https://muniesparza.go.cr/articulo/230/actas-concejo-municipal
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/esparza-concejo-listing.html
+    local_path_policy: ignored_bench_work_only
+    source_sha256: 5dc79c94bbf74587f04560eed0f7915590aa8a46d57de4c699eadfd42ac7c07f
+    observed_sha256: c4e0996e9c6e2ee04a3708cfbf5d65e9f8f4fc0868d51f3f86da54f86c168a74
+    bytes: 185663
+    media_type: text/html
+    acquisition_timestamp: 2026-08-21T23:43:10.186Z
+    public_classification: public
+    egress_policy: review_before_cloud
+    scenarios: [html_hierarchy_links]
+    ground_truth: UNSCORED_NATURAL
+    note: Current upstream bytes differ from the recorded 2026-08-21 capture; metadata was not silently replaced.
+
+
+  - id: cartago-budget-heavy-acta-candidate
+    status: NOT_READY_FETCH_FAILED
+    kind: official_public_pdf
+    authority: Municipalidad de Cartago
+    source_url: https://www.muni-carta.go.cr/wp-content/uploads/2025/09/ACTA-No-108-2025-17-09-2025-PRESUPUESTO-ORDINARIO-2026.pdf
+    egress_policy: review_before_cloud
+    scenarios: [table_heavy_pdf, long_born_digital_pdf]
+    note: HTTPS CA verification failed locally and an explicit retry returned HTTP 404; no bytes were promoted to the corpus.
+
+  - id: fecomudi-long-embedded-acta-candidate
+    status: ready_unscored
+    kind: official_public_pdf
+    authority: Federación de Concejos Municipales de Distrito de Costa Rica
+    source_url: https://www.fecomudi.go.cr/images/actas/2025/actas-ordinarias/acta_sesionordinaria_n142025.pdf
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/fecomudi-acta-14-2025.pdf
+    local_path_policy: ignored_bench_work_only
+    source_sha256: 0e45998587e805e1fb376bd6b5f9ac6a94995d81fad4ce2bdb131b47b63a2de3
+    bytes: 3781977
+    media_type: application/pdf
+    page_count: 56
+    acquisition_timestamp: 2026-08-21T23:17:45.463Z
+    public_classification: public
+    egress_policy: allowed_public
+    scenarios: [long_born_digital_pdf, mixed_layout_embedded_material]
+    ground_truth: UNSCORED_NATURAL
+    note: Official 56-page acta downloaded and structurally inspected; text is non-empty on all pages, but no independent truth is curated.
+
+  - id: quepos-long-acta-candidate
+    status: ready_unscored
+    kind: official_public_pdf
+    authority: Municipalidad de Quepos
+    source_url: https://muniquepos.go.cr/wp-content/uploads/2021/06/ACTA-086-2021-01-06-2021-ORDINARIA.pdf
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/quepos-acta-086-2021.pdf
+    local_path_policy: ignored_bench_work_only
+    source_sha256: 944f362c66e6a14abc3b31044968b467ed272b1ab04a52eb91ae7cafdfc23ac0
+    bytes: 619293
+    media_type: application/pdf
+    page_count: 35
+    acquisition_timestamp: 2026-08-21T23:17:45.108Z
+    public_classification: public
+    egress_policy: allowed_public
+    scenarios: [long_born_digital_pdf]
+    ground_truth: UNSCORED_NATURAL
+    note: Official municipal acta downloaded and structurally inspected; no independent truth is curated.
+
+  - id: civic-multicolumn-pdf
+    status: corpus_gap
+    scenarios: [multi_column_digital_pdf]
+  - id: civic-mixed-native-scan-pdf
+    status: generated_from_control_fixture
+    scenarios: [mixed_native_and_scan]
+    note: Generated from the same TSE page as native page 1 + image-only page 2; exact duplicated textual truth is known.
+  - id: civic-handwriting
+    status: corpus_gap
+    scenarios: [handwriting_heavy]
+  - id: civic-malformed-pdf
+    status: generated_from_control_fixture
+    scenarios: [malformed_truncated_pdf]
+  - id: civic-xlsx-csv
+    status: ready_unscored
+    kind: official_public_xlsx
+    authority: Ministerio de Trabajo y Seguridad Social
+    source_url: https://datosabiertos.gob.go.cr/dataset/mtss-liquidacion-presupuestaria-enero-2026
+    resource_url: https://drive.google.com/open?id=15gEk4p_1Rc8VQYDGHIdg3WqaNfvd5Aof
+    resource_id: dbe55040-ef6b-41ad-8949-d31a4f2254da
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/mtss-liquidacion-enero-2026.xlsx
+    local_path_policy: ignored_bench_work_only
+    source_sha256: c98451ffdebc7976757a27ccd9a69a56061c16c37bd808b8d3398b3ffcb8608e
+    bytes: 26468
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    public_classification: public
+    egress_policy: allowed_public
+    scenarios: [xlsx_multiple_tables]
+    ground_truth: UNSCORED_NATURAL
+    note: Official open-data workbook; direct cell/sheet structure is independently inspectable without AI.
+  - id: civic-html
+    status: UPSTREAM_CHANGED
+    source: certified Esparza listing capture
+    source_url: https://muniesparza.go.cr/articulo/230/actas-concejo-municipal
+    source_path: notebook/research/workbench/processors/bench/work/natural-corpus/esparza-concejo-listing.html
+    local_path_policy: ignored_bench_work_only
+    source_sha256: 5dc79c94bbf74587f04560eed0f7915590aa8a46d57de4c699eadfd42ac7c07f
+    observed_sha256: c4e0996e9c6e2ee04a3708cfbf5d65e9f8f4fc0868d51f3f86da54f86c168a74
+    bytes: 185663
+    media_type: text/html
+    acquisition_timestamp: 2026-08-21T23:43:10.186Z
+    public_classification: public
+    egress_policy: review_before_cloud
+    scenarios: [html_hierarchy_links]
+    ground_truth: UNSCORED_NATURAL

@@ -1,0 +1,37 @@
+scenario_id,scenario,expected_behavior,pressure
+AKS-SC001,Clean municipal acta PDF,"Acquire PDF, extract embedded text, claims point to page+quote; no DocumentPart required.",Artifact/Representation/EvidenceLocator minimal path
+AKS-SC002,Scanned acta,Preserve PDF; OCR representation carries process info; evidence can use page+bbox+quote.,Original/derived separation
+AKS-SC003,"Same URL, changed bytes",Two acquisitions share source URI; each successful capture has its own Artifact while changed bytes produce a different ArchiveObject.,Source != Acquisition != Artifact != ArchiveObject
+AKS-SC004,"Same URL, identical bytes later",New acquisition observation creates a new logical Artifact that may share the existing ArchiveObject; no duplicate bytes required.,Observation/custody history without storage duplication
+AKS-SC005,Temporary 404,Record failed observation; prior document/artifact remains valid.,Absence is not deletion
+AKS-SC006,Specialized parser sees changed HTML,Preserve response; mark profile parse failed/partial; do not emit guessed structure.,Fail loud + graceful degradation
+AKS-SC007,Unknown PDF type,"Store document with unknown/other classification, generic text/claims still possible.",Typing optional
+AKS-SC008,Source labels resolution as “Informe”,Preserve source label; normalized type may be resolucion with explicit basis.,Raw vs normalized classification
+AKS-SC009,One PDF contains oficio + report + annex,One artifact/representation can support multiple civic documents or optional parts depending semantic independence.,Document identity vs container bytes
+AKS-SC010,Budget spreadsheet,Evidence locator uses sheet/cell/range + value context; document typing stays presupuesto.,Representation-specific locator
+AKS-SC011,JSON open dataset,Evidence locator uses JSON pointer/path + value/hash; source document may be dataset.,Typed locator extension
+AKS-SC012,Session video,Representation can be transcript; evidence link uses temporal segment and optional transcript quote.,Timed media locator
+AKS-SC013,HTML text shifts after redesign,Exact quote+prefix/suffix survives position drift better than offsets alone.,Redundant selectors/state
+AKS-SC014,New OCR engine,Create new representation; old OCR and claim provenance remain inspectable.,Reprocessing without history rewrite
+AKS-SC015,250 machine-extracted claims,Supervised mode stores/searches all; review is not a prerequisite.,High-volume extraction
+AKS-SC016,Operator reviews 40 claims at once,One bulk action applies per-claim decisions; no canonical ReviewBatch required.,"Batch ergonomics, individual traceability"
+AKS-SC017,Two official sources disagree on amount,Store both claims with evidence; explicit contradicts relation if warranted; no forced truth resolution.,Plural sourced assertions
+AKS-SC018,AyA aliases,Raw mentions preserved; resolved to stable local organization entity after high-confidence match/review.,EntityMention + Entity
+AKS-SC019,Two “Juan Pérez”,Remain unresolved/separate until independent evidence supports identity.,No name-equality merge
+AKS-SC020,Project renamed,Stable project entity keeps multiple observed names with dates/sources; claims remain anchored.,Identity across labels
+AKS-SC021,Claim B updates Claim A,Store explicit ClaimRelation with exact revisions and basis.,First-class relation
+AKS-SC022,AI suggests contradiction,"Store machine-only relation or candidate state; searchable/filterable, not human-reviewed.",Machine relation provenance
+AKS-SC023,Employment/membership with role and dates,Promote relation to typed association object rather than stuffing attributes into generic edge.,Rich-relation promotion rule
+AKS-SC024,100 claims all mention Caldera,"All anchor to entity Caldera; never generate 4,950 pairwise relations.",No co-occurrence clique
+AKS-SC025,"A updates B, B updates C",Query may traverse chain; do not persist inferred A→C unless independently asserted.,No transitive materialization
+AKS-SC026,Public output needs redaction,Generate redacted/public representation/output; custody original remains separate under policy.,Publication != evidence mutation
+AKS-SC027,Lawful purge required,Remove restricted bytes according to explicit policy while preserving non-sensitive tombstone/audit facts as lawful.,Immutability boundary
+AKS-SC028,Hilo output,Queries Fichero and uses Episode internally; cannot write canonical claims.,Output boundary
+AKS-SC029,Non-Hilo timeline output,"Uses same read model without Episode, proving core is not Hilo-shaped.",Output structural independence
+AKS-SC030,Local taxonomy hierarchy emerges,Start flat; promote selected tags to concepts/aliases/hierarchy when real queries require it.,Deferred SKOS-like semantics
+AKS-SC031,Backup to another machine,Package DB + evidence archive + manifest/checksums; restore verifies before activation.,BagIt-like integrity boundary
+AKS-SC032,Read-only consumer searches 100k claims,FTS/facets/joins in SQLite or read projection; no write authority.,"Single store, many readers"
+AKS-SC033,Relation traversal depth explodes,Queries impose bounded depth/result limits; graph engine considered only after measured failure.,Operational graph boundary
+AKS-SC034,Output plugin wants arbitrary canonical mutation,Denied by read-only output capability; canonical changes use core operations explicitly.,Extension authority
+AKS-SC035,Malformed source produces plausible wrong segmentation,Fixture compares derived units to artifact; schema-valid output alone fails certification.,Correctness audit
+AKS-SC036,External standard exports requested,Map internal records to ELI/Akoma/PROV/Web Annotation at adapter boundary.,Interop without standards-stacked core
