@@ -241,9 +241,26 @@ small editorial summary. Shared entity/tag anchors may be created broadly;
 claim-to-claim semantic relations are recorded separately and never inferred
 merely from shared subject matter.
 
-**Gate:** one long document can produce a large claim set with stable provenance,
-no duplicate explosion on replay, and no review requirement merely to store or
-search those claims/connections; relation replay is idempotent and attributable.
+**Current:** LECTOR-001 is independently certified and integrated. It provides the
+backend-neutral `SemanticExtractor` contract, exact locator reopening, bounded
+registry/host selection, atomic canonical semantic writer, ProcessRun
+replay/collision semantics, restricted/egress enforcement, and a 300-Claim
+machine-only volume/replay proof. It deliberately does not choose a real
+rule/model backend or claim extraction policy.
+
+LECTOR-002 is the first real extractor unit. It must benchmark an approved
+official Esparza acta against independently prepared civic-claim truth, not
+against the model's own output. At minimum measure recoverability/recall of
+material civic propositions, unsupported claims, over-merged/over-split claims,
+exact evidence reopening, relevant EntityMention coverage, procedural-noise
+precision, latency/resource/egress facts and stable replay. Schema-valid output
+alone is not a quality gate.
+
+**Gate:** one long real document can produce a large useful claim set with stable
+provenance, exact inspectable evidence, no duplicate explosion on replay and no
+review requirement merely to store/search it. The accepted extractor must meet
+the frozen real-document quality thresholds and remain replaceable behind
+LECTOR-001.
 
 ## WP6 — Review and Operator Workflow
 
