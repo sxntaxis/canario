@@ -288,7 +288,7 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
 
 def make_backup(con: sqlite3.Connection, archive_root: Path, backup_root: Path) -> Path:
     backup_root.mkdir(parents=True, exist_ok=True)
-    db_backup = backup_root / "actakit.sqlite3"
+    db_backup = backup_root / "canario.sqlite3"
     dest = open_db(db_backup)
     con.backup(dest)
     dest.close()
@@ -302,7 +302,7 @@ def make_backup(con: sqlite3.Connection, archive_root: Path, backup_root: Path) 
         shutil.copy2(src, dst)
         entries.append({"archive_object_id": oid, "storage_key": key, "sha256": h, "byte_size": size})
     manifest = {
-        "format": "actakit-backup-proof-v1",
+        "format": "canario-backup-proof-v1",
         "application_id": APPLICATION_ID,
         "user_version": SCHEMA_VERSION,
         "sqlite_runtime": sqlite3.sqlite_version,
@@ -315,11 +315,11 @@ def make_backup(con: sqlite3.Connection, archive_root: Path, backup_root: Path) 
 
 def restore_clean_machine(backup_root: Path, restore_root: Path) -> None:
     restore_root.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(backup_root / "actakit.sqlite3", restore_root / "actakit.sqlite3")
+    shutil.copy2(backup_root / "canario.sqlite3", restore_root / "canario.sqlite3")
     shutil.copytree(backup_root / "archive", restore_root / "archive")
     manifest = json.loads((backup_root / "manifest.json").read_text())
 
-    con = open_db(restore_root / "actakit.sqlite3")
+    con = open_db(restore_root / "canario.sqlite3")
     assert_db_identity(con)
     assert manifest["application_id"] == APPLICATION_ID and manifest["user_version"] == SCHEMA_VERSION
     assert con.execute("PRAGMA foreign_key_check").fetchall() == []
@@ -417,7 +417,7 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
     assert not purge_file.exists()
 
     # The pre-purge backup remains deliberately out of scope and must be reported as such.
-    backup_uri = (backup_root / "actakit.sqlite3").resolve().as_uri() + "?mode=ro"
+    backup_uri = (backup_root / "canario.sqlite3").resolve().as_uri() + "?mode=ro"
     backup_con = sqlite3.connect(backup_uri, uri=True)
     backup_has = backup_con.execute("SELECT count(*) FROM claim_revisions WHERE text LIKE ?", (f"%{SENTINEL}%",)).fetchone()[0] == 1
     backup_con.close()
@@ -436,13 +436,13 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
 
 
 def main() -> None:
-    with tempfile.TemporaryDirectory(prefix="actakit-storage-proof-") as td:
+    with tempfile.TemporaryDirectory(prefix="canario-storage-proof-") as td:
         root = Path(td)
         live = root / "live"
         live.mkdir()
         archive = live / "archive"
         archive.mkdir()
-        db_path = live / "actakit.sqlite3"
+        db_path = live / "canario.sqlite3"
         con = open_db(db_path)
         con.executescript(DDL.read_text())
         assert_db_identity(con)

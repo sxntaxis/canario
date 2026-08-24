@@ -20,7 +20,7 @@ related:
 
 ## Pre-release compatibility policy
 
-ActaKit is **pre-release**. There is currently no public/beta compatibility
+Canario is **pre-release**. There is currently no public/beta compatibility
 commitment and no user SQLite fleet whose historical schema must be preserved.
 Until `release_phase` is explicitly advanced to `beta` (or a later
 compatibility-bearing release) in this operating-status document:
@@ -40,9 +40,12 @@ rebasing historical `0001`.
 
 ## Current Implementation
 
-The repository currently implements the file/Markdown acta pipeline. Existing
-operator data and curated Hilos are preserved; no mass regeneration or migration
-is authorized by the architecture proposal.
+The repository now contains the certified generic durable core (`canario/`) alongside
+the preserved file/Markdown municipal-acta/Hilo workflow. The latter remains real operator
+history and regression material but is explicitly legacy/source-specific; it is not the
+architectural template for new Canario capabilities. Existing operator data and curated
+Hilos are preserved; no mass regeneration or migration is authorized by the architecture
+proposal.
 
 One existing canton configuration contains deployment-specific absolute paths.
 Those paths are legacy deployment configuration, **not** target product
@@ -69,7 +72,7 @@ The semantic authority for the durable core is accepted in:
 - `CONTRACTS.md`;
 - `DATA_MODEL.md`.
 
-ActaKit remains a self-contained civic-record system using:
+Canario remains a self-contained civic-record system using:
 
 ```text
 Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
@@ -98,7 +101,8 @@ accepted semantic contracts
 -> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
 -> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter independently certified
 -> LECTOR-001 bounded semantic extraction boundary independently certified + integrated
--> LECTOR-002 Acta 161 benchmark scaffold prepared; independent gold truth pending
+-> LECTOR-002 heterogeneous reference-corpus gate active; Acta 161 is one pending
+   minutes/text case, broad corpus and typed table/media evaluators incomplete
 -> explicit canonical-cutover gate later
 ```
 
@@ -132,7 +136,7 @@ below.
 
 ## INGRESS-001 current boundary
 
-`docs/INGRESS.md` is accepted. The implementation lives in `actakit/ingress/` and
+`docs/INGRESS.md` is accepted. The implementation lives in `canario/ingress/` and
 proves that HTML-inventory, incremental JSON-API, and manual-push fixtures all
 terminate at one `InboxPort` without importing their terrain into the core DTO.
 
@@ -155,7 +159,7 @@ checkpoint persistence remain unfrozen.
 
 The state-of-the-art package at
 `notebook/research/workbench/processors/` is complete for the selection horizon.
-It authorized the generic `actakit/processors` boundary, which is now independently
+It authorized the generic `canario/processors` boundary, which is now independently
 certified, and concrete backends now land as separate bounded adapter units. The closed research
 selected this escalation philosophy:
 
@@ -173,7 +177,7 @@ native/direct parse
 -> human review
 ```
 
-Processors are intended to be a curated built-in ActaKit capability. Backend
+Processors are intended to be a curated built-in Canario capability. Backend
 replaceability is an escape hatch for hardware, licensing, new/hard formats,
 execution-venue policy and benchmarking; WP4C is not a plugin-marketplace project.
 Cloud frontier capacity is optional but first-class: a weak host may escalate to
@@ -216,10 +220,29 @@ and LECTOR-001 writes no synthetic human review. The certified SQL baseline rema
 unchanged at `5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb`;
 no `0002` exists.
 
-The active semantic edge is LECTOR-002: the deterministic Acta 161 worksheet/scorer is
-prepared; freeze the independent gold truth before measuring a real broad extractor. Production
-review policy remains separate: machine-only is a valid searchable state, not a
-mandatory review queue.
+The active semantic edge is LECTOR-002: a heterogeneous reference-corpus gate is active.
+Acta 161 is only the pending `institutional_minutes` text case; it cannot certify broad
+extraction alone. The broad gate remains blocked on additional real source classes and typed
+table/media evaluators. Production review policy remains separate: machine-only is a valid
+searchable state, not a mandatory review queue.
+
+## Known modality gaps — do not paper over them
+
+The contracts/schema are broader than the adapters currently implemented. In particular:
+
+- Ingress/custody can preserve arbitrary recording bytes, but Canario does **not** yet ship
+  an audio/video transcription processor;
+- the canonical evidence model specifies `media:v1` time spans, but LECTOR-001 runtime
+  reopening currently implements only `text_quote:v1` and `table_range:v1`;
+- the current Codex visual adapter is bounded to one PDF page, not a universal image/video
+  semantic processor;
+- structured table evidence has a Lector reopening contract, but LECTOR-002 still needs a
+  real structured-data case/evaluator proof;
+- a transcript is a derivative Representation and may not replace the original recording's
+  custody or timed evidence semantics.
+
+These are explicit implementation gaps. An agent must not claim broad multimodal support by
+flattening unsupported media into text or by extrapolating from the minutes/PDF fixtures.
 
 ## Current Prohibitions
 

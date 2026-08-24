@@ -1,4 +1,4 @@
-# Política de Seguridad — actakit
+# Política de Seguridad — canario
 
 ## Reporte de vulnerabilidades
 
@@ -10,7 +10,7 @@ En su lugar:
 
 ## Vulnerabilidades conocidas y mitigaciones
 
-actakit procesa documentos gubernamentales y archivos del sistema local.
+canario procesa documentos gubernamentales y archivos del sistema local.
 Las siguientes mitigaciones están implementadas:
 
 ### Command injection

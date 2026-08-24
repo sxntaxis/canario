@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the Esparza Source Connector into an isolated ActaKit shadow Depósito.
+"""Run the Esparza Source Connector into an isolated Canario shadow Depósito.
 
 This is a host/integration harness, not part of the SourceConnector SPI itself.
 It intentionally does not write the legacy scraper output, Markdown inbox, Hilos,
@@ -13,14 +13,14 @@ import json
 import os
 from pathlib import Path
 
-from actakit.connectors.esparza import (
+from canario.connectors.esparza import (
     DEFAULT_SECTIONS,
     EsparzaCmsConfig,
     EsparzaCmsConnector,
 )
-from actakit.deposit import DepositWriter, SourceRegistration, new_id, utc_now
-from actakit.ingress import DepositInbox, run_connector
-from actakit.persistence import ensure_schema_v1
+from canario.deposit import DepositWriter, SourceRegistration, new_id, utc_now
+from canario.ingress import DepositInbox, run_connector
+from canario.persistence import ensure_schema_v1
 
 
 SOURCE_BINDING_VERSION = 1
@@ -117,7 +117,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--shadow-root",
         required=True,
         type=Path,
-        help="Isolated ActaKit shadow state root (never the legacy vault)",
+        help="Isolated Canario shadow state root (never the legacy vault)",
     )
     parser.add_argument(
         "--base-url",
@@ -161,7 +161,7 @@ def main(argv: list[str] | None = None) -> int:
     shadow_root = args.shadow_root
     shadow_root.mkdir(parents=True, exist_ok=True)
 
-    database_path = shadow_root / "actakit.sqlite3"
+    database_path = shadow_root / "canario.sqlite3"
     archive_root = shadow_root / "archive"
     binding_path = shadow_root / "source-binding.json"
 

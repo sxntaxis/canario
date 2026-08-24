@@ -12,7 +12,7 @@ summary: First real SourceConnector consumer of INGRESS-001 for the Municipalida
 
 ## Role
 
-`actakit.connectors.esparza.EsparzaCmsConnector` is the first real consumer of
+`canario.connectors.esparza.EsparzaCmsConnector` is the first real consumer of
 `ACTAKIT-INGRESS-001`. It is deliberately source-specific and is **not** a new
 shape for the Inbox SPI.
 
@@ -28,7 +28,7 @@ EsparzaCmsConnector
 InboxPort -> DepositInbox -> DepositWriter -> shadow Depósito
 ```
 
-The connector module does not import `actakit.deposit`, SQLite, semantic
+The connector module does not import `canario.deposit`, SQLite, semantic
 repositories, Hilos, or the legacy scraper.
 
 ## Current official source surfaces
@@ -119,7 +119,7 @@ plugin API. It requires an explicit `--shadow-root` and writes only:
 
 ```text
 <shadow-root>/
-  actakit.sqlite3
+  canario.sqlite3
   archive/
   source-binding.json
 ```

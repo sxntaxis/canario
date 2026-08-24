@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from actakit.deposit import (
+from canario.deposit import (
     AcquisitionObservation,
     AcquisitionWrite,
     CapturedArtifact,
@@ -25,8 +25,8 @@ from actakit.deposit import (
     new_id,
     utc_now,
 )
-from actakit.persistence import ensure_schema_v1
-from actakit.processors import (
+from canario.persistence import ensure_schema_v1
+from canario.processors import (
     EgressAuthorization,
     ProcessingRequest,
     ProcessorDescriptor,
@@ -36,7 +36,7 @@ from actakit.processors import (
     WorkbenchHost,
     WorkbenchWriter,
 )
-from actakit.processors.ocr import OcrPdfProcessor
+from canario.processors.ocr import OcrPdfProcessor
 
 TSE_TRUTH = ROOT / "notebook/research/workbench/processors/bench/ground_truth/tse-esparza-alcaldias-p2.json"
 ESPARZA_TRUTH = ROOT / "notebook/research/workbench/processors/bench/ground_truth/natural-layout/esparza-p4.json"
@@ -92,9 +92,9 @@ def _capture_and_run(
     selector_payload: dict[str, object],
     source_url: str,
 ) -> tuple[object, str, dict[str, object]]:
-    with tempfile.TemporaryDirectory(prefix="actakit-ocr-proof-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="canario-ocr-proof-") as tmp:
         root = Path(tmp)
-        db = root / "actakit.sqlite3"
+        db = root / "canario.sqlite3"
         archive = root / "archive"
         ensure_schema_v1(db)
         deposit = DepositWriter(db, archive)
@@ -297,7 +297,7 @@ def _prove_natural(processor: OcrPdfProcessor, source: Path) -> None:
         raise SystemExit(
             f"PROCESSOR_OCR_001_PROOF=FAIL natural source hash mismatch observed={observed}"
         )
-    with tempfile.TemporaryDirectory(prefix="actakit-ocr-natural-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="canario-ocr-natural-") as tmp:
         scan_pdf = _render_natural_scan(source, int(truth["source_page"]), Path(tmp))
         receipt, text, evidence = _capture_and_run(
             pdf_bytes=scan_pdf.read_bytes(),

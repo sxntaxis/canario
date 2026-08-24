@@ -11,7 +11,7 @@ from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
 
-from actakit.deposit import (
+from canario.deposit import (
     AcquisitionObservation,
     AcquisitionWrite,
     CapturedArtifact,
@@ -20,9 +20,9 @@ from actakit.deposit import (
     SourceRegistration,
     new_id,
 )
-from actakit.persistence import database
-import actakit.processors.codex as codex_module
-from actakit.processors import (
+from canario.persistence import database
+import canario.processors.codex as codex_module
+from canario.processors import (
     EgressAuthorization,
     ProcessingRequest,
     ProcessorRegistry,
@@ -31,7 +31,7 @@ from actakit.processors import (
     WorkbenchHost,
     WorkbenchWriter,
 )
-from actakit.processors.codex import (
+from canario.processors.codex import (
     CodexConfigurationError,
     CodexUnavailableError,
     CodexVisualConfig,
@@ -148,7 +148,7 @@ class CodexProcessorTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.codex_home = self.root / "codex-home"
         self.codex_home.mkdir(mode=0o700)
-        self.db = self.root / "actakit.sqlite3"
+        self.db = self.root / "canario.sqlite3"
         self.archive = self.root / "archive"
         database._ensure_schema_v1(self.db, NO_RUNTIME_CHECK)
         self.deposit = DepositWriter(self.db, self.archive, connection_factory=local_connection)

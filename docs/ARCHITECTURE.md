@@ -16,7 +16,7 @@ related:
 
 ## Purpose
 
-ActaKit is a self-contained local system for **acquiring, preserving, extracting,
+Canario is a self-contained local system for **acquiring, preserving, extracting,
 classifying, relating, searching, reviewing, and exporting information contained
 in public civic or governmental records**.
 
@@ -24,7 +24,7 @@ Actas are the first mature workflow, not the product boundary. The same core mus
 handle reports, budgets, official correspondence, resolutions, plans, public
 datasets, recordings, and document types not known in advance.
 
-ActaKit is not a party CRM, strategy workspace, general note system, propaganda
+Canario is not a party CRM, strategy workspace, general note system, propaganda
 engine, or political-profiling system. It may interoperate with other tools only
 through generic imports/exports or adapters; no external workspace or service is
 part of its architecture.
@@ -33,7 +33,7 @@ part of its architecture.
 
 > **As simple as possible, as complicated as necessary.**
 
-ActaKit applies this in two directions:
+Canario applies this in two directions:
 
 1. **Implement only complexity justified by real use.**
 2. **Choose boundaries now that prevent expensive destructive migrations later.**
@@ -44,7 +44,7 @@ plugin registry, graph database, or multi-user permission hierarchy today.
 
 ## Native Human Vocabulary
 
-ActaKit should be explainable without database vocabulary. These metaphors are
+Canario should be explainable without database vocabulary. These metaphors are
 part of the product language used in documentation and operator interfaces. They
 are **not mandatory directory or module names**; code uses the clearest technical
 names for maintainability.
@@ -104,7 +104,7 @@ Typical material includes:
 - records from municipalities, public institutions, public-service bodies, or
   other organizations acting in a public civic capacity.
 
-ActaKit does **not** attempt to archive the whole internet or convert every
+Canario does **not** attempt to archive the whole internet or convert every
 sentence into political intelligence. Extraction aims to be comprehensive
 within civic relevance.
 
@@ -142,7 +142,7 @@ They act on top of the traceable record.
 
 ## Source ingress: Connector -> Inbox
 
-External sources have incompatible terrain. ActaKit therefore does not define its
+External sources have incompatible terrain. Canario therefore does not define its
 acquisition architecture by the current Esparza scraper or by a universal
 `scrape()` method. A **Source Connector** owns source-specific discovery/fetching
 and terminates at the terrain-neutral **Inbox** ingress port.
@@ -160,7 +160,7 @@ HTML/API/browser/feed/filesystem/manual/...
 ```
 
 The connector may not write canonical custody or semantic tables directly.
-ActaKit binds the Inbox to canonical Source identity, connector key/version and
+Canario binds the Inbox to canonical Source identity, connector key/version and
 core-owned custody policy. Discovery/checkpoint mechanics remain source-specific;
 coverage is reported explicitly so absence in one run is never deletion proof.
 
@@ -255,7 +255,7 @@ Typing preserves three facts:
 
 ```text
 source-supplied type   what the publisher called it
-normalized type        ActaKit's broad classification
+normalized type        Canario's broad classification
 profile                 optional specialized structure
 ```
 
@@ -282,7 +282,7 @@ Can extract traceable claims? -> keep them.
 Cannot use a specialized profile? -> continue generically.
 ```
 
-ActaKit must never invent structure merely to avoid `unknown`. A malformed
+Canario must never invent structure merely to avoid `unknown`. A malformed
 representation may be stored while remaining unusable as exact factual support.
 
 ## The Lector Is Not “the AI”
@@ -319,7 +319,7 @@ projects, deadlines, requests, commitments, reported problems, institutional
 responses, quantitative facts, and other later-searchable developments.
 
 The system should not optimize only for what looks important today. The value of
-ActaKit is partly that an obscure fact can become easy to recover months later.
+Canario is partly that an obscure fact can become easy to recover months later.
 
 Do not compress different questions into one status or confidence score:
 
@@ -333,7 +333,7 @@ assessment   optional attributable judgment such as supported / contested / refu
 
 `machine-only` describes review visibility, not lifecycle. `corrected` means a
 new revision or explicit correction event, not a permanent status. An assessment
-is optional and never presented as ActaKit measuring objective truth; evidence
+is optional and never presented as Canario measuring objective truth; evidence
 links and claim relations remain the inspectable basis.
 
 A practical claim boundary is:
@@ -341,7 +341,7 @@ A practical claim boundary is:
 > the smallest proposition worth verifying, correcting, searching, or relating
 > independently.
 
-ActaKit does not atomize prose merely because a model can.
+Canario does not atomize prose merely because a model can.
 
 ## Source Authority: What Can This Evidence Demonstrate?
 
@@ -358,7 +358,7 @@ budget table       -> values represented in that budget document
 secondary article  -> what that publication reported
 ```
 
-ActaKit must distinguish “the institution said X” from “X happened” and from
+Canario must distinguish “the institution said X” from “X happened” and from
 “the institution formally agreed X.” Evidence links and claim wording carry
 that limitation instead of laundering all official-looking material into the
 same authority class.
@@ -368,7 +368,7 @@ supporting a source assertion.
 
 ## Review: the Mesa de control
 
-ActaKit is **single-operator-first**. A normal canton installation is expected to
+Canario is **single-operator-first**. A normal canton installation is expected to
 have one operator, sometimes two, and potentially many read-only consumers.
 The architecture records actions precisely without inventing an organization
 chart that small teams do not have. Claims and explicit claim relations use the
@@ -444,7 +444,7 @@ Claim C -> entity: Puerto Caldera
 ```
 
 This is enough to retrieve the claims together. It does **not** assert that A, B,
-and C logically update, contradict, or respond to one another. ActaKit must not
+and C logically update, contradict, or respond to one another. Canario must not
 create pairwise edges merely because two claims share a subject.
 
 ### Explicit claim relations
@@ -462,7 +462,7 @@ basis, lifecycle/review state, and exact evidence/claim references or rationale
 needed to understand it. A machine-proposed relation may remain searchable as machine-only; a human
 review is not required merely for the connection to exist.
 
-This gives ActaKit a **graph-shaped civic record** without requiring a graph
+This gives Canario a **graph-shaped civic record** without requiring a graph
 database. The baseline persists typed entities, joins, and claim relations in
 SQLite. A specialized graph engine is justified only if real traversal/query
 workloads later exceed what the relational model can handle cleanly.
@@ -497,7 +497,7 @@ role, validity interval, origin/basis/lifecycle and exact evidence. Other rich
 families remain absent until their own fixture/query proves them. `ClaimRelation`
 stays narrow rather than becoming an attributed-edge junk drawer.
 
-Tags/taxonomies are local by default and may be shared deliberately. ActaKit
+Tags/taxonomies are local by default and may be shared deliberately. Canario
 must not impose one national topic taxonomy.
 
 Dates, quantities, locations, or other structured values should become dedicated
@@ -574,7 +574,7 @@ The first durable implementation is intentionally local and simple:
 CLI / local operator UI / worker
             |
             v
-       ActaKit core
+       Canario core
         |       |
         v       v
      SQLite   archive
@@ -583,7 +583,7 @@ CLI / local operator UI / worker
 queries / outputs / exports
 ```
 
-The **ActaKit core is the sole canonical writer**. Clients do not write SQLite
+The **Canario core is the sole canonical writer**. Clients do not write SQLite
 by hand.
 
 A continuously running local service, Unix socket, RPC protocol, PostgreSQL,
@@ -615,7 +615,7 @@ derivative. A lawful or safety-driven purge is an exceptional explicit policy
 operation that removes the targeted bytes and derived copies/indexes that retain
 the purged content.
 
-When policy and law permit, ActaKit keeps a minimal non-sensitive tombstone:
+When policy and law permit, Canario keeps a minimal non-sensitive tombstone:
 opaque record identity, purge time, attributable authority/action, broad reason
 code, and enough lineage to explain that material once existed. The tombstone
 must not retain the very content, raw mention, locator, digest, or metadata whose
@@ -630,7 +630,7 @@ silently appearing fully evidenced.
 ## Privacy and Publication
 
 Preserving original public evidence and republishing every datum from it are
-different actions. ActaKit can retain source material while minimizing public
+different actions. Canario can retain source material while minimizing public
 outputs.
 
 Precise home addresses, medical information, identifying information about
@@ -638,7 +638,7 @@ minors, personal contact details, and inferred individual political preference
 are blocked from public outputs by default unless a deliberately accepted policy
 says otherwise.
 
-ActaKit does not automate targeted political persuasion or individual political
+Canario does not automate targeted political persuasion or individual political
 profiling.
 
 Publication, if enabled, is an Output/Export concern over an explicit immutable

@@ -1,4 +1,4 @@
-# actakit — Dependencias Python
+# canario — Dependencias Python
 # Instalación: pip install -r requirements.txt
 #
 # NOTA: Este archivo lista las dependencias de runtime.
@@ -7,7 +7,7 @@
 # Dependencias/tooling externo de runtime:
 #   poppler-utils  (D0/D1 PDF directo)
 #   OCRmyPDF + Tesseract + spa/eng/osd traineddata (D2 OCR; se descubren como CLI
-#   externos y NO se importan como dependencias Python de actakit)
+#   externos y NO se importan como dependencias Python de canario)
 #
 # Licencia de dependencias:
 #   pyyaml:        MIT

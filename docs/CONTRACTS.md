@@ -17,7 +17,7 @@ related:
 
 ## Contract Rules
 
-Canonical meaning belongs to ActaKit records and their relationships, not to one
+Canonical meaning belongs to Canario records and their relationships, not to one
 serialization format. SQLite rows, JSON, YAML, Markdown, and output files are
 representations of contracts.
 
@@ -174,12 +174,12 @@ date, language and visibility belongs to append-only `CivicDocumentRevision`;
 normalized type/subtype/profile remains separate attributable classification
 history. A metadata correction never mutates the stable document row.
 
-Source-supplied labels are attributable observations, not values ActaKit silently
+Source-supplied labels are attributable observations, not values Canario silently
 overwrites:
 
 ```text
 source_supplied_type   what that source called it
-normalized_type        broad ActaKit classification
+normalized_type        broad Canario classification
 profile_schema         optional specialized structure
 ```
 
@@ -533,7 +533,7 @@ policy requires it.
 
 A `ReviewDecision` records exact subject revision(s) or reproducible subject set,
 actor, action, rationale when needed, time, and applicable policy/configuration
-identity when relevant. One operator may perform all actions; ActaKit records
+identity when relevant. One operator may perform all actions; Canario records
 actions/capabilities rather than requiring staffing roles.
 
 ## Corrections
@@ -620,7 +620,7 @@ reader organization over claims.
 ## Publication Snapshots
 
 When an output is deliberately released and reproducible publication history
-matters, ActaKit may create an immutable snapshot containing exact input
+matters, Canario may create an immutable snapshot containing exact input
 revisions, output implementation/configuration identity, hashes, and publication
 decision. Publication snapshots are not a prerequisite for internal outputs.
 
@@ -639,7 +639,7 @@ republication.
 
 ## Storage Boundary
 
-The first implementation uses a local ActaKit core as the sole canonical writer
+The first implementation uses a local Canario core as the sole canonical writer
 to SQLite and the evidence archive. A daemon/RPC service is optional future
 infrastructure, not a canonical semantic requirement.
 

@@ -4,7 +4,7 @@ kind: release-plan
 state: proposed-for-acceptance
 created: 2026-08-19
 authority: roadmap-proposal
-summary: Minimal operational and evidence gates for a durable self-contained ActaKit 1.0.
+summary: Minimal operational and evidence gates for a durable self-contained Canario 1.0.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -48,7 +48,7 @@ organizationally but not required for routine operation. Many consumers may use
 read-only outputs/search through whatever local interface is provided.
 
 SQLite database/WAL files remain on local attached storage, not network shares or
-sync folders. Original evidence lives in the ActaKit archive.
+sync folders. Original evidence lives in the Canario archive.
 
 A daemon, public server, container image, federation keys, or multi-user identity
 provider is not a stable-release requirement unless implementation experience
@@ -56,7 +56,7 @@ proves it necessary.
 
 ## Operator Capabilities
 
-ActaKit needs actions, not a fictional staffing chart:
+Canario needs actions, not a fictional staffing chart:
 
 ```text
 administer installation
@@ -150,7 +150,7 @@ working directories are never release fixtures.
 | Gate | Evidence |
 |---|---|
 | Version identity | no published version number is reused |
-| Scope | documentation accurately explains what ActaKit is and is not |
+| Scope | documentation accurately explains what Canario is and is not |
 | Integrity | no unresolved critical evidence/claim lineage or data-loss defect |
 | Traceability | claims resolve to exact evidence in multiple representation types |
 | Volume | broad claim extraction works without mandatory one-by-one approval |

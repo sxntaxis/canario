@@ -499,7 +499,7 @@ def prove_atomic_failure(spec: str, root: Path) -> None:
 
 
 def prove_wrong_file_rejection(root: Path) -> None:
-    path = root / "not-actakit.sqlite3"
+    path = root / "not-canario.sqlite3"
     con = open_writable(path)
     con.execute("CREATE TABLE unrelated(id INTEGER PRIMARY KEY)")
     con.commit()
@@ -520,12 +520,12 @@ def main() -> None:
         assert f"pragma {pragma}" not in lowered, pragma
     assert "json_valid(" not in lowered
 
-    with tempfile.TemporaryDirectory(prefix="actakit-freeze-proof-") as td:
+    with tempfile.TemporaryDirectory(prefix="canario-freeze-proof-") as td:
         root = Path(td)
         prove_atomic_failure(spec, root)
         prove_wrong_file_rejection(root)
 
-        path = root / "actakit.sqlite3"
+        path = root / "canario.sqlite3"
         con = open_writable(path)
         assert_fresh_bootstrap_target(con)
         run_bootstrap_transaction(con, spec)

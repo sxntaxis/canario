@@ -1,0 +1,24 @@
+{
+  "version": "lector-002-corpus:v1",
+  "broad_certification_state": "blocked",
+  "required_case_classes": [
+    "institutional_minutes",
+    "report_or_audit",
+    "official_correspondence",
+    "normative_or_contractual",
+    "structured_data",
+    "timed_media"
+  ],
+  "cases": [
+    {
+      "case_id": "CR-ESPARZA-MINUTES-001",
+      "case_class": "institutional_minutes",
+      "source_kind": "civic_document",
+      "representation_media_type": "text/plain",
+      "evaluator_mode": "text_quote:v1",
+      "source_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+      "gold_state": "pending",
+      "adjudication_state": "not_run"
+    }
+  ]
+}

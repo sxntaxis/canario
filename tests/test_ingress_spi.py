@@ -7,8 +7,8 @@ import unittest
 from dataclasses import fields
 from pathlib import Path
 
-from actakit.deposit import DepositWriter, SourceRegistration, new_id
-from actakit.ingress import (
+from canario.deposit import DepositWriter, SourceRegistration, new_id
+from canario.ingress import (
     CaptureEnvelope,
     CapturePayload,
     ConnectorContractError,
@@ -19,7 +19,7 @@ from actakit.ingress import (
     ObservedLocator,
     run_connector,
 )
-from actakit.persistence import database
+from canario.persistence import database
 
 NO_RUNTIME_CHECK = lambda: None
 T = "2026-08-21T12:34:56.789Z"
@@ -122,7 +122,7 @@ class IngressSpiTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.db = self.root / "actakit.sqlite3"
+        self.db = self.root / "canario.sqlite3"
         self.archive = self.root / "archive"
         database._ensure_schema_v1(self.db, NO_RUNTIME_CHECK)
         self.writer = DepositWriter(

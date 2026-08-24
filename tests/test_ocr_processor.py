@@ -11,7 +11,7 @@ import zlib
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from actakit.deposit import (
+from canario.deposit import (
     AcquisitionObservation,
     AcquisitionWrite,
     CapturedArtifact,
@@ -20,8 +20,8 @@ from actakit.deposit import (
     SourceRegistration,
     new_id,
 )
-from actakit.persistence import database
-from actakit.processors import (
+from canario.persistence import database
+from canario.processors import (
     EgressAuthorization,
     PlannedStep,
     ProcessingPlan,
@@ -33,8 +33,8 @@ from actakit.processors import (
     WorkbenchHost,
     WorkbenchWriter,
 )
-from actakit.processors.ocr import OcrPdfConfig, OcrPdfProcessor, OcrUnavailableError, _OcrToolchain
-from actakit.processors.poppler import PopplerPdfTextProcessor
+from canario.processors.ocr import OcrPdfConfig, OcrPdfProcessor, OcrUnavailableError, _OcrToolchain
+from canario.processors.poppler import PopplerPdfTextProcessor
 
 NO_RUNTIME_CHECK = lambda: None
 T = "2026-08-22T18:30:00.000Z"
@@ -164,7 +164,7 @@ class OcrProcessorTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.db = self.root / "actakit.sqlite3"
+        self.db = self.root / "canario.sqlite3"
         self.archive = self.root / "archive"
         database._ensure_schema_v1(self.db, NO_RUNTIME_CHECK)
         self.deposit = DepositWriter(self.db, self.archive, connection_factory=local_connection)
@@ -560,8 +560,8 @@ class OcrProcessorTests(unittest.TestCase):
             (b"", b""),
         ]
         with tempfile.TemporaryDirectory() as tmp, patch(
-            "actakit.processors.ocr.subprocess.Popen", return_value=fake_process
-        ) as popen, patch("actakit.processors.ocr.os.killpg") as killpg:
+            "canario.processors.ocr.subprocess.Popen", return_value=fake_process
+        ) as popen, patch("canario.processors.ocr.os.killpg") as killpg:
             with self.assertRaises(subprocess.TimeoutExpired):
                 processor._run(
                     ["/trusted/ocr"],

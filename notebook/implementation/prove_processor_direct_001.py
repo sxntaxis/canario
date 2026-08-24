@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from actakit.deposit import (
+from canario.deposit import (
     AcquisitionObservation,
     AcquisitionWrite,
     CapturedArtifact,
@@ -24,15 +24,15 @@ from actakit.deposit import (
     new_id,
     utc_now,
 )
-from actakit.persistence import ensure_schema_v1
-from actakit.processors import (
+from canario.persistence import ensure_schema_v1
+from canario.processors import (
     ProcessingRequest,
     ProcessorRegistry,
     TargetRegistration,
     WorkbenchHost,
     WorkbenchWriter,
 )
-from actakit.processors.poppler import PopplerPdfTextProcessor
+from canario.processors.poppler import PopplerPdfTextProcessor
 
 TSE_PDF = ROOT / "notebook/research/pre-sql/fixtures/artifact-proofs/alcaldias_pu.pdf"
 TSE_TRUTH = (
@@ -57,9 +57,9 @@ def _prove_pdf(
     truth: dict,
     processor: PopplerPdfTextProcessor,
 ) -> None:
-    with tempfile.TemporaryDirectory(prefix="actakit-direct-proof-") as tempdir:
+    with tempfile.TemporaryDirectory(prefix="canario-direct-proof-") as tempdir:
         root = Path(tempdir)
-        db = root / "actakit.sqlite3"
+        db = root / "canario.sqlite3"
         archive = root / "archive"
         ensure_schema_v1(db)
         deposit = DepositWriter(db, archive)

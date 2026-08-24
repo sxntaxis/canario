@@ -7,7 +7,7 @@ import unittest
 import zlib
 from pathlib import Path
 
-from actakit.deposit import (
+from canario.deposit import (
     AcquisitionObservation,
     AcquisitionWrite,
     CapturedArtifact,
@@ -16,8 +16,8 @@ from actakit.deposit import (
     SourceRegistration,
     new_id,
 )
-from actakit.persistence import database
-from actakit.processors import (
+from canario.persistence import database
+from canario.processors import (
     ProcessingRequest,
     ProcessorDescriptor,
     ProcessorRegistry,
@@ -28,9 +28,9 @@ from actakit.processors import (
     WorkbenchHost,
     WorkbenchWriter,
 )
-import actakit.processors.poppler as poppler_module
+import canario.processors.poppler as poppler_module
 
-from actakit.processors.poppler import (
+from canario.processors.poppler import (
     PopplerConfigurationError,
     PopplerPdfTextProcessor,
 )
@@ -169,7 +169,7 @@ class PopplerProcessorTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.db = self.root / "actakit.sqlite3"
+        self.db = self.root / "canario.sqlite3"
         self.archive = self.root / "archive"
         database._ensure_schema_v1(self.db, NO_RUNTIME_CHECK)
         self.deposit = DepositWriter(self.db, self.archive, connection_factory=local_connection)

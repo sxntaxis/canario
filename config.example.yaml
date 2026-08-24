@@ -1,3 +1,7 @@
+# LEGACY MUNICIPAL-ACTA WORKFLOW CONFIGURATION
+# This file configures the preserved Hilo/acta pipeline. It is not the generic
+# Canario core/source/Representation configuration contract. See AGENTS.md + docs/SCOPE.md.
+
 # =============================================================================
 # Pipeline de Actas Municipales — Configuración del cantón
 # =============================================================================

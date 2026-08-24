@@ -7,8 +7,8 @@ import unittest
 from unittest import mock
 from pathlib import Path
 
-from actakit.persistence import database
-from actakit.persistence.runtime import RuntimeContractError
+from canario.persistence import database
+from canario.persistence.runtime import RuntimeContractError
 
 
 NO_RUNTIME_CHECK = lambda: None
@@ -18,7 +18,7 @@ class PersistenceBootstrapTests(unittest.TestCase):
     def test_production_migration_is_exact_frozen_spec(self):
         repo = Path(__file__).resolve().parents[1]
         frozen = repo / "notebook/research/pre-sql/schema/MIGRATION_0001_SPEC.sql"
-        production = repo / "actakit/persistence/migrations/0001.sql"
+        production = repo / "canario/persistence/migrations/0001.sql"
         frozen_bytes = frozen.read_bytes()
         production_bytes = production.read_bytes()
 
@@ -32,7 +32,7 @@ class PersistenceBootstrapTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "must-not-exist.sqlite3"
             with mock.patch(
-                "actakit.persistence.database.verify_runtime_contract",
+                "canario.persistence.database.verify_runtime_contract",
                 side_effect=RuntimeContractError("uncertified runtime"),
             ):
                 with self.assertRaises(RuntimeContractError):
@@ -49,7 +49,7 @@ class PersistenceBootstrapTests(unittest.TestCase):
 
     def test_fresh_bootstrap_reopen_and_repeat_are_safe(self):
         with tempfile.TemporaryDirectory() as td:
-            path = Path(td) / "actakit.sqlite3"
+            path = Path(td) / "canario.sqlite3"
             database._ensure_schema_v1(path, NO_RUNTIME_CHECK)
 
             con = database._open_writable_v1(path, NO_RUNTIME_CHECK)

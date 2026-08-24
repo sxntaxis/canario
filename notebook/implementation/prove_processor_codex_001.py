@@ -19,7 +19,7 @@ if str(BENCH) not in sys.path:
     sys.path.insert(0, str(BENCH))
 
 from metrics import normalize_text, text_metrics  # type: ignore[import-not-found]
-from actakit.deposit import (
+from canario.deposit import (
     AcquisitionObservation,
     AcquisitionWrite,
     CapturedArtifact,
@@ -29,8 +29,8 @@ from actakit.deposit import (
     new_id,
     utc_now,
 )
-from actakit.persistence import ensure_schema_v1
-from actakit.processors import (
+from canario.persistence import ensure_schema_v1
+from canario.processors import (
     CodexVisualTranscriptionProcessor,
     EgressAuthorization,
     ProcessingRequest,
@@ -110,9 +110,9 @@ def _run_page(
     processor: CodexVisualTranscriptionProcessor,
     source_url: str,
 ) -> tuple[object, str, list[object], dict[str, object], int]:
-    with tempfile.TemporaryDirectory(prefix="actakit-codex-proof-") as tempdir:
+    with tempfile.TemporaryDirectory(prefix="canario-codex-proof-") as tempdir:
         root = Path(tempdir)
-        db = root / "actakit.sqlite3"
+        db = root / "canario.sqlite3"
         archive = root / "archive"
         ensure_schema_v1(db)
         deposit = DepositWriter(db, archive)

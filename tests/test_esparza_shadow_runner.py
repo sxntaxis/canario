@@ -39,7 +39,7 @@ class EsparzaShadowRunnerTests(unittest.TestCase):
     def test_existing_database_without_source_binding_fails_closed(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            db = root / "actakit.sqlite3"
+            db = root / "canario.sqlite3"
             binding = root / "source-binding.json"
             db.write_bytes(b"placeholder")
             with self.assertRaisesRegex(RuntimeError, "source-binding.json is missing"):

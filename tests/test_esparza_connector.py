@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from actakit.connectors.esparza import (
+from canario.connectors.esparza import (
     DEFAULT_SECTIONS,
     EsparzaCmsConfig,
     EsparzaCmsConnector,
@@ -17,9 +17,9 @@ from actakit.connectors.esparza import (
     EsparzaSourceStructureError,
     RequestsEsparzaHttpClient,
 )
-from actakit.deposit import DepositWriter, SourceRegistration, new_id
-from actakit.ingress import DepositInbox, run_connector
-from actakit.persistence import database
+from canario.deposit import DepositWriter, SourceRegistration, new_id
+from canario.ingress import DepositInbox, run_connector
+from canario.persistence import database
 
 
 T = "2026-08-21T12:34:56.789Z"
@@ -87,7 +87,7 @@ class EsparzaConnectorTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         root = Path(self.tmp.name)
-        self.db = root / "actakit.sqlite3"
+        self.db = root / "canario.sqlite3"
         self.archive = root / "archive"
         database._ensure_schema_v1(self.db, NO_RUNTIME_CHECK)
         self.writer = DepositWriter(
@@ -432,10 +432,10 @@ class _RedirectSession:
 
 class EsparzaArchitectureBoundaryTests(unittest.TestCase):
     def test_source_connector_module_stops_at_ingress_boundary(self):
-        source = Path("actakit/connectors/esparza.py").read_text(encoding="utf-8")
+        source = Path("canario/connectors/esparza.py").read_text(encoding="utf-8")
         forbidden = (
-            "actakit.deposit",
-            "actakit.persistence",
+            "canario.deposit",
+            "canario.persistence",
             "sqlite3",
             "DepositWriter",
             "CivicDocument",

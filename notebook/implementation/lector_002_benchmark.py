@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Deterministic preparation and scoring harness for the LECTOR-002 civic benchmark.
+"""Deterministic reference-corpus preparation and scoring for LECTOR-002.
 
-This module deliberately does *not* decide semantic truth. ``prepare`` partitions an
-exact UTF-8 source representation into stable review units and adds mechanical
-triage cues only. Humans remain responsible for the gold propositions and for
-candidate-to-truth adjudication. ``score`` validates exact evidence reopening and
-then computes metrics from those explicit judgments.
+This module is intentionally source-format agnostic at the semantic layer.
+``prepare`` partitions an exact UTF-8 Representation using only generic textual
+structure (page separators, blank-line blocks, and bounded continuations). It
+never recognizes acta vocabulary, institutions, decisions, speakers, or other
+source-specific semantics. Humans remain responsible for gold propositions and
+candidate-to-truth adjudication; ``score`` validates exact evidence reopening and
+computes metrics from those explicit judgments.
 """
 
 from __future__ import annotations
@@ -15,80 +17,13 @@ import bisect
 import csv
 import hashlib
 import json
-import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
-PREPARATION_VERSION = "lector-002-benchmark:v1"
-MAX_UNIT_CHARS = 5_000
-PREFERRED_SPLIT_CHARS = 3_500
-
-ARTICLE_RE = re.compile(r"^ART[IÍ]CULO\s+([IVXLC]+)\s*$", re.IGNORECASE)
-ITEM_RE = re.compile(r"^(\d+)-\s+")
-AGREEMENT_RE = re.compile(r"^SE ACUERDA(?:\b|\s*:)|^Se acuerda(?:\b|\s*:)", re.IGNORECASE)
-SPEAKER_RE = re.compile(
-    r"^(?:Sr\.?|Sra\.?|Señor(?:a)?|Regidor(?:a)?(?:\s+suplente)?|"
-    r"Síndic[oa]|Lic\.?|MSc\.?|Prof\.?|Alcalde|Vicealcald[ea]|"
-    r"Presidente\s+Municipal)\b[^:\n]{0,120}:",
-    re.IGNORECASE,
-)
-SESSION_CLOSE_RE = re.compile(
-    r"^A las .{0,100}\b(?:da por finalizada|finaliza)\b", re.IGNORECASE
-)
-PRINTED_LINE_NUMBER_RE = re.compile(r"^\s*\d+\s+")
-WHITESPACE_RE = re.compile(r"\s+")
-
-# These signals prioritize review; they are not confidence, truth, or acceptance.
-TRIAGE_CUES: tuple[tuple[str, re.Pattern[str], int], ...] = (
-    (
-        "decision",
-        re.compile(r"\bSE ACUERDA\b|ACUERDO DEFINITIVAMENTE|\bAPROBAD[OA]\b", re.IGNORECASE),
-        5,
-    ),
-    (
-        "vote",
-        re.compile(r"\bvotaci[oó]n\b|\bunanimidad\b|\ben firme\b", re.IGNORECASE),
-        3,
-    ),
-    (
-        "action",
-        re.compile(
-            r"\b(?:aprobar|autorizar|trasladar|solicitar|rechazar|designar|nombrar|"
-            r"aceptar|modificar|mantener|notificar|instruir)\w*\b",
-            re.IGNORECASE,
-        ),
-        3,
-    ),
-    (
-        "money",
-        re.compile(
-            r"(?:[¢₡]\s*[\d.]|\bcolones\b|\bpresupuesto\b|\bcanon\b|\bmonto\b|"
-            r"transferencia de recursos)",
-            re.IGNORECASE,
-        ),
-        3,
-    ),
-    (
-        "deadline",
-        re.compile(
-            r"\b(?:plazo|d[ií]as h[aá]biles|fecha l[ií]mite|vencimiento)\b",
-            re.IGNORECASE,
-        ),
-        2,
-    ),
-    (
-        "legal",
-        re.compile(
-            r"\b(?:ley|reglamento|convenio|contrato|adenda|licitaci[oó]n|recurso|"
-            r"contralor[ií]a)\b",
-            re.IGNORECASE,
-        ),
-        2,
-    ),
-    ("correspondence", re.compile(r"\b(?:oficio|nota)\b", re.IGNORECASE), 1),
-    ("request", re.compile(r"\b(?:solicita|solicitud|pide|requiere)\b", re.IGNORECASE), 1),
-)
+PREPARATION_VERSION = "lector-002-reference-text:v2"
+MAX_UNIT_CHARS = 4_000
+PREFERRED_SPLIT_CHARS = 2_800
 
 TRUTH_IMPORTANCE = {"must", "material"}
 ASSESSMENT_VERDICTS = {"correct", "distorted", "unsupported", "redundant", "overmerged"}
@@ -103,22 +38,19 @@ class BenchmarkError(ValueError):
 class LineRecord:
     start_char: int
     end_char: int
-    page: int
-    clean: str
+    page: int | None
+    blank: bool
+    has_page_break: bool
 
 
 @dataclass(frozen=True)
 class ReviewUnit:
     unit_id: str
     kind: str
-    page_start: int
-    page_end: int
+    page_start: int | None
+    page_end: int | None
     char_start: int
     char_end: int
-    article: str
-    item: str
-    triage_score: int
-    cues: tuple[str, ...]
     preview: str
     text: str
 
@@ -127,48 +59,51 @@ def _sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def _clean_line(raw: str) -> str:
-    visible = raw.replace("\f", "").rstrip("\r\n")
-    return PRINTED_LINE_NUMBER_RE.sub("", visible).strip()
+def _visible_line(raw: str) -> str:
+    return raw.replace("\f", "").strip()
 
 
 def _line_records(text: str) -> list[LineRecord]:
+    """Record exact line spans without interpreting source-specific content."""
+
+    has_pages = "\f" in text
     records: list[LineRecord] = []
     page = 1
     position = 0
     for raw in text.splitlines(keepends=True):
         end = position + len(raw)
-        records.append(LineRecord(position, end, page, _clean_line(raw)))
-        # pdftotext emits form-feed *after* the page it terminates. Advance only
-        # after recording that exact delimiter so a trailing form-feed does not
-        # invent an empty next page.
+        records.append(
+            LineRecord(
+                start_char=position,
+                end_char=end,
+                page=page if has_pages else None,
+                blank=not bool(_visible_line(raw)),
+                has_page_break="\f" in raw,
+            )
+        )
+        # Form-feed closes the page containing it. The following record belongs
+        # to the next page; a trailing form-feed does not invent a review unit.
         page += raw.count("\f")
         position = end
     if position < len(text):
         raw = text[position:]
-        records.append(LineRecord(position, len(text), page, _clean_line(raw)))
+        records.append(
+            LineRecord(
+                position,
+                len(text),
+                page if has_pages else None,
+                not bool(_visible_line(raw)),
+                "\f" in raw,
+            )
+        )
     if not records:
-        records.append(LineRecord(0, 0, 1, ""))
+        records.append(LineRecord(0, 0, None, True, False))
     return records
 
 
-def _marker_kind(clean: str) -> str | None:
-    if ARTICLE_RE.match(clean):
-        return "article"
-    if ITEM_RE.match(clean):
-        return "item"
-    if AGREEMENT_RE.match(clean):
-        return "agreement"
-    if SPEAKER_RE.match(clean):
-        return "speaker"
-    if SESSION_CLOSE_RE.match(clean):
-        return "session_close"
-    return None
-
-
-def _page_at(records: Sequence[LineRecord], starts: Sequence[int], offset: int) -> int:
+def _page_at(records: Sequence[LineRecord], starts: Sequence[int], offset: int) -> int | None:
     if not records:
-        return 1
+        return None
     index = bisect.bisect_right(starts, max(0, offset)) - 1
     return records[max(0, index)].page
 
@@ -199,48 +134,38 @@ def _split_oversized_units(
             return boundaries
 
 
-def _triage(text: str) -> tuple[int, tuple[str, ...]]:
-    hits: list[str] = []
-    score = 0
-    for name, pattern, weight in TRIAGE_CUES:
-        if pattern.search(text):
-            hits.append(name)
-            score += weight
-    return score, tuple(hits)
-
-
 def partition_source(text: str) -> list[ReviewUnit]:
-    """Partition the complete source without dropping or rewriting any character."""
+    """Losslessly partition text using only generic Representation structure.
+
+    Boundaries are based on explicit page separators, blank-line block starts,
+    and bounded continuation splits. Words such as ``ARTÍCULO`` or ``SE ACUERDA``
+    have no special meaning here by design.
+    """
 
     records = _line_records(text)
     line_starts = [record.start_char for record in records]
-    markers: dict[int, str] = {0: "session"}
+    markers: dict[int, str] = {0: "source"}
     boundaries = [0]
-    for record in records:
-        kind = _marker_kind(record.clean)
-        if kind is not None and record.start_char != 0:
-            boundaries.append(record.start_char)
-            markers[record.start_char] = kind
-    boundaries = _split_oversized_units(boundaries, line_starts, len(text), markers)
 
+    previous_blank = False
+    previous_had_page_break = False
+    for record in records:
+        if record.start_char != 0 and not record.blank:
+            if previous_had_page_break:
+                boundaries.append(record.start_char)
+                markers[record.start_char] = "page"
+            elif previous_blank:
+                boundaries.append(record.start_char)
+                markers[record.start_char] = "block"
+        previous_blank = record.blank
+        previous_had_page_break = record.has_page_break
+
+    boundaries = _split_oversized_units(boundaries, line_starts, len(text), markers)
     starts = [record.start_char for record in records]
     units: list[ReviewUnit] = []
-    article = ""
-    item = ""
     for ordinal, (start, end) in enumerate(zip(boundaries, boundaries[1:]), start=1):
         segment = text[start:end]
-        clean_lines = [_clean_line(line) for line in segment.splitlines()]
-        lead = next((line for line in clean_lines if line), "")
-        article_match = ARTICLE_RE.match(lead)
-        if article_match:
-            article = article_match.group(1).upper()
-            item = ""
-        item_match = ITEM_RE.match(lead)
-        if item_match:
-            item = item_match.group(1)
-
-        score, cues = _triage(segment)
-        preview = WHITESPACE_RE.sub(" ", segment).strip()[:280]
+        preview = " ".join(segment.replace("\f", " ").split())[:280]
         page_end_offset = max(start, end - 1)
         units.append(
             ReviewUnit(
@@ -250,10 +175,6 @@ def partition_source(text: str) -> list[ReviewUnit]:
                 page_end=_page_at(records, starts, page_end_offset),
                 char_start=start,
                 char_end=end,
-                article=article,
-                item=item,
-                triage_score=score,
-                cues=cues,
                 preview=preview,
                 text=segment,
             )
@@ -272,26 +193,39 @@ def _write_csv(path: Path, fieldnames: Sequence[str], rows: Iterable[dict[str, o
 
 
 def prepare(source_path: Path, output_dir: Path, source_label: str | None = None) -> dict[str, object]:
+    """Prepare one exact UTF-8 text Representation for independent gold review.
+
+    This is one evaluator mode in the wider LECTOR-002 corpus. Structured table
+    and timed-media evidence require their own typed evaluator modes and must not
+    be coerced into this text-offset contract merely to reuse the harness.
+    """
+
     source_bytes = source_path.read_bytes()
     try:
         text = source_bytes.decode("utf-8")
     except UnicodeDecodeError as exc:
-        raise BenchmarkError("LECTOR-002 reference source must be exact UTF-8 text") from exc
+        raise BenchmarkError("text-reference mode requires exact UTF-8 Representation bytes") from exc
 
     units = partition_source(text)
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    page_count: int | None = None
+    if "\f" in text:
+        page_count = text.count("\f") + (0 if text.endswith("\f") else 1)
+
     manifest = {
         "preparation_version": PREPARATION_VERSION,
+        "evaluator_mode": "text_quote:v1",
         "source_label": source_label or source_path.name,
         "source_sha256": _sha256_bytes(source_bytes),
         "source_bytes": len(source_bytes),
         "source_characters": len(text),
-        "pages": text.count("\f") + (0 if text.endswith("\f") else 1),
+        "page_count": page_count,
         "review_units": len(units),
+        "segmentation_semantics": "generic_structure_only",
         "truth_generated": False,
         "semantic_model_calls": 0,
-        "triage_is_semantic_authority": False,
+        "attention_heuristics_used": False,
     }
     (output_dir / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -305,41 +239,23 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
         "page_end",
         "char_start",
         "char_end",
-        "article",
-        "item",
-        "triage_score",
-        "cues",
         "preview",
     ]
     _write_csv(
         output_dir / "units.csv",
         unit_fields,
-        (
-            {
-                **{key: getattr(unit, key) for key in unit_fields if key not in {"cues"}},
-                "cues": ";".join(unit.cues),
-            }
-            for unit in units
-        ),
+        ({key: getattr(unit, key) for key in unit_fields} for unit in units),
     )
     with (output_dir / "units.jsonl").open("w", encoding="utf-8") as handle:
         for unit in units:
-            value = asdict(unit)
-            value["cues"] = list(unit.cues)
-            handle.write(json.dumps(value, ensure_ascii=False, sort_keys=True) + "\n")
+            handle.write(json.dumps(asdict(unit), ensure_ascii=False, sort_keys=True) + "\n")
 
+    # Coverage stays in source order. No content heuristic is allowed to silently
+    # reorder completeness review in the canonical gold worksheet.
     _write_csv(
         output_dir / "coverage.csv",
-        ["unit_id", "triage_score", "review_state", "notes"],
-        (
-            {
-                "unit_id": unit.unit_id,
-                "triage_score": unit.triage_score,
-                "review_state": "",
-                "notes": "",
-            }
-            for unit in sorted(units, key=lambda value: (-value.triage_score, value.unit_id))
-        ),
+        ["unit_id", "review_state", "notes"],
+        ({"unit_id": unit.unit_id, "review_state": "", "notes": ""} for unit in units),
     )
     _write_csv(
         output_dir / "truth.csv",
@@ -357,13 +273,7 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
     )
     _write_csv(
         output_dir / "candidates.csv",
-        [
-            "candidate_id",
-            "proposition",
-            "evidence_quote",
-            "evidence_start",
-            "evidence_end",
-        ],
+        ["candidate_id", "proposition", "evidence_quote", "evidence_start", "evidence_end"],
         (),
     )
     _write_csv(
@@ -372,19 +282,22 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
         (),
     )
     (output_dir / "README.md").write_text(
-        "# LECTOR-002 Acta benchmark worksheet\n\n"
-        "`units.csv` orders exact source units for review. `triage_score` is only a mechanical\n"
-        "attention aid; it is not confidence and never creates truth. `units.jsonl` contains the\n"
-        "lossless exact unit text and character offsets.\n\n"
-        "For every unit, a human eventually records either `truth_recorded` or\n"
-        "`no_material_truth` in `coverage.csv`. Each material proposition is added to\n"
-        "`truth.csv` with `importance` = `must` or `material` and an exact source quote whose\n"
-        "character offsets reopen against the frozen source. Multiple truths may point to one\n"
-        "unit.\n\n"
-        "Only after the gold set is complete should an extractor fill `candidates.csv`. Human\n"
-        "adjudication then maps each candidate in `assessment.csv` to truth IDs with one of:\n"
-        "`correct`, `distorted`, `unsupported`, `redundant`, `overmerged`. The scorer validates\n"
-        "evidence and computes metrics; it does not decide semantic equivalence.\n",
+        "# Canario LECTOR-002 text-reference worksheet\n\n"
+        "This worksheet is one case in a heterogeneous reference corpus; it is not a document-\n"
+        "type-specific benchmark. `units.csv` follows source order and uses only generic page,\n"
+        "blank-line, and bounded-size structure. No acta vocabulary or semantic attention\n"
+        "heuristic influences segmentation or coverage. `units.jsonl` contains exact unit text\n"
+        "and character offsets.\n\n"
+        "For every unit, a human records either `truth_recorded` or `no_material_truth` in\n"
+        "`coverage.csv`. Each material proposition is added to `truth.csv` with `importance` =\n"
+        "`must` or `material` and an exact quote whose character offsets reopen against the\n"
+        "frozen Representation.\n\n"
+        "Only after the case gold set is frozen may the tested extractor fill `candidates.csv`.\n"
+        "Human adjudication maps candidates in `assessment.csv` to truth IDs. The scorer\n"
+        "validates evidence and computes metrics; it does not decide semantic equivalence.\n\n"
+        "This evaluator mode covers text_quote:v1 only. Table-range and timed-media cases need\n"
+        "their own typed evidence evaluators; they must not be flattened into text merely to\n"
+        "make this scorer pass.\n",
         encoding="utf-8",
     )
     return manifest
@@ -540,9 +453,84 @@ def score(
     return metrics
 
 
+def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
+    """Derive the broad-certification gate from a heterogeneous corpus manifest."""
+
+    try:
+        value = json.loads(corpus_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("corpus manifest is not readable valid JSON") from exc
+    if not isinstance(value, dict):
+        raise BenchmarkError("corpus manifest must be an object")
+
+    required = value.get("required_case_classes")
+    cases = value.get("cases")
+    if not isinstance(required, list) or not required or not all(
+        isinstance(item, str) and item for item in required
+    ):
+        raise BenchmarkError("required_case_classes must be a non-empty string list")
+    if len(set(required)) != len(required):
+        raise BenchmarkError("required_case_classes contains duplicates")
+    if not isinstance(cases, list):
+        raise BenchmarkError("cases must be a list")
+
+    seen_ids: set[str] = set()
+    by_class: dict[str, list[dict[str, object]]] = {case_class: [] for case_class in required}
+    for raw in cases:
+        if not isinstance(raw, dict):
+            raise BenchmarkError("every corpus case must be an object")
+        case_id = raw.get("case_id")
+        case_class = raw.get("case_class")
+        if not isinstance(case_id, str) or not case_id:
+            raise BenchmarkError("every corpus case needs a non-empty case_id")
+        if case_id in seen_ids:
+            raise BenchmarkError(f"duplicate corpus case_id {case_id!r}")
+        seen_ids.add(case_id)
+        if case_class not in by_class:
+            raise BenchmarkError(f"case {case_id!r} uses unregistered class {case_class!r}")
+        if raw.get("gold_state") not in {"pending", "frozen"}:
+            raise BenchmarkError(f"case {case_id!r} has invalid gold_state")
+        if raw.get("adjudication_state") not in {"not_run", "incomplete", "complete"}:
+            raise BenchmarkError(f"case {case_id!r} has invalid adjudication_state")
+        evaluator_mode = raw.get("evaluator_mode")
+        if not isinstance(evaluator_mode, str) or not evaluator_mode:
+            raise BenchmarkError(f"case {case_id!r} needs evaluator_mode")
+        by_class[case_class].append(raw)
+
+    missing_classes = [case_class for case_class, rows in by_class.items() if not rows]
+    gold_pending_classes = [
+        case_class
+        for case_class, rows in by_class.items()
+        if rows and not any(row["gold_state"] == "frozen" for row in rows)
+    ]
+    adjudication_pending_classes = [
+        case_class
+        for case_class, rows in by_class.items()
+        if rows
+        and any(row["gold_state"] == "frozen" for row in rows)
+        and not any(
+            row["gold_state"] == "frozen" and row["adjudication_state"] == "complete"
+            for row in rows
+        )
+    ]
+    broad_ready = not (missing_classes or gold_pending_classes or adjudication_pending_classes)
+    return {
+        "corpus_version": value.get("version"),
+        "required_case_classes": required,
+        "case_count": len(cases),
+        "missing_case_classes": missing_classes,
+        "gold_pending_classes": gold_pending_classes,
+        "adjudication_pending_classes": adjudication_pending_classes,
+        "broad_certification_ready": broad_ready,
+    }
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    corpus_parser = subparsers.add_parser("corpus-status", help="derive the heterogeneous broad-certification gate")
+    corpus_parser.add_argument("--corpus", type=Path, required=True)
 
     prepare_parser = subparsers.add_parser("prepare", help="create a deterministic review worksheet")
     prepare_parser.add_argument("--source", type=Path, required=True)
@@ -563,7 +551,9 @@ def _build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
     try:
-        if args.command == "prepare":
+        if args.command == "corpus-status":
+            result = evaluate_corpus(args.corpus)
+        elif args.command == "prepare":
             result = prepare(args.source, args.output_dir, args.source_label)
         else:
             result = score(
@@ -575,7 +565,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.assessment,
             )
     except BenchmarkError as exc:
-        raise SystemExit(f"LECTOR_002_BENCHMARK_ERROR: {exc}") from exc
+        raise SystemExit(f"LECTOR_002_REFERENCE_ERROR: {exc}") from exc
 
     rendered = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if getattr(args, "output", None):

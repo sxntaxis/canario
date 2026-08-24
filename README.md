@@ -1,62 +1,48 @@
-# actakit
+# Canario
 
-> Herramienta local para adquirir, preservar, extraer, clasificar y consultar registros cívicos públicos — actas primero, sin lock-in de IA.
+> Evidence-first civic intelligence over heterogeneous public records.
 
-[![CI](https://github.com/sxntaxis/actakit/actions/workflows/ci.yml/badge.svg)](https://github.com/sxntaxis/actakit/actions)
+[![CI](https://github.com/sxntaxis/canario/actions/workflows/ci.yml/badge.svg)](https://github.com/sxntaxis/canario/actions)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
-[![License: CC-BY-4.0](https://img.shields.io/badge/license-CC--BY--4.0-blue.svg)](LICENSE.CC-BY)
+[![License: CC-BY-4.0](https://img.shields.io/badge/license-CC--BY-4.0-blue.svg)](LICENSE.CC-BY)
 
----
+> **Pre-release:** there is no public schema/API compatibility boundary yet. See
+> `docs/STATUS.md` and `AGENTS.md`.
 
-> **Project status: pre-release.** Until ActaKit explicitly enters a
-> compatibility-bearing Beta/public release, SQLite schema changes rebaseline the
-> canonical `0001` rather than accumulating compatibility migrations for
-> development databases. See `docs/STATUS.md` and `AGENTS.md`.
+## Qué es
 
-## English · Quick Summary
+**Canario** adquiere y preserva evidencia pública, genera Representations adecuadas a
+cada medio y extrae información cívica trazable hacia un Fichero consultable. Una Claim
+machine-only puede ser útil inmediatamente si conserva fuente, locator y provenance; la
+revisión humana se exige cuando el uso/policy lo requiera, no para vaciar una cola de
+ingestión.
 
-**actakit** currently ships an acta-processing pipeline and is evolving toward a
-self-contained civic-record system for acquiring public records, preserving
-evidence, extracting traceable claims, querying them, and building reusable outputs.
+El producto **no está limitado a actas ni a PDFs**. El modelo incluye, entre otros:
 
-- **What it does**: Download PDFs → extract text → classify with AI → integrate
-  into topical threads → generate outputs for civic use.
-- **For whom**: Costa Rican citizen oversight groups, journalists, researchers,
-  and LLMs working on local government accountability.
-- **Key feature**: Bootstrap mode auto-generates the topic taxonomy from your
-  existing documents — no manual setup required.
+- actas, agendas, resoluciones, oficios, informes y auditorías;
+- presupuestos, contrataciones, contratos, tablas y datasets;
+- reglamentos, planes y correspondencia;
+- imágenes y documentos escaneados;
+- grabaciones de audio/video y transcripts derivados con evidencia temporal.
 
-> **For AI assistants**: Read `AGENTS.md` before working with this project.
-> It contains the complete technical context, configuration reference, and
-> pipeline workflow that LLMs need.
+La vieja canalización municipal de actas sigue en el repositorio porque es el primer
+workflow desplegado y conserva valor operativo/histórico. Es **legacy/source-specific**,
+no la plantilla para nuevas capacidades. `AGENTS.md` contiene el guardrail de scope que
+todo agente debe leer antes de modificar el core.
 
----
+## Current capability boundary
 
-## En español · Qué es
+| Layer | Current state | Scope note |
+|---|---|---|
+| Ingress / custody | Generic boundary + Esparza connector | Connectors may acquire arbitrary bytes/metadata |
+| Workbench | Generic processor substrate; PDF native/OCR/Codex visual adapters | Audio transcription is not implemented yet |
+| Lector | Generic semantic contracts/writer | Runtime evidence reopening currently covers text quotes + table ranges |
+| LECTOR-002 | Heterogeneous corpus work in progress | Acta 161 is one case, never the broad benchmark by itself |
 
-**actakit** es una herramienta de código abierto cuyo pipeline actual procesa
-actas municipales y cuya arquitectura propuesta amplía ese núcleo a registros
-cívicos públicos: conservar evidencia, extraer claims trazables, buscarlos,
-revisarlos cuando haga falta y construir salidas reutilizables.
-
-Con actakit podés:
-
-- Descargar actas desde el sitio web municipal automáticamente.
-- Extraer texto de PDFs y DOCXs sin dependencias externas de API.
-- Procesar actas con asistentes de IA (Claude, opencode, Cursor, etc.)
-  siguiendo un formato estructurado y verificable.
-- Generar una taxonomía de temas (hilos) automáticamente a partir de
-  tus actas — sin empezar desde cero.
-- Extraer anuncios, clasificar contenido y generar salidas para
-  publicaciones, oficios y reportes ciudadanos.
-- Reconstruir hilos temáticos automáticamente a partir de episodios
-  extraídos de múltiples actas.
-
-No requiere cuenta en ninguna plataforma. Todo funciona con scripts
-locales y archivos JSON/YAML de configuración.
-
----
+A missing modality is treated as an explicit capability gap. Canario must not coerce an
+audio/table/image source into a text-only abstraction simply because a current adapter or
+benchmark is easier to implement that way.
 
 ## Arquitectura
 
@@ -154,8 +140,8 @@ Salida, no requisitos del núcleo universal.
 ### 1 — Clonar e instalar
 
 ```bash
-git clone https://github.com/sxntaxis/actakit.git
-cd actakit
+git clone https://github.com/sxntaxis/canario.git
+cd canario
 pip install -r requirements.txt
 
 # Dependencia del sistema (Linux/macOS)
@@ -218,7 +204,7 @@ Breve resumen de los archivos clave:
 ## Estructura del proyecto
 
 ```
-actakit/
+canario/
 ├── README.md                    ← este archivo
 ├── AGENTS.md                    ← documentación para LLMs
 ├── LICENSE                      ← AGPL v3 (código fuente)

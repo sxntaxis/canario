@@ -19,7 +19,7 @@ related:
 - Current scripts are adapters/legacy tools, not future canonical writers.
 - Stable semantic boundaries are implemented before persistence.
 - One operator is the default deployment assumption.
-- The ActaKit core owns canonical writes; no daemon is required until concurrency
+- The Canario core owns canonical writes; no daemon is required until concurrency
   justifies it.
 - Machine extraction may create searchable claims without human approval.
 - Human review is recorded precisely but can be strict, batch, or supervised.
@@ -80,7 +80,7 @@ Implement:
 
 - SQLite schema reviewed against `DATA_MODEL.md`;
 - logical Artifact custody records separated from content-addressed ArchiveObject storage with atomic verified writes;
-- repositories behind the ActaKit core;
+- repositories behind the Canario core;
 - a rebaselinable `0001` during pre-release; forward migration history begins only after the declared compatibility boundary; replay/stale-write guards only where tests require them;
 - consistent backup/export and restore verification;
 - fixity/health checks.
@@ -99,7 +99,7 @@ packaging:
 
 - `SourceConnector` is a swappable inbound adapter;
 - `InboxPort.accept(CaptureEnvelope)` is the common socket;
-- ActaKit binds Source identity, connector key/version and custody policy;
+- Canario binds Source identity, connector key/version and custody policy;
 - connector DTOs contain only acquisition facts/bytes, never CivicDocument or
   Fichero semantics;
 - generic capabilities describe pull/push, inventory/incremental and checkpointing;
@@ -125,7 +125,7 @@ for this bounded pre-release gate.**
 ### WP4C — Mesa de trabajo Representation processors
 
 Only after original custody, process Representations behind a separate boundary.
-Processors are a **curated built-in ActaKit capability**; backend swappability is
+Processors are a **curated built-in Canario capability**; backend swappability is
 an escape hatch for hardware/OS constraints, licensing, hard/new formats,
 local-vs-cloud policy and future superior engines, not a plan to outsource WP4C
 to a plugin ecosystem.
@@ -185,7 +185,7 @@ reference default; heavyweight local AI and provider APIs are optional alternate
 venues. Spreadsheet structured parsing is direct/deterministic by default rather
 than OCR/AI. Exact pins/licenses for optional backends become mandatory only when
 that backend is selected/enabled. Public/restricted egress policy and credential
-ownership remain explicit; Codex CLI owns ChatGPT authentication and ActaKit never
+ownership remain explicit; Codex CLI owns ChatGPT authentication and Canario never
 inspects or stores those credentials.
 
 `WORKBENCH-001` has implemented and independently certified the generic boundary

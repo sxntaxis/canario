@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 import unittest
 
-from actakit.deposit.ids import new_id
-from actakit.lector import (
+from canario.deposit.ids import new_id
+from canario.lector import (
     ClaimDraft,
     ClaimRelationDraft,
     RelationBasisDraft,
@@ -21,8 +21,8 @@ from actakit.lector import (
     TargetRef,
     reopen_selector,
 )
-from actakit.lector.registry import SemanticExtractorResolutionError
-from actakit.processors.contracts import TargetSnapshot
+from canario.lector.registry import SemanticExtractorResolutionError
+from canario.processors.contracts import TargetSnapshot
 
 
 class StubExtractor:

@@ -15,7 +15,7 @@ related:
 
 ## Rule
 
-ActaKit builds the smallest durable civic-record system that solves real work.
+Canario builds the smallest durable civic-record system that solves real work.
 Future complexity is anticipated through boundaries, not preimplemented.
 
 No persistent canonical database migration begins until the architecture, claim
@@ -25,7 +25,7 @@ DDL is allowed only as a design proof and is not migration authority.
 
 ### Pre-release schema rule
 
-Until ActaKit explicitly enters a compatibility-bearing Beta (or later) release,
+Until Canario explicitly enters a compatibility-bearing Beta (or later) release,
 there is no migration-history compatibility promise. Schema evolution is
 **rebaselined into `0001`** and certified again. Do not accumulate `0002`,
 `0003`, ... solely to preserve unreleased development databases. Incremental
@@ -98,8 +98,8 @@ is the Inbox, not a common discovery algorithm. Explicit coverage/checkpoint
 semantics prevent scrape absence from becoming deletion evidence.
 
 Separately, implement Mesa de trabajo Representation processors as a curated
-built-in ActaKit ladder. Swappable backends are an escape hatch for hardware,
-licensing, unusual formats and local/cloud policy; ActaKit owns the default
+built-in Canario ladder. Swappable backends are an escape hatch for hardware,
+licensing, unusual formats and local/cloud policy; Canario owns the default
 processing/escalation policy.
 
 The state-of-the-art research gate is closed. Its accepted reference path is:

@@ -16,7 +16,7 @@ related:
 
 ## Design law
 
-> **Outside the Inbox, geography varies. Inside the Inbox, ActaKit is standard.**
+> **Outside the Inbox, geography varies. Inside the Inbox, Canario is standard.**
 
 The current Esparza scraper is one source-specific acquisition strategy. It is
 not the shape from which future acquisition architecture is derived.
@@ -58,7 +58,7 @@ editorial concept. `Inbox` in this contract means the **source-ingress boundary*
 
 ## Vocabulary
 
-| ActaKit term | Technical concept | Owns |
+| Canario term | Technical concept | Owns |
 |---|---|---|
 | **Source Connector** | inbound adapter / plugin SPI implementation | source-specific discovery, auth, fetching, retries, pagination, browser/API mechanics |
 | **Inbox** | ingress port | validation/translation from boundary DTOs into canonical custody writes |
@@ -127,7 +127,7 @@ boundary is understood.
 A connector does not choose canonical source identity, adapter attribution,
 custody validation state, or persistence IDs.
 
-ActaKit binds the Inbox to:
+Canario binds the Inbox to:
 
 ```text
 one canonical Source
@@ -138,7 +138,7 @@ one canonical Source
 Then connector code sees only `InboxPort.accept(CaptureEnvelope)`.
 
 The current implementation therefore stamps `adapter_key`/`adapter_version` from
-the host binding, assigns canonical IDs inside ActaKit, creates incoming
+the host binding, assigns canonical IDs inside Canario, creates incoming
 Artifacts as `validation_state='pending'`, and applies availability from
 core-owned Inbox policy. A connector cannot self-certify its bytes as verified.
 
@@ -191,7 +191,7 @@ inventory capability; an incremental connector must not imply complete source
 coverage.
 
 Checkpoints are opaque bytes. Examples may internally represent a page cursor,
-RSS GUID, source watermark, object key, or browser-specific token. The ActaKit
+RSS GUID, source watermark, object key, or browser-specific token. The Canario
 core passes them through but does not parse or assign civic meaning to them.
 INGRESS-001 does not yet add durable checkpoint/run tables; persistence will be
 added only when a real connector proves that need.

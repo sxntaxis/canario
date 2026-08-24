@@ -22,15 +22,16 @@ def _write_csv(path: Path, fieldnames: list[str], rows: list[dict[str, object]])
         writer.writerows(rows)
 
 
-def test_partition_is_lossless_stable_and_keeps_low_triage_units() -> None:
+def test_partition_is_lossless_stable_and_source_format_agnostic() -> None:
     source = (
-        " 1 ACTA DE PRUEBA\n"
-        " 2 ARTÍCULO I\n"
-        " 3 1- Se conoce una nota sin decisión.\n"
-        " 4 SE ACUERDA: Aprobar la solicitud. APROBADO POR UNANIMIDAD.\n"
-        "\f 1 ARTÍCULO II\n"
-        " 2 Síndica Ana Ejemplo: Un anuncio vecinal sin verbo de decisión.\n"
+        "Header\n"
+        "First paragraph has ordinary prose.\n"
+        "\n"
+        "SE ACUERDA is deliberately just text here.\n"
+        "ARTÍCULO I is also deliberately just text.\n"
         "\f"
+        "Speaker 00:03:12: transcript-like content.\n"
+        "More transcript content.\n"
     )
     first = bench.partition_source(source)
     second = bench.partition_source(source)
@@ -38,14 +39,27 @@ def test_partition_is_lossless_stable_and_keeps_low_triage_units() -> None:
     assert "".join(unit.text for unit in first) == source
     assert first == second
     assert [unit.unit_id for unit in first] == [f"U{i:04d}" for i in range(1, len(first) + 1)]
-    assert {unit.kind for unit in first} >= {"session", "article", "item", "agreement", "speaker"}
-    assert any(unit.triage_score == 0 for unit in first)
-    assert max(unit.page_end for unit in first) == 2
+    assert {unit.kind for unit in first} <= {"source", "block", "page", "continuation"}
+    assert max(unit.page_end or 0 for unit in first) == 2
+
+    # Changing acta-ish vocabulary without changing generic structure cannot
+    # change boundaries. The harness has no acta semantics.
+    neutral = source.replace("SE ACUERDA", "X" * len("SE ACUERDA")).replace("ARTÍCULO I", "Y" * len("ARTÍCULO I"))
+    assert [(u.char_start, u.char_end, u.kind) for u in first] == [
+        (u.char_start, u.char_end, u.kind) for u in bench.partition_source(neutral)
+    ]
+
+
+def test_partition_supports_unpaged_transcript_without_fake_page_semantics() -> None:
+    source = "00:00 Person A: hello\n00:12 Person B: response\n\n00:40 Person A: conclusion\n"
+    units = bench.partition_source(source)
+    assert "".join(unit.text for unit in units) == source
+    assert all(unit.page_start is None and unit.page_end is None for unit in units)
 
 
 def test_prepare_generates_no_truth_and_is_byte_deterministic(tmp_path: Path) -> None:
     source = tmp_path / "source.txt"
-    source.write_text(" 1 ARTÍCULO I\n 2 SE ACUERDA: Aprobar X.\n\f", encoding="utf-8")
+    source.write_text("Paragraph one.\n\nParagraph two.\n", encoding="utf-8")
     first = tmp_path / "a"
     second = tmp_path / "b"
 
@@ -54,7 +68,10 @@ def test_prepare_generates_no_truth_and_is_byte_deterministic(tmp_path: Path) ->
 
     assert manifest["truth_generated"] is False
     assert manifest["semantic_model_calls"] == 0
-    assert manifest["pages"] == 1
+    assert manifest["attention_heuristics_used"] is False
+    assert manifest["segmentation_semantics"] == "generic_structure_only"
+    assert manifest["evaluator_mode"] == "text_quote:v1"
+    assert manifest["page_count"] is None
     assert (first / "truth.csv").read_text(encoding="utf-8").count("\n") == 1
     for name in ["manifest.json", "units.csv", "units.jsonl", "coverage.csv", "truth.csv"]:
         assert (first / name).read_bytes() == (second / name).read_bytes()
@@ -187,3 +204,18 @@ def test_score_rejects_false_exact_quote(tmp_path: Path) -> None:
 
     with pytest.raises(bench.BenchmarkError, match="does not reopen"):
         bench.score(source, units, coverage, truth, candidates, assessment)
+
+
+def test_corpus_gate_blocks_minutes_only_reference_set() -> None:
+    corpus = Path(__file__).parents[1] / "notebook" / "implementation" / "lector_002_corpus.json"
+    status = bench.evaluate_corpus(corpus)
+    assert status["broad_certification_ready"] is False
+    assert "institutional_minutes" not in status["missing_case_classes"]
+    assert set(status["missing_case_classes"]) == {
+        "report_or_audit",
+        "official_correspondence",
+        "normative_or_contractual",
+        "structured_data",
+        "timed_media",
+    }
+    assert status["gold_pending_classes"] == ["institutional_minutes"]

@@ -1,1 +1,0 @@
-"""ActaKit durable core package."""

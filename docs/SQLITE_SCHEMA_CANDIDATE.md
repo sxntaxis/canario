@@ -42,7 +42,7 @@ evidence/representation byte archive
 The database does not embed large source bytes. The archive does not encode civic
 meaning by filenames. Stable opaque IDs connect both.
 
-Only the ActaKit core writes canonical tables. Outputs, importers, AI readers,
+Only the Canario core writes canonical tables. Outputs, importers, AI readers,
 and external tools use core contracts; they do not write SQLite directly.
 
 Logical civic/custody identity and physical byte deduplication are distinct. Two
@@ -56,14 +56,14 @@ semantic/custody record.
 
 Initial supported SQLite version: **3.53.4 or newer**.
 
-Reason: ActaKit intentionally uses WAL and long-lived evidence custody. SQLite's
+Reason: Canario intentionally uses WAL and long-lived evidence custody. SQLite's
 WAL-reset corruption bug affected ordinary upstream releases through 3.51.2 and
 was first fixed in 3.51.3, but the intervening 3.52.0 release was withdrawn. For
 a new no-legacy deployment, the support set therefore starts at 3.53.4, the
 current stable maintenance release at this review boundary, rather than using a
 numeric floor that accidentally admits a withdrawn release. The packaged runtime
 must still be certified by exact version/source ID and required compile options.
-The numeric floor is necessary but **not sufficient**: ActaKit uses a positive
+The numeric floor is necessary but **not sufficient**: Canario uses a positive
 registry of runtime releases/source IDs that have passed this proof suite. An
 unknown newer SQLite is rejected until certified rather than being trusted merely
 because its version number compares greater. The initial certification target is
@@ -80,7 +80,7 @@ Required runtime capabilities for `0001` are deliberately small:
   enforced foreign keys rather than trusting compile-option strings alone.
 
 No JSON SQL extension is required by the schema: selector JSON is validated by
-ActaKit core contracts, not by making SQLite a JSON-domain authority.
+Canario core contracts, not by making SQLite a JSON-domain authority.
 
 All canonical ordinary tables are `STRICT`. FTS5 virtual tables are the explicit
 exception.
@@ -104,10 +104,10 @@ identity checks; WAL mode is also explicitly re-established/verified rather than
 trusted implicitly.
 
 The implementation must also set and verify a bounded busy timeout, keep write
-transactions short, and reject unsupported SQLite versions. ActaKit reserves SQLite
+transactions short, and reject unsupported SQLite versions. Canario reserves SQLite
 `application_id = 0x414B4954` (`AKIT`, decimal `1095453012`) and migration `0001`
 uses `user_version = 1`; every canonical connection verifies both before treating
-the file as ActaKit authority. While ActaKit remains pre-release and has no public
+the file as Canario authority. While Canario remains pre-release and has no public
 compatibility boundary, schema changes rebaseline `0001` and may keep
 `user_version = 1`; they must repeat the applicable freeze/runtime certification
 rather than accumulating `0002`, `0003`, ... for disposable development databases.
@@ -1369,7 +1369,7 @@ A purge is an exceptional maintenance operation, not ordinary row deletion and
 not a universal event ledger. It has two separate questions:
 
 1. **what exact logical/physical records are in scope?**
-2. **what can ActaKit truthfully claim was removed at each storage boundary?**
+2. **what can Canario truthfully claim was removed at each storage boundary?**
 
 ### `purges`
 
@@ -1447,7 +1447,7 @@ that material once existed. It must not retain the content, raw mention, locator
 digest, or metadata the purge is meant to remove.
 
 `no_tombstone` permits removal of even that residue when required. The schema
-supports both product semantics without pretending ActaKit can choose the legal
+supports both product semantics without pretending Canario can choose the legal
 rule for every deployment.
 
 ### Shared-byte rule
@@ -1480,17 +1480,17 @@ A purge that requires local database-level forensic scrubbing must not finish at
 
 This is **database/file-level best effort**, not a promise to defeat SSD wear
 levelling, filesystem snapshots, remote backups, or forensic recovery outside
-ActaKit's controlled storage boundary.
+Canario's controlled storage boundary.
 
 ### Backup rule
 
 Every purge policy must state whether existing backups/snapshots are in scope and
-when they expire or are rewritten. ActaKit may report current-authority purge
+when they expire or are rewritten. Canario may report current-authority purge
 complete while separately reporting an out-of-scope retained backup, but it may
 not claim corpus-wide erasure if an in-scope backup still contains the material.
 
 `restricted` remains different from `purged`: restricted bytes still exist;
-purged bytes do not exist inside the declared ActaKit authority boundary.
+purged bytes do not exist inside the declared Canario authority boundary.
 
 ## 17. Search is a disposable projection
 
@@ -1616,7 +1616,7 @@ A -> updates -> B -> corrects -> C   (bounded recursive ClaimRelation traversal)
 ```
 
 Co-occurrence and transitive closure remain derived query results. This keeps
-ActaKit graph-shaped without creating a graph database or a home-grown triple
+Canario graph-shaped without creating a graph database or a home-grown triple
 store.
 
 ## 19. Outputs and extensions
@@ -1631,7 +1631,7 @@ outside core civic tables and no implicit filesystem/network/raw-SQL authority.
 
 ## 20. Backup and restore boundary
 
-A complete backup is not `cp actakit.db`.
+A complete backup is not `cp canario.db`.
 
 It consists of:
 
@@ -1801,7 +1801,7 @@ the pre-WORKBENCH prerelease baseline with SHA256:
 That hash remains historical evidence only. WORKBENCH-001 proved that exact
 ProcessRun scope, typed QualityEvidence, a quality decision separate from
 execution outcome, and non-secret egress provenance are generic durable
-requirements. Because ActaKit remains pre-release, those requirements rebaseline
+requirements. Because Canario remains pre-release, those requirements rebaseline
 `0001` rather than creating `0002`.
 
 ## 27. WORKBENCH-001 prerelease rebaseline
@@ -1828,12 +1828,12 @@ page preparation before the external executor receives source bytes. The previou
 `bytes_egressed > 0` CHECK could only represent that failure by dropping terminal
 provenance or lying about egress.
 
-Because ActaKit remains pre-release, the certified integration is byte-identical
+Because Canario remains pre-release, the certified integration is byte-identical
 between:
 
 ```text
 notebook/research/pre-sql/schema/MIGRATION_0001_SPEC.sql
-actakit/persistence/migrations/0001.sql
+canario/persistence/migrations/0001.sql
 ```
 
 with SHA256:

@@ -1,4 +1,14 @@
-# Changelog — actakit
+# Changelog — canario
+
+## Unreleased — Canario scope/rename
+
+- Renamed the pre-release product/package from ActaKit/`actakit` to Canario/`canario`.
+- Made heterogeneous document/data/recording scope an explicit agent/core invariant.
+- Replaced the Acta-161-shaped LECTOR-002 preparation with a generic text-case harness and
+  a machine-readable heterogeneous corpus gate.
+- Kept frozen SQL bytes and historical IDs/evidence stable rather than rewriting provenance
+  for branding.
+
 
 All notable changes to this project are documented in this file.
 

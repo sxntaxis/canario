@@ -1,6 +1,6 @@
 ---
 name: Reporte de bug
-about: Reportar un bug en actakit
+about: Reportar un bug en canario
 title: '[BUG] '
 labels: bug
 assignees: ''
@@ -28,7 +28,7 @@ assignees: ''
 
 - **OS:** [e.g., Ubuntu 22.04, macOS Sonoma]
 - **Python:** [e.g., 3.11.5]
-- **Versión de actakit:** [e.g., commit hash o última versión]
+- **Versión de canario:** [e.g., commit hash o última versión]
 
 ## Logs
 

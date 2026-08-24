@@ -1,6 +1,6 @@
 # AGENTS.md
 
-> **Documentación para asistentes de IA — actakit v1.0**
+> **Documentación para asistentes de IA — canario v1.0**
 >
 > Antes de trabajar con este proyecto, leé este archivo completo.
 > Contiene todo lo que un modelo de lenguaje necesita para configurar,
@@ -8,9 +8,49 @@
 
 ---
 
+## Product identity and scope invariant
+
+**Canario is not an acta processor.** The historical municipal-acta workflow is the
+first mature deployment and a useful fixture family, but it is not the architectural
+boundary. The durable product ingests heterogeneous public/civic evidence, including
+PDF/DOCX/HTML, reports, correspondence, budgets, contracts, regulations, datasets,
+images, audio/video recordings, and derived transcripts or structured Representations.
+Unknown future record types must remain possible.
+
+The generic path is:
+
+```text
+source terrain / file / recording / dataset
+-> Artifact custody
+-> one or more typed Representations
+-> Lector semantic proposals
+-> Fichero
+```
+
+Hard rules for agents/contributors:
+
+- never put acta vocabulary/layout (`ARTÍCULO`, `SE ACUERDA`, municipal speaker roles,
+  session closing formulas, etc.) into a generic core boundary or generic benchmark;
+- source/document-format heuristics may exist only in an explicitly named adapter/profile
+  and may not silently become universal truth, completeness, or segmentation rules;
+- a benchmark over one record class cannot certify a broad Canario capability; broad
+  certification requires a heterogeneous reference corpus;
+- text offsets are not a universal evidence model. Tables keep typed row/cell evidence;
+  recordings require timed media evidence, normally strengthened by a transcript anchor;
+- do not flatten audio/table/image evidence into plain text merely because the first
+  implementation knows how to score text; missing modality support is a capability gap to
+  implement, not a reason to redefine the source;
+- `machine-only` remains a valid durable production state. Human gold/adjudication is an
+  engineering cost for representative benchmark fixtures, not a production review queue.
+
+The product was renamed from **ActaKit** to **Canario** during pre-release specifically
+to remove an accidental minutes-only framing. Historical contract/fixture IDs such as
+`ACTAKIT-ARCH-001` and `AKF-*` retain their identifiers for provenance and stable
+reference; the legacy prefix does **not** define current product scope.
+
 ## Política de pre-release y compatibilidad de schema
 
-**ActaKit está en pre-release. No hay usuarios ni instalaciones públicas cuya base
+**Canario está en pre-release. No hay usuarios ni instalaciones públicas cuya base
 de datos deba conservar compatibilidad entre commits.** Hasta que el proyecto
 declare explícitamente una frontera de compatibilidad (como mínimo una release
 Beta pública, o una declaración equivalente en `docs/STATUS.md`), el schema
@@ -52,11 +92,11 @@ source-specific terrain
 
 Rules for agents/contributors:
 
-- do not put Esparza/CMS/HTML/API/browser assumptions in `actakit.ingress`;
+- do not put Esparza/CMS/HTML/API/browser assumptions in `canario.ingress`;
 - Source Connectors stop at `InboxPort` and do not call `DepositWriter`, SQLite,
   ArchiveObject, CivicDocument, Claim, Entity, FTS, or review writers directly;
 - connector code reports observations/bytes, not semantic document truth;
-- ActaKit owns canonical Source binding, connector attribution, persistence IDs,
+- Canario owns canonical Source binding, connector attribution, persistence IDs,
   validation state and custody policy;
 - discovery is connector-private: there is no universal `scrape()` or
   `discover()` requirement;
@@ -76,7 +116,7 @@ Inbox.
 
 The processor state-of-the-art research package lives at
 `notebook/research/workbench/processors/`. The Civic Processor Bench is closed and
-the generic `WORKBENCH-001` boundary in `actakit/processors/` is independently
+the generic `WORKBENCH-001` boundary in `canario/processors/` is independently
 certified on the exact registered SQLite 3.53.4 runtime. Concrete adapters must
 land as bounded units on that frozen boundary rather than redesigning custody,
 QualityEvidence, scope or egress around one backend.
@@ -111,7 +151,7 @@ Rules for agents/contributors:
 - no-egress/restricted source policy can forbid cloud completely;
 - restricted/no-egress deployments fall back to local deterministic processing plus
   human review;
-- Codex CLI owns ChatGPT authentication. ActaKit must never inspect or store those
+- Codex CLI owns ChatGPT authentication. Canario must never inspect or store those
   credentials;
 - page/block escalation is allowed; no universal backend/model winner is frozen;
 - no universal numeric `confidence` spans OCR/document/VLM/audio engines. Preserve
@@ -135,7 +175,7 @@ page-complete even when table structure is also emitted; tables supplement rathe
 than replace canonical text, and deterministic cross-channel coverage rejects
 internally inconsistent output before derivatives are accepted. It uses a dedicated
 private keyring-backed CODEX_HOME and private scratch HOME; bundled/user/admin skills
-are excluded from the transcription execution, and ActaKit never reads ChatGPT
+are excluded from the transcription execution, and Canario never reads ChatGPT
 credentials or exposes whole-document cloud scope.
 
 Exact developer-host fingerprinting is not durable project evidence. Do not persist
@@ -148,7 +188,7 @@ identity and process-scoped resource measurements.
 
 `LECTOR-001` is independently certified and integrated at merge
 `98c2d60387fd7ec176033563566f62c59123587d`. The generic semantic boundary lives in
-`actakit/lector/`; `SemanticExtractor` backends are untrusted/replaceable and
+`canario/lector/`; `SemanticExtractor` backends are untrusted/replaceable and
 `LectorWriter` is the bounded canonical authority for the exact LECTOR-001 output
 surface.
 
@@ -168,68 +208,76 @@ Rules for agents/contributors:
   perform canonical cutover;
 - broad ClaimRelations created during `claim_extract` are same-run only and obey the
   candidate/basis rules in `notebook/implementation/LECTOR_001_DESIGN.md`;
-- the active semantic edge is `LECTOR-002`: the deterministic Acta 161 benchmark
-  scaffold is prepared; freeze its independent gold truth next, then run a real broad
-  extractor. Do not inspect tested extractor output before the gold set is frozen;
-- benchmark triage/LLM assistance may reduce reviewer search but cannot silently
-  become gold truth or final semantic adjudication.
+- the active semantic edge is `LECTOR-002`: build a heterogeneous reference corpus,
+  not an Acta 161-only benchmark. Acta 161 is case `CR-ESPARZA-MINUTES-001` and cannot
+  certify broad extraction by itself;
+- the canonical text-case harness uses only generic Representation structure. Any
+  acta/language/source-specific heuristic must live in an explicitly scoped helper and
+  cannot define corpus completeness;
+- broad LECTOR-002 certification remains blocked until report/audit, correspondence,
+  normative/contractual, structured-data, and timed-media cases join the minutes case
+  with appropriate typed evidence evaluators;
+- benchmark assistance may reduce reviewer search but cannot silently become gold truth
+  or final semantic adjudication. Do not inspect a tested extractor's output for a case
+  before that case's independent gold set is frozen.
 
-## ¿Qué es actakit?
+## ¿Qué es Canario?
 
-actakit procesa actas del Conceho Municipal de Costa Rica y las convierte
-en conocimiento estructurado: hilos temáticos, hallazgos y memoria
-documental verificable.
+Canario convierte evidencia pública heterogénea en conocimiento cívico trazable.
+Preserva los bytes originales, deriva Representations adecuadas al medio, propone Claims
+con evidencia exacta y provenance, y permite buscarlas/revisarlas sin fingir que una IA
+las confirmó humanamente.
 
-Cada acta pasa por 5 etapas: scraping → extracción de texto → procesamiento
-clasificado → extracción de anuncios → integración en hilos. El resultado
-son archivos `.md` por tema (hilo) que agrupan todos los episodios
-relacionados de múltiples actas, con atribuación completa.
+Actas municipales son hoy la fuente con mayor dogfood e historial legado, pero un informe
+de auditoría, un presupuesto tabular, un oficio, un contrato, un dataset o una grabación
+son ciudadanos de primera clase del mismo sistema. La pregunta del core no es “¿cómo se
+procesa un acta?”, sino “¿cómo se preserva, representa y cita correctamente esta evidencia
+para extraer información útil sin perder su naturaleza?”.
 
-**Idioma del proyecto:** Español (documentación, código, configuración).
-Los patrones de extracción están calibrados para español costarricense.
-
----
-
-## Project Layout
-
-```
-actakit/
-├── scripts/
-│   ├── scrape_actas.py          # Etapa 0: descargar PDFs
-│   ├── pdftotext_actas.py       # Etapa 1: texto plano
-│   ├── extract_tablero.py        # Etapa 3: extraer anuncios
-│   ├── generate_anuncios.py     # Etapa 3: generar episodios
-│   ├── aplicar_graduacion.py     # Etapa 4: mover anuncios a episodios
-│   ├── merge_clasificaciones.py # Fusionar clasificaciones
-│   │
-│   ├── entity_index.py           # Extracción de entidades (regex)
-│   ├── bootstrap_hilos.py        # Bootstrap de taxonomía
-│   ├── generate_enrutamiento.py  # Generar enrutamiento.yaml
-│   ├── integrate_hilos.py         # Etapa 5: integrar en hilos
-│   ├── setup_municipio.py         # Guía para nuevos cantones
-│   └── run_bootstrap.sh          # Orquestación bootstrap
-│
-├── skills/                       # Instrucciones para procesamiento AI
-│   ├── _formato-intermedio.md    # Contrato de formato entre etapas
-│   ├── _principios-compartidos.md
-│   ├── procesar-acta/            # Skill principal de procesamiento
-│   │   ├── SKILL.md
-│   │   └── config/ejemplo/
-│   │       ├── enrutamiento.yaml # Taxonomía de hilos (palabras clave)
-│   │       ├── fuentes.yaml
-│   │       └── inbox.yaml
-│   ├── tejer-hilo/               # Integración en hilos
-│   └── procesar-prensa/           # Prensa y comunicados
-│
-├── config.example.yaml           # Configuración base
-└── requirements.txt               # Dependencias Python
-```
+**Idioma del proyecto:** la documentación de producto puede usar español/inglés técnico.
+Los adaptadores o perfiles lingüísticos pueden especializarse, pero el core no asume
+español costarricense ni lenguaje municipal como contrato universal.
 
 ---
 
-## Configuración
+## Project Layout and legacy boundary
 
-### config.yaml
+The durable Canario architecture lives in the package/docs/tests below. Start here for new
+core work:
+
+```text
+canario/
+  ingress/        terrain-neutral acquisition boundary
+  deposit/        custody
+  processors/     Representation/Workbench processors
+  lector/         semantic extraction boundary
+  persistence/    canonical SQLite authority
+  connectors/     explicitly source-specific adapters
+
+docs/            accepted/current architecture and contracts
+notebook/         research, certification evidence, implementation records
+tests/            executable invariants
+```
+
+The top-level `scripts/`, `skills/`, `config.example.yaml`, Hilo/Tablero vocabulary and
+acta directories belong primarily to the **legacy municipal-acta workflow**. They remain
+because that workflow is real operator history and useful regression evidence. Do not copy
+their municipality/acta assumptions into `canario/` merely because they are numerous or
+older. A new generic feature should normally be justified from `docs/` contracts and real
+heterogeneous fixtures first.
+
+Historical Notebook records may still say ActaKit or reference the old `actakit/` package
+path. Treat those as provenance describing the tree at the time of the recorded proof, not
+as current naming instructions.
+
+---
+
+## Legacy municipal-acta workflow reference
+
+The remainder of this section documents the preserved pre-Canario acta/Hilo workflow.
+It is operational reference, not the universal architecture.
+
+### Legacy `config.yaml`
 
 Archivo central del pipeline. Copiar desde `config.example.yaml`:
 
@@ -483,8 +531,8 @@ episodios:
 ### Paso 1 — Clonar y configurar
 
 ```bash
-git clone https://github.com/sxntaxis/actakit.git
-cd actakit
+git clone https://github.com/sxntaxis/canario.git
+cd canario
 cp config.example.yaml config.yaml
 # Editar: municipio, url_base, scraping.secciones
 ```
@@ -616,5 +664,5 @@ pip install -r requirements.txt
 
 ---
 
-_Last reviewed: 2026-08-24 — actakit prerelease_
+_Last reviewed: 2026-08-24 — canario prerelease_
 _Questions? Open a GitHub Issue or read the source._
