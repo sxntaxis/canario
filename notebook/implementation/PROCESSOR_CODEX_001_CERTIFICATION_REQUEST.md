@@ -36,8 +36,10 @@ python notebook/implementation/prove_processor_codex_001.py \
 The proof performs only two source-page Codex attempts:
 
 1. TSE skew/noise controlled page: exact required-span recall `1.0`, CER <= `0.03`,
-   exact independently curated table-row recall `1.0`, cell fidelity `1.0`, zero
-   uncertain spans;
+   independently curated table-row recall `1.0`, cell fidelity `1.0`,
+   `false_cell_count == 0`, zero uncertain spans. Table-row recovery follows the
+   frozen research metric: all expected cells must match in position; extra
+   non-empty cells fail, while trailing empty padding is ignored;
 2. natural Esparza page 4: exact source SHA256, required-span recall `1.0`,
    CER <= `0.03`, zero uncertain spans.
 

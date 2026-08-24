@@ -62,6 +62,10 @@ def _truth(meta_path: Path) -> tuple[str, list[str], list[list[str]]]:
 
 
 def _table_metrics(observed_tables: list[object], expected_rows: list[list[str]]) -> dict[str, object]:
+    # Keep production certification aligned with the research bench metric:
+    # a row is recovered when every expected cell is present in its expected
+    # position. Trailing empty padding is harmless; extra non-empty cells and
+    # missing/mismatched expected cells are counted explicitly as false cells.
     rows: list[list[str]] = []
     for table in observed_tables:
         if isinstance(table, dict) and isinstance(table.get("rows"), list):
@@ -70,8 +74,9 @@ def _table_metrics(observed_tables: list[object], expected_rows: list[list[str]]
                     rows.append(row)
     expected_by_key = {normalize_text(row[0]): row for row in expected_rows}
     candidates = [row for row in rows if row and normalize_text(row[0]) in expected_by_key]
-    exact = 0
+    matched_rows = 0
     matched_cells = 0
+    false_cells = 0
     expected_cells = sum(len(row) for row in expected_rows)
     for row in candidates:
         expected = expected_by_key[normalize_text(row[0])]
@@ -80,12 +85,21 @@ def _table_metrics(observed_tables: list[object], expected_rows: list[list[str]]
             for index, cell in enumerate(expected)
         )
         matched_cells += matches
-        exact += matches == len(expected) and len(row) == len(expected)
+        matched_rows += matches == len(expected)
+        false_cells += sum(
+            1
+            for index, cell in enumerate(row)
+            if index >= len(expected) and normalize_text(cell)
+        )
+        false_cells += len(expected) - matches
     return {
         "observed_table_count": len(observed_tables),
         "observed_row_count": len(rows),
-        "exact_row_recall": exact / len(expected_rows) if expected_rows else 1.0,
+        "candidate_row_count": len(candidates),
+        "expected_row_count": len(expected_rows),
+        "exact_row_recall": matched_rows / len(expected_rows) if expected_rows else 1.0,
         "cell_fidelity": matched_cells / expected_cells if expected_cells else 1.0,
+        "false_cell_count": false_cells,
     }
 
 
@@ -224,7 +238,11 @@ def _prove_tse(processor: CodexVisualTranscriptionProcessor, manifest: Path) -> 
         raise SystemExit("PROCESSOR_CODEX_001_PROOF=FAIL TSE outcome/decision")
     if metrics["required_span_recall"] != 1.0 or float(metrics["cer"]) > 0.03:
         raise SystemExit(f"PROCESSOR_CODEX_001_PROOF=FAIL TSE text metrics {metrics}")
-    if table["exact_row_recall"] != 1.0 or table["cell_fidelity"] != 1.0:
+    if (
+        table["exact_row_recall"] != 1.0
+        or table["cell_fidelity"] != 1.0
+        or table["false_cell_count"] != 0
+    ):
         raise SystemExit(f"PROCESSOR_CODEX_001_PROOF=FAIL TSE table metrics {table}")
     if evidence.get("multimodal.schema_valid") is not True:
         raise SystemExit("PROCESSOR_CODEX_001_PROOF=FAIL TSE schema evidence")
