@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: PROCESSOR_CODEX_001_CODEX_CLI_SUBSCRIPTION_IMPLEMENTED_AND_CERTIFIED
+state: LECTOR_001_SEMANTIC_EXTRACTION_BOUNDARY_IMPLEMENTED_AND_CERTIFIED
 created: 2026-08-19
 updated: 2026-08-24
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001, Poppler D1, OCRmyPDF/Tesseract D2, and PROCESSOR-CODEX-001 are independently certified. The bounded one-page subscription-backed visual transcription adapter and minimal prerelease egress-schema rebaseline are integrated.
+summary: The certified acquisition/Representation-processing ladder now feeds the independently certified LECTOR-001 semantic extraction boundary. Machine/rule/human semantic drafts can be atomically persisted as traceable Claims without fabricated review; the first real broad civic extractor is the active edge.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -97,7 +97,9 @@ accepted semantic contracts
 -> PROCESSOR-DIRECT-001 Poppler native-PDF adapter independently certified
 -> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
 -> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter independently certified
--> semantic writers and explicit canonical-cutover gate later
+-> LECTOR-001 semantic extraction boundary independently certified and integrated
+-> LECTOR-002 first real broad civic Claim extractor / quality proof
+-> explicit canonical-cutover gate later
 ```
 
 Migration `0001` implementation was authorized by
@@ -122,9 +124,15 @@ on the exact registered upstream SQLite 3.53.4 source
 ID; the first attempt correctly rejected a patched build with a mismatched source
 ID. No `0002` exists: prerelease policy requires rebaselining `0001` instead.
 
-The implementation certification does not authorize canonical cutover or
-production semantic writers. The bounded Depósito writer is now certified by
-`notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`.
+The bounded Depósito writer is certified by
+`notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`. LECTOR-001 now
+authorizes the bounded semantic writer implemented in `actakit/lector/`: exact
+Representation-target inputs may produce new revision-1 Claims, EvidenceLinks,
+raw EntityMentions, candidate resolution/Entity anchors, existing-Tag links and
+same-run ClaimRelations with terminal ProcessRun provenance. This does **not**
+authorize canonical cutover, historical mass import, human review decisions,
+Entity reconciliation, arbitrary Tag creation, correction/retraction of existing
+Claims, or cross-document relation inference.
 
 ## INGRESS-001 current boundary
 
@@ -201,13 +209,36 @@ limited to approved public material; Business/Enterprise/Edu controls must be
 verified per deployment. Credential values remain external host secrets and must
 never enter SQLite, ProcessRun evidence or logs.
 
+## WP5 Lector current boundary
+
+`LECTOR-001` is independently certified on the exact SQLite 3.53.4 runtime and
+integrated into canonical `main`. The replaceable `SemanticExtractor` receives
+immutable Representation bytes plus exact targets only; `LectorWriter` remains
+the sole canonical semantic persistence authority. Stable `process_run_id` replay
+returns the same canonical Claim/revision identities without reinvoking the
+backend, while changed immutable scope/configuration is a hard identity collision.
+
+The certified boundary deliberately keeps extraction separate from identity and
+review authority. Machine/rule extraction cannot fabricate human review, cannot
+resolve same-name entities, cannot create or reconcile Entities, and cannot
+silently retarget historical Claims. Exact locator proposals are validated,
+scoped and reopened against retained Representation bytes before semantic rows
+commit. Restricted custody blocks egress. A 300-Claim machine-only volume/replay
+proof passed with zero fabricated review rows.
+
+**Current gate:** LECTOR-002 must prove a real broad civic extractor against an
+approved official Esparza acta. Quality is evaluated on civic-claim recoverability,
+atomicity/granularity, exact evidence reopening, unsupported-claim rate, relevant
+EntityMention recall and procedural-noise precision. A backend is not accepted
+merely because it returns schema-valid JSON or many Claims.
+
 ## Current Prohibitions
 
 - No canonical-data cutover or historical mass import is authorized yet.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
-- No semantic Fichero, Claim, civic-review, purge, or archive/GC writer is authorized.
-  The only additional certified canonical writer is the bounded Workbench
-  processor provenance/QualityEvidence/derived-Representation writer.
+- LECTOR-001 authorizes only its bounded new-semantic-row writer. No civic-review,
+  correction/retraction of existing Claims, Entity reconciliation, purge, or
+  archive/GC writer is authorized by that unit.
 - The Esparza Source Connector is certified only as a bounded shadow-mode SPI
   consumer. Its two dogfood runs do not modify the current scraper/Hilo path and
   are not canonical. Coverage is unknown because the runs were intentionally
