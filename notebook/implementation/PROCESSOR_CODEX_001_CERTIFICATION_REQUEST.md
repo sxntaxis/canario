@@ -22,6 +22,14 @@ bundled skills disabled for the transcription exec
 
 Do not inspect or print credential/account values.
 
+Qualified v2 contract identities:
+
+```text
+request_template_hash: b10745051bffc0ddded6fd08e30a8947154ccb8e71dce4fd35d0a9c9c27fee84
+output_schema_hash:     8c8c369cf18f4269c72ca2293db6cb3556d6db8a2f9f3f103dca16aa4543a72a
+configuration_hash:     6650c221ee5ef2a0a499fe4af83e460ffaa715e883ed1049c4948b76f4eddc31
+```
+
 ## Mandatory real production proof
 
 Generate the existing TSE controlled variants and run:
@@ -45,6 +53,8 @@ The proof performs only two source-page Codex attempts:
 
 Both must pass through the production Workbench/Writer path and retain positive
 source-attachment egress bytes plus exact model/config/template/policy provenance.
+The TSE proof still compares complete page truth against the `transcript` derivative;
+it must not reconstruct missing transcript text from the separate table derivative.
 
 ## Schema/regression gate
 
@@ -74,6 +84,10 @@ Verify at minimum:
 - local rendering and cloud execution have byte/page/megapixel/output/time limits;
 - timeout terminates Codex process group;
 - schema-invalid/uncertain/empty material cannot be accepted;
+- `codex_visual_transcription_v2` requires page-complete transcript text including
+  readable table cells, while `tables` remains supplemental structure;
+- `multimodal.table_text_coverage:v1` is deterministic cross-channel evidence and
+  any value below `1.0` fails as `codex_contract_invalid` with no derivative;
 - pre-egress failure truthfully records `0` source bytes;
 - post-handoff failure records bounded attachment bytes;
 - no credentials/account/quota data enters SQLite/Representations/QualityEvidence;

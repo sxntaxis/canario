@@ -126,9 +126,12 @@ provider URL, executable, model path or command flags from document data.
 
 ## Prompt/output contract
 
-The prompt requests document representation processing only:
+The prompt requests document representation processing only. The v2 contract makes
+the relationship between text and table channels explicit:
 
-- exact visible transcription;
+- `transcription` is the complete readable visible page text in natural reading order;
+- readable table text remains in `transcription`;
+- `tables` is supplemental structured duplication and never replaces transcript text;
 - no civic interpretation/entities/claims;
 - no normalization or invented unreadable text;
 - uncertainty recorded explicitly;
@@ -167,7 +170,13 @@ multimodal.uncertain_span_count:v1
 multimodal.uncertain_spans:v1
 multimodal.transcription_character_count:v1
 multimodal.table_count:v1
+multimodal.table_text_coverage:v1
 ```
+
+`multimodal.table_text_coverage:v1` is a deterministic cross-channel coverage
+ratio, not a model confidence score. A response whose non-empty structured table
+cell occurrences are not all represented in `transcription` is contract-invalid
+and produces no derivative.
 
 There is no universal confidence. The existing reference policy accepts visual
 transcription only when the schema is valid, uncertainty count is zero, and a

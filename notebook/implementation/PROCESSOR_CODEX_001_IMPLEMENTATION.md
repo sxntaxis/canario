@@ -38,6 +38,23 @@ The source PDF is used only for local Poppler rendering and is deleted before
 Codex starts. Scratch contains only the single rendered page attachment, static
 schema, output target and empty HOME.
 
+## Page-complete transcript contract v2
+
+Certification exposed an ambiguity in the original two-channel output: Codex could
+place table text only in `tables` while returning an incomplete `transcription`.
+The request template is therefore versioned to `codex_visual_transcription_v2`.
+`transcription` is now explicitly page-complete, including readable table text, and
+`tables` is supplemental structure. The JSON Schema carries the same descriptions.
+
+After schema validation the adapter deterministically verifies that every non-empty
+structured table-cell occurrence is represented in the transcription, preserving
+repeated-cell multiplicity. It emits `multimodal.table_text_coverage:v1`; coverage
+below `1.0` is `codex_contract_invalid`, keeps positive post-handoff egress truth,
+creates no derivative, and cannot be accepted.
+
+This changes prompt/schema/configuration identity but does not change SQLite, scope,
+auth, egress, model, CLI qualification, or fidelity thresholds.
+
 ## Persistence and egress
 
 The processor returns material bytes and QualityEvidence only. `WorkbenchWriter`

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import unicodedata
+from collections import Counter
 import os
 import re
 import shutil
@@ -31,7 +33,7 @@ _PAGE_SIZE_RE = re.compile(
     re.MULTILINE,
 )
 
-_PROMPT_VERSION = "codex_visual_transcription_v1"
+_PROMPT_VERSION = "codex_visual_transcription_v2"
 _EXEC_POLICY_VERSION = "codex_exec_policy_v2"
 _STATIC_CODEX_CONFIG_OVERRIDES = (
     'model_reasoning_effort="none"',
@@ -65,6 +67,9 @@ Security and scope rules:
 - Process the attached image exactly once and return its filename stem as page_id.
 
 Transcription rules:
+- transcription is the complete page transcription: include every readable visible text span exactly once in natural reading order, including all text inside tables.
+- tables are a supplemental structured copy of visually supported table cells; they never replace or subtract text from transcription.
+- Any non-empty text placed in tables must also appear in transcription. This deliberate cross-field duplication is required.
 - Return exact visible text; do not summarize or explain.
 - Preserve visible reading order and page identity.
 - Do not normalize names, numbers, punctuation, or accents unless the pixels show them that way.
@@ -177,6 +182,11 @@ class CodexVisualConfig:
                             },
                             "transcription": {
                                 "type": "string",
+                                "description": (
+                                    "Complete visible page transcription in natural reading order, "
+                                    "including all readable text inside tables. Table text must remain "
+                                    "present here even when also represented structurally in tables."
+                                ),
                                 "maxLength": self.max_transcription_chars,
                             },
                             "uncertain_spans": {
@@ -189,6 +199,10 @@ class CodexVisualConfig:
                             },
                             "tables": {
                                 "type": "array",
+                                "description": (
+                                    "Supplemental structured copies of visually supported table rows; "
+                                    "this field never replaces table text in transcription."
+                                ),
                                 "maxItems": self.max_tables,
                                 "items": {
                                     "type": "object",
@@ -522,6 +536,17 @@ class CodexVisualTranscriptionProcessor:
                 evidence = (
                     QualitySignal(target.id, "multimodal.schema_valid", "v1", False),
                 )
+            elif exc.error_code == "codex_contract_invalid":
+                assert exc.table_text_coverage is not None
+                evidence = (
+                    QualitySignal(target.id, "multimodal.schema_valid", "v1", True),
+                    QualitySignal(
+                        target.id,
+                        "multimodal.table_text_coverage",
+                        "v1",
+                        exc.table_text_coverage,
+                    ),
+                )
             return ProcessorResult(
                 "failed",
                 evidence=evidence,
@@ -724,6 +749,13 @@ class CodexVisualTranscriptionProcessor:
             self._validate_value(value, page_id)
         except (TypeError, ValueError) as exc:
             raise _CodexRunError("codex_schema_invalid", handed_off=True) from exc
+        table_text_coverage = self._table_text_coverage(value)
+        if table_text_coverage < 1.0:
+            raise _CodexRunError(
+                "codex_contract_invalid",
+                handed_off=True,
+                table_text_coverage=table_text_coverage,
+            )
         return value
 
     def _validate_value(self, value: object, page_id: str) -> None:
@@ -765,6 +797,55 @@ class CodexVisualTranscriptionProcessor:
                     or not all(isinstance(cell, str) and len(cell) <= self.config.max_cell_chars for cell in row)
                 ):
                     raise ValueError("invalid table cells")
+
+    @staticmethod
+    def _normalize_cross_channel_text(value: str) -> str:
+        value = unicodedata.normalize("NFC", value).replace("\u00ad", "")
+        return re.sub(r"\s+", " ", value).strip().casefold()
+
+    @classmethod
+    def _table_text_coverage(cls, value: dict[str, object]) -> float:
+        pages = value["pages"]
+        assert isinstance(pages, list) and len(pages) == 1
+        page = pages[0]
+        assert isinstance(page, dict)
+        transcription = page["transcription"]
+        tables = page["tables"]
+        assert isinstance(transcription, str)
+        assert isinstance(tables, list)
+
+        required: Counter[str] = Counter()
+        for table in tables:
+            if not isinstance(table, dict):
+                continue
+            rows = table.get("rows")
+            if not isinstance(rows, list):
+                continue
+            for row in rows:
+                if not isinstance(row, list):
+                    continue
+                for cell in row:
+                    if not isinstance(cell, str):
+                        continue
+                    normalized = cls._normalize_cross_channel_text(cell)
+                    if normalized:
+                        required[normalized] += 1
+
+        total = sum(required.values())
+        if total == 0:
+            return 1.0
+
+        observed = cls._normalize_cross_channel_text(transcription)
+        matched = 0
+        for cell, expected_count in required.items():
+            pattern = re.escape(cell)
+            if cell[0].isalnum() or cell[0] == "_":
+                pattern = r"(?<!\w)" + pattern
+            if cell[-1].isalnum() or cell[-1] == "_":
+                pattern = pattern + r"(?!\w)"
+            observed_count = len(re.findall(pattern, observed))
+            matched += min(expected_count, observed_count)
+        return matched / total
 
     def _result_from_value(
         self,
@@ -828,6 +909,12 @@ class CodexVisualTranscriptionProcessor:
                 len(transcription),
             ),
             QualitySignal(target_id, "multimodal.table_count", "v1", len(tables)),
+            QualitySignal(
+                target_id,
+                "multimodal.table_text_coverage",
+                "v1",
+                self._table_text_coverage(value),
+            ),
         )
         return ProcessorResult(
             "success",
@@ -838,7 +925,14 @@ class CodexVisualTranscriptionProcessor:
 
 
 class _CodexRunError(RuntimeError):
-    def __init__(self, error_code: str, *, handed_off: bool = False) -> None:
+    def __init__(
+        self,
+        error_code: str,
+        *,
+        handed_off: bool = False,
+        table_text_coverage: float | None = None,
+    ) -> None:
         self.error_code = error_code
         self.handed_off = handed_off
+        self.table_text_coverage = table_text_coverage
         super().__init__(error_code)

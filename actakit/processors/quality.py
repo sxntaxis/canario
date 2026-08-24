@@ -101,6 +101,7 @@ DEFAULT_QUALITY_CONTRACTS: dict[tuple[str, str], QualityValidator] = {
     ("multimodal.uncertain_spans", "v1"): _bounded_string_list,
     ("multimodal.transcription_character_count", "v1"): _nonnegative_int,
     ("multimodal.table_count", "v1"): _nonnegative_int,
+    ("multimodal.table_text_coverage", "v1"): _ratio,
 }
 
 

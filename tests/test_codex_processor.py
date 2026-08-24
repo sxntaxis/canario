@@ -309,7 +309,7 @@ class CodexProcessorTests(unittest.TestCase):
         processor = _SimulatedCodex(self.codex_home, payload={
             "pages": [{
                 "page_id": "page_000001",
-                "transcription": "ACTA MUNICIPAL",
+                "transcription": "ACTA MUNICIPAL\nA B\n1 2",
                 "uncertain_spans": [],
                 "tables": [{"rows": [["A", "B"], ["1", "2"]]}],
             }]
@@ -344,8 +344,12 @@ class CodexProcessorTests(unittest.TestCase):
             )}
             self.assertEqual(evidence["multimodal.schema_valid"], True)
             self.assertEqual(evidence["multimodal.uncertain_span_count"], 0)
-            self.assertEqual(evidence["multimodal.transcription_character_count"], len("ACTA MUNICIPAL"))
+            self.assertEqual(
+                evidence["multimodal.transcription_character_count"],
+                len("ACTA MUNICIPAL\nA B\n1 2"),
+            )
             self.assertEqual(evidence["multimodal.table_count"], 1)
+            self.assertEqual(evidence["multimodal.table_text_coverage"], 1.0)
             outputs = con.execute(
                 "SELECT kind,media_type,language,charset FROM representations WHERE process_run_id=? ORDER BY kind",
                 (request.process_run_id,),
@@ -354,6 +358,73 @@ class CodexProcessorTests(unittest.TestCase):
                 ("table", "application/json", "es", "utf-8"),
                 ("transcript", "text/plain", "es", "utf-8"),
             ])
+        finally:
+            con.close()
+
+    def test_table_text_coverage_preserves_repeated_cell_multiplicity(self):
+        value = {
+            "pages": [{
+                "page_id": "page_000001",
+                "transcription": "ALCALDÍA PUSC VICEALCALDÍA",
+                "uncertain_spans": [],
+                "tables": [{"rows": [["ALCALDÍA", "PUSC"], ["VICEALCALDÍA", "PUSC"]]}],
+            }]
+        }
+        self.assertEqual(
+            CodexVisualTranscriptionProcessor._table_text_coverage(value),
+            3 / 4,
+        )
+
+    def test_prompt_and_schema_require_page_complete_transcription_with_table_duplication(self):
+        self.assertIn("including all text inside tables", codex_module._PROMPT)
+        self.assertIn("never replace or subtract text from transcription", codex_module._PROMPT)
+        schema = CodexVisualConfig().output_schema
+        page = schema["properties"]["pages"]["items"]["properties"]
+        self.assertIn("Complete visible page transcription", page["transcription"]["description"])
+        self.assertIn("never replaces table text", page["tables"]["description"])
+
+    def test_table_text_missing_from_transcription_fails_contract_after_handoff(self):
+        processor = _SimulatedCodex(self.codex_home, payload={
+            "pages": [{
+                "page_id": "page_000001",
+                "transcription": "ACTA MUNICIPAL",
+                "uncertain_spans": [],
+                "tables": [{
+                    "rows": [
+                        ["ALCALDÍA", "601420299", "BIENVENIDO VENEGAS PORRAS", "PUSC"],
+                        ["VICEALCALDÍA PRIMERA", "701450511", "YERLIN DE LOS ANGELES DIAZ VARGAS", "PUSC"],
+                    ]
+                }],
+            }]
+        })
+        rep = self._capture(_pdf_bytes(["SOURCE"]))
+        page = self._target(rep, "pdf_page", {"page_ordinal": 1})
+        request = self._request(processor, rep, page)
+        receipt = WorkbenchHost(self.writer, ProcessorRegistry((processor,))).run_attempt(request)
+        self.assertEqual(receipt.outcome, "failed")
+        self.assertFalse(receipt.outputs)
+        self.assertEqual(receipt.decisions[0].decision, "quarantine_review")
+
+        con = self._con()
+        try:
+            process = con.execute(
+                "SELECT error_code FROM process_runs WHERE id=?",
+                (request.process_run_id,),
+            ).fetchone()
+            self.assertEqual(process, ("codex_contract_invalid",))
+            evidence = {key: json.loads(value) for key, value in con.execute(
+                "SELECT signal_key,payload_json FROM quality_evidence WHERE process_run_id=?",
+                (request.process_run_id,),
+            )}
+            self.assertIs(evidence["multimodal.schema_valid"], True)
+            self.assertLess(evidence["multimodal.table_text_coverage"], 1.0)
+            self.assertGreater(
+                con.execute(
+                    "SELECT bytes_egressed FROM process_run_egress WHERE process_run_id=?",
+                    (request.process_run_id,),
+                ).fetchone()[0],
+                0,
+            )
         finally:
             con.close()
 

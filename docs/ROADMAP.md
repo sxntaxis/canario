@@ -130,7 +130,9 @@ policy authorization; whole/multi-page and restricted cloud scope are excluded. 
 independent certification also recertifies the minimal prerelease egress-byte lower-
 bound fix in `0001`. Exact pins/licenses for later optional backends become mandatory
 when selected/enabled. Unsupported or low-quality extraction must
-fail visibly or escalate without corrupting custody.
+fail visibly or escalate without corrupting custody. The remediated v2 contract
+keeps the canonical transcript page-complete when supplemental table structure is
+emitted and fails cross-channel inconsistency before derivative acceptance.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 

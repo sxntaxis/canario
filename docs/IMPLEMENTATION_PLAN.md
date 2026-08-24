@@ -211,7 +211,9 @@ egress provenance. Integrating the first cloud backend exposed one generic prere
 schema defect: a selected egress processor may fail locally before sending source bytes.
 Candidate `0001` therefore changes only `bytes_egressed > 0` to `>= 0`; no `0002`
 exists and independent certification must repeat the exact-runtime schema/regression
-proofs.
+proofs. The remediated v2 contract keeps the canonical transcript page-complete
+when supplemental table structure is emitted and fails cross-channel inconsistency
+before derivative acceptance.
 
 **WP4C implementation gate:** independently certify PROCESSOR-CODEX-001 on the
 qualified Codex CLI/model, the controlled TSE hard page, exact-hash natural Esparza
