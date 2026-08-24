@@ -144,6 +144,36 @@ RAM/swap, device IDs, home paths, or environment dumps unless a narrowly scoped
 certification proves that exact fact is itself required. Prefer tool/runtime
 identity and process-scoped resource measurements.
 
+## Lector / Fichero semantic extraction policy
+
+`LECTOR-001` is independently certified and integrated at merge
+`98c2d60387fd7ec176033563566f62c59123587d`. The generic semantic boundary lives in
+`actakit/lector/`; `SemanticExtractor` backends are untrusted/replaceable and
+`LectorWriter` is the bounded canonical authority for the exact LECTOR-001 output
+surface.
+
+Rules for agents/contributors:
+
+- `machine-only` is a valid durable/searchable review state, not a review queue or
+  ingestion debt; absence of human review must remain explicit;
+- production ingestion must not require claim-by-claim approval merely to make
+  evidence-backed Claims searchable;
+- human review is demand/policy driven (important use, publication, conflict,
+  anomaly, correction), and no machine/rule extractor may fabricate it;
+- every extracted Claim has exact reopenable evidence and ProcessRun provenance;
+- Claim text is not global identity/deduplication authority; stable replay is by the
+  exact ProcessRun identity contract;
+- LECTOR-001 cannot create/merge canonical Entities by name, write human reviews,
+  revise/retract historical Claims, invent Tag vocabulary, publish outputs, or
+  perform canonical cutover;
+- broad ClaimRelations created during `claim_extract` are same-run only and obey the
+  candidate/basis rules in `notebook/implementation/LECTOR_001_DESIGN.md`;
+- the active semantic edge is `LECTOR-002`: the deterministic Acta 161 benchmark
+  scaffold is prepared; freeze its independent gold truth next, then run a real broad
+  extractor. Do not inspect tested extractor output before the gold set is frozen;
+- benchmark triage/LLM assistance may reduce reviewer search but cannot silently
+  become gold truth or final semantic adjudication.
+
 ## ¿Qué es actakit?
 
 actakit procesa actas del Conceho Municipal de Costa Rica y las convierte
@@ -586,5 +616,5 @@ pip install -r requirements.txt
 
 ---
 
-_Last reviewed: 2026-06-28 — actakit v1.0_
+_Last reviewed: 2026-08-24 — actakit prerelease_
 _Questions? Open a GitHub Issue or read the source._

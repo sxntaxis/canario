@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: PROCESSOR_CODEX_001_CODEX_CLI_SUBSCRIPTION_IMPLEMENTED_AND_CERTIFIED
+state: LECTOR_001_SEMANTIC_EXTRACTION_BOUNDARY_IMPLEMENTED_AND_CERTIFIED
 created: 2026-08-19
 updated: 2026-08-24
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001, Poppler D1, OCRmyPDF/Tesseract D2, and PROCESSOR-CODEX-001 are independently certified. The bounded one-page subscription-backed visual transcription adapter and minimal prerelease egress-schema rebaseline are integrated.
+summary: WORKBENCH-001, the D1/D2/Codex processor ladder, and LECTOR-001 are independently certified and integrated. The first bounded canonical semantic extraction writer now persists machine-only evidence-backed Claims without granting review/entity-reconciliation authority.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -97,7 +97,9 @@ accepted semantic contracts
 -> PROCESSOR-DIRECT-001 Poppler native-PDF adapter independently certified
 -> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
 -> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter independently certified
--> semantic writers and explicit canonical-cutover gate later
+-> LECTOR-001 bounded semantic extraction boundary independently certified + integrated
+-> LECTOR-002 Acta 161 benchmark scaffold prepared; independent gold truth pending
+-> explicit canonical-cutover gate later
 ```
 
 Migration `0001` implementation was authorized by
@@ -122,9 +124,11 @@ on the exact registered upstream SQLite 3.53.4 source
 ID; the first attempt correctly rejected a patched build with a mismatched source
 ID. No `0002` exists: prerelease policy requires rebaselining `0001` instead.
 
-The implementation certification does not authorize canonical cutover or
-production semantic writers. The bounded Depósito writer is now certified by
-`notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`.
+The earlier migration/processor implementation certifications did not themselves
+authorize canonical cutover or semantic writers. The bounded Depósito writer is
+certified by `notebook/research/pre-sql/schema/DEPOSIT_WRITER_CERTIFICATION.md`;
+LECTOR-001 later and separately authorizes only the bounded semantic writer described
+below.
 
 ## INGRESS-001 current boundary
 
@@ -201,13 +205,32 @@ limited to approved public material; Business/Enterprise/Edu controls must be
 verified per deployment. Credential values remain external host secrets and must
 never enter SQLite, ProcessRun evidence or logs.
 
+## LECTOR-001 current boundary
+
+The integration merge `98c2d60387fd7ec176033563566f62c59123587d` adopts the
+independently certified LECTOR-001 boundary. `SemanticExtractor` backends remain
+untrusted/replaceable; `LectorWriter` owns bounded canonical persistence and exact
+selector reopening. Stable ProcessRun replay is idempotent without claim-text
+deduplication, a 300-Claim machine-only volume proof is part of the focused suite,
+and LECTOR-001 writes no synthetic human review. The certified SQL baseline remains
+unchanged at `5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb`;
+no `0002` exists.
+
+The active semantic edge is LECTOR-002: the deterministic Acta 161 worksheet/scorer is
+prepared; freeze the independent gold truth before measuring a real broad extractor. Production
+review policy remains separate: machine-only is a valid searchable state, not a
+mandatory review queue.
+
 ## Current Prohibitions
 
 - No canonical-data cutover or historical mass import is authorized yet.
 - No legacy Markdown/Hilo rewrite is authorized by migration `0001`.
-- No semantic Fichero, Claim, civic-review, purge, or archive/GC writer is authorized.
-  The only additional certified canonical writer is the bounded Workbench
-  processor provenance/QualityEvidence/derived-Representation writer.
+- LECTOR-001 is the only authorized semantic Claim writer. Its authority is bounded to
+  new evidence-backed Claim revision 1 plus the exact LECTOR-001 links/provenance described
+  in `notebook/implementation/LECTOR_001_DESIGN.md`; it cannot write human review, resolve
+  canonical Entity identity, revise/retract historical Claims, publish outputs, or perform
+  canonical cutover. Civic-review, purge, archive/GC, and broader semantic writers remain
+  unauthorized.
 - The Esparza Source Connector is certified only as a bounded shadow-mode SPI
   consumer. Its two dogfood runs do not modify the current scraper/Hilo path and
   are not canonical. Coverage is unknown because the runs were intentionally
