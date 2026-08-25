@@ -133,13 +133,25 @@ def _validate_table_range(payload: dict[str, JSONValue]) -> None:
                     if not isinstance(cell, dict) or set(cell) != {"type", "value"}:
                         raise TargetContractError("typed table cells must contain type and value")
                     if not isinstance(cell["type"], str) or cell["type"] not in {
-                        "boolean", "integer", "number", "string", "datetime", "formula"
+                        "boolean", "integer", "number", "string", "datetime", "formula", "error"
                     }:
                         raise TargetContractError("typed table cell has an unknown type")
-                    if cell["type"] == "string" and (
-                        not isinstance(cell["value"], str) or len(cell["value"]) > 4096
+                    typed_value = cell["value"]
+                    typed_kind = cell["type"]
+                    if typed_kind == "boolean" and not isinstance(typed_value, bool):
+                        raise TargetContractError("typed boolean table cell must be boolean")
+                    if typed_kind == "integer" and (
+                        isinstance(typed_value, bool) or not isinstance(typed_value, int)
                     ):
-                        raise TargetContractError("typed table string cell is too long")
+                        raise TargetContractError("typed integer table cell must be integer")
+                    if typed_kind == "number" and (
+                        isinstance(typed_value, bool) or not isinstance(typed_value, (int, float))
+                    ):
+                        raise TargetContractError("typed number table cell must be numeric")
+                    if typed_kind in {"string", "datetime", "formula", "error"} and (
+                        not isinstance(typed_value, str) or len(typed_value) > 4096
+                    ):
+                        raise TargetContractError(f"typed {typed_kind} table cell must be a bounded string")
                 elif isinstance(cell, str) and len(cell) > 4096:
                     raise TargetContractError("observed_values cells must be bounded JSON scalars")
 

@@ -180,12 +180,12 @@ class WorkbenchWriter:
             """
             SELECT r.archive_object_id
             FROM representations r
-            WHERE r.artifact_id=? AND r.kind='other'
+            WHERE r.parent_representation_id=? AND r.kind='other'
               AND r.media_type='application/vnd.canario.media-index+json'
               AND r.availability<>'purged'
             ORDER BY r.created_at DESC,r.id DESC LIMIT 1
             """,
-            (rep[0],),
+            (representation_id,),
         ).fetchone()
         if metadata is None:
             raise WorkbenchInvariantError("media:v1 requires a retained media inspection index")

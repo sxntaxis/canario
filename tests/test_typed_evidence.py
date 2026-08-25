@@ -93,6 +93,14 @@ class TypedEvidenceTests(unittest.TestCase):
             reopen_selector("media", "v1", selector.replace("1500000", "2500000"), source_bytes=source, charset=None)
         with self.assertRaises(SemanticLocatorError):
             reopen_selector("media", "v1", selector, source_bytes=b"other", charset=None)
+        negative = json.dumps({
+            "media_sha256": digest,
+            "duration_us": 2_000_000,
+            "start_us": -1,
+            "end_us": 1_000,
+        })
+        with self.assertRaises(SemanticLocatorError):
+            reopen_selector("media", "v1", negative, source_bytes=source, charset=None)
 
     @unittest.skipUnless(shutil.which("ffprobe") and shutil.which("ffmpeg"), "ffmpeg toolchain unavailable")
     def test_media_processor_records_integer_duration_and_source_digest(self) -> None:
@@ -104,10 +112,21 @@ class TypedEvidenceTests(unittest.TestCase):
             )
             source = path.read_bytes()
         result = MediaInspectionProcessor().process(invocation(source, "video/mp4"))
+        second = MediaInspectionProcessor().process(invocation(source, "video/mp4"))
         self.assertEqual(result.outcome, "success")
+        self.assertEqual(second.outcome, "success")
+        self.assertEqual(result.outputs[0].data, second.outputs[0].data)
         payload = json.loads(result.outputs[0].data)
         self.assertEqual(payload["source_sha256"], hashlib.sha256(source).hexdigest())
         self.assertGreater(payload["duration_us"], 0)
+        self.assertNotIn("filename", payload["probe"]["format"])
+        self.assertTrue(MediaInspectionProcessor().descriptor.implementation_version.startswith("ffprobe-"))
+
+    def test_media_processor_rejects_undeclared_media_type(self) -> None:
+        processor = MediaInspectionProcessor()
+        result = processor.process(invocation(b"not media", "application/octet-stream"))
+        self.assertEqual(result.outcome, "failed")
+        self.assertEqual(result.error_code, "unsupported_media_type")
 
 
 if __name__ == "__main__":

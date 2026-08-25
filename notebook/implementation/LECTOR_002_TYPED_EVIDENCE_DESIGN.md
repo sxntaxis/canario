@@ -55,3 +55,29 @@ the declared capability gate remains false until human gold and adjudication exi
 `openpyxl==3.1.5` is pinned as an MIT runtime dependency. It materially avoids a
 fragile hand-written Office Open XML parser and preserves workbook sheet, formula,
 merge, and typed-cell semantics at the processor boundary.
+
+## Post-checkpoint hardening review
+
+Review of the first implementation checkpoint exposed four gaps before exact-runtime
+certification. They are corrected in the follow-up commit rather than being deferred into
+certification:
+
+1. **Processor provenance must be observed, not asserted.** `MediaInspectionProcessor`
+   now probes the selected `ffprobe` executable and records its actual version instead of
+   hard-coding `ffprobe-8.1.2`.
+2. **The media index must be deterministic.** `ffprobe`'s temporary `format.filename` is
+   stripped from the canonical derivative, decimal duration is converted to integer
+   microseconds with explicit decimal rounding, and repeated processing of identical bytes
+   is regression-tested byte-for-byte.
+3. **Media benchmark duration is trusted evidence, not a CLI assertion.** Typed media
+   worksheet preparation/scoring now requires a canonical `canario.media_index.v1` whose
+   `source_sha256` matches the retained media bytes; selectors must use that exact trusted
+   digest and duration.
+4. **Typed modes need real scorers, not preparation-only helpers.** `score-typed` now uses
+   the production `TargetRegistry` plus runtime locator reopening for both `table_range:v1`
+   and `media:v1`, then computes the same human-adjudication metrics as the text scorer.
+
+The review also tightened typed-cell payload validation, media span reopening, and media
+index ownership: a `media:v1` target is bound to an inspection derivative whose direct
+parent is the exact targeted media Representation, rather than whichever media index was
+most recently created for the Artifact.

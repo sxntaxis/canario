@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from canario.lector.locators import SemanticLocatorError, reopen_selector
+from canario.processors.targets import TargetContractError, TargetRegistry
 
 PREPARATION_VERSION = "lector-002-reference-text:v2"
 TYPED_PREPARATION_VERSION = "lector-002-typed-evidence:v1"
@@ -356,11 +357,32 @@ def prepare_table(source_path: Path, output_dir: Path, source_label: str | None 
     return _blank_typed_worksheets(output_dir, manifest, units)
 
 
-def prepare_media(source_path: Path, output_dir: Path, duration_us: int, source_label: str | None = None) -> dict[str, object]:
-    """Prepare full-duration, mechanically sliced blank media review windows."""
-    if duration_us <= 0:
-        raise BenchmarkError("media duration_us must be positive")
+def _load_media_index(source_bytes: bytes, media_index_path: Path) -> dict[str, object]:
+    try:
+        index = json.loads(media_index_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("media-reference mode requires a readable canonical media index") from exc
+    if not isinstance(index, dict) or index.get("format") != "canario.media_index.v1":
+        raise BenchmarkError("media index has an unknown format")
+    digest = _sha256_bytes(source_bytes)
+    if index.get("source_sha256") != digest:
+        raise BenchmarkError("media index does not describe the frozen source bytes")
+    duration_us = index.get("duration_us")
+    if isinstance(duration_us, bool) or not isinstance(duration_us, int) or duration_us <= 0:
+        raise BenchmarkError("media index has no positive integer duration_us")
+    return index
+
+
+def prepare_media(
+    source_path: Path,
+    media_index_path: Path,
+    output_dir: Path,
+    source_label: str | None = None,
+) -> dict[str, object]:
+    """Prepare full-duration blank windows from a trusted canonical media index."""
     source_bytes = source_path.read_bytes()
+    media_index = _load_media_index(source_bytes, media_index_path)
+    duration_us = int(media_index["duration_us"])
     step = 10_000_000
     units = []
     start = 0
@@ -374,6 +396,7 @@ def prepare_media(source_path: Path, output_dir: Path, duration_us: int, source_
         "evaluator_mode": "media:v1",
         "source_label": source_label or source_path.name,
         "source_sha256": _sha256_bytes(source_bytes),
+        "media_index_sha256": _sha256_bytes(media_index_path.read_bytes()),
         "source_bytes": len(source_bytes),
         "duration_us": duration_us,
         "review_units": len(units),
@@ -391,8 +414,9 @@ def validate_typed_evidence(mode: str, source_bytes: bytes, selector_json: str, 
     """Use the production locator registry for typed benchmark evidence."""
     kind = "table_range" if mode == "table_range:v1" else "media" if mode == "media:v1" else mode
     try:
-        reopen_selector(kind, "v1", selector_json, source_bytes=source_bytes, charset=charset)
-    except SemanticLocatorError as exc:
+        canonical = TargetRegistry().validate(kind, "v1", selector_json)
+        reopen_selector(kind, "v1", canonical, source_bytes=source_bytes, charset=charset)
+    except (TargetContractError, SemanticLocatorError) as exc:
         raise BenchmarkError(f"typed evidence does not reopen: {exc}") from exc
 
 
@@ -432,20 +456,16 @@ def _ratio(numerator: int, denominator: int) -> float | None:
     return None if denominator == 0 else numerator / denominator
 
 
-def score(
-    source_path: Path,
+def _score_rows(
+    *,
+    source_bytes: bytes,
     units_path: Path,
     coverage_path: Path,
     truth_path: Path,
     candidates_path: Path,
     assessment_path: Path,
+    evidence_validator,
 ) -> dict[str, object]:
-    source_bytes = source_path.read_bytes()
-    try:
-        text = source_bytes.decode("utf-8")
-    except UnicodeDecodeError as exc:
-        raise BenchmarkError("benchmark source is not UTF-8") from exc
-
     units = _unique_rows(_read_csv(units_path), "unit_id", "units.csv")
     coverage = _unique_rows(_read_csv(coverage_path), "unit_id", "coverage.csv")
     if set(coverage) != set(units):
@@ -464,7 +484,7 @@ def score(
             raise BenchmarkError(f"truth {truth_id!r} has invalid importance {importance!r}")
         if not row.get("proposition", "").strip():
             raise BenchmarkError(f"truth {truth_id!r} has empty proposition")
-        _validate_exact_evidence(text, row, f"truth {truth_id!r}")
+        evidence_validator(row, f"truth {truth_id!r}")
         truths_by_unit[unit_id].append(truth_id)
 
     for unit_id, row in coverage.items():
@@ -481,7 +501,7 @@ def score(
     for candidate_id, row in candidates.items():
         if not row.get("proposition", "").strip():
             raise BenchmarkError(f"candidate {candidate_id!r} has empty proposition")
-        _validate_exact_evidence(text, row, f"candidate {candidate_id!r}")
+        evidence_validator(row, f"candidate {candidate_id!r}")
 
     assessments = _unique_rows(_read_csv(assessment_path), "candidate_id", "assessment.csv")
     if set(assessments) != set(candidates):
@@ -524,7 +544,7 @@ def score(
         for importance in sorted(TRUTH_IMPORTANCE)
     }
     candidate_total = len(candidates)
-    metrics: dict[str, object] = {
+    return {
         "source_sha256": _sha256_bytes(source_bytes),
         "review_units": len(units),
         "truths": len(truths),
@@ -543,6 +563,82 @@ def score(
         "evidence_reopens": True,
         "semantic_matching_automated": False,
     }
+
+
+def score(
+    source_path: Path,
+    units_path: Path,
+    coverage_path: Path,
+    truth_path: Path,
+    candidates_path: Path,
+    assessment_path: Path,
+) -> dict[str, object]:
+    source_bytes = source_path.read_bytes()
+    try:
+        text = source_bytes.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise BenchmarkError("benchmark source is not UTF-8") from exc
+
+    return _score_rows(
+        source_bytes=source_bytes,
+        units_path=units_path,
+        coverage_path=coverage_path,
+        truth_path=truth_path,
+        candidates_path=candidates_path,
+        assessment_path=assessment_path,
+        evidence_validator=lambda row, label: _validate_exact_evidence(text, row, label),
+    )
+
+
+def score_typed(
+    source_path: Path,
+    mode: str,
+    units_path: Path,
+    coverage_path: Path,
+    truth_path: Path,
+    candidates_path: Path,
+    assessment_path: Path,
+    *,
+    media_index_path: Path | None = None,
+) -> dict[str, object]:
+    if mode not in {"table_range:v1", "media:v1"}:
+        raise BenchmarkError("typed score mode must be table_range:v1 or media:v1")
+    source_bytes = source_path.read_bytes()
+    trusted_media: dict[str, object] | None = None
+    if mode == "media:v1":
+        if media_index_path is None:
+            raise BenchmarkError("media:v1 scoring requires --media-index")
+        trusted_media = _load_media_index(source_bytes, media_index_path)
+
+    def validate(row: dict[str, str], label: str) -> None:
+        selector = row.get("selector_json", "").strip()
+        if not selector:
+            raise BenchmarkError(f"{label} has no selector_json")
+        if trusted_media is not None:
+            try:
+                payload = json.loads(selector)
+            except json.JSONDecodeError as exc:
+                raise BenchmarkError(f"{label} selector_json is invalid JSON") from exc
+            if not isinstance(payload, dict):
+                raise BenchmarkError(f"{label} selector_json must be an object")
+            if payload.get("media_sha256") != trusted_media["source_sha256"]:
+                raise BenchmarkError(f"{label} media selector uses the wrong retained-byte digest")
+            if payload.get("duration_us") != trusted_media["duration_us"]:
+                raise BenchmarkError(f"{label} media selector uses an untrusted duration")
+        validate_typed_evidence(mode, source_bytes, selector, charset="utf-8" if mode == "table_range:v1" else None)
+
+    metrics = _score_rows(
+        source_bytes=source_bytes,
+        units_path=units_path,
+        coverage_path=coverage_path,
+        truth_path=truth_path,
+        candidates_path=candidates_path,
+        assessment_path=assessment_path,
+        evidence_validator=validate,
+    )
+    metrics["evaluator_mode"] = mode
+    if media_index_path is not None:
+        metrics["media_index_sha256"] = _sha256_bytes(media_index_path.read_bytes())
     return metrics
 
 
@@ -702,8 +798,8 @@ def _build_parser() -> argparse.ArgumentParser:
     table_parser.add_argument("--source-label")
     media_parser = subparsers.add_parser("prepare-media", help="create a blank timed-media worksheet")
     media_parser.add_argument("--source", type=Path, required=True)
+    media_parser.add_argument("--media-index", type=Path, required=True)
     media_parser.add_argument("--output-dir", type=Path, required=True)
-    media_parser.add_argument("--duration-us", type=int, required=True)
     media_parser.add_argument("--source-label")
 
     score_parser = subparsers.add_parser("score", help="validate a completed gold/adjudication set and score it")
@@ -714,6 +810,18 @@ def _build_parser() -> argparse.ArgumentParser:
     score_parser.add_argument("--candidates", type=Path, required=True)
     score_parser.add_argument("--assessment", type=Path, required=True)
     score_parser.add_argument("--output", type=Path)
+    typed_score_parser = subparsers.add_parser(
+        "score-typed", help="validate and score table/media gold using production locator semantics"
+    )
+    typed_score_parser.add_argument("--source", type=Path, required=True)
+    typed_score_parser.add_argument("--mode", choices=("table_range:v1", "media:v1"), required=True)
+    typed_score_parser.add_argument("--media-index", type=Path)
+    typed_score_parser.add_argument("--units", type=Path, required=True)
+    typed_score_parser.add_argument("--coverage", type=Path, required=True)
+    typed_score_parser.add_argument("--truth", type=Path, required=True)
+    typed_score_parser.add_argument("--candidates", type=Path, required=True)
+    typed_score_parser.add_argument("--assessment", type=Path, required=True)
+    typed_score_parser.add_argument("--output", type=Path)
     return parser
 
 
@@ -727,7 +835,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "prepare-table":
             result = prepare_table(args.source, args.output_dir, args.source_label)
         elif args.command == "prepare-media":
-            result = prepare_media(args.source, args.output_dir, args.duration_us, args.source_label)
+            result = prepare_media(args.source, args.media_index, args.output_dir, args.source_label)
+        elif args.command == "score-typed":
+            result = score_typed(
+                args.source,
+                args.mode,
+                args.units,
+                args.coverage,
+                args.truth,
+                args.candidates,
+                args.assessment,
+                media_index_path=args.media_index,
+            )
         else:
             result = score(
                 args.source,

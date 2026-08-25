@@ -223,11 +223,13 @@ no `0002` exists.
 The active semantic edge is LECTOR-002: a heterogeneous reference-corpus gate is active.
 Its executable readiness model is capability coverage, not a taxonomy of document classes.
 Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
-covers only a subset of declared text/semantic stress capabilities. The campaign remains
-blocked on real fixtures and typed evaluators for the missing declared capabilities,
-especially structured table and timed-media evidence. `certification_scope` is explicitly
-`declared_capabilities_only`; `universal_support_claimed` is false. Production review policy
-remains separate: machine-only is a valid searchable state, not a mandatory review queue.
+covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are now frozen externally, and the candidate
+substrate implements deterministic typed Representations, production locator reopening, and
+typed benchmark scoring for them. The campaign remains blocked on independent gold,
+adjudication, accepted scoring thresholds, and exact-runtime certification of this candidate.
+`certification_scope` is explicitly `declared_capabilities_only`;
+`universal_support_claimed` is false. Production review policy remains separate: machine-only
+is a valid searchable state, not a mandatory review queue.
 
 ## Known modality gaps — do not paper over them
 
@@ -239,8 +241,8 @@ The contracts/schema are broader than the adapters currently implemented. In par
   spans, but no transcription processor is authorized and no real transcript exists;
 - the current Codex visual adapter is bounded to one PDF page, not a universal image/video
   semantic processor;
-- structured table evidence has a deterministic typed Representation and blank real-fixture
-  evaluator worksheet; gold/adjudication remain pending;
+- structured table evidence has a deterministic typed Representation plus typed worksheet/
+  scorer using production locator semantics; gold/adjudication remain pending;
 - a transcript is a derivative Representation and may not replace the original recording's
   custody or timed evidence semantics.
 

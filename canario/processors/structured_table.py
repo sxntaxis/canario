@@ -12,9 +12,13 @@ from openpyxl import load_workbook
 from .contracts import DerivativeOutput, ProcessorDescriptor, ProcessorInvocation, ProcessorResult, QualitySignal
 
 
-def _json_value(value: object) -> object:
+def _json_value(value: object, *, data_type: str) -> object:
     if value is None:
         return None
+    if data_type == "e":
+        if not isinstance(value, str):
+            raise TypeError("Excel error cell must contain an error string")
+        return {"type": "error", "value": value}
     if isinstance(value, bool):
         return {"type": "boolean", "value": value}
     if isinstance(value, int) and not isinstance(value, bool):
@@ -25,7 +29,7 @@ def _json_value(value: object) -> object:
         return {"type": "datetime", "value": value.isoformat()}
     if isinstance(value, str):
         return {"type": "string", "value": value}
-    return {"type": "string", "value": str(value)}
+    raise TypeError(f"unsupported workbook cell value type: {type(value).__name__}")
 
 
 @dataclass(frozen=True, slots=True)
@@ -78,7 +82,7 @@ class StructuredTableProcessor:
                             "address": cell.coordinate,
                             "value": (
                                 {"type": "formula", "value": cell.value}
-                                if cell.data_type == "f" else _json_value(cell.value)
+                                if cell.data_type == "f" else _json_value(cell.value, data_type=cell.data_type)
                             ),
                             "data_type": cell.data_type,
                             "number_format": cell.number_format,

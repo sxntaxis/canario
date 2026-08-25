@@ -142,10 +142,19 @@ def _table_range(payload: dict[str, Any], source_bytes: bytes, charset: str | No
 
 
 def _media(payload: dict[str, Any], source_bytes: bytes) -> None:
-    if hashlib.sha256(source_bytes).hexdigest() != payload["media_sha256"]:
+    digest = payload.get("media_sha256")
+    duration = payload.get("duration_us")
+    start = payload.get("start_us")
+    end = payload.get("end_us")
+    if not isinstance(digest, str):
+        raise SemanticLocatorError("media evidence has no retained-byte digest")
+    if any(isinstance(value, bool) or not isinstance(value, int) for value in (duration, start, end)):
+        raise SemanticLocatorError("media evidence times must be integer microseconds")
+    assert isinstance(duration, int) and isinstance(start, int) and isinstance(end, int)
+    if duration <= 0 or start < 0 or end <= start or end > duration:
+        raise SemanticLocatorError("media evidence span is outside declared duration")
+    if hashlib.sha256(source_bytes).hexdigest() != digest:
         raise SemanticLocatorError("media evidence targets different retained bytes")
-    if payload["end_us"] <= payload["start_us"] or payload["end_us"] > payload["duration_us"]:
-        raise SemanticLocatorError("media evidence span is empty or reversed")
 
 
 

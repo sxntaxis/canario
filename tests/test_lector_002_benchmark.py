@@ -284,3 +284,114 @@ def test_corpus_rejects_legacy_document_class_gate(tmp_path: Path) -> None:
     )
     with pytest.raises(bench.BenchmarkError, match="document-class broad-certification fields are retired"):
         bench.evaluate_corpus(corpus)
+
+
+def _typed_paths(tmp_path: Path) -> tuple[Path, Path, Path, Path, Path]:
+    return tuple(tmp_path / name for name in (
+        "units.csv", "coverage.csv", "truth.csv", "candidates.csv", "assessment.csv"
+    ))  # type: ignore[return-value]
+
+
+def test_typed_table_score_reopens_production_selector_and_computes_metrics(tmp_path: Path) -> None:
+    source = tmp_path / "table.json"
+    source.write_text(
+        json.dumps({
+            "format": "canario.structured_table.v1",
+            "source_sha256": "0" * 64,
+            "sheets": [{
+                "name": "Sheet1", "ordinal": 1, "state": "visible", "max_row": 1,
+                "max_column": 2, "merged_ranges": [],
+                "rows": [[
+                    {"address": "A1", "value": {"type": "string", "value": "Item"}, "data_type": "s", "number_format": "General"},
+                    {"address": "B1", "value": {"type": "integer", "value": 7}, "data_type": "n", "number_format": "General"},
+                ]],
+            }],
+        }, sort_keys=True, separators=(",", ":")),
+        encoding="utf-8",
+    )
+    worksheet = tmp_path / "worksheet"
+    bench.prepare_table(source, worksheet, "table")
+    units, coverage, truth, candidates, assessment = (
+        worksheet / "units.csv", worksheet / "coverage.csv", worksheet / "truth.csv",
+        worksheet / "candidates.csv", worksheet / "assessment.csv",
+    )
+    _write_csv(coverage, ["unit_id", "review_state", "notes"], [
+        {"unit_id": "1:R1", "review_state": "truth_recorded", "notes": ""}
+    ])
+    selector = json.dumps({
+        "sheet": "Sheet1", "a1_range": "A1:B1", "row_start": 1, "row_end": 1,
+        "observed_values": [[
+            {"type": "string", "value": "Item"}, {"type": "integer", "value": 7}
+        ]],
+    })
+    _write_csv(truth, ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], [
+        {"truth_id": "T1", "unit_id": "1:R1", "importance": "must", "proposition": "Item is 7", "selector_json": selector, "notes": ""}
+    ])
+    _write_csv(candidates, ["candidate_id", "proposition", "selector_json"], [
+        {"candidate_id": "C1", "proposition": "Item is 7", "selector_json": selector}
+    ])
+    _write_csv(assessment, ["candidate_id", "truth_ids", "verdict", "notes"], [
+        {"candidate_id": "C1", "truth_ids": "T1", "verdict": "correct", "notes": ""}
+    ])
+    metrics = bench.score_typed(source, "table_range:v1", units, coverage, truth, candidates, assessment)
+    assert metrics["must_recall"] == 1.0
+    assert metrics["relevance_precision"] == 1.0
+    assert metrics["evaluator_mode"] == "table_range:v1"
+
+
+def test_media_prepare_and_score_require_trusted_index(tmp_path: Path) -> None:
+    source = tmp_path / "source.mp4"
+    source.write_bytes(b"controlled-media")
+    digest = bench._sha256_bytes(source.read_bytes())
+    index = tmp_path / "media-index.json"
+    index.write_text(json.dumps({
+        "format": "canario.media_index.v1", "source_sha256": digest,
+        "duration_us": 2_000_000, "probe": {},
+    }), encoding="utf-8")
+    worksheet = tmp_path / "worksheet"
+    manifest = bench.prepare_media(source, index, worksheet, "media")
+    assert manifest["duration_us"] == 2_000_000
+    units, coverage, truth, candidates, assessment = (
+        worksheet / "units.csv", worksheet / "coverage.csv", worksheet / "truth.csv",
+        worksheet / "candidates.csv", worksheet / "assessment.csv",
+    )
+    _write_csv(coverage, ["unit_id", "review_state", "notes"], [
+        {"unit_id": "T0001", "review_state": "truth_recorded", "notes": ""}
+    ])
+    selector = json.dumps({
+        "media_sha256": digest, "duration_us": 2_000_000,
+        "start_us": 250_000, "end_us": 750_000,
+    })
+    _write_csv(truth, ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], [
+        {"truth_id": "T1", "unit_id": "T0001", "importance": "must", "proposition": "spoken fact", "selector_json": selector, "notes": ""}
+    ])
+    _write_csv(candidates, ["candidate_id", "proposition", "selector_json"], [
+        {"candidate_id": "C1", "proposition": "spoken fact", "selector_json": selector}
+    ])
+    _write_csv(assessment, ["candidate_id", "truth_ids", "verdict", "notes"], [
+        {"candidate_id": "C1", "truth_ids": "T1", "verdict": "correct", "notes": ""}
+    ])
+    metrics = bench.score_typed(
+        source, "media:v1", units, coverage, truth, candidates, assessment,
+        media_index_path=index,
+    )
+    assert metrics["must_recall"] == 1.0
+    assert metrics["evaluator_mode"] == "media:v1"
+
+    bad_index = tmp_path / "bad-index.json"
+    bad_index.write_text(json.dumps({
+        "format": "canario.media_index.v1", "source_sha256": "f" * 64,
+        "duration_us": 2_000_000, "probe": {},
+    }), encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="does not describe"):
+        bench.prepare_media(source, bad_index, tmp_path / "bad", "media")
+
+    wrong_duration = selector.replace("2000000", "3000000")
+    _write_csv(truth, ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], [
+        {"truth_id": "T1", "unit_id": "T0001", "importance": "must", "proposition": "spoken fact", "selector_json": wrong_duration, "notes": ""}
+    ])
+    with pytest.raises(bench.BenchmarkError, match="untrusted duration"):
+        bench.score_typed(
+            source, "media:v1", units, coverage, truth, candidates, assessment,
+            media_index_path=index,
+        )

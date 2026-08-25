@@ -104,13 +104,16 @@ capability and fixture so aggregate strength cannot hide a weak modality.
 2. **Case-specific helpers** may understand a language, source, genre or layout, but are
    optional aids. They cannot define product ontology, completeness or universal support.
 
-`lector_002_benchmark.py` implements `text_quote:v1` plus blank typed worksheet modes for
-`table_range:v1` and `media:v1`. The typed modes validate through the production locator
-reopener and never generate truth, candidates, or semantic calls. Media review windows are
-uniform mechanical partitions only; they do not define semantic completeness.
+`lector_002_benchmark.py` implements `text_quote:v1` plus typed worksheet and scoring modes
+for `table_range:v1` and `media:v1`. Typed scoring runs selectors through the production
+`TargetRegistry` and runtime locator reopener before computing the same human-adjudication
+metrics used by text mode. Media preparation/scoring additionally requires a canonical media
+index bound by exact source digest and trusted duration. The modes never generate truth,
+candidates, or semantic calls. Media review windows are uniform mechanical partitions only;
+they do not define semantic completeness.
 
-Structured table and timed-media evidence need their own typed evaluator modes rather than
-being flattened into text.
+Structured table and timed-media evidence therefore remain typed rather than being flattened
+into text.
 
 ## Current declared capability targets
 
