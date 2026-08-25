@@ -13,6 +13,70 @@ from pathlib import Path
 from .contracts import DerivativeOutput, ProcessorDescriptor, ProcessorInvocation, ProcessorResult, QualitySignal
 
 
+class MediaIndexError(ValueError):
+    """A canonical media index is malformed or does not match retained media bytes."""
+
+
+def duration_us_from_probe(probe: object) -> int:
+    """Derive canonical integer microseconds from ffprobe format.duration."""
+    if not isinstance(probe, dict):
+        raise MediaIndexError("media index probe must be an object")
+    format_info = probe.get("format")
+    if not isinstance(format_info, dict):
+        raise MediaIndexError("media index probe has no format object")
+    duration = format_info.get("duration")
+    if not isinstance(duration, str):
+        raise MediaIndexError("media index probe has no string format.duration")
+    try:
+        value = int(
+            (Decimal(duration) * Decimal(1_000_000)).to_integral_value(
+                rounding=ROUND_HALF_UP
+            )
+        )
+    except InvalidOperation as exc:
+        raise MediaIndexError("media index probe duration is invalid") from exc
+    if value <= 0:
+        raise MediaIndexError("media index probe duration must be positive")
+    return value
+
+
+def validate_media_index(source_bytes: bytes, index_bytes: bytes) -> dict[str, object]:
+    """Validate one canonical media-index derivative against exact retained bytes.
+
+    ``duration_us`` is derived evidence, not an independently trusted assertion: it
+    must exactly match deterministic conversion of the retained ffprobe payload.
+    """
+    try:
+        value = json.loads(index_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise MediaIndexError("media index is not valid UTF-8 JSON") from exc
+    if not isinstance(value, dict):
+        raise MediaIndexError("media index must be an object")
+    if set(value) != {"format", "source_sha256", "duration_us", "probe"}:
+        raise MediaIndexError("media index has unexpected or missing top-level fields")
+    if value.get("format") != "canario.media_index.v1":
+        raise MediaIndexError("media index has an unknown format")
+    digest = hashlib.sha256(source_bytes).hexdigest()
+    if value.get("source_sha256") != digest:
+        raise MediaIndexError("media index does not describe the retained source bytes")
+    duration_us = value.get("duration_us")
+    if isinstance(duration_us, bool) or not isinstance(duration_us, int) or duration_us <= 0:
+        raise MediaIndexError("media index has no positive integer duration_us")
+    probe = value.get("probe")
+    expected_duration_us = duration_us_from_probe(probe)
+    if duration_us != expected_duration_us:
+        raise MediaIndexError("media index duration_us disagrees with ffprobe format.duration")
+    assert isinstance(probe, dict)
+    format_info = probe.get("format")
+    assert isinstance(format_info, dict)
+    if "filename" in format_info:
+        raise MediaIndexError("canonical media index must not retain execution-path filename")
+    canonical = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    if canonical != index_bytes:
+        raise MediaIndexError("media index bytes are not canonical deterministic JSON")
+    return value
+
+
 class MediaInspectionProcessor:
     def __init__(self, *, ffprobe: str = "ffprobe", max_input_bytes: int = 512 * 1024 * 1024) -> None:
         executable = shutil.which(ffprobe)
@@ -57,18 +121,9 @@ class MediaInspectionProcessor:
             if completed.returncode != 0:
                 return ProcessorResult("failed", error_code="media_probe_failed")
             probe = json.loads(completed.stdout)
-            duration = probe.get("format", {}).get("duration")
-            if not isinstance(duration, str):
-                return ProcessorResult("failed", error_code="media_duration_missing")
             try:
-                duration_us = int(
-                    (Decimal(duration) * Decimal(1_000_000)).to_integral_value(
-                        rounding=ROUND_HALF_UP
-                    )
-                )
-            except InvalidOperation:
-                return ProcessorResult("failed", error_code="media_duration_invalid")
-            if duration_us <= 0:
+                duration_us = duration_us_from_probe(probe)
+            except MediaIndexError:
                 return ProcessorResult("failed", error_code="media_duration_invalid")
             # ffprobe reports the temporary input path in format.filename. That
             # path is execution noise and would make an otherwise identical
@@ -83,6 +138,10 @@ class MediaInspectionProcessor:
                 "probe": probe,
             }
             data = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+            try:
+                validate_media_index(invocation.source_bytes, data)
+            except MediaIndexError:
+                return ProcessorResult("failed", error_code="media_probe_failed")
             evidence = tuple(
                 QualitySignal(scope.id, "media.duration_us", "v1", duration_us)
                 for scope in invocation.scopes

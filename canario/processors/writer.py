@@ -21,6 +21,7 @@ from .contracts import (
     TargetSnapshot,
 )
 from .quality import QualityDecision, QualityRegistry
+from .media import MediaIndexError, validate_media_index
 from .targets import TargetRegistration, TargetRegistry
 from canario.lector.locators import reopen_selector
 
@@ -196,7 +197,12 @@ class WorkbenchWriter:
         if archive is None or archive[3] != "available":
             raise WorkbenchInvariantError("media inspection index is unavailable")
         self.archive.verify(archive[2], archive[0], archive[1])
-        index = json.loads(self.archive.path_for_key(archive[2]).read_text(encoding="utf-8"))
+        index_bytes = self.archive.path_for_key(archive[2]).read_bytes()
+        source_bytes, _charset = self._representation_bytes(con, representation_id)
+        try:
+            index = validate_media_index(source_bytes, index_bytes)
+        except MediaIndexError as exc:
+            raise WorkbenchInvariantError("retained media inspection index is invalid") from exc
         if index.get("source_sha256") != payload["media_sha256"] or index.get("duration_us") != payload["duration_us"]:
             raise WorkbenchInvariantError("media:v1 is not bound to the retained inspection index")
         transcript_target_id = payload.get("transcript_target_id")

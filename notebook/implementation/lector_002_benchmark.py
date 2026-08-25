@@ -23,6 +23,7 @@ from typing import Iterable, Sequence
 
 from canario.lector.locators import SemanticLocatorError, reopen_selector
 from canario.processors.targets import TargetContractError, TargetRegistry
+from canario.processors.media import MediaIndexError, validate_media_index
 
 PREPARATION_VERSION = "lector-002-reference-text:v2"
 TYPED_PREPARATION_VERSION = "lector-002-typed-evidence:v1"
@@ -359,18 +360,13 @@ def prepare_table(source_path: Path, output_dir: Path, source_label: str | None 
 
 def _load_media_index(source_bytes: bytes, media_index_path: Path) -> dict[str, object]:
     try:
-        index = json.loads(media_index_path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        index_bytes = media_index_path.read_bytes()
+    except OSError as exc:
         raise BenchmarkError("media-reference mode requires a readable canonical media index") from exc
-    if not isinstance(index, dict) or index.get("format") != "canario.media_index.v1":
-        raise BenchmarkError("media index has an unknown format")
-    digest = _sha256_bytes(source_bytes)
-    if index.get("source_sha256") != digest:
-        raise BenchmarkError("media index does not describe the frozen source bytes")
-    duration_us = index.get("duration_us")
-    if isinstance(duration_us, bool) or not isinstance(duration_us, int) or duration_us <= 0:
-        raise BenchmarkError("media index has no positive integer duration_us")
-    return index
+    try:
+        return validate_media_index(source_bytes, index_bytes)
+    except MediaIndexError as exc:
+        raise BenchmarkError(f"media-reference mode rejected media index: {exc}") from exc
 
 
 def prepare_media(

@@ -21,6 +21,7 @@ from canario.processors import (
     TargetSnapshot,
 )
 from canario.processors.targets import TargetRegistry
+from canario.processors.media import MediaIndexError, validate_media_index
 
 
 def invocation(data: bytes, media_type: str, selector_kind: str = "whole") -> ProcessorInvocation:
@@ -77,6 +78,26 @@ class TypedEvidenceTests(unittest.TestCase):
         reopen_selector("table_range", "v1", selector, source_bytes=result.outputs[0].data, charset="utf-8")
         with self.assertRaises(SemanticLocatorError):
             reopen_selector("table_range", "v1", selector.replace("Alpha", "Beta"), source_bytes=result.outputs[0].data, charset="utf-8")
+
+
+    def test_media_index_rejects_tampered_derived_duration(self) -> None:
+        source = b"controlled media bytes"
+        digest = hashlib.sha256(source).hexdigest()
+        valid = json.dumps({
+            "format": "canario.media_index.v1",
+            "source_sha256": digest,
+            "duration_us": 2_000_000,
+            "probe": {"format": {"duration": "2.000000"}},
+        }, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        self.assertEqual(validate_media_index(source, valid)["duration_us"], 2_000_000)
+        tampered = json.dumps({
+            "format": "canario.media_index.v1",
+            "source_sha256": digest,
+            "duration_us": 3_000_000,
+            "probe": {"format": {"duration": "2.000000"}},
+        }, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        with self.assertRaises(MediaIndexError):
+            validate_media_index(source, tampered)
 
     def test_media_selector_is_digest_bound_and_duration_bounded(self) -> None:
         source = b"controlled media bytes"

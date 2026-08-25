@@ -344,10 +344,10 @@ def test_media_prepare_and_score_require_trusted_index(tmp_path: Path) -> None:
     source.write_bytes(b"controlled-media")
     digest = bench._sha256_bytes(source.read_bytes())
     index = tmp_path / "media-index.json"
-    index.write_text(json.dumps({
+    index.write_bytes(json.dumps({
         "format": "canario.media_index.v1", "source_sha256": digest,
-        "duration_us": 2_000_000, "probe": {},
-    }), encoding="utf-8")
+        "duration_us": 2_000_000, "probe": {"format": {"duration": "2.000000"}},
+    }, sort_keys=True, separators=(",", ":")).encode("utf-8"))
     worksheet = tmp_path / "worksheet"
     manifest = bench.prepare_media(source, index, worksheet, "media")
     assert manifest["duration_us"] == 2_000_000
@@ -379,12 +379,20 @@ def test_media_prepare_and_score_require_trusted_index(tmp_path: Path) -> None:
     assert metrics["evaluator_mode"] == "media:v1"
 
     bad_index = tmp_path / "bad-index.json"
-    bad_index.write_text(json.dumps({
+    bad_index.write_bytes(json.dumps({
         "format": "canario.media_index.v1", "source_sha256": "f" * 64,
-        "duration_us": 2_000_000, "probe": {},
-    }), encoding="utf-8")
+        "duration_us": 2_000_000, "probe": {"format": {"duration": "2.000000"}},
+    }, sort_keys=True, separators=(",", ":")).encode("utf-8"))
     with pytest.raises(bench.BenchmarkError, match="does not describe"):
         bench.prepare_media(source, bad_index, tmp_path / "bad", "media")
+
+    bad_duration_index = tmp_path / "bad-duration-index.json"
+    bad_duration_index.write_bytes(json.dumps({
+        "format": "canario.media_index.v1", "source_sha256": digest,
+        "duration_us": 3_000_000, "probe": {"format": {"duration": "2.000000"}},
+    }, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+    with pytest.raises(bench.BenchmarkError, match="duration_us disagrees"):
+        bench.prepare_media(source, bad_duration_index, tmp_path / "bad-duration", "media")
 
     wrong_duration = selector.replace("2000000", "3000000")
     _write_csv(truth, ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], [

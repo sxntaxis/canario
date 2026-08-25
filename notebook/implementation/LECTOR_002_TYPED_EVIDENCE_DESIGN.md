@@ -81,3 +81,29 @@ The review also tightened typed-cell payload validation, media span reopening, a
 index ownership: a `media:v1` target is bound to an inspection derivative whose direct
 parent is the exact targeted media Representation, rather than whichever media index was
 most recently created for the Artifact.
+
+## Exact-runtime certification follow-up: derived media duration integrity
+
+The first exact-runtime certification attempt correctly blocked because a media-index
+copy with an altered top-level `duration_us` was still accepted when its retained-source
+digest remained correct. The flaw was not in span bounds; it was that `duration_us` had
+been treated as an independently trusted field even though the canonical index also
+retains ffprobe's `format.duration`.
+
+The media-index contract now validates one shared invariant before benchmark or
+Workbench use:
+
+```text
+duration_us == decimal_to_integer_microseconds(probe.format.duration)
+```
+
+The same validator also requires the exact retained-source SHA-256, canonical deterministic
+JSON bytes, the expected top-level schema, and absence of ffprobe's execution-path
+`format.filename`. `MediaInspectionProcessor` self-validates its derivative, the Workbench
+validates the retained direct-child index before accepting `media:v1`, and LECTOR-002
+worksheet preparation/scoring use that same validator. A changed top-level duration can no
+longer become trusted merely because the media digest still matches.
+
+This remains structural evidence: matching duration/digest proves the cited interval is
+bounded to the inspected retained recording, not that any proposition is semantically
+present in that interval.
