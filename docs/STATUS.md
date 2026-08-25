@@ -101,8 +101,8 @@ accepted semantic contracts
 -> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
 -> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter independently certified
 -> LECTOR-001 bounded semantic extraction boundary independently certified + integrated
--> LECTOR-002 heterogeneous reference-corpus gate active; Acta 161 is one pending
-   minutes/text case, broad corpus and typed table/media evaluators incomplete
+-> LECTOR-002 heterogeneous reference-corpus gate active; text plus typed table/media
+   representation/evidence substrate implemented, real typed gold not generated
 -> explicit canonical-cutover gate later
 ```
 
@@ -235,12 +235,12 @@ The contracts/schema are broader than the adapters currently implemented. In par
 
 - Ingress/custody can preserve arbitrary recording bytes, but Canario does **not** yet ship
   an audio/video transcription processor;
-- the canonical evidence model specifies `media:v1` time spans, but LECTOR-001 runtime
-  reopening currently implements only `text_quote:v1` and `table_range:v1`;
+- the canonical evidence model now has production reopening for bounded `media:v1` time
+  spans, but no transcription processor is authorized and no real transcript exists;
 - the current Codex visual adapter is bounded to one PDF page, not a universal image/video
   semantic processor;
-- structured table evidence has a Lector reopening contract, but LECTOR-002 still needs a
-  real structured-data case/evaluator proof;
+- structured table evidence has a deterministic typed Representation and blank real-fixture
+  evaluator worksheet; gold/adjudication remain pending;
 - a transcript is a derivative Representation and may not replace the original recording's
   custody or timed evidence semantics.
 

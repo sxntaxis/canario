@@ -288,6 +288,12 @@ Locator payloads are versioned and validated, not arbitrary JSON.
 | `json:v1` | stable path/JSON Pointer + observed value/hash |
 | `xml:v1` | stable path/XPath equivalent + observed value/hash |
 
+The current runtime realizes `spreadsheet:v1` through the bounded `table_range:v1`
+selector against the typed `canario.structured_table.v1` Representation. Timed media
+uses integer microseconds and a SHA-256-bound `media:v1` selector; media duration must
+come from a retained deterministic inspection index. A transcript remains a derivative
+and may be cited separately or as a validated anchor, but never replaces the recording.
+
 Semantic labels such as article/item/agreement may strengthen context but are not
 universal locator requirements.
 

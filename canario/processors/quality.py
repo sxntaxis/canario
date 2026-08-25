@@ -96,6 +96,8 @@ DEFAULT_QUALITY_CONTRACTS: dict[tuple[str, str], QualityValidator] = {
     ("ocr.ocr_page_ordinals", "v1"): _positive_int_list,
     ("ocr.needs_visual_review", "v1"): _bool,
     ("table.exact_row_count", "v1"): _nonnegative_int,
+    ("table.sheet_count", "v1"): _nonnegative_int,
+    ("media.duration_us", "v1"): _nonnegative_int,
     ("multimodal.schema_valid", "v1"): _bool,
     ("multimodal.uncertain_span_count", "v1"): _nonnegative_int,
     ("multimodal.uncertain_spans", "v1"): _bounded_string_list,

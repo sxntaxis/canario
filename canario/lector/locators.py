@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from typing import Any
+
+from openpyxl.utils.cell import range_boundaries
 
 
 class SemanticLocatorError(ValueError):
@@ -104,12 +107,46 @@ def _table_range(payload: dict[str, Any], source_bytes: bytes, charset: str | No
             "LECTOR-001 table evidence requires row_start, row_end and observed_values"
         )
     assert isinstance(start, int) and isinstance(end, int)
-    rows = _rows_from_table_value(value, payload.get("table_name"))
-    selected = rows[start - 1 : end]
+    if value.get("format") == "canario.structured_table.v1":
+        sheets = value.get("sheets")
+        if not isinstance(sheets, list):
+            raise SemanticLocatorError("structured table has no sheet collection")
+        matches = [sheet for sheet in sheets if isinstance(sheet, dict) and sheet.get("name") == payload.get("sheet")]
+        if len(matches) != 1:
+            raise SemanticLocatorError("table sheet does not resolve to exactly one sheet")
+        sheet = matches[0]
+        rows = sheet.get("rows")
+        if not isinstance(rows, list):
+            raise SemanticLocatorError("structured table sheet has no rows")
+        if "a1_range" in payload:
+            try:
+                min_col, min_row, max_col, max_row = range_boundaries(payload["a1_range"])
+            except (ValueError, TypeError) as exc:
+                raise SemanticLocatorError("structured table evidence has an invalid A1 range") from exc
+            if min_row != start or max_row != end:
+                raise SemanticLocatorError("table row bounds disagree with A1 range")
+            row_slice = lambda row: row[min_col - 1 : max_col]
+        else:
+            row_slice = lambda row: row
+        selected = [
+            [cell.get("value") if isinstance(cell, dict) else cell for cell in row_slice(row)]
+            for row in rows[start - 1 : end]
+        ]
+    else:
+        rows = _rows_from_table_value(value, payload.get("table_name"))
+        selected = rows[start - 1 : end]
     if selected != observed:
         raise SemanticLocatorError(
             "table_range observed values do not reopen exact represented rows"
         )
+
+
+def _media(payload: dict[str, Any], source_bytes: bytes) -> None:
+    if hashlib.sha256(source_bytes).hexdigest() != payload["media_sha256"]:
+        raise SemanticLocatorError("media evidence targets different retained bytes")
+    if payload["end_us"] <= payload["start_us"] or payload["end_us"] > payload["duration_us"]:
+        raise SemanticLocatorError("media evidence span is empty or reversed")
+
 
 
 def reopen_selector(
@@ -134,6 +171,9 @@ def reopen_selector(
         return
     if key == ("table_range", "v1"):
         _table_range(payload, source_bytes, charset)
+        return
+    if key == ("media", "v1"):
+        _media(payload, source_bytes)
         return
     raise SemanticLocatorError(
         f"LECTOR-001 cannot create selector without runtime reopening: {selector_kind}:{selector_version}"

@@ -23,6 +23,8 @@ from .ocr import (
     OcrPdfProcessor,
     OcrUnavailableError,
 )
+from .media import MediaInspectionProcessor
+from .structured_table import StructuredTableConfig, StructuredTableProcessor
 from .host import PlanReceipt, PlannedStep, ProcessingPlan, ProcessorContractError, WorkbenchHost
 from .poppler import (
     PopplerConfigurationError,
@@ -64,6 +66,7 @@ __all__ = [
     "OcrPdfProcessor",
     "OcrPdfConfig",
     "OcrConfigurationError",
+    "MediaInspectionProcessor",
     "PlanReceipt",
     "PlannedStep",
     "PolicyContext",
@@ -86,6 +89,8 @@ __all__ = [
     "QualityRegistry",
     "QualitySignal",
     "ReferenceEscalationPolicy",
+    "StructuredTableConfig",
+    "StructuredTableProcessor",
     "TargetContractError",
     "TargetRegistration",
     "TargetRegistry",

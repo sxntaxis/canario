@@ -15,6 +15,7 @@ TargetValidator = Callable[[dict[str, JSONValue]], None]
 _A1_RE = re.compile(r"^[A-Z]+[1-9][0-9]*(?::[A-Z]+[1-9][0-9]*)?$")
 _MAX_SELECTOR_JSON_BYTES = 64 * 1024
 _MAX_SELECTOR_TEXT_CHARS = 16 * 1024
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 class TargetContractError(ValueError):
@@ -128,8 +129,55 @@ def _validate_table_range(payload: dict[str, JSONValue]) -> None:
             if not isinstance(row, list) or len(row) > 64:
                 raise TargetContractError("each observed_values row must be a bounded cell array")
             for cell in row:
-                if isinstance(cell, (list, dict)) or (isinstance(cell, str) and len(cell) > 4096):
+                if isinstance(cell, (list, dict)):
+                    if not isinstance(cell, dict) or set(cell) != {"type", "value"}:
+                        raise TargetContractError("typed table cells must contain type and value")
+                    if not isinstance(cell["type"], str) or cell["type"] not in {
+                        "boolean", "integer", "number", "string", "datetime", "formula"
+                    }:
+                        raise TargetContractError("typed table cell has an unknown type")
+                    if cell["type"] == "string" and (
+                        not isinstance(cell["value"], str) or len(cell["value"]) > 4096
+                    ):
+                        raise TargetContractError("typed table string cell is too long")
+                elif isinstance(cell, str) and len(cell) > 4096:
                     raise TargetContractError("observed_values cells must be bounded JSON scalars")
+
+
+def _validate_media(payload: dict[str, JSONValue]) -> None:
+    _only(payload, {
+        "media_sha256", "duration_us", "start_us", "end_us", "transcript_target_id",
+        "transcript_exact", "transcript_start_char", "transcript_end_char",
+    })
+    digest = payload.get("media_sha256")
+    if not isinstance(digest, str) or not _SHA256_RE.fullmatch(digest):
+        raise TargetContractError("media:v1 requires a lowercase media_sha256")
+    start = payload.get("start_us")
+    end = payload.get("end_us")
+    duration = payload.get("duration_us")
+    if any(isinstance(value, bool) or not isinstance(value, int) for value in (duration, start, end)):
+        raise TargetContractError("media:v1 times must be integer microseconds")
+    assert isinstance(duration, int) and isinstance(start, int) and isinstance(end, int)
+    if duration <= 0 or start < 0 or end <= start or end > duration:
+        raise TargetContractError("media:v1 requires 0 <= start_us < end_us")
+    anchor_fields = {
+        "transcript_target_id", "transcript_exact", "transcript_start_char", "transcript_end_char"
+    }
+    present = anchor_fields & set(payload)
+    if present and present != anchor_fields:
+        raise TargetContractError("media transcript anchor must be complete")
+    if present:
+        try:
+            validate_id(payload["transcript_target_id"], "transcript target")
+        except (TypeError, ValueError) as exc:
+            raise TargetContractError("media transcript target is invalid") from exc
+        _nonempty_string(payload["transcript_exact"], "transcript_exact")
+        anchor_start = payload["transcript_start_char"]
+        anchor_end = payload["transcript_end_char"]
+        if any(isinstance(value, bool) or not isinstance(value, int) for value in (anchor_start, anchor_end)):
+            raise TargetContractError("transcript anchor offsets must be integers")
+        if anchor_start < 0 or anchor_end <= anchor_start:
+            raise TargetContractError("transcript anchor offsets are invalid")
 
 
 DEFAULT_TARGET_CONTRACTS: dict[tuple[str, str], TargetValidator] = {
@@ -138,6 +186,7 @@ DEFAULT_TARGET_CONTRACTS: dict[tuple[str, str], TargetValidator] = {
     ("pdf_page_quote", "v1"): _validate_pdf_page,
     ("text_quote", "v1"): _validate_text_quote,
     ("table_range", "v1"): _validate_table_range,
+    ("media", "v1"): _validate_media,
 }
 
 

@@ -217,17 +217,17 @@ def test_corpus_gate_measures_declared_capabilities_not_document_classes() -> No
     assert "evidence:text_quote:v1" not in status["missing_capabilities"]
     assert set(status["gold_pending_capabilities"]) == {
         "representation:paged_text",
-        "evidence:text_quote:v1",
-        "semantic:multi_topic_longform",
-        "semantic:attribution",
-    }
-    assert set(status["missing_capabilities"]) == {
         "representation:structured_table",
         "representation:timed_media",
+        "evidence:text_quote:v1",
         "evidence:table_path",
         "evidence:media_time_span",
-        "semantic:conditions_exceptions_crossrefs",
+        "semantic:multi_topic_longform",
+        "semantic:attribution",
         "semantic:structured_values",
+    }
+    assert set(status["missing_capabilities"]) == {
+        "semantic:conditions_exceptions_crossrefs",
     }
     assert "broad_certification_ready" not in status
     assert "required_case_classes" not in status

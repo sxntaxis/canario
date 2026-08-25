@@ -159,9 +159,11 @@ class LectorWriter:
                 if target is None:
                     raise LectorInvariantError(f"unknown RepresentationTarget: {target_id}")
                 target_rep, selector_kind, selector_version, payload_json, availability = target
-                if target_rep != request.representation_id:
+                if not self._allowed_related_representation(
+                    con, request.representation_id, target_rep
+                ):
                     raise LectorInvariantError(
-                        "semantic target does not belong to requested Representation"
+                        "semantic target does not belong to requested Representation lineage"
                     )
                 if availability != "available":
                     raise LectorInvariantError("purged RepresentationTarget cannot be extracted")
@@ -254,7 +256,7 @@ class LectorWriter:
                       process_run_id,ordinal,representation_id,representation_target_id
                     ) VALUES (?,?,?,?)
                     """,
-                    (request.process_run_id, ordinal, material.representation_id, scope.id),
+                    (request.process_run_id, ordinal, scope.representation_id, scope.id),
                 )
 
             if descriptor.requires_egress:
@@ -617,12 +619,18 @@ class LectorWriter:
                 """,
                 (ref.target_id,),
             ).fetchone()
-            if row is None or row[0] != material.representation_id or row[4] != "available":
+            if row is None or row[4] != "available":
                 raise LectorInvariantError("semantic evidence target is unavailable or foreign")
+            if not self._allowed_related_representation(con, material.representation_id, row[0]):
+                raise LectorInvariantError("semantic evidence target is outside retained lineage")
             canonical = self.target_registry.validate(row[1], row[2], row[3])
             triple = (row[1], row[2], canonical)
             if ref.target_id not in scope_ids and not whole_authority and triple not in scope_triples:
                 raise LectorInvariantError("semantic evidence target expands ProcessRun input scope")
+            target_bytes, target_charset = self._target_bytes(con, row[0])
+            reopen_selector(
+                row[1], row[2], canonical, source_bytes=target_bytes, charset=target_charset
+            )
             cache[ref] = ref.target_id
             return ref.target_id
 
@@ -678,6 +686,76 @@ class LectorWriter:
         )
         cache[ref] = target_id
         return target_id
+
+    @staticmethod
+    def _allowed_related_representation(
+        con: sqlite3.Connection, input_representation_id: str, target_representation_id: str
+    ) -> bool:
+        if input_representation_id == target_representation_id:
+            return True
+        row = con.execute(
+            "SELECT artifact_id FROM representations WHERE id=?",
+            (input_representation_id,),
+        ).fetchone()
+        target = con.execute(
+            "SELECT artifact_id FROM representations WHERE id=?",
+            (target_representation_id,),
+        ).fetchone()
+        if row is None or target is None or row[0] != target[0]:
+            return False
+        ancestor = con.execute(
+            """
+            WITH RECURSIVE lineage(id) AS (
+              SELECT ?
+              UNION ALL
+              SELECT parent_representation_id FROM representations
+              JOIN lineage ON representations.id=lineage.id
+              WHERE parent_representation_id IS NOT NULL
+            )
+            SELECT 1 FROM lineage WHERE id=? LIMIT 1
+            """,
+            (input_representation_id, target_representation_id),
+        ).fetchone()
+        if ancestor is not None:
+            return True
+        return con.execute(
+            """
+            WITH RECURSIVE lineage(id) AS (
+              SELECT ?
+              UNION ALL
+              SELECT parent_representation_id FROM representations
+              JOIN lineage ON representations.id=lineage.id
+              WHERE parent_representation_id IS NOT NULL
+            )
+            SELECT 1 FROM lineage WHERE id=? LIMIT 1
+            """,
+            (target_representation_id, input_representation_id),
+        ).fetchone() is not None
+
+    def _target_bytes(
+        self, con: sqlite3.Connection, representation_id: str
+    ) -> tuple[bytes, str | None]:
+        row = con.execute(
+            """
+            SELECT r.archive_object_id,r.charset,a.archive_object_id
+            FROM representations r JOIN artifacts a ON a.id=r.artifact_id
+            WHERE r.id=?
+            """,
+            (representation_id,),
+        ).fetchone()
+        if row is None:
+            raise LectorInvariantError("semantic evidence Representation disappeared")
+        archive_object_id = row[0] or row[2]
+        if archive_object_id is None:
+            raise LectorInvariantError("semantic evidence Representation has no byte authority")
+        archive = con.execute(
+            "SELECT content_sha256,byte_size,storage_key,availability FROM archive_objects WHERE id=?",
+            (archive_object_id,),
+        ).fetchone()
+        if archive is None or archive[3] != "available":
+            raise LectorInvariantError("semantic evidence bytes are unavailable")
+        self.archive.verify(archive[2], archive[0], archive[1])
+        return self.archive.path_for_key(archive[2]).read_bytes(), row[1]
 
     def _validate_attempt(
         self,
@@ -782,11 +860,23 @@ class LectorWriter:
             raise LectorInvariantError("semantic input custody was purged before commit")
         for scope in material.scopes:
             target = con.execute(
-                "SELECT representation_id,availability FROM representation_targets WHERE id=?",
+                """
+                SELECT t.representation_id,t.availability,r.availability,a.availability
+                FROM representation_targets t
+                JOIN representations r ON r.id=t.representation_id
+                JOIN artifacts a ON a.id=r.artifact_id
+                WHERE t.id=?
+                """,
                 (scope.id,),
             ).fetchone()
-            if target != (material.representation_id, "available"):
+            if target is None or target[0] != scope.representation_id or target[1] != "available":
                 raise LectorInvariantError("ProcessRun target changed before semantic commit")
+            if target[2] == "purged" or target[3] == "purged":
+                raise LectorInvariantError("ProcessRun target custody was purged before semantic commit")
+            if not self._allowed_related_representation(
+                con, material.representation_id, scope.representation_id
+            ):
+                raise LectorInvariantError("ProcessRun target left retained Representation lineage")
 
     def _verify_existing_run(
         self,
@@ -829,7 +919,16 @@ class LectorWriter:
             """,
             (request.process_run_id,),
         ).fetchall()
-        expected_inputs = [(request.representation_id, target_id) for target_id in request.target_ids]
+        rows = con.execute(
+            "SELECT representation_id,id FROM representation_targets WHERE id IN ({})".format(
+                ",".join("?" for _ in request.target_ids)
+            ),
+            request.target_ids,
+        ).fetchall()
+        by_id = {target_id: representation_id for representation_id, target_id in rows}
+        if set(by_id) != set(request.target_ids):
+            raise LectorIdentityCollision("ProcessRun input target identity is incomplete")
+        expected_inputs = [(by_id[target_id], target_id) for target_id in request.target_ids]
         if inputs != expected_inputs:
             raise LectorIdentityCollision(
                 f"ProcessRun {request.process_run_id} exists with different exact input scope"

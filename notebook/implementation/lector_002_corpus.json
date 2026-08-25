@@ -1,5 +1,5 @@
 {
-  "version": "lector-002-corpus:v2",
+  "version": "lector-002-corpus:v3",
   "certification_scope": "declared_capabilities_only",
   "universal_support_claimed": false,
   "required_capabilities": [
@@ -70,6 +70,39 @@
       "representation_media_type": "text/plain",
       "evaluator_mode": "text_quote:v1",
       "source_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+      "gold_state": "pending",
+      "adjudication_state": "not_run"
+    },
+    {
+      "case_id": "CR-ESPARZA-BUDGET-001",
+      "benchmark_archetypes": ["public_budget_dataset"],
+      "covers": [
+        "representation:structured_table",
+        "evidence:table_path",
+        "semantic:structured_values"
+      ],
+      "source_kind": "structured_table",
+      "representation_media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "evaluator_mode": "table_range:v1",
+      "source_sha256": "7ad3e90e9c64c781d51df178ee5565b37097109112fbe0ec77727de51ed71cc0",
+      "fixture_collected": true,
+      "representation_supported": true,
+      "evaluator_supported": true,
+      "gold_state": "pending",
+      "adjudication_state": "not_run"
+    },
+    {
+      "case_id": "CR-INCOP-PUERTO-CALDERA-MEDIA-001",
+      "benchmark_archetypes": ["institutional_recording"],
+      "covers": ["representation:timed_media", "evidence:media_time_span"],
+      "source_kind": "timed_media",
+      "representation_media_type": "video/mp4",
+      "evaluator_mode": "media:v1",
+      "source_sha256": "ad16627168b8f44a3c9c670cf4f90e8b4323957c0d66b1e8c54e0e9fa777b2a5",
+      "fixture_collected": true,
+      "representation_supported": true,
+      "evaluator_supported": true,
+      "transcript_status": "NOT_GENERATED",
       "gold_state": "pending",
       "adjudication_state": "not_run"
     }

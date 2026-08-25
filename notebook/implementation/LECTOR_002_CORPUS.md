@@ -104,17 +104,17 @@ capability and fixture so aggregate strength cannot hide a weak modality.
 2. **Case-specific helpers** may understand a language, source, genre or layout, but are
    optional aids. They cannot define product ontology, completeness or universal support.
 
-`lector_002_benchmark.py` currently implements only the `text_quote:v1` evaluator mode.
-Its v2 preparation partitions UTF-8 text losslessly using page separators, blank-line
-blocks and bounded continuation. It deliberately has no acta vocabulary or civic keyword
-triage and keeps coverage in source order.
+`lector_002_benchmark.py` implements `text_quote:v1` plus blank typed worksheet modes for
+`table_range:v1` and `media:v1`. The typed modes validate through the production locator
+reopener and never generate truth, candidates, or semantic calls. Media review windows are
+uniform mechanical partitions only; they do not define semantic completeness.
 
 Structured table and timed-media evidence need their own typed evaluator modes rather than
 being flattened into text.
 
 ## Current declared capability targets
 
-The current `v2` campaign declares these targets:
+The current `v3` campaign declares these targets:
 
 | Dimension | Capability | What it stresses |
 |---|---|---|
@@ -136,6 +136,17 @@ required product taxonomy, and a better fixture can replace or combine them if i
 the intended failure modes more effectively.
 
 ## Current real case
+
+The frozen typed fixtures are represented but not gold-ready:
+
+| Case | Representation | Evaluator | Gold | Transcript |
+|---|---|---|---|---|
+| `CR-ESPARZA-BUDGET-001` | structured XLSX/table | `table_range:v1` | pending, 0 rows | n/a |
+| `CR-INCOP-PUERTO-CALDERA-MEDIA-001` | retained MP4/timed media | `media:v1` | pending, 0 rows | `NOT_GENERATED` |
+
+Their fixture manifests assert `semantic_model_calls=0`, `truth_generated=false`, and
+`tested_extractor_seen=false`. Collection does not imply representation, evaluator, gold,
+or adjudication readiness; those states are explicit in `lector_002_corpus.json`.
 
 `CR-ESPARZA-MINUTES-001`:
 

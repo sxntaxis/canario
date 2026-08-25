@@ -21,7 +21,10 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
+from canario.lector.locators import SemanticLocatorError, reopen_selector
+
 PREPARATION_VERSION = "lector-002-reference-text:v2"
+TYPED_PREPARATION_VERSION = "lector-002-typed-evidence:v1"
 MAX_UNIT_CHARS = 4_000
 PREFERRED_SPLIT_CHARS = 2_800
 
@@ -301,6 +304,96 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
         encoding="utf-8",
     )
     return manifest
+
+
+def _blank_typed_worksheets(output_dir: Path, manifest: dict[str, object], units: list[dict[str, object]]) -> dict[str, object]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    _write_csv(output_dir / "units.csv", list(units[0]) if units else ["unit_id"], units)
+    _write_csv(output_dir / "coverage.csv", ["unit_id", "review_state", "notes"],
+               ({"unit_id": unit["unit_id"], "review_state": "", "notes": ""} for unit in units))
+    _write_csv(output_dir / "truth.csv", ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], ())
+    _write_csv(output_dir / "candidates.csv", ["candidate_id", "proposition", "selector_json"], ())
+    _write_csv(output_dir / "assessment.csv", ["candidate_id", "truth_ids", "verdict", "notes"], ())
+    return manifest
+
+
+def prepare_table(source_path: Path, output_dir: Path, source_label: str | None = None) -> dict[str, object]:
+    """Prepare a blank worksheet over the canonical structured-table derivative."""
+    source_bytes = source_path.read_bytes()
+    try:
+        value = json.loads(source_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("table-reference mode requires canonical JSON table bytes") from exc
+    sheets = value.get("sheets") if isinstance(value, dict) else None
+    if not isinstance(sheets, list):
+        raise BenchmarkError("table-reference source has no sheets")
+    units: list[dict[str, object]] = []
+    for sheet in sheets:
+        if not isinstance(sheet, dict) or not isinstance(sheet.get("rows"), list):
+            raise BenchmarkError("table-reference source has malformed sheet rows")
+        for ordinal, _row in enumerate(sheet["rows"], start=1):
+            units.append({
+                "unit_id": f"{sheet['ordinal']}:R{ordinal}",
+                "sheet": sheet["name"],
+                "row_start": ordinal,
+                "row_end": ordinal,
+            })
+    manifest = {
+        "preparation_version": TYPED_PREPARATION_VERSION,
+        "evaluator_mode": "table_range:v1",
+        "source_label": source_label or source_path.name,
+        "source_sha256": _sha256_bytes(source_bytes),
+        "source_bytes": len(source_bytes),
+        "review_units": len(units),
+        "truth_generated": False,
+        "semantic_model_calls": 0,
+        "tested_extractor_seen": False,
+        "gold_rows": 0,
+    }
+    return _blank_typed_worksheets(output_dir, manifest, units)
+
+
+def prepare_media(source_path: Path, output_dir: Path, duration_us: int, source_label: str | None = None) -> dict[str, object]:
+    """Prepare full-duration, mechanically sliced blank media review windows."""
+    if duration_us <= 0:
+        raise BenchmarkError("media duration_us must be positive")
+    source_bytes = source_path.read_bytes()
+    step = 10_000_000
+    units = []
+    start = 0
+    ordinal = 1
+    while start < duration_us:
+        end = min(duration_us, start + step)
+        units.append({"unit_id": f"T{ordinal:04d}", "start_us": start, "end_us": end})
+        start, ordinal = end, ordinal + 1
+    manifest = {
+        "preparation_version": TYPED_PREPARATION_VERSION,
+        "evaluator_mode": "media:v1",
+        "source_label": source_label or source_path.name,
+        "source_sha256": _sha256_bytes(source_bytes),
+        "source_bytes": len(source_bytes),
+        "duration_us": duration_us,
+        "review_units": len(units),
+        "segmentation_semantics": "uniform_mechanical_windows_only",
+        "truth_generated": False,
+        "semantic_model_calls": 0,
+        "tested_extractor_seen": False,
+        "transcript_generated": False,
+        "gold_rows": 0,
+    }
+    return _blank_typed_worksheets(output_dir, manifest, units)
+
+
+def validate_typed_evidence(mode: str, source_bytes: bytes, selector_json: str, *, charset: str | None = "utf-8") -> None:
+    """Use the production locator registry for typed benchmark evidence."""
+    kind = "table_range" if mode == "table_range:v1" else "media" if mode == "media:v1" else mode
+    try:
+        reopen_selector(kind, "v1", selector_json, source_bytes=source_bytes, charset=charset)
+    except SemanticLocatorError as exc:
+        raise BenchmarkError(f"typed evidence does not reopen: {exc}") from exc
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:
@@ -603,6 +696,15 @@ def _build_parser() -> argparse.ArgumentParser:
     prepare_parser.add_argument("--source", type=Path, required=True)
     prepare_parser.add_argument("--output-dir", type=Path, required=True)
     prepare_parser.add_argument("--source-label")
+    table_parser = subparsers.add_parser("prepare-table", help="create a blank structured-table worksheet")
+    table_parser.add_argument("--source", type=Path, required=True)
+    table_parser.add_argument("--output-dir", type=Path, required=True)
+    table_parser.add_argument("--source-label")
+    media_parser = subparsers.add_parser("prepare-media", help="create a blank timed-media worksheet")
+    media_parser.add_argument("--source", type=Path, required=True)
+    media_parser.add_argument("--output-dir", type=Path, required=True)
+    media_parser.add_argument("--duration-us", type=int, required=True)
+    media_parser.add_argument("--source-label")
 
     score_parser = subparsers.add_parser("score", help="validate a completed gold/adjudication set and score it")
     score_parser.add_argument("--source", type=Path, required=True)
@@ -622,6 +724,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = evaluate_corpus(args.corpus)
         elif args.command == "prepare":
             result = prepare(args.source, args.output_dir, args.source_label)
+        elif args.command == "prepare-table":
+            result = prepare_table(args.source, args.output_dir, args.source_label)
+        elif args.command == "prepare-media":
+            result = prepare_media(args.source, args.output_dir, args.duration_us, args.source_label)
         else:
             result = score(
                 args.source,

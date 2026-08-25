@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sqlite3
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
@@ -21,6 +22,7 @@ from .contracts import (
 )
 from .quality import QualityDecision, QualityRegistry
 from .targets import TargetRegistration, TargetRegistry
+from canario.lector.locators import reopen_selector
 
 ConnectionFactory = Callable[[Path], sqlite3.Connection]
 
@@ -112,6 +114,8 @@ class WorkbenchWriter:
                 raise WorkbenchInvariantError(
                     f"unknown Representation: {target.representation_id}"
                 )
+            if target.selector_kind == "media" and target.selector_version == "v1":
+                self._validate_media_target(con, target.representation_id, canonical_payload)
             if rep[0] == "purged":
                 raise WorkbenchInvariantError("cannot target a purged Representation")
 
@@ -161,6 +165,99 @@ class WorkbenchWriter:
             raise
         finally:
             con.close()
+
+    def _validate_media_target(
+        self, con: sqlite3.Connection, representation_id: str, payload_json: str
+    ) -> None:
+        payload = json.loads(payload_json)
+        rep = con.execute(
+            "SELECT artifact_id FROM representations WHERE id=? AND availability<>'purged'",
+            (representation_id,),
+        ).fetchone()
+        if rep is None:
+            raise WorkbenchInvariantError("media target Representation is unavailable")
+        metadata = con.execute(
+            """
+            SELECT r.archive_object_id
+            FROM representations r
+            WHERE r.artifact_id=? AND r.kind='other'
+              AND r.media_type='application/vnd.canario.media-index+json'
+              AND r.availability<>'purged'
+            ORDER BY r.created_at DESC,r.id DESC LIMIT 1
+            """,
+            (rep[0],),
+        ).fetchone()
+        if metadata is None:
+            raise WorkbenchInvariantError("media:v1 requires a retained media inspection index")
+        archive = con.execute(
+            "SELECT content_sha256,byte_size,storage_key,availability FROM archive_objects WHERE id=?",
+            (metadata[0],),
+        ).fetchone()
+        if archive is None or archive[3] != "available":
+            raise WorkbenchInvariantError("media inspection index is unavailable")
+        self.archive.verify(archive[2], archive[0], archive[1])
+        index = json.loads(self.archive.path_for_key(archive[2]).read_text(encoding="utf-8"))
+        if index.get("source_sha256") != payload["media_sha256"] or index.get("duration_us") != payload["duration_us"]:
+            raise WorkbenchInvariantError("media:v1 is not bound to the retained inspection index")
+        transcript_target_id = payload.get("transcript_target_id")
+        if transcript_target_id is None:
+            return
+        target = con.execute(
+            """
+            SELECT t.representation_id,t.selector_kind,t.selector_version,t.selector_payload_json,
+                   r.artifact_id,r.parent_representation_id,r.charset
+            FROM representation_targets t JOIN representations r ON r.id=t.representation_id
+            WHERE t.id=? AND t.availability='available'
+            """,
+            (transcript_target_id,),
+        ).fetchone()
+        if target is None or target[1:3] != ("text_quote", "v1") or target[4] != rep[0]:
+            raise WorkbenchInvariantError("media transcript anchor is not a related text target")
+        if not self._lineage_related(con, representation_id, target[0]):
+            raise WorkbenchInvariantError("media transcript anchor is outside retained lineage")
+        material = self._representation_bytes(con, target[0])
+        text_payload = json.loads(target[3])
+        expected = {
+            "exact": payload["transcript_exact"],
+            "start_char": payload["transcript_start_char"],
+            "end_char": payload["transcript_end_char"],
+        }
+        if any(text_payload.get(key) != value for key, value in expected.items()):
+            raise WorkbenchInvariantError("media transcript anchor disagrees with transcript target")
+        reopen_selector("text_quote", "v1", target[3], source_bytes=material[0], charset=material[1])
+
+    @staticmethod
+    def _lineage_related(con: sqlite3.Connection, first: str, second: str) -> bool:
+        if first == second:
+            return True
+        row = con.execute("SELECT artifact_id FROM representations WHERE id=?", (first,)).fetchone()
+        other = con.execute("SELECT artifact_id FROM representations WHERE id=?", (second,)).fetchone()
+        if row is None or other is None or row[0] != other[0]:
+            return False
+        for start, wanted in ((first, second), (second, first)):
+            current = start
+            while current is not None:
+                if current == wanted:
+                    return True
+                current = con.execute(
+                    "SELECT parent_representation_id FROM representations WHERE id=?", (current,)
+                ).fetchone()[0]
+        return False
+
+    def _representation_bytes(self, con: sqlite3.Connection, representation_id: str) -> tuple[bytes, str | None]:
+        row = con.execute(
+            "SELECT archive_object_id,charset FROM representations WHERE id=?", (representation_id,)
+        ).fetchone()
+        if row is None or row[0] is None:
+            raise WorkbenchInvariantError("related Representation has no byte authority")
+        archive = con.execute(
+            "SELECT content_sha256,byte_size,storage_key,availability FROM archive_objects WHERE id=?",
+            (row[0],),
+        ).fetchone()
+        if archive is None or archive[3] != "available":
+            raise WorkbenchInvariantError("related Representation bytes are unavailable")
+        self.archive.verify(archive[2], archive[0], archive[1])
+        return self.archive.path_for_key(archive[2]).read_bytes(), row[1]
 
     def load_input(self, request: ProcessingRequest) -> InputMaterial:
         con = self._connect(self.database_path)
