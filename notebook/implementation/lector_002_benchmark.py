@@ -35,7 +35,8 @@ PREFERRED_SPLIT_CHARS = 2_800
 TRUTH_IMPORTANCE = {"must", "material"}
 ASSESSMENT_VERDICTS = {"correct", "distorted", "unsupported", "redundant", "overmerged"}
 COVERAGE_STATES = {"truth_recorded", "no_material_truth"}
-SCOPE_COVERAGE_STATES = COVERAGE_STATES | {"unjudged"}
+HUMAN_REVIEW_STATES = COVERAGE_STATES | {"needs_adjudication"}
+SCOPE_COVERAGE_STATES = HUMAN_REVIEW_STATES | {"unjudged"}
 SEMANTIC_VERIFICATION_STATES = {"not_run", "passed", "failed"}
 SHA256_HEX_LENGTH = 64
 
@@ -417,8 +418,10 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
         "blank-line, and bounded-size structure. No acta vocabulary or semantic attention\n"
         "heuristic influences segmentation or coverage. `units.jsonl` contains exact unit text\n"
         "and character offsets.\n\n"
-        "For every unit, a human records either `truth_recorded` or `no_material_truth` in\n"
-        "`coverage.csv`. Each material proposition is added to `truth.csv` with `importance` =\n"
+        "For every selected unit, a human records `truth_recorded`, `no_material_truth`, or\n"
+        "`needs_adjudication` in `coverage.csv`. Uncertainty is valid: `needs_adjudication` means\n"
+        "do not guess; the unit must receive a second review before gold can freeze. Each material\n"
+        "proposition is added to `truth.csv` with `importance` =\n"
         "`must` or `material` and an exact quote whose character offsets reopen against the\n"
         "frozen Representation.\n\n"
         "Only after the case gold set is frozen may the tested extractor fill `candidates.csv`.\n"
@@ -765,6 +768,10 @@ def _score_rows(
                 raise BenchmarkError(f"unselected unit {unit_id!r} must remain unjudged")
             continue
         has_truth = bool(truths_by_unit[unit_id])
+        if state == "needs_adjudication":
+            raise BenchmarkError(
+                f"unit {unit_id!r} still needs human gold adjudication before freeze/scoring"
+            )
         if state == "truth_recorded" and not has_truth:
             raise BenchmarkError(f"unit {unit_id!r} says truth_recorded but has no truth row")
         if state == "no_material_truth" and has_truth:
@@ -960,6 +967,68 @@ def score_typed(
     if media_index_path is not None:
         metrics["media_index_sha256"] = _sha256_bytes(media_index_path.read_bytes())
     return metrics
+
+
+def review_status(
+    *,
+    source_path: Path,
+    units_path: Path,
+    coverage_path: Path,
+    scope_path: Path,
+) -> dict[str, object]:
+    """Report mechanical human-review progress without interpreting source content."""
+    source_bytes = source_path.read_bytes()
+    units = _unique_rows(_read_csv(units_path), "unit_id", "units.csv")
+    scope = _load_gold_scope(
+        scope_path,
+        source_bytes=source_bytes,
+        units_path=units_path,
+        unit_ids=set(units),
+    )
+    coverage = _unique_rows(_read_csv(coverage_path), "unit_id", "coverage.csv")
+    if set(coverage) != set(units):
+        missing = sorted(set(units) - set(coverage))
+        extra = sorted(set(coverage) - set(units))
+        raise BenchmarkError(f"coverage unit mismatch; missing={missing}, extra={extra}")
+
+    selected = set(str(item) for item in scope["selected_unit_ids"])
+    counts = {
+        "truth_recorded": 0,
+        "no_material_truth": 0,
+        "needs_adjudication": 0,
+        "pending_blank": 0,
+        "unjudged_nonselected": 0,
+    }
+    for unit_id, row in coverage.items():
+        state = row.get("review_state", "").strip()
+        if unit_id not in selected:
+            if state != "unjudged":
+                raise BenchmarkError(f"unselected unit {unit_id!r} must remain unjudged")
+            counts["unjudged_nonselected"] += 1
+            continue
+        if state == "":
+            counts["pending_blank"] += 1
+            continue
+        if state not in HUMAN_REVIEW_STATES:
+            raise BenchmarkError(f"selected unit {unit_id!r} has invalid human review_state {state!r}")
+        counts[state] += 1
+
+    resolved = counts["truth_recorded"] + counts["no_material_truth"]
+    return {
+        "case_id": scope["case_id"],
+        "gold_scope_sha256": _sha256_bytes(scope_path.read_bytes()),
+        "selected_units": len(selected),
+        "resolved_units": resolved,
+        "truth_recorded_units": counts["truth_recorded"],
+        "no_material_truth_units": counts["no_material_truth"],
+        "needs_adjudication_units": counts["needs_adjudication"],
+        "pending_blank_units": counts["pending_blank"],
+        "unjudged_nonselected_units": counts["unjudged_nonselected"],
+        "review_complete_for_gold_freeze": (
+            counts["needs_adjudication"] == 0 and counts["pending_blank"] == 0
+        ),
+        "semantic_interpretation_performed": False,
+    }
 
 
 def freeze_gold(
@@ -1325,6 +1394,11 @@ def _build_parser() -> argparse.ArgumentParser:
     scope_parser.add_argument("--case-id", required=True)
     scope_parser.add_argument("--semantic-capability", action="append", required=True)
     scope_parser.add_argument("--selection-policy", required=True)
+    review_parser = subparsers.add_parser("review-status", help="report human gold-review progress without semantic interpretation")
+    review_parser.add_argument("--source", type=Path, required=True)
+    review_parser.add_argument("--units", type=Path, required=True)
+    review_parser.add_argument("--coverage", type=Path, required=True)
+    review_parser.add_argument("--scope", type=Path, required=True)
     media_parser = subparsers.add_parser("prepare-media", help="create a blank timed-media worksheet")
     media_parser.add_argument("--source", type=Path, required=True)
     media_parser.add_argument("--media-index", type=Path, required=True)
@@ -1384,6 +1458,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.case_id,
                 args.semantic_capability,
                 args.selection_policy,
+            )
+        elif args.command == "review-status":
+            result = review_status(
+                source_path=args.source,
+                units_path=args.units,
+                coverage_path=args.coverage,
+                scope_path=args.scope,
             )
         elif args.command == "prepare-media":
             result = prepare_media(args.source, args.media_index, args.output_dir, args.source_label)

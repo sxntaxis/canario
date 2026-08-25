@@ -231,8 +231,10 @@ Rules for agents/contributors:
   normative/contractual, structured data, timed media) are useful stress sources, not
   ontology. Coverage is accepted only through appropriate typed evidence evaluators;
 - benchmark assistance may reduce reviewer search but cannot silently become gold truth
-  or final semantic adjudication. Do not inspect a tested extractor's output for a case
-  before that case's independent gold set is frozen.
+  or final semantic adjudication. Human gold review may record `needs_adjudication`;
+  uncertainty must be resolved by a later independent review, never coerced into
+  `truth_recorded` or `no_material_truth`. Do not inspect a tested extractor's output
+  for a case before that case's independent gold set is frozen.
 - LECTOR-002 semantic gold uses independent `gold_scope_state`, `gold_state`,
   `adjudication_state`, and per-capability `semantic_verification` with an immutable
   result digest. Gold/adjudication alone never verifies a semantic capability;

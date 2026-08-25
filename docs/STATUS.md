@@ -284,3 +284,5 @@ flattening unsupported media into text or by extrapolating from the minutes/PDF 
 artifacts. Their future work packages do not expand this authorization. The
 current authority for migration `0001` is the accepted semantic contract, the
 certified freeze, and the bounded authorization record.
+
+- LECTOR-002 human gold packets now treat reviewer uncertainty as explicit `needs_adjudication`; unresolved units block gold freeze/scoring rather than forcing a binary judgment.

@@ -44,8 +44,10 @@ bindings.
 Each packet contains a canonical `gold_scope.json` bound to exact source and units
 digests, the selected-unit digest, selection policy and semantic capabilities. Scoring
 requires those identities to match. Coverage includes every prepared unit: selected
-units receive `truth_recorded` or `no_material_truth`; non-selected units explicitly
-remain `unjudged`. Truths outside the selected set are rejected. A sampled structured
+units receive `truth_recorded`, `no_material_truth`, or `needs_adjudication`; non-selected units
+explicitly remain `unjudged`. `needs_adjudication` is a valid human-review outcome, not a hidden
+negative label: it means the reviewer is unsure and the unit must receive a second independent
+review before gold can freeze. The benchmark never forces uncertainty into a yes/no answer. Truths outside the selected set are rejected. A sampled structured
 table result reports total units, selected units, selection kind and fraction, and
 cannot claim full-workbook semantic recall.
 
@@ -68,7 +70,10 @@ correspondence uses full source order over its 17 generic text units.
 8. score against frozen thresholds
 ```
 
-The `freeze-gold` validator refuses empty semantic-capability gold (unless the
+`review-status` reports only mechanical progress: resolved units, blank units and units marked
+`needs_adjudication`. It performs no semantic interpretation.
+
+The `freeze-gold` validator refuses unresolved `needs_adjudication` units, empty semantic-capability gold (unless the
 capability is explicitly scope-wide), candidate output, model assistance, changed
 source/scope bytes, incomplete coverage, invalid evidence, or missing capability
 bindings. It does not generate truths or decide semantic equivalence.

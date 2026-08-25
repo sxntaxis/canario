@@ -665,3 +665,50 @@ def test_structural_sample_is_stable_for_same_structure() -> None:
     second = bench.select_structural_table_units([{**row} for row in units], "a" * 64)
     assert first == second
     assert {item.split(":")[0] for item in first} == {"1", "2"}
+
+
+def test_needs_adjudication_is_explicit_and_blocks_scoring(tmp_path: Path) -> None:
+    source, units, scope, coverage, truth, candidates, assessment = _scoped_text_files(tmp_path)
+    _write_csv(coverage, ["unit_id", "review_state"], [
+        {"unit_id": "U1", "review_state": "needs_adjudication"},
+        {"unit_id": "U2", "review_state": "unjudged"},
+    ])
+    with pytest.raises(bench.BenchmarkError, match="needs human gold adjudication"):
+        bench.score(source, units, coverage, truth, candidates, assessment, scope_path=scope)
+
+
+def test_review_status_reports_uncertainty_without_semantic_interpretation(tmp_path: Path) -> None:
+    source, units, scope, coverage, truth, candidates, assessment = _scoped_text_files(tmp_path)
+    _write_csv(coverage, ["unit_id", "review_state"], [
+        {"unit_id": "U1", "review_state": "needs_adjudication"},
+        {"unit_id": "U2", "review_state": "unjudged"},
+    ])
+    status = bench.review_status(
+        source_path=source,
+        units_path=units,
+        coverage_path=coverage,
+        scope_path=scope,
+    )
+    assert status["selected_units"] == 1
+    assert status["resolved_units"] == 0
+    assert status["needs_adjudication_units"] == 1
+    assert status["pending_blank_units"] == 0
+    assert status["review_complete_for_gold_freeze"] is False
+    assert status["semantic_interpretation_performed"] is False
+
+
+def test_review_status_counts_blank_selected_units_as_pending(tmp_path: Path) -> None:
+    source, units, scope, coverage, truth, candidates, assessment = _scoped_text_files(tmp_path)
+    _write_csv(coverage, ["unit_id", "review_state"], [
+        {"unit_id": "U1", "review_state": ""},
+        {"unit_id": "U2", "review_state": "unjudged"},
+    ])
+    status = bench.review_status(
+        source_path=source,
+        units_path=units,
+        coverage_path=coverage,
+        scope_path=scope,
+    )
+    assert status["pending_blank_units"] == 1
+    assert status["needs_adjudication_units"] == 0
+    assert status["review_complete_for_gold_freeze"] is False
