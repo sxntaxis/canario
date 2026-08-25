@@ -1,18 +1,71 @@
 {
-  "version": "lector-002-corpus:v1",
-  "broad_certification_state": "blocked",
-  "required_case_classes": [
-    "institutional_minutes",
-    "report_or_audit",
-    "official_correspondence",
-    "normative_or_contractual",
-    "structured_data",
-    "timed_media"
+  "version": "lector-002-corpus:v2",
+  "certification_scope": "declared_capabilities_only",
+  "universal_support_claimed": false,
+  "required_capabilities": [
+    {
+      "id": "representation:paged_text",
+      "dimension": "representation",
+      "description": "Preserve and evaluate text with stable page-aware structure without document-type semantics."
+    },
+    {
+      "id": "representation:structured_table",
+      "dimension": "representation",
+      "description": "Preserve structured row/cell/path semantics instead of flattening a table to prose."
+    },
+    {
+      "id": "representation:timed_media",
+      "dimension": "representation",
+      "description": "Preserve finite audio/video as timed media with derivative transcripts kept separate."
+    },
+    {
+      "id": "evidence:text_quote:v1",
+      "dimension": "evidence",
+      "description": "Reopen exact textual evidence from the frozen Representation."
+    },
+    {
+      "id": "evidence:table_path",
+      "dimension": "evidence",
+      "description": "Reopen exact structured table evidence by row/cell/path and observed values."
+    },
+    {
+      "id": "evidence:media_time_span",
+      "dimension": "evidence",
+      "description": "Reopen exact start/end timed evidence against the original recording."
+    },
+    {
+      "id": "semantic:multi_topic_longform",
+      "dimension": "semantic_stress",
+      "description": "Recover materially distinct propositions from a long source containing many topics."
+    },
+    {
+      "id": "semantic:attribution",
+      "dimension": "semantic_stress",
+      "description": "Preserve who said, requested, decided, reported, or authored something when source evidence supports it."
+    },
+    {
+      "id": "semantic:conditions_exceptions_crossrefs",
+      "dimension": "semantic_stress",
+      "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition."
+    },
+    {
+      "id": "semantic:structured_values",
+      "dimension": "semantic_stress",
+      "description": "Extract quantitative/categorical facts without losing table structure, labels or value types."
+    }
   ],
   "cases": [
     {
       "case_id": "CR-ESPARZA-MINUTES-001",
-      "case_class": "institutional_minutes",
+      "benchmark_archetypes": [
+        "institutional_minutes"
+      ],
+      "covers": [
+        "representation:paged_text",
+        "evidence:text_quote:v1",
+        "semantic:multi_topic_longform",
+        "semantic:attribution"
+      ],
       "source_kind": "civic_document",
       "representation_media_type": "text/plain",
       "evaluator_mode": "text_quote:v1",

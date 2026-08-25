@@ -210,13 +210,22 @@ Rules for agents/contributors:
   candidate/basis rules in `notebook/implementation/LECTOR_001_DESIGN.md`;
 - the active semantic edge is `LECTOR-002`: build a heterogeneous reference corpus,
   not an Acta 161-only benchmark. Acta 161 is case `CR-ESPARZA-MINUTES-001` and cannot
-  certify broad extraction by itself;
+  establish general extraction quality by itself;
+- LECTOR-002 fixture genre labels are optional `benchmark_archetypes`, not registered
+  Canario document classes. Do not create an exhaustive `DocumentType`/`case_class`
+  taxonomy to make the benchmark green;
+- the executable LECTOR-002 gate measures an explicit, revisable matrix of Representation,
+  evidence and semantic-stress capabilities. A new real-world failure mode extends that
+  matrix; it does not require inventing a universal record class;
+- the benchmark must report `certification_scope = declared_capabilities_only` and
+  `universal_support_claimed = false`. No finite corpus certifies every possible future
+  document, container or medium;
 - the canonical text-case harness uses only generic Representation structure. Any
   acta/language/source-specific heuristic must live in an explicitly scoped helper and
   cannot define corpus completeness;
-- broad LECTOR-002 certification remains blocked until report/audit, correspondence,
-  normative/contractual, structured-data, and timed-media cases join the minutes case
-  with appropriate typed evidence evaluators;
+- current fixture-selection archetypes (minutes, report/audit, correspondence,
+  normative/contractual, structured data, timed media) are useful stress sources, not
+  ontology. Coverage is accepted only through appropriate typed evidence evaluators;
 - benchmark assistance may reduce reviewer search but cannot silently become gold truth
   or final semantic adjudication. Do not inspect a tested extractor's output for a case
   before that case's independent gold set is frozen.

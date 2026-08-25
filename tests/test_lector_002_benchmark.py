@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -206,16 +207,80 @@ def test_score_rejects_false_exact_quote(tmp_path: Path) -> None:
         bench.score(source, units, coverage, truth, candidates, assessment)
 
 
-def test_corpus_gate_blocks_minutes_only_reference_set() -> None:
+def test_corpus_gate_measures_declared_capabilities_not_document_classes() -> None:
     corpus = Path(__file__).parents[1] / "notebook" / "implementation" / "lector_002_corpus.json"
     status = bench.evaluate_corpus(corpus)
-    assert status["broad_certification_ready"] is False
-    assert "institutional_minutes" not in status["missing_case_classes"]
-    assert set(status["missing_case_classes"]) == {
-        "report_or_audit",
-        "official_correspondence",
-        "normative_or_contractual",
-        "structured_data",
-        "timed_media",
+    assert status["declared_capability_gate_ready"] is False
+    assert status["certification_scope"] == "declared_capabilities_only"
+    assert status["universal_support_claimed"] is False
+    assert "representation:paged_text" not in status["missing_capabilities"]
+    assert "evidence:text_quote:v1" not in status["missing_capabilities"]
+    assert set(status["gold_pending_capabilities"]) == {
+        "representation:paged_text",
+        "evidence:text_quote:v1",
+        "semantic:multi_topic_longform",
+        "semantic:attribution",
     }
-    assert status["gold_pending_classes"] == ["institutional_minutes"]
+    assert set(status["missing_capabilities"]) == {
+        "representation:structured_table",
+        "representation:timed_media",
+        "evidence:table_path",
+        "evidence:media_time_span",
+        "semantic:conditions_exceptions_crossrefs",
+        "semantic:structured_values",
+    }
+    assert "broad_certification_ready" not in status
+    assert "required_case_classes" not in status
+
+
+def test_corpus_archetypes_are_unregistered_descriptive_metadata(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus.json"
+    corpus.write_text(
+        json.dumps(
+            {
+                "version": "test:v1",
+                "certification_scope": "declared_capabilities_only",
+                "universal_support_claimed": False,
+                "required_capabilities": [
+                    {
+                        "id": "evidence:text_quote:v1",
+                        "dimension": "evidence",
+                        "description": "exact quote reopens",
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "WEIRD-001",
+                        "benchmark_archetypes": [
+                            "citizen_generated_mixed_packet",
+                            "genre-that-did-not-exist-yesterday",
+                        ],
+                        "covers": ["evidence:text_quote:v1"],
+                        "evaluator_mode": "text_quote:v1",
+                        "gold_state": "frozen",
+                        "adjudication_state": "complete",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    status = bench.evaluate_corpus(corpus)
+    assert status["declared_capability_gate_ready"] is True
+    assert status["verified_capabilities"] == ["evidence:text_quote:v1"]
+
+
+def test_corpus_rejects_legacy_document_class_gate(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus.json"
+    corpus.write_text(
+        json.dumps(
+            {
+                "version": "legacy",
+                "required_case_classes": ["minutes", "report"],
+                "cases": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(bench.BenchmarkError, match="document-class broad-certification fields are retired"):
+        bench.evaluate_corpus(corpus)

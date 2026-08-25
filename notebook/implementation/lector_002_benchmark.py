@@ -454,7 +454,12 @@ def score(
 
 
 def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
-    """Derive the broad-certification gate from a heterogeneous corpus manifest."""
+    """Derive readiness for the benchmark's explicitly declared capability targets.
+
+    Capabilities are benchmark stress dimensions, not an ontology of civic record
+    types. A finite reference corpus can prove coverage only for the capabilities it
+    names; this function must never imply universal document/media support.
+    """
 
     try:
         value = json.loads(corpus_path.read_text(encoding="utf-8"))
@@ -463,31 +468,78 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
     if not isinstance(value, dict):
         raise BenchmarkError("corpus manifest must be an object")
 
-    required = value.get("required_case_classes")
+    if "required_case_classes" in value or "broad_certification_state" in value:
+        raise BenchmarkError(
+            "document-class broad-certification fields are retired; use declared capability targets"
+        )
+    if value.get("certification_scope") != "declared_capabilities_only":
+        raise BenchmarkError("certification_scope must be 'declared_capabilities_only'")
+    if value.get("universal_support_claimed") is not False:
+        raise BenchmarkError("universal_support_claimed must be false")
+
+    required_raw = value.get("required_capabilities")
     cases = value.get("cases")
-    if not isinstance(required, list) or not required or not all(
-        isinstance(item, str) and item for item in required
-    ):
-        raise BenchmarkError("required_case_classes must be a non-empty string list")
-    if len(set(required)) != len(required):
-        raise BenchmarkError("required_case_classes contains duplicates")
+    if not isinstance(required_raw, list) or not required_raw:
+        raise BenchmarkError("required_capabilities must be a non-empty list")
     if not isinstance(cases, list):
         raise BenchmarkError("cases must be a list")
 
+    required: list[str] = []
+    for raw in required_raw:
+        if not isinstance(raw, dict):
+            raise BenchmarkError("every required capability must be an object")
+        capability_id = raw.get("id")
+        dimension = raw.get("dimension")
+        description = raw.get("description")
+        if not isinstance(capability_id, str) or not capability_id:
+            raise BenchmarkError("every required capability needs a non-empty id")
+        if not isinstance(dimension, str) or not dimension:
+            raise BenchmarkError(f"capability {capability_id!r} needs a dimension")
+        if not isinstance(description, str) or not description:
+            raise BenchmarkError(f"capability {capability_id!r} needs a description")
+        required.append(capability_id)
+    if len(set(required)) != len(required):
+        raise BenchmarkError("required_capabilities contains duplicate ids")
+
     seen_ids: set[str] = set()
-    by_class: dict[str, list[dict[str, object]]] = {case_class: [] for case_class in required}
+    by_capability: dict[str, list[dict[str, object]]] = {
+        capability_id: [] for capability_id in required
+    }
     for raw in cases:
         if not isinstance(raw, dict):
             raise BenchmarkError("every corpus case must be an object")
         case_id = raw.get("case_id")
-        case_class = raw.get("case_class")
         if not isinstance(case_id, str) or not case_id:
             raise BenchmarkError("every corpus case needs a non-empty case_id")
         if case_id in seen_ids:
             raise BenchmarkError(f"duplicate corpus case_id {case_id!r}")
         seen_ids.add(case_id)
-        if case_class not in by_class:
-            raise BenchmarkError(f"case {case_id!r} uses unregistered class {case_class!r}")
+
+        # Archetypes are descriptive benchmark metadata only. There is deliberately
+        # no registry to which a case must conform.
+        if "case_class" in raw:
+            raise BenchmarkError(
+                f"case {case_id!r} uses retired case_class; use optional benchmark_archetypes"
+            )
+        archetypes = raw.get("benchmark_archetypes", [])
+        if not isinstance(archetypes, list) or not all(
+            isinstance(item, str) and item for item in archetypes
+        ):
+            raise BenchmarkError(f"case {case_id!r} benchmark_archetypes must be a string list")
+
+        covers = raw.get("covers")
+        if not isinstance(covers, list) or not covers or not all(
+            isinstance(item, str) and item for item in covers
+        ):
+            raise BenchmarkError(f"case {case_id!r} needs a non-empty covers list")
+        if len(set(covers)) != len(covers):
+            raise BenchmarkError(f"case {case_id!r} covers contains duplicates")
+        unknown = sorted(set(covers) - set(required))
+        if unknown:
+            raise BenchmarkError(
+                f"case {case_id!r} covers undeclared capabilities {unknown}; add targets explicitly"
+            )
+
         if raw.get("gold_state") not in {"pending", "frozen"}:
             raise BenchmarkError(f"case {case_id!r} has invalid gold_state")
         if raw.get("adjudication_state") not in {"not_run", "incomplete", "complete"}:
@@ -495,17 +547,18 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         evaluator_mode = raw.get("evaluator_mode")
         if not isinstance(evaluator_mode, str) or not evaluator_mode:
             raise BenchmarkError(f"case {case_id!r} needs evaluator_mode")
-        by_class[case_class].append(raw)
+        for capability_id in covers:
+            by_capability[capability_id].append(raw)
 
-    missing_classes = [case_class for case_class, rows in by_class.items() if not rows]
-    gold_pending_classes = [
-        case_class
-        for case_class, rows in by_class.items()
+    missing = [capability_id for capability_id, rows in by_capability.items() if not rows]
+    gold_pending = [
+        capability_id
+        for capability_id, rows in by_capability.items()
         if rows and not any(row["gold_state"] == "frozen" for row in rows)
     ]
-    adjudication_pending_classes = [
-        case_class
-        for case_class, rows in by_class.items()
+    adjudication_pending = [
+        capability_id
+        for capability_id, rows in by_capability.items()
         if rows
         and any(row["gold_state"] == "frozen" for row in rows)
         and not any(
@@ -513,15 +566,29 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
             for row in rows
         )
     ]
-    broad_ready = not (missing_classes or gold_pending_classes or adjudication_pending_classes)
+    verified = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if any(
+            row["gold_state"] == "frozen" and row["adjudication_state"] == "complete"
+            for row in rows
+        )
+    ]
+    gate_ready = not (missing or gold_pending or adjudication_pending)
     return {
         "corpus_version": value.get("version"),
-        "required_case_classes": required,
+        "certification_scope": "declared_capabilities_only",
+        "universal_support_claimed": False,
+        "required_capabilities": required,
         "case_count": len(cases),
-        "missing_case_classes": missing_classes,
-        "gold_pending_classes": gold_pending_classes,
-        "adjudication_pending_classes": adjudication_pending_classes,
-        "broad_certification_ready": broad_ready,
+        "represented_capabilities": [
+            capability_id for capability_id, rows in by_capability.items() if rows
+        ],
+        "missing_capabilities": missing,
+        "gold_pending_capabilities": gold_pending,
+        "adjudication_pending_capabilities": adjudication_pending,
+        "verified_capabilities": verified,
+        "declared_capability_gate_ready": gate_ready,
     }
 
 
@@ -529,7 +596,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    corpus_parser = subparsers.add_parser("corpus-status", help="derive the heterogeneous broad-certification gate")
+    corpus_parser = subparsers.add_parser("corpus-status", help="derive declared-capability benchmark readiness")
     corpus_parser.add_argument("--corpus", type=Path, required=True)
 
     prepare_parser = subparsers.add_parser("prepare", help="create a deterministic review worksheet")

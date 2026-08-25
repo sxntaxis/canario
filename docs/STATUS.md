@@ -3,7 +3,7 @@ id: ACTAKIT-STATUS-001
 kind: status
 state: LECTOR_001_SEMANTIC_EXTRACTION_BOUNDARY_IMPLEMENTED_AND_CERTIFIED
 created: 2026-08-19
-updated: 2026-08-24
+updated: 2026-08-25
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
@@ -221,10 +221,13 @@ unchanged at `5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb`;
 no `0002` exists.
 
 The active semantic edge is LECTOR-002: a heterogeneous reference-corpus gate is active.
-Acta 161 is only the pending `institutional_minutes` text case; it cannot certify broad
-extraction alone. The broad gate remains blocked on additional real source classes and typed
-table/media evaluators. Production review policy remains separate: machine-only is a valid
-searchable state, not a mandatory review queue.
+Its executable readiness model is capability coverage, not a taxonomy of document classes.
+Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
+covers only a subset of declared text/semantic stress capabilities. The campaign remains
+blocked on real fixtures and typed evaluators for the missing declared capabilities,
+especially structured table and timed-media evidence. `certification_scope` is explicitly
+`declared_capabilities_only`; `universal_support_claimed` is false. Production review policy
+remains separate: machine-only is a valid searchable state, not a mandatory review queue.
 
 ## Known modality gaps — do not paper over them
 
