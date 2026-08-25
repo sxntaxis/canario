@@ -233,6 +233,14 @@ Rules for agents/contributors:
 - benchmark assistance may reduce reviewer search but cannot silently become gold truth
   or final semantic adjudication. Do not inspect a tested extractor's output for a case
   before that case's independent gold set is frozen.
+- LECTOR-002 semantic gold uses independent `gold_scope_state`, `gold_state`,
+  `adjudication_state`, and per-capability `semantic_verification` with an immutable
+  result digest. Gold/adjudication alone never verifies a semantic capability;
+  thresholds freeze after gold counts and before tested extractor output.
+- Structured-data gold may use a deterministic structural sample, which proves only
+  that selected scope. Longform completeness uses full source order. Human review
+  packets must keep non-selected units explicitly `unjudged` and must contain no
+  candidates, truths, or semantic-model annotation calls before review.
 
 ## ¿Qué es Canario?
 

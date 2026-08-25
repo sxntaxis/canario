@@ -66,6 +66,13 @@ certification_scope = declared_capabilities_only
 universal_support_claimed = false
 ```
 
+LECTOR-002 semantic gold is a benchmark protocol, not a product ingestion ontology.
+Its frozen scope binds exact source and Representation bytes. Structured-data samples
+prove only the selected semantic sample; the longform reference case remains full-source
+to preserve recall pressure. Gold frozen, adjudication complete, and semantic capability
+passed are separate states, and threshold policy freezes after gold counts but before a
+tested extractor is run.
+
 Acta 161 is retained as the first real semantic fixture because it is frozen and useful. It
 has no authority to introduce acta-specific segmentation rules or to define the universe of
 records Canario can accept.

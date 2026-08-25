@@ -27,12 +27,17 @@ from canario.processors.media import MediaIndexError, validate_media_index
 
 PREPARATION_VERSION = "lector-002-reference-text:v2"
 TYPED_PREPARATION_VERSION = "lector-002-typed-evidence:v1"
+GOLD_SCOPE_VERSION = "lector-002-gold-scope:v1"
+GOLD_PROTOCOL_VERSION = "lector-002-gold-protocol:v1"
 MAX_UNIT_CHARS = 4_000
 PREFERRED_SPLIT_CHARS = 2_800
 
 TRUTH_IMPORTANCE = {"must", "material"}
 ASSESSMENT_VERDICTS = {"correct", "distorted", "unsupported", "redundant", "overmerged"}
 COVERAGE_STATES = {"truth_recorded", "no_material_truth"}
+SCOPE_COVERAGE_STATES = COVERAGE_STATES | {"unjudged"}
+SEMANTIC_VERIFICATION_STATES = {"not_run", "passed", "failed"}
+SHA256_HEX_LENGTH = 64
 
 
 class BenchmarkError(ValueError):
@@ -62,6 +67,119 @@ class ReviewUnit:
 
 def _sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _canonical_json(value: object) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode(
+        "utf-8"
+    )
+
+
+def _sha256_json(value: object) -> str:
+    return _sha256_bytes(_canonical_json(value))
+
+
+def _valid_sha256(value: object) -> bool:
+    if not isinstance(value, str) or len(value) != SHA256_HEX_LENGTH:
+        return False
+    try:
+        int(value, 16)
+    except ValueError:
+        return False
+    return True
+
+
+def _selected_ids_sha256(unit_ids: Sequence[str]) -> str:
+    return _sha256_json(sorted(unit_ids))
+
+
+def _unit_file_sha256(path: Path) -> str:
+    return _sha256_bytes(path.read_bytes())
+
+
+def _parse_capability_ids(
+    value: str, *, semantic_capabilities: set[str], label: str
+) -> list[str]:
+    ids = [item.strip() for item in value.split(";") if item.strip()]
+    if not ids:
+        raise BenchmarkError(f"{label} must bind at least one semantic capability")
+    if len(ids) != len(set(ids)):
+        raise BenchmarkError(f"{label} contains duplicate capability_ids")
+    if ids != sorted(ids):
+        raise BenchmarkError(f"{label} capability_ids must be in canonical sorted order")
+    unknown = sorted(set(ids) - semantic_capabilities)
+    if unknown:
+        raise BenchmarkError(f"{label} binds undeclared/non-semantic capabilities {unknown}")
+    return ids
+
+
+def create_gold_scope(
+    *,
+    case_id: str,
+    source_sha256: str,
+    units_sha256: str,
+    unit_ids: Sequence[str],
+    selection_kind: str,
+    selection_policy: str,
+    semantic_capabilities: Sequence[str],
+) -> dict[str, object]:
+    """Create the immutable, source-bound scope used by future human gold."""
+    if selection_kind not in {"full_source_order", "deterministic_structural_sample"}:
+        raise BenchmarkError(f"invalid gold scope selection_kind {selection_kind!r}")
+    selected = list(unit_ids)
+    if len(selected) != len(set(selected)):
+        raise BenchmarkError("gold scope selected_unit_ids must be unique")
+    if not _valid_sha256(source_sha256) or not _valid_sha256(units_sha256):
+        raise BenchmarkError("gold scope requires valid source_sha256 and units_sha256")
+    capabilities = sorted(set(semantic_capabilities))
+    if not capabilities:
+        raise BenchmarkError("gold scope requires semantic capabilities")
+    return {
+        "version": GOLD_SCOPE_VERSION,
+        "case_id": case_id,
+        "source_sha256": source_sha256,
+        "units_sha256": units_sha256,
+        "selection_kind": selection_kind,
+        "selection_policy": selection_policy,
+        "selected_unit_ids": selected,
+        "selected_unit_ids_sha256": _selected_ids_sha256(selected),
+        "semantic_capabilities": capabilities,
+        "tested_extractor_seen": False,
+        "semantic_model_calls": 0,
+    }
+
+
+def write_gold_scope(path: Path, scope: dict[str, object]) -> str:
+    if scope.get("version") != GOLD_SCOPE_VERSION:
+        raise BenchmarkError("unsupported gold scope version")
+    path.write_bytes(_canonical_json(scope))
+    return _sha256_bytes(path.read_bytes())
+
+
+def _load_gold_scope(path: Path, *, source_bytes: bytes, units_path: Path, unit_ids: set[str]) -> dict[str, object]:
+    try:
+        scope = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("gold_scope.json is not readable valid JSON") from exc
+    if not isinstance(scope, dict) or scope.get("version") != GOLD_SCOPE_VERSION:
+        raise BenchmarkError("gold_scope.json has unsupported version")
+    if scope.get("source_sha256") != _sha256_bytes(source_bytes):
+        raise BenchmarkError("gold scope source identity does not match the frozen source")
+    if scope.get("units_sha256") != _unit_file_sha256(units_path):
+        raise BenchmarkError("gold scope units identity does not match units.csv")
+    selected = scope.get("selected_unit_ids")
+    if not isinstance(selected, list) or not all(isinstance(item, str) and item for item in selected):
+        raise BenchmarkError("gold scope selected_unit_ids must be a string list")
+    if len(selected) != len(set(selected)) or set(selected) - unit_ids:
+        raise BenchmarkError("gold scope selects unknown or duplicate units")
+    if scope.get("selected_unit_ids_sha256") != _selected_ids_sha256(selected):
+        raise BenchmarkError("gold scope selected-unit identity is invalid")
+    if scope.get("tested_extractor_seen") is not False or scope.get("semantic_model_calls") != 0:
+        raise BenchmarkError("gold scope was not frozen before extractor/model use")
+    capabilities = scope.get("semantic_capabilities")
+    if not isinstance(capabilities, list) or not capabilities or capabilities != sorted(set(capabilities)):
+        raise BenchmarkError("gold scope semantic_capabilities must be sorted and unique")
+    return scope
 
 
 def _visible_line(raw: str) -> str:
@@ -251,6 +369,11 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
         unit_fields,
         ({key: getattr(unit, key) for key in unit_fields} for unit in units),
     )
+    _write_csv(
+        output_dir / "selected_units.csv",
+        unit_fields,
+        ({key: getattr(unit, key) for key in unit_fields} for unit in units),
+    )
     with (output_dir / "units.jsonl").open("w", encoding="utf-8") as handle:
         for unit in units:
             handle.write(json.dumps(asdict(unit), ensure_ascii=False, sort_keys=True) + "\n")
@@ -272,6 +395,7 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
             "evidence_quote",
             "evidence_start",
             "evidence_end",
+            "capability_ids",
             "notes",
         ],
         (),
@@ -308,21 +432,128 @@ def prepare(source_path: Path, output_dir: Path, source_label: str | None = None
     return manifest
 
 
-def _blank_typed_worksheets(output_dir: Path, manifest: dict[str, object], units: list[dict[str, object]]) -> dict[str, object]:
+def _table_unit_rows(value: dict[str, object]) -> list[dict[str, object]]:
+    units: list[dict[str, object]] = []
+    sheets = value.get("sheets")
+    if not isinstance(sheets, list):
+        raise BenchmarkError("table-reference source has no sheets")
+    for sheet in sheets:
+        if not isinstance(sheet, dict) or not isinstance(sheet.get("rows"), list):
+            raise BenchmarkError("table-reference source has malformed sheet rows")
+        sheet_name = sheet.get("name")
+        ordinal = sheet.get("ordinal")
+        if not isinstance(sheet_name, str) or not isinstance(ordinal, int):
+            raise BenchmarkError("table-reference sheet identity is malformed")
+        merged_ranges = sheet.get("merged_ranges", [])
+        if not isinstance(merged_ranges, list):
+            raise BenchmarkError("table-reference merged_ranges must be a list")
+        for row_number, row in enumerate(sheet["rows"], start=1):
+            if not isinstance(row, list):
+                raise BenchmarkError("table-reference row must be a list")
+            cells = [cell for cell in row if isinstance(cell, dict) and cell.get("value") is not None]
+            types = sorted(
+                str(cell.get("value", {}).get("type", "unknown"))
+                for cell in cells
+                if isinstance(cell.get("value"), dict)
+            )
+            formulas = any(
+                isinstance(cell.get("value"), dict) and cell["value"].get("type") == "formula"
+                for cell in cells
+            )
+            merged = any(
+                isinstance(item, str) and _range_contains_row(item, row_number)
+                for item in merged_ranges
+            )
+            units.append({
+                "unit_id": f"{ordinal}:R{row_number}",
+                "sheet": sheet_name,
+                "row_start": row_number,
+                "row_end": row_number,
+                "non_empty_cell_count": len(cells),
+                "value_type_signature": ";".join(types),
+                "formula_present": str(formulas).lower(),
+                "merged_structure_intersection": str(merged).lower(),
+                "cells_json": json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":")),
+            })
+    return units
+
+
+def _range_contains_row(cell_range: str, row_number: int) -> bool:
+    # Structural-only parsing: this reads coordinates, never cell text.
+    import re
+
+    numbers = [int(item) for item in re.findall(r"\d+", cell_range)]
+    return bool(numbers) and min(numbers) <= row_number <= max(numbers)
+
+
+def select_structural_table_units(units: Sequence[dict[str, object]], source_sha256: str) -> list[str]:
+    """Select a stable structural sample without inspecting labels or candidates."""
+    if len(units) <= 32:
+        return [str(unit["unit_id"]) for unit in units]
+    selected: set[str] = set()
+    by_sheet: dict[str, list[dict[str, object]]] = {}
+    for unit in units:
+        by_sheet.setdefault(str(unit["sheet"]), []).append(unit)
+    for sheet_units in by_sheet.values():
+        selected.add(str(sheet_units[0]["unit_id"]))
+        selected.add(str(sheet_units[-1]["unit_id"]))
+    for field, expected in (
+        ("value_type_signature", None),
+        ("formula_present", "true"),
+        ("merged_structure_intersection", "true"),
+    ):
+        candidates = [unit for unit in units if (expected is None or unit[field] == expected)]
+        if field == "value_type_signature":
+            candidates = [
+                min(group, key=lambda item: str(item["unit_id"]))
+                for signature in sorted({str(item[field]) for item in candidates})
+                for group in [[item for item in candidates if item[field] == signature]]
+            ]
+        if candidates:
+            selected.add(str(min(candidates, key=lambda item: str(item["unit_id"]))["unit_id"]))
+    for shape in sorted({unit.get("non_empty_cell_count") for unit in units}):
+        candidates = [unit for unit in units if unit.get("non_empty_cell_count") == shape]
+        if candidates:
+            selected.add(str(min(candidates, key=lambda item: str(item["unit_id"]))["unit_id"]))
+    digest_seed = bytes.fromhex(source_sha256)
+    ranked = sorted(
+        (unit for unit in units if str(unit["unit_id"]) not in selected),
+        key=lambda unit: hashlib.sha256(digest_seed + str(unit["unit_id"]).encode("utf-8")).hexdigest(),
+    )
+    target = max(24, len(selected))
+    selected.update(str(unit["unit_id"]) for unit in ranked[: max(0, target - len(selected))])
+    return [str(unit["unit_id"]) for unit in units if str(unit["unit_id"]) in selected]
+
+
+def _blank_typed_worksheets(
+    output_dir: Path,
+    manifest: dict[str, object],
+    units: list[dict[str, object]],
+    selected_unit_ids: set[str] | None = None,
+) -> dict[str, object]:
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     _write_csv(output_dir / "units.csv", list(units[0]) if units else ["unit_id"], units)
+    selected = units if selected_unit_ids is None else [
+        unit for unit in units if str(unit["unit_id"]) in selected_unit_ids
+    ]
+    _write_csv(output_dir / "selected_units.csv", list(units[0]) if units else ["unit_id"], selected)
     _write_csv(output_dir / "coverage.csv", ["unit_id", "review_state", "notes"],
-               ({"unit_id": unit["unit_id"], "review_state": "", "notes": ""} for unit in units))
-    _write_csv(output_dir / "truth.csv", ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], ())
+               ({"unit_id": unit["unit_id"], "review_state": "" if selected_unit_ids is None or unit["unit_id"] in selected_unit_ids else "unjudged", "notes": ""} for unit in units))
+    _write_csv(output_dir / "truth.csv", ["truth_id", "unit_id", "importance", "proposition", "selector_json", "capability_ids", "notes"], ())
     _write_csv(output_dir / "candidates.csv", ["candidate_id", "proposition", "selector_json"], ())
     _write_csv(output_dir / "assessment.csv", ["candidate_id", "truth_ids", "verdict", "notes"], ())
     return manifest
 
 
-def prepare_table(source_path: Path, output_dir: Path, source_label: str | None = None) -> dict[str, object]:
+def prepare_table(
+    source_path: Path,
+    output_dir: Path,
+    source_label: str | None = None,
+    case_id: str = "",
+) -> dict[str, object]:
     """Prepare a blank worksheet over the canonical structured-table derivative."""
     source_bytes = source_path.read_bytes()
     try:
@@ -332,17 +563,9 @@ def prepare_table(source_path: Path, output_dir: Path, source_label: str | None 
     sheets = value.get("sheets") if isinstance(value, dict) else None
     if not isinstance(sheets, list):
         raise BenchmarkError("table-reference source has no sheets")
-    units: list[dict[str, object]] = []
-    for sheet in sheets:
-        if not isinstance(sheet, dict) or not isinstance(sheet.get("rows"), list):
-            raise BenchmarkError("table-reference source has malformed sheet rows")
-        for ordinal, _row in enumerate(sheet["rows"], start=1):
-            units.append({
-                "unit_id": f"{sheet['ordinal']}:R{ordinal}",
-                "sheet": sheet["name"],
-                "row_start": ordinal,
-                "row_end": ordinal,
-            })
+    units = _table_unit_rows(value)
+    source_sha256 = _sha256_bytes(source_bytes)
+    selected = select_structural_table_units(units, source_sha256)
     manifest = {
         "preparation_version": TYPED_PREPARATION_VERSION,
         "evaluator_mode": "table_range:v1",
@@ -350,12 +573,50 @@ def prepare_table(source_path: Path, output_dir: Path, source_label: str | None 
         "source_sha256": _sha256_bytes(source_bytes),
         "source_bytes": len(source_bytes),
         "review_units": len(units),
+        "selected_units": len(selected),
+        "selection_kind": "deterministic_structural_sample" if len(selected) < len(units) else "full_source_order",
+        "selection_policy": "lector-002-structural-sample:v1",
         "truth_generated": False,
         "semantic_model_calls": 0,
         "tested_extractor_seen": False,
         "gold_rows": 0,
     }
-    return _blank_typed_worksheets(output_dir, manifest, units)
+    result = _blank_typed_worksheets(output_dir, manifest, units, set(selected))
+    scope = create_gold_scope(
+        case_id=case_id,
+        source_sha256=source_sha256,
+        units_sha256=_unit_file_sha256(output_dir / "units.csv"),
+        unit_ids=selected,
+        selection_kind=str(manifest["selection_kind"]),
+        selection_policy=str(manifest["selection_policy"]),
+        semantic_capabilities=["semantic:structured_values"],
+    )
+    result["gold_scope"] = scope
+    write_gold_scope(output_dir / "gold_scope.json", scope)
+    return result
+
+
+def prepare_full_scope(
+    source_path: Path,
+    units_path: Path,
+    output_path: Path,
+    case_id: str,
+    semantic_capabilities: Sequence[str],
+    selection_policy: str,
+) -> dict[str, object]:
+    source_bytes = source_path.read_bytes()
+    units = _unique_rows(_read_csv(units_path), "unit_id", "units.csv")
+    scope = create_gold_scope(
+        case_id=case_id,
+        source_sha256=_sha256_bytes(source_bytes),
+        units_sha256=_unit_file_sha256(units_path),
+        unit_ids=list(units),
+        selection_kind="full_source_order",
+        selection_policy=selection_policy,
+        semantic_capabilities=semantic_capabilities,
+    )
+    write_gold_scope(output_path, scope)
+    return scope
 
 
 def _load_media_index(source_bytes: bytes, media_index_path: Path) -> dict[str, object]:
@@ -461,6 +722,7 @@ def _score_rows(
     candidates_path: Path,
     assessment_path: Path,
     evidence_validator,
+    scope: dict[str, object] | None = None,
 ) -> dict[str, object]:
     units = _unique_rows(_read_csv(units_path), "unit_id", "units.csv")
     coverage = _unique_rows(_read_csv(coverage_path), "unit_id", "coverage.csv")
@@ -480,13 +742,28 @@ def _score_rows(
             raise BenchmarkError(f"truth {truth_id!r} has invalid importance {importance!r}")
         if not row.get("proposition", "").strip():
             raise BenchmarkError(f"truth {truth_id!r} has empty proposition")
+        if scope is not None:
+            semantic_capabilities = set(str(item) for item in scope["semantic_capabilities"])
+            capability_ids = _parse_capability_ids(
+                row.get("capability_ids", ""),
+                semantic_capabilities=semantic_capabilities,
+                label=f"truth {truth_id!r}",
+            )
+            row["_capability_ids"] = capability_ids
+            if unit_id not in set(str(item) for item in scope["selected_unit_ids"]):
+                raise BenchmarkError(f"truth {truth_id!r} is outside the frozen gold scope")
         evidence_validator(row, f"truth {truth_id!r}")
         truths_by_unit[unit_id].append(truth_id)
 
     for unit_id, row in coverage.items():
         state = row.get("review_state", "").strip()
-        if state not in COVERAGE_STATES:
+        allowed_states = SCOPE_COVERAGE_STATES if scope is not None else COVERAGE_STATES
+        if state not in allowed_states:
             raise BenchmarkError(f"unit {unit_id!r} has incomplete/invalid review_state {state!r}")
+        if scope is not None and unit_id not in set(str(item) for item in scope["selected_unit_ids"]):
+            if state != "unjudged":
+                raise BenchmarkError(f"unselected unit {unit_id!r} must remain unjudged")
+            continue
         has_truth = bool(truths_by_unit[unit_id])
         if state == "truth_recorded" and not has_truth:
             raise BenchmarkError(f"unit {unit_id!r} says truth_recorded but has no truth row")
@@ -540,7 +817,7 @@ def _score_rows(
         for importance in sorted(TRUTH_IMPORTANCE)
     }
     candidate_total = len(candidates)
-    return {
+    result = {
         "source_sha256": _sha256_bytes(source_bytes),
         "review_units": len(units),
         "truths": len(truths),
@@ -559,6 +836,46 @@ def _score_rows(
         "evidence_reopens": True,
         "semantic_matching_automated": False,
     }
+    if scope is not None:
+        selected_unit_ids = set(str(item) for item in scope["selected_unit_ids"])
+        semantic_metrics: dict[str, dict[str, object]] = {}
+        for capability_id in scope["semantic_capabilities"]:
+            cap = str(capability_id)
+            cap_truths = {
+                truth_id: row
+                for truth_id, row in truths.items()
+                if cap in row.get("_capability_ids", [])
+            }
+            # A scope-wide capability measures the full selected scope without
+            # asking a reviewer to repeat that label on every proposition.
+            if cap == "semantic:multi_topic_longform":
+                cap_truths = {truth_id: row for truth_id, row in truths.items() if row["unit_id"] in selected_unit_ids}
+            cap_covered = set(cap_truths) & covered_truths
+            must_total = sum(row["importance"].strip() == "must" for row in cap_truths.values())
+            material_total = sum(row["importance"].strip() == "material" for row in cap_truths.values())
+            semantic_metrics[cap] = {
+                "truths": len(cap_truths),
+                "must_truths": must_total,
+                "material_truths": material_total,
+                "covered_truths": len(cap_covered),
+                "must_recall": _ratio(sum(cap_truths[item]["importance"].strip() == "must" for item in cap_covered), must_total),
+                "material_recall": _ratio(sum(cap_truths[item]["importance"].strip() == "material" for item in cap_covered), material_total),
+                "distorted_count": sum(
+                    1 for assessment in assessments.values()
+                    if assessment.get("verdict", "").strip() == "distorted"
+                    and set(item.strip() for item in assessment.get("truth_ids", "").split(";") if item.strip()) & set(cap_truths)
+                ),
+            }
+        result["semantic_metrics"] = semantic_metrics
+        result["scope"] = {
+            "total_prepared_units": len(units),
+            "selected_units": len(selected_unit_ids),
+            "selection_kind": scope["selection_kind"],
+            "selection_fraction": _ratio(len(selected_unit_ids), len(units)),
+            "full_source_recall_claimed": scope["selection_kind"] == "full_source_order",
+            "gold_scope_version": scope["version"],
+        }
+    return result
 
 
 def score(
@@ -568,6 +885,8 @@ def score(
     truth_path: Path,
     candidates_path: Path,
     assessment_path: Path,
+    *,
+    scope_path: Path | None = None,
 ) -> dict[str, object]:
     source_bytes = source_path.read_bytes()
     try:
@@ -575,6 +894,7 @@ def score(
     except UnicodeDecodeError as exc:
         raise BenchmarkError("benchmark source is not UTF-8") from exc
 
+    scope = _load_gold_scope(scope_path, source_bytes=source_bytes, units_path=units_path, unit_ids=set(_unique_rows(_read_csv(units_path), "unit_id", "units.csv"))) if scope_path else None
     return _score_rows(
         source_bytes=source_bytes,
         units_path=units_path,
@@ -583,6 +903,7 @@ def score(
         candidates_path=candidates_path,
         assessment_path=assessment_path,
         evidence_validator=lambda row, label: _validate_exact_evidence(text, row, label),
+        scope=scope,
     )
 
 
@@ -596,6 +917,7 @@ def score_typed(
     assessment_path: Path,
     *,
     media_index_path: Path | None = None,
+    scope_path: Path | None = None,
 ) -> dict[str, object]:
     if mode not in {"table_range:v1", "media:v1"}:
         raise BenchmarkError("typed score mode must be table_range:v1 or media:v1")
@@ -623,6 +945,7 @@ def score_typed(
                 raise BenchmarkError(f"{label} media selector uses an untrusted duration")
         validate_typed_evidence(mode, source_bytes, selector, charset="utf-8" if mode == "table_range:v1" else None)
 
+    scope = _load_gold_scope(scope_path, source_bytes=source_bytes, units_path=units_path, unit_ids=set(_unique_rows(_read_csv(units_path), "unit_id", "units.csv"))) if scope_path else None
     metrics = _score_rows(
         source_bytes=source_bytes,
         units_path=units_path,
@@ -631,11 +954,68 @@ def score_typed(
         candidates_path=candidates_path,
         assessment_path=assessment_path,
         evidence_validator=validate,
+        scope=scope,
     )
     metrics["evaluator_mode"] = mode
     if media_index_path is not None:
         metrics["media_index_sha256"] = _sha256_bytes(media_index_path.read_bytes())
     return metrics
+
+
+def freeze_gold(
+    *,
+    case_id: str,
+    source_path: Path,
+    units_path: Path,
+    coverage_path: Path,
+    truth_path: Path,
+    candidates_path: Path,
+    assessment_path: Path,
+    scope_path: Path,
+    output_path: Path,
+    threshold_policy_state: str = "not_frozen",
+) -> dict[str, object]:
+    """Validate a future human gold set without creating or interpreting truths."""
+    if threshold_policy_state not in {"not_frozen", "counts_inspected", "frozen"}:
+        raise BenchmarkError("invalid threshold policy state")
+    scope = _load_gold_scope(
+        scope_path,
+        source_bytes=source_path.read_bytes(),
+        units_path=units_path,
+        unit_ids=set(_unique_rows(_read_csv(units_path), "unit_id", "units.csv")),
+    )
+    if scope["case_id"] not in {"", case_id}:
+        raise BenchmarkError("gold scope case_id does not match freeze case")
+    metrics = score(source_path, units_path, coverage_path, truth_path, candidates_path, assessment_path, scope_path=scope_path)
+    if metrics["candidates"] != 0 or metrics["semantic_matching_automated"] is not False:
+        raise BenchmarkError("gold freeze cannot include candidate output or automated semantic matching")
+    truths = _unique_rows(_read_csv(truth_path), "truth_id", "truth.csv")
+    if not truths:
+        raise BenchmarkError("cannot freeze empty semantic-capability gold")
+    scope_capabilities = [str(item) for item in scope["semantic_capabilities"]]
+    for capability_id in scope_capabilities:
+        if capability_id == "semantic:multi_topic_longform":
+            continue
+        if not any(capability_id in row.get("capability_ids", "").split(";") for row in truths.values()):
+            raise BenchmarkError(f"cannot freeze semantic capability {capability_id!r} with zero gold truths")
+    manifest = {
+        "format": GOLD_PROTOCOL_VERSION,
+        "case_id": case_id,
+        "source_sha256": _sha256_bytes(source_path.read_bytes()),
+        "units_sha256": _unit_file_sha256(units_path),
+        "gold_scope_sha256": _sha256_bytes(scope_path.read_bytes()),
+        "coverage_sha256": _sha256_bytes(coverage_path.read_bytes()),
+        "truth_sha256": _sha256_bytes(truth_path.read_bytes()),
+        "truth_row_count": len(truths),
+        "semantic_capability_truth_counts": metrics.get("semantic_metrics", {}),
+        "reviewer_authority": "human",
+        "tested_extractor_seen": False,
+        "semantic_model_assistance": False,
+        "threshold_policy_state": threshold_policy_state,
+        "freeze_timestamp": None,
+    }
+    output_path.write_bytes(_canonical_json(manifest))
+    return manifest
 
 
 def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
@@ -690,6 +1070,7 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         required.append(capability_id)
     if len(set(required)) != len(required):
         raise BenchmarkError("required_capabilities contains duplicate ids")
+    capability_modes = {raw["id"]: raw["verification_mode"] for raw in required_raw}
 
     seen_ids: set[str] = set()
     by_capability: dict[str, list[dict[str, object]]] = {
@@ -749,10 +1130,39 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         evaluator_mode = raw.get("evaluator_mode")
         if not isinstance(evaluator_mode, str) or not evaluator_mode:
             raise BenchmarkError(f"case {case_id!r} needs evaluator_mode")
+        semantic_covered = {
+            capability_id for capability_id in covers if capability_modes.get(capability_id) == "semantic_gold"
+        }
+        semantic_verification_raw = raw.get("semantic_verification", {})
+        if isinstance(semantic_verification_raw, dict) and set(semantic_verification_raw) - set(covers):
+            raise BenchmarkError(f"case {case_id!r} verifies semantic capability it does not cover")
+        if semantic_covered:
+            gold_scope_state = raw.get("gold_scope_state", "pending")
+            if gold_scope_state not in {"pending", "frozen"}:
+                raise BenchmarkError(f"case {case_id!r} has invalid gold_scope_state")
+            scope_capabilities = raw.get("scope_capabilities", [])
+            if not isinstance(scope_capabilities, list) or len(scope_capabilities) != len(set(scope_capabilities)):
+                raise BenchmarkError(f"case {case_id!r} scope_capabilities must be a unique list")
+            if set(scope_capabilities) - semantic_covered:
+                raise BenchmarkError(f"case {case_id!r} has scope capability it does not cover")
+            semantic_verification = semantic_verification_raw
+            if not isinstance(semantic_verification, dict):
+                raise BenchmarkError(f"case {case_id!r} semantic_verification must be an object")
+            if set(semantic_verification) - semantic_covered:
+                raise BenchmarkError(f"case {case_id!r} verifies semantic capability it does not cover")
+            for capability_id in semantic_covered:
+                entry = semantic_verification.get(capability_id, {"state": "not_run", "result_sha256": None})
+                if not isinstance(entry, dict) or entry.get("state") not in SEMANTIC_VERIFICATION_STATES:
+                    raise BenchmarkError(f"case {case_id!r} has invalid semantic verification for {capability_id!r}")
+                state = entry["state"]
+                digest = entry.get("result_sha256")
+                if state == "not_run" and digest is not None:
+                    raise BenchmarkError(f"case {case_id!r} not_run semantic verification must have null result_sha256")
+                if state in {"passed", "failed"} and not _valid_sha256(digest):
+                    raise BenchmarkError(f"case {case_id!r} {state} semantic verification requires result_sha256")
         for capability_id in covers:
             by_capability[capability_id].append(raw)
 
-    capability_modes = {raw["id"]: raw["verification_mode"] for raw in required_raw}
     missing = [capability_id for capability_id, rows in by_capability.items() if not rows]
     deterministic_failed = [
         capability_id
@@ -784,7 +1194,14 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         for capability_id, rows in by_capability.items()
         if capability_modes[capability_id] == "semantic_gold"
         and rows
-        and not any(row["gold_state"] == "frozen" for row in rows)
+        and not any(row.get("gold_scope_state", "pending") == "frozen" and row["gold_state"] == "frozen" for row in rows)
+    ]
+    gold_scope_pending = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if capability_modes[capability_id] == "semantic_gold"
+        and rows
+        and not any(row.get("gold_scope_state", "pending") == "frozen" for row in rows)
     ]
     adjudication_pending = [
         capability_id
@@ -806,12 +1223,42 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
             for row in rows
         )
     ]
+    semantic_failed = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if capability_modes[capability_id] == "semantic_gold"
+        and any(
+            row.get("gold_scope_state") == "frozen"
+            and row["gold_state"] == "frozen"
+            and row["adjudication_state"] == "complete"
+            and row.get("semantic_verification", {}).get(capability_id, {}).get("state") == "failed"
+            for row in rows
+        )
+    ]
+    evaluation_pending = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if capability_modes[capability_id] == "semantic_gold"
+        and rows
+        and any(row.get("gold_scope_state") == "frozen" and row["gold_state"] == "frozen" for row in rows)
+        and not any(
+            row.get("gold_scope_state") == "frozen"
+            and row["gold_state"] == "frozen"
+            and row["adjudication_state"] == "complete"
+            and row.get("semantic_verification", {}).get(capability_id, {}).get("state") in {"passed", "failed"}
+            for row in rows
+        )
+    ]
     semantic_verified = [
         capability_id
         for capability_id, rows in by_capability.items()
         if capability_modes[capability_id] == "semantic_gold"
         and any(
             row["gold_state"] == "frozen" and row["adjudication_state"] == "complete"
+            and row.get("gold_scope_state") == "frozen"
+            and row.get("semantic_verification", {}).get(capability_id, {}).get("state") == "passed"
+            and _valid_sha256(row.get("semantic_verification", {}).get(capability_id, {}).get("result_sha256"))
+            and value.get("threshold_policy_state") == "frozen"
             for row in rows
         )
     ]
@@ -821,8 +1268,14 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         missing
         or deterministic_failed
         or deterministic_pending
+        or gold_scope_pending
         or gold_pending
         or adjudication_pending
+        or evaluation_pending
+        or semantic_failed
+        or set(semantic_verified) != {
+            capability_id for capability_id, mode in capability_modes.items() if mode == "semantic_gold"
+        }
     )
     return {
         "corpus_version": value.get("version"),
@@ -837,8 +1290,11 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         "missing_capabilities": missing,
         "deterministic_failed_capabilities": deterministic_failed,
         "deterministic_pending_capabilities": deterministic_pending,
+        "gold_scope_pending_capabilities": gold_scope_pending,
         "gold_pending_capabilities": gold_pending,
         "adjudication_pending_capabilities": adjudication_pending,
+        "evaluation_pending_capabilities": evaluation_pending,
+        "semantic_failed_capabilities": semantic_failed,
         "deterministically_verified_capabilities": deterministically_verified,
         "semantic_verified_capabilities": semantic_verified,
         "verified_capabilities": verified,
@@ -861,6 +1317,14 @@ def _build_parser() -> argparse.ArgumentParser:
     table_parser.add_argument("--source", type=Path, required=True)
     table_parser.add_argument("--output-dir", type=Path, required=True)
     table_parser.add_argument("--source-label")
+    table_parser.add_argument("--case-id", default="")
+    scope_parser = subparsers.add_parser("prepare-scope", help="freeze a full-source gold scope")
+    scope_parser.add_argument("--source", type=Path, required=True)
+    scope_parser.add_argument("--units", type=Path, required=True)
+    scope_parser.add_argument("--output", type=Path, required=True)
+    scope_parser.add_argument("--case-id", required=True)
+    scope_parser.add_argument("--semantic-capability", action="append", required=True)
+    scope_parser.add_argument("--selection-policy", required=True)
     media_parser = subparsers.add_parser("prepare-media", help="create a blank timed-media worksheet")
     media_parser.add_argument("--source", type=Path, required=True)
     media_parser.add_argument("--media-index", type=Path, required=True)
@@ -874,6 +1338,7 @@ def _build_parser() -> argparse.ArgumentParser:
     score_parser.add_argument("--truth", type=Path, required=True)
     score_parser.add_argument("--candidates", type=Path, required=True)
     score_parser.add_argument("--assessment", type=Path, required=True)
+    score_parser.add_argument("--scope", type=Path)
     score_parser.add_argument("--output", type=Path)
     typed_score_parser = subparsers.add_parser(
         "score-typed", help="validate and score table/media gold using production locator semantics"
@@ -886,7 +1351,19 @@ def _build_parser() -> argparse.ArgumentParser:
     typed_score_parser.add_argument("--truth", type=Path, required=True)
     typed_score_parser.add_argument("--candidates", type=Path, required=True)
     typed_score_parser.add_argument("--assessment", type=Path, required=True)
+    typed_score_parser.add_argument("--scope", type=Path)
     typed_score_parser.add_argument("--output", type=Path)
+    freeze_parser = subparsers.add_parser("freeze-gold", help="validate and freeze a completed human gold set")
+    freeze_parser.add_argument("--case-id", required=True)
+    freeze_parser.add_argument("--source", type=Path, required=True)
+    freeze_parser.add_argument("--units", type=Path, required=True)
+    freeze_parser.add_argument("--coverage", type=Path, required=True)
+    freeze_parser.add_argument("--truth", type=Path, required=True)
+    freeze_parser.add_argument("--candidates", type=Path, required=True)
+    freeze_parser.add_argument("--assessment", type=Path, required=True)
+    freeze_parser.add_argument("--scope", type=Path, required=True)
+    freeze_parser.add_argument("--output", type=Path, required=True)
+    freeze_parser.add_argument("--threshold-policy-state", choices=("not_frozen", "counts_inspected", "frozen"), default="not_frozen")
     return parser
 
 
@@ -898,7 +1375,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "prepare":
             result = prepare(args.source, args.output_dir, args.source_label)
         elif args.command == "prepare-table":
-            result = prepare_table(args.source, args.output_dir, args.source_label)
+            result = prepare_table(args.source, args.output_dir, args.source_label, args.case_id)
+        elif args.command == "prepare-scope":
+            result = prepare_full_scope(
+                args.source,
+                args.units,
+                args.output,
+                args.case_id,
+                args.semantic_capability,
+                args.selection_policy,
+            )
         elif args.command == "prepare-media":
             result = prepare_media(args.source, args.media_index, args.output_dir, args.source_label)
         elif args.command == "score-typed":
@@ -911,6 +1397,20 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.candidates,
                 args.assessment,
                 media_index_path=args.media_index,
+                scope_path=args.scope,
+            )
+        elif args.command == "freeze-gold":
+            result = freeze_gold(
+                case_id=args.case_id,
+                source_path=args.source,
+                units_path=args.units,
+                coverage_path=args.coverage,
+                truth_path=args.truth,
+                candidates_path=args.candidates,
+                assessment_path=args.assessment,
+                scope_path=args.scope,
+                output_path=args.output,
+                threshold_policy_state=args.threshold_policy_state,
             )
         else:
             result = score(
@@ -920,6 +1420,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.truth,
                 args.candidates,
                 args.assessment,
+                scope_path=args.scope,
             )
     except BenchmarkError as exc:
         raise SystemExit(f"LECTOR_002_REFERENCE_ERROR: {exc}") from exc

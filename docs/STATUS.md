@@ -229,9 +229,13 @@ XLSX/table Representation, deterministic ffprobe media index, production locator
 same-Artifact lineage protection and typed benchmark scoring passed exact registered SQLite
 3.53.4 certification plus fresh/post-push clone proof. LECTOR-002 now distinguishes
 deterministically verifiable Representation/evidence capabilities from semantic capabilities
-that require independent gold/adjudication. The campaign remains blocked on semantic gold,
-adjudication, accepted semantic scoring thresholds, and the still-missing
-`semantic:conditions_exceptions_crossrefs` fixture coverage.
+that require independent gold/adjudication.
+The campaign now has frozen independent scopes for semantic gold: 61 full-source
+minutes units, a 24-row deterministic structural table sample, and 17 full-source
+official-correspondence units. Truth, candidate and assessment rows remain empty;
+semantic evaluation has not run. Gold, adjudication, threshold policy and semantic
+verification remain separate, so the campaign remains blocked on human gold,
+adjudication and accepted semantic scoring thresholds.
 `certification_scope` is explicitly `declared_capabilities_only`;
 `universal_support_claimed` is false. Production review policy remains separate: machine-only
 is a valid searchable state, not a mandatory review queue.

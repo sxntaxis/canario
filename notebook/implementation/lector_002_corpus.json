@@ -1,139 +1,99 @@
 {
-  "version": "lector-002-corpus:v4",
+  "version": "lector-002-corpus:v5",
   "certification_scope": "declared_capabilities_only",
   "universal_support_claimed": false,
+  "threshold_policy_state": "not_frozen",
   "required_capabilities": [
-    {
-      "id": "representation:paged_text",
-      "dimension": "representation",
-      "description": "Preserve and evaluate text with stable page-aware structure without document-type semantics.",
-      "verification_mode": "deterministic"
-    },
-    {
-      "id": "representation:structured_table",
-      "dimension": "representation",
-      "description": "Preserve structured row/cell/path semantics instead of flattening a table to prose.",
-      "verification_mode": "deterministic"
-    },
-    {
-      "id": "representation:timed_media",
-      "dimension": "representation",
-      "description": "Preserve finite audio/video as timed media with derivative transcripts kept separate.",
-      "verification_mode": "deterministic"
-    },
-    {
-      "id": "evidence:text_quote:v1",
-      "dimension": "evidence",
-      "description": "Reopen exact textual evidence from the frozen Representation.",
-      "verification_mode": "deterministic"
-    },
-    {
-      "id": "evidence:table_path",
-      "dimension": "evidence",
-      "description": "Reopen exact structured table evidence by row/cell/path and observed values.",
-      "verification_mode": "deterministic"
-    },
-    {
-      "id": "evidence:media_time_span",
-      "dimension": "evidence",
-      "description": "Reopen exact start/end timed evidence against the original recording.",
-      "verification_mode": "deterministic"
-    },
-    {
-      "id": "semantic:multi_topic_longform",
-      "dimension": "semantic_stress",
-      "description": "Recover materially distinct propositions from a long source containing many topics.",
-      "verification_mode": "semantic_gold"
-    },
-    {
-      "id": "semantic:attribution",
-      "dimension": "semantic_stress",
-      "description": "Preserve who said, requested, decided, reported, or authored something when source evidence supports it.",
-      "verification_mode": "semantic_gold"
-    },
-    {
-      "id": "semantic:conditions_exceptions_crossrefs",
-      "dimension": "semantic_stress",
-      "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition.",
-      "verification_mode": "semantic_gold"
-    },
-    {
-      "id": "semantic:structured_values",
-      "dimension": "semantic_stress",
-      "description": "Extract quantitative/categorical facts without losing table structure, labels or value types.",
-      "verification_mode": "semantic_gold"
-    }
+    {"id": "representation:paged_text", "dimension": "representation", "description": "Preserve and evaluate text with stable page-aware structure without document-type semantics.", "verification_mode": "deterministic"},
+    {"id": "representation:structured_table", "dimension": "representation", "description": "Preserve structured row/cell/path semantics instead of flattening a table to prose.", "verification_mode": "deterministic"},
+    {"id": "representation:timed_media", "dimension": "representation", "description": "Preserve finite audio/video as timed media with derivative transcripts kept separate.", "verification_mode": "deterministic"},
+    {"id": "evidence:text_quote:v1", "dimension": "evidence", "description": "Reopen exact textual evidence from the frozen Representation.", "verification_mode": "deterministic"},
+    {"id": "evidence:table_path", "dimension": "evidence", "description": "Reopen exact structured table evidence by row/cell/path and observed values.", "verification_mode": "deterministic"},
+    {"id": "evidence:media_time_span", "dimension": "evidence", "description": "Reopen exact start/end timed evidence against the original recording.", "verification_mode": "deterministic"},
+    {"id": "semantic:multi_topic_longform", "dimension": "semantic_stress", "description": "Recover materially distinct propositions from a long source containing many topics.", "verification_mode": "semantic_gold"},
+    {"id": "semantic:attribution", "dimension": "semantic_stress", "description": "Preserve who said, requested, decided, reported, or authored something when source evidence supports it.", "verification_mode": "semantic_gold"},
+    {"id": "semantic:conditions_exceptions_crossrefs", "dimension": "semantic_stress", "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition.", "verification_mode": "semantic_gold"},
+    {"id": "semantic:structured_values", "dimension": "semantic_stress", "description": "Extract quantitative/categorical facts without losing table structure, labels or value types.", "verification_mode": "semantic_gold"}
   ],
   "cases": [
     {
       "case_id": "CR-ESPARZA-MINUTES-001",
-      "benchmark_archetypes": [
-        "institutional_minutes"
-      ],
-      "covers": [
-        "representation:paged_text",
-        "evidence:text_quote:v1",
-        "semantic:multi_topic_longform",
-        "semantic:attribution"
-      ],
+      "benchmark_archetypes": ["institutional_minutes"],
+      "covers": ["representation:paged_text", "evidence:text_quote:v1", "semantic:multi_topic_longform", "semantic:attribution"],
+      "scope_capabilities": ["semantic:multi_topic_longform"],
       "source_kind": "civic_document",
       "representation_media_type": "text/plain",
       "evaluator_mode": "text_quote:v1",
       "source_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+      "primary_source_sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd",
+      "gold_scope_state": "frozen",
+      "gold_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+      "units_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+      "selected_units": 61,
+      "selection_kind": "full_source_order",
       "gold_state": "pending",
       "adjudication_state": "not_run",
-      "deterministic_verification": {
-        "representation:paged_text": "passed",
-        "evidence:text_quote:v1": "passed"
-      }
+      "semantic_verification": {
+        "semantic:attribution": {"state": "not_run", "result_sha256": null},
+        "semantic:multi_topic_longform": {"state": "not_run", "result_sha256": null}
+      },
+      "deterministic_verification": {"representation:paged_text": "passed", "evidence:text_quote:v1": "passed"}
     },
     {
       "case_id": "CR-ESPARZA-BUDGET-001",
-      "benchmark_archetypes": [
-        "public_budget_dataset"
-      ],
-      "covers": [
-        "representation:structured_table",
-        "evidence:table_path",
-        "semantic:structured_values"
-      ],
+      "benchmark_archetypes": ["public_budget_dataset"],
+      "covers": ["representation:structured_table", "evidence:table_path", "semantic:structured_values"],
       "source_kind": "structured_table",
       "representation_media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "evaluator_mode": "table_range:v1",
       "source_sha256": "7ad3e90e9c64c781d51df178ee5565b37097109112fbe0ec77727de51ed71cc0",
-      "fixture_collected": true,
-      "representation_supported": true,
-      "evaluator_supported": true,
+      "representation_sha256": "55bf57e4b6a788cd962a8485ab2c9df8987cb2a3d1e42faff56bf88283d16d5d",
+      "gold_scope_state": "frozen",
+      "gold_scope_sha256": "e5620be8c9b17fc053ae77659c868d00ca9016f2937b392f0fbaa07de27449b2",
+      "units_sha256": "8d3e6fb74be544bf657bdd770e9d85e85687c259314a80cae413ff5a37e5dff7",
+      "selected_units": 24,
+      "total_units": 211,
+      "selection_kind": "deterministic_structural_sample",
+      "selection_policy": "lector-002-structural-sample:v1",
       "gold_state": "pending",
       "adjudication_state": "not_run",
-      "deterministic_verification": {
-        "representation:structured_table": "passed",
-        "evidence:table_path": "passed"
-      }
+      "semantic_verification": {"semantic:structured_values": {"state": "not_run", "result_sha256": null}},
+      "deterministic_verification": {"representation:structured_table": "passed", "evidence:table_path": "passed"}
+    },
+    {
+      "case_id": "CR-INCOP-CORRESPONDENCE-001",
+      "benchmark_archetypes": ["official_correspondence"],
+      "covers": ["representation:paged_text", "evidence:text_quote:v1", "semantic:attribution", "semantic:conditions_exceptions_crossrefs"],
+      "source_kind": "civic_document",
+      "representation_media_type": "text/plain",
+      "evaluator_mode": "text_quote:v1",
+      "source_sha256": "81c44e666a763269f97dbe13b11dcb0c91cbbbb42da80e28322c8edcbdaa1549",
+      "primary_source_sha256": "058e6b1b4dbe25431f5914f8ba80d6fe13f53fb55e2971ad86c6c24c0786c207",
+      "gold_scope_state": "frozen",
+      "gold_scope_sha256": "d0aadc5903154dac5759754c9aacc3322a854746fe9a1d2220f3ec590ee0cc71",
+      "units_sha256": "c5a41b4b7a01ab5dd56a33d08d224d3a66cf0aa679664629c41cf98535229aca",
+      "selected_units": 17,
+      "selection_kind": "full_source_order",
+      "gold_state": "pending",
+      "adjudication_state": "not_run",
+      "semantic_verification": {
+        "semantic:attribution": {"state": "not_run", "result_sha256": null},
+        "semantic:conditions_exceptions_crossrefs": {"state": "not_run", "result_sha256": null}
+      },
+      "deterministic_verification": {"representation:paged_text": "passed", "evidence:text_quote:v1": "passed"}
     },
     {
       "case_id": "CR-INCOP-PUERTO-CALDERA-MEDIA-001",
-      "benchmark_archetypes": [
-        "institutional_recording"
-      ],
-      "covers": [
-        "representation:timed_media",
-        "evidence:media_time_span"
-      ],
+      "benchmark_archetypes": ["institutional_recording"],
+      "covers": ["representation:timed_media", "evidence:media_time_span"],
       "source_kind": "timed_media",
       "representation_media_type": "video/mp4",
       "evaluator_mode": "media:v1",
       "source_sha256": "ad16627168b8f44a3c9c670cf4f90e8b4323957c0d66b1e8c54e0e9fa777b2a5",
-      "fixture_collected": true,
-      "representation_supported": true,
-      "evaluator_supported": true,
       "transcript_status": "NOT_GENERATED",
       "gold_state": "pending",
       "adjudication_state": "not_run",
-      "deterministic_verification": {
-        "representation:timed_media": "passed",
-        "evidence:media_time_span": "passed"
-      }
+      "deterministic_verification": {"representation:timed_media": "passed", "evidence:media_time_span": "passed"}
     }
   ]
 }

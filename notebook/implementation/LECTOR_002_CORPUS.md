@@ -124,7 +124,7 @@ into text.
 
 ## Current declared capability targets
 
-The current `v4` campaign declares these targets:
+The current `v5` campaign declares these targets:
 
 | Dimension | Capability | Verification | What it stresses |
 |---|---|---|---|
@@ -144,6 +144,39 @@ structured data and timed media — remain useful **fixture-selection archetypes
 together they are likely to exercise different parts of this matrix. They are not a
 required product taxonomy, and a better fixture can replace or combine them if it covers
 the intended failure modes more effectively.
+
+## Semantic gold protocol and current cases
+
+Semantic cases carry independent `gold_scope_state`, `gold_state`, `adjudication_state`
+and per-capability `semantic_verification`. A frozen scope is bound to exact source and
+units bytes; it is benchmark scope, not a product ingestion ontology. Gold frozen and
+adjudication complete do not verify a semantic capability. Verification additionally
+requires a passed per-capability evaluation with a valid immutable result digest, after
+threshold policy is frozen. See `LECTOR_002_GOLD_PROTOCOL.md`.
+
+Truth rows bind to sorted semicolon-separated semantic `capability_ids`. Deterministic
+capabilities cannot appear in truth bindings. `semantic:multi_topic_longform` is
+scope-wide: all truths in the selected full-source scope contribute without requiring
+reviewers to invent topic labels. Other semantic metrics derive membership from truth
+bindings and human adjudication; semantic matching remains automated=false.
+
+The current independent review scopes are:
+
+| Case | Scope | Units | Semantic target |
+|---|---|---:|---|
+| `CR-ESPARZA-MINUTES-001` | full source order | 61 | longform scope-wide, attribution |
+| `CR-ESPARZA-BUDGET-001` | deterministic structural sample | 24 of 211 | structured values |
+| `CR-INCOP-CORRESPONDENCE-001` | full source order | 17 | conditions/exceptions/cross-references, attribution |
+
+The table sampler is source-digest-seeded and structural-only: it represents sheets,
+boundary rows, represented value types, formula/merged structure when present, row-shape
+diversity, and deterministic hash-ranked fill. It does not inspect labels or candidate
+extractor output. A sampled result cannot claim full-workbook semantic recall.
+
+The three packets are frozen for scope only. Their coverage, truth and assessment
+worksheets are intentionally empty/unjudged as appropriate. No semantic model or tested
+extractor has seen benchmark content for annotation. The timed-media case remains
+deterministic-only with `transcript_status=NOT_GENERATED` and has no semantic packet.
 
 ## Current real case
 
