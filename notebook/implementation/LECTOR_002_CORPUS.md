@@ -92,10 +92,17 @@ declared_capability_gate_ready
 
 rather than `broad_certification_ready`.
 
-A green gate means only that every **currently declared capability target** has suitable
-reference evidence whose gold/adjudication state satisfies the gate. Per-case semantic
-scores and their thresholds remain separate evidence; results must still be reported by
-capability and fixture so aggregate strength cannot hide a weak modality.
+A green gate means only that every **currently declared capability target** has satisfied
+its declared verification mode. Representation/evidence capabilities use deterministic proof
+against frozen bytes and production-compatible reopening; semantic-stress capabilities use
+independent human gold plus adjudication. Per-case semantic scores and their thresholds remain
+separate evidence; results must still be reported by capability and fixture so aggregate
+strength cannot hide a weak modality.
+
+This distinction is deliberate. Human judgment is necessary to decide whether a proposition
+was semantically recovered correctly; it is not necessary to decide whether a byte-identical
+cell/range or media time span reopens. Requiring gold for structural invariants would add
+annotation labor without increasing assurance.
 
 ## Generic evaluator machinery versus optional specialization
 
@@ -117,20 +124,20 @@ into text.
 
 ## Current declared capability targets
 
-The current `v3` campaign declares these targets:
+The current `v4` campaign declares these targets:
 
-| Dimension | Capability | What it stresses |
-|---|---|---|
-| Representation | `representation:paged_text` | page-aware text without genre assumptions |
-| Representation | `representation:structured_table` | row/cell/path structure survives processing |
-| Representation | `representation:timed_media` | original audio/video remains timed evidence |
-| Evidence | `evidence:text_quote:v1` | exact textual evidence reopens |
-| Evidence | `evidence:table_path` | exact table/path evidence reopens |
-| Evidence | `evidence:media_time_span` | exact media time span reopens |
-| Semantic | `semantic:multi_topic_longform` | many materially distinct propositions coexist |
-| Semantic | `semantic:attribution` | who said/requested/decided/reported is preserved |
-| Semantic | `semantic:conditions_exceptions_crossrefs` | conditions/scope/exceptions are not erased |
-| Semantic | `semantic:structured_values` | labels, types and values survive tabular extraction |
+| Dimension | Capability | Verification | What it stresses |
+|---|---|---|---|
+| Representation | `representation:paged_text` | deterministic | page-aware text without genre assumptions |
+| Representation | `representation:structured_table` | deterministic | row/cell/path structure survives processing |
+| Representation | `representation:timed_media` | deterministic | original audio/video remains timed evidence |
+| Evidence | `evidence:text_quote:v1` | deterministic | exact textual evidence reopens |
+| Evidence | `evidence:table_path` | deterministic | exact table/path evidence reopens |
+| Evidence | `evidence:media_time_span` | deterministic | exact media time span reopens |
+| Semantic | `semantic:multi_topic_longform` | semantic gold | many materially distinct propositions coexist |
+| Semantic | `semantic:attribution` | semantic gold | who said/requested/decided/reported is preserved |
+| Semantic | `semantic:conditions_exceptions_crossrefs` | semantic gold | conditions/scope/exceptions are not erased |
+| Semantic | `semantic:structured_values` | semantic gold | labels, types and values survive tabular extraction |
 
 The old six genres — minutes, report/audit, correspondence, normative/contractual,
 structured data and timed media — remain useful **fixture-selection archetypes** because
@@ -201,11 +208,13 @@ current declared-capability gate remains blocked until:
 
 1. real fixtures collectively cover every declared target capability;
 2. each capability uses evidence semantics appropriate to its Representation;
-3. independent gold is frozen before tested extractor output is inspected;
-4. candidates are adjudicated against that gold;
-5. deterministic scoring passes the accepted per-case/per-capability thresholds;
-6. results are reported separately enough that one strong modality cannot hide another;
-7. any materially new failure mode discovered during the campaign is added explicitly
+3. deterministic-mode capabilities pass their frozen-byte/locator proofs;
+4. independent gold is frozen for semantic-gold capabilities before tested extractor output
+   is inspected;
+5. semantic candidates are adjudicated against that gold;
+6. deterministic scoring passes the accepted per-case/per-capability thresholds;
+7. results are reported separately enough that one strong modality cannot hide another;
+8. any materially new failure mode discovered during the campaign is added explicitly
    rather than being hidden behind a green aggregate number.
 
 Even after closure, the claim is bounded: **the tested extractor passed the declared

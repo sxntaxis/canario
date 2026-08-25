@@ -52,9 +52,12 @@ Fixture genre labels such as `institutional_minutes`, `audit_report`, `correspon
 classes, need no exhaustive registry and may overlap.
 
 The executable benchmark gate is capability coverage: Representation fidelity, typed
-evidence reopening and semantic stress dimensions. New real-world formats should extend
-the matrix when they expose a materially new failure mode rather than forcing the product
-into an ever-growing document-type enum.
+evidence reopening and semantic stress dimensions. Verification follows the nature of the
+capability: structural Representation/evidence properties are proved deterministically from
+frozen bytes and locator reopening; semantic-understanding capabilities require independent
+human gold plus adjudication. Human review is not used to certify facts that machines can
+prove exactly. New real-world formats should extend the matrix when they expose a materially
+new failure mode rather than forcing the product into an ever-growing document-type enum.
 
 The benchmark must always state:
 

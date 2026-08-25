@@ -215,13 +215,16 @@ def test_corpus_gate_measures_declared_capabilities_not_document_classes() -> No
     assert status["universal_support_claimed"] is False
     assert "representation:paged_text" not in status["missing_capabilities"]
     assert "evidence:text_quote:v1" not in status["missing_capabilities"]
-    assert set(status["gold_pending_capabilities"]) == {
+    assert status["deterministic_pending_capabilities"] == []
+    assert set(status["deterministically_verified_capabilities"]) == {
         "representation:paged_text",
         "representation:structured_table",
         "representation:timed_media",
         "evidence:text_quote:v1",
         "evidence:table_path",
         "evidence:media_time_span",
+    }
+    assert set(status["gold_pending_capabilities"]) == {
         "semantic:multi_topic_longform",
         "semantic:attribution",
         "semantic:structured_values",
@@ -246,6 +249,7 @@ def test_corpus_archetypes_are_unregistered_descriptive_metadata(tmp_path: Path)
                         "id": "evidence:text_quote:v1",
                         "dimension": "evidence",
                         "description": "exact quote reopens",
+                        "verification_mode": "deterministic",
                     }
                 ],
                 "cases": [
@@ -257,8 +261,9 @@ def test_corpus_archetypes_are_unregistered_descriptive_metadata(tmp_path: Path)
                         ],
                         "covers": ["evidence:text_quote:v1"],
                         "evaluator_mode": "text_quote:v1",
-                        "gold_state": "frozen",
-                        "adjudication_state": "complete",
+                        "deterministic_verification": {"evidence:text_quote:v1": "passed"},
+                        "gold_state": "pending",
+                        "adjudication_state": "not_run",
                     }
                 ],
             }
@@ -268,6 +273,83 @@ def test_corpus_archetypes_are_unregistered_descriptive_metadata(tmp_path: Path)
     status = bench.evaluate_corpus(corpus)
     assert status["declared_capability_gate_ready"] is True
     assert status["verified_capabilities"] == ["evidence:text_quote:v1"]
+    assert status["gold_pending_capabilities"] == []
+
+
+def test_corpus_deterministic_capability_requires_explicit_mechanical_pass(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus.json"
+    corpus.write_text(
+        json.dumps(
+            {
+                "version": "test:v1",
+                "certification_scope": "declared_capabilities_only",
+                "universal_support_claimed": False,
+                "required_capabilities": [
+                    {
+                        "id": "evidence:text_quote:v1",
+                        "dimension": "evidence",
+                        "description": "exact quote reopens",
+                        "verification_mode": "deterministic",
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "TEXT-001",
+                        "benchmark_archetypes": ["letter"],
+                        "covers": ["evidence:text_quote:v1"],
+                        "evaluator_mode": "text_quote:v1",
+                        "deterministic_verification": {},
+                        "gold_state": "frozen",
+                        "adjudication_state": "complete",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    status = bench.evaluate_corpus(corpus)
+    assert status["declared_capability_gate_ready"] is False
+    assert status["deterministic_pending_capabilities"] == ["evidence:text_quote:v1"]
+    assert status["gold_pending_capabilities"] == []
+    assert status["verified_capabilities"] == []
+
+
+def test_corpus_semantic_capability_requires_frozen_gold_and_adjudication(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus.json"
+    corpus.write_text(
+        json.dumps(
+            {
+                "version": "test:v1",
+                "certification_scope": "declared_capabilities_only",
+                "universal_support_claimed": False,
+                "required_capabilities": [
+                    {
+                        "id": "semantic:attribution",
+                        "dimension": "semantic_stress",
+                        "description": "preserve attributable actor",
+                        "verification_mode": "semantic_gold",
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "TEXT-001",
+                        "benchmark_archetypes": ["letter"],
+                        "covers": ["semantic:attribution"],
+                        "evaluator_mode": "text_quote:v1",
+                        "deterministic_verification": {},
+                        "gold_state": "pending",
+                        "adjudication_state": "not_run",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    status = bench.evaluate_corpus(corpus)
+    assert status["declared_capability_gate_ready"] is False
+    assert status["deterministically_verified_capabilities"] == []
+    assert status["gold_pending_capabilities"] == ["semantic:attribution"]
+    assert status["verified_capabilities"] == []
 
 
 def test_corpus_rejects_legacy_document_class_gate(tmp_path: Path) -> None:

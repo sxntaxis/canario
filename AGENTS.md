@@ -217,6 +217,10 @@ Rules for agents/contributors:
 - the executable LECTOR-002 gate measures an explicit, revisable matrix of Representation,
   evidence and semantic-stress capabilities. A new real-world failure mode extends that
   matrix; it does not require inventing a universal record class;
+- each declared capability states its verification mode. Representation/evidence invariants
+  use deterministic proof from frozen bytes and exact reopening; semantic-stress capabilities
+  require independent human gold and adjudication. Do not create human annotation work for a
+  property that can be mechanically certified;
 - the benchmark must report `certification_scope = declared_capabilities_only` and
   `universal_support_claimed = false`. No finite corpus certifies every possible future
   document, container or medium;

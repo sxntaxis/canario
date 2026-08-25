@@ -223,10 +223,15 @@ no `0002` exists.
 The active semantic edge is LECTOR-002: a heterogeneous reference-corpus gate is active.
 Its executable readiness model is capability coverage, not a taxonomy of document classes.
 Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
-covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are now frozen externally, and the candidate
-substrate implements deterministic typed Representations, production locator reopening, and
-typed benchmark scoring for them. The campaign remains blocked on independent gold,
-adjudication, accepted scoring thresholds, and exact-runtime certification of this candidate.
+covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are frozen externally. Their typed evidence
+substrate is now canonical at `e0ab1cd831740241736086f5db568468aacac779`: deterministic
+XLSX/table Representation, deterministic ffprobe media index, production locator reopening,
+same-Artifact lineage protection and typed benchmark scoring passed exact registered SQLite
+3.53.4 certification plus fresh/post-push clone proof. LECTOR-002 now distinguishes
+deterministically verifiable Representation/evidence capabilities from semantic capabilities
+that require independent gold/adjudication. The campaign remains blocked on semantic gold,
+adjudication, accepted semantic scoring thresholds, and the still-missing
+`semantic:conditions_exceptions_crossrefs` fixture coverage.
 `certification_scope` is explicitly `declared_capabilities_only`;
 `universal_support_claimed` is false. Production review policy remains separate: machine-only
 is a valid searchable state, not a mandatory review queue.

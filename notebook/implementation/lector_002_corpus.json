@@ -1,57 +1,67 @@
 {
-  "version": "lector-002-corpus:v3",
+  "version": "lector-002-corpus:v4",
   "certification_scope": "declared_capabilities_only",
   "universal_support_claimed": false,
   "required_capabilities": [
     {
       "id": "representation:paged_text",
       "dimension": "representation",
-      "description": "Preserve and evaluate text with stable page-aware structure without document-type semantics."
+      "description": "Preserve and evaluate text with stable page-aware structure without document-type semantics.",
+      "verification_mode": "deterministic"
     },
     {
       "id": "representation:structured_table",
       "dimension": "representation",
-      "description": "Preserve structured row/cell/path semantics instead of flattening a table to prose."
+      "description": "Preserve structured row/cell/path semantics instead of flattening a table to prose.",
+      "verification_mode": "deterministic"
     },
     {
       "id": "representation:timed_media",
       "dimension": "representation",
-      "description": "Preserve finite audio/video as timed media with derivative transcripts kept separate."
+      "description": "Preserve finite audio/video as timed media with derivative transcripts kept separate.",
+      "verification_mode": "deterministic"
     },
     {
       "id": "evidence:text_quote:v1",
       "dimension": "evidence",
-      "description": "Reopen exact textual evidence from the frozen Representation."
+      "description": "Reopen exact textual evidence from the frozen Representation.",
+      "verification_mode": "deterministic"
     },
     {
       "id": "evidence:table_path",
       "dimension": "evidence",
-      "description": "Reopen exact structured table evidence by row/cell/path and observed values."
+      "description": "Reopen exact structured table evidence by row/cell/path and observed values.",
+      "verification_mode": "deterministic"
     },
     {
       "id": "evidence:media_time_span",
       "dimension": "evidence",
-      "description": "Reopen exact start/end timed evidence against the original recording."
+      "description": "Reopen exact start/end timed evidence against the original recording.",
+      "verification_mode": "deterministic"
     },
     {
       "id": "semantic:multi_topic_longform",
       "dimension": "semantic_stress",
-      "description": "Recover materially distinct propositions from a long source containing many topics."
+      "description": "Recover materially distinct propositions from a long source containing many topics.",
+      "verification_mode": "semantic_gold"
     },
     {
       "id": "semantic:attribution",
       "dimension": "semantic_stress",
-      "description": "Preserve who said, requested, decided, reported, or authored something when source evidence supports it."
+      "description": "Preserve who said, requested, decided, reported, or authored something when source evidence supports it.",
+      "verification_mode": "semantic_gold"
     },
     {
       "id": "semantic:conditions_exceptions_crossrefs",
       "dimension": "semantic_stress",
-      "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition."
+      "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition.",
+      "verification_mode": "semantic_gold"
     },
     {
       "id": "semantic:structured_values",
       "dimension": "semantic_stress",
-      "description": "Extract quantitative/categorical facts without losing table structure, labels or value types."
+      "description": "Extract quantitative/categorical facts without losing table structure, labels or value types.",
+      "verification_mode": "semantic_gold"
     }
   ],
   "cases": [
@@ -71,11 +81,17 @@
       "evaluator_mode": "text_quote:v1",
       "source_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
       "gold_state": "pending",
-      "adjudication_state": "not_run"
+      "adjudication_state": "not_run",
+      "deterministic_verification": {
+        "representation:paged_text": "passed",
+        "evidence:text_quote:v1": "passed"
+      }
     },
     {
       "case_id": "CR-ESPARZA-BUDGET-001",
-      "benchmark_archetypes": ["public_budget_dataset"],
+      "benchmark_archetypes": [
+        "public_budget_dataset"
+      ],
       "covers": [
         "representation:structured_table",
         "evidence:table_path",
@@ -89,12 +105,21 @@
       "representation_supported": true,
       "evaluator_supported": true,
       "gold_state": "pending",
-      "adjudication_state": "not_run"
+      "adjudication_state": "not_run",
+      "deterministic_verification": {
+        "representation:structured_table": "passed",
+        "evidence:table_path": "passed"
+      }
     },
     {
       "case_id": "CR-INCOP-PUERTO-CALDERA-MEDIA-001",
-      "benchmark_archetypes": ["institutional_recording"],
-      "covers": ["representation:timed_media", "evidence:media_time_span"],
+      "benchmark_archetypes": [
+        "institutional_recording"
+      ],
+      "covers": [
+        "representation:timed_media",
+        "evidence:media_time_span"
+      ],
       "source_kind": "timed_media",
       "representation_media_type": "video/mp4",
       "evaluator_mode": "media:v1",
@@ -104,7 +129,11 @@
       "evaluator_supported": true,
       "transcript_status": "NOT_GENERATED",
       "gold_state": "pending",
-      "adjudication_state": "not_run"
+      "adjudication_state": "not_run",
+      "deterministic_verification": {
+        "representation:timed_media": "passed",
+        "evidence:media_time_span": "passed"
+      }
     }
   ]
 }

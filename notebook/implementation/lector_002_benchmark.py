@@ -676,12 +676,17 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         capability_id = raw.get("id")
         dimension = raw.get("dimension")
         description = raw.get("description")
+        verification_mode = raw.get("verification_mode")
         if not isinstance(capability_id, str) or not capability_id:
             raise BenchmarkError("every required capability needs a non-empty id")
         if not isinstance(dimension, str) or not dimension:
             raise BenchmarkError(f"capability {capability_id!r} needs a dimension")
         if not isinstance(description, str) or not description:
             raise BenchmarkError(f"capability {capability_id!r} needs a description")
+        if verification_mode not in {"deterministic", "semantic_gold"}:
+            raise BenchmarkError(
+                f"capability {capability_id!r} needs verification_mode deterministic|semantic_gold"
+            )
         required.append(capability_id)
     if len(set(required)) != len(required):
         raise BenchmarkError("required_capabilities contains duplicate ids")
@@ -725,6 +730,18 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
                 f"case {case_id!r} covers undeclared capabilities {unknown}; add targets explicitly"
             )
 
+        deterministic_verification = raw.get("deterministic_verification", {})
+        if not isinstance(deterministic_verification, dict):
+            raise BenchmarkError(f"case {case_id!r} deterministic_verification must be an object")
+        for capability_id, state in deterministic_verification.items():
+            if capability_id not in covers:
+                raise BenchmarkError(
+                    f"case {case_id!r} verifies capability {capability_id!r} it does not cover"
+                )
+            if state not in {"not_run", "passed", "failed"}:
+                raise BenchmarkError(
+                    f"case {case_id!r} has invalid deterministic state for {capability_id!r}"
+                )
         if raw.get("gold_state") not in {"pending", "frozen"}:
             raise BenchmarkError(f"case {case_id!r} has invalid gold_state")
         if raw.get("adjudication_state") not in {"not_run", "incomplete", "complete"}:
@@ -735,43 +752,95 @@ def evaluate_corpus(corpus_path: Path) -> dict[str, object]:
         for capability_id in covers:
             by_capability[capability_id].append(raw)
 
+    capability_modes = {raw["id"]: raw["verification_mode"] for raw in required_raw}
     missing = [capability_id for capability_id, rows in by_capability.items() if not rows]
+    deterministic_failed = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if capability_modes[capability_id] == "deterministic"
+        and rows
+        and not any(
+            row.get("deterministic_verification", {}).get(capability_id) == "passed"
+            for row in rows
+        )
+        and any(
+            row.get("deterministic_verification", {}).get(capability_id) == "failed"
+            for row in rows
+        )
+    ]
+    deterministic_pending = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if capability_modes[capability_id] == "deterministic"
+        and rows
+        and capability_id not in deterministic_failed
+        and not any(
+            row.get("deterministic_verification", {}).get(capability_id) == "passed"
+            for row in rows
+        )
+    ]
     gold_pending = [
         capability_id
         for capability_id, rows in by_capability.items()
-        if rows and not any(row["gold_state"] == "frozen" for row in rows)
+        if capability_modes[capability_id] == "semantic_gold"
+        and rows
+        and not any(row["gold_state"] == "frozen" for row in rows)
     ]
     adjudication_pending = [
         capability_id
         for capability_id, rows in by_capability.items()
-        if rows
+        if capability_modes[capability_id] == "semantic_gold"
+        and rows
         and any(row["gold_state"] == "frozen" for row in rows)
         and not any(
             row["gold_state"] == "frozen" and row["adjudication_state"] == "complete"
             for row in rows
         )
     ]
-    verified = [
+    deterministically_verified = [
         capability_id
         for capability_id, rows in by_capability.items()
-        if any(
+        if capability_modes[capability_id] == "deterministic"
+        and any(
+            row.get("deterministic_verification", {}).get(capability_id) == "passed"
+            for row in rows
+        )
+    ]
+    semantic_verified = [
+        capability_id
+        for capability_id, rows in by_capability.items()
+        if capability_modes[capability_id] == "semantic_gold"
+        and any(
             row["gold_state"] == "frozen" and row["adjudication_state"] == "complete"
             for row in rows
         )
     ]
-    gate_ready = not (missing or gold_pending or adjudication_pending)
+    verified_set = set(deterministically_verified + semantic_verified)
+    verified = [capability_id for capability_id in required if capability_id in verified_set]
+    gate_ready = not (
+        missing
+        or deterministic_failed
+        or deterministic_pending
+        or gold_pending
+        or adjudication_pending
+    )
     return {
         "corpus_version": value.get("version"),
         "certification_scope": "declared_capabilities_only",
         "universal_support_claimed": False,
         "required_capabilities": required,
+        "verification_modes": capability_modes,
         "case_count": len(cases),
         "represented_capabilities": [
             capability_id for capability_id, rows in by_capability.items() if rows
         ],
         "missing_capabilities": missing,
+        "deterministic_failed_capabilities": deterministic_failed,
+        "deterministic_pending_capabilities": deterministic_pending,
         "gold_pending_capabilities": gold_pending,
         "adjudication_pending_capabilities": adjudication_pending,
+        "deterministically_verified_capabilities": deterministically_verified,
+        "semantic_verified_capabilities": semantic_verified,
         "verified_capabilities": verified,
         "declared_capability_gate_ready": gate_ready,
     }
