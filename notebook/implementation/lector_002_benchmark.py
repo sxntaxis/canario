@@ -1179,15 +1179,18 @@ def _format_typed_row(unit: dict[str, str]) -> str:
     return json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=False)
 
 
-def _load_display_units(packet: Path, source: Path, scope: dict[str, object]) -> list[dict[str, str]]:
-    units = _unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")
+def _load_display_units(
+    packet: Path, source: Path, scope: dict[str, object]
+) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    units_by_id = _unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")
+    all_units = list(units_by_id.values())
     selected_ids = set(str(item) for item in scope["selected_unit_ids"])
-    selected = [row for unit_id, row in units.items() if unit_id in selected_ids]
+    selected = [row for row in all_units if row["unit_id"] in selected_ids]
     if source.suffix.lower() == ".json":
-        for row in selected:
+        for row in all_units:
             if not row.get("cells_json"):
                 raise BenchmarkError("typed review packet unit is missing exact cells_json")
-    return selected
+    return all_units, selected
 
 
 def _render_unit(unit: dict[str, str], source: Path, *, context: bool = False) -> str:
@@ -1233,7 +1236,8 @@ def run_human_review(
         units_path=packet / "units.csv",
         unit_ids=set(_unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")),
     )
-    selected = _load_display_units(packet, source, scope)
+    all_units, selected = _load_display_units(packet, source, scope)
+    all_unit_ids = [row["unit_id"] for row in all_units]
     selected_by_id = {row["unit_id"]: row for row in selected}
     coverage_rows = _read_csv(packet / "coverage.csv")
     coverage_by_id = _unique_rows(coverage_rows, "unit_id", "coverage.csv")
@@ -1275,10 +1279,17 @@ def run_human_review(
         if command in {"r", "redisplay"}:
             continue
         if command in {"c", "contexto"}:
-            neighbor_index = max(0, cursor - 1)
-            if neighbor_index == cursor and cursor + 1 < len(selected):
-                neighbor_index += 1
-            output_fn(_render_unit(selected[neighbor_index], source, context=True))
+            current_all_index = all_unit_ids.index(unit_id)
+            context_rows: list[dict[str, str]] = []
+            if current_all_index > 0:
+                context_rows.append(all_units[current_all_index - 1])
+            if current_all_index + 1 < len(all_units):
+                context_rows.append(all_units[current_all_index + 1])
+            if not context_rows:
+                output_fn("No hay una unidad vecina disponible para contexto.")
+            else:
+                for context_row in context_rows:
+                    output_fn(_render_unit(context_row, source, context=True))
             continue
         if command in {"x", "cancelar"}:
             output_fn("Sesión cancelada. No se guarda la unidad actual.")

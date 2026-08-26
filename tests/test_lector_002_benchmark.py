@@ -800,6 +800,28 @@ def test_human_review_table_preserves_typed_formula_display(tmp_path: Path) -> N
     assert '"formula": "=1+1"' in rendered
 
 
+def test_human_review_table_context_uses_physical_neighbor_not_sample_neighbor(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=3)
+    scope = json.loads((packet / "gold_scope.json").read_text(encoding="utf-8"))
+    scope["selected_unit_ids"] = ["1:R1", "1:R3"]
+    scope["selected_unit_ids_sha256"] = bench._selected_ids_sha256(scope["selected_unit_ids"])
+    bench.write_gold_scope(packet / "gold_scope.json", scope)
+    units = bench._read_csv(packet / "units.csv")
+    _write_csv(packet / "selected_units.csv", list(units[0]), [units[0], units[2]])
+    coverage = bench._read_csv(packet / "coverage.csv")
+    coverage[1]["review_state"] = "unjudged"
+    _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], coverage)
+
+    shown: list[str] = []
+    answers = iter(["c", "q"])
+    bench.run_human_review(
+        packet, input_fn=lambda _prompt: next(answers), output_fn=shown.append
+    )
+    rendered = "\n".join(shown)
+    assert '"value": "Fila 2"' in rendered
+    assert '"value": "Fila 3"' not in rendered
+
+
 def test_human_review_read_only_never_writes_or_backs_up(tmp_path: Path) -> None:
     packet = _review_packet(tmp_path, unit_count=1)
     before = {path.name: path.read_bytes() for path in packet.iterdir() if path.is_file()}
