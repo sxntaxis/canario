@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+SCI-C001,SCI-S001,SciTab claims come from authentic scientific publications and require compositional reasoning over tables.,benchmark-design,"Use authentic, expert-reviewed compositional cases as a counterweight to synthetic structured benchmarks."
+SCI-C002,SCI-S001,"The paper identifies table grounding, claim ambiguity, and compositional reasoning as distinct challenges.",capability-model,Benchmark these failure modes separately; do not collapse them into generic table understanding.
+SCI-C003,SCI-S001,Most evaluated systems were near random guessing and Chain-of-Thought gave limited gains.,failure-mode,Prompting alone is not a sufficient architecture for reliable compositional table reasoning.
+SCI-C004,SCI-S003,Repository software is MIT licensed.,reuse,Safe to inspect/adapt code subject to MIT; dataset licensing and scientific-domain fit remain separate.

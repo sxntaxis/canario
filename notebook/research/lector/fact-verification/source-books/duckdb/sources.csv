@@ -1,0 +1,6 @@
+source_id,kind,title,url,accessed,boundary
+DDB-S001,documentation,DuckDB project overview,https://duckdb.org/,2026-08-25,MIT-licensed in-process analytical database.
+DDB-S002,documentation,Excel extension,https://duckdb.org/docs/current/core_extensions/excel,2026-08-25,Reads/writes XLSX but performs header/range/type inference.
+DDB-S003,security,Securing DuckDB,https://duckdb.org/docs/current/operations_manual/securing_duckdb/overview,2026-08-25,Untrusted SQL is treated like code; recommends sandboxing and resource limits.
+DDB-S004,security,Securing extensions,https://duckdb.org/docs/current/operations_manual/securing_duckdb/securing_extensions,2026-08-25,Extensions execute with process privileges; autoload/autoinstall/community extensions can be disabled.
+DDB-S005,documentation,Resource limits,https://duckdb.org/docs/current/operations_manual/limits,2026-08-25,Memory/temp resource bounds are configurable.

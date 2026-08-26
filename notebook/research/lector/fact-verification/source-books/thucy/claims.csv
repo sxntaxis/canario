@@ -1,0 +1,7 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+THU-C001,THU-S001;THU-S002,"Thucy discovers unknown relational data sources, inspects schemas, executes SQL, and returns verification verdicts with supporting SQL.",mechanism,Treat Thucy as the strongest reuse/baseline candidate for structured claim verification.
+THU-C002,THU-S003,"Thucy's verifier delegates to distinct data-discovery, schema, and SQL experts before a lead verifier synthesizes a verdict.",architecture,Benchmark whether specialization improves Canario cases before recreating a multi-agent topology.
+THU-C003,THU-S003,Thucy's verifier prompt instructs the model to treat all accessible data sources as reliable and authoritative.,collision,Do not adopt this authority assumption; it conflicts directly with Canario Source Authority and evidence-scope semantics.
+THU-C004,THU-S002;THU-S005,The implementation currently depends on OpenAI Agents/API and Google MCP Toolbox configuration.,dependency,Prefer external baseline/sidecar experiment before embedding a provider-specific multi-agent stack into Canario.
+THU-C005,THU-S004;THU-S005,License metadata is internally inconsistent: LICENSE says MIT while pyproject declares Apache-2.0.,license-risk,No vendoring or copied implementation until upstream licensing is clarified.
+THU-C006,THU-S001,"The paper reports 94.3% TabFact accuracy, 5.6 points above the cited previous state of the art.",benchmark-result,"Use Thucy as a concrete benchmark target, but not as evidence of civic-source correctness or large-database robustness by itself."

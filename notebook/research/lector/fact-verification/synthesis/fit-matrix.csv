@@ -1,0 +1,15 @@
+candidate,covers,fit,collision_or_cost,verdict,note
+Canario custody/Representations,"acquisition,custody,multimodal provenance",strong,none,KEEP,No studied system is a replacement.
+Thucy,"relational claim verification,SQL evidence",strong for verifier,OpenAI Agents + MCP Toolbox; license metadata conflict,BENCHMARK,Potential sidecar/adaptation.
+ClaimDB,"large DB benchmark,abstention,SQL agent evaluation",strong benchmark,CC BY-SA 4.0 repository,BENCHMARK,External lane; avoid copying into core.
+Frame-guided OECD,large multilingual table retrieval/reasoning,strong benchmark,synthetic claims,BENCHMARK,Spanish makes it unusually useful.
+FEVEROUS,mixed text/table evidence sets and scoring,medium-strong,Wikipedia-specific identifiers,ADAPT,Inspect scorer mechanics.
+FinDVer,"long hybrid documents,numerical/knowledge reasoning",strong,financial domain,BENCHMARK+ADAPT,Closest report/budget analogue.
+SciTab,compositional table claims,medium-strong,scientific domain/small tables,BENCHMARK,Useful hard composition lane.
+AVeriTeC,real-world evidence sufficiency/context/time,strong principles,CC BY-NC 4.0,ADAPT,Do not embed dataset/code by default.
+TSVer,temporal numerical evidence,future fit,CC BY-SA 4.0,BENCHMARK,Activate with real temporal use case.
+CaseFacts,authority-aware temporal retrieval,strong principle,legal-domain ontology,ADAPT,"Use authority lesson, not legal schema."
+ClaimVer,human evidence attribution,strong UX principle,KG-centric method,ADAPT,"Use evidence-localization, not KG requirement."
+SQLite query executor,"aggregates,windows,joins,read-only SQL",strong baseline,less OLAP-optimized; must isolate from canonical DB,BENCHMARK FIRST,Already certified runtime; smallest new surface.
+DuckDB,"OLAP,large scans,XLSX/Parquet/Arrow",strong candidate,untrusted SQL/process privileges; extension/network surface,BENCHMARK,Sandboxed derived projection only.
+Apache Arrow,columnar interchange,conditional,does not preserve workbook semantics by itself,DEFER,"Useful bridge, not canonical source Representation."

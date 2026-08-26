@@ -1,0 +1,15 @@
+claim_id,evidence_refs,statement,disposition,implication
+SYN-C001,CDB-C001;CDB-C002;FGT-C002;SCI-C001,Physical-row sampling is not an adequate semantic benchmark for serious structured reasoning.,change,Retire the current structured_values row-sample strategy before further gold work.
+SYN-C002,CDB-C003;THU-C001;FGT-C003,Large structured reasoning needs a queryable/executable path and should benchmark retrieval separately from reasoning.,change,Research a bounded queryable Representation + executable derivation provenance.
+SYN-C003,FEV-C001;FDV-C004;AVT-C001,A proposition may need multiple evidence items and more interpretation context than its smallest locator.,change,Separate context envelope from exact evidence refs and support multi-evidence truths/assessments.
+SYN-C004,CDB-C004;FEV-C003;AVT-C002,Evidence insufficiency and abstention are distinct capabilities that must be evaluated explicitly.,change,Add verifier abstention/sufficiency semantics rather than treating uncertainty as a generic fallback.
+SYN-C005,CSF-C002;THU-C003,Source authority must constrain retrieval and verification; accessible data is not automatically authoritative.,keep,Keep and strengthen Canario Source Authority in any verifier/query tool.
+SYN-C006,FDV-C002;SCI-C002,"Extraction, numerical composition, knowledge reasoning, grounding and ambiguity are separable failure modes.",change,Split semantic capability taxonomy by reasoning phenomenon rather than one structured_values capability.
+SYN-C007,THU-C001;THU-C006,Thucy is a concrete reusable baseline but not yet a safe dependency.,benchmark,Run a sidecar fit bench before writing a private structured verifier.
+SYN-C008,THU-C005,Thucy licensing is inconsistent in current upstream metadata.,open-question,Block vendoring until upstream license status is clarified.
+SYN-C009,CLV-C001;CLV-C002,Evidence localization and explanation quality affect reviewer cognitive load.,adapt,Treat review UX/evidence projection as an engineering quality dimension.
+SYN-C010,TSV-C001;CSF-C001,Evidence scope can be temporal and authority can evolve.,keep,Preserve time/snapshot identity in verifier evidence and derived analyses.
+SYN-C011,SQLQ-C001;SQLQ-C002;SQLQ-C004;DDB-C001,SQLite is a viable simple executor baseline; DuckDB should have to beat it on measured civic workloads before becoming a dependency.,benchmark,Run both over the same deterministic relational projection.
+SYN-C012,DDB-C002;ARR-C002,Analytical formats/importers must not replace source-faithful spreadsheet Representation semantics.,keep,"Derive query projections from canonical typed Representation, not directly from inferred XLSX imports."
+SYN-C013,DDB-C003;DDB-C004;SQLQ-C005,Model-generated SQL is untrusted executable input regardless of engine.,security,Run query execution inside a bounded no-egress/no-write sandbox with allowlists and OS/resource limits.
+SYN-C014,ARR-C001;ARR-C003,"Arrow is useful interoperability infrastructure, not source evidence semantics or a verifier.",defer,Keep projection design Arrow-compatible but avoid adding it until a measured need appears.

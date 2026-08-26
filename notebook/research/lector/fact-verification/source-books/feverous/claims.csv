@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+FEV-C001,FEV-S001,"Claims may require structured evidence, unstructured evidence, or mixtures of both.",evidence-model,"Multi-evidence and cross-modality support is established benchmark practice, not an exceptional case."
+FEV-C002,FEV-S001,FEVEROUS scoring combines verdict accuracy with evidence retrieval quality rather than rewarding labels alone.,metric,Separate evidence sufficiency/retrieval from semantic verdict correctness.
+FEV-C003,FEV-S001,NotEnoughInfo examples still require partial evidence in the shared task.,abstention,Abstention should remain evidence-grounded rather than a free fallback label.
+FEV-C004,FEV-S002;FEV-S003,The project releases scorer/annotation code under Apache-2.0.,reuse,Inspect and potentially adapt evidence-set/scoring mechanics before inventing a new private scorer.

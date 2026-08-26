@@ -1,0 +1,16 @@
+transfer_id,disposition,mechanism,rationale,stop_condition
+TR-001,keep,Artifact custody and exact typed Representation lineage,No external verifier replaces it.,If a future end-to-end civic system proves equivalent custody and provenance.
+TR-002,keep,Source assertion vs derived inference vs assessment separation,Supported by verifier literature and current architecture.,If empirical use proves the distinctions unusable.
+TR-003,change,Retire semantic:structured_values as sole structured semantic capability,Too coarse; hides retrieval/composition/abstention failures.,After replacement capability design + migration of corpus authority.
+TR-004,change,Separate ReviewAnchor/ContextEnvelope/EvidenceRefs,Multi-evidence/context prior art is strong.,If a simpler representation demonstrably preserves all multi-evidence cases.
+TR-005,change,Add executable derivation provenance for computed claims,Needed for reproducible structured reasoning.,If all derived analyses are proven representable by existing ProcessRun without ambiguity.
+TR-006,benchmark,Thucy sidecar,Direct OSS baseline for relational verification.,Stop if authority constraints cannot be injected without invasive fork or results are worse than simple baseline.
+TR-007,adapt,FEVEROUS evidence-set/scoring concepts,Mature mixed structured/unstructured scoring prior art.,Stop if code assumptions are too Wikipedia-specific.
+TR-008,benchmark,ClaimDB / frame-guided OECD / SciTab external lanes,"Cover large, multilingual and compositional structured reasoning.",Stop or isolate if licensing prevents clean automated distribution.
+TR-009,adapt,FinDVer relevant_context and reasoning-subset decomposition,Closest hybrid-document benchmark analogue.,Stop if civic fixtures demonstrate materially different failure modes.
+TR-010,adapt,Evidence sufficiency + temporal cutoff from AVeriTeC,Prevents correct-looking verdicts on inadequate or temporally leaked evidence.,Stop only if verifier scope is guaranteed closed and snapshot-complete.
+TR-011,keep,Source Authority / bounded retrieval,CaseFacts empirically supports authority-aware retrieval.,No stop condition short of product scope abandoning civic evidence authority.
+TR-012,adapt,ClaimVer evidence-localized reviewer UX,Reduces cognitive load and blanket-label failure.,Stop if user testing shows no benefit.
+TR-013,benchmark,Hardened SQLite query executor baseline,Already pinned; supports aggregates/windows and authorizer/progress controls.,Stop only if benchmark proves missing capability/performance.
+TR-014,benchmark,Sandboxed DuckDB executor,Strong OLAP candidate with resource limits.,Adopt only if it materially beats SQLite on required civic cases and sandbox can be certified.
+TR-015,defer,Arrow/Parquet interoperability layer,Useful zero-copy analytical interchange.,Adopt when scale or multiple executor/language boundaries justify it.

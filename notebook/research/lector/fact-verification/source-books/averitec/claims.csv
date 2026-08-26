@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+AVT-C001,AVT-S001,AVeriTeC annotates claims with evidence-backed question-answer pairs and textual justifications rather than a verdict alone.,evidence-model,Represent decomposed evidence/reasoning paths independently from the final assessment.
+AVT-C002,AVT-S001,"Its annotation process explicitly addresses context dependence, evidence insufficiency, and temporal leakage.",benchmark-design,Make context sufficiency and temporal cutoff explicit benchmark properties.
+AVT-C003,AVT-S001,Evidence can conflict and must be combined into a justification.,failure-mode,Canario assessment must support conflicting evidence rather than forcing one source into a universal truth label.
+AVT-C004,AVT-S002,Repository README declares CC BY-NC 4.0 for this work.,license-risk,Use as an external benchmark/reference; avoid incorporating dataset/code into distributable Canario without a deliberate non-commercial-license decision.

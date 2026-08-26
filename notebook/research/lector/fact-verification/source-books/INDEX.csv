@@ -1,0 +1,14 @@
+slug,title,book,state,disposition_summary
+claimdb,ClaimDB,source-books/claimdb/book.md,research-complete-for-synthesis,BENCHMARK + ADAPT
+thucy,Thucy,source-books/thucy/book.md,research-complete-for-synthesis,BENCHMARK first; ADAPT only after a fit experiment
+frame-guided-oecd,Frame-guided high-volume tabular claim generation,source-books/frame-guided-oecd/book.md,research-complete-for-synthesis,ADAPT benchmark construction principles and BENCHMARK against the released cases
+feverous,FEVEROUS,source-books/feverous/book.md,research-complete-for-synthesis,"ADAPT evidence-set and scoring concepts; consider reusing small, separable scorer mechanics after a code-level audit"
+findver,FinDVer,source-books/findver/book.md,research-complete-for-synthesis,"BENCHMARK hybrid-document reasoning against FinDVer and ADAPT its separation of extraction, math, and knowledge-intensive cases plus explicit relevant context"
+scitab,SciTab,source-books/scitab/book.md,research-complete-for-synthesis,BENCHMARK compositional table reasoning; ADAPT challenge taxonomy
+averitec,AVeriTeC,source-books/averitec/book.md,research-complete-for-synthesis,"ADAPT annotation/evaluation principles: evidence sufficiency, temporally bounded retrieval, decomposed evidence, and justification"
+tsver,TSVer,source-books/tsver/book.md,research-complete-for-synthesis,BENCHMARK future temporal/numerical verification and ADAPT explicit time-window evidence semantics
+casefacts,CaseFacts,source-books/casefacts/book.md,research-complete-for-synthesis,ADOPT the principle that authority and temporal validity constrain retrieval and verification
+claimver,ClaimVer,source-books/claimver/book.md,research-complete-for-synthesis,ADAPT human-facing evidence localization and explanation principles
+duckdb,DuckDB,source-books/duckdb/book.md,research-complete-for-synthesis,"BENCHMARK as the leading analytical executor candidate, but only over a deterministic projection derived from Canario's canonical typed Representation"
+sqlite-query-sandbox,SQLite as bounded analytical executor,source-books/sqlite-query-sandbox/book.md,research-complete-for-synthesis,ADOPT as the mandatory simple baseline because Canario already pins/certifies SQLite
+apache-arrow,Apache Arrow,source-books/apache-arrow/book.md,research-complete-for-synthesis,DEFER as a first-class dependency

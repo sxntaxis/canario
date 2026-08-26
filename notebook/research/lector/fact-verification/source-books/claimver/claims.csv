@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+CLV-C001,CLV-S001,ClaimVer argues that blanket labels are insufficient and emphasizes claim-level localization of evidence and rationale.,human-factors,Present evidence and explanation at the smallest useful claim granularity rather than only a document-level verdict.
+CLV-C002,CLV-S001,The framework is explicitly designed to reduce cognitive load through rich annotations and succinct explanations.,human-factors,"Treat reviewer cognitive burden as a quality property of review tooling, not user error."
+CLV-C003,CLV-S001,ClaimVer grounds predictions in a trusted knowledge graph and exposes evidence attribution.,authority,Evidence attribution and trusted-source boundaries should remain visible to the reviewer.
+CLV-C004,CLV-S001,The paper introduces a distinct attribution score.,metric,"Consider evidence-attribution quality as separate from semantic correctness, but do not import a universal scalar without validating meaning across modalities."

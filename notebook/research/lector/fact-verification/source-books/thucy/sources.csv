@@ -1,0 +1,6 @@
+source_id,kind,title,url,accessed,boundary
+THU-S001,paper,Thucy paper,https://arxiv.org/abs/2512.03278,2026-08-25,Primary paper describing cross-database/cross-table multi-agent verification and SQL evidence.
+THU-S002,repository,Thucy repository README,https://github.com/thucy-ai/thucy,2026-08-25,Current public implementation; requires OpenAI models and Google MCP Toolbox.
+THU-S003,repository-code,Thucy agent implementation,https://github.com/thucy-ai/thucy/blob/main/thucy/agents.py,2026-08-25,"Shows Data Expert, Schema Expert, SQL Expert, Lead Verifier prompts and schemas."
+THU-S004,license,Repository LICENSE,https://github.com/thucy-ai/thucy/blob/main/LICENSE,2026-08-25,Observed MIT license text.
+THU-S005,package-metadata,pyproject.toml,https://github.com/thucy-ai/thucy/blob/main/pyproject.toml,2026-08-25,"Declares license text Apache-2.0, conflicting with repository LICENSE."

@@ -1,0 +1,4 @@
+source_id,kind,title,url,accessed,boundary
+CDB-S001,paper,ACL 2026 publication,https://aclanthology.org/2026.acl-long.1589/,2026-08-25,"Primary peer-reviewed paper; 53,368 claims over 80 real-world databases."
+CDB-S002,paper-version,arXiv v2 lineage,https://arxiv.org/abs/2601.14698,2026-08-25,Preprint/version lineage; ACL publication is bibliographic authority.
+CDB-S003,repository,ClaimDB code/data repository,https://github.com/claimdb/claimdb,2026-08-25,Released benchmark/code; repository license observed as CC BY-SA 4.0.

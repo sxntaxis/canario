@@ -1,0 +1,7 @@
+source_id,kind,title,url,accessed,boundary
+SQLQ-S001,documentation,SQLite window functions,https://www.sqlite.org/windowfunctions.html,2026-08-25,Official docs; window functions and aggregates available.
+SQLQ-S002,documentation,SQLite aggregate functions,https://www.sqlite.org/lang_aggfunc.html,2026-08-25,Official aggregate SQL support.
+SQLQ-S003,security,SQLite security guidance,https://www.sqlite.org/security.html,2026-08-25,Official guidance for untrusted SQL/database inputs.
+SQLQ-S004,security,sqlite3_set_authorizer,https://www.sqlite.org/c3ref/set_authorizer.html,2026-08-25,Authorizer can deny operations and restrict untrusted SQL to SELECT-like access.
+SQLQ-S005,security,progress handler,https://www.sqlite.org/c3ref/progress_handler.html,2026-08-25,Can interrupt long-running operations.
+SQLQ-S006,security,extension loading,https://www.sqlite.org/c3ref/enable_load_extension.html,2026-08-25,Extension loading is off by default and should remain disabled for untrusted SQL.

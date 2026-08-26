@@ -1,0 +1,4 @@
+source_id,kind,title,url,accessed,boundary
+FDV-S001,paper,EMNLP 2024 publication,https://aclanthology.org/2024.emnlp-main.818/,2026-08-25,Primary peer-reviewed paper.
+FDV-S002,repository,FinDVer repository,https://github.com/yilunzhao/FinDVer,2026-08-25,Current repo exposes data/code and released relevant_context annotations.
+FDV-S003,license,Repository LICENSE,https://github.com/yilunzhao/FinDVer/blob/main/LICENSE,2026-08-25,MIT software license.

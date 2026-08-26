@@ -1,0 +1,7 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+CDB-C001,CDB-S001,"ClaimDB pairs claims with databases averaging 11.3 tables and about 4.6 million records, making naive in-context reading infeasible.",mechanism,Change structured verification from row-reading toward executable reasoning.
+CDB-C002,CDB-S001,"The benchmark intentionally selects compositional questions involving aggregation, ordering/superlatives, window functions, or joins across at least three tables.",benchmark-design,Do not treat single-cell or random-row lookup as sufficient evidence of structured reasoning quality.
+CDB-C003,CDB-S001,Evaluation agents use executable SQL over the database; the paper frames programmatic reasoning as necessary at large scale.,architecture,Require an executable/queryable derivation path for structured analysis rather than making an LLM consume full tables.
+CDB-C004,CDB-S001,Both proprietary and open models show systematic failure around NOT ENOUGH INFO / abstention.,failure-mode,Make evidence insufficiency/abstention a first-class verification capability and benchmark target.
+CDB-C005,CDB-S001,Longer agent-database interaction traces correlate with worse performance; strongest systems tend to use a bounded number of tool calls.,operational,Benchmark tool-call budget/trace efficiency and avoid unconstrained agent loops.
+CDB-C006,CDB-S003,ClaimDB's released repository is CC BY-SA 4.0.,license,Use as an external benchmark/reference unless a deliberate ShareAlike-compatible redistribution decision is made.

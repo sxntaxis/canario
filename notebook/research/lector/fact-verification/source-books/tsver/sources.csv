@@ -1,0 +1,4 @@
+source_id,kind,title,url,accessed,boundary
+TSV-S001,paper,EMNLP 2025 publication,https://aclanthology.org/2025.emnlp-main.1519/,2026-08-25,"Primary paper; 304 real claims, 400 time series."
+TSV-S002,repository,TSVer repository,https://github.com/marekstrong/TSVer,2026-08-25,Released benchmark implementation/data.
+TSV-S003,license,Repository LICENSE,https://github.com/marekstrong/TSVer/blob/main/LICENSE,2026-08-25,CC BY-SA 4.0.

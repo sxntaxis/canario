@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+CSF-C001,CSF-S001,"CaseFacts models legal claims as Supported, Refuted, or Overruled and makes temporal precedent validity part of the task.",temporal-authority,Source authority can change over time; verification must bind to evidence state/time rather than timeless truth.
+CSF-C002,CSF-S001,Unrestricted web search degraded performance because models retrieved noisy or non-authoritative precedents.,failure-mode,Strongly supports Canario's Source Authority model and bounded retrieval over indiscriminate web search.
+CSF-C003,CSF-S001,The task requires mapping colloquial claims to formal authoritative jurisprudence.,retrieval,Semantic proximity is not enough; retrieval must prioritize authoritative evidence appropriate to the claim.
+CSF-C004,CSF-S001,The paper finds a gap between verdict prediction and evidence-grounded verification.,metric,Do not reward a correct-looking verdict without adequate authoritative evidence.

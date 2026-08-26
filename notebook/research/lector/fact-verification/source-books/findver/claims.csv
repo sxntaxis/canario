@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+FDV-C001,FDV-S001,FinDVer evaluates claim verification over long hybrid-content financial documents and expert-domain reasoning.,scope,Strong external analogue for civic reports/budgets containing both text and tables.
+FDV-C002,FDV-S002,"Current data separates information extraction, numerical reasoning, and knowledge-intensive reasoning and provides relevant-context annotations.",benchmark-design,Split Canario structured/hybrid capabilities instead of treating semantic:structured_values as one catch-all.
+FDV-C003,FDV-S001,Long-context and RAG systems still lag human experts substantially.,failure-mode,Do not equate larger context windows with solved evidence retrieval or reasoning.
+FDV-C004,FDV-S002,Examples contain explicit relevant_context plus explanations and verdicts.,evidence-model,Context envelope should be represented separately from the smallest exact evidence locator.
+FDV-C005,FDV-S003,Repository code is MIT licensed.,reuse,Code can be inspected/adapted with normal MIT obligations; dataset/report licensing still needs independent review.

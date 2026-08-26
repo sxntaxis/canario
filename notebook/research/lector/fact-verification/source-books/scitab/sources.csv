@@ -1,0 +1,4 @@
+source_id,kind,title,url,accessed,boundary
+SCI-S001,paper,EMNLP 2023 publication,https://aclanthology.org/2023.emnlp-main.483/,2026-08-25,Primary paper; 1.2K expert-verified claims.
+SCI-S002,repository,SciTab repository,https://github.com/XinyuanLu00/SciTab,2026-08-25,Released code/data.
+SCI-S003,license,Repository LICENSE,https://github.com/XinyuanLu00/SciTab/blob/main/LICENSE,2026-08-25,MIT software license.

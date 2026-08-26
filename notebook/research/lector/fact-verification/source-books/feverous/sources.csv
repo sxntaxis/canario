@@ -1,0 +1,4 @@
+source_id,kind,title,url,accessed,boundary
+FEV-S001,paper,FEVEROUS shared task paper,https://aclanthology.org/2021.fever-1.1/,2026-08-25,Primary shared-task description; structured + unstructured evidence.
+FEV-S002,repository,FEVEROUS code repository,https://github.com/Raldir/FEVEROUS,2026-08-25,Includes scorer/annotation tooling.
+FEV-S003,license,Repository LICENSE,https://github.com/Raldir/FEVEROUS/blob/main/LICENSE,2026-08-25,Apache-2.0 software license.
