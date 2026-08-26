@@ -1,5 +1,5 @@
--- ActaKit migration 0001 frozen SQL specification candidate.
--- NOTEBOOK DESIGN AUTHORITY ONLY: this is not a production migration or cutover.
+-- Canario migration 0001 frozen SQL specification.
+-- The certified notebook specification is mirrored byte-for-byte into the production migration.
 -- Connection PRAGMAs are established by the bootstrap/open contract outside this script.
 -- This script is intended to run inside the migration bootstrap transaction.
 
@@ -156,6 +156,74 @@ CREATE TABLE process_run_egress (
   )
 ) STRICT;
 
+CREATE TABLE derivation_runs (
+  id TEXT PRIMARY KEY,
+  operation_kind TEXT NOT NULL CHECK (operation_kind IN ('query','program','rule','other_registered')),
+  implementation_key TEXT NOT NULL CHECK (length(trim(implementation_key)) > 0),
+  implementation_version TEXT NOT NULL CHECK (length(trim(implementation_version)) > 0),
+  execution_venue TEXT NOT NULL CHECK (length(trim(execution_venue)) > 0),
+  configuration_hash TEXT,
+  model_provider TEXT,
+  model_name TEXT,
+  executor_key TEXT NOT NULL CHECK (length(trim(executor_key)) > 0),
+  executor_version TEXT NOT NULL CHECK (length(trim(executor_version)) > 0),
+  executor_source_id TEXT CHECK (executor_source_id IS NULL OR length(trim(executor_source_id)) > 0),
+  sandbox_profile_key TEXT NOT NULL CHECK (length(trim(sandbox_profile_key)) > 0),
+  sandbox_profile_version TEXT NOT NULL CHECK (length(trim(sandbox_profile_version)) > 0),
+  program_kind TEXT NOT NULL CHECK (program_kind IN ('sql','expression','script','other_registered')),
+  program_text TEXT NOT NULL CHECK (length(program_text) > 0),
+  program_sha256 TEXT NOT NULL,
+  started_at TEXT NOT NULL,
+  finished_at TEXT NOT NULL,
+  outcome TEXT NOT NULL CHECK (outcome IN ('success','failed')),
+  error_code TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(id, outcome),
+  CHECK (started_at <= finished_at),
+  CHECK (
+    configuration_hash IS NULL
+    OR (
+      length(configuration_hash)=64
+      AND configuration_hash=lower(configuration_hash)
+      AND configuration_hash NOT GLOB '*[^0-9a-f]*'
+    )
+  ),
+  CHECK (
+    length(program_sha256)=64
+    AND program_sha256=lower(program_sha256)
+    AND program_sha256 NOT GLOB '*[^0-9a-f]*'
+  ),
+  CHECK (
+    (model_provider IS NULL AND model_name IS NULL)
+    OR (
+      model_provider IS NOT NULL AND length(trim(model_provider)) > 0
+      AND model_name IS NOT NULL AND length(trim(model_name)) > 0
+    )
+  ),
+  CHECK (
+    (outcome='success' AND error_code IS NULL)
+    OR (outcome='failed' AND error_code IS NOT NULL AND length(trim(error_code)) > 0)
+  )
+) STRICT;
+
+CREATE TABLE derivation_run_egress (
+  derivation_run_id TEXT PRIMARY KEY REFERENCES derivation_runs(id),
+  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed >= 0),
+  policy_profile TEXT NOT NULL CHECK (length(trim(policy_profile)) > 0),
+  data_control_profile TEXT NOT NULL CHECK (length(trim(data_control_profile)) > 0),
+  request_template_hash TEXT,
+  endpoint_profile TEXT CHECK (endpoint_profile IS NULL OR length(trim(endpoint_profile)) > 0),
+  created_at TEXT NOT NULL,
+  CHECK (
+    request_template_hash IS NULL
+    OR (
+      length(request_template_hash)=64
+      AND request_template_hash=lower(request_template_hash)
+      AND request_template_hash NOT GLOB '*[^0-9a-f]*'
+    )
+  )
+) STRICT;
+
 CREATE TABLE representations (
   id TEXT PRIMARY KEY,
   artifact_id TEXT REFERENCES artifacts(id),
@@ -213,6 +281,106 @@ CREATE TABLE representation_targets (
     OR
     (availability='purged' AND purged_at IS NOT NULL)
   )
+) STRICT;
+
+CREATE TABLE derivation_run_inputs (
+  derivation_run_id TEXT NOT NULL REFERENCES derivation_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  PRIMARY KEY(derivation_run_id, ordinal),
+  UNIQUE(derivation_run_id, representation_target_id),
+  UNIQUE(derivation_run_id, ordinal, representation_id),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id)
+) STRICT;
+
+CREATE TABLE derivation_results (
+  id TEXT PRIMARY KEY,
+  derivation_run_id TEXT NOT NULL UNIQUE,
+  derivation_run_outcome TEXT NOT NULL DEFAULT 'success' CHECK (derivation_run_outcome='success'),
+  result_kind TEXT NOT NULL CHECK (result_kind IN ('scalar','table','structured','binary','other_registered')),
+  schema_key TEXT NOT NULL CHECK (length(trim(schema_key)) > 0),
+  schema_version TEXT NOT NULL CHECK (length(trim(schema_version)) > 0),
+  inline_payload_json TEXT,
+  archive_object_id TEXT REFERENCES archive_objects(id),
+  content_sha256 TEXT,
+  byte_size INTEGER CHECK (byte_size IS NULL OR byte_size >= 0),
+  availability TEXT NOT NULL CHECK (availability IN ('available','purged')),
+  created_at TEXT NOT NULL,
+  purged_at TEXT,
+  UNIQUE(id, derivation_run_id),
+  FOREIGN KEY (derivation_run_id, derivation_run_outcome)
+    REFERENCES derivation_runs(id, outcome),
+  CHECK (
+    content_sha256 IS NULL
+    OR (
+      length(content_sha256)=64
+      AND content_sha256=lower(content_sha256)
+      AND content_sha256 NOT GLOB '*[^0-9a-f]*'
+    )
+  ),
+  CHECK (
+    (availability='available'
+      AND ((inline_payload_json IS NOT NULL AND archive_object_id IS NULL)
+        OR (inline_payload_json IS NULL AND archive_object_id IS NOT NULL))
+      AND content_sha256 IS NOT NULL
+      AND byte_size IS NOT NULL
+      AND purged_at IS NULL)
+    OR
+    (availability='purged'
+      AND inline_payload_json IS NULL
+      AND archive_object_id IS NULL
+      AND purged_at IS NOT NULL)
+  )
+) STRICT;
+
+CREATE TABLE derivation_result_targets (
+  id TEXT PRIMARY KEY,
+  derivation_result_id TEXT NOT NULL,
+  derivation_run_id TEXT NOT NULL,
+  selector_kind TEXT,
+  selector_version TEXT,
+  selector_payload_json TEXT,
+  lineage_state TEXT NOT NULL CHECK (lineage_state IN ('exact','partial','unavailable','none')),
+  availability TEXT NOT NULL CHECK (availability IN ('available','purged')),
+  created_at TEXT NOT NULL,
+  purged_at TEXT,
+  UNIQUE(id, derivation_result_id),
+  UNIQUE(id, derivation_run_id),
+  UNIQUE(id, derivation_run_id, lineage_state),
+  FOREIGN KEY (derivation_result_id, derivation_run_id)
+    REFERENCES derivation_results(id, derivation_run_id),
+  CHECK (
+    (availability='available'
+      AND selector_kind IS NOT NULL AND length(trim(selector_kind)) > 0
+      AND selector_version IS NOT NULL AND length(trim(selector_version)) > 0
+      AND selector_payload_json IS NOT NULL
+      AND purged_at IS NULL)
+    OR
+    (availability='purged'
+      AND selector_kind IS NULL
+      AND selector_version IS NULL
+      AND selector_payload_json IS NULL
+      AND purged_at IS NOT NULL)
+  )
+) STRICT;
+
+CREATE TABLE derivation_result_lineage (
+  derivation_result_target_id TEXT NOT NULL,
+  derivation_run_id TEXT NOT NULL,
+  lineage_state TEXT NOT NULL CHECK (lineage_state IN ('exact','partial')),
+  input_ordinal INTEGER NOT NULL CHECK (input_ordinal >= 0),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  PRIMARY KEY(derivation_result_target_id, representation_target_id),
+  FOREIGN KEY (derivation_result_target_id, derivation_run_id, lineage_state)
+    REFERENCES derivation_result_targets(id, derivation_run_id, lineage_state),
+  FOREIGN KEY (derivation_run_id, input_ordinal, representation_id)
+    REFERENCES derivation_run_inputs(derivation_run_id, ordinal, representation_id),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id)
 ) STRICT;
 
 CREATE TABLE process_run_inputs (
@@ -385,6 +553,7 @@ CREATE TABLE claim_revisions (
   text TEXT NOT NULL,
   origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
   process_run_id TEXT REFERENCES process_runs(id),
+  derivation_result_target_id TEXT REFERENCES derivation_result_targets(id),
   attribution_entity_id TEXT REFERENCES entities(id),
   attribution_text TEXT,
   temporal_start TEXT,
@@ -400,8 +569,192 @@ CREATE TABLE claim_revisions (
   CHECK (supersedes_revision_id IS NULL OR supersedes_revision_id <> id),
   CHECK ((revision_no=1 AND supersedes_revision_id IS NULL) OR (revision_no>1 AND supersedes_revision_id IS NOT NULL)),
   CHECK (temporal_start IS NULL OR temporal_end IS NULL OR temporal_start <= temporal_end),
-  CHECK (origin_kind='human' OR process_run_id IS NOT NULL)
+  CHECK (
+    (claim_kind='derived_inference' AND derivation_result_target_id IS NOT NULL)
+    OR (claim_kind<>'derived_inference' AND derivation_result_target_id IS NULL)
+  ),
+  CHECK (
+    origin_kind='human'
+    OR process_run_id IS NOT NULL
+    OR claim_kind='derived_inference'
+  )
 ) STRICT;
+
+CREATE TABLE verification_runs (
+  id TEXT PRIMARY KEY,
+  claim_revision_id TEXT REFERENCES claim_revisions(id),
+  proposition_text TEXT NOT NULL CHECK (length(trim(proposition_text)) > 0),
+  implementation_key TEXT NOT NULL CHECK (length(trim(implementation_key)) > 0),
+  implementation_version TEXT NOT NULL CHECK (length(trim(implementation_version)) > 0),
+  execution_venue TEXT NOT NULL CHECK (length(trim(execution_venue)) > 0),
+  configuration_hash TEXT,
+  model_provider TEXT,
+  model_name TEXT,
+  scope_profile_key TEXT NOT NULL CHECK (length(trim(scope_profile_key)) > 0),
+  scope_profile_version TEXT NOT NULL CHECK (length(trim(scope_profile_version)) > 0),
+  scope_payload_json TEXT NOT NULL,
+  started_at TEXT NOT NULL,
+  finished_at TEXT NOT NULL,
+  outcome TEXT NOT NULL CHECK (outcome IN ('completed','failed')),
+  error_code TEXT,
+  verdict TEXT CHECK (verdict IS NULL OR verdict IN ('supported','contradicted','insufficient_evidence')),
+  sufficiency_state TEXT CHECK (sufficiency_state IS NULL OR sufficiency_state IN ('sufficient','insufficient')),
+  sufficiency_profile_key TEXT,
+  sufficiency_profile_version TEXT,
+  sufficiency_payload_json TEXT,
+  abstention_reason_code TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(id, claim_revision_id),
+  CHECK (started_at <= finished_at),
+  CHECK (
+    configuration_hash IS NULL
+    OR (
+      length(configuration_hash)=64
+      AND configuration_hash=lower(configuration_hash)
+      AND configuration_hash NOT GLOB '*[^0-9a-f]*'
+    )
+  ),
+  CHECK (
+    (model_provider IS NULL AND model_name IS NULL)
+    OR (
+      model_provider IS NOT NULL AND length(trim(model_provider)) > 0
+      AND model_name IS NOT NULL AND length(trim(model_name)) > 0
+    )
+  ),
+  CHECK (
+    (outcome='failed'
+      AND error_code IS NOT NULL AND length(trim(error_code)) > 0
+      AND verdict IS NULL
+      AND sufficiency_state IS NULL
+      AND sufficiency_profile_key IS NULL
+      AND sufficiency_profile_version IS NULL
+      AND sufficiency_payload_json IS NULL
+      AND abstention_reason_code IS NULL)
+    OR
+    (outcome='completed'
+      AND error_code IS NULL
+      AND verdict IN ('supported','contradicted')
+      AND sufficiency_state='sufficient'
+      AND sufficiency_profile_key IS NOT NULL AND length(trim(sufficiency_profile_key)) > 0
+      AND sufficiency_profile_version IS NOT NULL AND length(trim(sufficiency_profile_version)) > 0
+      AND sufficiency_payload_json IS NOT NULL
+      AND abstention_reason_code IS NULL)
+    OR
+    (outcome='completed'
+      AND error_code IS NULL
+      AND verdict='insufficient_evidence'
+      AND sufficiency_state='insufficient'
+      AND sufficiency_profile_key IS NOT NULL AND length(trim(sufficiency_profile_key)) > 0
+      AND sufficiency_profile_version IS NOT NULL AND length(trim(sufficiency_profile_version)) > 0
+      AND sufficiency_payload_json IS NOT NULL
+      AND abstention_reason_code IS NOT NULL AND length(trim(abstention_reason_code)) > 0)
+  )
+) STRICT;
+
+CREATE TABLE verification_run_egress (
+  verification_run_id TEXT PRIMARY KEY REFERENCES verification_runs(id),
+  bytes_egressed INTEGER NOT NULL CHECK (bytes_egressed >= 0),
+  policy_profile TEXT NOT NULL CHECK (length(trim(policy_profile)) > 0),
+  data_control_profile TEXT NOT NULL CHECK (length(trim(data_control_profile)) > 0),
+  request_template_hash TEXT,
+  endpoint_profile TEXT CHECK (endpoint_profile IS NULL OR length(trim(endpoint_profile)) > 0),
+  created_at TEXT NOT NULL,
+  CHECK (
+    request_template_hash IS NULL
+    OR (
+      length(request_template_hash)=64
+      AND request_template_hash=lower(request_template_hash)
+      AND request_template_hash NOT GLOB '*[^0-9a-f]*'
+    )
+  )
+) STRICT;
+
+CREATE TABLE verification_scope_targets (
+  verification_run_id TEXT NOT NULL REFERENCES verification_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  PRIMARY KEY(verification_run_id, ordinal),
+  UNIQUE(verification_run_id, representation_target_id),
+  UNIQUE(verification_run_id, ordinal, representation_id),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id)
+) STRICT;
+
+CREATE TABLE verification_authority_scopes (
+  verification_run_id TEXT NOT NULL REFERENCES verification_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  source_authority_scope_id TEXT NOT NULL REFERENCES source_authority_scopes(id),
+  PRIMARY KEY(verification_run_id, ordinal),
+  UNIQUE(verification_run_id, source_authority_scope_id)
+) STRICT;
+
+CREATE TABLE verification_derivation_steps (
+  verification_run_id TEXT NOT NULL REFERENCES verification_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  derivation_run_id TEXT NOT NULL REFERENCES derivation_runs(id),
+  use_state TEXT NOT NULL CHECK (use_state IN ('attempted','consumed')),
+  derivation_result_target_id TEXT,
+  PRIMARY KEY(verification_run_id, ordinal),
+  FOREIGN KEY (derivation_result_target_id, derivation_run_id)
+    REFERENCES derivation_result_targets(id, derivation_run_id),
+  CHECK (
+    (use_state='attempted' AND derivation_result_target_id IS NULL)
+    OR (use_state='consumed' AND derivation_result_target_id IS NOT NULL)
+  )
+) STRICT;
+
+CREATE TABLE verification_evidence_items (
+  verification_run_id TEXT NOT NULL REFERENCES verification_runs(id),
+  ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+  scope_ordinal INTEGER NOT NULL CHECK (scope_ordinal >= 0),
+  representation_id TEXT NOT NULL,
+  representation_target_id TEXT NOT NULL,
+  role TEXT NOT NULL CHECK (role IN ('supports','challenges','context')),
+  PRIMARY KEY(verification_run_id, ordinal),
+  UNIQUE(verification_run_id, representation_target_id, role),
+  FOREIGN KEY (verification_run_id, scope_ordinal, representation_id)
+    REFERENCES verification_scope_targets(verification_run_id, ordinal, representation_id),
+  FOREIGN KEY (representation_target_id, representation_id)
+    REFERENCES representation_targets(id, representation_id)
+) STRICT;
+
+CREATE TABLE assessments (
+  id TEXT PRIMARY KEY,
+  supersedes_assessment_id TEXT,
+  claim_revision_id TEXT NOT NULL REFERENCES claim_revisions(id),
+  judgment TEXT NOT NULL CHECK (judgment IN ('supported','contested','refuted','unresolved')),
+  origin_kind TEXT NOT NULL CHECK (origin_kind IN ('machine','rule','human')),
+  assessor_key TEXT NOT NULL CHECK (length(trim(assessor_key)) > 0),
+  verification_run_id TEXT,
+  policy_key TEXT,
+  policy_version TEXT,
+  rationale TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(id, claim_revision_id, assessor_key),
+  FOREIGN KEY (supersedes_assessment_id, claim_revision_id, assessor_key)
+    REFERENCES assessments(id, claim_revision_id, assessor_key),
+  FOREIGN KEY (verification_run_id, claim_revision_id)
+    REFERENCES verification_runs(id, claim_revision_id),
+  CHECK (supersedes_assessment_id IS NULL OR supersedes_assessment_id <> id),
+  CHECK (
+    (policy_key IS NULL AND policy_version IS NULL)
+    OR (
+      policy_key IS NOT NULL AND length(trim(policy_key)) > 0
+      AND policy_version IS NOT NULL AND length(trim(policy_version)) > 0
+    )
+  ),
+  CHECK (
+    origin_kind='human'
+    OR (
+      verification_run_id IS NOT NULL
+      AND policy_key IS NOT NULL
+      AND policy_version IS NOT NULL
+    )
+  )
+) STRICT;
+CREATE UNIQUE INDEX assessments_one_successor_uq
+  ON assessments(supersedes_assessment_id) WHERE supersedes_assessment_id IS NOT NULL;
 
 CREATE TABLE evidence_links (
   id TEXT PRIMARY KEY,
@@ -852,6 +1205,7 @@ CREATE TABLE purge_targets (
   record_kind TEXT NOT NULL CHECK (record_kind IN (
     'source','source_authority_scope','source_locator','acquisition','acquisition_artifact',
     'archive_object','artifact','process_run','process_run_egress','quality_evidence','quality_decision','representation','representation_target',
+    'derivation_run','derivation_run_egress','derivation_result','derivation_result_target','verification_run','verification_run_egress','assessment',
     'civic_document','civic_document_revision','document_identifier','document_identifier_review','document_classification','document_classification_review','document_representation','document_representation_review',
     'claim','claim_revision','evidence_link','evidence_link_review','entity_mention','entity','entity_name','entity_name_review','entity_identifier','entity_identifier_review',
     'mention_resolution_candidate','mention_resolution_revision','entity_reconciliation',
@@ -893,6 +1247,23 @@ CREATE INDEX artifacts_archive_object_idx ON artifacts(archive_object_id);
 CREATE INDEX representations_artifact_kind_idx ON representations(artifact_id, kind);
 CREATE INDEX representations_parent_idx ON representations(parent_representation_id);
 CREATE INDEX representation_targets_rep_kind_idx ON representation_targets(representation_id, selector_kind);
+CREATE INDEX derivation_run_inputs_representation_idx ON derivation_run_inputs(representation_id, derivation_run_id);
+CREATE INDEX derivation_run_inputs_target_representation_fk_idx ON derivation_run_inputs(representation_target_id, representation_id);
+CREATE INDEX derivation_results_archive_object_fk_idx ON derivation_results(archive_object_id);
+CREATE INDEX derivation_result_targets_result_run_idx ON derivation_result_targets(derivation_result_id, derivation_run_id);
+CREATE INDEX derivation_result_lineage_input_fk_idx ON derivation_result_lineage(derivation_run_id, input_ordinal, representation_id);
+CREATE INDEX derivation_result_lineage_source_target_fk_idx ON derivation_result_lineage(representation_target_id, representation_id);
+CREATE INDEX claim_revisions_derivation_result_target_fk_idx ON claim_revisions(derivation_result_target_id);
+CREATE INDEX verification_runs_claim_revision_fk_idx ON verification_runs(claim_revision_id);
+CREATE INDEX verification_scope_targets_target_representation_fk_idx ON verification_scope_targets(representation_target_id, representation_id);
+CREATE INDEX verification_authority_scopes_authority_fk_idx ON verification_authority_scopes(source_authority_scope_id);
+CREATE INDEX verification_derivation_steps_derivation_run_fk_idx ON verification_derivation_steps(derivation_run_id);
+CREATE INDEX verification_derivation_steps_result_target_run_fk_idx ON verification_derivation_steps(derivation_result_target_id, derivation_run_id);
+CREATE INDEX verification_evidence_items_scope_fk_idx ON verification_evidence_items(verification_run_id, scope_ordinal, representation_id);
+CREATE INDEX verification_evidence_items_target_representation_fk_idx ON verification_evidence_items(representation_target_id, representation_id);
+CREATE INDEX assessments_claim_assessor_time_idx ON assessments(claim_revision_id, assessor_key, created_at DESC, id DESC);
+CREATE INDEX assessments_verification_claim_fk_idx ON assessments(verification_run_id, claim_revision_id);
+
 CREATE INDEX process_run_inputs_representation_idx ON process_run_inputs(representation_id, process_run_id);
 CREATE INDEX process_run_inputs_target_representation_fk_idx ON process_run_inputs(representation_target_id, representation_id);
 CREATE INDEX quality_evidence_target_representation_fk_idx ON quality_evidence(representation_target_id, representation_id);

@@ -183,9 +183,9 @@ result/target identity and source-contribution lineage; Verification records exp
 Derivation attempts/consumption, evidence and sufficiency; derived Claims point to exact result
 targets while EvidenceLink remains source evidence; Assessment is optional and distinct from review.
 
-**Gate:** one prerelease `0001` rebaseline implementing exactly this accepted delta, followed by the
-full applicable migration/storage/purge/backup/runtime certification, before any production
-Derivation/Verification writer.
+**Gate:** the prerelease `0001` rebaseline candidate implementing exactly this accepted delta is now
+built. It must pass full migration/storage/purge/backup/runtime certification on the exact registered
+SQLite 3.53.4 runtime and fresh clone before merge or any production Derivation/Verification writer.
 
 
 ## Phase 5 — Mesa de control

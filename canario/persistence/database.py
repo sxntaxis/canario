@@ -12,7 +12,7 @@ from .runtime import verify_runtime_contract
 
 APPLICATION_ID = 0x414B4954  # ASCII "AKIT"
 SCHEMA_VERSION = 1
-MIGRATION_0001_SHA256 = "5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb"
+MIGRATION_0001_SHA256 = "8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96"
 _MIGRATION_0001 = Path(__file__).with_name("migrations") / "0001.sql"
 
 RuntimeGuard = Callable[[], None]
@@ -98,7 +98,7 @@ def _assert_schema_v1(con: sqlite3.Connection, *, full_integrity: bool) -> None:
     strict_tables = con.execute(
         "SELECT count(*) FROM pragma_table_list WHERE strict=1"
     ).fetchone()[0]
-    if strict_tables != 58:
+    if strict_tables != 71:
         raise DatabaseIdentityError(
             f"Canario schema-v1 inventory mismatch: strict_tables={strict_tables}"
         )

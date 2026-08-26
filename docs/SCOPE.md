@@ -84,8 +84,9 @@ remains selected and analytical provenance requires a first-class Derivation exe
 Derivation/Verification/Claim/Evidence/Assessment reconciliation is now accepted with
 `SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE`.
 
-The authorized next work is the bounded prerelease `0001` rebaseline and recertification of that
-exact persistence delta. This does not authorize a Thucy clone, production verifier behavior,
+The bounded prerelease `0001` rebaseline candidate is now implemented. The authorized current gate
+is independent recertification of that exact persistence delta on the registered SQLite 3.53.4
+runtime and a fresh clone. This does not authorize a Thucy clone, production verifier behavior,
 recursive derivation graph, automatic semantic promotion, or replacement semantic gold. Metered
 provider profiles remain allowed future transports.
 

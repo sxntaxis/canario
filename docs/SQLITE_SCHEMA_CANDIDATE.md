@@ -1,26 +1,29 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-001
 kind: schema-candidate
-state: prerelease-0001-rebaseline-design-accepted__implementation-pending
+state: prerelease-0001-derivation-verification-rebaseline-candidate
 created: 2026-08-21
 updated: 2026-08-26
 authority: design-proposal
-baseline: 310d060cc1ced3640892a0dc29a7fbcb2c010920
-summary: Existing SQLite 1.0 baseline is certified; accepted Derivation/Verification reconciliation now requires one bounded prerelease 0001 rebaseline and full applicable recertification.
+baseline: 0130762a82b9b5e93a2ebd5231cfcf0e475ecd6d
+summary: Derivation/Verification persistence delta is implemented as a bounded prerelease 0001 rebaseline candidate; merge requires independent exact registered SQLite 3.53.4 certification.
 ---
 
 # SQLite Schema Candidate
 
 ## Status and rule
 
-This document is a **candidate**, not migration `0001`. The first candidate at
-`8b98010` fit the semantic fixtures at a high level but the adversarial review
+This document is the **schema candidate authority** mirrored into migration `0001` only inside the
+current unmerged rebaseline overlay. It is not current certified/merged schema authority until the
+registered-runtime certification passes. The first candidate at `8b98010` fit the semantic fixtures
+at a high level but the adversarial review
 found several places where it silently dropped already-accepted contract meaning
 or encoded an impossible/unsafe SQLite shape. Those faults were repaired and the resulting
 pre-Derivation baseline was independently certified. The accepted 2026-08-26
-Derivation/Verification reconciliation now advances this candidate ahead of the current production
-`0001`: section 29 freezes the next prerelease rebaseline delta, but production DDL remains at the
-last certified hash until that bounded implementation and full applicable recertification pass.
+Derivation/Verification reconciliation now advances this candidate ahead of the last certified
+`0001`: section 29 records the implemented rebaseline overlay. The candidate specification and
+production migration are byte-identical, but the prior certified hash remains release authority
+until the exact registered SQLite 3.53.4 certification pass and merge.
 
 Design rule:
 
@@ -1916,7 +1919,7 @@ canonical_cutover_authorized: false
 forward_migration_0002_created: false
 ```
 
-## 29. Derivation/Verification prerelease rebaseline design
+## 29. Derivation/Verification prerelease rebaseline implementation candidate
 
 The structured-reasoning G3 proof, bounded Phase-D measurement, local closure certification and
 post-merge reconciliation now require one additional prerelease `0001` rebaseline. The accepted
@@ -1926,8 +1929,9 @@ authority is `notebook/implementation/DERIVATION_VERIFICATION_RECONCILIATION.md`
 SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
 ```
 
-This section advances the **candidate**; it does not claim that current production `0001` already
-contains these records.
+The bounded candidate overlay now implements these records in both `MIGRATION_0001_SPEC.sql` and
+production `0001.sql` byte-for-byte. This is not yet a certification claim: current merged authority
+remains the prior certified baseline until the registered-runtime pass succeeds.
 
 ### Typed families to add
 
@@ -2000,19 +2004,38 @@ runs; historical runs remain bound to old exact inputs. Claim correction continu
 ClaimRevision supersession. Assessment correction is append-only same-Claim supersession per
 assessor/policy; multiple independent assessors may disagree.
 
-### Rebaseline gate
+### Implemented candidate and certification gate
 
-The implementation must update `MIGRATION_0001_SPEC.sql` and production `0001.sql` together, extend
-closed vocabularies/purge logic/storage operations, and mechanically prove the 15 invariants listed
-in the reconciliation document. It must then repeat the full applicable freeze, FK/index,
-selector-containment, shared-byte purge, backup/restore/FTS/WAL and exact registered SQLite 3.53.4
-runtime certification.
-
-Until that gate passes:
+The overlay implements the exact accepted persistence delta. Candidate identity:
 
 ```text
-current production 0001: prior certified authority
-this section:               accepted next-schema design
+MIGRATION_0001_SPEC.sql == canario/persistence/migrations/0001.sql
+SHA256:                 8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
+ordinary STRICT tables: 71
+FTS5 virtual tables:     3
+application triggers:    0
+explicit indexes:        135
+FK child paths checked:  152
+FK child table scans:    0
+SQLite JSON dependency:  absent
+```
+
+`prove_migration_0001_spec.py`, `prove_migration_freeze.py` and
+`prove_storage_operations.py` now exercise the 15 reconciliation invariants, including selector
+containment, attempted-vs-consumed Verification work, Review/Assessment separation, and shared
+Artifact+DerivationResult ArchiveObject purge safety. The portable authoring environment passes
+these proofs and the full `257 passed, 2 skipped, 2 subtests passed` suite, but its SQLite 3.46.1 is
+not a certified runtime.
+
+The remaining gate is independent repetition on the exact registered upstream SQLite 3.53.4 source
+ID, plus fresh-clone certification. See
+`notebook/implementation/DERIVATION_VERIFICATION_SCHEMA_REBASELINE.md`.
+
+Until that gate passes and the candidate is merged:
+
+```text
+merged production 0001 authority: prior certified hash
+candidate 0001:                  IMPLEMENTED__CERTIFICATION_GATE_REQUIRED
 production Derivation writer:    NOT AUTHORIZED
 production Verification writer:  NOT AUTHORIZED
 automatic Assessment promotion:  NOT AUTHORIZED
