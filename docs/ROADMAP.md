@@ -183,9 +183,14 @@ result/target identity and source-contribution lineage; Verification records exp
 Derivation attempts/consumption, evidence and sufficiency; derived Claims point to exact result
 targets while EvidenceLink remains source evidence; Assessment is optional and distinct from review.
 
-**Gate:** the prerelease `0001` rebaseline candidate implementing exactly this accepted delta is now
-built. It must pass full migration/storage/purge/backup/runtime certification on the exact registered
-SQLite 3.53.4 runtime and fresh clone before merge or any production Derivation/Verification writer.
+The prerelease `0001` rebaseline implementing this accepted delta passed the exact registered
+SQLite 3.53.4 migration/storage/purge/backup/runtime and fresh-clone gates and is merged at
+`0e0f56a0`.
+
+**Gate:** certify the bounded `canario.reasoning` runtime/API over that frozen schema. Backends must
+remain persistence-blind; narrow source/result selectors require exact materializers; execution
+failure remains distinct from epistemic abstention; and Claim/Evidence/Assessment promotion remains
+explicit. Do not reopen schema or introduce a generic operation graph merely to implement writers.
 
 
 ## Phase 5 — Mesa de control

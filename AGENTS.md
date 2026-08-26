@@ -213,8 +213,12 @@ Rules for agents/contributors:
   measured material decomposition value and selected a minimum Canario-native
   Derivation -> Verification split. Phase D is merged at `310d060c`; the follow-up reconciliation
   is merged at `0130762a` with `SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE`.
-  The bounded prerelease `0001` rebaseline is implemented as a candidate and must pass exact
-  registered SQLite 3.53.4 certification before merge or production writers. The prior
+  The bounded prerelease `0001` rebaseline is certified and merged at `0e0f56a0`; schema is frozen
+  for this unit. `canario.reasoning` now implements the bounded Derivation/Verification runtime as
+  a candidate: backends receive no SQLite/archive write authority, narrow source/result targets
+  require exact registered materializers, source evidence stays separate from execution lineage,
+  and Claim/Evidence/Assessment promotion remains explicit. Independent exact-runtime certification
+  is required before that writer becomes authoritative. The prior
   LECTOR-002 semantic campaign is
   superseded and must be re-scoped before replacement reference work. Acta 161 is
   case `CR-ESPARZA-MINUTES-001` and cannot establish general extraction quality by itself;

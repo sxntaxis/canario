@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: LECTOR_ANALYSIS_VERIFICATION_ARCHITECTURE_CHECKPOINT
+state: DERIVATION_VERIFICATION_RUNTIME_CANDIDATE
 created: 2026-08-19
 updated: 2026-08-26
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: Structured reasoning/verifier benches and Derivation/Verification reconciliation are merged. The bounded prerelease 0001 rebaseline is implemented as a candidate; merge requires independent exact registered SQLite 3.53.4 certification, and production verifier behavior remains unauthorized.
+summary: The Derivation/Verification schema rebaseline is certified and merged. A bounded canario.reasoning runtime/writer candidate now implements the frozen cross-row invariants without schema changes; independent exact SQLite 3.53.4 certification remains pending before runtime authority.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -106,7 +106,8 @@ accepted semantic contracts
 -> STRUCTURED-REASONING-FIT-BENCH certified at 0f9a71e; SQLite selected, DuckDB challenger retained, G3 FIRST_CLASS_DERIVATION_REQUIRED
 -> STRUCTURED-VERIFIER-FIT-BENCH Phase D locally certified and merged at 310d060c; minimum Canario decomposition selected
 -> DERIVATION-VERIFICATION reconciliation merged at 0130762a; SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
--> prerelease 0001 Derivation/Verification rebaseline implemented as candidate; registered SQLite 3.53.4 certification gate required before merge
+-> prerelease 0001 Derivation/Verification rebaseline certified and merged at 0e0f56a0
+-> bounded canario.reasoning Derivation/Verification runtime candidate implemented; exact-runtime certification pending
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -123,16 +124,22 @@ The last merged/certified PROCESSOR-CODEX-001 SQL authority is:
 5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb
 ```
 
-The current unmerged Derivation/Verification rebaseline candidate is byte-identical between spec
-and production migration at:
+The merged Derivation/Verification `0001` authority is byte-identical between spec and production
+migration at:
 
 ```text
 8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
 ```
 
-Its portable proof inventory is 71 STRICT tables, 3 FTS tables, 135 explicit indexes and 152 FK
-child paths with zero scans. Exact registered SQLite 3.53.4 certification remains mandatory before
-this candidate replaces the prior authority.
+Its certified inventory is 71 STRICT tables, 3 FTS tables, 135 explicit indexes and 152 FK child
+paths with zero scans. It passed the exact registered SQLite 3.53.4 runtime, selector,
+backup/restore/purge, full-suite and fresh-clone gates before merge at `0e0f56a0`.
+
+The active implementation edge is now `canario.reasoning`: typed Derivation/Verification backend
+contracts, a core-owned host/writer, conservative selector containment, explicit derived-Claim and
+Assessment writes, and host-owned bounded materialization. The default runtime refuses to expose a
+narrow source/result target as the containing full bytes unless an exact materializer for that
+selector is registered. No schema changes are part of this runtime candidate.
 
 The independently certified WORKBENCH/DIRECT/OCR baseline
 `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior
@@ -232,9 +239,9 @@ independently certified LECTOR-001 boundary. `SemanticExtractor` backends remain
 untrusted/replaceable; `LectorWriter` owns bounded canonical persistence and exact
 selector reopening. Stable ProcessRun replay is idempotent without claim-text
 deduplication, a 300-Claim machine-only volume proof is part of the focused suite,
-and LECTOR-001 writes no synthetic human review. The certified SQL baseline remains
-unchanged at `5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb`;
-no `0002` exists.
+and LECTOR-001 writes no synthetic human review. The current certified SQL authority is the
+Derivation/Verification rebaseline at
+`8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96`; no `0002` exists.
 
 The deterministic structured-reasoning foundation is certified at
 `0f9a71e5acb0f093469571d59c896eab0c03c4c2`. SQLite remains the analytical baseline; DuckDB
@@ -244,8 +251,10 @@ the qualified subscription-backed Codex/Terra profile with no worker failures. T
 design decision is `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`: explicit
 Derivation execution/lineage must precede final Verification judgment, but Thucy's four-role
 runtime is not selected. Phase-D closure and the subsequent Derivation/Verification reconciliation
-are merged. The persistence rebaseline candidate is implemented; merge requires its exact registered
-SQLite 3.53.4 certification. Metered provider transports remain allowed future profiles. The prior LECTOR-002 semantic campaign remains superseded.
+are merged. The persistence rebaseline passed exact registered SQLite 3.53.4 certification and is
+merged at `0e0f56a0`. The bounded runtime/API over those records is now implemented as a candidate;
+its independent runtime/fresh-clone certification is the active gate. Metered provider transports
+remain allowed future profiles. The prior LECTOR-002 semantic campaign remains superseded.
 
 Research basis: `notebook/research/lector/fact-verification/synthesis/BOOK.md`, checkpoint
 `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`.
@@ -260,8 +269,9 @@ distinct DerivationRun -> DerivationResult -> DerivationResultTarget execution p
 source-contribution lineage, and a separate VerificationRun with bounded scope, Source Authority,
 Derivation attempts/consumption, evidence, sufficiency and abstention/execution outcome. Derived
 Claims point to exact result targets; EvidenceLink remains source evidence. Assessment remains
-optional, attributable and separate from review/lifecycle. Current production `0001` has not yet
-been rebaselined to these new records.
+optional, attributable and separate from review/lifecycle. Production `0001` now persists these
+records at the certified schema merge `0e0f56a0`; `canario.reasoning` is the candidate runtime that
+writes them while preserving those distinctions.
 Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
 covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are frozen externally. Their typed evidence
 substrate is now canonical at `e0ab1cd831740241736086f5db568468aacac779`: deterministic
