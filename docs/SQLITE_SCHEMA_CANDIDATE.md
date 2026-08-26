@@ -1,12 +1,12 @@
 ---
 id: ACTAKIT-SQLITE-CANDIDATE-001
 kind: schema-candidate
-state: migration-0001-authorized-for-bounded-implementation
+state: prerelease-0001-rebaseline-design-accepted__implementation-pending
 created: 2026-08-21
-updated: 2026-08-21
+updated: 2026-08-26
 authority: design-proposal
-baseline: 8b98010b32f88ce64b616ea51cccb48058ad35bb
-summary: Critically reviewed and runtime-certified SQLite 1.0 contract; migration 0001 is authorized only for bounded implementation of the frozen specification.
+baseline: 310d060cc1ced3640892a0dc29a7fbcb2c010920
+summary: Existing SQLite 1.0 baseline is certified; accepted Derivation/Verification reconciliation now requires one bounded prerelease 0001 rebaseline and full applicable recertification.
 ---
 
 # SQLite Schema Candidate
@@ -16,8 +16,11 @@ summary: Critically reviewed and runtime-certified SQLite 1.0 contract; migratio
 This document is a **candidate**, not migration `0001`. The first candidate at
 `8b98010` fit the semantic fixtures at a high level but the adversarial review
 found several places where it silently dropped already-accepted contract meaning
-or encoded an impossible/unsafe SQLite shape. This revision repairs those design
-faults before any DDL is frozen.
+or encoded an impossible/unsafe SQLite shape. Those faults were repaired and the resulting
+pre-Derivation baseline was independently certified. The accepted 2026-08-26
+Derivation/Verification reconciliation now advances this candidate ahead of the current production
+`0001`: section 29 freezes the next prerelease rebaseline delta, but production DDL remains at the
+last certified hash until that bounded implementation and full applicable recertification pass.
 
 Design rule:
 
@@ -256,9 +259,35 @@ review_decision:
 evidence_basis_role:
   source_basis | context
 
+derivation_outcome:
+  success | failed
+
+derivation_lineage_state:
+  exact | partial | unavailable | none
+
+verification_outcome:
+  completed | failed
+
+verification_verdict:
+  supported | contradicted | insufficient_evidence
+
+verification_sufficiency:
+  sufficient | insufficient
+
+verification_derivation_use_state:
+  attempted | consumed
+
+verification_evidence_role:
+  supports | challenges | context
+
+assessment_judgment:
+  supported | contested | refuted | unresolved
+
 purge_target_kind:
   source | source_authority_scope | source_locator | acquisition | acquisition_artifact |
   archive_object | artifact | process_run | process_run_egress |
+  derivation_run | derivation_run_egress | derivation_result | derivation_result_target |
+  verification_run | verification_run_egress | assessment |
   quality_evidence | quality_decision | representation | representation_target | civic_document |
   civic_document_revision | document_identifier | document_identifier_review |
   document_classification | document_classification_review | document_representation |
@@ -855,7 +884,8 @@ supersedes_revision_id FK nullable
 claim_kind               -- claim_kind
 text
 origin_kind              -- machine | rule | human
-process_run_id FK         -- required for machine/rule; optional for human
+process_run_id FK nullable -- required for machine/rule non-derived origin; optional extra phrasing provenance on derived claims
+derivation_result_target_id FK nullable -- required exactly for derived_inference
 attribution_entity_id FK nullable
 attribution_text nullable
 temporal_start nullable
@@ -871,6 +901,12 @@ A claim can exist machine-only. Human review is a separate axis. `corrected` is
 not a status: correction creates a new revision whose `supersedes_revision_id`
 points to the exact prior revision. The prior revision becomes *effectively
 superseded* by lineage rather than being rewritten.
+
+`claim_kind=derived_inference` requires one exact available `DerivationResultTarget` as analytical
+origin; non-derived Claim kinds must not populate that field. A distinct ProcessRun may additionally
+be recorded when a semantic process materially phrases/normalizes the derived Claim, but it is not
+the analytical basis. The result target identifies its DerivationRun transitively and no
+polymorphic `origin_type/origin_id` is introduced.
 
 Contradiction/dispute is not a truth flag on the row. No universal
 `epistemic_status` column exists.
@@ -902,8 +938,12 @@ created_at
 Supersession is constrained to the same ClaimRevision and is linear. Multiple
 independent EvidenceLinks may coexist. A source assertion counts as evidenced only
 through at least one **non-superseded active `supports` link** whose
-RepresentationTarget remains available. Cross-table minima are semantic-core
-invariants rather than fake CHECK constraints. Review remains a separate axis.
+RepresentationTarget remains available. For `derived_inference`, an active `supports` link must
+also mechanically overlap the source-contribution lineage of the Claim's exact
+DerivationResultTarget under the registered selector-containment contract. Independent
+`challenges` evidence remains legal and need not have participated in the original calculation.
+Cross-table minima are semantic-core invariants rather than fake CHECK constraints. Review remains
+a separate axis.
 
 ## 11. Raw mentions and entity identity
 
@@ -1350,7 +1390,7 @@ Same shape, FK to `role_assignment_revisions`.
 Separate review tables intentionally preserve FK integrity rather than using a
 polymorphic universal review subject.
 
-Review rows are immutable assessments, not semantic-row revisions. A reviewer who
+Review rows are immutable review judgments, not semantic-row revisions or civic Assessments. A reviewer who
 changes their judgment appends another review row for the same exact subject. The
 effective state for that reviewer is the latest row under the deterministic order
 `(created_at DESC, id DESC)`; reviews by different reviewers remain independent and
@@ -1874,4 +1914,107 @@ becomes current certified authority. No `0002` exists.
 PROCESSOR_CODEX_001_SCHEMA_REBASELINE: IMPLEMENTED__CERTIFICATION_PENDING
 canonical_cutover_authorized: false
 forward_migration_0002_created: false
+```
+
+## 29. Derivation/Verification prerelease rebaseline design
+
+The structured-reasoning G3 proof, bounded Phase-D measurement, local closure certification and
+post-merge reconciliation now require one additional prerelease `0001` rebaseline. The accepted
+authority is `notebook/implementation/DERIVATION_VERIFICATION_RECONCILIATION.md` with decision:
+
+```text
+SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
+```
+
+This section advances the **candidate**; it does not claim that current production `0001` already
+contains these records.
+
+### Typed families to add
+
+```text
+derivation_runs
+  immutable analytical attempt
+  exact program + planner/orchestration provenance + executor identity + sandbox + outcome
+
+derivation_run_egress
+  non-secret egress facts for the analytical attempt
+
+derivation_run_inputs
+  ordered exact RepresentationTarget scopes
+
+derivation_results
+  one exact typed result for each successful DerivationRun
+  bounded registered inline payload OR ArchiveObject-backed material payload
+
+derivation_result_targets
+  exact reusable slice of one result + per-target lineage_state
+
+derivation_result_lineage
+  exact DerivationResultTarget -> source-contribution RepresentationTarget
+
+verification_runs
+  exact proposition + optional ClaimRevision binding + scope profile + execution outcome
+  + verdict/sufficiency/abstention when completed
+verification_run_egress
+  non-secret verifier egress facts
+verification_scope_targets
+  ordered explicit RepresentationTarget terrain available to the verifier
+verification_authority_scopes
+  ordered exact SourceAuthorityScope rows
+verification_derivation_steps
+  ordered attempted/consumed DerivationRuns; consumed successful steps name exact result targets
+verification_evidence_items
+  exact source RepresentationTargets returned as supports/challenges/context for the run
+
+assessments
+  optional attributable durable ClaimRevision judgment
+  supported | contested | refuted | unresolved
+  human basis may be direct/attributable; machine/rule requires same-Claim VerificationRun + registered policy
+  supersession stays within the same ClaimRevision + assessor/policy lineage; no automatic promotion
+```
+
+### Existing families to change
+
+`claim_revisions` gains nullable `derivation_result_target_id`, required exactly for
+`claim_kind=derived_inference`. Existing ProcessRun origin remains the source-extraction/semantic
+process path and may coexist only as distinct wording/promotion provenance on a derived Claim.
+
+`EvidenceLink` remains ClaimRevision -> source RepresentationTarget. It is **not** replaced by
+Derivation lineage or Verification evidence. Active `supports` evidence for a derived Claim must be
+traceable to source-contribution lineage for the exact origin result target; independent
+`challenges` evidence remains ordinary civic evidence.
+
+Archive availability/shared-byte validation expands so an available ArchiveObject referenced by an
+available DerivationResult is a real retained dependency. Purge root expansion adds the seven new
+content-bearing record families in the closed vocabulary; payload-free FK/ordinal joins are exact
+execution closure, not generic purge targets.
+
+### Identity and correction rules
+
+DerivationRun and VerificationRun are immutable attempts. Re-execution creates new IDs even if
+inputs/program/model/result match; only persistence retry of one preallocated immutable attempt may
+reuse its ID. No mutable current-run pointer or hash-as-identity exists.
+
+Source correction/reprocessing creates new Representation targets and therefore new analytical
+runs; historical runs remain bound to old exact inputs. Claim correction continues through
+ClaimRevision supersession. Assessment correction is append-only same-Claim supersession per
+assessor/policy; multiple independent assessors may disagree.
+
+### Rebaseline gate
+
+The implementation must update `MIGRATION_0001_SPEC.sql` and production `0001.sql` together, extend
+closed vocabularies/purge logic/storage operations, and mechanically prove the 15 invariants listed
+in the reconciliation document. It must then repeat the full applicable freeze, FK/index,
+selector-containment, shared-byte purge, backup/restore/FTS/WAL and exact registered SQLite 3.53.4
+runtime certification.
+
+Until that gate passes:
+
+```text
+current production 0001: prior certified authority
+this section:               accepted next-schema design
+production Derivation writer:    NOT AUTHORIZED
+production Verification writer:  NOT AUTHORIZED
+automatic Assessment promotion:  NOT AUTHORIZED
+forward migration 0002:          NOT AUTHORIZED / NOT NEEDED IN PRERELEASE
 ```

@@ -255,43 +255,53 @@ Rules for agents/contributors:
 
 ### Semantic operation boundaries after SOTA review
 
-`Lector` answers only: **what does this source assert or explicitly contain?** It may use
-bounded context and multiple exact evidence links, including explicit table values,
-conditions, exceptions, dates, amounts and attributions. It must not silently turn a new
-calculation, comparison or join into a `source_assertion`.
+`Lector` answers only: **what does this source assert or explicitly contain?** Newly computed sums,
+comparisons and joins belong to Derivation; deciding what a proposition and bounded evidence justify
+belongs to Verification. These are semantic boundaries, not mandatory human workflow stages.
 
-Derived analysis is a separate conceptual boundary for reproducibly computing a new result
-from bounded Representations. Verification is a separate conceptual boundary for deciding
-what a proposition and explicitly bounded evidence scope justify. Neither boundary is a new
-mandatory human product stage or an authorized production subsystem yet.
+The accepted reconciliation lives in
+`notebook/implementation/DERIVATION_VERIFICATION_RECONCILIATION.md` and closes the prior persistence
+question with:
 
-Derivation provenance includes ordered input Representation/target identities, the exact
-query/program, executor/runtime and configuration identity, sandbox/resource profile,
-terminal outcome, exact result and available source-row/cell lineage. The query/program is
-provenance, never original source evidence. G3 is closed at `0f9a71e5...` with
-`FIRST_CLASS_DERIVATION_REQUIRED`: existing `ProcessRun` remains Representation-processor
-provenance and may not be overloaded as the canonical analytical execution record. No Derivation persistence/schema change is authorized until the selected Derivation -> Verification
-relationship is reconciled once with Claim provenance and EvidenceLink semantics.
+```text
+SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
+```
 
-Verifier results keep execution outcome, verdict, evidence set, evidence sufficiency,
-abstention reason and model/process provenance separate. `supported`, `contradicted` and
-`insufficient_evidence` are conceptual bench meanings; timeout, crash, invalid query and
-tool failure are execution failures, not epistemic abstention. A verifier result never
-mutates Claim lifecycle. An optional attributable `Assessment` remains the durable judgment
-when a later policy promotes or records one.
+Rules for agents/contributors:
 
-Evidence sufficiency is initially typed result information, not a new entity/table. A
-`ContextEnvelope` is bounded interpretation material and is distinct from the smallest
-reopenable evidence locator. One proposition may use multiple independently reopenable,
-typed EvidenceLinks. The current schema already supports this; no migration is authorized.
+- certified `ProcessRun` remains Representation-processing / existing semantic-extraction
+  provenance; do not overload it as a generic analytical run;
+- `DerivationRun` is a distinct immutable analytical attempt over ordered exact
+  RepresentationTargets and one exact untrusted program/query;
+- every successful DerivationRun has one typed `DerivationResult`; exact reusable result slices are
+  `DerivationResultTarget`s with explicit per-target source-lineage state;
+- do not force cross-source analytical results into `Representation`; Representation remains in one
+  Artifact custody chain;
+- `VerificationRun` binds one proposition to an explicit bounded scope + Source Authority, records
+  every Derivation attempted and which exact result target(s) were consumed, and separates
+  execution outcome from epistemic verdict/sufficiency;
+- `insufficient_evidence` is a completed epistemic result, never an alias for timeout/crash/query or
+  tool failure;
+- `EvidenceLink` remains ClaimRevision -> exact source RepresentationTarget. Derivation lineage and
+  Verification evidence are execution records and must not be copied into Claim evidence
+  automatically;
+- a `derived_inference` Claim must name its exact DerivationResultTarget. Active `supports` evidence
+  must trace to source-contribution lineage for that target; independent `challenges` evidence is
+  allowed;
+- `Assessment` is an optional attributable durable judgment on a ClaimRevision, distinct from
+  review and lifecycle. Verification-based Assessment requires the same exact ClaimRevision and an
+  explicit policy for machine/rule promotion;
+- no automatic Claim, EvidenceLink or Assessment promotion is authorized;
+- egress/provider/model facts remain non-secret replaceable execution provenance, never Source
+  Authority or civic identity;
+- analytical/verification content-bearing records participate in explicit purge expansion and
+  shared ArchiveObject safety just like existing custody-bearing records.
 
-Phase D used the dedicated, keyring-backed official Codex CLI / ChatGPT subscription pattern with
-`gpt-5.6-terra`, zero semantic retries and no paid/API fallback. Its bounded result selected
-`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`: preserve explicit bounded
-Derivation execution/evidence lineage before final Verification, but do not copy Thucy's four-role
-product topology. Native Thucy remains non-imported/non-executed/non-vendored. Future metered
-OpenAI API, OpenRouter/OpenAI-compatible and other provider profiles remain allowed implementation
-profiles, not automatic fallback or semantic authority.
+Phase D used the dedicated keyring-backed official Codex CLI / ChatGPT subscription profile with
+`gpt-5.6-terra`, zero semantic retries and no paid/API fallback. The measured decision remains
+`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`; native Thucy remains
+non-imported/non-executed/non-vendored and future metered provider profiles remain allowed but are
+not automatic fallback or semantic authority.
 
 ## ¿Qué es Canario?
 

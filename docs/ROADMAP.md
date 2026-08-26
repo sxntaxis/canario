@@ -175,10 +175,17 @@ bounded Source Authority/context
 ```
 
 No four-agent runtime, Thucy vendoring or production model/provider dependency is selected. Future
-metered provider transports remain allowed profiles.
+metered provider transports remain allowed profiles. Phase-D closure is merged at `310d060c`.
 
-**Gate:** final Phase-D local closure certification, then one Derivation/Verification/Claim/Evidence
-reconciliation design pass before any prerelease `0001` rebaseline or production verifier code.
+The reconciliation design has now passed with
+`SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE`: analytical results have their own
+result/target identity and source-contribution lineage; Verification records explicit scope,
+Derivation attempts/consumption, evidence and sufficiency; derived Claims point to exact result
+targets while EvidenceLink remains source evidence; Assessment is optional and distinct from review.
+
+**Gate:** one prerelease `0001` rebaseline implementing exactly this accepted delta, followed by the
+full applicable migration/storage/purge/backup/runtime certification, before any production
+Derivation/Verification writer.
 
 
 ## Phase 5 — Mesa de control

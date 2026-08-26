@@ -79,11 +79,15 @@ tested extractor is run.
 The prior LECTOR-002 structured semantic scope is superseded after the fact-verification SOTA
 review. The deterministic `STRUCTURED-REASONING-FIT-BENCH` is certified at `0f9a71e5...`: SQLite
 remains selected and analytical provenance requires a first-class Derivation execution record.
-`STRUCTURED-VERIFIER-FIT-BENCH` Phase D is now measured and design-interpreted with
-`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`. The authorized next work is
-the minimum Derivation/Verification/Claim/Evidence reconciliation, after final local closure
-certification. This does not authorize a Thucy clone, production verifier, schema change or
-replacement semantic gold. Metered provider profiles remain allowed future transports.
+`STRUCTURED-VERIFIER-FIT-BENCH` Phase D is certified/merged and selected
+`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`. The follow-up
+Derivation/Verification/Claim/Evidence/Assessment reconciliation is now accepted with
+`SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE`.
+
+The authorized next work is the bounded prerelease `0001` rebaseline and recertification of that
+exact persistence delta. This does not authorize a Thucy clone, production verifier behavior,
+recursive derivation graph, automatic semantic promotion, or replacement semantic gold. Metered
+provider profiles remain allowed future transports.
 
 Acta 161 is retained as the first real semantic fixture because it is frozen and useful. It
 has no authority to introduce acta-specific segmentation rules or to define the universe of
