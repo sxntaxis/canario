@@ -76,11 +76,14 @@ to preserve recall pressure. Gold frozen, adjudication complete, and semantic ca
 passed are separate states, and threshold policy freezes after gold counts but before a
 tested extractor is run.
 
-The prior LECTOR-002 structured semantic scope is superseded after the fact-verification
-SOTA review. The next authorized work is the `STRUCTURED-REASONING-FIT-BENCH`: source
-extraction, reproducible derived analysis, and bounded verification are separate operations.
-This does not authorize a verifier, query executor, schema change, or replacement semantic
-gold.
+The prior LECTOR-002 structured semantic scope is superseded after the fact-verification SOTA
+review. The deterministic `STRUCTURED-REASONING-FIT-BENCH` is certified at `0f9a71e5...`: SQLite
+remains selected and analytical provenance requires a first-class Derivation execution record.
+`STRUCTURED-VERIFIER-FIT-BENCH` Phase D is now measured and design-interpreted with
+`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`. The authorized next work is
+the minimum Derivation/Verification/Claim/Evidence reconciliation, after final local closure
+certification. This does not authorize a Thucy clone, production verifier, schema change or
+replacement semantic gold. Metered provider profiles remain allowed future transports.
 
 Acta 161 is retained as the first real semantic fixture because it is frozen and useful. It
 has no authority to introduce acta-specific segmentation rules or to define the universe of

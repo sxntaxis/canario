@@ -1,6 +1,6 @@
 # Structured Reasoning Fit Bench
 
-State: **CANDIDATE IMPLEMENTATION WRITTEN - LOCAL EXECUTION/CERTIFICATION PENDING**
+State: **CERTIFIED DETERMINISTIC FOUNDATION - PHASE D AUTHORIZED**
 
 Authority:
 
@@ -16,7 +16,7 @@ review. The bench-only implementation now lives in
 `notebook/implementation/structured_reasoning_fit_bench.py` plus its isolated DuckDB
 worker and evidence subtree. It remains outside production `canario/`, introduces no
 schema/dependency change, and is not a verifier/model integration or semantic-reference
-implementation. Runtime PASS/engine selection remains pending local certification.
+implementation. Runtime PASS is certified at `0f9a71e5acb0f093469571d59c896eab0c03c4c2`; SQLite remains selected, while DuckDB is a certifiable challenger with no material required advantage demonstrated on the frozen lanes.
 
 ## Purpose and Non-Goals
 
@@ -28,9 +28,7 @@ G2: simple bounded planner/executor versus Thucy sidecar
 G3: derivation provenance fit against existing ProcessRun semantics
 ```
 
-This candidate implements the deterministic foundation for **G1 + G3** and freezes the
-query/evidence handoff needed by G2. The actual planner/Thucy comparison remains a later
-Phase D and is not run or implemented here. The foundation also makes evidence sufficiency,
+Checkpoint `0f9a71e5acb0f093469571d59c896eab0c03c4c2` certifies the deterministic foundation for **G1 + G3** and freezes the query/evidence handoff needed by G2. The actual planner/Thucy comparison is now the active Phase D and remains a separate benchmark unit. The foundation also makes evidence sufficiency,
 abstention, context and multi-evidence measurable without turning them into new Claim
 lifecycle states.
 

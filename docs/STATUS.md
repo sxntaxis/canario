@@ -103,7 +103,8 @@ accepted semantic contracts
 -> LECTOR-001 bounded semantic extraction boundary independently certified + integrated
 -> SOTA research checkpoint 7e7fd85: fact verification and structured reasoning audit complete
 -> architecture reconciliation: Lector/extraction, Derivation, Verification, Assessment separated
--> STRUCTURED-REASONING-FIT-BENCH active; no executor/verifier implementation authorized
+-> STRUCTURED-REASONING-FIT-BENCH certified at 0f9a71e; SQLite selected, DuckDB challenger retained, G3 FIRST_CLASS_DERIVATION_REQUIRED
+-> STRUCTURED-VERIFIER-FIT-BENCH Phase D measured; minimum Canario Derivation -> Verification decomposition selected; final local closure certification pending
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -222,11 +223,15 @@ and LECTOR-001 writes no synthetic human review. The certified SQL baseline rema
 unchanged at `5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb`;
 no `0002` exists.
 
-The active semantic edge is now the architecture checkpoint after the fact-verification SOTA
-review, followed by the bounded `STRUCTURED-REASONING-FIT-BENCH`. The prior LECTOR-002
-semantic campaign is superseded and must be re-scoped; it is not a currently active semantic
-gold-completion gate. Its original executable readiness model remains historical evidence,
-not replacement authority.
+The deterministic structured-reasoning foundation is certified at
+`0f9a71e5acb0f093469571d59c896eab0c03c4c2`. SQLite remains the analytical baseline; DuckDB
+remains a certifiable non-product challenger; G3 concluded `FIRST_CLASS_DERIVATION_REQUIRED`.
+`STRUCTURED-VERIFIER-FIT-BENCH` Phase D completed one eight-case, zero-retry paired campaign on
+the qualified subscription-backed Codex/Terra profile with no worker failures. The measured
+design decision is `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`: explicit
+Derivation execution/lineage must precede final Verification judgment, but Thucy's four-role
+runtime is not selected. Final local closure certification is pending. Metered provider transports
+remain allowed future profiles. The prior LECTOR-002 semantic campaign remains superseded.
 
 Research basis: `notebook/research/lector/fact-verification/synthesis/BOOK.md`, checkpoint
 `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`.

@@ -384,8 +384,7 @@ row/cell/evidence lineage. A query or program is provenance, not original source
 
 A successful proposition-worthy result may later become a Claim with
 `kind=derived_inference`; the result itself does not become a Claim merely because it
-exists. Whether existing `ProcessRun` can carry this provenance without overload, or a
-future first-class derivation run is needed, remains an open fit-bench decision.
+exists. The certified G3 fit bench closed this question with `FIRST_CLASS_DERIVATION_REQUIRED`. Existing `ProcessRun` remains the Representation-processor provenance contract; analytical query/program execution requires a distinct first-class derivation run. Persistence remains unauthorized until reconciled with Verification and Claim provenance.
 
 ### Verification and Assessment
 
@@ -759,3 +758,21 @@ SQLite candidate. The current concrete gate is the artifact/runtime proof list i
 `SQLITE_SCHEMA_CANDIDATE.md` and the adversarial findings in
 `notebook/research/pre-sql/schema/CRITICAL_REVIEW.md`; migration `0001` remains
 unauthorized until those proofs pass.
+## Derived analysis and verification execution
+
+The certified structured-reasoning fit requires a first-class `DerivationRun` distinct from
+Representation-processor `ProcessRun`. Phase D further measured material evidence value from
+stronger decomposition and selected the minimum Canario-native execution graph:
+
+```text
+canonical bounded evidence scopes
+-> DerivationRun(s): exact untrusted program/query + bounded executor + typed result/lineage
+-> VerificationRun: proposition + Source Authority + exact DerivationRun references
+-> verdict + evidence + explicit sufficiency + abstention/execution distinction
+```
+
+This is a semantic architecture boundary, not a mandatory human workflow stage. It does not freeze
+Thucy's role names/topology or a multi-agent framework. Provider transport is replaceable execution
+provenance; it is not Source Authority or verification semantics. Persistence remains pending the
+one Derivation/Verification/Claim/Evidence reconciliation design pass and applicable prerelease
+`0001` certification.

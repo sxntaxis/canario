@@ -278,9 +278,7 @@ source may itself state a calculation, which Lector may extract as what the sour
 A Derivation consumes ordered Representation/target identities and an exact bounded
 query/program. Its future provenance must include executor/runtime and configuration,
 sandbox/resource profile, terminal outcome, exact result and available row/cell/evidence
-lineage. The query/program is not original evidence. Existing `ProcessRun` versus a future
-first-class derivation record remains an open G3 fit-bench question; no table is authorized
-here.
+lineage. The query/program is not original evidence. The G3 fit bench is closed: `FIRST_CLASS_DERIVATION_REQUIRED`. Existing `ProcessRun` remains Representation-processor provenance; a distinct first-class derivation execution record is required for analytical query/program provenance. No table is authorized here yet.
 
 Verification results are execution artifacts, not Claim lifecycle state. They must keep
 technical outcome, verdict, evidence set, sufficiency, abstention reason and process/model
@@ -453,3 +451,13 @@ Only after these semantic gates pass should final SQL tables, constraints,
 indexes, cached current pointers, idempotency keys, or record hashes be reviewed
 and accepted. Artifact-backed parser/locator proofs and operational backup/restore
 proofs remain required after the corresponding implementation exists.
+## Pending analytical execution records
+
+Phase D now closes the conceptual relationship between analytical derivation and verification:
+a future `VerificationRun` must reference the exact ordered `DerivationRun` executions whose
+results it used. `DerivationRun` retains executable provenance, bounded input scopes, typed result
+identity and available result-to-source lineage; `VerificationRun` retains execution outcome,
+verdict, evidence set, explicit sufficiency, abstention reason and model/process provenance.
+Neither record is added to the current schema by this document. The next schema design must
+reconcile both records with Claim origin provenance, existing `EvidenceLink` semantics and optional
+`Assessment` without duplicate execution graphs.

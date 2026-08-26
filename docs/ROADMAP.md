@@ -153,27 +153,33 @@ pairwise relations automatically.
 requiring human clicks or losing exact citation traceability; entity anchors and
 claim relations retain their own machine/rule/human provenance.
 
-## Phase 4A — Structured Reasoning Fit Bench
+## Phase 4A — Structured Reasoning and Verifier Fit
 
-The SOTA/reuse research checkpoint `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`
-re-scoped the next technical work. This is a design/bench gate, not a new product
-stage and not a verifier implementation.
+The deterministic foundation is certified at `0f9a71e5acb0f093469571d59c896eab0c03c4c2`;
+SQLite remains selected, DuckDB remains outside product dependencies, and G3 requires a distinct
+first-class Derivation execution record.
 
-First define one deterministic relational projection from the canonical typed
-`canario.structured_table.v1` Representation. Compare a hardened SQLite baseline with
-a sandboxed DuckDB challenger over the same projection and frozen deterministic cases;
-neither engine may independently reinterpret the original XLSX. Only after that lane
-passes may a simple bounded planner/executor be compared with Thucy as an external,
-non-vendored sidecar.
+Phase D has now completed its bounded paired measurement. The Thucy-adapted lane produced no
+verdict-accuracy gain but materially improved evidence retrieval/backing (+0.333333 recall, +0.25
+evidence-backed verdict rate), at substantial invocation/egress/latency cost and with lower
+abstention precision. The design decision is
+`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`.
 
-The bench must prove projection fidelity, exact row/cell lineage, bounded no-write
-execution, deterministic results, resource termination and separate evidence quality and
-abstention metrics. It must also test whether existing `ProcessRun` can represent
-derivation provenance without overload. See
-`notebook/implementation/STRUCTURED_REASONING_FIT_BENCH.md`.
+The roadmap transfer is deliberately smaller than Thucy's topology:
 
-**Gate:** no production query executor, verifier architecture, dependency or schema
-change is authorized until the bench closes G1-G3 and the evidence/verifier gates.
+```text
+bounded Source Authority/context
+-> explicit DerivationRun planning/execution + lineage
+-> VerificationRun consumes exact DerivationRuns
+-> verdict + evidence + explicit sufficiency + abstention reason
+```
+
+No four-agent runtime, Thucy vendoring or production model/provider dependency is selected. Future
+metered provider transports remain allowed profiles.
+
+**Gate:** final Phase-D local closure certification, then one Derivation/Verification/Claim/Evidence
+reconciliation design pass before any prerelease `0001` rebaseline or production verifier code.
+
 
 ## Phase 5 — Mesa de control
 

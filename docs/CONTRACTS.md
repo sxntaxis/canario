@@ -256,9 +256,7 @@ row/cell/evidence lineage. The query/program is provenance and never original so
 evidence. A successful result may support a Claim with `kind=derived_inference`, but does
 not automatically become a Claim.
 
-Whether this provenance fits the existing `ProcessRun` contract or needs a future
-first-class derivation record is an open fit-bench question. No schema change is authorized
-by this boundary.
+The certified G3 fit bench at `0f9a71e5acb0f093469571d59c896eab0c03c4c2` concluded `FIRST_CLASS_DERIVATION_REQUIRED`: existing `ProcessRun` semantics are Representation-processor-shaped and may not be overloaded as the canonical analytical execution record. A distinct first-class derivation execution contract is required. No schema change is authorized until that contract is reconciled with Verification and Claim provenance.
 
 **Verification** evaluates a proposition against an explicitly bounded evidence scope.
 A verifier-result-like artifact keeps these axes separate:
@@ -277,6 +275,12 @@ Timeout, crash, invalid query and tool failure are execution failures, not
 `retract`, `supersede` or equivalent). The existing optional attributable `Assessment`
 remains the durable judgment that may later be recorded or promoted by policy from a
 specific verifier result.
+
+Phase D measured material value from stronger decomposition in evidence retrieval/backing without a
+verdict-accuracy gain. The accepted minimum contract is therefore Canario-native: a Verification
+execution references the exact ordered `DerivationRun` executions whose results it used, while
+keeping verdict, evidence set, explicit sufficiency and execution outcome separate. No Thucy role
+class or multi-agent runtime is part of this contract.
 
 Evidence sufficiency is initially typed result information, not a new entity or table. It
 records whether the bounded scope was adequate, whether required coverage was missing and

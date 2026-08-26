@@ -1,11 +1,11 @@
 # Structured Reasoning Fit Bench — deterministic foundation
 
-State: **candidate; local execution/certification pending**
+State: **certified deterministic foundation; Phase D authorized**
 
-Authority parent:
+Certified checkpoint:
 
 ```text
-516ddd613bf58ef412d59bf4600652c8045c9c6b
+0f9a71e5acb0f093469571d59c896eab0c03c4c2
 ```
 
 This subtree contains bench artifacts only. It does not define production schema or

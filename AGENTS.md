@@ -208,8 +208,11 @@ Rules for agents/contributors:
   perform canonical cutover;
 - broad ClaimRelations created during `claim_extract` are same-run only and obey the
   candidate/basis rules in `notebook/implementation/LECTOR_001_DESIGN.md`;
-- the active semantic edge is now the architecture reconciliation plus
-  `STRUCTURED-REASONING-FIT-BENCH`; the prior LECTOR-002 semantic campaign is
+- the deterministic `STRUCTURED-REASONING-FIT-BENCH` is certified at
+  `0f9a71e5acb0f093469571d59c896eab0c03c4c2`; `STRUCTURED-VERIFIER-FIT-BENCH` Phase D
+  measured material decomposition value and selected a minimum Canario-native
+  Derivation -> Verification split. Final local closure certification is pending. The prior
+  LECTOR-002 semantic campaign is
   superseded and must be re-scoped before replacement reference work. Acta 161 is
   case `CR-ESPARZA-MINUTES-001` and cannot establish general extraction quality by itself;
 - LECTOR-002 fixture genre labels are optional `benchmark_archetypes`, not registered
@@ -265,8 +268,10 @@ mandatory human product stage or an authorized production subsystem yet.
 Derivation provenance includes ordered input Representation/target identities, the exact
 query/program, executor/runtime and configuration identity, sandbox/resource profile,
 terminal outcome, exact result and available source-row/cell lineage. The query/program is
-provenance, never original source evidence. Whether existing `ProcessRun` is sufficient or a
-future first-class derivation run is needed remains an open G3 fit-bench result.
+provenance, never original source evidence. G3 is closed at `0f9a71e5...` with
+`FIRST_CLASS_DERIVATION_REQUIRED`: existing `ProcessRun` remains Representation-processor
+provenance and may not be overloaded as the canonical analytical execution record. No Derivation persistence/schema change is authorized until the selected Derivation -> Verification
+relationship is reconciled once with Claim provenance and EvidenceLink semantics.
 
 Verifier results keep execution outcome, verdict, evidence set, evidence sufficiency,
 abstention reason and model/process provenance separate. `supported`, `contradicted` and
@@ -279,6 +284,14 @@ Evidence sufficiency is initially typed result information, not a new entity/tab
 `ContextEnvelope` is bounded interpretation material and is distinct from the smallest
 reopenable evidence locator. One proposition may use multiple independently reopenable,
 typed EvidenceLinks. The current schema already supports this; no migration is authorized.
+
+Phase D used the dedicated, keyring-backed official Codex CLI / ChatGPT subscription pattern with
+`gpt-5.6-terra`, zero semantic retries and no paid/API fallback. Its bounded result selected
+`DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`: preserve explicit bounded
+Derivation execution/evidence lineage before final Verification, but do not copy Thucy's four-role
+product topology. Native Thucy remains non-imported/non-executed/non-vendored. Future metered
+OpenAI API, OpenRouter/OpenAI-compatible and other provider profiles remain allowed implementation
+profiles, not automatic fallback or semantic authority.
 
 ## ¿Qué es Canario?
 
