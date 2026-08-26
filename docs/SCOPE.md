@@ -84,12 +84,12 @@ remains selected and analytical provenance requires a first-class Derivation exe
 Derivation/Verification/Claim/Evidence/Assessment reconciliation is now accepted with
 `SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE`.
 
-The bounded prerelease `0001` rebaseline is certified and merged at `0e0f56a0`. The authorized
-current gate is the bounded `canario.reasoning` runtime/API candidate over that frozen schema. It
-keeps backends persistence-blind, requires exact materializers before a narrow source/result scope
-can expose bytes, and leaves Claim/Evidence/Assessment promotion explicit. This does not authorize a
-Thucy clone, recursive derivation graph, automatic semantic promotion, or replacement semantic
-gold. Metered provider profiles remain allowed future transports.
+The bounded prerelease `0001` rebaseline is certified and merged at `0e0f56a0`, and the generic
+`canario.reasoning` runtime/API is certified and merged at `b8535195`. The authorized current gate is
+the first concrete structured SQLite consumer over that frozen boundary: exact bounded structured
+material, deterministic Derivation, explicit Source Authority, and deterministic scalar Verification.
+It does not authorize a Thucy clone, recursive derivation graph, schema change, automatic semantic
+promotion, or replacement semantic gold. Metered provider profiles remain allowed future transports.
 
 Acta 161 is retained as the first real semantic fixture because it is frozen and useful. It
 has no authority to introduce acta-specific segmentation rules or to define the universe of

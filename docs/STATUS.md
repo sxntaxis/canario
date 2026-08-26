@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: DERIVATION_VERIFICATION_RUNTIME_CANDIDATE
+state: STRUCTURED_REASONING_RUNTIME_CANDIDATE
 created: 2026-08-19
 updated: 2026-08-26
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The Derivation/Verification schema rebaseline is certified and merged. A bounded canario.reasoning runtime/writer candidate now implements the frozen cross-row invariants without schema changes; independent exact SQLite 3.53.4 certification remains pending before runtime authority.
+summary: The frozen Derivation/Verification schema and generic canario.reasoning runtime are certified and merged. The active candidate is the first concrete structured SQLite Derivation/Verification consumer; exact-runtime plus retained natural-MTSS certification remains pending.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -107,7 +107,8 @@ accepted semantic contracts
 -> STRUCTURED-VERIFIER-FIT-BENCH Phase D locally certified and merged at 310d060c; minimum Canario decomposition selected
 -> DERIVATION-VERIFICATION reconciliation merged at 0130762a; SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
 -> prerelease 0001 Derivation/Verification rebaseline certified and merged at 0e0f56a0
--> bounded canario.reasoning Derivation/Verification runtime candidate implemented; exact-runtime certification pending
+-> bounded canario.reasoning Derivation/Verification runtime certified and merged at b8535195
+-> first production structured SQLite Derivation/Verification consumer implemented as candidate; exact-runtime + retained natural-MTSS proof pending
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -135,11 +136,19 @@ Its certified inventory is 71 STRICT tables, 3 FTS tables, 135 explicit indexes 
 paths with zero scans. It passed the exact registered SQLite 3.53.4 runtime, selector,
 backup/restore/purge, full-suite and fresh-clone gates before merge at `0e0f56a0`.
 
-The active implementation edge is now `canario.reasoning`: typed Derivation/Verification backend
-contracts, a core-owned host/writer, conservative selector containment, explicit derived-Claim and
-Assessment writes, and host-owned bounded materialization. The default runtime refuses to expose a
-narrow source/result target as the containing full bytes unless an exact materializer for that
-selector is registered. No schema changes are part of this runtime candidate.
+The generic `canario.reasoning` runtime is certified and merged at `b8535195`: typed
+Derivation/Verification backend contracts, a core-owned host/writer, conservative selector
+containment, explicit derived-Claim and Assessment writes, and host-owned bounded materialization.
+The runtime refuses to expose a narrow source/result target as containing full bytes unless an exact
+materializer is registered.
+
+The active edge is its first concrete consumer: `StructuredSQLiteDerivationBackend` plus
+`StructuredScalarVerifierBackend`. The candidate runs untrusted SELECTs only against a disposable
+in-memory projection of one exact `canario.structured_table.v1` target, binds the executor policy and
+exact program identity into verification, and requires Source Authority. Final authorization needs the exact official MTSS XLSX proof, the corrected MTSS production
+Representation identity plus historical 147x15 structural controls, and the registered SQLite
+3.53.4 runtime. No
+schema change is part of this unit.
 
 The independently certified WORKBENCH/DIRECT/OCR baseline
 `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior

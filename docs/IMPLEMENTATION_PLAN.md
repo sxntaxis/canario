@@ -271,12 +271,16 @@ The prerelease `0001` rebaseline implementing the accepted reconciliation delta 
 freeze/storage/backup/purge/runtime certification on the exact registered SQLite 3.53.4 source ID
 and is merged at `0e0f56a0`.
 
-**Current gate:** independently certify the bounded `canario.reasoning` runtime/API candidate. Its
-host/writer pattern must enforce selector containment, bounded source/result materialization,
-Derivation result/lineage cardinality, Verification scope/Source Authority and attempted-vs-consumed
-semantics, explicit derived-Claim promotion, and same-Claim/policy Assessment rules without changing
-`0001`. No multi-agent runtime, Thucy vendoring, provider/model dependency, recursive Derivation
-graph, or automatic Claim/Evidence/Assessment promotion is authorized by this unit.
+The bounded generic `canario.reasoning` runtime/API passed independent exact-runtime certification
+and is merged at `b8535195`. Backends remain persistence-blind, narrow source/result materialization
+fails closed without an exact materializer, and Claim/Evidence/Assessment promotion remains explicit.
+
+**Current gate:** independently certify the first concrete production consumer: bounded structured
+SQLite Derivation plus deterministic scalar Verification. It must bind exact program/configuration
+identity, explicit Source Authority and conservative source lineage; pass the exact registered
+SQLite 3.53.4 runtime; and reproduce the exact official MTSS source plus its newly frozen production structured hash,
+historical 147x15 structural controls, and 147-row natural proof. No schema change, multi-agent runtime, provider dependency, recursive
+Derivation graph, or automatic semantic promotion is authorized by this unit.
 
 
 ## WP6 — Review and Operator Workflow

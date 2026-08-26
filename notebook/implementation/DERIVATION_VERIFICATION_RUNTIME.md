@@ -1,6 +1,6 @@
-# Derivation / Verification runtime candidate
+# Derivation / Verification runtime
 
-State: **IMPLEMENTED CANDIDATE — EXACT RUNTIME CERTIFICATION PENDING**
+State: **CERTIFIED AND MERGED**
 
 Authority chain:
 
@@ -11,7 +11,8 @@ reconciliation merge:                    0130762a82b9b5e93a2ebd5231cfcf0e475ecd6
 reconciliation decision:                 SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
 schema rebaseline merge:                 0e0f56a0c038deebbf55f69e96cbe5f1cc463704
 frozen 0001 SHA256:                      8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
-runtime topic branch:                    implementation/derivation-verification-runtime
+certified runtime commit:                 4c9ce110e32696b2379e88af82734dbc8378edfb
+runtime merge:                            b853519580f75f42385ac11d5a6d7bd4130118d0
 ```
 
 ## Purpose
@@ -242,9 +243,9 @@ truthfully record zero bytes.
 The backend never receives credentials from the writer. Provider/model identity is execution
 provenance, not Source Authority or verification semantics.
 
-## 9. Candidate regression evidence
+## 9. Certification evidence
 
-Portable candidate result before independent target-runtime certification:
+Independent exact-runtime certification result:
 
 ```text
 reasoning focused:                22 passed
@@ -274,17 +275,16 @@ The focused suite includes:
 - exact creation timestamp as retry identity;
 - non-canonical verification profile payload rejected before backend invocation.
 
-## 10. Certification gate
+## 10. Closure
 
-This candidate is not authoritative until an independent local pass verifies the exact overlay and
-runs the focused/full suite on the registered SQLite 3.53.4 source ID, followed by fresh-clone
-validation. That pass must also prove:
+Independent certification passed on the exact registered SQLite 3.53.4 source ID with the frozen
+`0001`, focused/full regression suites, compile/diff checks, and clean fresh clone. The certified
+commit `4c9ce110e32696b2379e88af82734dbc8378edfb` was merged through PR #4 at
+`b853519580f75f42385ac11d5a6d7bd4130118d0`. The full-history certification bundle SHA256 was:
 
-- `canario/persistence/migrations/0001.sql` is unchanged at the certified SHA256;
-- `MIGRATION_0001_SPEC.sql` is unchanged;
-- no `0002+` exists;
-- existing Workbench and Lector focused suites remain green;
-- no production provider/model or Thucy dependency was introduced.
+```text
+1e8750694231ac8202ac08f5d90d24b129a3fe0a2a184c15084aa850f8080b66
+```
 
-A successful certification may publish one commit on
-`implementation/derivation-verification-runtime`. Schema redesign is not part of that closure.
+This closes the generic runtime. Concrete analytical/verifier consumers must prove their own
+executor/materialization semantics without reopening this boundary merely for convenience.
