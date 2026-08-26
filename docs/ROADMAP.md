@@ -187,10 +187,13 @@ The prerelease `0001` rebaseline implementing this accepted delta passed the exa
 SQLite 3.53.4 migration/storage/purge/backup/runtime and fresh-clone gates and is merged at
 `0e0f56a0`.
 
-**Gate:** certify the bounded `canario.reasoning` runtime/API over that frozen schema. Backends must
-remain persistence-blind; narrow source/result selectors require exact materializers; execution
-failure remains distinct from epistemic abstention; and Claim/Evidence/Assessment promotion remains
-explicit. Do not reopen schema or introduce a generic operation graph merely to implement writers.
+The bounded generic `canario.reasoning` runtime/API is certified and merged at `b8535195` without a
+schema change.
+
+**Gate:** certify its first concrete structured SQLite consumer on the exact SQLite 3.53.4 runtime
+and the retained official MTSS workbook. The proof must persist a source-backed Derivation and
+supported Verification, while a source-independent constant yielding the same value must abstain as
+`insufficient_evidence`. Do not reopen schema or introduce a generic operation graph for this lane.
 
 
 ## Phase 5 — Mesa de control

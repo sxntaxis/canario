@@ -504,9 +504,60 @@ class VerificationDerivationSnapshot:
     ordinal: int
     derivation_run_id: str
     use_state: str
+    implementation_key: str
+    implementation_version: str
+    configuration_hash: str | None
+    executor_key: str
+    executor_version: str
+    executor_source_id: str | None
+    sandbox_profile_key: str
+    sandbox_profile_version: str
+    operation_kind: str
+    program_kind: str
+    program_sha256: str
     outcome: str
     error_code: str | None
     consumed_result: ConsumedDerivationSnapshot | None
+
+    def __post_init__(self) -> None:
+        if isinstance(self.ordinal, bool) or not isinstance(self.ordinal, int) or self.ordinal < 0:
+            raise ValueError("verification derivation ordinal must be non-negative")
+        validate_id(self.derivation_run_id, "drun_")
+        if self.use_state not in DERIVATION_USE_STATES:
+            raise ValueError("verification derivation use_state is invalid")
+        require_token(self.implementation_key, "verification derivation implementation key")
+        require_nonempty(
+            self.implementation_version, "verification derivation implementation version"
+        )
+        validate_sha256(self.configuration_hash, "verification derivation configuration hash")
+        require_token(self.executor_key, "verification derivation executor key")
+        require_nonempty(self.executor_version, "verification derivation executor version")
+        _optional_nonempty(self.executor_source_id, "verification derivation executor source id")
+        require_token(self.sandbox_profile_key, "verification derivation sandbox profile key")
+        require_nonempty(
+            self.sandbox_profile_version, "verification derivation sandbox profile version"
+        )
+        if self.operation_kind not in DERIVATION_OPERATION_KINDS:
+            raise ValueError("verification derivation operation_kind is invalid")
+        if self.program_kind not in DERIVATION_PROGRAM_KINDS:
+            raise ValueError("verification derivation program_kind is invalid")
+        validate_sha256(self.program_sha256, "verification derivation program SHA")
+        if self.outcome not in DERIVATION_OUTCOMES:
+            raise ValueError("verification derivation outcome is invalid")
+        if self.outcome == "success":
+            if self.error_code is not None:
+                raise ValueError("successful Verification derivation snapshot cannot carry error")
+        else:
+            _optional_nonempty(self.error_code, "verification derivation error code")
+            if self.error_code is None:
+                raise ValueError("failed Verification derivation snapshot requires error code")
+        if self.use_state == "attempted" and self.consumed_result is not None:
+            raise ValueError("attempted Verification derivation cannot carry consumed result")
+        if self.use_state == "consumed":
+            if self.outcome != "success":
+                raise ValueError("consumed Verification derivation must be successful")
+            if self.consumed_result is None:
+                raise ValueError("consumed Verification derivation requires consumed result")
 
 
 @dataclass(frozen=True, slots=True)

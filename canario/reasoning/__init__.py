@@ -32,6 +32,19 @@ from .registries import (
     SourceMaterializerRegistry,
     VerificationProfileRegistry,
 )
+
+from .structured_sqlite import (
+    QUERY_RESULT_FORMAT,
+    QUERY_RESULT_SCHEMA_KEY,
+    QUERY_RESULT_SCHEMA_VERSION,
+    ScalarVerificationRule,
+    StructuredQueryRejected,
+    StructuredReasoningError,
+    StructuredSQLiteDerivationBackend,
+    StructuredSQLitePolicy,
+    StructuredScalarVerifierBackend,
+)
+
 from .writer import (
     AssessmentReceipt,
     DerivationReceipt,
@@ -45,6 +58,15 @@ from .writer import (
 )
 
 __all__ = [
+    "QUERY_RESULT_FORMAT",
+    "QUERY_RESULT_SCHEMA_KEY",
+    "QUERY_RESULT_SCHEMA_VERSION",
+    "ScalarVerificationRule",
+    "StructuredQueryRejected",
+    "StructuredReasoningError",
+    "StructuredSQLiteDerivationBackend",
+    "StructuredSQLitePolicy",
+    "StructuredScalarVerifierBackend",
     "AssessmentReceipt",
     "AssessmentRequest",
     "ConsumedDerivationSnapshot",

@@ -472,7 +472,10 @@ class ReasoningWriter:
             derivations: list[VerificationDerivationSnapshot] = []
             for ordinal, step in enumerate(request.derivation_steps):
                 run = con.execute(
-                    "SELECT outcome,error_code FROM derivation_runs WHERE id=?",
+                    "SELECT implementation_key,implementation_version,configuration_hash,"
+                    "executor_key,executor_version,executor_source_id,sandbox_profile_key,"
+                    "sandbox_profile_version,operation_kind,program_kind,program_sha256,outcome,error_code "
+                    "FROM derivation_runs WHERE id=?",
                     (step.derivation_run_id,),
                 ).fetchone()
                 if run is None:
@@ -480,7 +483,7 @@ class ReasoningWriter:
                 self._validate_derivation_inside_scope(con, step.derivation_run_id, scopes)
                 consumed_result = None
                 if step.use_state == "consumed":
-                    if run[0] != "success":
+                    if run[11] != "success":
                         raise ReasoningInvariantError("Verification cannot consume a failed DerivationRun")
                     assert step.derivation_result_target_id is not None
                     consumed_result = self._load_consumed_derivation(
@@ -488,7 +491,23 @@ class ReasoningWriter:
                     )
                 derivations.append(
                     VerificationDerivationSnapshot(
-                        ordinal, step.derivation_run_id, step.use_state, run[0], run[1], consumed_result
+                        ordinal,
+                        step.derivation_run_id,
+                        step.use_state,
+                        run[0],
+                        run[1],
+                        run[2],
+                        run[3],
+                        run[4],
+                        run[5],
+                        run[6],
+                        run[7],
+                        run[8],
+                        run[9],
+                        run[10],
+                        run[11],
+                        run[12],
+                        consumed_result,
                     )
                 )
             return VerificationInvocation(request, scopes, authority_scopes, tuple(derivations))
@@ -1051,14 +1070,18 @@ class ReasoningWriter:
         derivations: list[VerificationDerivationSnapshot] = []
         for ordinal, step in enumerate(request.derivation_steps):
             run = con.execute(
-                "SELECT outcome,error_code FROM derivation_runs WHERE id=?", (step.derivation_run_id,)
+                "SELECT implementation_key,implementation_version,configuration_hash,"
+                "executor_key,executor_version,executor_source_id,sandbox_profile_key,"
+                "sandbox_profile_version,operation_kind,program_kind,program_sha256,outcome,error_code "
+                "FROM derivation_runs WHERE id=?",
+                (step.derivation_run_id,),
             ).fetchone()
             if run is None:
                 raise ReasoningInvariantError("Verification Derivation disappeared before commit")
             self._validate_derivation_inside_scope(con, step.derivation_run_id, scopes)
             consumed_result = None
             if step.use_state == "consumed":
-                if run[0] != "success":
+                if run[11] != "success":
                     raise ReasoningInvariantError("Verification consumed Derivation is no longer successful")
                 assert step.derivation_result_target_id is not None
                 consumed_result = self._load_consumed_derivation(
@@ -1066,7 +1089,23 @@ class ReasoningWriter:
                 )
             derivations.append(
                 VerificationDerivationSnapshot(
-                    ordinal, step.derivation_run_id, step.use_state, run[0], run[1], consumed_result
+                    ordinal,
+                    step.derivation_run_id,
+                    step.use_state,
+                    run[0],
+                    run[1],
+                    run[2],
+                    run[3],
+                    run[4],
+                    run[5],
+                    run[6],
+                    run[7],
+                    run[8],
+                    run[9],
+                    run[10],
+                    run[11],
+                    run[12],
+                    consumed_result,
                 )
             )
         fresh = VerificationInvocation(request, scopes, authority_scopes, tuple(derivations))
@@ -1631,6 +1670,17 @@ class ReasoningWriter:
                     item.ordinal,
                     item.derivation_run_id,
                     item.use_state,
+                    item.implementation_key,
+                    item.implementation_version,
+                    item.configuration_hash,
+                    item.executor_key,
+                    item.executor_version,
+                    item.executor_source_id,
+                    item.sandbox_profile_key,
+                    item.sandbox_profile_version,
+                    item.operation_kind,
+                    item.program_kind,
+                    item.program_sha256,
                     item.outcome,
                     item.error_code,
                     None
