@@ -267,11 +267,16 @@ accepted with `SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE` an
 `DerivationRun/DerivationResult/DerivationResultTarget`, `VerificationRun`, derived-Claim origin,
 source `EvidenceLink`, and optional `Assessment` semantics without a generic operation graph.
 
-**Current gate:** the prerelease `0001` rebaseline candidate now implements exactly the accepted
-reconciliation delta. Independently rerun schema freeze/storage/backup/purge/runtime certification
-on the exact registered SQLite 3.53.4 runtime and fresh clone before merge. No production verifier writer, multi-agent runtime, Thucy vendoring,
-provider/model dependency, recursive Derivation graph, or automatic Claim/Evidence/Assessment
-promotion is authorized before that persistence gate passes.
+The prerelease `0001` rebaseline implementing the accepted reconciliation delta passed schema
+freeze/storage/backup/purge/runtime certification on the exact registered SQLite 3.53.4 source ID
+and is merged at `0e0f56a0`.
+
+**Current gate:** independently certify the bounded `canario.reasoning` runtime/API candidate. Its
+host/writer pattern must enforce selector containment, bounded source/result materialization,
+Derivation result/lineage cardinality, Verification scope/Source Authority and attempted-vs-consumed
+semantics, explicit derived-Claim promotion, and same-Claim/policy Assessment rules without changing
+`0001`. No multi-agent runtime, Thucy vendoring, provider/model dependency, recursive Derivation
+graph, or automatic Claim/Evidence/Assessment promotion is authorized by this unit.
 
 
 ## WP6 — Review and Operator Workflow
