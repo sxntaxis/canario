@@ -2136,7 +2136,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise SystemExit(f"LECTOR_002_REFERENCE_ERROR: {exc}") from exc
 
     rendered = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
-    if getattr(args, "output", None):
+    if getattr(args, "output", None) and args.command != "export-assisted-review":
         args.output.write_text(rendered, encoding="utf-8")
     print(rendered, end="")
     return 0

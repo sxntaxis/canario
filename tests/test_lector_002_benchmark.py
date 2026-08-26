@@ -858,6 +858,17 @@ def test_export_assisted_text_batch_contains_full_exact_unit_and_context(tmp_pat
     assert "Unidad exacta 3: texto completo." in rendered
 
 
+def test_cli_export_keeps_requested_output_as_markdown(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=2)
+    output = tmp_path / "cli-batch.md"
+    bench.main([
+        "export-assisted-review", "--packet", str(packet), "--output", str(output), "--count", "1",
+    ])
+    assert output.read_text(encoding="utf-8").startswith("# Canario — lote de referencia asistida")
+    assert "CANARIO_ASSISTED_BATCH_META" in output.read_text(encoding="utf-8")
+    assert json.loads(capsys.readouterr().out)["unit_count"] == 1
+
+
 def test_import_assisted_table_decision_writes_truth_and_provenance(tmp_path: Path) -> None:
     packet = _review_packet(tmp_path, table=True, unit_count=2)
     batch = _batch_meta(packet, ["1:R1"])
