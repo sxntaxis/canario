@@ -219,8 +219,10 @@ Rules for agents/contributors:
   matrix; it does not require inventing a universal record class;
 - each declared capability states its verification mode. Representation/evidence invariants
   use deterministic proof from frozen bytes and exact reopening; semantic-stress capabilities
-  require independent human gold and adjudication. Do not create human annotation work for a
-  property that can be mechanically certified;
+  require a frozen, human-approved semantic reference plus candidate adjudication. The active
+  reference workflow may use declared AI assistance, but it must preserve explicit human approval
+  and keep tested-extractor output unseen until the reference is frozen. Do not create annotation
+  work for a property that can be mechanically certified;
 - the benchmark must report `certification_scope = declared_capabilities_only` and
   `universal_support_claimed = false`. No finite corpus certifies every possible future
   document, container or medium;
@@ -230,19 +232,22 @@ Rules for agents/contributors:
 - current fixture-selection archetypes (minutes, report/audit, correspondence,
   normative/contractual, structured data, timed media) are useful stress sources, not
   ontology. Coverage is accepted only through appropriate typed evidence evaluators;
-- benchmark assistance may reduce reviewer search but cannot silently become gold truth
-  or final semantic adjudication. Human gold review may record `needs_adjudication`;
-  uncertainty must be resolved by a later independent review, never coerced into
-  `truth_recorded` or `no_material_truth`. Do not inspect a tested extractor's output
-  for a case before that case's independent gold set is frozen.
-- LECTOR-002 semantic gold uses independent `gold_scope_state`, `gold_state`,
+- benchmark assistance must be explicit provenance, never silently presented as independent
+  human gold. The active mode is `human_ai_assisted`: assistant proposals require explicit human
+  approval, exact evidence must reopen mechanically, and `needs_adjudication` remains unresolved
+  until a later review. Do not inspect a tested extractor's output for a case before that case's
+  semantic reference is frozen. If reference assistant and tested extractor share a model/family/
+  provider, or independence is unknown, record that limitation and require an independent
+  second-review sample before treating semantic PASS as strong certification evidence.
+- LECTOR-002 semantic reference uses independent `gold_scope_state`, `gold_state`,
   `adjudication_state`, and per-capability `semantic_verification` with an immutable
   result digest. Gold/adjudication alone never verifies a semantic capability;
   thresholds freeze after gold counts and before tested extractor output.
-- Structured-data gold may use a deterministic structural sample, which proves only
-  that selected scope. Longform completeness uses full source order. Human review
-  packets must keep non-selected units explicitly `unjudged` and must contain no
-  candidates, truths, or semantic-model annotation calls before review.
+- Structured-data reference may use a deterministic structural sample, which proves only
+  that selected scope. Longform completeness uses full source order. Review packets must keep
+  non-selected units explicitly `unjudged` and must contain no candidates or truths before
+  review. `semantic_model_calls=0` in the frozen scope records that the scope was fixed before
+  assistance; later AI assistance is declared separately in reference provenance.
 
 ## ¿Qué es Canario?
 

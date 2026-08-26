@@ -5,9 +5,10 @@ This module is intentionally source-format agnostic at the semantic layer.
 ``prepare`` partitions an exact UTF-8 Representation using only generic textual
 structure (page separators, blank-line blocks, and bounded continuations). It
 never recognizes acta vocabulary, institutions, decisions, speakers, or other
-source-specific semantics. Humans remain responsible for gold propositions and
-candidate-to-truth adjudication; ``score`` validates exact evidence reopening and
-computes metrics from those explicit judgments.
+source-specific semantics. Reference propositions remain explicitly approved by a human. Semantic assistance may
+be declared and recorded before the reference is frozen, but tested-extractor output
+must remain unseen until after that freeze. ``score`` validates exact evidence reopening
+and computes metrics from those explicit judgments.
 """
 
 from __future__ import annotations
@@ -33,6 +34,8 @@ PREPARATION_VERSION = "lector-002-reference-text:v2"
 TYPED_PREPARATION_VERSION = "lector-002-typed-evidence:v1"
 GOLD_SCOPE_VERSION = "lector-002-gold-scope:v1"
 GOLD_PROTOCOL_VERSION = "lector-002-gold-protocol:v1"
+ASSISTED_REFERENCE_VERSION = "lector-002-assisted-reference:v1"
+ASSISTED_BATCH_VERSION = "lector-002-assisted-batch:v1"
 MAX_UNIT_CHARS = 4_000
 PREFERRED_SPLIT_CHARS = 2_800
 
@@ -128,7 +131,7 @@ def create_gold_scope(
     selection_policy: str,
     semantic_capabilities: Sequence[str],
 ) -> dict[str, object]:
-    """Create the immutable, source-bound scope used by future human gold."""
+    """Create the immutable, source-bound scope used by the future semantic reference."""
     if selection_kind not in {"full_source_order", "deterministic_structural_sample"}:
         raise BenchmarkError(f"invalid gold scope selection_kind {selection_kind!r}")
     selected = list(unit_ids)
@@ -321,7 +324,7 @@ def _write_csv(path: Path, fieldnames: Sequence[str], rows: Iterable[dict[str, o
 
 
 def prepare(source_path: Path, output_dir: Path, source_label: str | None = None) -> dict[str, object]:
-    """Prepare one exact UTF-8 text Representation for independent gold review.
+    """Prepare one exact UTF-8 text Representation for extractor-blind reference review.
 
     This is one evaluator mode in the wider LECTOR-002 corpus. Structured table
     and timed-media evidence require their own typed evaluator modes and must not
@@ -774,7 +777,7 @@ def _score_rows(
         has_truth = bool(truths_by_unit[unit_id])
         if state == "needs_adjudication":
             raise BenchmarkError(
-                f"unit {unit_id!r} still needs human gold adjudication before freeze/scoring"
+                f"unit {unit_id!r} still needs reference adjudication before freeze/scoring"
             )
         if state == "truth_recorded" and not has_truth:
             raise BenchmarkError(f"unit {unit_id!r} says truth_recorded but has no truth row")
@@ -1035,7 +1038,6 @@ def review_status(
     }
 
 
-REVIEW_NOTES_FIELDS = ["unit_id", "rough_human_note", "uncertainty_note", "updated_at_utc"]
 IMMUTABLE_PACKET_FILES = (
     "gold_scope.json",
     "manifest.json",
@@ -1045,10 +1047,6 @@ IMMUTABLE_PACKET_FILES = (
     "units.csv",
     "selected_units.csv",
 )
-
-
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def _atomic_write_bytes(path: Path, data: bytes) -> None:
@@ -1130,55 +1128,6 @@ def _verify_packet_identity(packet: Path, source: Path, immutable: dict[str, str
             raise BenchmarkError(f"review packet immutable file changed during the session: {name}")
 
 
-def _load_review_notes(path: Path) -> dict[str, dict[str, str]]:
-    if not path.exists():
-        return {}
-    return _unique_rows(_read_csv(path), "unit_id", "review_notes.csv")
-
-
-def _save_review_files(
-    packet: Path,
-    coverage_rows: Sequence[dict[str, str]],
-    notes: dict[str, dict[str, str]],
-    *,
-    backup_created: bool,
-) -> bool:
-    if not backup_created:
-        backup_root = packet / ".review-backups"
-        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-        backup_dir = backup_root / stamp
-        suffix = 1
-        while backup_dir.exists():
-            backup_dir = backup_root / f"{stamp}-{suffix}"
-            suffix += 1
-        backup_dir.mkdir(parents=True, exist_ok=False)
-        shutil.copy2(packet / "coverage.csv", backup_dir / "coverage.csv")
-        notes_path = packet / "review_notes.csv"
-        if notes_path.exists():
-            shutil.copy2(notes_path, backup_dir / "review_notes.csv")
-        backup_created = True
-    coverage_fields = list(coverage_rows[0]) if coverage_rows else ["unit_id", "review_state", "notes"]
-    _atomic_write_bytes(packet / "coverage.csv", _csv_bytes(coverage_fields, coverage_rows))
-    if notes:
-        _atomic_write_bytes(packet / "review_notes.csv", _csv_bytes(REVIEW_NOTES_FIELDS, notes.values()))
-    elif (packet / "review_notes.csv").exists():
-        _atomic_write_bytes(packet / "review_notes.csv", _csv_bytes(REVIEW_NOTES_FIELDS, ()))
-    return backup_created
-
-
-def _format_typed_row(unit: dict[str, str]) -> str:
-    try:
-        cells = json.loads(unit.get("cells_json", "[]"))
-    except json.JSONDecodeError:
-        cells = unit.get("cells_json", "")
-    payload = {
-        "hoja": unit.get("sheet", ""),
-        "fila": unit.get("row_start", ""),
-        "celdas": cells,
-    }
-    return json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=False)
-
-
 def _load_display_units(
     packet: Path, source: Path, scope: dict[str, object]
 ) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
@@ -1193,43 +1142,119 @@ def _load_display_units(
     return all_units, selected
 
 
-def _render_unit(unit: dict[str, str], source: Path, *, context: bool = False) -> str:
+def _assisted_batch_core(
+    *,
+    packet: Path,
+    source: Path,
+    scope: dict[str, object],
+    unit_ids: Sequence[str],
+    review_stage: str = "initial",
+) -> dict[str, object]:
+    if review_stage not in {"initial", "adjudication"}:
+        raise BenchmarkError("assisted-review batch has invalid review stage")
+    manifest = _packet_manifest(packet)
+    return {
+        "version": ASSISTED_BATCH_VERSION,
+        "case_id": scope["case_id"],
+        "evaluator_mode": manifest.get("evaluator_mode", ""),
+        "source_sha256": _sha256_bytes(source.read_bytes()),
+        "units_sha256": _unit_file_sha256(packet / "units.csv"),
+        "gold_scope_sha256": _sha256_bytes((packet / "gold_scope.json").read_bytes()),
+        "selected_unit_ids": list(unit_ids),
+        "review_stage": review_stage,
+    }
+
+
+def _assisted_batch_identity(core: dict[str, object]) -> str:
+    return _sha256_json(core)
+
+
+def _typed_value_for_human(cell: dict[str, object]) -> str:
+    value = cell.get("value")
+    if not isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=False)
+    kind = value.get("type")
+    raw = value.get("value")
+    if kind == "formula":
+        return f"fórmula {value.get('formula', raw)}"
+    if kind == "boolean":
+        return "verdadero" if raw is True else "falso" if raw is False else str(raw)
+    if raw is None:
+        return "(vacío)"
+    return str(raw)
+
+
+def _render_assisted_table_row(unit: dict[str, str], *, marker: str) -> str:
+    try:
+        cells = json.loads(unit.get("cells_json", "[]"))
+    except json.JSONDecodeError as exc:
+        raise BenchmarkError("typed review unit has invalid cells_json") from exc
+    if not isinstance(cells, list):
+        raise BenchmarkError("typed review unit cells_json must be a cell list")
+    parts: list[str] = []
+    for cell in cells:
+        if not isinstance(cell, dict):
+            continue
+        address = str(cell.get("address", "?"))
+        parts.append(f"{address}: {_typed_value_for_human(cell)}")
+    joined = " | ".join(parts) if parts else "(fila sin celdas representadas)"
+    return f"{marker} fila {unit.get('row_start', '?')}: {joined}"
+
+
+def _render_assisted_unit(
+    *,
+    unit: dict[str, str],
+    all_units: Sequence[dict[str, str]],
+    source: Path,
+) -> str:
+    unit_id = unit["unit_id"]
+    index = next((i for i, row in enumerate(all_units) if row["unit_id"] == unit_id), None)
+    if index is None:
+        raise BenchmarkError(f"unknown display unit {unit_id!r}")
     if source.suffix.lower() == ".json":
-        prefix = "CONTEXTO" if context else "FILA SELECCIONADA"
-        return f"[{prefix}]\n{_format_typed_row(unit)}"
+        rows: list[str] = [
+            f"Hoja: {unit.get('sheet', '')}",
+            f"Unidad: {unit_id}",
+            "",
+        ]
+        if index > 0 and all_units[index - 1].get("sheet") == unit.get("sheet"):
+            rows.append(_render_assisted_table_row(all_units[index - 1], marker="  "))
+        rows.append(_render_assisted_table_row(unit, marker="→"))
+        if index + 1 < len(all_units) and all_units[index + 1].get("sheet") == unit.get("sheet"):
+            rows.append(_render_assisted_table_row(all_units[index + 1], marker="  "))
+        return "\n".join(rows)
     try:
         text = source.read_bytes().decode("utf-8")
         start = int(unit["char_start"])
         end = int(unit["char_end"])
     except (UnicodeDecodeError, KeyError, ValueError) as exc:
-        raise BenchmarkError("text review unit has invalid exact offsets") from exc
-    prefix = "CONTEXTO" if context else "FRAGMENTO SELECCIONADO"
-    return f"[{prefix}]\n{text[start:end]}"
+        raise BenchmarkError("text assisted-review unit has invalid exact offsets") from exc
+    rows = [f"Unidad: {unit_id}", "", "[FRAGMENTO A EVALUAR]", text[start:end]]
+    context: list[str] = []
+    for context_index, label in ((index - 1, "ANTERIOR"), (index + 1, "SIGUIENTE")):
+        if 0 <= context_index < len(all_units):
+            neighbor = all_units[context_index]
+            try:
+                nstart = int(neighbor["char_start"])
+                nend = int(neighbor["char_end"])
+            except (KeyError, ValueError) as exc:
+                raise BenchmarkError("text assisted-review context has invalid exact offsets") from exc
+            context.extend(["", f"[CONTEXTO {label}]", text[nstart:nend]])
+    return "\n".join(rows + context)
 
 
-def _print_progress(status: dict[str, object], output_fn) -> None:
-    output_fn(
-        f"Progreso: {status['resolved_units']} resueltas · "
-        f"{status['needs_adjudication_units']} dudosas · "
-        f"{status['pending_blank_units']} pendientes"
-    )
-
-
-def run_human_review(
+def export_assisted_review_batch(
     packet: Path,
+    output_path: Path,
     *,
-    session_size: int = 5,
+    count: int = 5,
     start_unit: str | None = None,
-    read_only: bool = False,
-    input_fn=input,
-    output_fn=print,
+    review_stage: str = "initial",
 ) -> dict[str, object]:
-    """Run a presentation-only human review session over one unpacked packet."""
-    if not packet.is_dir() or packet.name.endswith(".tar.gz"):
-        raise BenchmarkError("human-review requires an unpacked packet directory")
-    if session_size < 1:
-        raise BenchmarkError("session-size must be positive")
-    source, immutable = _packet_identity(packet)
+    """Export exact pending evidence for joint human+AI review without interpreting it."""
+    if count < 1:
+        raise BenchmarkError("assisted-review batch count must be positive")
+    source, _immutable = _packet_identity(packet)
     scope = _load_gold_scope(
         packet / "gold_scope.json",
         source_bytes=source.read_bytes(),
@@ -1237,119 +1262,314 @@ def run_human_review(
         unit_ids=set(_unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")),
     )
     all_units, selected = _load_display_units(packet, source, scope)
-    all_unit_ids = [row["unit_id"] for row in all_units]
-    selected_by_id = {row["unit_id"]: row for row in selected}
-    coverage_rows = _read_csv(packet / "coverage.csv")
-    coverage_by_id = _unique_rows(coverage_rows, "unit_id", "coverage.csv")
-    notes = _load_review_notes(packet / "review_notes.csv")
-    selected_ids = [row["unit_id"] for row in selected]
+    coverage = _unique_rows(_read_csv(packet / "coverage.csv"), "unit_id", "coverage.csv")
+    expected_state = "" if review_stage == "initial" else "needs_adjudication"
+    if review_stage not in {"initial", "adjudication"}:
+        raise BenchmarkError("assisted-review export stage must be initial or adjudication")
+    pending = [
+        row for row in selected
+        if coverage[row["unit_id"]].get("review_state", "") == expected_state
+    ]
     if start_unit is not None:
-        if start_unit not in selected_by_id:
-            raise BenchmarkError(f"unknown selected unit {start_unit!r}")
-        cursor = selected_ids.index(start_unit)
-    else:
-        cursor = next(
-            (index for index, unit_id in enumerate(selected_ids) if coverage_by_id[unit_id].get("review_state", "") == ""),
-            0,
-        )
-    decisions = 0
-    backup_created = False
+        positions = [i for i, row in enumerate(pending) if row["unit_id"] == start_unit]
+        if not positions:
+            raise BenchmarkError(f"start unit {start_unit!r} is not available for {review_stage} review")
+        pending = pending[positions[0] :]
+    chosen = pending[:count]
+    if not chosen:
+        raise BenchmarkError(f"no selected units remain for assisted {review_stage} review export")
+    unit_ids = [row["unit_id"] for row in chosen]
+    core = _assisted_batch_core(
+        packet=packet, source=source, scope=scope, unit_ids=unit_ids, review_stage=review_stage
+    )
+    batch_id = _assisted_batch_identity(core)
+    metadata = {**core, "batch_id": batch_id}
+    lines = [
+        "# Canario — lote de referencia asistida",
+        "",
+        "Este archivo contiene evidencia exacta para revisar en conjunto. No contiene respuestas sugeridas.",
+        "El extractor que será evaluado todavía no debe verse ni ejecutarse sobre estas unidades.",
+        "",
+        "<!-- CANARIO_ASSISTED_BATCH_META",
+        json.dumps(metadata, ensure_ascii=False, sort_keys=True),
+        "-->",
+    ]
+    for ordinal, unit in enumerate(chosen, start=1):
+        lines.extend([
+            "",
+            f"## {ordinal}. {unit['unit_id']}",
+            "",
+            _render_assisted_unit(unit=unit, all_units=all_units, source=source),
+        ])
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    return {
+        **metadata,
+        "output": str(output_path),
+        "unit_count": len(unit_ids),
+        "semantic_interpretation_performed": False,
+        "tested_extractor_seen": False,
+    }
 
-    while selected:
-        if cursor >= len(selected):
-            cursor = 0
-        unit_id = selected_ids[cursor]
-        unit = selected_by_id[unit_id]
-        status = review_status(
-            source_path=source,
-            units_path=packet / "units.csv",
-            coverage_path=packet / "coverage.csv",
-            scope_path=packet / "gold_scope.json",
-        )
-        output_fn(f"\nCaso: {scope['case_id']}\nUnidad: {cursor + 1} de {len(selected)}")
-        _print_progress(status, output_fn)
-        output_fn("\n" + _render_unit(unit, source))
-        output_fn("\n¿Qué harías con este fragmento?\n1. Sí, aquí hay algo importante para registrar\n2. No, aquí no hay nada importante para registrar\n3. No estoy seguro\n4. Dejarlo para después\nq. Guardar y salir\n?. Ayuda")
-        command = input_fn("> ").strip().lower()
-        if command in {"q", "quit", "salir"}:
-            break
-        if command in {"?", "help", "ayuda"}:
-            output_fn("Controles: 1/y material, 2/n no material, 3/u no seguro, 4/s saltar, b anterior, c contexto, r repetir, q salir, x cancelar.")
-            continue
-        if command in {"r", "redisplay"}:
-            continue
-        if command in {"c", "contexto"}:
-            current_all_index = all_unit_ids.index(unit_id)
-            context_rows: list[dict[str, str]] = []
-            if current_all_index > 0:
-                context_rows.append(all_units[current_all_index - 1])
-            if current_all_index + 1 < len(all_units):
-                context_rows.append(all_units[current_all_index + 1])
-            if not context_rows:
-                output_fn("No hay una unidad vecina disponible para contexto.")
-            else:
-                for context_row in context_rows:
-                    output_fn(_render_unit(context_row, source, context=True))
-            continue
-        if command in {"x", "cancelar"}:
-            output_fn("Sesión cancelada. No se guarda la unidad actual.")
-            break
-        if command in {"b", "anterior"}:
-            cursor = (cursor - 1) % len(selected)
-            continue
-        if command in {"4", "s", "skip", "saltar"}:
-            decisions += 1
-            cursor = (cursor + 1) % len(selected)
-        elif command in {"1", "y", "si", "sí"}:
-            note = "" if read_only else input_fn("En tus palabras, ¿qué dice/pasa aquí?\n(No tiene que sonar formal.)\n> ")
-            decisions += 1
-            if not read_only:
-                _verify_packet_identity(packet, source, immutable)
-                coverage_by_id[unit_id]["review_state"] = "truth_recorded"
-                notes[unit_id] = {"unit_id": unit_id, "rough_human_note": note, "uncertainty_note": "", "updated_at_utc": _utc_now()}
-                backup_created = _save_review_files(packet, list(coverage_by_id.values()), notes, backup_created=backup_created)
-            cursor = (cursor + 1) % len(selected)
-        elif command in {"2", "n", "no"}:
-            decisions += 1
-            if not read_only:
-                _verify_packet_identity(packet, source, immutable)
-                coverage_by_id[unit_id]["review_state"] = "no_material_truth"
-                notes.pop(unit_id, None)
-                backup_created = _save_review_files(packet, list(coverage_by_id.values()), notes, backup_created=backup_created)
-            cursor = (cursor + 1) % len(selected)
-        elif command in {"3", "u", "duda", "no estoy seguro"}:
-            output_fn("Está bien no estar seguro. No adivines.")
-            uncertainty = "" if read_only else input_fn("¿Qué te genera duda? (opcional)\n> ")
-            decisions += 1
-            if not read_only:
-                _verify_packet_identity(packet, source, immutable)
-                coverage_by_id[unit_id]["review_state"] = "needs_adjudication"
-                notes[unit_id] = {"unit_id": unit_id, "rough_human_note": "", "uncertainty_note": uncertainty, "updated_at_utc": _utc_now()}
-                backup_created = _save_review_files(packet, list(coverage_by_id.values()), notes, backup_created=backup_created)
-            cursor = (cursor + 1) % len(selected)
-        else:
-            output_fn("No entendí ese control. Usa ? para ver las opciones.")
-            continue
-        if decisions >= session_size:
-            output_fn("\nSesión terminada. Puedes continuar después con el mismo paquete.")
-            break
-        if not read_only:
-            _print_progress(
-                review_status(
-                    source_path=source,
-                    units_path=packet / "units.csv",
-                    coverage_path=packet / "coverage.csv",
-                    scope_path=packet / "gold_scope.json",
-                ),
-                output_fn,
+
+def _load_assisted_decisions(path: Path) -> dict[str, object]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("assisted-review decisions are not readable valid JSON") from exc
+    if not isinstance(value, dict) or value.get("version") != ASSISTED_REFERENCE_VERSION:
+        raise BenchmarkError("assisted-review decisions have unsupported version")
+    if value.get("reference_mode") != "human_ai_assisted":
+        raise BenchmarkError("assisted-review decisions must declare human_ai_assisted mode")
+    if value.get("tested_extractor_seen") is not False:
+        raise BenchmarkError("assisted reference cannot be imported after tested extractor exposure")
+    assistant = value.get("assistant")
+    if not isinstance(assistant, dict) or not isinstance(assistant.get("product"), str) or not assistant.get("product"):
+        raise BenchmarkError("assisted reference requires assistant product provenance")
+    if not isinstance(assistant.get("model_label"), str) or not assistant.get("model_label"):
+        raise BenchmarkError("assisted reference requires an assistant model label")
+    approval = value.get("human_approval")
+    if not isinstance(approval, dict) or approval.get("state") != "approved":
+        raise BenchmarkError("assisted reference requires explicit human approval")
+    if not isinstance(approval.get("approved_at_utc"), str) or not approval.get("approved_at_utc"):
+        raise BenchmarkError("assisted reference approval requires approved_at_utc")
+    return value
+
+
+def _table_selector_for_unit(source: Path, unit: dict[str, str]) -> str:
+    try:
+        value = json.loads(source.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("typed Representation is not readable valid JSON") from exc
+    sheet_name = unit.get("sheet", "")
+    sheets = value.get("sheets") if isinstance(value, dict) else None
+    matches = [item for item in sheets or [] if isinstance(item, dict) and item.get("name") == sheet_name]
+    if len(matches) != 1:
+        raise BenchmarkError(f"table unit sheet {sheet_name!r} does not reopen exactly once")
+    try:
+        row_start = int(unit["row_start"])
+        row_end = int(unit["row_end"])
+    except (KeyError, ValueError) as exc:
+        raise BenchmarkError("table unit has invalid row bounds") from exc
+    rows = matches[0].get("rows")
+    if not isinstance(rows, list) or row_start < 1 or row_end > len(rows):
+        raise BenchmarkError("table unit row is outside represented sheet")
+    observed = [
+        [cell.get("value") if isinstance(cell, dict) else cell for cell in row]
+        for row in rows[row_start - 1 : row_end]
+    ]
+    selector = {
+        "sheet": sheet_name,
+        "row_start": row_start,
+        "row_end": row_end,
+        "observed_values": observed,
+    }
+    rendered = json.dumps(selector, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    validate_typed_evidence("table_range:v1", source.read_bytes(), rendered, charset="utf-8")
+    return rendered
+
+
+def _text_evidence_for_truth(source: Path, unit: dict[str, str], truth: dict[str, object]) -> tuple[str, int, int]:
+    quote = truth.get("evidence_quote")
+    if not isinstance(quote, str) or not quote:
+        raise BenchmarkError("assisted text truth requires non-empty evidence_quote")
+    text = source.read_text(encoding="utf-8")
+    try:
+        unit_start = int(unit["char_start"])
+        unit_end = int(unit["char_end"])
+    except (KeyError, ValueError) as exc:
+        raise BenchmarkError("text unit has invalid exact offsets") from exc
+    segment = text[unit_start:unit_end]
+    if segment.count(quote) != 1:
+        raise BenchmarkError("assisted text evidence_quote must occur exactly once inside its unit")
+    start = unit_start + segment.index(quote)
+    end = start + len(quote)
+    return quote, start, end
+
+
+def _assisted_truth_id(batch_id: str, unit_id: str, ordinal: int) -> str:
+    digest = hashlib.sha256(f"{batch_id}:{unit_id}:{ordinal}".encode("utf-8")).hexdigest()[:20]
+    return f"AR-{digest}"
+
+
+def _append_reference_provenance(path: Path, record: dict[str, object]) -> None:
+    existing = path.read_bytes() if path.exists() else b""
+    _atomic_write_bytes(path, existing + _canonical_json(record))
+
+
+def import_assisted_review_decisions(packet: Path, decisions_path: Path) -> dict[str, object]:
+    """Import only human-approved assisted decisions and bind their evidence mechanically."""
+    source, immutable = _packet_identity(packet)
+    decisions = _load_assisted_decisions(decisions_path)
+    scope = _load_gold_scope(
+        packet / "gold_scope.json",
+        source_bytes=source.read_bytes(),
+        units_path=packet / "units.csv",
+        unit_ids=set(_unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")),
+    )
+    items = decisions.get("items")
+    if not isinstance(items, list) or not items:
+        raise BenchmarkError("assisted-review decisions require a non-empty items list")
+    unit_ids = [item.get("unit_id") for item in items if isinstance(item, dict)]
+    if len(unit_ids) != len(items) or not all(isinstance(item, str) and item for item in unit_ids):
+        raise BenchmarkError("every assisted-review item requires unit_id")
+    if len(unit_ids) != len(set(unit_ids)):
+        raise BenchmarkError("assisted-review decisions contain duplicate unit_ids")
+    batch = decisions.get("batch")
+    review_stage = batch.get("review_stage") if isinstance(batch, dict) else None
+    core = _assisted_batch_core(
+        packet=packet,
+        source=source,
+        scope=scope,
+        unit_ids=unit_ids,
+        review_stage=str(review_stage),
+    )
+    batch_id = _assisted_batch_identity(core)
+    expected_batch = {**core, "batch_id": batch_id}
+    if batch != expected_batch:
+        raise BenchmarkError("assisted-review decision batch identity does not match frozen packet")
+    coverage_rows = _read_csv(packet / "coverage.csv")
+    coverage = _unique_rows(coverage_rows, "unit_id", "coverage.csv")
+    units = _unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")
+    selected = set(str(item) for item in scope["selected_unit_ids"])
+    for unit_id in unit_ids:
+        if unit_id not in selected:
+            raise BenchmarkError(f"assisted-review unit {unit_id!r} is outside frozen scope")
+        current_state = coverage[unit_id].get("review_state", "")
+        expected_state = "" if review_stage == "initial" else "needs_adjudication"
+        if current_state != expected_state:
+            raise BenchmarkError(
+                f"assisted-review unit {unit_id!r} has incompatible review progress for {review_stage} stage"
             )
+    truth_path = packet / "truth.csv"
+    existing_truths = _read_csv(truth_path)
+    existing_truth_ids = {row.get("truth_id", "") for row in existing_truths}
+    new_truths: list[dict[str, object]] = []
+    semantic_capabilities = set(str(item) for item in scope["semantic_capabilities"])
+    for item in items:
+        assert isinstance(item, dict)
+        unit_id = str(item["unit_id"])
+        if item.get("human_approved") is not True:
+            raise BenchmarkError(f"assisted-review unit {unit_id!r} lacks explicit human approval")
+        decision = item.get("decision")
+        truths = item.get("truths", [])
+        if not isinstance(truths, list):
+            raise BenchmarkError(f"assisted-review unit {unit_id!r} truths must be a list")
+        if decision == "truth_recorded":
+            if not truths:
+                raise BenchmarkError(f"assisted-review unit {unit_id!r} truth_recorded requires truths")
+        elif decision in {"no_material_truth", "needs_adjudication"}:
+            if truths:
+                raise BenchmarkError(f"assisted-review unit {unit_id!r} {decision} cannot include truths")
+        else:
+            raise BenchmarkError(f"assisted-review unit {unit_id!r} has invalid decision")
+        for ordinal, truth in enumerate(truths, start=1):
+            if not isinstance(truth, dict):
+                raise BenchmarkError(f"assisted-review truth in {unit_id!r} must be an object")
+            proposition = truth.get("proposition")
+            importance = truth.get("importance")
+            capability_ids = truth.get("capability_ids")
+            if not isinstance(proposition, str) or not proposition.strip():
+                raise BenchmarkError(f"assisted-review truth in {unit_id!r} requires proposition")
+            if importance not in TRUTH_IMPORTANCE:
+                raise BenchmarkError(f"assisted-review truth in {unit_id!r} has invalid importance")
+            if not isinstance(capability_ids, list) or not capability_ids or capability_ids != sorted(set(capability_ids)):
+                raise BenchmarkError(f"assisted-review truth in {unit_id!r} needs sorted unique capability_ids")
+            if not all(isinstance(cap, str) and cap in semantic_capabilities for cap in capability_ids):
+                raise BenchmarkError(f"assisted-review truth in {unit_id!r} binds invalid semantic capability")
+            truth_id = _assisted_truth_id(batch_id, unit_id, ordinal)
+            if truth_id in existing_truth_ids:
+                raise BenchmarkError(f"assisted-review truth id collision {truth_id!r}")
+            row: dict[str, object] = {
+                "truth_id": truth_id,
+                "unit_id": unit_id,
+                "importance": importance,
+                "proposition": proposition,
+                "capability_ids": ";".join(capability_ids),
+                "notes": f"assisted_reference_batch={batch_id}",
+            }
+            if source.suffix.lower() == ".json":
+                row["selector_json"] = _table_selector_for_unit(source, units[unit_id])
+            else:
+                quote, start, end = _text_evidence_for_truth(source, units[unit_id], truth)
+                row.update({"evidence_quote": quote, "evidence_start": start, "evidence_end": end})
+            new_truths.append(row)
+            existing_truth_ids.add(truth_id)
+        coverage[unit_id]["review_state"] = str(decision)
     _verify_packet_identity(packet, source, immutable)
-    return review_status(
+    backup_root = packet / ".review-backups" / f"assisted-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
+    suffix = 1
+    while backup_root.exists():
+        backup_root = backup_root.with_name(f"{backup_root.name}-{suffix}")
+        suffix += 1
+    backup_root.mkdir(parents=True, exist_ok=False)
+    for name in ("coverage.csv", "truth.csv", "reference_provenance.jsonl"):
+        path = packet / name
+        if path.exists():
+            shutil.copy2(path, backup_root / name)
+    coverage_fields = list(coverage_rows[0]) if coverage_rows else ["unit_id", "review_state", "notes"]
+    _atomic_write_bytes(packet / "coverage.csv", _csv_bytes(coverage_fields, coverage.values()))
+    truth_fields = (
+        ["truth_id", "unit_id", "importance", "proposition", "selector_json", "capability_ids", "notes"]
+        if source.suffix.lower() == ".json"
+        else ["truth_id", "unit_id", "importance", "proposition", "evidence_quote", "evidence_start", "evidence_end", "capability_ids", "notes"]
+    )
+    _atomic_write_bytes(truth_path, _csv_bytes(truth_fields, [*existing_truths, *new_truths]))
+    provenance_record = {
+        "format": ASSISTED_REFERENCE_VERSION,
+        "batch_id": batch_id,
+        "case_id": scope["case_id"],
+        "gold_scope_sha256": _sha256_bytes((packet / "gold_scope.json").read_bytes()),
+        "reference_mode": "human_ai_assisted",
+        "review_stage": review_stage,
+        "assistant": decisions["assistant"],
+        "human_approval": decisions["human_approval"],
+        "unit_ids": unit_ids,
+        "decision_sha256": _sha256_bytes(decisions_path.read_bytes()),
+        "tested_extractor_seen": False,
+    }
+    _append_reference_provenance(packet / "reference_provenance.jsonl", provenance_record)
+    status = review_status(
         source_path=source,
         units_path=packet / "units.csv",
         coverage_path=packet / "coverage.csv",
         scope_path=packet / "gold_scope.json",
     )
+    return {
+        **status,
+        "batch_id": batch_id,
+        "imported_units": len(unit_ids),
+        "imported_truths": len(new_truths),
+        "reference_mode": "human_ai_assisted",
+        "semantic_model_assistance_declared": True,
+        "tested_extractor_seen": False,
+    }
+
+
+def _load_reference_provenance(path: Path) -> list[dict[str, object]]:
+    records: list[dict[str, object]] = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError as exc:
+        raise BenchmarkError("reference provenance is not readable") from exc
+    for number, line in enumerate(lines, start=1):
+        if not line.strip():
+            continue
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise BenchmarkError(f"reference provenance line {number} is invalid JSON") from exc
+        if not isinstance(value, dict) or value.get("format") != ASSISTED_REFERENCE_VERSION:
+            raise BenchmarkError(f"reference provenance line {number} has unsupported format")
+        if value.get("reference_mode") != "human_ai_assisted" or value.get("tested_extractor_seen") is not False:
+            raise BenchmarkError("reference provenance violates assisted-reference boundary")
+        approval = value.get("human_approval")
+        if not isinstance(approval, dict) or approval.get("state") != "approved":
+            raise BenchmarkError("reference provenance lacks human approval")
+        records.append(value)
+    if not records:
+        raise BenchmarkError("assisted reference provenance is empty")
+    return records
 
 
 def freeze_gold(
@@ -1364,8 +1584,9 @@ def freeze_gold(
     scope_path: Path,
     output_path: Path,
     threshold_policy_state: str = "not_frozen",
+    reference_provenance_path: Path | None = None,
 ) -> dict[str, object]:
-    """Validate a future human gold set without creating or interpreting truths."""
+    """Validate and freeze a completed reference set without inspecting extractor output."""
     if threshold_policy_state not in {"not_frozen", "counts_inspected", "frozen"}:
         raise BenchmarkError("invalid threshold policy state")
     scope = _load_gold_scope(
@@ -1376,7 +1597,27 @@ def freeze_gold(
     )
     if scope["case_id"] not in {"", case_id}:
         raise BenchmarkError("gold scope case_id does not match freeze case")
-    metrics = score(source_path, units_path, coverage_path, truth_path, candidates_path, assessment_path, scope_path=scope_path)
+    if source_path.suffix.lower() == ".json":
+        metrics = score_typed(
+            source_path,
+            "table_range:v1",
+            units_path,
+            coverage_path,
+            truth_path,
+            candidates_path,
+            assessment_path,
+            scope_path=scope_path,
+        )
+    else:
+        metrics = score(
+            source_path,
+            units_path,
+            coverage_path,
+            truth_path,
+            candidates_path,
+            assessment_path,
+            scope_path=scope_path,
+        )
     if metrics["candidates"] != 0 or metrics["semantic_matching_automated"] is not False:
         raise BenchmarkError("gold freeze cannot include candidate output or automated semantic matching")
     truths = _unique_rows(_read_csv(truth_path), "truth_id", "truth.csv")
@@ -1388,6 +1629,40 @@ def freeze_gold(
             continue
         if not any(capability_id in row.get("capability_ids", "").split(";") for row in truths.values()):
             raise BenchmarkError(f"cannot freeze semantic capability {capability_id!r} with zero gold truths")
+    reviewer_authority = "human"
+    semantic_model_assistance = False
+    provenance_sha256: str | None = None
+    assistant_models: list[str] = []
+    assistance_sessions = 0
+    if reference_provenance_path is not None:
+        records = _load_reference_provenance(reference_provenance_path)
+        selected_ids = set(str(item) for item in scope["selected_unit_ids"])
+        covered_ids: set[str] = set()
+        model_labels: set[str] = set()
+        for record in records:
+            if record.get("case_id") != case_id:
+                raise BenchmarkError("reference provenance case_id does not match freeze case")
+            if record.get("gold_scope_sha256") != _sha256_bytes(scope_path.read_bytes()):
+                raise BenchmarkError("reference provenance gold scope does not match freeze scope")
+            unit_ids = record.get("unit_ids")
+            if not isinstance(unit_ids, list) or not all(isinstance(item, str) for item in unit_ids):
+                raise BenchmarkError("reference provenance has invalid unit_ids")
+            covered_ids.update(unit_ids)
+            assistant = record.get("assistant")
+            if not isinstance(assistant, dict) or not isinstance(assistant.get("model_label"), str):
+                raise BenchmarkError("reference provenance lacks assistant model label")
+            model_labels.add(str(assistant["model_label"]))
+        if covered_ids != selected_ids:
+            missing = sorted(selected_ids - covered_ids)
+            extra = sorted(covered_ids - selected_ids)
+            raise BenchmarkError(
+                f"assisted reference provenance does not cover frozen scope; missing={missing}, extra={extra}"
+            )
+        reviewer_authority = "human_ai_assisted"
+        semantic_model_assistance = True
+        provenance_sha256 = _sha256_bytes(reference_provenance_path.read_bytes())
+        assistant_models = sorted(model_labels)
+        assistance_sessions = len(records)
     manifest = {
         "format": GOLD_PROTOCOL_VERSION,
         "case_id": case_id,
@@ -1398,9 +1673,13 @@ def freeze_gold(
         "truth_sha256": _sha256_bytes(truth_path.read_bytes()),
         "truth_row_count": len(truths),
         "semantic_capability_truth_counts": metrics.get("semantic_metrics", {}),
-        "reviewer_authority": "human",
+        "reviewer_authority": reviewer_authority,
         "tested_extractor_seen": False,
-        "semantic_model_assistance": False,
+        "semantic_model_assistance": semantic_model_assistance,
+        "reference_provenance_sha256": provenance_sha256,
+        "reference_assistant_models": assistant_models,
+        "reference_assistance_sessions": assistance_sessions,
+        "human_approval_required": True,
         "threshold_policy_state": threshold_policy_state,
         "freeze_timestamp": None,
     }
@@ -1715,16 +1994,28 @@ def _build_parser() -> argparse.ArgumentParser:
     scope_parser.add_argument("--case-id", required=True)
     scope_parser.add_argument("--semantic-capability", action="append", required=True)
     scope_parser.add_argument("--selection-policy", required=True)
-    review_parser = subparsers.add_parser("review-status", help="report human gold-review progress without semantic interpretation")
+    review_parser = subparsers.add_parser("review-status", help="report semantic-reference progress without semantic interpretation")
     review_parser.add_argument("--source", type=Path, required=True)
     review_parser.add_argument("--units", type=Path, required=True)
     review_parser.add_argument("--coverage", type=Path, required=True)
     review_parser.add_argument("--scope", type=Path, required=True)
-    human_parser = subparsers.add_parser("human-review", help="run the local uncertainty-safe human review helper")
-    human_parser.add_argument("--packet", type=Path, required=True)
-    human_parser.add_argument("--session-size", type=int, default=5)
-    human_parser.add_argument("--start-unit")
-    human_parser.add_argument("--read-only", action="store_true")
+    export_assisted_parser = subparsers.add_parser(
+        "export-assisted-review",
+        help="export pending frozen evidence for joint human+AI reference review",
+    )
+    export_assisted_parser.add_argument("--packet", type=Path, required=True)
+    export_assisted_parser.add_argument("--output", type=Path, required=True)
+    export_assisted_parser.add_argument("--count", type=int, default=5)
+    export_assisted_parser.add_argument("--start-unit")
+    export_assisted_parser.add_argument(
+        "--review-stage", choices=("initial", "adjudication"), default="initial"
+    )
+    import_assisted_parser = subparsers.add_parser(
+        "import-assisted-review",
+        help="import explicit human-approved assisted reference decisions",
+    )
+    import_assisted_parser.add_argument("--packet", type=Path, required=True)
+    import_assisted_parser.add_argument("--decisions", type=Path, required=True)
     media_parser = subparsers.add_parser("prepare-media", help="create a blank timed-media worksheet")
     media_parser.add_argument("--source", type=Path, required=True)
     media_parser.add_argument("--media-index", type=Path, required=True)
@@ -1753,7 +2044,7 @@ def _build_parser() -> argparse.ArgumentParser:
     typed_score_parser.add_argument("--assessment", type=Path, required=True)
     typed_score_parser.add_argument("--scope", type=Path)
     typed_score_parser.add_argument("--output", type=Path)
-    freeze_parser = subparsers.add_parser("freeze-gold", help="validate and freeze a completed human gold set")
+    freeze_parser = subparsers.add_parser("freeze-gold", help="validate and freeze a completed semantic reference set")
     freeze_parser.add_argument("--case-id", required=True)
     freeze_parser.add_argument("--source", type=Path, required=True)
     freeze_parser.add_argument("--units", type=Path, required=True)
@@ -1763,6 +2054,7 @@ def _build_parser() -> argparse.ArgumentParser:
     freeze_parser.add_argument("--assessment", type=Path, required=True)
     freeze_parser.add_argument("--scope", type=Path, required=True)
     freeze_parser.add_argument("--output", type=Path, required=True)
+    freeze_parser.add_argument("--reference-provenance", type=Path)
     freeze_parser.add_argument("--threshold-policy-state", choices=("not_frozen", "counts_inspected", "frozen"), default="not_frozen")
     return parser
 
@@ -1792,13 +2084,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                 coverage_path=args.coverage,
                 scope_path=args.scope,
             )
-        elif args.command == "human-review":
-            result = run_human_review(
+        elif args.command == "export-assisted-review":
+            result = export_assisted_review_batch(
                 args.packet,
-                session_size=args.session_size,
+                args.output,
+                count=args.count,
                 start_unit=args.start_unit,
-                read_only=args.read_only,
+                review_stage=args.review_stage,
             )
+        elif args.command == "import-assisted-review":
+            result = import_assisted_review_decisions(args.packet, args.decisions)
         elif args.command == "prepare-media":
             result = prepare_media(args.source, args.media_index, args.output_dir, args.source_label)
         elif args.command == "score-typed":
@@ -1825,6 +2120,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 scope_path=args.scope,
                 output_path=args.output,
                 threshold_policy_state=args.threshold_policy_state,
+                reference_provenance_path=args.reference_provenance,
             )
         else:
             result = score(
@@ -1839,13 +2135,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     except BenchmarkError as exc:
         raise SystemExit(f"LECTOR_002_REFERENCE_ERROR: {exc}") from exc
 
-    if args.command == "human-review":
-        print(
-            f"Estado: {result['resolved_units']} resueltas · "
-            f"{result['needs_adjudication_units']} dudosas · "
-            f"{result['pending_blank_units']} pendientes"
-        )
-        return 0
     rendered = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if getattr(args, "output", None):
         args.output.write_text(rendered, encoding="utf-8")

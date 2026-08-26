@@ -673,7 +673,7 @@ def test_needs_adjudication_is_explicit_and_blocks_scoring(tmp_path: Path) -> No
         {"unit_id": "U1", "review_state": "needs_adjudication"},
         {"unit_id": "U2", "review_state": "unjudged"},
     ])
-    with pytest.raises(bench.BenchmarkError, match="needs human gold adjudication"):
+    with pytest.raises(bench.BenchmarkError, match="needs reference adjudication"):
         bench.score(source, units, coverage, truth, candidates, assessment, scope_path=scope)
 
 
@@ -719,19 +719,30 @@ def _review_packet(tmp_path: Path, *, table: bool = False, unit_count: int = 4) 
     packet.mkdir()
     if table:
         source = packet / "representation.json"
-        source.write_text(json.dumps({"format": "synthetic"}), encoding="utf-8")
         units_rows = []
+        represented_rows = []
         for number in range(1, unit_count + 1):
+            represented_row = [
+                {"address": f"A{number}", "value": {"type": "string", "value": f"Fila {number}"}},
+                {"address": f"B{number}", "value": {"type": "formula", "value": "=1+1"}},
+            ]
+            represented_rows.append(represented_row)
             units_rows.append({
                 "unit_id": f"1:R{number}", "sheet": "Datos", "row_start": str(number),
                 "row_end": str(number), "non_empty_cell_count": "2",
                 "value_type_signature": "formula;string", "formula_present": "true",
                 "merged_structure_intersection": "false",
-                "cells_json": json.dumps([
-                    {"address": f"A{number}", "value": {"type": "string", "value": f"Fila {number}"}},
-                    {"address": f"B{number}", "value": {"type": "formula", "formula": "=1+1", "value": 2}},
-                ], ensure_ascii=False, sort_keys=True),
+                "cells_json": json.dumps(represented_row, ensure_ascii=False, sort_keys=True),
             })
+        source.write_text(json.dumps({
+            "format": "canario.structured_table.v1",
+            "source_sha256": "0" * 64,
+            "sheets": [{
+                "name": "Datos", "ordinal": 1, "state": "visible",
+                "max_row": unit_count, "max_column": 2, "merged_ranges": [],
+                "rows": represented_rows,
+            }],
+        }, sort_keys=True, separators=(",", ":")), encoding="utf-8")
         unit_fields = list(units_rows[0])
         _write_csv(packet / "units.csv", unit_fields, units_rows)
         _write_csv(packet / "selected_units.csv", unit_fields, units_rows)
@@ -756,130 +767,316 @@ def _review_packet(tmp_path: Path, *, table: bool = False, unit_count: int = 4) 
     _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], [
         {"unit_id": row["unit_id"], "review_state": "", "notes": ""} for row in units_rows
     ])
-    _write_csv(packet / "truth.csv", ["truth_id"], [])
+    if table:
+        _write_csv(packet / "truth.csv", [
+            "truth_id", "unit_id", "importance", "proposition", "selector_json", "capability_ids", "notes"
+        ], [])
+    else:
+        _write_csv(packet / "truth.csv", [
+            "truth_id", "unit_id", "importance", "proposition", "evidence_quote",
+            "evidence_start", "evidence_end", "capability_ids", "notes"
+        ], [])
     _write_csv(packet / "candidates.csv", ["candidate_id"], [])
     _write_csv(packet / "assessment.csv", ["candidate_id"], [])
     scope = bench.create_gold_scope(
         case_id="SYNTHETIC-001", source_sha256=bench._sha256_bytes(source_bytes),
         units_sha256=bench._unit_file_sha256(packet / "units.csv"),
         unit_ids=[row["unit_id"] for row in units_rows], selection_kind="full_source_order",
-        selection_policy="synthetic", semantic_capabilities=["semantic:attribution"],
+        selection_policy="synthetic", semantic_capabilities=[
+            "semantic:structured_values" if table else "semantic:attribution"
+        ],
     )
     bench.write_gold_scope(packet / "gold_scope.json", scope)
     (packet / "manifest.json").write_text(json.dumps({
-        "case_id": "SYNTHETIC-001", "semantic_model_calls": 0, "tested_extractor_seen": False,
+        "case_id": "SYNTHETIC-001",
+        "evaluator_mode": "table_range:v1" if table else "text_quote:v1",
+        "semantic_model_calls": 0, "tested_extractor_seen": False,
     }), encoding="utf-8")
     return packet
 
 
-def test_human_review_text_full_display_and_all_choice_mappings(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, unit_count=4)
-    shown: list[str] = []
-    answers = iter(["1", "TEST ONLY", "2", "3", "duda literal", "4", "q"])
-    status = bench.run_human_review(packet, session_size=10, input_fn=lambda _prompt: next(answers), output_fn=shown.append)
-    assert any("Unidad exacta 1: texto completo." in item for item in shown)
-    rows = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
-    assert rows == {"U0001": "truth_recorded", "U0002": "no_material_truth", "U0003": "needs_adjudication", "U0004": ""}
-    notes = {row["unit_id"]: row for row in bench._read_csv(packet / "review_notes.csv")}
-    assert notes["U0001"]["rough_human_note"] == "TEST ONLY"
-    assert notes["U0003"]["uncertainty_note"] == "duda literal"
-    assert status["resolved_units"] == 2
-    assert status["needs_adjudication_units"] == 1
-    assert len(list((packet / ".review-backups").iterdir())) == 1
-    assert (packet / "truth.csv").read_text(encoding="utf-8").count("\n") == 1
+def _assisted_decisions_for_batch(
+    batch_meta: dict[str, object],
+    items: list[dict[str, object]],
+    *,
+    approved: bool = True,
+    tested_extractor_seen: bool = False,
+) -> dict[str, object]:
+    return {
+        "version": bench.ASSISTED_REFERENCE_VERSION,
+        "reference_mode": "human_ai_assisted",
+        "batch": batch_meta,
+        "assistant": {
+            "product": "ChatGPT",
+            "model_label": "GPT-5.6 Sol",
+            "exact_build": None,
+            "channel": "external_chat",
+        },
+        "human_approval": {
+            "state": "approved" if approved else "pending",
+            "approved_at_utc": "2026-08-26T02:00:00Z",
+        },
+        "tested_extractor_seen": tested_extractor_seen,
+        "items": items,
+    }
 
 
-def test_human_review_table_preserves_typed_formula_display(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, table=True, unit_count=1)
-    shown: list[str] = []
-    bench.run_human_review(packet, session_size=1, input_fn=lambda _prompt: "q", output_fn=shown.append)
-    rendered = "\n".join(shown)
-    assert '"hoja": "Datos"' in rendered
-    assert '"address": "B1"' in rendered
-    assert '"type": "formula"' in rendered
-    assert '"formula": "=1+1"' in rendered
-
-
-def test_human_review_table_context_uses_physical_neighbor_not_sample_neighbor(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, table=True, unit_count=3)
+def _batch_meta(packet: Path, unit_ids: list[str]) -> dict[str, object]:
+    source = bench._packet_source(packet)
     scope = json.loads((packet / "gold_scope.json").read_text(encoding="utf-8"))
-    scope["selected_unit_ids"] = ["1:R1", "1:R3"]
-    scope["selected_unit_ids_sha256"] = bench._selected_ids_sha256(scope["selected_unit_ids"])
-    bench.write_gold_scope(packet / "gold_scope.json", scope)
-    units = bench._read_csv(packet / "units.csv")
-    _write_csv(packet / "selected_units.csv", list(units[0]), [units[0], units[2]])
-    coverage = bench._read_csv(packet / "coverage.csv")
-    coverage[1]["review_state"] = "unjudged"
-    _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], coverage)
-
-    shown: list[str] = []
-    answers = iter(["c", "q"])
-    bench.run_human_review(
-        packet, input_fn=lambda _prompt: next(answers), output_fn=shown.append
-    )
-    rendered = "\n".join(shown)
-    assert '"value": "Fila 2"' in rendered
-    assert '"value": "Fila 3"' not in rendered
+    core = bench._assisted_batch_core(packet=packet, source=source, scope=scope, unit_ids=unit_ids)
+    return {**core, "batch_id": bench._assisted_batch_identity(core)}
 
 
-def test_human_review_read_only_never_writes_or_backs_up(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, unit_count=1)
-    before = {path.name: path.read_bytes() for path in packet.iterdir() if path.is_file()}
-    answers = iter(["1", "q"])
-    bench.run_human_review(packet, session_size=1, read_only=True, input_fn=lambda _prompt: next(answers), output_fn=lambda _text: None)
-    after = {path.name: path.read_bytes() for path in packet.iterdir() if path.is_file()}
-    assert before == after
-    assert not (packet / ".review-backups").exists()
-
-
-def test_human_review_navigation_repeat_previous_context_and_cancel_do_not_write(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, unit_count=2)
-    shown: list[str] = []
-    answers = iter(["r", "b", "c", "x"])
-    bench.run_human_review(packet, input_fn=lambda _prompt: next(answers), output_fn=shown.append)
-    assert sum("FRAGMENTO SELECCIONADO" in item for item in shown) == 4
-    assert any("CONTEXTO" in item for item in shown)
-    assert not (packet / ".review-backups").exists()
+def test_export_assisted_table_batch_is_readable_exact_and_deterministic(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=3)
+    first = tmp_path / "batch-a.md"
+    second = tmp_path / "batch-b.md"
+    result_a = bench.export_assisted_review_batch(packet, first, count=2)
+    result_b = bench.export_assisted_review_batch(packet, second, count=2)
+    assert first.read_bytes() == second.read_bytes()
+    rendered = first.read_text(encoding="utf-8")
+    assert "→ fila 1: A1: Fila 1 | B1: fórmula =1+1" in rendered
+    assert "fila 2: A2: Fila 2" in rendered
+    assert '"data_type"' not in rendered
+    assert '"number_format"' not in rendered
+    assert result_a["batch_id"] == result_b["batch_id"]
+    assert result_a["semantic_interpretation_performed"] is False
+    assert result_a["tested_extractor_seen"] is False
     assert all(row["review_state"] == "" for row in bench._read_csv(packet / "coverage.csv"))
 
 
-def test_human_review_resume_starts_at_first_blank_and_session_is_bounded(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, unit_count=4)
-    coverage = bench._read_csv(packet / "coverage.csv")
-    coverage[0]["review_state"] = "truth_recorded"
-    coverage[1]["review_state"] = "no_material_truth"
-    _atomic = packet / "coverage.csv"
-    _write_csv(_atomic, ["unit_id", "review_state", "notes"], coverage)
-    answers = iter(["3", "uncertain"])
-    bench.run_human_review(packet, session_size=1, input_fn=lambda _prompt: next(answers), output_fn=lambda _text: None)
-    rows = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
-    assert rows["U0003"] == "needs_adjudication"
-    assert rows["U0004"] == ""
-    answers = iter(["2"])
-    bench.run_human_review(packet, session_size=1, input_fn=lambda _prompt: next(answers), output_fn=lambda _text: None)
-    rows = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
-    assert rows["U0003"] == "needs_adjudication"
-    assert rows["U0004"] == "no_material_truth"
+def test_export_assisted_text_batch_contains_full_exact_unit_and_context(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=3)
+    output = tmp_path / "batch.md"
+    bench.export_assisted_review_batch(packet, output, count=1, start_unit="U0002")
+    rendered = output.read_text(encoding="utf-8")
+    assert "Unidad exacta 2: texto completo." in rendered
+    assert "[CONTEXTO ANTERIOR]" in rendered
+    assert "Unidad exacta 1: texto completo." in rendered
+    assert "[CONTEXTO SIGUIENTE]" in rendered
+    assert "Unidad exacta 3: texto completo." in rendered
 
 
-def test_human_review_protects_nonselected_and_detects_scope_drift(tmp_path: Path) -> None:
-    packet = _review_packet(tmp_path, unit_count=2)
-    scope = json.loads((packet / "gold_scope.json").read_text(encoding="utf-8"))
-    scope["selected_unit_ids"] = ["U0001"]
-    scope["selected_unit_ids_sha256"] = bench._selected_ids_sha256(["U0001"])
-    bench.write_gold_scope(packet / "gold_scope.json", scope)
-    coverage = bench._read_csv(packet / "coverage.csv")
-    coverage[1]["review_state"] = "unjudged"
-    _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], coverage)
-    (packet / "representation.txt").write_text("drifted", encoding="utf-8")
-    with pytest.raises(bench.BenchmarkError, match="source identity"):
-        bench.run_human_review(packet, input_fn=lambda _prompt: "q", output_fn=lambda _text: None)
-
-
-def test_review_notes_are_ignored_by_score_and_freeze(tmp_path: Path) -> None:
-    source, units, scope, coverage, truth, candidates, assessment = _scoped_text_files(tmp_path)
-    _write_csv(tmp_path / "review_notes.csv", bench.REVIEW_NOTES_FIELDS, [{
-        "unit_id": "U1", "rough_human_note": "informal", "uncertainty_note": "", "updated_at_utc": "now",
+def test_import_assisted_table_decision_writes_truth_and_provenance(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=2)
+    batch = _batch_meta(packet, ["1:R1"])
+    decisions = _assisted_decisions_for_batch(batch, [{
+        "unit_id": "1:R1",
+        "human_approved": True,
+        "decision": "truth_recorded",
+        "truths": [{
+            "importance": "material",
+            "proposition": "La fila vincula Fila 1 con el valor de fórmula representado.",
+            "capability_ids": ["semantic:structured_values"],
+        }],
     }])
-    metrics = bench.score(source, units, coverage, truth, candidates, assessment, scope_path=scope)
-    assert metrics["semantic_matching_automated"] is False
+    decisions_path = tmp_path / "decisions.json"
+    decisions_path.write_text(json.dumps(decisions, ensure_ascii=False), encoding="utf-8")
+    result = bench.import_assisted_review_decisions(packet, decisions_path)
+    assert result["reference_mode"] == "human_ai_assisted"
+    assert result["semantic_model_assistance_declared"] is True
+    coverage = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
+    assert coverage["1:R1"] == "truth_recorded"
+    truth = bench._read_csv(packet / "truth.csv")[0]
+    assert truth["proposition"].startswith("La fila vincula")
+    assert truth["capability_ids"] == "semantic:structured_values"
+    bench.validate_typed_evidence(
+        "table_range:v1",
+        (packet / "representation.json").read_bytes(),
+        truth["selector_json"],
+        charset="utf-8",
+    )
+    provenance = [json.loads(line) for line in (packet / "reference_provenance.jsonl").read_text().splitlines()]
+    assert provenance[0]["assistant"]["model_label"] == "GPT-5.6 Sol"
+    assert provenance[0]["human_approval"]["state"] == "approved"
+    assert (packet / "candidates.csv").read_text(encoding="utf-8").count("\n") == 1
+
+
+def test_import_assisted_text_decision_derives_exact_offsets(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=1)
+    batch = _batch_meta(packet, ["U0001"])
+    quote = "Unidad exacta 1"
+    decisions = _assisted_decisions_for_batch(batch, [{
+        "unit_id": "U0001",
+        "human_approved": True,
+        "decision": "truth_recorded",
+        "truths": [{
+            "importance": "must",
+            "proposition": "La fuente contiene la unidad exacta uno.",
+            "capability_ids": ["semantic:attribution"],
+            "evidence_quote": quote,
+        }],
+    }])
+    decisions_path = tmp_path / "decisions.json"
+    decisions_path.write_text(json.dumps(decisions, ensure_ascii=False), encoding="utf-8")
+    bench.import_assisted_review_decisions(packet, decisions_path)
+    truth = bench._read_csv(packet / "truth.csv")[0]
+    start = int(truth["evidence_start"])
+    end = int(truth["evidence_end"])
+    source_text = (packet / "representation.txt").read_text(encoding="utf-8")
+    assert source_text[start:end] == quote
+
+
+def test_import_assisted_requires_human_approval_and_unseen_extractor(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=1)
+    batch = _batch_meta(packet, ["U0001"])
+    item = {"unit_id": "U0001", "human_approved": True, "decision": "no_material_truth", "truths": []}
+    decisions_path = tmp_path / "decisions.json"
+    decisions_path.write_text(json.dumps(_assisted_decisions_for_batch(batch, [item], approved=False)), encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="explicit human approval"):
+        bench.import_assisted_review_decisions(packet, decisions_path)
+    decisions_path.write_text(json.dumps(_assisted_decisions_for_batch(batch, [item], tested_extractor_seen=True)), encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="tested extractor exposure"):
+        bench.import_assisted_review_decisions(packet, decisions_path)
+    assert bench._read_csv(packet / "coverage.csv")[0]["review_state"] == ""
+
+
+def test_import_assisted_rejects_batch_drift_and_destructive_overwrite(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=1)
+    batch = _batch_meta(packet, ["U0001"])
+    item = {"unit_id": "U0001", "human_approved": True, "decision": "no_material_truth", "truths": []}
+    decisions = _assisted_decisions_for_batch({**batch, "source_sha256": "f" * 64}, [item])
+    decisions_path = tmp_path / "decisions.json"
+    decisions_path.write_text(json.dumps(decisions), encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="batch identity"):
+        bench.import_assisted_review_decisions(packet, decisions_path)
+    valid = _assisted_decisions_for_batch(batch, [item])
+    decisions_path.write_text(json.dumps(valid), encoding="utf-8")
+    bench.import_assisted_review_decisions(packet, decisions_path)
+    with pytest.raises(bench.BenchmarkError, match="incompatible review progress"):
+        bench.import_assisted_review_decisions(packet, decisions_path)
+
+
+def test_import_assisted_no_material_and_uncertainty_are_explicit(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=2)
+    batch = _batch_meta(packet, ["U0001", "U0002"])
+    decisions = _assisted_decisions_for_batch(batch, [
+        {"unit_id": "U0001", "human_approved": True, "decision": "no_material_truth", "truths": []},
+        {"unit_id": "U0002", "human_approved": True, "decision": "needs_adjudication", "truths": []},
+    ])
+    path = tmp_path / "decisions.json"
+    path.write_text(json.dumps(decisions), encoding="utf-8")
+    status = bench.import_assisted_review_decisions(packet, path)
+    assert status["no_material_truth_units"] == 1
+    assert status["needs_adjudication_units"] == 1
+    assert status["review_complete_for_gold_freeze"] is False
+    assert bench._read_csv(packet / "truth.csv") == []
+
+
+def test_import_assisted_rejects_unapproved_item_and_invalid_capability(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=1)
+    batch = _batch_meta(packet, ["1:R1"])
+    bad_item = {
+        "unit_id": "1:R1", "human_approved": False, "decision": "truth_recorded",
+        "truths": [{"importance": "material", "proposition": "x", "capability_ids": ["semantic:structured_values"]}],
+    }
+    path = tmp_path / "decisions.json"
+    path.write_text(json.dumps(_assisted_decisions_for_batch(batch, [bad_item])), encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="lacks explicit human approval"):
+        bench.import_assisted_review_decisions(packet, path)
+    bad_item["human_approved"] = True
+    bad_item["truths"][0]["capability_ids"] = ["semantic:attribution"]
+    path.write_text(json.dumps(_assisted_decisions_for_batch(batch, [bad_item])), encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="invalid semantic capability"):
+        bench.import_assisted_review_decisions(packet, path)
+
+
+def test_freeze_gold_records_assisted_reference_provenance(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=1)
+    batch = _batch_meta(packet, ["1:R1"])
+    decisions = _assisted_decisions_for_batch(batch, [{
+        "unit_id": "1:R1", "human_approved": True, "decision": "truth_recorded",
+        "truths": [{
+            "importance": "material",
+            "proposition": "La fila representa un valor estructurado.",
+            "capability_ids": ["semantic:structured_values"],
+        }],
+    }])
+    path = tmp_path / "decisions.json"
+    path.write_text(json.dumps(decisions), encoding="utf-8")
+    bench.import_assisted_review_decisions(packet, path)
+    manifest_path = tmp_path / "frozen.json"
+    manifest = bench.freeze_gold(
+        case_id="SYNTHETIC-001",
+        source_path=packet / "representation.json",
+        units_path=packet / "units.csv",
+        coverage_path=packet / "coverage.csv",
+        truth_path=packet / "truth.csv",
+        candidates_path=packet / "candidates.csv",
+        assessment_path=packet / "assessment.csv",
+        scope_path=packet / "gold_scope.json",
+        output_path=manifest_path,
+        reference_provenance_path=packet / "reference_provenance.jsonl",
+    )
+    assert manifest["reviewer_authority"] == "human_ai_assisted"
+    assert manifest["semantic_model_assistance"] is True
+    assert manifest["reference_assistant_models"] == ["GPT-5.6 Sol"]
+    assert manifest["reference_assistance_sessions"] == 1
+    assert manifest["reference_provenance_sha256"] == bench._sha256_bytes((packet / "reference_provenance.jsonl").read_bytes())
+    assert manifest["tested_extractor_seen"] is False
+
+
+def test_freeze_gold_assisted_provenance_must_cover_entire_scope(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=2)
+    coverage = bench._read_csv(packet / "coverage.csv")
+    coverage[1]["review_state"] = "no_material_truth"
+    _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], coverage)
+    batch = _batch_meta(packet, ["1:R1"])
+    decisions = _assisted_decisions_for_batch(batch, [{
+        "unit_id": "1:R1", "human_approved": True, "decision": "truth_recorded",
+        "truths": [{
+            "importance": "material", "proposition": "x",
+            "capability_ids": ["semantic:structured_values"],
+        }],
+    }])
+    path = tmp_path / "decisions.json"
+    path.write_text(json.dumps(decisions), encoding="utf-8")
+    bench.import_assisted_review_decisions(packet, path)
+    with pytest.raises(bench.BenchmarkError, match="does not cover frozen scope"):
+        bench.freeze_gold(
+            case_id="SYNTHETIC-001",
+            source_path=packet / "representation.json",
+            units_path=packet / "units.csv",
+            coverage_path=packet / "coverage.csv",
+            truth_path=packet / "truth.csv",
+            candidates_path=packet / "candidates.csv",
+            assessment_path=packet / "assessment.csv",
+            scope_path=packet / "gold_scope.json",
+            output_path=tmp_path / "frozen.json",
+            reference_provenance_path=packet / "reference_provenance.jsonl",
+        )
+
+
+def test_assisted_adjudication_stage_reexports_and_resolves_uncertainty(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=1)
+    initial = _batch_meta(packet, ["U0001"])
+    uncertain = _assisted_decisions_for_batch(initial, [{
+        "unit_id": "U0001", "human_approved": True,
+        "decision": "needs_adjudication", "truths": [],
+    }])
+    path = tmp_path / "uncertain.json"
+    path.write_text(json.dumps(uncertain), encoding="utf-8")
+    bench.import_assisted_review_decisions(packet, path)
+    output = tmp_path / "adjudication.md"
+    exported = bench.export_assisted_review_batch(
+        packet, output, count=1, review_stage="adjudication"
+    )
+    assert exported["review_stage"] == "adjudication"
+    source = bench._packet_source(packet)
+    scope = json.loads((packet / "gold_scope.json").read_text(encoding="utf-8"))
+    core = bench._assisted_batch_core(
+        packet=packet, source=source, scope=scope, unit_ids=["U0001"], review_stage="adjudication"
+    )
+    adjudication_batch = {**core, "batch_id": bench._assisted_batch_identity(core)}
+    resolved = _assisted_decisions_for_batch(adjudication_batch, [{
+        "unit_id": "U0001", "human_approved": True,
+        "decision": "no_material_truth", "truths": [],
+    }])
+    resolved_path = tmp_path / "resolved.json"
+    resolved_path.write_text(json.dumps(resolved), encoding="utf-8")
+    status = bench.import_assisted_review_decisions(packet, resolved_path)
+    assert status["no_material_truth_units"] == 1
+    assert status["needs_adjudication_units"] == 0
+    provenance = [json.loads(line) for line in (packet / "reference_provenance.jsonl").read_text().splitlines()]
+    assert [row["review_stage"] for row in provenance] == ["initial", "adjudication"]

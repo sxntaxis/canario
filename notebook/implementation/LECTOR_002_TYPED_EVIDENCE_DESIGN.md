@@ -48,7 +48,7 @@ Representation/locator contracts. Table units are sheet rows. Media units are un
 ten-second windows covering the full retained duration; this is mechanical review
 partitioning, not semantic completeness. Truth, candidates, assessments, and semantic
 model calls remain empty/zero. The corpus represents the two collected capabilities but
-the declared capability gate remains false until human gold and adjudication exist.
+the declared capability gate remains false until the human-approved semantic reference and adjudication exist.
 
 ## Dependency
 

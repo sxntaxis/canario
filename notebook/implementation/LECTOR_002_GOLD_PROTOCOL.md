@@ -1,11 +1,10 @@
-# LECTOR-002 Semantic Gold Protocol
+# LECTOR-002 Semantic Reference Protocol
 
-State: **scope frozen; human gold pending; semantic evaluation not run**.
+State: **scope frozen; assisted semantic reference pending; semantic evaluation not run**.
 
-This protocol governs benchmark validation only. Gold scope is a bounded benchmark
-scope, not a product-ingestion ontology or a production review policy. Human gold is
-engineering validation for representative fixtures; `machine-only` remains a valid
-production state.
+This protocol governs benchmark validation only. The frozen scope is a bounded benchmark
+scope, not a product-ingestion ontology or a production review policy. `machine-only`
+remains a valid production state.
 
 ## Separate States
 
@@ -19,88 +18,202 @@ semantic_verification[capability]:
   result_sha256: null for not_run, immutable result digest otherwise
 ```
 
-Frozen gold and complete adjudication never verify a capability by themselves. A
-semantic capability is verified only when a covering case has an exact frozen scope,
-frozen gold, complete adjudication, a `passed` state, and a valid result digest. The
-threshold policy must also be frozen after gold counts are inspected and before any
-tested extractor runs. The executable gate reports evaluation pending separately.
+The internal filenames still use `gold` for the frozen benchmark reference. That does **not**
+mean objective truth about the world. A reference proposition records what the retained source
+asserts or contains, with exact reopenable evidence.
 
-## Truth Binding
+Frozen reference and complete candidate adjudication never verify a capability by themselves.
+A semantic capability is verified only when a covering case has an exact frozen scope, frozen
+reference, complete adjudication, a `passed` state, and a valid result digest. The threshold
+policy must also be frozen after reference counts are inspected and before the tested extractor
+runs.
 
-Every human truth binds to one or more semantic capabilities through sorted,
-semicolon-separated `capability_ids`. A bound capability must be declared semantic
-gold and covered by that case. Deterministic capabilities cannot appear in truth
-bindings; candidates never declare capability success. Per-capability metrics are
-computed from human-adjudicated candidate-to-truth mappings, not automated semantic
-matching.
+## Reference authority
 
-`semantic:multi_topic_longform` is a scope-wide capability. Its recall denominator is
-all truths in the frozen selected scope, so reviewers do not need to label every Acta
-truth with a topic-like tag. Other semantic capabilities derive membership from truth
-bindings.
-
-## Frozen Gold Scope
-
-Each packet contains a canonical `gold_scope.json` bound to exact source and units
-digests, the selected-unit digest, selection policy and semantic capabilities. Scoring
-requires those identities to match. Coverage includes every prepared unit: selected
-units receive `truth_recorded`, `no_material_truth`, or `needs_adjudication`; non-selected units
-explicitly remain `unjudged`. `needs_adjudication` is a valid human-review outcome, not a hidden
-negative label: it means the reviewer is unsure and the unit must receive a second independent
-review before gold can freeze. The benchmark never forces uncertainty into a yes/no answer. Truths outside the selected set are rejected. A sampled structured
-table result reports total units, selected units, selection kind and fraction, and
-cannot claim full-workbook semantic recall.
-
-The longform minutes case uses `full_source_order` over all 61 generic units. The
-structured table uses `lector-002-structural-sample:v1`, a source-digest-seeded sample
-that represents sheets, boundary rows, value-type signatures, formulas, merged
-structure and row-shape diversity without reading labels or candidate output. The
-correspondence uses full source order over its 17 generic text units.
-
-## Freeze Ordering
+The active LECTOR-002 workflow is:
 
 ```text
-1. freeze gold scope
-2. human completes gold
-3. validate and freeze gold
-4. inspect gold counts only
+human_ai_assisted
+```
+
+The project owner and an external conversational assistant may jointly interpret the already
+frozen evidence. The assistant may explain, decompose, or propose reference wording. Nothing is
+accepted until the human explicitly approves it. This is recorded as **AI-assisted reference**,
+not independent human gold.
+
+The critical anti-leakage boundary is temporal:
+
+```text
+freeze source + scope
+-> export exact evidence batch
+-> human + assistant review
+-> explicit human approval
+-> mechanically import/reopen evidence
+-> freeze reference
+-> inspect reference counts
+-> freeze scoring thresholds
+-> only then run the tested extractor
+```
+
+The tested extractor, its candidates, and its scores must remain unseen while the reference is
+being built. A reference decision file declaring `tested_extractor_seen=true` is rejected.
+
+The original scope manifests legitimately retain `semantic_model_calls=0`: that field proves the
+**scope itself** was frozen before semantic assistance. Later semantic assistance is declared in
+`reference_provenance.jsonl` and in the frozen reference manifest instead of rewriting scope
+history.
+
+## Truth binding
+
+Every approved reference truth binds to one or more semantic capabilities through sorted,
+semicolon-separated `capability_ids`. A bound capability must be declared semantic reference
+coverage for that case. Deterministic capabilities cannot appear in truth bindings. Candidates
+never declare capability success.
+
+`semantic:multi_topic_longform` is scope-wide. Its recall denominator is all truths in the frozen
+selected scope, so the reference does not invent a topic ontology merely to tag each proposition.
+Other semantic capabilities derive membership from explicit truth bindings.
+
+## Frozen scope
+
+Each packet contains canonical `gold_scope.json` bound to exact source and units digests, the
+selected-unit digest, selection policy, and semantic capabilities. Scoring requires those
+identities to match.
+
+Coverage includes every prepared unit:
+
+```text
+selected:
+  truth_recorded | no_material_truth | needs_adjudication
+non-selected:
+  unjudged
+```
+
+`needs_adjudication` is explicit unresolved uncertainty and blocks reference freeze/scoring.
+A sampled structured-table result reports total units, selected units, selection kind, and
+fraction; it cannot claim full-workbook semantic recall.
+
+Current scopes:
+
+- minutes: 61/61, full source order;
+- structured table: 24/211, deterministic structural sample;
+- correspondence: 17/17, full source order;
+- timed media: no semantic reference burden in the current campaign.
+
+## Primary review workflow: evidence batch -> chat -> approved decisions
+
+The interactive `human-review` terminal helper is retired from the active workflow. The primary
+path is batch exchange.
+
+Export up to five pending selected units without semantic interpretation:
+
+```bash
+PYTHONPATH=. python notebook/implementation/lector_002_benchmark.py export-assisted-review \
+  --packet /ruta/al/packet \
+  --output /ruta/al/lote.md \
+  --count 5
+```
+
+The Markdown contains exact source/scope identity plus readable evidence and local physical
+context. Export performs no classification, suggestion, model call, truth generation, or packet
+mutation.
+
+The Markdown may then be uploaded to the conversational assistant. Human and assistant discuss
+each unit. After the human explicitly approves the final decisions, the assistant can produce a
+structured decision JSON with:
+
+```text
+version = lector-002-assisted-reference:v1
+reference_mode = human_ai_assisted
+assistant product + model label
+human_approval.state = approved
+human_approval.approved_at_utc
+batch identity copied exactly from the export
+per-unit human_approved = true
+decision = truth_recorded | no_material_truth | needs_adjudication
+zero or more approved truths as allowed by the decision
+```
+
+For text truths the decision includes an exact `evidence_quote`; the importer derives offsets and
+requires that quote to occur exactly once inside the selected unit. For table truths, the importer
+builds the typed full-row selector mechanically from the frozen Representation and validates it
+through the production `table_range:v1` reopening path.
+
+Import only after explicit human approval:
+
+```bash
+PYTHONPATH=. python notebook/implementation/lector_002_benchmark.py import-assisted-review \
+  --packet /ruta/al/packet \
+  --decisions /ruta/a/decisiones-aprobadas.json
+```
+
+Import refuses:
+
+- wrong source/scope/batch identity;
+- units outside the frozen scope;
+- already-reviewed units;
+- missing human approval;
+- unsupported capability bindings;
+- semantic truths without exact reopenable evidence;
+- any declaration that the tested extractor was already seen.
+
+The import updates only the working packet's coverage/reference files after a timestamped backup.
+It never edits the canonical tarball and never writes candidates or assessments.
+
+`reference_provenance.jsonl` records batch identity, assistant/model label, human approval, unit
+IDs, decision-file digest, and `tested_extractor_seen=false`. Exact assistant build IDs need not be
+invented when the product does not expose them; the visible model label is recorded and the
+limitation remains explicit.
+
+## Freeze ordering
+
+```text
+1. freeze source + scope
+2. complete human-approved assisted reference
+3. validate and freeze reference
+4. inspect reference counts only
 5. freeze semantic scoring thresholds/policy
-6. run the tested extractor
-7. human adjudicates candidates
+6. record tested-extractor identity and run it
+7. adjudicate candidates against the frozen reference
 8. score against frozen thresholds
 ```
 
-`review-status` reports only mechanical progress: resolved units, blank units and units marked
-`needs_adjudication`. It performs no semantic interpretation.
+`review-status` remains mechanical only. It reports coverage progress and performs no semantic
+interpretation.
 
-## Helper local de revisión
-
-Para revisar un packet desempaquetado sin abrir una interfaz externa:
+For AI-assisted reference, `freeze-gold` is invoked with the provenance file:
 
 ```bash
-PYTHONPATH=. python notebook/implementation/lector_002_benchmark.py human-review \
-  --packet /ruta/al/packet --session-size 5
+PYTHONPATH=. python notebook/implementation/lector_002_benchmark.py freeze-gold \
+  ... \
+  --reference-provenance /ruta/al/packet/reference_provenance.jsonl
 ```
 
-El helper muestra una unidad por vez en orden de fuente y continúa desde la primera unidad
-seleccionada que aún está en blanco. `--start-unit UNIT_ID` permite reanudar desde una unidad
-concreta; `--read-only` permite inspeccionar sin escribir. Las opciones son `1` material,
-`2` no material, `3` dudosa, `4` saltar, `b` volver a la anterior, `c` mostrar contexto,
-`r` repetir la unidad, `q` salir guardando lo ya resuelto, `x` cancelar sin guardar y `?` mostrar ayuda. Las opciones `1`
-y `3` aceptan una nota breve opcional, pero ninguna nota se convierte en truth.
+The frozen manifest then records:
 
-Solo se escriben `coverage.csv` y `review_notes.csv`, con reemplazo atómico por archivo; la
-primera modificación de una sesión conserva una copia en `.review-backups/`. El helper verifica
-antes y después de la sesión los bytes de la Representation, `gold_scope.json`, manifests,
-unidades, selección y artefactos semánticos. Si hay drift, la sesión se detiene. No lee
-candidatos, no llama modelos, no crea truths, no adjudica incertidumbre y no toca los packets
-canónicos reales durante pruebas sintéticas.
+```text
+reviewer_authority = human_ai_assisted
+semantic_model_assistance = true
+reference_provenance_sha256
+reference_assistant_models
+reference_assistance_sessions
+human_approval_required = true
+tested_extractor_seen = false
+```
 
-The `freeze-gold` validator refuses unresolved `needs_adjudication` units, empty semantic-capability gold (unless the
-capability is explicitly scope-wide), candidate output, model assistance, changed
-source/scope bytes, incomplete coverage, invalid evidence, or missing capability
-bindings. It does not generate truths or decide semantic equivalence.
+A provenance file must cover the entire selected scope exactly before an assisted reference can
+freeze.
 
-Benchmark assistance, if introduced later, may reduce search effort but cannot silently
-become gold or final adjudication. No tested extractor, candidate output, semantic model
-call, or truth row is present in the current review packets.
+## Independence limitation at semantic certification
+
+AI-assisted reference is useful benchmark evidence, but it is not independent of the assisting
+model. Before semantic capability certification, record the tested extractor's model/provider
+identity and compare it with the reference-assistant identity.
+
+If the extractor is the same model/family/provider, or the relationship cannot be established,
+that limitation must be explicit and an independent second-review sample is required before a
+semantic PASS may be treated as strong certification evidence. Do not silently describe assisted
+reference as independent human gold.
+
+This rule does not change deterministic evidence certification and does not make production Claims
+require human review.

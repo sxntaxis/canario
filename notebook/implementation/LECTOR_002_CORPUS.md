@@ -95,12 +95,14 @@ rather than `broad_certification_ready`.
 A green gate means only that every **currently declared capability target** has satisfied
 its declared verification mode. Representation/evidence capabilities use deterministic proof
 against frozen bytes and production-compatible reopening; semantic-stress capabilities use
-independent human gold plus adjudication. Per-case semantic scores and their thresholds remain
+a frozen, human-approved reference plus adjudication. The current campaign permits declared
+AI assistance while keeping the tested extractor hidden until the reference is frozen. Per-case semantic scores and their thresholds remain
 separate evidence; results must still be reported by capability and fixture so aggregate
 strength cannot hide a weak modality.
 
-This distinction is deliberate. Human judgment is necessary to decide whether a proposition
-was semantically recovered correctly; it is not necessary to decide whether a byte-identical
+This distinction is deliberate. Human approval is necessary to decide whether a proposition
+belongs in the semantic reference and later whether a candidate recovered it correctly; declared
+AI assistance may support that review but does not become source evidence itself; it is not necessary to decide whether a byte-identical
 cell/range or media time span reopens. Requiring gold for structural invariants would add
 annotation labor without increasing assurance.
 
@@ -113,7 +115,7 @@ annotation labor without increasing assurance.
 
 `lector_002_benchmark.py` implements `text_quote:v1` plus typed worksheet and scoring modes
 for `table_range:v1` and `media:v1`. Typed scoring runs selectors through the production
-`TargetRegistry` and runtime locator reopener before computing the same human-adjudication
+`TargetRegistry` and runtime locator reopener before computing the same explicit candidate-to-reference adjudication
 metrics used by text mode. Media preparation/scoring additionally requires a canonical media
 index bound by exact source digest and trusted duration. The modes never generate truth,
 candidates, or semantic calls. Media review windows are uniform mechanical partitions only;
@@ -160,7 +162,7 @@ scope-wide: all truths in the selected full-source scope contribute without requ
 reviewers to invent topic labels. Other semantic metrics derive membership from truth
 bindings and human adjudication; semantic matching remains automated=false.
 
-The current independent review scopes are:
+The current extractor-blind frozen review scopes are:
 
 | Case | Scope | Units | Semantic target |
 |---|---|---:|---|
@@ -231,7 +233,7 @@ shapes for reports, correspondence, transcripts or future evidence.
 ## Production doctrine still stands
 
 `machine-only` is a normal durable/searchable production state, not review debt. Corpus
-gold/adjudication is engineering validation paid on a small representative set, not a rule
+reference/adjudication is engineering validation paid on a small representative set, not a rule
 that every ingested Claim enters a human queue.
 
 ## Current stop condition
@@ -242,9 +244,9 @@ current declared-capability gate remains blocked until:
 1. real fixtures collectively cover every declared target capability;
 2. each capability uses evidence semantics appropriate to its Representation;
 3. deterministic-mode capabilities pass their frozen-byte/locator proofs;
-4. independent gold is frozen for semantic-gold capabilities before tested extractor output
-   is inspected;
-5. semantic candidates are adjudicated against that gold;
+4. a human-approved semantic reference is frozen before tested extractor output is inspected;
+   declared AI assistance is provenance, not source evidence;
+5. semantic candidates are adjudicated against that frozen reference;
 6. deterministic scoring passes the accepted per-case/per-capability thresholds;
 7. results are reported separately enough that one strong modality cannot hide another;
 8. any materially new failure mode discovered during the campaign is added explicitly

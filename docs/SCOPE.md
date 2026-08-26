@@ -54,9 +54,10 @@ classes, need no exhaustive registry and may overlap.
 The executable benchmark gate is capability coverage: Representation fidelity, typed
 evidence reopening and semantic stress dimensions. Verification follows the nature of the
 capability: structural Representation/evidence properties are proved deterministically from
-frozen bytes and locator reopening; semantic-understanding capabilities require independent
-human gold plus adjudication. Human review is not used to certify facts that machines can
-prove exactly. New real-world formats should extend the matrix when they expose a materially
+frozen bytes and locator reopening; semantic-understanding capabilities require a frozen,
+human-approved semantic reference plus candidate adjudication. The active reference workflow may
+use declared AI assistance as long as the tested extractor remains unseen until reference freeze.
+Human review is not used to certify facts that machines can prove exactly. New real-world formats should extend the matrix when they expose a materially
 new failure mode rather than forcing the product into an ever-growing document-type enum.
 
 The benchmark must always state:
@@ -66,8 +67,10 @@ certification_scope = declared_capabilities_only
 universal_support_claimed = false
 ```
 
-LECTOR-002 semantic gold is a benchmark protocol, not a product ingestion ontology.
-Its frozen scope binds exact source and Representation bytes. Structured-data samples
+LECTOR-002 semantic reference is a benchmark protocol, not a product ingestion ontology.
+Its frozen scope binds exact source and Representation bytes. Internal files retain the historical
+`gold` naming, but current reference authority is explicitly `human_ai_assisted`, not independent
+human gold. Structured-data samples
 prove only the selected semantic sample; the longform reference case remains full-source
 to preserve recall pressure. Gold frozen, adjudication complete, and semantic capability
 passed are separate states, and threshold policy freezes after gold counts but before a

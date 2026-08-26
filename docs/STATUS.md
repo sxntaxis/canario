@@ -229,13 +229,15 @@ XLSX/table Representation, deterministic ffprobe media index, production locator
 same-Artifact lineage protection and typed benchmark scoring passed exact registered SQLite
 3.53.4 certification plus fresh/post-push clone proof. LECTOR-002 now distinguishes
 deterministically verifiable Representation/evidence capabilities from semantic capabilities
-that require independent gold/adjudication.
-The campaign now has frozen independent scopes for semantic gold: 61 full-source
+that require a frozen semantic reference plus adjudication.
+The campaign now has frozen, extractor-blind scopes for semantic reference: 61 full-source
 minutes units, a 24-row deterministic structural table sample, and 17 full-source
 official-correspondence units. Truth, candidate and assessment rows remain empty;
-semantic evaluation has not run. Gold, adjudication, threshold policy and semantic
-verification remain separate, so the campaign remains blocked on human gold,
-adjudication and accepted semantic scoring thresholds.
+semantic evaluation has not run. Reference construction, adjudication, threshold policy and semantic
+verification remain separate. The active reference workflow is explicitly human+AI assisted: exact
+evidence is exported before extractor exposure, assistant proposals require explicit human approval,
+and assistance provenance is frozen alongside the reference. The campaign remains blocked on the
+completed frozen reference, adjudication, and accepted semantic scoring thresholds.
 `certification_scope` is explicitly `declared_capabilities_only`;
 `universal_support_claimed` is false. Production review policy remains separate: machine-only
 is a valid searchable state, not a mandatory review queue.
@@ -285,4 +287,4 @@ artifacts. Their future work packages do not expand this authorization. The
 current authority for migration `0001` is the accepted semantic contract, the
 certified freeze, and the bounded authorization record.
 
-- LECTOR-002 human gold packets now treat reviewer uncertainty as explicit `needs_adjudication`; unresolved units block gold freeze/scoring rather than forcing a binary judgment.
+- LECTOR-002 semantic reference packets treat uncertainty as explicit `needs_adjudication`; unresolved units block reference freeze/scoring. The current workflow uses human-approved AI assistance and must not be described as independent human gold.
