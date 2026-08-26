@@ -245,6 +245,24 @@ merely from shared subject matter.
 no duplicate explosion on replay, and no review requirement merely to store or
 search those claims/connections; relation replay is idempotent and attributable.
 
+## WP5A — Structured Reasoning Fit Bench
+
+This is the next authorized technical specification after the SOTA/reuse research
+checkpoint `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`. It does not add a product stage,
+query executor, verifier, dependency or schema object.
+
+The bench must define one deterministic projection from the canonical typed workbook
+Representation, compare hardened SQLite with sandboxed DuckDB on identical inputs, and
+run a frozen deterministic query corpus before any model is introduced. It then compares
+a bounded simple planner/executor with Thucy as a black-box sidecar, without vendoring.
+Projection fidelity, source lineage, execution security, derivation provenance, verdict
+quality, evidence quality and abstention are separate gates. The full specification is
+`notebook/implementation/STRUCTURED_REASONING_FIT_BENCH.md`.
+
+**Gate:** do not implement or select a verifier, alternate engine, DerivationRun shape,
+or production semantic capability taxonomy until the bench produces evidence-backed
+answers.
+
 ## WP6 — Review and Operator Workflow
 
 Implement review configuration:

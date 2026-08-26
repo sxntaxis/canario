@@ -153,6 +153,28 @@ pairwise relations automatically.
 requiring human clicks or losing exact citation traceability; entity anchors and
 claim relations retain their own machine/rule/human provenance.
 
+## Phase 4A — Structured Reasoning Fit Bench
+
+The SOTA/reuse research checkpoint `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`
+re-scoped the next technical work. This is a design/bench gate, not a new product
+stage and not a verifier implementation.
+
+First define one deterministic relational projection from the canonical typed
+`canario.structured_table.v1` Representation. Compare a hardened SQLite baseline with
+a sandboxed DuckDB challenger over the same projection and frozen deterministic cases;
+neither engine may independently reinterpret the original XLSX. Only after that lane
+passes may a simple bounded planner/executor be compared with Thucy as an external,
+non-vendored sidecar.
+
+The bench must prove projection fidelity, exact row/cell lineage, bounded no-write
+execution, deterministic results, resource termination and separate evidence quality and
+abstention metrics. It must also test whether existing `ProcessRun` can represent
+derivation provenance without overload. See
+`notebook/implementation/STRUCTURED_REASONING_FIT_BENCH.md`.
+
+**Gate:** no production query executor, verifier architecture, dependency or schema
+change is authorized until the bench closes G1-G3 and the evidence/verifier gates.
+
 ## Phase 5 — Mesa de control
 
 Implement:

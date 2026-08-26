@@ -260,6 +260,43 @@ required to insert/search the revision.
 Optional human assessment is separate from lifecycle/review and is only stored
 when a workflow actually records such a judgment.
 
+## Analysis and Verification Boundaries
+
+The conceptual model distinguishes four operations without requiring four persistence
+families:
+
+```text
+Lector       source assertion / explicit source content
+Derivation   reproducible result computed from bounded evidence
+Verification proposition evaluated against bounded evidence
+Assessment   optional attributable durable judgment
+```
+
+Lector must not turn a newly computed sum, comparison or join into a source assertion. A
+source may itself state a calculation, which Lector may extract as what the source says.
+
+A Derivation consumes ordered Representation/target identities and an exact bounded
+query/program. Its future provenance must include executor/runtime and configuration,
+sandbox/resource profile, terminal outcome, exact result and available row/cell/evidence
+lineage. The query/program is not original evidence. Existing `ProcessRun` versus a future
+first-class derivation record remains an open G3 fit-bench question; no table is authorized
+here.
+
+Verification results are execution artifacts, not Claim lifecycle state. They must keep
+technical outcome, verdict, evidence set, sufficiency, abstention reason and process/model
+provenance distinct. At minimum the bench distinguishes `supported`, `contradicted` and
+`insufficient_evidence`; timeout, crash, invalid query and tool failure are not epistemic
+abstention. An Assessment remains optional, attributable and separate from lifecycle.
+
+Evidence sufficiency is initially typed result data rather than an `EvidenceSufficiency`
+entity. For absence propositions, “not found” is not “does not exist” without adequate
+inventory/completeness authority.
+
+`ContextEnvelope` is bounded interpretation material, not an exact locator and not a
+canonical truth entity. One proposition may use multiple independently reopenable typed
+EvidenceLinks. Existing EvidenceLink persistence already permits this; no migration is
+authorized solely for multi-evidence propositions.
+
 ## Evidence Locator Storage
 
 Do not create columns `page`, `article`, `item` on every evidence link.

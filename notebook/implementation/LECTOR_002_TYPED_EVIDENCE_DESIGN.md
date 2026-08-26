@@ -47,8 +47,10 @@ The table and media evaluators prepare blank worksheets from the same canonical 
 Representation/locator contracts. Table units are sheet rows. Media units are uniform
 ten-second windows covering the full retained duration; this is mechanical review
 partitioning, not semantic completeness. Truth, candidates, assessments, and semantic
-model calls remain empty/zero. The corpus represents the two collected capabilities but
-the declared capability gate remains false until the human-approved semantic reference and adjudication exist.
+model calls remain empty/zero. The table's former structured semantic scope is superseded;
+these typed evaluators prove only Representation/evidence reopening until a replacement
+structured reasoning design is approved. No semantic gold or tested extractor run is
+authorized by this checkpoint.
 
 ## Dependency
 

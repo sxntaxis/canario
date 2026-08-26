@@ -1,10 +1,23 @@
 # LECTOR-002 Semantic Reference Protocol
 
-State: **scope frozen; assisted semantic reference pending; semantic evaluation not run**.
+State: **historical scope frozen; semantic campaign superseded; replacement reference not authorized**.
 
 This protocol governs benchmark validation only. The frozen scope is a bounded benchmark
 scope, not a product-ingestion ontology or a production review policy. `machine-only`
 remains a valid production state.
+
+## Current disposition after SOTA review
+
+The prior LECTOR-002 campaign is preserved as historical evidence but is not an active
+semantic certification gate. In particular, the 24-row structured-table semantic scope and
+BATCH-001 are superseded/non-authoritative. Do not resume assisted reference construction,
+generate replacement gold, inspect a tested extractor, or create candidates until the
+structured reasoning architecture and fit bench have produced a replacement capability
+design.
+
+The next authorized work is deterministic projection/executor validation followed by a
+bounded planner/verifier fit comparison. This protocol's freeze ordering remains useful for
+any future replacement semantic campaign, but does not authorize that campaign now.
 
 ## Separate States
 
@@ -30,7 +43,7 @@ runs.
 
 ## Reference authority
 
-The active LECTOR-002 workflow is:
+The historical LECTOR-002 workflow was:
 
 ```text
 human_ai_assisted
@@ -96,7 +109,7 @@ fraction; it cannot claim full-workbook semantic recall.
 Current scopes:
 
 - minutes: 61/61, full source order;
-- structured table: 24/211, deterministic structural sample;
+- structured table: 24/211, deterministic structural sample, superseded/non-authoritative;
 - correspondence: 17/17, full source order;
 - timed media: no semantic reference burden in the current campaign.
 

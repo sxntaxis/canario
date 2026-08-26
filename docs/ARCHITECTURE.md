@@ -343,6 +343,73 @@ A practical claim boundary is:
 
 Canario does not atomize prose merely because a model can.
 
+## Semantic Operation Boundaries
+
+Research basis: `notebook/research/lector/fact-verification/synthesis/BOOK.md` at
+checkpoint `7e7fd85be5ac607f7cb02ccb68b97b5e17f8fd9d6`. This promotes only the bounded
+operation distinctions below; the research package remains evidence rather than a general
+implementation mandate.
+
+The native product path remains:
+
+```text
+Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
+                                      -> Mesa de control -> Consultas -> Salidas
+```
+
+Research has exposed additional semantic operations, but they do not create a new
+mandatory human product stage. They are conceptual boundaries around the Fichero and
+Mesa de trabajo.
+
+### Lector: source extraction
+
+Lector answers: **what does this source assert or explicitly contain?** It may inspect
+broader bounded context and attach multiple exact evidence links to preserve attribution,
+conditions, exceptions, hierarchy, cross-references or mixed media. An explicit value,
+date, amount or conclusion stated by a source is valid source extraction.
+
+Lector does not silently convert a new sum, comparison, aggregation or join into a
+`source_assertion`. A source statement such as “spending rose 14%” may be extracted as
+“the report states that spending rose 14%”; the computation is not thereby performed by
+Lector.
+
+### Derived analysis
+
+Derived analysis answers: **what new proposition or result can be reproducibly computed
+from bounded Canario evidence?** It consumes one or more exact input scopes and an
+executable bounded operation. Its conceptual provenance includes ordered input
+Representation/target identities, exact query/program, executor/runtime and configuration
+identity, sandbox/resource profile, terminal outcome, exact result and available
+row/cell/evidence lineage. A query or program is provenance, not original source evidence.
+
+A successful proposition-worthy result may later become a Claim with
+`kind=derived_inference`; the result itself does not become a Claim merely because it
+exists. Whether existing `ProcessRun` can carry this provenance without overload, or a
+future first-class derivation run is needed, remains an open fit-bench decision.
+
+### Verification and Assessment
+
+Verification answers: **given this proposition and this explicitly bounded evidence scope,
+what does the available evidence justify?** A verifier execution keeps technical outcome,
+verdict, evidence set, evidence sufficiency, abstention reason and process/model provenance
+as separate axes. The minimum bench meanings are `supported`, `contradicted` and
+`insufficient_evidence`.
+
+Timeout, crash, invalid query or tool failure is execution failure, not epistemic
+abstention. A verifier result never rejects, retracts, supersedes or otherwise mutates a
+Claim lifecycle. The existing optional attributable `Assessment` remains the durable
+judgment that a later policy may record or promote from a specific verifier result.
+
+Evidence sufficiency is initially typed information inside that result, not a new core
+entity. It must record missing source coverage and completeness limitations, especially
+for negative propositions: “not found” is not “does not exist” without adequate inventory
+authority.
+
+`ContextEnvelope` means bounded interpretation/retrieval material; it is not the smallest
+exact evidence locator and is not itself reviewed truth. One proposition may use multiple
+independently reopenable typed `EvidenceLink`s. Existing evidence-link semantics support
+this without a schema migration.
+
 ## Source Authority: What Can This Evidence Demonstrate?
 
 “Official” is not a universal proof level. Bounded source authority configuration records the kinds of

@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: LECTOR_001_SEMANTIC_EXTRACTION_BOUNDARY_IMPLEMENTED_AND_CERTIFIED
+state: LECTOR_ANALYSIS_VERIFICATION_ARCHITECTURE_CHECKPOINT
 created: 2026-08-19
 updated: 2026-08-25
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001, the D1/D2/Codex processor ladder, and LECTOR-001 are independently certified and integrated. The first bounded canonical semantic extraction writer now persists machine-only evidence-backed Claims without granting review/entity-reconciliation authority.
+summary: WORKBENCH-001, the D1/D2/Codex processor ladder, and LECTOR-001 are independently certified and integrated. The post-SOTA architecture checkpoint separates source extraction, derived analysis, verification, and optional Assessment without authorizing a verifier or schema change.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -101,8 +101,10 @@ accepted semantic contracts
 -> PROCESSOR-OCR-001 OCRmyPDF + Tesseract adapter independently certified
 -> PROCESSOR-CODEX-001 one-page Codex CLI visual adapter independently certified
 -> LECTOR-001 bounded semantic extraction boundary independently certified + integrated
--> LECTOR-002 heterogeneous reference-corpus gate active; text plus typed table/media
-   representation/evidence substrate implemented, real typed gold not generated
+-> SOTA research checkpoint 7e7fd85: fact verification and structured reasoning audit complete
+-> architecture reconciliation: Lector/extraction, Derivation, Verification, Assessment separated
+-> STRUCTURED-REASONING-FIT-BENCH active; no executor/verifier implementation authorized
+-> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
 
@@ -220,8 +222,23 @@ and LECTOR-001 writes no synthetic human review. The certified SQL baseline rema
 unchanged at `5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb`;
 no `0002` exists.
 
-The active semantic edge is LECTOR-002: a heterogeneous reference-corpus gate is active.
-Its executable readiness model is capability coverage, not a taxonomy of document classes.
+The active semantic edge is now the architecture checkpoint after the fact-verification SOTA
+review, followed by the bounded `STRUCTURED-REASONING-FIT-BENCH`. The prior LECTOR-002
+semantic campaign is superseded and must be re-scoped; it is not a currently active semantic
+gold-completion gate. Its original executable readiness model remains historical evidence,
+not replacement authority.
+
+Research basis: `notebook/research/lector/fact-verification/synthesis/BOOK.md`, checkpoint
+`7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`.
+
+The product vocabulary remains Inbox -> Depósito -> Mesa de trabajo -> Lector -> Fichero
+-> Mesa de control -> Consultas -> Salidas. Derived analysis and Verification are semantic
+operation boundaries around the Fichero/Mesa de trabajo, not new mandatory human stages.
+
+Lector answers what a source asserts or explicitly contains. A new sum, comparison or join
+belongs to Derived analysis, not a source assertion. Verification evaluates a proposition
+against bounded evidence and never mutates Claim lifecycle. Assessment remains optional,
+attributable and separate from lifecycle.
 Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
 covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are frozen externally. Their typed evidence
 substrate is now canonical at `e0ab1cd831740241736086f5db568468aacac779`: deterministic
@@ -230,15 +247,18 @@ same-Artifact lineage protection and typed benchmark scoring passed exact regist
 3.53.4 certification plus fresh/post-push clone proof. LECTOR-002 now distinguishes
 deterministically verifiable Representation/evidence capabilities from semantic capabilities
 that require a frozen semantic reference plus adjudication.
-The campaign now has frozen, extractor-blind scopes for semantic reference: 61 full-source
-minutes units, a 24-row deterministic structural table sample, and 17 full-source
-official-correspondence units. Truth, candidate and assessment rows remain empty;
-semantic evaluation has not run. Reference construction, adjudication, threshold policy and semantic
-verification remain separate. The active reference workflow is explicitly human+AI assisted: exact
+The superseded campaign has frozen, extractor-blind scopes for semantic reference: 61
+full-source minutes units, a 24-row deterministic structural table sample, and 17 full-source
+official-correspondence units. The 24-row structural semantic scope and BATCH-001 are
+superseded/non-authoritative for semantic certification. Truth, candidate and assessment rows
+remain empty; replacement semantic evaluation has not run. Reference construction,
+adjudication, threshold policy and semantic verification remain separate. The historical
+reference workflow is explicitly human+AI assisted: exact
 evidence is exported before extractor exposure, assistant proposals require explicit human approval,
 and assistance provenance is frozen alongside the reference. The campaign remains blocked on the
 completed frozen reference, adjudication, and accepted semantic scoring thresholds.
-`certification_scope` is explicitly `declared_capabilities_only`;
+`certification_scope` remains explicitly `declared_capabilities_only` for the historical
+campaign;
 `universal_support_claimed` is false. Production review policy remains separate: machine-only
 is a valid searchable state, not a mandatory review queue.
 
@@ -278,6 +298,9 @@ flattening unsupported media into text or by extrapolating from the minutes/PDF 
 - No automatic public publication.
 - No claim may conceal whether it is machine-only or human-reviewed.
 - No AI output may serve as factual source evidence for its own claim.
+- No derived-analysis or verifier implementation is authorized by this checkpoint. No
+  executor may access the canonical SQLite DB, arbitrary filesystem/network, extensions,
+  write authority, semantic writers or secrets.
 - No individual political-preference profiling or targeted-persuasion use.
 
 ## Planning Documents
@@ -287,4 +310,8 @@ artifacts. Their future work packages do not expand this authorization. The
 current authority for migration `0001` is the accepted semantic contract, the
 certified freeze, and the bounded authorization record.
 
-- LECTOR-002 semantic reference packets treat uncertainty as explicit `needs_adjudication`; unresolved units block reference freeze/scoring. The current workflow uses human-approved AI assistance and must not be described as independent human gold.
+- Historical LECTOR-002 reference packets treat uncertainty as explicit `needs_adjudication`;
+  unresolved units block reference freeze/scoring. The superseded table scope and BATCH-001
+  are not semantic certification authority. Any future campaign must use the reconciled
+  capability decomposition and must not be described as independent human gold when using
+  human-approved AI assistance.

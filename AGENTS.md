@@ -208,9 +208,10 @@ Rules for agents/contributors:
   perform canonical cutover;
 - broad ClaimRelations created during `claim_extract` are same-run only and obey the
   candidate/basis rules in `notebook/implementation/LECTOR_001_DESIGN.md`;
-- the active semantic edge is `LECTOR-002`: build a heterogeneous reference corpus,
-  not an Acta 161-only benchmark. Acta 161 is case `CR-ESPARZA-MINUTES-001` and cannot
-  establish general extraction quality by itself;
+- the active semantic edge is now the architecture reconciliation plus
+  `STRUCTURED-REASONING-FIT-BENCH`; the prior LECTOR-002 semantic campaign is
+  superseded and must be re-scoped before replacement reference work. Acta 161 is
+  case `CR-ESPARZA-MINUTES-001` and cannot establish general extraction quality by itself;
 - LECTOR-002 fixture genre labels are optional `benchmark_archetypes`, not registered
   Canario document classes. Do not create an exhaustive `DocumentType`/`case_class`
   taxonomy to make the benchmark green;
@@ -233,7 +234,7 @@ Rules for agents/contributors:
   normative/contractual, structured data, timed media) are useful stress sources, not
   ontology. Coverage is accepted only through appropriate typed evidence evaluators;
 - benchmark assistance must be explicit provenance, never silently presented as independent
-  human gold. The active mode is `human_ai_assisted`: assistant proposals require explicit human
+  human gold. The historical mode is `human_ai_assisted`: assistant proposals require explicit human
   approval, exact evidence must reopen mechanically, and `needs_adjudication` remains unresolved
   until a later review. Do not inspect a tested extractor's output for a case before that case's
   semantic reference is frozen. If reference assistant and tested extractor share a model/family/
@@ -248,6 +249,36 @@ Rules for agents/contributors:
   non-selected units explicitly `unjudged` and must contain no candidates or truths before
   review. `semantic_model_calls=0` in the frozen scope records that the scope was fixed before
   assistance; later AI assistance is declared separately in reference provenance.
+
+### Semantic operation boundaries after SOTA review
+
+`Lector` answers only: **what does this source assert or explicitly contain?** It may use
+bounded context and multiple exact evidence links, including explicit table values,
+conditions, exceptions, dates, amounts and attributions. It must not silently turn a new
+calculation, comparison or join into a `source_assertion`.
+
+Derived analysis is a separate conceptual boundary for reproducibly computing a new result
+from bounded Representations. Verification is a separate conceptual boundary for deciding
+what a proposition and explicitly bounded evidence scope justify. Neither boundary is a new
+mandatory human product stage or an authorized production subsystem yet.
+
+Derivation provenance includes ordered input Representation/target identities, the exact
+query/program, executor/runtime and configuration identity, sandbox/resource profile,
+terminal outcome, exact result and available source-row/cell lineage. The query/program is
+provenance, never original source evidence. Whether existing `ProcessRun` is sufficient or a
+future first-class derivation run is needed remains an open G3 fit-bench result.
+
+Verifier results keep execution outcome, verdict, evidence set, evidence sufficiency,
+abstention reason and model/process provenance separate. `supported`, `contradicted` and
+`insufficient_evidence` are conceptual bench meanings; timeout, crash, invalid query and
+tool failure are execution failures, not epistemic abstention. A verifier result never
+mutates Claim lifecycle. An optional attributable `Assessment` remains the durable judgment
+when a later policy promotes or records one.
+
+Evidence sufficiency is initially typed result information, not a new entity/table. A
+`ContextEnvelope` is bounded interpretation material and is distinct from the smallest
+reopenable evidence locator. One proposition may use multiple independently reopenable,
+typed EvidenceLinks. The current schema already supports this; no migration is authorized.
 
 ## ¿Qué es Canario?
 
