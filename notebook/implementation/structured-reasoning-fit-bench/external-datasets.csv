@@ -1,0 +1,2 @@
+dataset_id,publisher,title,resource_page,download_url,access,license_status,raw_committed,purpose
+CR-INEC-PURCHASES-2016-2021,Instituto Nacional de Estadística y Censos (Costa Rica),Histórico de compras 2016 - 2021,https://datosabiertos.inec.cr/es/resource/historico-de-compras-2016-2021-csv,https://datosabiertos.inec.cr/sites/default/files/AdHistoricocompras%202016-2021DATOS%20ABIERTOS.csv,public,not_specified_by_publisher,NO,"external scale lane: grouping, aggregation-by-count, ordering and window execution over a materially larger civic table"

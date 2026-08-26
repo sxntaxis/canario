@@ -1,22 +1,26 @@
 # Structured Reasoning Fit Bench
 
-State: **SPECIFICATION ONLY - IMPLEMENTATION NOT AUTHORIZED**
+State: **CANDIDATE IMPLEMENTATION WRITTEN - LOCAL EXECUTION/CERTIFICATION PENDING**
 
 Authority:
 
 ```text
 research checkpoint: 7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6
-architecture branch: architecture/lector-analysis-verification
-parent: a1d212c84830b3a0558dd4d1d9354cf10ac7a362
+architecture checkpoint: 516ddd613bf58ef412d59bf4600652c8045c9c6b
+candidate base: 516ddd613bf58ef412d59bf4600652c8045c9c6b
+public main remains: a1d212c84830b3a0558dd4d1d9354cf10ac7a362
 ```
 
 This document defines the next bounded technical unit after the fact-verification SOTA
-review. It is a fit-bench specification, not an executor, verifier, model integration,
-schema, dependency, or semantic-reference implementation.
+review. The bench-only implementation now lives in
+`notebook/implementation/structured_reasoning_fit_bench.py` plus its isolated DuckDB
+worker and evidence subtree. It remains outside production `canario/`, introduces no
+schema/dependency change, and is not a verifier/model integration or semantic-reference
+implementation. Runtime PASS/engine selection remains pending local certification.
 
 ## Purpose and Non-Goals
 
-The bench must close G1-G3 from the research gap audit:
+The complete fit-bench program closes G1-G3 from the research gap audit:
 
 ```text
 G1: deterministic projection and executor fit
@@ -24,8 +28,11 @@ G2: simple bounded planner/executor versus Thucy sidecar
 G3: derivation provenance fit against existing ProcessRun semantics
 ```
 
-It must also make evidence sufficiency, abstention, context and multi-evidence measurable
-without turning them into new Claim lifecycle states.
+This candidate implements the deterministic foundation for **G1 + G3** and freezes the
+query/evidence handoff needed by G2. The actual planner/Thucy comparison remains a later
+Phase D and is not run or implemented here. The foundation also makes evidence sufficiency,
+abstention, context and multi-evidence measurable without turning them into new Claim
+lifecycle states.
 
 It must not:
 
@@ -109,6 +116,14 @@ The serialization is intentionally not frozen here. The manifest must bind every
 row/cell back to the source Representation and must be reproducible from the same retained
 typed bytes. Formula text is not silently recalculated; cached values are not invented.
 
+For external scale fixtures normalized into the same neutral projection model, projection
+identity separates **transformation semantics** from **validation policy**. Encoding,
+delimiter, header treatment, dataset/relation identity and column mapping affect the
+projection bytes. Expected source digest/header/row-count guards are validated and recorded
+in the projection manifest, but do not perturb otherwise identical projection bytes; prose
+notes never participate in either deterministic identity. The exact source bytes remain
+bound independently by `source_representation_sha256`.
+
 ### Projection gate
 
 PASS requires:
@@ -159,7 +174,8 @@ secrets or credential paths
 The future implementation must use disposable projections and prove or measure:
 
 - read-only enforcement;
-- timeout/interruption and terminal outcome;
+- a query-execution timeout/interruption budget distinct from a bounded trusted bootstrap/materialization allowance; corpus runs materialize the neutral DuckDB projection once per isolated session rather than once per query;
+- terminal outcome;
 - memory, CPU, row and byte bounds where available;
 - disabled extensions, network and file escape;
 - deterministic result encoding;
@@ -168,8 +184,7 @@ The future implementation must use disposable projections and prove or measure:
 
 ### Executor gate
 
-PASS requires bounded no-write execution, deterministic result representation, resource
-termination evidence, and a clean proof that canonical DB, filesystem, network, extensions
+PASS requires bounded no-write execution, deterministic result representation, independently bounded **per-query** execution plus worker-process termination evidence, one trusted projection materialization per corpus session, and a clean proof that canonical DB, filesystem, network, extensions
 and secrets are outside executor authority.
 
 ## Phase C - Deterministic Query Corpus
