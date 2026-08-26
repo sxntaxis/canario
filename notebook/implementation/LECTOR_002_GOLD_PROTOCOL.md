@@ -73,6 +73,29 @@ correspondence uses full source order over its 17 generic text units.
 `review-status` reports only mechanical progress: resolved units, blank units and units marked
 `needs_adjudication`. It performs no semantic interpretation.
 
+## Helper local de revisión
+
+Para revisar un packet desempaquetado sin abrir una interfaz externa:
+
+```bash
+PYTHONPATH=. python notebook/implementation/lector_002_benchmark.py human-review \
+  --packet /ruta/al/packet --session-size 5
+```
+
+El helper muestra una unidad por vez en orden de fuente y continúa desde la primera unidad
+seleccionada que aún está en blanco. `--start-unit UNIT_ID` permite reanudar desde una unidad
+concreta; `--read-only` permite inspeccionar sin escribir. Las opciones son `1` material,
+`2` no material, `3` dudosa, `4` saltar, `b` volver a la anterior, `c` mostrar contexto,
+`r` repetir la unidad, `q` salir guardando lo ya resuelto, `x` cancelar sin guardar y `?` mostrar ayuda. Las opciones `1`
+y `3` aceptan una nota breve opcional, pero ninguna nota se convierte en truth.
+
+Solo se escriben `coverage.csv` y `review_notes.csv`, con reemplazo atómico por archivo; la
+primera modificación de una sesión conserva una copia en `.review-backups/`. El helper verifica
+antes y después de la sesión los bytes de la Representation, `gold_scope.json`, manifests,
+unidades, selección y artefactos semánticos. Si hay drift, la sesión se detiene. No lee
+candidatos, no llama modelos, no crea truths, no adjudica incertidumbre y no toca los packets
+canónicos reales durante pruebas sintéticas.
+
 The `freeze-gold` validator refuses unresolved `needs_adjudication` units, empty semantic-capability gold (unless the
 capability is explicitly scope-wide), candidate output, model assistance, changed
 source/scope bytes, incomplete coverage, invalid evidence, or missing capability

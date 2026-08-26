@@ -17,6 +17,10 @@ import bisect
 import csv
 import hashlib
 import json
+import os
+import shutil
+import tempfile
+from datetime import datetime, timezone
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
@@ -1031,6 +1035,312 @@ def review_status(
     }
 
 
+REVIEW_NOTES_FIELDS = ["unit_id", "rough_human_note", "uncertainty_note", "updated_at_utc"]
+IMMUTABLE_PACKET_FILES = (
+    "gold_scope.json",
+    "manifest.json",
+    "truth.csv",
+    "candidates.csv",
+    "assessment.csv",
+    "units.csv",
+    "selected_units.csv",
+)
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _atomic_write_bytes(path: Path, data: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+        directory_fd = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def _csv_bytes(fieldnames: Sequence[str], rows: Iterable[dict[str, object]]) -> bytes:
+    from io import StringIO
+
+    buffer = StringIO(newline="")
+    writer = csv.DictWriter(buffer, fieldnames=fieldnames, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    return buffer.getvalue().encode("utf-8")
+
+
+def _packet_source(packet: Path) -> Path:
+    for name in ("representation.txt", "source.txt", "representation.json", "table.json"):
+        candidate = packet / name
+        if candidate.is_file():
+            return candidate
+    raise BenchmarkError("review packet has no exact text or typed Representation")
+
+
+def _packet_manifest(packet: Path) -> dict[str, object]:
+    path = packet / "manifest.json"
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise BenchmarkError("review packet manifest.json is not readable valid JSON") from exc
+    if not isinstance(value, dict):
+        raise BenchmarkError("review packet manifest.json must be an object")
+    if value.get("semantic_model_calls", 0) != 0 or value.get("tested_extractor_seen", False) is not False:
+        raise BenchmarkError("review packet records prohibited model or extractor activity")
+    return value
+
+
+def _packet_identity(packet: Path) -> tuple[Path, dict[str, str]]:
+    source = _packet_source(packet)
+    units_path = packet / "units.csv"
+    scope_path = packet / "gold_scope.json"
+    coverage_path = packet / "coverage.csv"
+    required = [source, units_path, scope_path, coverage_path, packet / "manifest.json"]
+    required.extend(packet / name for name in IMMUTABLE_PACKET_FILES if name != "gold_scope.json" and name != "manifest.json")
+    missing = [str(path.name) for path in required if not path.is_file()]
+    if missing:
+        raise BenchmarkError(f"review packet is missing required files: {missing}")
+    _packet_manifest(packet)
+    units = _unique_rows(_read_csv(units_path), "unit_id", "units.csv")
+    _load_gold_scope(scope_path, source_bytes=source.read_bytes(), units_path=units_path, unit_ids=set(units))
+    # review_status also protects every non-selected unit before a write is allowed.
+    review_status(source_path=source, units_path=units_path, coverage_path=coverage_path, scope_path=scope_path)
+    immutable = {name: _sha256_bytes((packet / name).read_bytes()) for name in IMMUTABLE_PACKET_FILES}
+    immutable["source"] = _sha256_bytes(source.read_bytes())
+    return source, immutable
+
+
+def _verify_packet_identity(packet: Path, source: Path, immutable: dict[str, str]) -> None:
+    if _packet_source(packet) != source:
+        raise BenchmarkError("review packet Representation path changed during the session")
+    for name, digest in immutable.items():
+        path = source if name == "source" else packet / name
+        if not path.is_file() or _sha256_bytes(path.read_bytes()) != digest:
+            raise BenchmarkError(f"review packet immutable file changed during the session: {name}")
+
+
+def _load_review_notes(path: Path) -> dict[str, dict[str, str]]:
+    if not path.exists():
+        return {}
+    return _unique_rows(_read_csv(path), "unit_id", "review_notes.csv")
+
+
+def _save_review_files(
+    packet: Path,
+    coverage_rows: Sequence[dict[str, str]],
+    notes: dict[str, dict[str, str]],
+    *,
+    backup_created: bool,
+) -> bool:
+    if not backup_created:
+        backup_root = packet / ".review-backups"
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        backup_dir = backup_root / stamp
+        suffix = 1
+        while backup_dir.exists():
+            backup_dir = backup_root / f"{stamp}-{suffix}"
+            suffix += 1
+        backup_dir.mkdir(parents=True, exist_ok=False)
+        shutil.copy2(packet / "coverage.csv", backup_dir / "coverage.csv")
+        notes_path = packet / "review_notes.csv"
+        if notes_path.exists():
+            shutil.copy2(notes_path, backup_dir / "review_notes.csv")
+        backup_created = True
+    coverage_fields = list(coverage_rows[0]) if coverage_rows else ["unit_id", "review_state", "notes"]
+    _atomic_write_bytes(packet / "coverage.csv", _csv_bytes(coverage_fields, coverage_rows))
+    if notes:
+        _atomic_write_bytes(packet / "review_notes.csv", _csv_bytes(REVIEW_NOTES_FIELDS, notes.values()))
+    elif (packet / "review_notes.csv").exists():
+        _atomic_write_bytes(packet / "review_notes.csv", _csv_bytes(REVIEW_NOTES_FIELDS, ()))
+    return backup_created
+
+
+def _format_typed_row(unit: dict[str, str]) -> str:
+    try:
+        cells = json.loads(unit.get("cells_json", "[]"))
+    except json.JSONDecodeError:
+        cells = unit.get("cells_json", "")
+    payload = {
+        "hoja": unit.get("sheet", ""),
+        "fila": unit.get("row_start", ""),
+        "celdas": cells,
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=False)
+
+
+def _load_display_units(packet: Path, source: Path, scope: dict[str, object]) -> list[dict[str, str]]:
+    units = _unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")
+    selected_ids = set(str(item) for item in scope["selected_unit_ids"])
+    selected = [row for unit_id, row in units.items() if unit_id in selected_ids]
+    if source.suffix.lower() == ".json":
+        for row in selected:
+            if not row.get("cells_json"):
+                raise BenchmarkError("typed review packet unit is missing exact cells_json")
+    return selected
+
+
+def _render_unit(unit: dict[str, str], source: Path, *, context: bool = False) -> str:
+    if source.suffix.lower() == ".json":
+        prefix = "CONTEXTO" if context else "FILA SELECCIONADA"
+        return f"[{prefix}]\n{_format_typed_row(unit)}"
+    try:
+        text = source.read_bytes().decode("utf-8")
+        start = int(unit["char_start"])
+        end = int(unit["char_end"])
+    except (UnicodeDecodeError, KeyError, ValueError) as exc:
+        raise BenchmarkError("text review unit has invalid exact offsets") from exc
+    prefix = "CONTEXTO" if context else "FRAGMENTO SELECCIONADO"
+    return f"[{prefix}]\n{text[start:end]}"
+
+
+def _print_progress(status: dict[str, object], output_fn) -> None:
+    output_fn(
+        f"Progreso: {status['resolved_units']} resueltas · "
+        f"{status['needs_adjudication_units']} dudosas · "
+        f"{status['pending_blank_units']} pendientes"
+    )
+
+
+def run_human_review(
+    packet: Path,
+    *,
+    session_size: int = 5,
+    start_unit: str | None = None,
+    read_only: bool = False,
+    input_fn=input,
+    output_fn=print,
+) -> dict[str, object]:
+    """Run a presentation-only human review session over one unpacked packet."""
+    if not packet.is_dir() or packet.name.endswith(".tar.gz"):
+        raise BenchmarkError("human-review requires an unpacked packet directory")
+    if session_size < 1:
+        raise BenchmarkError("session-size must be positive")
+    source, immutable = _packet_identity(packet)
+    scope = _load_gold_scope(
+        packet / "gold_scope.json",
+        source_bytes=source.read_bytes(),
+        units_path=packet / "units.csv",
+        unit_ids=set(_unique_rows(_read_csv(packet / "units.csv"), "unit_id", "units.csv")),
+    )
+    selected = _load_display_units(packet, source, scope)
+    selected_by_id = {row["unit_id"]: row for row in selected}
+    coverage_rows = _read_csv(packet / "coverage.csv")
+    coverage_by_id = _unique_rows(coverage_rows, "unit_id", "coverage.csv")
+    notes = _load_review_notes(packet / "review_notes.csv")
+    selected_ids = [row["unit_id"] for row in selected]
+    if start_unit is not None:
+        if start_unit not in selected_by_id:
+            raise BenchmarkError(f"unknown selected unit {start_unit!r}")
+        cursor = selected_ids.index(start_unit)
+    else:
+        cursor = next(
+            (index for index, unit_id in enumerate(selected_ids) if coverage_by_id[unit_id].get("review_state", "") == ""),
+            0,
+        )
+    decisions = 0
+    backup_created = False
+
+    while selected:
+        if cursor >= len(selected):
+            cursor = 0
+        unit_id = selected_ids[cursor]
+        unit = selected_by_id[unit_id]
+        status = review_status(
+            source_path=source,
+            units_path=packet / "units.csv",
+            coverage_path=packet / "coverage.csv",
+            scope_path=packet / "gold_scope.json",
+        )
+        output_fn(f"\nCaso: {scope['case_id']}\nUnidad: {cursor + 1} de {len(selected)}")
+        _print_progress(status, output_fn)
+        output_fn("\n" + _render_unit(unit, source))
+        output_fn("\n¿Qué harías con este fragmento?\n1. Sí, aquí hay algo importante para registrar\n2. No, aquí no hay nada importante para registrar\n3. No estoy seguro\n4. Dejarlo para después\nq. Guardar y salir\n?. Ayuda")
+        command = input_fn("> ").strip().lower()
+        if command in {"q", "quit", "salir"}:
+            break
+        if command in {"?", "help", "ayuda"}:
+            output_fn("Controles: 1/y material, 2/n no material, 3/u no seguro, 4/s saltar, b anterior, c contexto, r repetir, q salir, x cancelar.")
+            continue
+        if command in {"r", "redisplay"}:
+            continue
+        if command in {"c", "contexto"}:
+            neighbor_index = max(0, cursor - 1)
+            if neighbor_index == cursor and cursor + 1 < len(selected):
+                neighbor_index += 1
+            output_fn(_render_unit(selected[neighbor_index], source, context=True))
+            continue
+        if command in {"x", "cancelar"}:
+            output_fn("Sesión cancelada. No se guarda la unidad actual.")
+            break
+        if command in {"b", "anterior"}:
+            cursor = (cursor - 1) % len(selected)
+            continue
+        if command in {"4", "s", "skip", "saltar"}:
+            decisions += 1
+            cursor = (cursor + 1) % len(selected)
+        elif command in {"1", "y", "si", "sí"}:
+            note = "" if read_only else input_fn("En tus palabras, ¿qué dice/pasa aquí?\n(No tiene que sonar formal.)\n> ")
+            decisions += 1
+            if not read_only:
+                _verify_packet_identity(packet, source, immutable)
+                coverage_by_id[unit_id]["review_state"] = "truth_recorded"
+                notes[unit_id] = {"unit_id": unit_id, "rough_human_note": note, "uncertainty_note": "", "updated_at_utc": _utc_now()}
+                backup_created = _save_review_files(packet, list(coverage_by_id.values()), notes, backup_created=backup_created)
+            cursor = (cursor + 1) % len(selected)
+        elif command in {"2", "n", "no"}:
+            decisions += 1
+            if not read_only:
+                _verify_packet_identity(packet, source, immutable)
+                coverage_by_id[unit_id]["review_state"] = "no_material_truth"
+                notes.pop(unit_id, None)
+                backup_created = _save_review_files(packet, list(coverage_by_id.values()), notes, backup_created=backup_created)
+            cursor = (cursor + 1) % len(selected)
+        elif command in {"3", "u", "duda", "no estoy seguro"}:
+            output_fn("Está bien no estar seguro. No adivines.")
+            uncertainty = "" if read_only else input_fn("¿Qué te genera duda? (opcional)\n> ")
+            decisions += 1
+            if not read_only:
+                _verify_packet_identity(packet, source, immutable)
+                coverage_by_id[unit_id]["review_state"] = "needs_adjudication"
+                notes[unit_id] = {"unit_id": unit_id, "rough_human_note": "", "uncertainty_note": uncertainty, "updated_at_utc": _utc_now()}
+                backup_created = _save_review_files(packet, list(coverage_by_id.values()), notes, backup_created=backup_created)
+            cursor = (cursor + 1) % len(selected)
+        else:
+            output_fn("No entendí ese control. Usa ? para ver las opciones.")
+            continue
+        if decisions >= session_size:
+            output_fn("\nSesión terminada. Puedes continuar después con el mismo paquete.")
+            break
+        if not read_only:
+            _print_progress(
+                review_status(
+                    source_path=source,
+                    units_path=packet / "units.csv",
+                    coverage_path=packet / "coverage.csv",
+                    scope_path=packet / "gold_scope.json",
+                ),
+                output_fn,
+            )
+    _verify_packet_identity(packet, source, immutable)
+    return review_status(
+        source_path=source,
+        units_path=packet / "units.csv",
+        coverage_path=packet / "coverage.csv",
+        scope_path=packet / "gold_scope.json",
+    )
+
+
 def freeze_gold(
     *,
     case_id: str,
@@ -1399,6 +1709,11 @@ def _build_parser() -> argparse.ArgumentParser:
     review_parser.add_argument("--units", type=Path, required=True)
     review_parser.add_argument("--coverage", type=Path, required=True)
     review_parser.add_argument("--scope", type=Path, required=True)
+    human_parser = subparsers.add_parser("human-review", help="run the local uncertainty-safe human review helper")
+    human_parser.add_argument("--packet", type=Path, required=True)
+    human_parser.add_argument("--session-size", type=int, default=5)
+    human_parser.add_argument("--start-unit")
+    human_parser.add_argument("--read-only", action="store_true")
     media_parser = subparsers.add_parser("prepare-media", help="create a blank timed-media worksheet")
     media_parser.add_argument("--source", type=Path, required=True)
     media_parser.add_argument("--media-index", type=Path, required=True)
@@ -1466,6 +1781,13 @@ def main(argv: Sequence[str] | None = None) -> int:
                 coverage_path=args.coverage,
                 scope_path=args.scope,
             )
+        elif args.command == "human-review":
+            result = run_human_review(
+                args.packet,
+                session_size=args.session_size,
+                start_unit=args.start_unit,
+                read_only=args.read_only,
+            )
         elif args.command == "prepare-media":
             result = prepare_media(args.source, args.media_index, args.output_dir, args.source_label)
         elif args.command == "score-typed":
@@ -1506,6 +1828,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     except BenchmarkError as exc:
         raise SystemExit(f"LECTOR_002_REFERENCE_ERROR: {exc}") from exc
 
+    if args.command == "human-review":
+        print(
+            f"Estado: {result['resolved_units']} resueltas · "
+            f"{result['needs_adjudication_units']} dudosas · "
+            f"{result['pending_blank_units']} pendientes"
+        )
+        return 0
     rendered = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if getattr(args, "output", None):
         args.output.write_text(rendered, encoding="utf-8")

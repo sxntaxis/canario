@@ -712,3 +712,152 @@ def test_review_status_counts_blank_selected_units_as_pending(tmp_path: Path) ->
     assert status["pending_blank_units"] == 1
     assert status["needs_adjudication_units"] == 0
     assert status["review_complete_for_gold_freeze"] is False
+
+
+def _review_packet(tmp_path: Path, *, table: bool = False, unit_count: int = 4) -> Path:
+    packet = tmp_path / ("table-packet" if table else "text-packet")
+    packet.mkdir()
+    if table:
+        source = packet / "representation.json"
+        source.write_text(json.dumps({"format": "synthetic"}), encoding="utf-8")
+        units_rows = []
+        for number in range(1, unit_count + 1):
+            units_rows.append({
+                "unit_id": f"1:R{number}", "sheet": "Datos", "row_start": str(number),
+                "row_end": str(number), "non_empty_cell_count": "2",
+                "value_type_signature": "formula;string", "formula_present": "true",
+                "merged_structure_intersection": "false",
+                "cells_json": json.dumps([
+                    {"address": f"A{number}", "value": {"type": "string", "value": f"Fila {number}"}},
+                    {"address": f"B{number}", "value": {"type": "formula", "formula": "=1+1", "value": 2}},
+                ], ensure_ascii=False, sort_keys=True),
+            })
+        unit_fields = list(units_rows[0])
+        _write_csv(packet / "units.csv", unit_fields, units_rows)
+        _write_csv(packet / "selected_units.csv", unit_fields, units_rows)
+        source_bytes = source.read_bytes()
+    else:
+        source = packet / "representation.txt"
+        text = "\n\n".join(f"Unidad exacta {number}: texto completo." for number in range(1, unit_count + 1))
+        source.write_text(text, encoding="utf-8")
+        units_rows = []
+        position = 0
+        for number in range(1, unit_count + 1):
+            segment = f"Unidad exacta {number}: texto completo."
+            units_rows.append({
+                "unit_id": f"U{number:04d}", "kind": "block", "page_start": "", "page_end": "",
+                "char_start": str(position), "char_end": str(position + len(segment)), "preview": "preview",
+            })
+            position += len(segment) + (2 if number < unit_count else 0)
+        unit_fields = list(units_rows[0])
+        _write_csv(packet / "units.csv", unit_fields, units_rows)
+        _write_csv(packet / "selected_units.csv", unit_fields, units_rows)
+        source_bytes = source.read_bytes()
+    _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], [
+        {"unit_id": row["unit_id"], "review_state": "", "notes": ""} for row in units_rows
+    ])
+    _write_csv(packet / "truth.csv", ["truth_id"], [])
+    _write_csv(packet / "candidates.csv", ["candidate_id"], [])
+    _write_csv(packet / "assessment.csv", ["candidate_id"], [])
+    scope = bench.create_gold_scope(
+        case_id="SYNTHETIC-001", source_sha256=bench._sha256_bytes(source_bytes),
+        units_sha256=bench._unit_file_sha256(packet / "units.csv"),
+        unit_ids=[row["unit_id"] for row in units_rows], selection_kind="full_source_order",
+        selection_policy="synthetic", semantic_capabilities=["semantic:attribution"],
+    )
+    bench.write_gold_scope(packet / "gold_scope.json", scope)
+    (packet / "manifest.json").write_text(json.dumps({
+        "case_id": "SYNTHETIC-001", "semantic_model_calls": 0, "tested_extractor_seen": False,
+    }), encoding="utf-8")
+    return packet
+
+
+def test_human_review_text_full_display_and_all_choice_mappings(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=4)
+    shown: list[str] = []
+    answers = iter(["1", "TEST ONLY", "2", "3", "duda literal", "4", "q"])
+    status = bench.run_human_review(packet, session_size=10, input_fn=lambda _prompt: next(answers), output_fn=shown.append)
+    assert any("Unidad exacta 1: texto completo." in item for item in shown)
+    rows = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
+    assert rows == {"U0001": "truth_recorded", "U0002": "no_material_truth", "U0003": "needs_adjudication", "U0004": ""}
+    notes = {row["unit_id"]: row for row in bench._read_csv(packet / "review_notes.csv")}
+    assert notes["U0001"]["rough_human_note"] == "TEST ONLY"
+    assert notes["U0003"]["uncertainty_note"] == "duda literal"
+    assert status["resolved_units"] == 2
+    assert status["needs_adjudication_units"] == 1
+    assert len(list((packet / ".review-backups").iterdir())) == 1
+    assert (packet / "truth.csv").read_text(encoding="utf-8").count("\n") == 1
+
+
+def test_human_review_table_preserves_typed_formula_display(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, table=True, unit_count=1)
+    shown: list[str] = []
+    bench.run_human_review(packet, session_size=1, input_fn=lambda _prompt: "q", output_fn=shown.append)
+    rendered = "\n".join(shown)
+    assert '"hoja": "Datos"' in rendered
+    assert '"address": "B1"' in rendered
+    assert '"type": "formula"' in rendered
+    assert '"formula": "=1+1"' in rendered
+
+
+def test_human_review_read_only_never_writes_or_backs_up(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=1)
+    before = {path.name: path.read_bytes() for path in packet.iterdir() if path.is_file()}
+    answers = iter(["1", "q"])
+    bench.run_human_review(packet, session_size=1, read_only=True, input_fn=lambda _prompt: next(answers), output_fn=lambda _text: None)
+    after = {path.name: path.read_bytes() for path in packet.iterdir() if path.is_file()}
+    assert before == after
+    assert not (packet / ".review-backups").exists()
+
+
+def test_human_review_navigation_repeat_previous_context_and_cancel_do_not_write(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=2)
+    shown: list[str] = []
+    answers = iter(["r", "b", "c", "x"])
+    bench.run_human_review(packet, input_fn=lambda _prompt: next(answers), output_fn=shown.append)
+    assert sum("FRAGMENTO SELECCIONADO" in item for item in shown) == 4
+    assert any("CONTEXTO" in item for item in shown)
+    assert not (packet / ".review-backups").exists()
+    assert all(row["review_state"] == "" for row in bench._read_csv(packet / "coverage.csv"))
+
+
+def test_human_review_resume_starts_at_first_blank_and_session_is_bounded(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=4)
+    coverage = bench._read_csv(packet / "coverage.csv")
+    coverage[0]["review_state"] = "truth_recorded"
+    coverage[1]["review_state"] = "no_material_truth"
+    _atomic = packet / "coverage.csv"
+    _write_csv(_atomic, ["unit_id", "review_state", "notes"], coverage)
+    answers = iter(["3", "uncertain"])
+    bench.run_human_review(packet, session_size=1, input_fn=lambda _prompt: next(answers), output_fn=lambda _text: None)
+    rows = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
+    assert rows["U0003"] == "needs_adjudication"
+    assert rows["U0004"] == ""
+    answers = iter(["2"])
+    bench.run_human_review(packet, session_size=1, input_fn=lambda _prompt: next(answers), output_fn=lambda _text: None)
+    rows = {row["unit_id"]: row["review_state"] for row in bench._read_csv(packet / "coverage.csv")}
+    assert rows["U0003"] == "needs_adjudication"
+    assert rows["U0004"] == "no_material_truth"
+
+
+def test_human_review_protects_nonselected_and_detects_scope_drift(tmp_path: Path) -> None:
+    packet = _review_packet(tmp_path, unit_count=2)
+    scope = json.loads((packet / "gold_scope.json").read_text(encoding="utf-8"))
+    scope["selected_unit_ids"] = ["U0001"]
+    scope["selected_unit_ids_sha256"] = bench._selected_ids_sha256(["U0001"])
+    bench.write_gold_scope(packet / "gold_scope.json", scope)
+    coverage = bench._read_csv(packet / "coverage.csv")
+    coverage[1]["review_state"] = "unjudged"
+    _write_csv(packet / "coverage.csv", ["unit_id", "review_state", "notes"], coverage)
+    (packet / "representation.txt").write_text("drifted", encoding="utf-8")
+    with pytest.raises(bench.BenchmarkError, match="source identity"):
+        bench.run_human_review(packet, input_fn=lambda _prompt: "q", output_fn=lambda _text: None)
+
+
+def test_review_notes_are_ignored_by_score_and_freeze(tmp_path: Path) -> None:
+    source, units, scope, coverage, truth, candidates, assessment = _scoped_text_files(tmp_path)
+    _write_csv(tmp_path / "review_notes.csv", bench.REVIEW_NOTES_FIELDS, [{
+        "unit_id": "U1", "rough_human_note": "informal", "uncertainty_note": "", "updated_at_utc": "now",
+    }])
+    metrics = bench.score(source, units, coverage, truth, candidates, assessment, scope_path=scope)
+    assert metrics["semantic_matching_automated"] is False
