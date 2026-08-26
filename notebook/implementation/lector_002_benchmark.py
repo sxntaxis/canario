@@ -33,6 +33,7 @@ from canario.processors.media import MediaIndexError, validate_media_index
 PREPARATION_VERSION = "lector-002-reference-text:v2"
 TYPED_PREPARATION_VERSION = "lector-002-typed-evidence:v1"
 GOLD_SCOPE_VERSION = "lector-002-gold-scope:v1"
+RETIRED_SEMANTIC_CAPABILITIES = frozenset({"semantic:structured_values"})
 GOLD_PROTOCOL_VERSION = "lector-002-gold-protocol:v1"
 ASSISTED_REFERENCE_VERSION = "lector-002-assisted-reference:v1"
 ASSISTED_BATCH_VERSION = "lector-002-assisted-batch:v1"
@@ -142,6 +143,9 @@ def create_gold_scope(
     capabilities = sorted(set(semantic_capabilities))
     if not capabilities:
         raise BenchmarkError("gold scope requires semantic capabilities")
+    retired = sorted(set(capabilities) & RETIRED_SEMANTIC_CAPABILITIES)
+    if retired:
+        raise BenchmarkError(f"gold scope cannot use retired semantic capabilities {retired}")
     return {
         "version": GOLD_SCOPE_VERSION,
         "case_id": case_id,
@@ -187,6 +191,9 @@ def _load_gold_scope(path: Path, *, source_bytes: bytes, units_path: Path, unit_
     capabilities = scope.get("semantic_capabilities")
     if not isinstance(capabilities, list) or not capabilities or capabilities != sorted(set(capabilities)):
         raise BenchmarkError("gold scope semantic_capabilities must be sorted and unique")
+    retired = sorted(set(capabilities) & RETIRED_SEMANTIC_CAPABILITIES)
+    if retired:
+        raise BenchmarkError(f"gold scope uses retired semantic capabilities {retired}")
     return scope
 
 
@@ -558,13 +565,19 @@ def _blank_typed_worksheets(
     return manifest
 
 
-def prepare_table(
+def prepare_table_structural(
     source_path: Path,
     output_dir: Path,
     source_label: str | None = None,
-    case_id: str = "",
 ) -> dict[str, object]:
-    """Prepare a blank worksheet over the canonical structured-table derivative."""
+    """Prepare deterministic structural table material without semantic authority.
+
+    The former ``prepare-table`` path also minted a semantic gold scope bound to
+    ``semantic:structured_values``. That capability was retired after the
+    fact-verification SOTA/design reconciliation. Structural sampling remains useful
+    for Representation/evidence tests, but it must not create a semantic reference
+    scope or advertise semantic coverage.
+    """
     source_bytes = source_path.read_bytes()
     try:
         value = json.loads(source_bytes.decode("utf-8"))
@@ -586,24 +599,39 @@ def prepare_table(
         "selected_units": len(selected),
         "selection_kind": "deterministic_structural_sample" if len(selected) < len(units) else "full_source_order",
         "selection_policy": "lector-002-structural-sample:v1",
+        "semantic_reference_scope": "none",
+        "semantic_capabilities": [],
         "truth_generated": False,
         "semantic_model_calls": 0,
         "tested_extractor_seen": False,
         "gold_rows": 0,
     }
-    result = _blank_typed_worksheets(output_dir, manifest, units, set(selected))
-    scope = create_gold_scope(
-        case_id=case_id,
-        source_sha256=source_sha256,
-        units_sha256=_unit_file_sha256(output_dir / "units.csv"),
-        unit_ids=selected,
-        selection_kind=str(manifest["selection_kind"]),
-        selection_policy=str(manifest["selection_policy"]),
-        semantic_capabilities=["semantic:structured_values"],
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
     )
-    result["gold_scope"] = scope
-    write_gold_scope(output_dir / "gold_scope.json", scope)
-    return result
+    fields = list(units[0]) if units else ["unit_id"]
+    _write_csv(output_dir / "units.csv", fields, units)
+    _write_csv(
+        output_dir / "selected_units.csv",
+        fields,
+        (unit for unit in units if str(unit["unit_id"]) in set(selected)),
+    )
+    return manifest
+
+
+def prepare_table(*_args: object, **_kwargs: object) -> dict[str, object]:
+    """Fail closed for the retired semantic table-preparation command.
+
+    Kept as a Python-level compatibility trap so old automation receives an explicit
+    retirement error instead of silently minting obsolete semantic authority.
+    """
+
+    raise BenchmarkError(
+        "prepare-table is retired: semantic:structured_values is no longer an active "
+        "semantic gate; use prepare-table-structural for deterministic structural material"
+    )
 
 
 def prepare_full_scope(
@@ -1982,11 +2010,21 @@ def _build_parser() -> argparse.ArgumentParser:
     prepare_parser.add_argument("--source", type=Path, required=True)
     prepare_parser.add_argument("--output-dir", type=Path, required=True)
     prepare_parser.add_argument("--source-label")
-    table_parser = subparsers.add_parser("prepare-table", help="create a blank structured-table worksheet")
-    table_parser.add_argument("--source", type=Path, required=True)
-    table_parser.add_argument("--output-dir", type=Path, required=True)
-    table_parser.add_argument("--source-label")
-    table_parser.add_argument("--case-id", default="")
+    retired_table_parser = subparsers.add_parser(
+        "prepare-table",
+        help="retired semantic table preparation command; fails closed",
+    )
+    retired_table_parser.add_argument("--source", type=Path, required=True)
+    retired_table_parser.add_argument("--output-dir", type=Path, required=True)
+    retired_table_parser.add_argument("--source-label")
+    retired_table_parser.add_argument("--case-id", default="")
+    structural_table_parser = subparsers.add_parser(
+        "prepare-table-structural",
+        help="create deterministic structural table material without semantic gold scope",
+    )
+    structural_table_parser.add_argument("--source", type=Path, required=True)
+    structural_table_parser.add_argument("--output-dir", type=Path, required=True)
+    structural_table_parser.add_argument("--source-label")
     scope_parser = subparsers.add_parser("prepare-scope", help="freeze a full-source gold scope")
     scope_parser.add_argument("--source", type=Path, required=True)
     scope_parser.add_argument("--units", type=Path, required=True)
@@ -2068,6 +2106,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = prepare(args.source, args.output_dir, args.source_label)
         elif args.command == "prepare-table":
             result = prepare_table(args.source, args.output_dir, args.source_label, args.case_id)
+        elif args.command == "prepare-table-structural":
+            result = prepare_table_structural(args.source, args.output_dir, args.source_label)
         elif args.command == "prepare-scope":
             result = prepare_full_scope(
                 args.source,

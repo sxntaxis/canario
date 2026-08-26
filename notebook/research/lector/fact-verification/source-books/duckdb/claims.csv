@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+DDB-C001,DDB-S001,DuckDB is an in-process analytical SQL database designed for OLAP and common analytical file formats.,fit,Strong candidate executor for derived structured analysis.
+DDB-C002,DDB-S002,"Direct XLSX reading infers headers, ranges and types and may stop at empty rows; empty cells and number formats influence inferred types.",fidelity-risk,Do not use DuckDB's XLSX reader as Canario's canonical Representation authority.
+DDB-C003,DDB-S003,DuckDB documentation explicitly warns that untrusted SQL should be treated like Bash/Python and sandboxed.,security,Never run model-generated DuckDB SQL in the privileged Canario process.
+DDB-C004,DDB-S003;DDB-S004,DuckDB can access files/network/load extensions unless restricted; autoload/autoinstall/community extensions can be disabled.,security,Any evaluator must run with external access/extensions disabled and OS/process isolation.
+DDB-C005,DDB-S003;DDB-S005,"Threads, memory and temporary disk use can be bounded.",operational,Supports a bounded analytical executor profile suitable for benchmarking.

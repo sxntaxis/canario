@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+TSV-C001,TSV-S001,"Each claim is annotated with relevant time frames across pertinent time series, a verdict, and justification.",evidence-model,Treat temporal windows as first-class evidence scope rather than flattening time series into text.
+TSV-C002,TSV-S001,The dataset uses real-world claims from 41 fact-checking organizations and reports substantial but imperfect annotator agreement.,benchmark-quality,Human/reference uncertainty remains measurable and should not be hidden.
+TSV-C003,TSV-S001,State-of-the-art reasoning models remain challenged on verdict and justification quality.,failure-mode,Temporal numerical reasoning deserves its own capability rather than being assumed by generic structured-values extraction.
+TSV-C004,TSV-S003,Repository is CC BY-SA 4.0.,license,Prefer external benchmark/reference unless ShareAlike implications are deliberately accepted.

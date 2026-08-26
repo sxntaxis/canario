@@ -1,0 +1,62 @@
+{
+  "format": "canario.external_csv_projection_spec.v1",
+  "dataset_id": "CR-INEC-PURCHASES-2016-2021",
+  "encoding": "cp1252",
+  "delimiter": ",",
+  "has_header": true,
+  "expected_header": [
+    "NUMERO_PROCEDIMIENTO",
+    "OBJETO_CONTRACTUAL",
+    "LINEA",
+    "COD_BIEN_SERVICIO",
+    "ENCARGADO_PROVEDURIA",
+    "PROVEEDOR_ADJU",
+    "MONTO_ADJUDICADO",
+    "NUMERO_CONTRATO"
+  ],
+  "columns": [
+    {
+      "name": "numero_procedimiento",
+      "source_index": 0,
+      "kind": "string"
+    },
+    {
+      "name": "objeto_contractual",
+      "source_index": 1,
+      "kind": "string"
+    },
+    {
+      "name": "linea",
+      "source_index": 2,
+      "kind": "integer"
+    },
+    {
+      "name": "cod_bien_servicio",
+      "source_index": 3,
+      "kind": "string"
+    },
+    {
+      "name": "encargado_proveduria",
+      "source_index": 4,
+      "kind": "string"
+    },
+    {
+      "name": "proveedor_adju",
+      "source_index": 5,
+      "kind": "string"
+    },
+    {
+      "name": "monto_adjudicado_raw",
+      "source_index": 6,
+      "kind": "string"
+    },
+    {
+      "name": "numero_contrato",
+      "source_index": 7,
+      "kind": "string"
+    }
+  ],
+  "notes": "Encoding/header, exact source SHA-256 and 2260-row count were verified during local certification against the retained public INEC bytes. Fail closed rather than auto-detect or silently accept publisher drift. Monetary values remain raw strings in this scale lane because the source mixes currency prefix and decimal conventions.",
+  "expected_source_sha256": "a815ea5e36aeb9b586073941e6c52962aacaa60dbd8ff62b49396ac31ef8541d",
+  "expected_row_count": 2260
+}

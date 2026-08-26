@@ -260,6 +260,41 @@ required to insert/search the revision.
 Optional human assessment is separate from lifecycle/review and is only stored
 when a workflow actually records such a judgment.
 
+## Analysis and Verification Boundaries
+
+The conceptual model distinguishes four operations without requiring four persistence
+families:
+
+```text
+Lector       source assertion / explicit source content
+Derivation   reproducible result computed from bounded evidence
+Verification proposition evaluated against bounded evidence
+Assessment   optional attributable durable judgment
+```
+
+Lector must not turn a newly computed sum, comparison or join into a source assertion. A
+source may itself state a calculation, which Lector may extract as what the source says.
+
+A Derivation consumes ordered Representation/target identities and an exact bounded
+query/program. Its future provenance must include executor/runtime and configuration,
+sandbox/resource profile, terminal outcome, exact result and available row/cell/evidence
+lineage. The query/program is not original evidence. The G3 fit bench is closed: `FIRST_CLASS_DERIVATION_REQUIRED`. Existing `ProcessRun` remains Representation-processor provenance; a distinct first-class derivation execution record is required for analytical query/program provenance. No table is authorized here yet.
+
+Verification results are execution artifacts, not Claim lifecycle state. They must keep
+technical outcome, verdict, evidence set, sufficiency, abstention reason and process/model
+provenance distinct. At minimum the bench distinguishes `supported`, `contradicted` and
+`insufficient_evidence`; timeout, crash, invalid query and tool failure are not epistemic
+abstention. An Assessment remains optional, attributable and separate from lifecycle.
+
+Evidence sufficiency is initially typed result data rather than an `EvidenceSufficiency`
+entity. For absence propositions, “not found” is not “does not exist” without adequate
+inventory/completeness authority.
+
+`ContextEnvelope` is bounded interpretation material, not an exact locator and not a
+canonical truth entity. One proposition may use multiple independently reopenable typed
+EvidenceLinks. Existing EvidenceLink persistence already permits this; no migration is
+authorized solely for multi-evidence propositions.
+
 ## Evidence Locator Storage
 
 Do not create columns `page`, `article`, `item` on every evidence link.
@@ -416,3 +451,13 @@ Only after these semantic gates pass should final SQL tables, constraints,
 indexes, cached current pointers, idempotency keys, or record hashes be reviewed
 and accepted. Artifact-backed parser/locator proofs and operational backup/restore
 proofs remain required after the corresponding implementation exists.
+## Pending analytical execution records
+
+Phase D now closes the conceptual relationship between analytical derivation and verification:
+a future `VerificationRun` must reference the exact ordered `DerivationRun` executions whose
+results it used. `DerivationRun` retains executable provenance, bounded input scopes, typed result
+identity and available result-to-source lineage; `VerificationRun` retains execution outcome,
+verdict, evidence set, explicit sufficiency, abstention reason and model/process provenance.
+Neither record is added to the current schema by this document. The next schema design must
+reconcile both records with Claim origin provenance, existing `EvidenceLink` semantics and optional
+`Assessment` without duplicate execution graphs.

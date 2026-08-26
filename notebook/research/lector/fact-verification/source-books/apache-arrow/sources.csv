@@ -1,0 +1,3 @@
+source_id,kind,title,url,accessed,boundary
+ARR-S001,specification,Arrow columnar format,https://arrow.apache.org/docs/format/Columnar.html,2026-08-25,Language-agnostic in-memory columnar specification.
+ARR-S002,documentation,Arrow overview,https://arrow.apache.org/overview/,2026-08-25,Zero-copy/interoperability and analytics use cases.

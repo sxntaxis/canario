@@ -1,0 +1,5 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+FGT-C001,FGT-S001,"The dataset contains 78,503 claims grounded in 434 OECD tables averaging over 500K rows and supports English, Chinese, Spanish, and Hindi.",benchmark-design,"Provides a directly relevant multilingual, large-table external stress benchmark including Spanish."
+FGT-C002,FGT-S001,Claim generation begins with programmatic selection of significant data points under six semantic frames rather than random row sampling.,benchmark-design,Replace arbitrary structural-row semantic sampling with explicit reasoning phenomena.
+FGT-C003,FGT-S001,The baseline uses SQL generation and identifies evidence retrieval as the primary bottleneck.,failure-mode,Benchmark evidence retrieval separately from query/reasoning correctness.
+FGT-C004,FGT-S001,The benchmark uses synthetic natural-language claims while grounding them in real OECD data.,limitation,"Use for controlled structured reasoning stress, not as the sole proof of civic-document extraction quality."

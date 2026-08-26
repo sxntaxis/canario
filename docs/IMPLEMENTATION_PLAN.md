@@ -245,6 +245,33 @@ merely from shared subject matter.
 no duplicate explosion on replay, and no review requirement merely to store or
 search those claims/connections; relation replay is idempotent and attributable.
 
+## WP5A — Structured Reasoning and Verifier Fit Benches
+
+The deterministic foundation is certified at
+`0f9a71e5acb0f093469571d59c896eab0c03c4c2`. It proved one canonical typed projection,
+hardened SQLite execution, a sandboxed DuckDB challenger, frozen deterministic query corpora,
+external scale/prior-art lanes, and `FIRST_CLASS_DERIVATION_REQUIRED` for G3. SQLite remains
+the selected analytical baseline; DuckDB did not demonstrate a material required advantage
+and is not a product dependency.
+
+Phase D, `STRUCTURED-VERIFIER-FIT-BENCH`, is measured and design-interpreted. Against the same
+frozen projection, hardened SQLite boundary, Source Authority, `gpt-5.6-terra` and qualified
+subscription-backed Codex venue, the Thucy-adapted lane kept verdict accuracy unchanged but
+improved evidence-retrieval recall by `0.3333333333333333` and evidence-backed verdict rate by
+`0.25`. It also cost 10 additional Codex CLI invocations, 78,009 prompt bytes and 104,036.601 ms,
+and reduced abstention precision by `0.33333333333333337`.
+
+Decision: `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`. Do not reproduce
+Thucy's four roles. The next design unit reconciles a minimum `DerivationRun -> VerificationRun`
+execution graph with Claim origin provenance, EvidenceLink semantics and optional Assessment
+promotion. Only after that design is accepted may prerelease `0001` be rebaselined once and
+certified. Metered provider transports remain allowed future profiles with no automatic fallback.
+
+**Gate:** final local certification of the Phase-D closure must pass before schema implementation.
+No production multi-agent verifier, Thucy vendoring, provider/model dependency or Assessment
+auto-promotion is authorized.
+
+
 ## WP6 — Review and Operator Workflow
 
 Implement review configuration:

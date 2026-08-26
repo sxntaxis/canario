@@ -1,0 +1,3 @@
+source_id,kind,title,url,accessed,boundary
+AVT-S001,paper,NeurIPS 2023 paper,https://papers.nips.cc/paper_files/paper/2023/hash/cd86a30526cd1aff61d6f89f107634e4-Abstract-Datasets_and_Benchmarks.html,2026-08-25,"Primary publication; 4,568 real-world claims."
+AVT-S002,repository,AVeriTeC repository,https://github.com/MichSchli/AVeriTeC,2026-08-25,Dataset and baseline.

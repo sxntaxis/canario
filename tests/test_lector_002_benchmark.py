@@ -228,8 +228,8 @@ def test_corpus_gate_measures_declared_capabilities_not_document_classes() -> No
         "semantic:multi_topic_longform",
         "semantic:attribution",
         "semantic:conditions_exceptions_crossrefs",
-        "semantic:structured_values",
     }
+    assert "semantic:structured_values" not in status["required_capabilities"]
     assert status["gold_scope_pending_capabilities"] == []
     assert status["semantic_verified_capabilities"] == []
     assert status["semantic_failed_capabilities"] == []
@@ -394,7 +394,7 @@ def test_typed_table_score_reopens_production_selector_and_computes_metrics(tmp_
         encoding="utf-8",
     )
     worksheet = tmp_path / "worksheet"
-    bench.prepare_table(source, worksheet, "table")
+    bench.prepare_table_structural(source, worksheet, "table")
     units, coverage, truth, candidates, assessment = (
         worksheet / "units.csv", worksheet / "coverage.csv", worksheet / "truth.csv",
         worksheet / "candidates.csv", worksheet / "assessment.csv",
@@ -402,6 +402,9 @@ def test_typed_table_score_reopens_production_selector_and_computes_metrics(tmp_
     _write_csv(coverage, ["unit_id", "review_state", "notes"], [
         {"unit_id": "1:R1", "review_state": "truth_recorded", "notes": ""}
     ])
+    _write_csv(truth, ["truth_id", "unit_id", "importance", "proposition", "selector_json", "notes"], [])
+    _write_csv(candidates, ["candidate_id", "proposition", "selector_json"], [])
+    _write_csv(assessment, ["candidate_id", "truth_ids", "verdict", "notes"], [])
     selector = json.dumps({
         "sheet": "Sheet1", "a1_range": "A1:B1", "row_start": 1, "row_end": 1,
         "observed_values": [[
@@ -783,7 +786,7 @@ def _review_packet(tmp_path: Path, *, table: bool = False, unit_count: int = 4) 
         units_sha256=bench._unit_file_sha256(packet / "units.csv"),
         unit_ids=[row["unit_id"] for row in units_rows], selection_kind="full_source_order",
         selection_policy="synthetic", semantic_capabilities=[
-            "semantic:structured_values" if table else "semantic:attribution"
+            "semantic:attribution"
         ],
     )
     bench.write_gold_scope(packet / "gold_scope.json", scope)
@@ -879,7 +882,7 @@ def test_import_assisted_table_decision_writes_truth_and_provenance(tmp_path: Pa
         "truths": [{
             "importance": "material",
             "proposition": "La fila vincula Fila 1 con el valor de fórmula representado.",
-            "capability_ids": ["semantic:structured_values"],
+            "capability_ids": ["semantic:attribution"],
         }],
     }])
     decisions_path = tmp_path / "decisions.json"
@@ -891,7 +894,7 @@ def test_import_assisted_table_decision_writes_truth_and_provenance(tmp_path: Pa
     assert coverage["1:R1"] == "truth_recorded"
     truth = bench._read_csv(packet / "truth.csv")[0]
     assert truth["proposition"].startswith("La fila vincula")
-    assert truth["capability_ids"] == "semantic:structured_values"
+    assert truth["capability_ids"] == "semantic:attribution"
     bench.validate_typed_evidence(
         "table_range:v1",
         (packet / "representation.json").read_bytes(),
@@ -980,14 +983,14 @@ def test_import_assisted_rejects_unapproved_item_and_invalid_capability(tmp_path
     batch = _batch_meta(packet, ["1:R1"])
     bad_item = {
         "unit_id": "1:R1", "human_approved": False, "decision": "truth_recorded",
-        "truths": [{"importance": "material", "proposition": "x", "capability_ids": ["semantic:structured_values"]}],
+        "truths": [{"importance": "material", "proposition": "x", "capability_ids": ["semantic:attribution"]}],
     }
     path = tmp_path / "decisions.json"
     path.write_text(json.dumps(_assisted_decisions_for_batch(batch, [bad_item])), encoding="utf-8")
     with pytest.raises(bench.BenchmarkError, match="lacks explicit human approval"):
         bench.import_assisted_review_decisions(packet, path)
     bad_item["human_approved"] = True
-    bad_item["truths"][0]["capability_ids"] = ["semantic:attribution"]
+    bad_item["truths"][0]["capability_ids"] = ["evidence:table_path"]
     path.write_text(json.dumps(_assisted_decisions_for_batch(batch, [bad_item])), encoding="utf-8")
     with pytest.raises(bench.BenchmarkError, match="invalid semantic capability"):
         bench.import_assisted_review_decisions(packet, path)
@@ -1001,7 +1004,7 @@ def test_freeze_gold_records_assisted_reference_provenance(tmp_path: Path) -> No
         "truths": [{
             "importance": "material",
             "proposition": "La fila representa un valor estructurado.",
-            "capability_ids": ["semantic:structured_values"],
+            "capability_ids": ["semantic:attribution"],
         }],
     }])
     path = tmp_path / "decisions.json"
@@ -1038,7 +1041,7 @@ def test_freeze_gold_assisted_provenance_must_cover_entire_scope(tmp_path: Path)
         "unit_id": "1:R1", "human_approved": True, "decision": "truth_recorded",
         "truths": [{
             "importance": "material", "proposition": "x",
-            "capability_ids": ["semantic:structured_values"],
+            "capability_ids": ["semantic:attribution"],
         }],
     }])
     path = tmp_path / "decisions.json"
@@ -1091,3 +1094,118 @@ def test_assisted_adjudication_stage_reexports_and_resolves_uncertainty(tmp_path
     assert status["needs_adjudication_units"] == 0
     provenance = [json.loads(line) for line in (packet / "reference_provenance.jsonl").read_text().splitlines()]
     assert [row["review_stage"] for row in provenance] == ["initial", "adjudication"]
+
+
+def test_retired_structured_values_cannot_be_minted_by_generic_scope_api() -> None:
+    with pytest.raises(bench.BenchmarkError, match="retired semantic capabilities"):
+        bench.create_gold_scope(
+            case_id="CASE",
+            source_sha256="a" * 64,
+            units_sha256="b" * 64,
+            unit_ids=["u1"],
+            selection_kind="full_source_order",
+            selection_policy="test",
+            semantic_capabilities=["semantic:structured_values"],
+        )
+
+
+def test_retired_prepare_table_fails_closed_and_structural_mode_mints_no_gold_scope(tmp_path: Path) -> None:
+    source = tmp_path / "table.json"
+    source.write_text(
+        json.dumps(
+            {
+                "format": "canario.structured_table.v1",
+                "source_sha256": "0" * 64,
+                "sheets": [
+                    {
+                        "name": "Sheet1",
+                        "ordinal": 1,
+                        "state": "visible",
+                        "max_row": 1,
+                        "max_column": 1,
+                        "merged_ranges": [],
+                        "rows": [[
+                            {
+                                "address": "A1",
+                                "value": {"type": "integer", "value": 7},
+                                "data_type": "n",
+                                "number_format": "General",
+                            }
+                        ]],
+                    }
+                ],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(bench.BenchmarkError, match="prepare-table is retired"):
+        bench.prepare_table(source, tmp_path / "retired", "table", "CASE")
+
+    structural = tmp_path / "structural"
+    manifest = bench.prepare_table_structural(source, structural, "table")
+    assert manifest["semantic_reference_scope"] == "none"
+    assert manifest["semantic_capabilities"] == []
+    assert not (structural / "gold_scope.json").exists()
+    assert not (structural / "coverage.csv").exists()
+    assert not (structural / "truth.csv").exists()
+    assert not (structural / "candidates.csv").exists()
+    assert not (structural / "assessment.csv").exists()
+    assert (structural / "units.csv").exists()
+    assert (structural / "selected_units.csv").exists()
+
+
+def test_cli_prepare_table_is_retired_but_structural_cli_remains_available(tmp_path: Path) -> None:
+    source = tmp_path / "table.json"
+    source.write_text(
+        json.dumps(
+            {
+                "format": "canario.structured_table.v1",
+                "source_sha256": "0" * 64,
+                "sheets": [
+                    {
+                        "name": "Sheet1",
+                        "ordinal": 1,
+                        "state": "visible",
+                        "max_row": 1,
+                        "max_column": 1,
+                        "merged_ranges": [],
+                        "rows": [[
+                            {
+                                "address": "A1",
+                                "value": {"type": "string", "value": "x"},
+                                "data_type": "s",
+                                "number_format": "General",
+                            }
+                        ]],
+                    }
+                ],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(
+        SystemExit,
+        match=r"LECTOR_002_REFERENCE_ERROR: .*semantic:structured_values",
+    ):
+        bench.main([
+            "prepare-table",
+            "--source",
+            str(source),
+            "--output-dir",
+            str(tmp_path / "retired"),
+            "--case-id",
+            "CASE",
+        ])
+    output = tmp_path / "structural"
+    assert bench.main([
+        "prepare-table-structural",
+        "--source",
+        str(source),
+        "--output-dir",
+        str(output),
+    ]) == 0
+    assert not (output / "gold_scope.json").exists()

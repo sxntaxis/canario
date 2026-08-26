@@ -1,6 +1,6 @@
 # LECTOR-002 — heterogeneous civic reference corpus
 
-State: **CAPABILITY-COVERAGE FRAMEWORK ACTIVE — GOLD/EVALUATION NOT READY**
+State: **SUPERSEDED AFTER SOTA REVIEW — RE-SCOPE REQUIRED BEFORE REPLACEMENT GOLD**
 
 Parent authority:
 
@@ -53,8 +53,8 @@ Canario document types**, are not exhaustive, and cannot route production ingest
 
 ## Capability coverage is the executable gate
 
-`lector_002_corpus.json` declares a finite, revisable set of stress capabilities that the
-current reference campaign intends to exercise. They span dimensions such as:
+`lector_002_corpus.json` records the finite, revisable set of stress capabilities that the
+superseded reference campaign intended to exercise. They span dimensions such as:
 
 - Representation fidelity: paged text, structured tables, timed media;
 - evidence reopening: exact text quote, table/path evidence, media time span;
@@ -64,6 +64,29 @@ current reference campaign intends to exercise. They span dimensions such as:
 One case may cover several capabilities. Several very different cases may cover the same
 capability. A newly discovered failure mode should normally add a new capability target and
 a fixture that exposes it — **not a new universal document class**.
+
+## Post-SOTA disposition
+
+The fact-verification SOTA synthesis at checkpoint
+`7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6` invalidated the use of
+`semantic:structured_values` as the sole structured semantic capability. The current
+campaign is superseded, not resumed. The next authorized technical unit is the
+`STRUCTURED-REASONING-FIT-BENCH`, which first separates deterministic projection and
+executor semantics from later verifier/planner quality.
+
+The replacement distinction must cover, at minimum:
+
+```text
+explicit structured value extraction
+evidence retrieval
+numerical composition
+cross-table composition
+evidence sufficiency
+abstention
+```
+
+Final capability IDs remain open until the fit bench and design decision justify them.
+No replacement semantic gold or candidate campaign is authorized by this checkpoint.
 
 This capability list is itself not a closed ontology. It is the explicit scope of the
 current benchmark campaign and may grow whenever reality exposes a materially different
@@ -139,7 +162,7 @@ The current `v5` campaign declares these targets:
 | Semantic | `semantic:multi_topic_longform` | semantic gold | many materially distinct propositions coexist |
 | Semantic | `semantic:attribution` | semantic gold | who said/requested/decided/reported is preserved |
 | Semantic | `semantic:conditions_exceptions_crossrefs` | semantic gold | conditions/scope/exceptions are not erased |
-| Semantic | `semantic:structured_values` | semantic gold | labels, types and values survive tabular extraction |
+| Semantic | structured reasoning family | re-scope pending | extraction, retrieval, composition, sufficiency and abstention are not one gate |
 
 The old six genres — minutes, report/audit, correspondence, normative/contractual,
 structured data and timed media — remain useful **fixture-selection archetypes** because
@@ -167,7 +190,7 @@ The current extractor-blind frozen review scopes are:
 | Case | Scope | Units | Semantic target |
 |---|---|---:|---|
 | `CR-ESPARZA-MINUTES-001` | full source order | 61 | longform scope-wide, attribution |
-| `CR-ESPARZA-BUDGET-001` | deterministic structural sample | 24 of 211 | structured values |
+| `CR-ESPARZA-BUDGET-001` | deterministic structural sample | 24 of 211 | superseded structural semantic scope |
 | `CR-INCOP-CORRESPONDENCE-001` | full source order | 17 | conditions/exceptions/cross-references, attribution |
 
 The table sampler is source-digest-seeded and structural-only: it represents sheets,
@@ -175,7 +198,8 @@ boundary rows, represented value types, formula/merged structure when present, r
 diversity, and deterministic hash-ranked fill. It does not inspect labels or candidate
 extractor output. A sampled result cannot claim full-workbook semantic recall.
 
-The three packets are frozen for scope only. Their coverage, truth and assessment
+The three packets are frozen for scope only. The 24-row table semantic scope and BATCH-001
+are superseded/non-authoritative for semantic certification. Their coverage, truth and assessment
 worksheets are intentionally empty/unjudged as appropriate. No semantic model or tested
 extractor has seen benchmark content for annotation. The timed-media case remains
 deterministic-only with `transcript_status=NOT_GENERATED` and has no semantic packet.

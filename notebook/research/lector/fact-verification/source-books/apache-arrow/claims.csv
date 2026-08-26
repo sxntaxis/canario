@@ -1,0 +1,4 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+ARR-C001,ARR-S001;ARR-S002,Arrow is a language-independent columnar memory/interchange format optimized for analytical scans and zero-copy sharing.,interoperability,Strong bridge between typed projections and analytical engines if scale/interoperability requires it.
+ARR-C002,ARR-S001,"Arrow record batches carry schemas and typed arrays but do not preserve spreadsheet workbook semantics such as formulas, formatting, merged geometry, or source cell identity by themselves.",boundary,Arrow cannot replace Canario's source-faithful typed spreadsheet Representation.
+ARR-C003,ARR-S002,Arrow is a data format/toolbox rather than a source-authority or claim-verification system.,boundary,"Use only as derivative/interchange substrate, never as evidence semantics."

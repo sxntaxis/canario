@@ -1,5 +1,7 @@
 {
-  "version": "lector-002-corpus:v5",
+  "version": "lector-002-corpus:v6",
+  "campaign_status": "superseded_after_fact_verification_sota",
+  "replacement_semantic_reference_authorized": false,
   "certification_scope": "declared_capabilities_only",
   "universal_support_claimed": false,
   "threshold_policy_state": "not_frozen",
@@ -12,8 +14,7 @@
     {"id": "evidence:media_time_span", "dimension": "evidence", "description": "Reopen exact start/end timed evidence against the original recording.", "verification_mode": "deterministic"},
     {"id": "semantic:multi_topic_longform", "dimension": "semantic_stress", "description": "Recover materially distinct propositions from a long source containing many topics.", "verification_mode": "semantic_gold"},
     {"id": "semantic:attribution", "dimension": "semantic_stress", "description": "Preserve who said, requested, decided, reported, or authored something when source evidence supports it.", "verification_mode": "semantic_gold"},
-    {"id": "semantic:conditions_exceptions_crossrefs", "dimension": "semantic_stress", "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition.", "verification_mode": "semantic_gold"},
-    {"id": "semantic:structured_values", "dimension": "semantic_stress", "description": "Extract quantitative/categorical facts without losing table structure, labels or value types.", "verification_mode": "semantic_gold"}
+    {"id": "semantic:conditions_exceptions_crossrefs", "dimension": "semantic_stress", "description": "Preserve conditions, exceptions, scope and cross-references that materially change a proposition.", "verification_mode": "semantic_gold"}
   ],
   "cases": [
     {
@@ -42,7 +43,7 @@
     {
       "case_id": "CR-ESPARZA-BUDGET-001",
       "benchmark_archetypes": ["public_budget_dataset"],
-      "covers": ["representation:structured_table", "evidence:table_path", "semantic:structured_values"],
+      "covers": ["representation:structured_table", "evidence:table_path"],
       "source_kind": "structured_table",
       "representation_media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "evaluator_mode": "table_range:v1",
@@ -55,9 +56,10 @@
       "total_units": 211,
       "selection_kind": "deterministic_structural_sample",
       "selection_policy": "lector-002-structural-sample:v1",
+      "semantic_scope_status": "superseded_non_authoritative",
+      "superseded_batch": "BATCH-001",
       "gold_state": "pending",
       "adjudication_state": "not_run",
-      "semantic_verification": {"semantic:structured_values": {"state": "not_run", "result_sha256": null}},
       "deterministic_verification": {"representation:structured_table": "passed", "evidence:table_path": "passed"}
     },
     {

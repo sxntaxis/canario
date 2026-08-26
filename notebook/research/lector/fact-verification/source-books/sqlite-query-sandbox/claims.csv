@@ -1,0 +1,6 @@
+claim_id,evidence_refs,statement,evidence_kind,canario_implication
+SQLQ-C001,SQLQ-S001;SQLQ-S002,"SQLite supports aggregates, joins and window functions sufficient for many compositional structured queries.",fit,A simple SQLite baseline can test whether a second analytical engine is actually needed.
+SQLQ-C002,SQLQ-S004,"SQLite's authorizer can reject disallowed operations during statement preparation, including restricting an untrusted query surface.",security,A verifier executor can whitelist read-only operations rather than trusting generated SQL.
+SQLQ-C003,SQLQ-S003;SQLQ-S006,SQLite recommends defensive/trusted-schema controls and disables extension loading by default.,security,Canario can construct a hardened ephemeral query connection with a comparatively small attack surface.
+SQLQ-C004,SQLQ-S005,The progress handler can interrupt long queries.,operational,Supports deterministic step/time budgeting in addition to process-level limits.
+SQLQ-C005,SQLQ-S003,Official guidance still treats untrusted SQL/database input as a security-sensitive boundary.,security,"Use isolation and limits even with SQLite; authorizer is defense-in-depth, not proof of harmlessness."

@@ -238,6 +238,55 @@ claim relations remain the inspectable record.
 A claim is not split further unless the parts need independent evidence,
 correction, retrieval, or relationships.
 
+## Extraction, Derivation, Verification, and Assessment
+
+These are semantic operation boundaries, not new mandatory product stages or immediate
+tables.
+
+**Lector/source extraction** answers what the source asserts or explicitly contains. It
+may use bounded context and multiple exact evidence links, but a newly computed sum,
+comparison or join is not a `source_assertion`. A source may explicitly state a computed
+conclusion; Lector can extract that statement without recomputing it.
+
+**Derived analysis** answers what can be reproducibly computed from bounded Canario
+Representations. The conceptual execution record includes ordered input
+Representation/target identities, exact query/program, executor/runtime and configuration
+identity, sandbox/resource profile, terminal outcome, exact result and available source
+row/cell/evidence lineage. The query/program is provenance and never original source
+evidence. A successful result may support a Claim with `kind=derived_inference`, but does
+not automatically become a Claim.
+
+The certified G3 fit bench at `0f9a71e5acb0f093469571d59c896eab0c03c4c2` concluded `FIRST_CLASS_DERIVATION_REQUIRED`: existing `ProcessRun` semantics are Representation-processor-shaped and may not be overloaded as the canonical analytical execution record. A distinct first-class derivation execution contract is required. No schema change is authorized until that contract is reconciled with Verification and Claim provenance.
+
+**Verification** evaluates a proposition against an explicitly bounded evidence scope.
+A verifier-result-like artifact keeps these axes separate:
+
+```text
+execution outcome
+verdict: supported | contradicted | insufficient_evidence
+evidence set and reopenability
+evidence sufficiency
+abstention reason
+process/model/configuration provenance
+```
+
+Timeout, crash, invalid query and tool failure are execution failures, not
+`insufficient_evidence`. A verifier result must not mutate Claim lifecycle (`reject`,
+`retract`, `supersede` or equivalent). The existing optional attributable `Assessment`
+remains the durable judgment that may later be recorded or promoted by policy from a
+specific verifier result.
+
+Phase D measured material value from stronger decomposition in evidence retrieval/backing without a
+verdict-accuracy gain. The accepted minimum contract is therefore Canario-native: a Verification
+execution references the exact ordered `DerivationRun` executions whose results it used, while
+keeping verdict, evidence set, explicit sufficiency and execution outcome separate. No Thucy role
+class or multi-agent runtime is part of this contract.
+
+Evidence sufficiency is initially typed result information, not a new entity or table. It
+records whether the bounded scope was adequate, whether required coverage was missing and
+whether a negative/absence proposition had sufficient inventory/completeness authority.
+“Not found” is not “does not exist” without that authority.
+
 ### Extraction policy
 
 Extraction aims for broad civic relevance: decisions, votes, agreements,
@@ -277,6 +326,18 @@ document_part_id: optional civic context
 ```
 
 Locator payloads are versioned and validated, not arbitrary JSON.
+
+Interpretation context is not the same thing as the smallest exact locator. A future
+`ContextEnvelope` is a bounded benchmark/retrieval artifact that may include neighboring
+text, structural table rows, headers or multiple permitted Representations. Its membership
+does not imply review, truth, evidence support or recall coverage. It requires deterministic
+identity/digest when used by a benchmark.
+
+One Claim revision may have multiple independently reopenable typed EvidenceLinks. This is
+valid when attribution, conditions, exceptions, hierarchy, cross-reference or mixed
+modality requires several evidence units. For derived analysis, row/cell/query-result
+lineage may support the result, while the executable query remains provenance rather than
+source evidence.
 
 | Locator | Required anchor |
 |---|---|

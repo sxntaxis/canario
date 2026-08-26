@@ -1,0 +1,2 @@
+project,repository,commit,dataset_path,git_blob_sha,license,selection_policy,raw_committed,purpose
+SciTab,https://github.com/XinyuanLu00/SciTab,217cfbd71ebf39ba26a0938f0d87a9fce560e0fe,dataset/sci_tab.json,8527241b039422c03d96929d09409e1d64afec8d,MIT,"SHA256(dataset_bytes || case_id) rank; first 5 identifiable cases",NO,"prove the neutral projection/query model can represent prior-art compositional table cases without importing SciTab ontology into Canario"
