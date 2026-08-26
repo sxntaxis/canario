@@ -6,6 +6,8 @@ It checks the physical invariants proposed for the frozen migration-0001 contrac
 """
 from __future__ import annotations
 
+import hashlib
+import json
 import sqlite3
 import tempfile
 from pathlib import Path
@@ -27,6 +29,250 @@ def must_fail(con: sqlite3.Connection, sql: str, params: tuple = ()) -> None:
     raise AssertionError(f"expected IntegrityError: {sql}")
 
 
+def _target_row(con: sqlite3.Connection, target_id: str) -> tuple[str, str | None, str | None, str | None, str]:
+    row = con.execute(
+        """SELECT representation_id,selector_kind,selector_version,selector_payload_json,availability
+           FROM representation_targets WHERE id=?""",
+        (target_id,),
+    ).fetchone()
+    if row is None:
+        raise AssertionError(f"missing RepresentationTarget {target_id}")
+    return row
+
+
+def selector_contains(con: sqlite3.Connection, outer_id: str, inner_id: str) -> bool:
+    """Minimal registered-containment proof used by the 0001 contract harness.
+
+    The production selector registry owns full kind-specific containment. This proof exercises
+    the generic identity case and `whole:v1`, which is enough to prove that SQL stores both exact
+    targets while core validation, rather than FK shape or arbitrary JSON, owns containment.
+    """
+    if outer_id == inner_id:
+        return True
+    outer_rep, outer_kind, outer_version, _outer_payload, outer_availability = _target_row(con, outer_id)
+    inner_rep, _inner_kind, _inner_version, _inner_payload, inner_availability = _target_row(con, inner_id)
+    if outer_availability != "available" or inner_availability != "available":
+        return False
+    return outer_rep == inner_rep and (outer_kind, outer_version) == ("whole", "v1")
+
+
+def derivation_contract_violations(con: sqlite3.Connection) -> list[tuple[str, str]]:
+    violations: list[tuple[str, str]] = []
+    for run_id, program_text, program_sha in con.execute(
+        "SELECT id,program_text,program_sha256 FROM derivation_runs"
+    ):
+        if hashlib.sha256(program_text.encode("utf-8")).hexdigest() != program_sha:
+            violations.append(("program_identity_mismatch", run_id))
+    for run_id, outcome, result_count in con.execute(
+        """SELECT r.id,r.outcome,count(d.id)
+           FROM derivation_runs r LEFT JOIN derivation_results d ON d.derivation_run_id=r.id
+           GROUP BY r.id,r.outcome"""
+    ):
+        expected = 1 if outcome == "success" else 0
+        if result_count != expected:
+            violations.append(("run_result_cardinality", run_id))
+
+    for result_id, inline_payload, archive_object_id, content_sha, byte_size in con.execute(
+        """SELECT id,inline_payload_json,archive_object_id,content_sha256,byte_size
+           FROM derivation_results WHERE availability='available'"""
+    ):
+        if inline_payload is not None:
+            payload = inline_payload.encode("utf-8")
+            if hashlib.sha256(payload).hexdigest() != content_sha or len(payload) != byte_size:
+                violations.append(("result_serialization_identity_mismatch", result_id))
+        else:
+            archive = con.execute(
+                "SELECT availability,content_sha256,byte_size FROM archive_objects WHERE id=?",
+                (archive_object_id,),
+            ).fetchone()
+            if archive is None or archive[0] != "available":
+                violations.append(("result_archive_unavailable", result_id))
+            elif archive[1] != content_sha or archive[2] != byte_size:
+                violations.append(("result_serialization_identity_mismatch", result_id))
+
+    for target_id, lineage_state, availability, result_availability in con.execute(
+        """SELECT t.id,t.lineage_state,t.availability,r.availability
+           FROM derivation_result_targets t
+           JOIN derivation_results r ON r.id=t.derivation_result_id"""
+    ):
+        count = con.execute(
+            "SELECT count(*) FROM derivation_result_lineage WHERE derivation_result_target_id=?",
+            (target_id,),
+        ).fetchone()[0]
+        if availability == "available" and result_availability != "available":
+            violations.append(("target_result_unavailable", target_id))
+        if availability == "available" and lineage_state in {"exact", "partial"} and count == 0:
+            violations.append(("missing_source_lineage", target_id))
+        if lineage_state in {"unavailable", "none"} and count != 0:
+            violations.append(("forbidden_source_lineage", target_id))
+
+    for target_id, run_id, input_ordinal, source_target_id in con.execute(
+        """SELECT derivation_result_target_id,derivation_run_id,input_ordinal,representation_target_id
+           FROM derivation_result_lineage"""
+    ):
+        input_target_id = con.execute(
+            """SELECT representation_target_id FROM derivation_run_inputs
+               WHERE derivation_run_id=? AND ordinal=?""",
+            (run_id, input_ordinal),
+        ).fetchone()[0]
+        if not selector_contains(con, input_target_id, source_target_id):
+            violations.append(("lineage_outside_input_scope", target_id))
+    return violations
+
+
+def verification_contract_violations(con: sqlite3.Connection) -> list[tuple[str, str]]:
+    violations: list[tuple[str, str]] = []
+    for run_id, claim_revision_id, proposition in con.execute(
+        "SELECT id,claim_revision_id,proposition_text FROM verification_runs"
+    ):
+        if claim_revision_id is not None:
+            text = con.execute(
+                "SELECT text FROM claim_revisions WHERE id=?", (claim_revision_id,)
+            ).fetchone()[0]
+            if proposition != text:
+                violations.append(("claim_proposition_mismatch", run_id))
+
+        scopes = con.execute(
+            """SELECT ordinal,representation_id,representation_target_id
+               FROM verification_scope_targets WHERE verification_run_id=? ORDER BY ordinal""",
+            (run_id,),
+        ).fetchall()
+        if not scopes:
+            violations.append(("empty_verification_scope", run_id))
+
+        # Each scope Representation comes from a Source whose declared authority is explicit.
+        authority_sources = {
+            row[0]
+            for row in con.execute(
+                """SELECT sas.source_id
+                   FROM verification_authority_scopes vas
+                   JOIN source_authority_scopes sas ON sas.id=vas.source_authority_scope_id
+                   WHERE vas.verification_run_id=?""",
+                (run_id,),
+            )
+        }
+        for _ordinal, representation_id, target_id in scopes:
+            available = con.execute(
+                "SELECT availability FROM representation_targets WHERE id=?", (target_id,)
+            ).fetchone()[0]
+            if available != "available":
+                violations.append(("purged_verification_scope", run_id))
+            source_id = con.execute(
+                """SELECT a.source_id
+                   FROM representations r
+                   JOIN acquisition_artifacts aa ON aa.artifact_id=r.artifact_id
+                   JOIN acquisitions a ON a.id=aa.acquisition_id
+                   WHERE r.id=?""",
+                (representation_id,),
+            ).fetchone()
+            if source_id is not None and source_id[0] not in authority_sources:
+                violations.append(("missing_source_authority", run_id))
+
+        # Derivation work may not use a terrain broader/different from the declared scope.
+        for step_ordinal, derivation_run_id, use_state, result_target_id in con.execute(
+            """SELECT ordinal,derivation_run_id,use_state,derivation_result_target_id
+               FROM verification_derivation_steps WHERE verification_run_id=?""",
+            (run_id,),
+        ):
+            for representation_id, input_target_id in con.execute(
+                """SELECT representation_id,representation_target_id
+                   FROM derivation_run_inputs WHERE derivation_run_id=?""",
+                (derivation_run_id,),
+            ):
+                compatible = any(
+                    scope_rep == representation_id and selector_contains(con, scope_target, input_target_id)
+                    for _scope_ordinal, scope_rep, scope_target in scopes
+                )
+                if not compatible:
+                    violations.append(("derivation_outside_verification_scope", f"{run_id}:{step_ordinal}"))
+            if use_state == "consumed":
+                row = con.execute(
+                    """SELECT t.availability,r.availability
+                       FROM derivation_result_targets t
+                       JOIN derivation_results r ON r.id=t.derivation_result_id
+                       WHERE t.id=?""",
+                    (result_target_id,),
+                ).fetchone()
+                if row != ("available", "available"):
+                    violations.append(("consumed_result_unavailable", f"{run_id}:{step_ordinal}"))
+
+        for ordinal, scope_ordinal, evidence_target_id in con.execute(
+            """SELECT ordinal,scope_ordinal,representation_target_id
+               FROM verification_evidence_items WHERE verification_run_id=?""",
+            (run_id,),
+        ):
+            scope_target_id = con.execute(
+                """SELECT representation_target_id FROM verification_scope_targets
+                   WHERE verification_run_id=? AND ordinal=?""",
+                (run_id, scope_ordinal),
+            ).fetchone()[0]
+            if not selector_contains(con, scope_target_id, evidence_target_id):
+                violations.append(("evidence_outside_verification_scope", f"{run_id}:{ordinal}"))
+    return violations
+
+
+def derived_claim_evidence_violations(con: sqlite3.Connection) -> list[tuple[str, str]]:
+    violations: list[tuple[str, str]] = []
+    for claim_revision_id, origin_target_id in con.execute(
+        """SELECT id,derivation_result_target_id FROM claim_revisions
+           WHERE claim_kind='derived_inference'"""
+    ):
+        target_state = con.execute(
+            """SELECT t.availability,r.availability
+               FROM derivation_result_targets t
+               JOIN derivation_results r ON r.id=t.derivation_result_id
+               WHERE t.id=?""",
+            (origin_target_id,),
+        ).fetchone()
+        if target_state != ("available", "available"):
+            violations.append(("derived_origin_unavailable", claim_revision_id))
+            continue
+        lineage_targets = [
+            row[0]
+            for row in con.execute(
+                """SELECT representation_target_id FROM derivation_result_lineage
+                   WHERE derivation_result_target_id=?""",
+                (origin_target_id,),
+            )
+        ]
+        for evidence_id, evidence_target_id in con.execute(
+            """SELECT e.id,e.representation_target_id FROM evidence_links e
+               WHERE e.claim_revision_id=? AND e.relation='supports' AND e.lifecycle='active'
+                 AND NOT EXISTS (
+                   SELECT 1 FROM evidence_links s WHERE s.supersedes_evidence_link_id=e.id
+                 )""",
+            (claim_revision_id,),
+        ):
+            if not any(selector_contains(con, evidence_target_id, lineage_id) for lineage_id in lineage_targets):
+                violations.append(("derived_support_not_in_lineage", evidence_id))
+    return violations
+
+
+def assessment_contract_violations(con: sqlite3.Connection) -> list[tuple[str, str]]:
+    violations: list[tuple[str, str]] = []
+    for child_id, parent_policy, child_policy in con.execute(
+        """SELECT c.id,p.policy_key,c.policy_key
+           FROM assessments c JOIN assessments p ON p.id=c.supersedes_assessment_id
+           WHERE c.supersedes_assessment_id IS NOT NULL"""
+    ):
+        if (parent_policy is not None or child_policy is not None) and parent_policy != child_policy:
+            violations.append(("assessment_policy_lineage_jump", child_id))
+    for assessment_id, outcome in con.execute(
+        """SELECT a.id,v.outcome FROM assessments a
+           JOIN verification_runs v ON v.id=a.verification_run_id"""
+    ):
+        if outcome != "completed":
+            violations.append(("assessment_failed_verification_basis", assessment_id))
+    return violations
+
+
+def assert_new_execution_graph_clean(con: sqlite3.Connection) -> None:
+    assert derivation_contract_violations(con) == [], derivation_contract_violations(con)
+    assert verification_contract_violations(con) == [], verification_contract_violations(con)
+    assert derived_claim_evidence_violations(con) == [], derived_claim_evidence_violations(con)
+    assert assessment_contract_violations(con) == [], assessment_contract_violations(con)
+
+
 def main() -> None:
     ddl_text = DDL.read_text()
     assert "json_valid(" not in ddl_text.lower(), "0001 must not require SQLite JSON SQL functions"
@@ -41,6 +287,8 @@ def main() -> None:
             con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?)", ("loc", "src", "https://example.invalid/x.pdf", "url", T))
             con.execute("INSERT INTO sources VALUES (?,?,?,?,?)", ("src-other", "web", "Other Source", 1, T))
             con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?)", ("loc-other", "src-other", "https://other.invalid/x.pdf", "url", T))
+            con.execute("INSERT INTO source_authority_scopes VALUES (?,?,?,?,?,?,?)", ("sas-src", "src", "formal_record", None, None, None, T))
+            con.execute("INSERT INTO source_authority_scopes VALUES (?,?,?,?,?,?,?)", ("sas-other", "src-other", "formal_record", None, None, None, T))
             for i, day in ((1, "01"), (2, "08")):
                 con.execute("INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", (f"acq{i}", "src", "loc", f"2026-08-{day}T10:00:00Z", "success", 200, "proof", "1", None, T))
             con.execute("INSERT INTO archive_objects VALUES (?,?,?,?,?,?,?)", ("aobA", H_A, 3, f"sha256/{H_A}", "available", T, None))
@@ -194,6 +442,152 @@ def main() -> None:
             # AKF-005: non-PDF/table locator remains representation-specific and typed/versioned.
             con.execute("INSERT INTO representations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("rep-table", "art1", "aobTable", "rep1", "table", "text/csv", "es", "utf-8", "pr", "available", T, None))
             con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t-table", "rep-table", "table_range", "v1", '{"sheet":"Presupuesto","a1_range":"B2:C3","observed_values":[[1,2],[3,4]]}', None, "available", T, None))
+            # Whole targets are intentionally broad scopes; exact containment remains a core/selector-registry rule.
+            con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t-whole", "rep1", "whole", "v1", '{}', None, "available", T, None))
+            con.execute("INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)", ("t-rep2-whole", "rep2", "whole", "v1", '{}', None, "available", T, None))
+
+        # 3A. First-class analytical execution is distinct from ProcessRun and has exact result lineage.
+        program = "SELECT 1 AS value"
+        program_sha = hashlib.sha256(program.encode()).hexdigest()
+        payload = '{"value":1}'
+        payload_sha = hashlib.sha256(payload.encode()).hexdigest()
+        with con:
+            con.execute(
+                "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("drv1", "query", "proof-sql", "1", "local_deterministic", None, None, None,
+                 "sqlite", sqlite3.sqlite_version, sqlite3.sqlite_source_id() if hasattr(sqlite3, "sqlite_source_id") else None,
+                 "hardened-readonly", "v1", "sql", program, program_sha, T, T, "success", None, T),
+            )
+            con.execute("INSERT INTO derivation_run_inputs VALUES (?,?,?,?)", ("drv1", 0, "rep1", "t1"))
+            con.execute(
+                "INSERT INTO derivation_results VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("res1", "drv1", "success", "scalar", "canario.scalar.v1", "1", payload, None, payload_sha, len(payload.encode()), "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("drt1", "res1", "drv1", "result_value", "v1", '{"field":"value"}', "exact", "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)",
+                ("drt1", "drv1", "exact", 0, "rep1", "t1", T),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("drt-none", "res1", "drv1", "result_meta", "v1", '{"field":"note"}', "none", "available", T, None),
+            )
+            # A failed attempt is durable but cannot own a result.
+            con.execute(
+                "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("drv-fail", "query", "proof-sql", "1", "local_deterministic", None, None, None,
+                 "sqlite", sqlite3.sqlite_version, None, "hardened-readonly", "v1", "sql", program, program_sha, T, T, "failed", "query_failed", T),
+            )
+            con.execute("INSERT INTO derivation_run_inputs VALUES (?,?,?,?)", ("drv-fail", 0, "rep1", "t1"))
+            # A second successful run on another custody chain proves owner FKs cannot cross.
+            con.execute(
+                "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("drv2", "query", "proof-sql", "1", "local_deterministic", None, None, None,
+                 "sqlite", sqlite3.sqlite_version, None, "hardened-readonly", "v1", "sql", program, program_sha, T, T, "success", None, T),
+            )
+            con.execute("INSERT INTO derivation_run_inputs VALUES (?,?,?,?)", ("drv2", 0, "rep2", "t-rep2-whole"))
+            con.execute(
+                "INSERT INTO derivation_results VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("res2", "drv2", "success", "scalar", "canario.scalar.v1", "1", payload, None, payload_sha, len(payload.encode()), "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("drt2", "res2", "drv2", "result_value", "v1", '{"field":"value"}', "exact", "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)",
+                ("drt2", "drv2", "exact", 0, "rep2", "t-rep2-whole", T),
+            )
+            # Same program/scope executed again is a new run identity, not silent reuse.
+            con.execute(
+                "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("drv-rerun", "query", "proof-sql", "1", "local_deterministic", None, None, None,
+                 "sqlite", sqlite3.sqlite_version, None, "hardened-readonly", "v1", "sql", program, program_sha, T, T, "success", None, T),
+            )
+            con.execute("INSERT INTO derivation_run_inputs VALUES (?,?,?,?)", ("drv-rerun", 0, "rep1", "t1"))
+            con.execute(
+                "INSERT INTO derivation_results VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("res-rerun", "drv-rerun", "success", "scalar", "canario.scalar.v1", "1", payload, None, payload_sha, len(payload.encode()), "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("drt-rerun", "res-rerun", "drv-rerun", "result_value", "v1", '{"field":"value"}', "exact", "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)",
+                ("drt-rerun", "drv-rerun", "exact", 0, "rep1", "t1", T),
+            )
+            # A deliberately wider valid derivation is reserved for verification-scope adversarial proof.
+            con.execute(
+                "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("drv-wide", "query", "proof-sql", "1", "local_deterministic", None, None, None,
+                 "sqlite", sqlite3.sqlite_version, None, "hardened-readonly", "v1", "sql", program, program_sha, T, T, "success", None, T),
+            )
+            con.execute("INSERT INTO derivation_run_inputs VALUES (?,?,?,?)", ("drv-wide", 0, "rep1", "t-whole"))
+            con.execute(
+                "INSERT INTO derivation_results VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("res-wide", "drv-wide", "success", "scalar", "canario.scalar.v1", "1", payload, None, payload_sha, len(payload.encode()), "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("drt-wide", "res-wide", "drv-wide", "result_value", "v1", '{"field":"value"}', "exact", "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)",
+                ("drt-wide", "drv-wide", "exact", 0, "rep1", "t1", T),
+            )
+
+        must_fail(con,
+            "INSERT INTO derivation_results VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("res-failed", "drv-fail", "success", "scalar", "canario.scalar.v1", "1", payload, None, payload_sha, len(payload.encode()), "available", T, None),
+        )
+        must_fail(con,
+            "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+            ("drt-cross", "res1", "drv2", "result_value", "v1", '{"field":"value"}', "exact", "available", T, None),
+        )
+        must_fail(con,
+            "INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)",
+            ("drt-none", "drv1", "exact", 0, "rep1", "t1", T),
+        )
+        same_program_ids = {row[0] for row in con.execute("SELECT id FROM derivation_runs WHERE program_sha256=?", (program_sha,))}
+        assert {"drv1", "drv-rerun"}.issubset(same_program_ids) and "drv1" != "drv-rerun"
+
+        # Cross-row semantic invariants that are intentionally core-validated rather than encoded as triggers.
+        con.execute("SAVEPOINT missing_derivation_result")
+        con.execute(
+            "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("drv-no-result", "query", "proof-sql", "1", "local_deterministic", None, None, None,
+             "sqlite", sqlite3.sqlite_version, None, "hardened-readonly", "v1", "sql", program, program_sha, T, T, "success", None, T),
+        )
+        assert ("run_result_cardinality", "drv-no-result") in derivation_contract_violations(con)
+        con.execute("ROLLBACK TO missing_derivation_result")
+        con.execute("RELEASE missing_derivation_result")
+
+        con.execute("SAVEPOINT bad_derivation_program_identity")
+        con.execute("UPDATE derivation_runs SET program_sha256=? WHERE id='drv1'", ("f" * 64,))
+        assert ("program_identity_mismatch", "drv1") in derivation_contract_violations(con)
+        con.execute("ROLLBACK TO bad_derivation_program_identity")
+        con.execute("RELEASE bad_derivation_program_identity")
+
+        con.execute("SAVEPOINT bad_derivation_result_identity")
+        con.execute("UPDATE derivation_results SET content_sha256=? WHERE id='res1'", ("f" * 64,))
+        assert ("result_serialization_identity_mismatch", "res1") in derivation_contract_violations(con)
+        con.execute("ROLLBACK TO bad_derivation_result_identity")
+        con.execute("RELEASE bad_derivation_result_identity")
+
+        con.execute("SAVEPOINT bad_derivation_lineage_scope")
+        con.execute(
+            "INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)",
+            ("drt1", "drv1", "exact", 0, "rep1", "t2", T),
+        )
+        assert ("lineage_outside_input_scope", "drt1") in derivation_contract_violations(con)
+        con.execute("ROLLBACK TO bad_derivation_lineage_scope")
+        con.execute("RELEASE bad_derivation_lineage_scope")
+        assert_new_execution_graph_clean(con)
+
         # Core transaction validation can detect any retained Artifact missing its one original Representation.
         assert con.execute("""
           SELECT a.id
@@ -278,6 +672,163 @@ def main() -> None:
             con.execute("INSERT INTO claims VALUES (?,?)", ("clmB", T))
             con.execute("INSERT INTO claim_revisions(id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,process_run_id,attribution_entity_id,attribution_text,temporal_start,temporal_end,sensitive,quantitative,lifecycle,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", ("clmA1", "clmA", 1, None, "source_assertion", "A1", "human", None, None, None, None, None, 0, 0, "active", T))
             con.execute("INSERT INTO claim_revisions(id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,process_run_id,attribution_entity_id,attribution_text,temporal_start,temporal_end,sensitive,quantitative,lifecycle,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", ("clmB1", "clmB", 1, None, "source_assertion", "B1", "human", None, None, None, None, None, 0, 0, "active", T))
+            con.execute("INSERT INTO claims VALUES (?,?)", ("clmDerived", T))
+            con.execute(
+                """INSERT INTO claim_revisions(
+                    id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,
+                    process_run_id,derivation_result_target_id,attribution_entity_id,attribution_text,
+                    temporal_start,temporal_end,sensitive,quantitative,lifecycle,created_at
+                ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                ("clmDerived1", "clmDerived", 1, None, "derived_inference", "The derived value is one.",
+                 "human", None, "drt1", None, None, None, None, 0, 1, "active", T),
+            )
+            # Supporting source evidence may be broader than the exact lineage target when selector containment proves it.
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("ev-derived-support", None, "clmDerived1", "t-whole", "supports", "human", None, "active", "contains exact lineage target t1", T))
+            # Independent challenge evidence need not be part of the derivation lineage.
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("ev-derived-challenge", None, "clmDerived1", "t2", "challenges", "human", None, "active", "independent challenge", T))
+
+            # A completed verifier binds the exact Claim proposition, bounded scope, authority, consumed derivation and evidence.
+            con.execute(
+                "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("vr1", "clmDerived1", "The derived value is one.", "proof-verifier", "1", "local_deterministic",
+                 None, None, None, "explicit_targets", "v1", '{"coverage":"fixture"}', T, T, "completed", None,
+                 "supported", "sufficient", "proof_sufficiency", "v1", '{"adequate":true}', None, T),
+            )
+            con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr1", 0, "rep1", "t-whole"))
+            con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr1", 0, "sas-src"))
+            con.execute("INSERT INTO verification_derivation_steps VALUES (?,?,?,?,?)", ("vr1", 0, "drv1", "consumed", "drt1"))
+            con.execute("INSERT INTO verification_evidence_items VALUES (?,?,?,?,?,?)", ("vr1", 0, 0, "rep1", "t1", "supports"))
+
+            # Epistemic insufficiency is a completed result; technical failure has no epistemic verdict.
+            con.execute(
+                "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("vr-insuff", None, "No matching record exists.", "proof-verifier", "1", "local_deterministic",
+                 None, None, None, "explicit_targets", "v1", '{"coverage":"fixture"}', T, T, "completed", None,
+                 "insufficient_evidence", "insufficient", "proof_sufficiency", "v1", '{"adequate":false}', "inventory_incomplete", T),
+            )
+            con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-insuff", 0, "rep1", "t-whole"))
+            con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr-insuff", 0, "sas-src"))
+            con.execute(
+                "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("vr-fail", None, "A tool-dependent proposition.", "proof-verifier", "1", "local_deterministic",
+                 None, None, None, "explicit_targets", "v1", '{"coverage":"fixture"}', T, T, "failed", "tool_failed",
+                 None, None, None, None, None, None, T),
+            )
+            con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-fail", 0, "rep1", "t-whole"))
+            con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr-fail", 0, "sas-src"))
+
+            # Review acceptance and truth assessment are orthogonal durable facts.
+            con.execute("INSERT INTO review_actions VALUES (?,?,?,?,?)", ("ra-derived", "reviewer", "strict", T, "storage/review proof"))
+            con.execute("INSERT INTO claim_reviews VALUES (?,?,?,?,?,?,?)", ("cr-derived", "ra-derived", "clmDerived1", "accepted", "reviewer", "claim representation accepted", T))
+            con.execute("INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-human", None, "clmDerived1", "refuted", "human", "analyst", "vr1", None, None, "review acceptance does not imply truth support", T))
+            con.execute("INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-machine1", None, "clmDerived1", "supported", "machine", "policy-verifier", "vr1", "verification-promotion", "v1", "policy-based machine judgment", T))
+            con.execute("INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-machine2", "asm-machine1", "clmDerived1", "supported", "machine", "policy-verifier", "vr1", "verification-promotion", "v2", "same policy lineage, newer version", T))
+        # Derived analytical origin is exact and exclusive to derived_inference Claims.
+        must_fail(con, """
+          INSERT INTO claim_revisions(
+            id,claim_id,revision_no,claim_kind,text,origin_kind,derivation_result_target_id,
+            sensitive,quantitative,lifecycle,created_at
+          ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
+        """, ("clm-source-with-derivation", "clmA", 99, "source_assertion", "bad analytical origin", "human", "drt1", 0, 0, "active", T))
+        must_fail(con, """
+          INSERT INTO claim_revisions(
+            id,claim_id,revision_no,claim_kind,text,origin_kind,
+            sensitive,quantitative,lifecycle,created_at
+          ) VALUES (?,?,?,?,?,?,?,?,?,?)
+        """, ("clm-derived-without-origin", "clmA", 99, "derived_inference", "missing origin", "human", 0, 0, "active", T))
+
+        # Verification execution/epistemic states are closed and non-overlapping.
+        must_fail(con,
+            "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("vr-bad-failed-verdict", None, "bad", "proof-verifier", "1", "local_deterministic", None, None, None,
+             "explicit_targets", "v1", '{}', T, T, "failed", "tool_failed", "supported", None, None, None, None, None, T),
+        )
+        must_fail(con,
+            "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("vr-bad-insufficient", None, "bad", "proof-verifier", "1", "local_deterministic", None, None, None,
+             "explicit_targets", "v1", '{}', T, T, "completed", None, "insufficient_evidence", "insufficient",
+             "proof_sufficiency", "v1", '{}', None, T),
+        )
+        must_fail(con, "INSERT INTO verification_derivation_steps VALUES (?,?,?,?,?)", ("vr1", 1, "drv1", "attempted", "drt1"))
+        must_fail(con, "INSERT INTO verification_derivation_steps VALUES (?,?,?,?,?)", ("vr1", 1, "drv2", "consumed", "drt1"))
+
+        # Core validation catches scope expansion and proposition/evidence mismatches that should not be trigger logic.
+        con.execute("SAVEPOINT verification_scope_expansion")
+        con.execute(
+            "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("vr-scope-bad", None, "scope test", "proof-verifier", "1", "local_deterministic", None, None, None,
+             "explicit_targets", "v1", '{}', T, T, "completed", None, "supported", "sufficient",
+             "proof_sufficiency", "v1", '{}', None, T),
+        )
+        con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-scope-bad", 0, "rep1", "t1"))
+        con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr-scope-bad", 0, "sas-src"))
+        con.execute("INSERT INTO verification_derivation_steps VALUES (?,?,?,?,?)", ("vr-scope-bad", 0, "drv-wide", "attempted", None))
+        assert ("derivation_outside_verification_scope", "vr-scope-bad:0") in verification_contract_violations(con)
+        con.execute("ROLLBACK TO verification_scope_expansion")
+        con.execute("RELEASE verification_scope_expansion")
+
+        con.execute("SAVEPOINT verification_evidence_expansion")
+        con.execute(
+            "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("vr-evidence-bad", None, "evidence test", "proof-verifier", "1", "local_deterministic", None, None, None,
+             "explicit_targets", "v1", '{}', T, T, "completed", None, "supported", "sufficient",
+             "proof_sufficiency", "v1", '{}', None, T),
+        )
+        con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-evidence-bad", 0, "rep1", "t1"))
+        con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr-evidence-bad", 0, "sas-src"))
+        con.execute("INSERT INTO verification_evidence_items VALUES (?,?,?,?,?,?)", ("vr-evidence-bad", 0, 0, "rep1", "t2", "supports"))
+        assert ("evidence_outside_verification_scope", "vr-evidence-bad:0") in verification_contract_violations(con)
+        con.execute("ROLLBACK TO verification_evidence_expansion")
+        con.execute("RELEASE verification_evidence_expansion")
+
+        con.execute("SAVEPOINT verification_claim_mismatch")
+        con.execute(
+            "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("vr-claim-bad", "clmDerived1", "different proposition", "proof-verifier", "1", "local_deterministic", None, None, None,
+             "explicit_targets", "v1", '{}', T, T, "completed", None, "supported", "sufficient",
+             "proof_sufficiency", "v1", '{}', None, T),
+        )
+        con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-claim-bad", 0, "rep1", "t-whole"))
+        con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr-claim-bad", 0, "sas-src"))
+        assert ("claim_proposition_mismatch", "vr-claim-bad") in verification_contract_violations(con)
+        con.execute("ROLLBACK TO verification_claim_mismatch")
+        con.execute("RELEASE verification_claim_mismatch")
+
+        con.execute("SAVEPOINT verification_missing_authority")
+        con.execute(
+            "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("vr-authority-bad", None, "authority test", "proof-verifier", "1", "local_deterministic", None, None, None,
+             "explicit_targets", "v1", '{}', T, T, "completed", None, "supported", "sufficient",
+             "proof_sufficiency", "v1", '{}', None, T),
+        )
+        con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-authority-bad", 0, "rep1", "t-whole"))
+        assert ("missing_source_authority", "vr-authority-bad") in verification_contract_violations(con)
+        con.execute("ROLLBACK TO verification_missing_authority")
+        con.execute("RELEASE verification_missing_authority")
+
+        # Claim EvidenceLinks remain source evidence and must trace to the selected derivation target for supports.
+        con.execute("SAVEPOINT derived_bad_support")
+        con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("ev-derived-bad", None, "clmDerived1", "t2", "supports", "human", None, "active", "not in derivation lineage", T))
+        assert ("derived_support_not_in_lineage", "ev-derived-bad") in derived_claim_evidence_violations(con)
+        con.execute("ROLLBACK TO derived_bad_support")
+        con.execute("RELEASE derived_bad_support")
+
+        # Assessment basis is same-Claim, machine/rule promotion requires policy, and policy lineage cannot jump.
+        must_fail(con, "INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-cross-claim", None, "clmB1", "supported", "human", "analyst", "vr1", None, None, None, T))
+        must_fail(con, "INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-machine-no-policy", None, "clmDerived1", "supported", "machine", "policy-verifier", "vr1", None, None, None, T))
+        must_fail(con, "INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-machine-no-verification", None, "clmDerived1", "supported", "machine", "policy-verifier", None, "verification-promotion", "v1", None, T))
+        with con:
+            con.execute("INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-policy-parent", None, "clmDerived1", "supported", "machine", "policy-jump-proof", "vr1", "policy-a", "v1", None, T))
+        con.execute("SAVEPOINT assessment_policy_jump")
+        con.execute("INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)", ("asm-policy-child-bad", "asm-policy-parent", "clmDerived1", "supported", "machine", "policy-jump-proof", "vr1", "policy-b", "v1", None, T))
+        assert ("assessment_policy_lineage_jump", "asm-policy-child-bad") in assessment_contract_violations(con)
+        con.execute("ROLLBACK TO assessment_policy_jump")
+        con.execute("RELEASE assessment_policy_jump")
+
+        assert con.execute("SELECT decision FROM claim_reviews WHERE claim_revision_id='clmDerived1'").fetchone() == ("accepted",)
+        assert con.execute("SELECT judgment FROM assessments WHERE id='asm-human'").fetchone() == ("refuted",)
+        assert_new_execution_graph_clean(con)
+
         must_fail(con, """
           INSERT INTO claim_revisions(
             id,claim_id,revision_no,claim_kind,text,origin_kind,sensitive,quantitative,lifecycle,created_at
@@ -699,7 +1250,11 @@ def main() -> None:
             "INSERT INTO representation_targets VALUES (?,?,?,?,?,?,?,?,?)",
             ("target-bad-parent", "rep2", "whole", "v1", "{}", None, "available", T, None),
         )
-        assert con.execute(availability_violations).fetchall() == [("target/representation", "target-bad-parent")]
+        bad_parent_rows = set(con.execute(availability_violations).fetchall())
+        assert bad_parent_rows == {
+            ("target/representation", "t-rep2-whole"),
+            ("target/representation", "target-bad-parent"),
+        }, bad_parent_rows
         con.execute("ROLLBACK TO bad_target_parent")
         con.execute("RELEASE bad_target_parent")
         assert con.execute(availability_violations).fetchall() == []
@@ -777,7 +1332,7 @@ def main() -> None:
 
         assert con.execute("PRAGMA foreign_key_check").fetchall() == []
         strict_count = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-        assert strict_count == 58
+        assert strict_count == 71
         fts_count = con.execute(
             "SELECT count(*) FROM pragma_table_list WHERE type='virtual' AND name IN ('claim_fts','representation_fts','document_fts')"
         ).fetchone()[0]

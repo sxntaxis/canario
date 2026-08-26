@@ -72,7 +72,7 @@ def assert_connection_contract(con: sqlite3.Connection) -> None:
 
 def assert_schema_inventory(con: sqlite3.Connection) -> None:
     strict = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-    assert strict == 58, strict
+    assert strict == 71, strict
     # 0001 deliberately keeps ordinary rowid tables. WITHOUT ROWID remains a later
     # benchmark-driven optimization; no application contract may depend on rowid.
     without_rowid = con.execute(
@@ -122,6 +122,20 @@ def assert_closed_vocabularies(con: sqlite3.Connection) -> None:
         ("acquisitions", "outcome"): {"success", "partial", "not_found", "failed"},
         ("acquisition_artifacts", "role"): {"primary", "attachment", "response_body", "other"},
         ("process_runs", "outcome"): {"success", "partial", "failed"},
+        ("derivation_runs", "operation_kind"): {"query", "program", "rule", "other_registered"},
+        ("derivation_runs", "program_kind"): {"sql", "expression", "script", "other_registered"},
+        ("derivation_runs", "outcome"): {"success", "failed"},
+        ("derivation_results", "result_kind"): {"scalar", "table", "structured", "binary", "other_registered"},
+        ("derivation_results", "availability"): {"available", "purged"},
+        ("derivation_result_targets", "lineage_state"): {"exact", "partial", "unavailable", "none"},
+        ("derivation_result_targets", "availability"): {"available", "purged"},
+        ("derivation_result_lineage", "lineage_state"): {"exact", "partial"},
+        ("verification_runs", "outcome"): {"completed", "failed"},
+        ("verification_runs", "verdict"): {"supported", "contradicted", "insufficient_evidence"},
+        ("verification_runs", "sufficiency_state"): {"sufficient", "insufficient"},
+        ("verification_derivation_steps", "use_state"): {"attempted", "consumed"},
+        ("verification_evidence_items", "role"): {"supports", "challenges", "context"},
+        ("assessments", "judgment"): {"supported", "contested", "refuted", "unresolved"},
         ("quality_decisions", "decision"): {"accept", "escalate", "quarantine_review"},
         ("archive_objects", "availability"): {"available", "purged"},
         ("artifacts", "availability"): {"available", "restricted", "purged"},
@@ -152,13 +166,20 @@ def assert_closed_vocabularies(con: sqlite3.Connection) -> None:
     for key, values in expected.items():
         assert enum_values(con, *key) == values, (key, enum_values(con, *key), values)
 
+    purge_kinds = enum_values(con, "purge_targets", "record_kind")
+    required_new_purge_kinds = {
+        "derivation_run", "derivation_run_egress", "derivation_result",
+        "derivation_result_target", "verification_run", "verification_run_egress", "assessment",
+    }
+    assert required_new_purge_kinds.issubset(purge_kinds), (required_new_purge_kinds - purge_kinds)
+
     origin = {"machine", "rule", "human"}
     for table in (
         "civic_document_revisions", "document_identifiers", "document_classifications",
         "document_representations", "claim_revisions", "evidence_links", "entity_mentions",
         "entity_names", "entity_identifiers", "mention_resolution_candidates",
         "mention_resolution_revisions", "entity_reconciliations", "claim_entity_links",
-        "claim_tag_links", "claim_relation_revisions", "role_assignment_revisions",
+        "claim_tag_links", "claim_relation_revisions", "role_assignment_revisions", "assessments",
     ):
         assert enum_values(con, table, "origin_kind") == origin, table
 
@@ -187,7 +208,7 @@ def assert_index_inventory(con: sqlite3.Connection) -> None:
     explicit = con.execute(
         "SELECT count(*) FROM sqlite_schema WHERE type='index' AND sql IS NOT NULL"
     ).fetchone()[0]
-    assert explicit == 118, explicit
+    assert explicit == 135, explicit
 
     # Freeze rejects exact duplicate explicit indexes and simple same-predicate
     # prefix redundancy. This is intentionally conservative; planner proof below
@@ -284,6 +305,21 @@ def assert_named_query_indexes(con: sqlite3.Connection) -> None:
             "EXPLAIN QUERY PLAN SELECT to_claim_revision_id FROM claim_relation_revisions WHERE from_claim_revision_id=? AND relation_type=?",
             ("a", "updates"),
         ),
+        (
+            "derivation_result_lineage_source_target_fk_idx",
+            "EXPLAIN QUERY PLAN SELECT derivation_result_target_id FROM derivation_result_lineage WHERE representation_target_id=? AND representation_id=?",
+            ("target", "rep"),
+        ),
+        (
+            "verification_derivation_steps_result_target_run_fk_idx",
+            "EXPLAIN QUERY PLAN SELECT verification_run_id FROM verification_derivation_steps WHERE derivation_result_target_id=? AND derivation_run_id=?",
+            ("drt", "drv"),
+        ),
+        (
+            "assessments_claim_assessor_time_idx",
+            "EXPLAIN QUERY PLAN SELECT judgment FROM assessments WHERE claim_revision_id=? AND assessor_key=? ORDER BY created_at DESC,id DESC LIMIT 1",
+            ("clm", "assessor"),
+        ),
     ]
     for expected, sql, params in probes:
         details = " | ".join(row[3] for row in con.execute(sql, params).fetchall())
@@ -300,16 +336,16 @@ def assert_core_write_contracts(con: sqlite3.Connection) -> None:
     with con:
         con.execute("INSERT INTO claims VALUES (?,?)", ("clm-freeze", t0))
         con.execute(
-            """INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            ("clmr-freeze-1", "clm-freeze", 1, None, "source_assertion", "v1", "human", None, None, None, None, None, 0, 0, "active", t0),
+            """INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            ("clmr-freeze-1", "clm-freeze", 1, None, "source_assertion", "v1", "human", None, None, None, None, None, None, 0, 0, "active", t0),
         )
 
     # SQL guarantees identity, same-family predecessor, one successor and uniqueness.
     # Consecutive numbering is deliberately a core pre-commit invariant, not a trigger.
     con.execute("SAVEPOINT revision_gap")
     con.execute(
-        """INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-        ("clmr-freeze-3", "clm-freeze", 3, "clmr-freeze-1", "source_assertion", "gap", "human", None, None, None, None, None, 0, 0, "active", t1),
+        """INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        ("clmr-freeze-3", "clm-freeze", 3, "clmr-freeze-1", "source_assertion", "gap", "human", None, None, None, None, None, None, 0, 0, "active", t1),
     )
     gaps = con.execute(
         """
@@ -325,8 +361,8 @@ def assert_core_write_contracts(con: sqlite3.Connection) -> None:
 
     with con:
         con.execute(
-            """INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            ("clmr-freeze-2", "clm-freeze", 2, "clmr-freeze-1", "source_assertion", "v2", "human", None, None, None, None, None, 0, 0, "active", t1),
+            """INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            ("clmr-freeze-2", "clm-freeze", 2, "clmr-freeze-1", "source_assertion", "v2", "human", None, None, None, None, None, None, 0, 0, "active", t1),
         )
     leaves = con.execute(
         """
@@ -552,11 +588,11 @@ def main() -> None:
         print("bootstrap_transaction=PASS")
         print("bootstrap_failure_rollback=PASS markers=0/0 schema=empty journal_mode=wal")
         print("wrong_file_rejection=PASS")
-        print("schema_inventory=PASS strict_tables=58 fts_tables=3 app_triggers=0")
+        print("schema_inventory=PASS strict_tables=71 fts_tables=3 app_triggers=0")
         print("closed_vocabularies=PASS")
         print("core_write_contracts=PASS revision_leaf_process_review_idempotency")
-        print("rowid_strategy=PASS ordinary_rowid_tables=58 without_rowid=0")
-        print("index_inventory=PASS explicit=118 exact_duplicates=0 simple_prefix_redundancy=0")
+        print("rowid_strategy=PASS ordinary_rowid_tables=71 without_rowid=0")
+        print("index_inventory=PASS explicit=135 exact_duplicates=0 simple_prefix_redundancy=0")
         print(f"foreign_key_child_plans=PASS checked={fk_count} scans=0")
         print("query_surface_indexes=PASS")
         print("readonly_open_contract=PASS")

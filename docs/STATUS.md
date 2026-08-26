@@ -3,11 +3,11 @@ id: ACTAKIT-STATUS-001
 kind: status
 state: LECTOR_ANALYSIS_VERIFICATION_ARCHITECTURE_CHECKPOINT
 created: 2026-08-19
-updated: 2026-08-25
+updated: 2026-08-26
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001, the D1/D2/Codex processor ladder, and LECTOR-001 are independently certified and integrated. Structured reasoning/verifier benches plus the Derivation/Verification reconciliation are closed; the next authorized unit is a bounded prerelease 0001 rebaseline and recertification, not production verifier behavior.
+summary: Structured reasoning/verifier benches and Derivation/Verification reconciliation are merged. The bounded prerelease 0001 rebaseline is implemented as a candidate; merge requires independent exact registered SQLite 3.53.4 certification, and production verifier behavior remains unauthorized.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -105,7 +105,8 @@ accepted semantic contracts
 -> architecture reconciliation: Lector/extraction, Derivation, Verification, Assessment separated
 -> STRUCTURED-REASONING-FIT-BENCH certified at 0f9a71e; SQLite selected, DuckDB challenger retained, G3 FIRST_CLASS_DERIVATION_REQUIRED
 -> STRUCTURED-VERIFIER-FIT-BENCH Phase D locally certified and merged at 310d060c; minimum Canario decomposition selected
--> DERIVATION-VERIFICATION reconciliation accepted; SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE; prerelease 0001 rebaseline next
+-> DERIVATION-VERIFICATION reconciliation merged at 0130762a; SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
+-> prerelease 0001 Derivation/Verification rebaseline implemented as candidate; registered SQLite 3.53.4 certification gate required before merge
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -116,11 +117,22 @@ fresh-database bootstrap/runtime boundary and is now certified by
 `notebook/research/pre-sql/schema/MIGRATION_0001_IMPLEMENTATION_CERTIFICATION.md`.
 WORKBENCH-001 required a prerelease `0001` rebaseline so exact ProcessRun scope,
 typed quality evidence, quality decisions, and egress provenance survive restart.
-The certified PROCESSOR-CODEX-001 SQL hash is:
+The last merged/certified PROCESSOR-CODEX-001 SQL authority is:
 
 ```text
 5226c873487d9bd05fc62b7a1f323d6e804b003cc4e08bd2fe2b531adb6057bb
 ```
+
+The current unmerged Derivation/Verification rebaseline candidate is byte-identical between spec
+and production migration at:
+
+```text
+8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
+```
+
+Its portable proof inventory is 71 STRICT tables, 3 FTS tables, 135 explicit indexes and 152 FK
+child paths with zero scans. Exact registered SQLite 3.53.4 certification remains mandatory before
+this candidate replaces the prior authority.
 
 The independently certified WORKBENCH/DIRECT/OCR baseline
 `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior
@@ -231,8 +243,9 @@ remains a certifiable non-product challenger; G3 concluded `FIRST_CLASS_DERIVATI
 the qualified subscription-backed Codex/Terra profile with no worker failures. The measured
 design decision is `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`: explicit
 Derivation execution/lineage must precede final Verification judgment, but Thucy's four-role
-runtime is not selected. Final local closure certification is pending. Metered provider transports
-remain allowed future profiles. The prior LECTOR-002 semantic campaign remains superseded.
+runtime is not selected. Phase-D closure and the subsequent Derivation/Verification reconciliation
+are merged. The persistence rebaseline candidate is implemented; merge requires its exact registered
+SQLite 3.53.4 certification. Metered provider transports remain allowed future profiles. The prior LECTOR-002 semantic campaign remains superseded.
 
 Research basis: `notebook/research/lector/fact-verification/synthesis/BOOK.md`, checkpoint
 `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`.

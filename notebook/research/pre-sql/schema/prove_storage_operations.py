@@ -75,6 +75,9 @@ def referenced_archive_objects(con: sqlite3.Connection) -> list[tuple[str, str, 
           UNION
           SELECT archive_object_id FROM representations
           WHERE availability IN ('available','restricted') AND kind<>'original' AND archive_object_id IS NOT NULL
+          UNION
+          SELECT archive_object_id FROM derivation_results
+          WHERE availability='available' AND archive_object_id IS NOT NULL
         )
         SELECT o.id,o.storage_key,o.content_sha256,o.byte_size
         FROM refs r JOIN archive_objects o ON o.id=r.id
@@ -218,6 +221,7 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
     with con:
         con.execute("PRAGMA wal_autocheckpoint=0")
         con.execute("INSERT INTO sources VALUES (?,?,?,?,?)", ("src-op", "manual", "Operational proof source", 1, T))
+        con.execute("INSERT INTO source_authority_scopes VALUES (?,?,?,?,?,?,?)", ("sas-op", "src-op", "formal_record", None, None, "operational proof", T))
         con.execute("INSERT INTO source_locators VALUES (?,?,?,?,?)", ("loc-op", "src-op", "proof://local", "proof", T))
         con.execute("INSERT INTO acquisitions VALUES (?,?,?,?,?,?,?,?,?,?)", ("acq-op", "src-op", "loc-op", T, "success", None, "proof", "1", None, T))
 
@@ -261,13 +265,64 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
             )
         con.execute("INSERT INTO claims VALUES (?,?)", ("clm-superseded", T))
         con.execute(
-            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            ("clmr-superseded-1", "clm-superseded", 1, None, "source_assertion", "old active text", "human", None, None, None, None, None, 0, 0, "active", T),
+            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("clmr-superseded-1", "clm-superseded", 1, None, "source_assertion", "old active text", "human", None, None, None, None, None, None, 0, 0, "active", T),
         )
         con.execute(
-            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            ("clmr-superseded-2", "clm-superseded", 2, "clmr-superseded-1", "source_assertion", "current active text", "human", None, None, None, None, None, 0, 0, "active", T),
+            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ("clmr-superseded-2", "clm-superseded", 2, "clmr-superseded-1", "source_assertion", "current active text", "human", None, None, None, None, None, None, 0, 0, "active", T),
         )
+
+        # Analytical/verification content can itself retain sensitive data and may share source bytes.
+        program = f"SELECT '{SENTINEL}' AS sensitive_value"
+        program_sha = digest(program.encode())
+        purge_sha = digest(purge)
+        with con:
+            con.execute(
+                "INSERT INTO derivation_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("drv-purge", "query", "storage-proof", "1", "local_deterministic", None, None, None,
+                 "sqlite", sqlite3.sqlite_version, None, "hardened-readonly", "v1", "sql", program, program_sha, T, T, "success", None, T),
+            )
+            con.execute("INSERT INTO derivation_run_egress VALUES (?,?,?,?,?,?,?)", ("drv-purge", 0, "no_egress", "local_only", None, None, T))
+            con.execute("INSERT INTO derivation_run_inputs VALUES (?,?,?,?)", ("drv-purge", 0, "rep-purge", "target-purge"))
+            # Deliberately share aob-purge with the captured Artifact to prove shared-owner safety.
+            con.execute(
+                "INSERT INTO derivation_results VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("res-purge", "drv-purge", "success", "binary", "storage-proof", "1", None, "aob-purge", purge_sha, len(purge), "available", T, None),
+            )
+            con.execute(
+                "INSERT INTO derivation_result_targets VALUES (?,?,?,?,?,?,?,?,?,?)",
+                ("drt-purge", "res-purge", "drv-purge", "whole_result", "v1", '{}', "exact", "available", T, None),
+            )
+            con.execute("INSERT INTO derivation_result_lineage VALUES (?,?,?,?,?,?,?)", ("drt-purge", "drv-purge", "exact", 0, "rep-purge", "target-purge", T))
+            con.execute("INSERT INTO claims VALUES (?,?)", ("clm-derived-purge", T))
+            derived_text = f"Derived sensitive finding {SENTINEL}."
+            con.execute(
+                """INSERT INTO claim_revisions(
+                  id,claim_id,revision_no,supersedes_revision_id,claim_kind,text,origin_kind,
+                  process_run_id,derivation_result_target_id,attribution_entity_id,attribution_text,
+                  temporal_start,temporal_end,sensitive,quantitative,lifecycle,created_at
+                ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                ("clmr-derived-purge", "clm-derived-purge", 1, None, "derived_inference", derived_text, "human",
+                 None, "drt-purge", None, None, None, None, 1, 0, "active", T),
+            )
+            con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", ("ev-derived-purge", None, "clmr-derived-purge", "target-purge", "supports", "human", None, "active", None, T))
+            con.execute(
+                "INSERT INTO verification_runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                ("vr-purge", "clmr-derived-purge", derived_text, "storage-proof-verifier", "1", "local_deterministic",
+                 None, None, None, "explicit_targets", "v1", '{"coverage":"purge-fixture"}', T, T, "completed", None,
+                 "supported", "sufficient", "storage-proof", "v1", '{"adequate":true}', None, T),
+            )
+            con.execute("INSERT INTO verification_run_egress VALUES (?,?,?,?,?,?,?)", ("vr-purge", 0, "no_egress", "local_only", None, None, T))
+            con.execute("INSERT INTO verification_scope_targets VALUES (?,?,?,?)", ("vr-purge", 0, "rep-purge", "target-purge"))
+            con.execute("INSERT INTO verification_authority_scopes VALUES (?,?,?)", ("vr-purge", 0, "sas-op"))
+            con.execute("INSERT INTO verification_derivation_steps VALUES (?,?,?,?,?)", ("vr-purge", 0, "drv-purge", "consumed", "drt-purge"))
+            con.execute("INSERT INTO verification_evidence_items VALUES (?,?,?,?,?,?)", ("vr-purge", 0, 0, "rep-purge", "target-purge", "supports"))
+            con.execute(
+                "INSERT INTO assessments VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                ("asm-purge", None, "clmr-derived-purge", "supported", "machine", "storage-proof-policy", "vr-purge",
+                 "purge-proof", "v1", f"Assessment rationale {SENTINEL}", T),
+            )
 
         con.execute("INSERT INTO civic_documents VALUES (?,?)", ("doc-keep", T))
         con.execute("INSERT INTO civic_document_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", ("docr-keep", "doc-keep", 1, None, "Water system evidence", None, "2026-08-21", "es", "normal", "human", None, T))
@@ -281,7 +336,7 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
     assert "clmr-superseded-2" in fts_claim_ids
     assert "clmr-superseded-1" not in fts_claim_ids
     assert {"clmr-rejected", "clmr-retracted", "clmr-restricted"}.isdisjoint(fts_claim_ids)
-    assert con.execute("SELECT count(*) FROM claim_fts WHERE claim_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 1
+    assert con.execute("SELECT count(*) FROM claim_fts WHERE claim_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 2
     assert con.execute("SELECT count(*) FROM representation_fts WHERE representation_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 1
     return {"keep": keep.decode(), "purge": purge.decode()}
 
@@ -329,7 +384,7 @@ def restore_clean_machine(backup_root: Path, restore_root: Path) -> None:
     with con:
         rebuild_fts(con, restore_root / "archive")
     assert_fts_coverage(con, restore_root / "archive")
-    assert con.execute("SELECT count(*) FROM claim_fts WHERE claim_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 1
+    assert con.execute("SELECT count(*) FROM claim_fts WHERE claim_fts MATCH ?", (SENTINEL,)).fetchone()[0] == 2
     con.close()
 
 
@@ -347,6 +402,10 @@ def availability_violations(con: sqlite3.Connection) -> list[tuple[str, str]]:
         SELECT 'representation/archive', r.id
         FROM representations r JOIN archive_objects o ON o.id=r.archive_object_id
         WHERE r.availability IN ('available','restricted') AND r.kind<>'original' AND o.availability<>'available'
+        UNION ALL
+        SELECT 'derivation-result/archive', d.id
+        FROM derivation_results d JOIN archive_objects o ON o.id=d.archive_object_id
+        WHERE d.availability='available' AND o.availability<>'available'
         ORDER BY 1,2
         """
     ).fetchall()
@@ -359,14 +418,41 @@ def file_contains(path: Path, needle: bytes) -> bool:
 def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backup_root: Path) -> dict[str, object]:
     purge_file = archive_root / con.execute("SELECT storage_key FROM archive_objects WHERE id='aob-purge'").fetchone()[0]
     assert purge_file.exists()
+    assert availability_violations(con) == []
+
+    # Shared physical bytes cannot be purged while either the captured Artifact or an
+    # available DerivationResult still owns them. This is a core transaction invariant.
+    con.execute("SAVEPOINT shared_analytic_owner_guard")
+    con.execute(
+        "UPDATE archive_objects SET content_sha256=NULL,byte_size=NULL,storage_key=NULL,availability='purged',purged_at=? WHERE id='aob-purge'",
+        (T,),
+    )
+    shared_owner_violations = set(availability_violations(con))
+    assert shared_owner_violations == {
+        ("artifact/archive", "art-purge"),
+        ("derivation-result/archive", "res-purge"),
+    }, shared_owner_violations
+    con.execute("ROLLBACK TO shared_analytic_owner_guard")
+    con.execute("RELEASE shared_analytic_owner_guard")
+    assert availability_violations(con) == []
 
     # Freeze exact content-bearing target/action scope before changing authority.
     targets = [
+        ("assessment", "asm-purge", "delete_record"),
+        ("verification_run_egress", "vr-purge", "delete_record"),
+        ("verification_run", "vr-purge", "delete_record"),
+        ("derivation_run_egress", "drv-purge", "delete_record"),
+        ("derivation_result_target", "drt-purge", "delete_record"),
+        ("derivation_result", "res-purge", "delete_record"),
+        ("derivation_run", "drv-purge", "delete_record"),
         ("acquisition_artifact", "art-purge", "scrub_payload"),
         ("representation_target", "target-purge", "scrub_payload"),
         ("evidence_link", "ev-purge", "delete_record"),
+        ("evidence_link", "ev-derived-purge", "delete_record"),
         ("claim_revision", "clmr-purge", "delete_record"),
+        ("claim_revision", "clmr-derived-purge", "delete_record"),
         ("claim", "clm-purge", "delete_record"),
+        ("claim", "clm-derived-purge", "delete_record"),
         ("representation", "rep-purge", "detach"),
         ("artifact", "art-purge", "detach"),
         ("archive_object", "aob-purge", "delete_bytes"),
@@ -379,13 +465,27 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
     frozen = con.execute("SELECT record_kind,record_id,action FROM purge_targets WHERE purge_id='purge-op' ORDER BY record_kind,record_id,action").fetchall()
     assert frozen == sorted(targets)
 
-    # Canonical/derived data removal in FK-safe order.
+    # Canonical/derived data removal in FK-safe order. Pure execution joins are
+    # expanded by the purge operation but are not themselves public purge-target kinds.
     with con:
-        con.execute("DELETE FROM evidence_links WHERE id='ev-purge'")
-        con.execute("DELETE FROM claim_fts WHERE claim_revision_id='clmr-purge'")
+        con.execute("DELETE FROM assessments WHERE id='asm-purge'")
+        con.execute("DELETE FROM verification_evidence_items WHERE verification_run_id='vr-purge'")
+        con.execute("DELETE FROM verification_derivation_steps WHERE verification_run_id='vr-purge'")
+        con.execute("DELETE FROM verification_authority_scopes WHERE verification_run_id='vr-purge'")
+        con.execute("DELETE FROM verification_scope_targets WHERE verification_run_id='vr-purge'")
+        con.execute("DELETE FROM verification_run_egress WHERE verification_run_id='vr-purge'")
+        con.execute("DELETE FROM verification_runs WHERE id='vr-purge'")
+        con.execute("DELETE FROM evidence_links WHERE id IN ('ev-purge','ev-derived-purge')")
+        con.execute("DELETE FROM claim_fts WHERE claim_revision_id IN ('clmr-purge','clmr-derived-purge')")
         con.execute("DELETE FROM representation_fts WHERE representation_id='rep-purge'")
-        con.execute("DELETE FROM claim_revisions WHERE id='clmr-purge'")
-        con.execute("DELETE FROM claims WHERE id='clm-purge'")
+        con.execute("DELETE FROM claim_revisions WHERE id IN ('clmr-purge','clmr-derived-purge')")
+        con.execute("DELETE FROM claims WHERE id IN ('clm-purge','clm-derived-purge')")
+        con.execute("DELETE FROM derivation_result_lineage WHERE derivation_result_target_id='drt-purge'")
+        con.execute("DELETE FROM derivation_result_targets WHERE id='drt-purge'")
+        con.execute("DELETE FROM derivation_results WHERE id='res-purge'")
+        con.execute("DELETE FROM derivation_run_inputs WHERE derivation_run_id='drv-purge'")
+        con.execute("DELETE FROM derivation_run_egress WHERE derivation_run_id='drv-purge'")
+        con.execute("DELETE FROM derivation_runs WHERE id='drv-purge'")
         con.execute("UPDATE acquisition_artifacts SET observed_filename=NULL,observed_url=NULL WHERE artifact_id='art-purge'")
         con.execute("UPDATE representation_targets SET selector_kind=NULL,selector_version=NULL,selector_payload_json=NULL,state_payload_json=NULL,availability='purged',purged_at=? WHERE id='target-purge'", (T,))
         con.execute("UPDATE representations SET artifact_id=NULL,archive_object_id=NULL,parent_representation_id=NULL,media_type=NULL,language=NULL,charset=NULL,process_run_id=NULL,availability='purged',purged_at=? WHERE id='rep-purge'", (T,))
@@ -419,7 +519,7 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
     # The pre-purge backup remains deliberately out of scope and must be reported as such.
     backup_uri = (backup_root / "canario.sqlite3").resolve().as_uri() + "?mode=ro"
     backup_con = sqlite3.connect(backup_uri, uri=True)
-    backup_has = backup_con.execute("SELECT count(*) FROM claim_revisions WHERE text LIKE ?", (f"%{SENTINEL}%",)).fetchone()[0] == 1
+    backup_has = backup_con.execute("SELECT count(*) FROM claim_revisions WHERE text LIKE ?", (f"%{SENTINEL}%",)).fetchone()[0] == 2
     backup_con.close()
     manifest = json.loads((backup_root / "manifest.json").read_text())
     backup_archive_has = any(e["archive_object_id"] == "aob-purge" for e in manifest["archive_objects"])
@@ -431,6 +531,7 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
         "current_db_raw_sentinel_absent": db_clean,
         "current_wal_raw_sentinel_absent": wal_clean,
         "archive_bytes_deleted": True,
+        "analytic_shared_archive_owner_guard": True,
         "prepurge_backup_scope": "OUT_OF_SCOPE_RETAINS_PREPURGE_MATERIAL",
     }
 
@@ -463,7 +564,8 @@ def main() -> None:
 
         runtime_tuple = tuple(int(x) for x in sqlite3.sqlite_version.split(".")[:3])
         print(f"STORAGE_OPERATION_PROOF=PASS sqlite={sqlite3.sqlite_version}")
-        print("shared_archive_backup_manifest=PASS")
+        print("shared_archive_backup_manifest=PASS artifact+derivation_result")
+        print(f"analytic_shared_archive_owner_guard={'PASS' if purge_report['analytic_shared_archive_owner_guard'] else 'FAIL'}")
         print("clean_machine_restore_and_fts_rebuild=PASS")
         print("purge_manifest_archive_fts_wal_vacuum=PASS")
         print(f"pre_purge_wal_contained_sentinel={str(pre_purge_wal_contains).lower()}")
