@@ -375,39 +375,51 @@ Lector.
 
 ### Derived analysis
 
-Derived analysis answers: **what new proposition or result can be reproducibly computed
-from bounded Canario evidence?** It consumes one or more exact input scopes and an
-executable bounded operation. Its conceptual provenance includes ordered input
-Representation/target identities, exact query/program, executor/runtime and configuration
-identity, sandbox/resource profile, terminal outcome, exact result and available
-row/cell/evidence lineage. A query or program is provenance, not original source evidence.
+Derived analysis answers: **what new result can be reproducibly computed from bounded Canario
+evidence?** The accepted reconciliation requires a first-class immutable `DerivationRun`, distinct
+from Representation-processor `ProcessRun`, with ordered exact RepresentationTarget inputs, exact
+untrusted program/query, executor/configuration/sandbox provenance and terminal outcome.
 
-A successful proposition-worthy result may later become a Claim with
-`kind=derived_inference`; the result itself does not become a Claim merely because it
-exists. The certified G3 fit bench closed this question with `FIRST_CLASS_DERIVATION_REQUIRED`. Existing `ProcessRun` remains the Representation-processor provenance contract; analytical query/program execution requires a distinct first-class derivation run. Persistence remains unauthorized until reconciled with Verification and Claim provenance.
+A successful run owns one typed `DerivationResult`. Exact result slices are durable
+`DerivationResultTarget`s with per-target `exact | partial | unavailable | none`
+source-contribution lineage back to source RepresentationTargets. Analytical results are not forced
+into Representation because a result may combine multiple Artifact custody chains. Query/program
+and result are execution provenance/output, never original source evidence.
+
+A proposition-worthy result may later become a Claim with `kind=derived_inference`, but the Claim
+must point to its exact DerivationResultTarget and is never created merely because the result exists.
 
 ### Verification and Assessment
 
-Verification answers: **given this proposition and this explicitly bounded evidence scope,
-what does the available evidence justify?** A verifier execution keeps technical outcome,
-verdict, evidence set, evidence sufficiency, abstention reason and process/model provenance
-as separate axes. The minimum bench meanings are `supported`, `contradicted` and
-`insufficient_evidence`.
+Verification answers: **given this exact proposition and this explicitly bounded evidence scope,
+what does the available evidence justify?** A first-class `VerificationRun` records its scope,
+Source Authority, every Derivation attempted, the exact successful result targets actually consumed,
+source evidence set, explicit sufficiency, abstention reason and execution/model/configuration
+provenance.
 
-Timeout, crash, invalid query or tool failure is execution failure, not epistemic
-abstention. A verifier result never rejects, retracts, supersedes or otherwise mutates a
-Claim lifecycle. The existing optional attributable `Assessment` remains the durable
-judgment that a later policy may record or promote from a specific verifier result.
+`completed + supported|contradicted` requires sufficient evidence. `completed +
+insufficient_evidence` requires explicit insufficiency and a bounded abstention reason. Timeout,
+crash, invalid query or required tool failure is execution failure and has no epistemic verdict.
+Verification never rejects, retracts, supersedes or otherwise mutates Claim lifecycle.
 
-Evidence sufficiency is initially typed information inside that result, not a new core
-entity. It must record missing source coverage and completeness limitations, especially
-for negative propositions: “not found” is not “does not exist” without adequate inventory
-authority.
+`EvidenceLink` remains durable civic source evidence from an exact ClaimRevision to an exact source
+RepresentationTarget. Derivation lineage and Verification evidence are execution records, not
+EvidenceLinks and never become Claim evidence automatically. For a `derived_inference` Claim,
+active `supports` evidence must trace to source-contribution lineage for its exact
+DerivationResultTarget; independent `challenges` evidence may come from elsewhere.
 
-`ContextEnvelope` means bounded interpretation/retrieval material; it is not the smallest
-exact evidence locator and is not itself reviewed truth. One proposition may use multiple
-independently reopenable typed `EvidenceLink`s. Existing evidence-link semantics support
-this without a schema migration.
+An optional `Assessment` is a separate attributable durable judgment on one exact ClaimRevision,
+with initial values `supported | contested | refuted | unresolved`. It is not Claim review or
+lifecycle. A Verification-based Assessment can reference only a VerificationRun bound to the same
+ClaimRevision; machine/rule promotion requires an explicit policy version and is not authorized
+automatically by Phase D.
+
+Evidence sufficiency remains typed information inside VerificationRun, not a new truth entity.
+Negative propositions require explicit inventory/completeness authority: “not found” is not “does
+not exist” merely because a query returned zero rows.
+
+`ContextEnvelope` remains bounded interpretation/retrieval material rather than the smallest exact
+evidence locator or reviewed truth.
 
 ## Source Authority: What Can This Evidence Demonstrate?
 
@@ -760,19 +772,32 @@ SQLite candidate. The current concrete gate is the artifact/runtime proof list i
 unauthorized until those proofs pass.
 ## Derived analysis and verification execution
 
-The certified structured-reasoning fit requires a first-class `DerivationRun` distinct from
-Representation-processor `ProcessRun`. Phase D further measured material evidence value from
-stronger decomposition and selected the minimum Canario-native execution graph:
+The Phase-D closure is merged at `310d060cc1ced3640892a0dc29a7fbcb2c010920`. The subsequent
+reconciliation is accepted in
+`notebook/implementation/DERIVATION_VERIFICATION_RECONCILIATION.md` with decision:
 
 ```text
-canonical bounded evidence scopes
--> DerivationRun(s): exact untrusted program/query + bounded executor + typed result/lineage
--> VerificationRun: proposition + Source Authority + exact DerivationRun references
--> verdict + evidence + explicit sufficiency + abstention/execution distinction
+SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
 ```
 
-This is a semantic architecture boundary, not a mandatory human workflow stage. It does not freeze
-Thucy's role names/topology or a multi-agent framework. Provider transport is replaceable execution
-provenance; it is not Source Authority or verification semantics. Persistence remains pending the
-one Derivation/Verification/Claim/Evidence reconciliation design pass and applicable prerelease
-`0001` certification.
+The durable minimum is:
+
+```text
+source RepresentationTarget(s)
+-> DerivationRun -> DerivationResult -> DerivationResultTarget -> source lineage
+-> VerificationRun consumes exact result target(s) inside an explicit bounded scope
+-> verdict + source evidence + explicit sufficiency + abstention/execution distinction
+
+optional durable promotion:
+DerivationResultTarget -> ClaimRevision(derived_inference) -> source EvidenceLinks
+ClaimRevision -> Assessment (optionally based on same-Claim VerificationRun)
+```
+
+`ProcessRun`, `DerivationRun` and `VerificationRun` remain typed execution families rather than a
+generic operation table. `DerivationResult` is not forced into Representation when it combines
+multiple custody chains. EvidenceLink remains source evidence, not execution lineage. Assessment
+remains distinct from review/lifecycle and has no automatic promotion.
+
+This reconciliation authorizes the **next bounded prerelease `0001` rebaseline design/implementation
+unit**, followed by the full mechanical/runtime certification applicable to the changed schema. It
+does not itself modify production DDL or authorize a production multi-agent/model dependency.

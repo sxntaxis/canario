@@ -1,6 +1,6 @@
 # Derivation Contract Candidate
 
-State: **DESIGN ACCEPTED BY G3 FIT RESULT; PERSISTENCE NOT YET AUTHORIZED**
+State: **G3 DESIGN ACCEPTED — JOINT PERSISTENCE SHAPE SUPERSEDED BY RECONCILIATION**
 
 Authority chain:
 
@@ -211,14 +211,17 @@ The first SQL implementation inherits the certified fit-bench security principle
 - explicit executor/runtime identity;
 - exact Source Authority remains outside SQL engine semantics.
 
-## Persistence gate
+## Reconciliation transfer
 
-Do not modify `0001` yet.
+The remaining joint design gate is now closed by
+`notebook/implementation/DERIVATION_VERIFICATION_RECONCILIATION.md`.
 
-Phase D has closed the verifier/planner relationship to Derivation and established the minimum
-Verification execution contract. Persistence is authorized only after the remaining single design
-pass reconciles `DerivationRun`, future `VerificationRun`, Claim origin provenance and existing
-EvidenceLink semantics without duplicate execution graphs. If accepted, pre-release `0001` is then
-rebaselined once, followed by the applicable freeze/runtime certification.
+The accepted refinement keeps this G3 boundary but adds a distinct `DerivationResult` and
+`DerivationResultTarget` rather than forcing analytical output into one-Artifact Representation
+custody. Source-contribution lineage is attached to exact result targets. Derived Claim origin,
+Verification scope/Derivation consumption, EvidenceLink source evidence and optional Assessment are
+there reconciled without a polymorphic execution graph.
 
-The goal is one coherent schema change, not a sequence of speculative migrations.
+The next authorized unit is the bounded prerelease `0001` rebaseline plus applicable
+freeze/storage/purge/backup/runtime certification. This file remains the historical G3 reasoning
+record; the reconciliation document is authority for the joint persistence shape.

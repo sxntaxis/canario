@@ -7,7 +7,7 @@ updated: 2026-08-25
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: WORKBENCH-001, the D1/D2/Codex processor ladder, and LECTOR-001 are independently certified and integrated. The post-SOTA architecture checkpoint separates source extraction, derived analysis, verification, and optional Assessment without authorizing a verifier or schema change.
+summary: WORKBENCH-001, the D1/D2/Codex processor ladder, and LECTOR-001 are independently certified and integrated. Structured reasoning/verifier benches plus the Derivation/Verification reconciliation are closed; the next authorized unit is a bounded prerelease 0001 rebaseline and recertification, not production verifier behavior.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -104,7 +104,8 @@ accepted semantic contracts
 -> SOTA research checkpoint 7e7fd85: fact verification and structured reasoning audit complete
 -> architecture reconciliation: Lector/extraction, Derivation, Verification, Assessment separated
 -> STRUCTURED-REASONING-FIT-BENCH certified at 0f9a71e; SQLite selected, DuckDB challenger retained, G3 FIRST_CLASS_DERIVATION_REQUIRED
--> STRUCTURED-VERIFIER-FIT-BENCH Phase D measured; minimum Canario Derivation -> Verification decomposition selected; final local closure certification pending
+-> STRUCTURED-VERIFIER-FIT-BENCH Phase D locally certified and merged at 310d060c; minimum Canario decomposition selected
+-> DERIVATION-VERIFICATION reconciliation accepted; SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE; prerelease 0001 rebaseline next
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -241,9 +242,13 @@ The product vocabulary remains Inbox -> Depósito -> Mesa de trabajo -> Lector -
 operation boundaries around the Fichero/Mesa de trabajo, not new mandatory human stages.
 
 Lector answers what a source asserts or explicitly contains. A new sum, comparison or join
-belongs to Derived analysis, not a source assertion. Verification evaluates a proposition
-against bounded evidence and never mutates Claim lifecycle. Assessment remains optional,
-attributable and separate from lifecycle.
+belongs to Derived analysis, not a source assertion. The accepted reconciliation now freezes a
+distinct DerivationRun -> DerivationResult -> DerivationResultTarget execution path with explicit
+source-contribution lineage, and a separate VerificationRun with bounded scope, Source Authority,
+Derivation attempts/consumption, evidence, sufficiency and abstention/execution outcome. Derived
+Claims point to exact result targets; EvidenceLink remains source evidence. Assessment remains
+optional, attributable and separate from review/lifecycle. Current production `0001` has not yet
+been rebaselined to these new records.
 Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
 covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are frozen externally. Their typed evidence
 substrate is now canonical at `e0ab1cd831740241736086f5db568468aacac779`: deterministic

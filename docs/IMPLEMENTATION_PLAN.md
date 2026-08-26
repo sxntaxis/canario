@@ -261,15 +261,17 @@ improved evidence-retrieval recall by `0.3333333333333333` and evidence-backed v
 `0.25`. It also cost 10 additional Codex CLI invocations, 78,009 prompt bytes and 104,036.601 ms,
 and reduced abstention precision by `0.33333333333333337`.
 
-Decision: `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`. Do not reproduce
-Thucy's four roles. The next design unit reconciles a minimum `DerivationRun -> VerificationRun`
-execution graph with Claim origin provenance, EvidenceLink semantics and optional Assessment
-promotion. Only after that design is accepted may prerelease `0001` be rebaselined once and
-certified. Metered provider transports remain allowed future profiles with no automatic fallback.
+Decision: `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSITION`. The Phase-D closure
+is merged at `310d060cc1ced3640892a0dc29a7fbcb2c010920`. The required follow-up reconciliation is now
+accepted with `SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE` and freezes distinct
+`DerivationRun/DerivationResult/DerivationResultTarget`, `VerificationRun`, derived-Claim origin,
+source `EvidenceLink`, and optional `Assessment` semantics without a generic operation graph.
 
-**Gate:** final local certification of the Phase-D closure must pass before schema implementation.
-No production multi-agent verifier, Thucy vendoring, provider/model dependency or Assessment
-auto-promotion is authorized.
+**Next gate:** rebaseline prerelease `0001` once with exactly the accepted reconciliation delta,
+then rerun the schema freeze/storage/backup/purge/runtime certification on the exact registered
+SQLite 3.53.4 runtime. No production verifier writer, multi-agent runtime, Thucy vendoring,
+provider/model dependency, recursive Derivation graph, or automatic Claim/Evidence/Assessment
+promotion is authorized before that persistence gate passes.
 
 
 ## WP6 — Review and Operator Workflow

@@ -262,38 +262,62 @@ when a workflow actually records such a judgment.
 
 ## Analysis and Verification Boundaries
 
-The conceptual model distinguishes four operations without requiring four persistence
-families:
+The accepted model now has explicit non-overlapping analytical records:
 
 ```text
-Lector       source assertion / explicit source content
-Derivation   reproducible result computed from bounded evidence
-Verification proposition evaluated against bounded evidence
-Assessment   optional attributable durable judgment
+Lector / ProcessRun
+  source assertion / explicit source content
+
+RepresentationTarget(s)
+  -> DerivationRun
+  -> DerivationResult
+  -> DerivationResultTarget
+  -> source-contribution lineage -> RepresentationTarget(s)
+
+bounded scope + SourceAuthorityScope(s)
+  -> VerificationRun
+  -> attempted/consumed Derivation steps
+  -> exact verification evidence
+  -> verdict + sufficiency + abstention/execution outcome
+
+DerivationResultTarget
+  -> optional ClaimRevision(kind=derived_inference)
+  -> EvidenceLink(s) -> source RepresentationTarget(s)
+
+ClaimRevision
+  -> optional Assessment
 ```
 
-Lector must not turn a newly computed sum, comparison or join into a source assertion. A
-source may itself state a calculation, which Lector may extract as what the source says.
+`ProcessRun` remains Representation-processing / existing semantic-extraction provenance.
+`DerivationRun` is a distinct immutable analytical attempt with ordered exact inputs, exact
+program, executor/runtime/configuration, sandbox profile, outcome and one typed successful result.
+Re-execution receives a new run ID; program/input/result hashes are not civic identity.
 
-A Derivation consumes ordered Representation/target identities and an exact bounded
-query/program. Its future provenance must include executor/runtime and configuration,
-sandbox/resource profile, terminal outcome, exact result and available row/cell/evidence
-lineage. The query/program is not original evidence. The G3 fit bench is closed: `FIRST_CLASS_DERIVATION_REQUIRED`. Existing `ProcessRun` remains Representation-processor provenance; a distinct first-class derivation execution record is required for analytical query/program provenance. No table is authorized here yet.
+`DerivationResult` has its own logical result identity because an analytical result may combine
+multiple Artifacts and therefore cannot safely be forced into the one-Artifact Representation
+custody model. Bounded inline typed results or archive-backed material results are allowed. Exact
+result slices use `DerivationResultTarget`; lineage state is per target (`exact | partial |
+unavailable | none`) and source-contribution rows reuse exact `RepresentationTarget` identities.
 
-Verification results are execution artifacts, not Claim lifecycle state. They must keep
-technical outcome, verdict, evidence set, sufficiency, abstention reason and process/model
-provenance distinct. At minimum the bench distinguishes `supported`, `contradicted` and
-`insufficient_evidence`; timeout, crash, invalid query and tool failure are not epistemic
-abstention. An Assessment remains optional, attributable and separate from lifecycle.
+A `VerificationRun` may bind to an exact ClaimRevision or remain ad hoc. It records its explicit
+scope targets, exact SourceAuthorityScope rows, every Derivation attempted, which exact successful
+result targets were consumed, and its direct/reachable source evidence. A failed run has no verdict;
+`insufficient_evidence` exists only on a completed run with explicit insufficiency and an abstention
+reason.
 
-Evidence sufficiency is initially typed result data rather than an `EvidenceSufficiency`
-entity. For absence propositions, “not found” is not “does not exist” without adequate
-inventory/completeness authority.
+A `derived_inference` ClaimRevision must reference one exact available DerivationResultTarget.
+EvidenceLink remains ClaimRevision -> source RepresentationTarget and is not derivation lineage or a
+verifier trace. Supporting evidence for a derived Claim must be traceable to the selected result
+target's source-contribution lineage; independent challenging evidence remains legal.
 
-`ContextEnvelope` is bounded interpretation material, not an exact locator and not a
-canonical truth entity. One proposition may use multiple independently reopenable typed
-EvidenceLinks. Existing EvidenceLink persistence already permits this; no migration is
-authorized solely for multi-evidence propositions.
+Assessment is now frozen as an optional first-class durable judgment family rather than a Claim
+field or review synonym. It targets one exact ClaimRevision, permits independent disagreeing
+assessors/policies, and may reference a same-Claim VerificationRun as basis. It never mutates Claim
+lifecycle and no automatic verifier-to-Assessment promotion is authorized.
+
+`ContextEnvelope` remains bounded interpretation material, not exact evidence or a canonical truth
+entity. Evidence sufficiency remains typed Verification result data; negative/absence findings
+require explicit inventory/completeness authority.
 
 ## Evidence Locator Storage
 
