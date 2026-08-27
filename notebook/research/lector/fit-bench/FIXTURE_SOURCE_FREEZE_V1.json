@@ -1,0 +1,196 @@
+{
+  "a0_a5_runs_started": false,
+  "acta160_semantics_inspected": false,
+  "baseline": "61ce4daf6364494b534a50060fea14ca3a81c140",
+  "f1_reference_protocol_frozen": true,
+  "f1_semantics_frozen": true,
+  "fixtures": [
+    {
+      "capability_intent": [
+        "COV-01",
+        "ATR-01",
+        "CTX-01",
+        "TMP-01",
+        "REC-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "issuer": "Municipalidad de Esparza",
+      "leakage_state": "FROZEN",
+      "primary_source": {
+        "bytes": 760485,
+        "media_type": "application/pdf",
+        "sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd"
+      },
+      "representation": {
+        "bytes": 154866,
+        "characters": 151940,
+        "kind": "text/plain",
+        "processor": "poppler.pdf_text",
+        "processor_version": "26.01.0",
+        "sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1"
+      },
+      "role": "development",
+      "scope": {
+        "selection": "full_source_order",
+        "sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+        "unit_count": 61,
+        "unit_inventory_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de"
+      },
+      "source_authority": "Municipalidad de Esparza",
+      "source_locator": "https://muniesparza.go.cr/articulo/230/actas-concejo-municipal",
+      "source_pack": {
+        "location": "/mnt/Tokyo/Lab/tmp/sxntax/actakit-lector002-acta161-source-pack.tar.gz",
+        "sha256": "394a10ef1234a2d7f5f97ce8dbaf595f840987b679258460ace0ac44248a1e41"
+      },
+      "title": "Acta Sesión Ordinaria N.º 161 — 18 May 2026"
+    },
+    {
+      "capability_intent": [
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "fixture_id": "CR-INCOP-CORRESPONDENCE-001",
+      "issuer": "Instituto Costarricense de Puertos del Pacífico",
+      "leakage_state": "FROZEN",
+      "primary_source": {
+        "bytes": 407921,
+        "media_type": "application/pdf",
+        "sha256": "058e6b1b4dbe25431f5914f8ba80d6fe13f53fb55e2971ad86c6c24c0786c207"
+      },
+      "representation": {
+        "bytes": 4803,
+        "characters": 4630,
+        "kind": "text/plain",
+        "processor": "deterministic_poppler_derivative",
+        "processor_version": "not recorded in historical pack",
+        "sha256": "81c44e666a763269f97dbe13b11dcb0c91cbbbb42da80e28322c8edcbdaa1549"
+      },
+      "role": "development",
+      "scope": {
+        "selection": "full_source_order",
+        "sha256": "d0aadc5903154dac5759754c9aacc3322a854746fe9a1d2220f3ec590ee0cc71",
+        "unit_count": 17,
+        "unit_inventory_sha256": "c5a41b4b7a01ab5dd56a33d08d224d3a66cf0aa679664629c41cf98535229aca"
+      },
+      "source_authority": "Instituto Costarricense de Puertos del Pacífico",
+      "source_locator": "https://www.incop.go.cr/wp-content/uploads/general/ModPtoCaldera/DocumentosExpediente/46-CR-INCOP-PE-0073-2025-Sol-Autorizacion%20Ministerio%20Hacienda.pdf",
+      "source_pack": {
+        "location": "/home/sxntax/Downloads/canario-lector002-capability-fixtures/CR-INCOP-CORRESPONDENCE-001-source-pack.tar.gz",
+        "sha256": "235bc6590e19eeb7ffadccd60a535b9ecbeb67c4b87b6db6f268d1b4c746cc1b"
+      },
+      "title": "CR-INCOP-PE-0073-2025"
+    },
+    {
+      "capability_intent": [
+        "SCP-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "fixture_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001",
+      "issuer": "Municipalidad de Esparza",
+      "january_2025_stale_version_excluded": true,
+      "leakage_state": "FROZEN",
+      "primary_source": {
+        "bytes": 653922,
+        "media_type": "application/pdf",
+        "sha256": "d6aed7b952ac8b6b1770dcbf957471390016507ef8ee2c98553f52ba5f579c59"
+      },
+      "representation": {
+        "bytes": 71816,
+        "characters": 70202,
+        "kind": "text/plain",
+        "pages": 11,
+        "processor": "poppler.pdf_text",
+        "processor_version": "26.01.0",
+        "sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28"
+      },
+      "retrieved_at_utc": "2026-08-27T21:30:22Z",
+      "role": "development",
+      "scope": {
+        "byte_end": 67591,
+        "byte_start": 972,
+        "char_end": 66065,
+        "char_start": 939,
+        "page_end": 11,
+        "page_start": 1,
+        "selection": "exact_bounded_subdocument",
+        "sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+        "unit_count": 37,
+        "unit_inventory_sha256": "b744773c22ee862904052db0ee19bcbdf3674d5935016054795ad38705a87253"
+      },
+      "source_authority": "Municipalidad de Esparza",
+      "source_locator": "https://muniesparza.go.cr/files/folder/afd068ff-c888-4a53-8191-5caab152ee3d.pdf",
+      "source_pack": {
+        "location": "/home/sxntax/Downloads/canario-lector-fit-bench-f2-source-packs/D3-CR-ESPARZA-PROCUREMENT-REGULATION-001.tar.gz",
+        "sha256": "abafceed74ace547859ae91f72c07ce4b9d85a01792127a80cb80b555133f047"
+      },
+      "title": "Reglamento interno de contratación pública de la Municipalidad de Esparza y del Comité Cantonal de Deportes y Recreación de Esparza",
+      "version_evidence": "La Gaceta N.º 69, 10 April 2025; Articles 1-54"
+    },
+    {
+      "capability_intent": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "TMP-01",
+        "QTY-01",
+        "CTX-01",
+        "REC-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "document_date": "2024-06-28",
+      "fixture_id": "CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001",
+      "issuer": "Contraloría General de la República",
+      "leakage_state": "FROZEN",
+      "primary_source": {
+        "bytes": 1911828,
+        "media_type": "application/pdf",
+        "pages": 28,
+        "sha256": "587e4ba2ca65c4a3f453471434ca69b41ba71fe59ae64897590b1fc6c44c97fe"
+      },
+      "report_id": "DFOE-LOC-IAD-00011-2024",
+      "representation": {
+        "bytes": 61507,
+        "characters": 60155,
+        "kind": "text/plain",
+        "pages": 28,
+        "processor": "poppler.pdf_text",
+        "processor_version": "26.01.0",
+        "sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d"
+      },
+      "retrieved_at_utc": "2026-08-27T21:30:22Z",
+      "role": "development",
+      "scope": {
+        "page_end": 28,
+        "page_start": 1,
+        "selection": "full_source_order",
+        "sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d",
+        "unit_count": 260,
+        "unit_inventory_sha256": "b4c45ebccf7bfc4ec02d902aaa96b7f968bcc07719b40ceef28c79985bf1c5b4"
+      },
+      "source_authority": "Contraloría General de la República",
+      "source_locator": "https://cgrfiles.cgr.go.cr/publico/docs_cgr/2024/SIGYD_D/SIGYD_D_2024012846.pdf",
+      "source_pack": {
+        "location": "/home/sxntax/Downloads/canario-lector-fit-bench-f2-source-packs/D4-CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001.tar.gz",
+        "sha256": "eb729446edb1c698cc0ea3ecc6e92a1cf3cf217a24bea6320c744e919699f7ae"
+      },
+      "title": "Informe de auditoría sobre la gestión de contratación pública en la Municipalidad de Santa Ana"
+    }
+  ],
+  "formal_candidate_output_seen": false,
+  "format": "canario.lector.fit-bench.fixture-freeze/v1",
+  "production_implementation_authorized": false,
+  "semantic_gold_generated": false,
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
