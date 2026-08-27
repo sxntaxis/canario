@@ -188,12 +188,17 @@ SQLite 3.53.4 migration/storage/purge/backup/runtime and fresh-clone gates and i
 `0e0f56a0`.
 
 The bounded generic `canario.reasoning` runtime/API is certified and merged at `b8535195` without a
-schema change.
+schema change. Its first concrete structured SQLite consumer is independently certified and merged at
+`51f21f98`; the exact MTSS proof demonstrates source-backed `COUNT(*) = 147` while a
+source-independent `SELECT 147` with the same scalar abstains as `insufficient_evidence`.
 
-**Gate:** certify its first concrete structured SQLite consumer on the exact SQLite 3.53.4 runtime
-and the retained official MTSS workbook. The proof must persist a source-backed Derivation and
-supported Verification, while a source-independent constant yielding the same value must abstain as
-`insufficient_evidence`. Do not reopen schema or introduce a generic operation graph for this lane.
+**Gate:** certify the minimum Phase-D planner/final-verifier orchestration over that production path.
+One bounded planner call may propose `0..6` SELECT programs; each executes only as an ordinary local
+`StructuredSQLiteDerivationBackend` run; one bounded final-verifier call then consumes exact
+Derivation identities/evidence into the same durable Verification attempt. Require the exact Codex
+0.149.0 / `gpt-5.6-terra` medium subscription profile, SQLite 3.53.4, the selected Phase-D contract
+replay cases and the natural MTSS proposition. Do not reopen schema, add Thucy roles/multi-agent
+runtime, provider-API fallback, or a generic operation graph for this lane.
 
 
 ## Phase 5 — Mesa de control

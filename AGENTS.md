@@ -217,9 +217,19 @@ Rules for agents/contributors:
   for this unit. The bounded generic `canario.reasoning` runtime is certified and merged at
   `b8535195`: backends receive no SQLite/archive write authority, narrow source/result targets require
   exact registered materializers, source evidence stays separate from execution lineage, and
-  Claim/Evidence/Assessment promotion remains explicit. The active candidate is the first concrete
-  structured SQLite Derivation/Verification consumer; it must pass exact-runtime and retained-natural
-  artifact proof before authority. The prior
+  Claim/Evidence/Assessment promotion remains explicit. The first concrete structured SQLite
+  consumer is certified and merged at `51f21f98`: structured-table material now reaches bounded
+  SQLite Derivation and deterministic Verification with causal source lineage. The active candidate
+  is the minimum Phase-D planner/final-verifier orchestration over that production path: one bounded
+  planner call, ordinary local DerivationRuns for every SQL program, and one final verifier call in
+  the same VerificationRun. V2 consumed one live D1 campaign and failed before an epistemic verdict.
+  V3 then localized the failure to the Codex finalizer: planner and SQL Derivation succeeded, while
+  the final CLI call exited non-zero with `codex_final_failed`. Static comparison against the official
+  Structured Outputs subset found the final wire schema used unsupported `uniqueItems`; V4 removes
+  that redundant wire keyword, keeps duplicate-citation rejection as a local Canario invariant, and
+  classifies `invalid_json_schema` safely without persisting raw stderr. It must pass the qualified
+  Codex/SQLite profile, selected Phase-D contract replay and natural MTSS proof before authority. No Thucy role
+  runtime is selected. The prior
   LECTOR-002 semantic campaign is
   superseded and must be re-scoped before replacement reference work. Acta 161 is
   case `CR-ESPARZA-MINUTES-001` and cannot establish general extraction quality by itself;

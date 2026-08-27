@@ -275,12 +275,19 @@ The bounded generic `canario.reasoning` runtime/API passed independent exact-run
 and is merged at `b8535195`. Backends remain persistence-blind, narrow source/result materialization
 fails closed without an exact materializer, and Claim/Evidence/Assessment promotion remains explicit.
 
-**Current gate:** independently certify the first concrete production consumer: bounded structured
-SQLite Derivation plus deterministic scalar Verification. It must bind exact program/configuration
-identity, explicit Source Authority and conservative source lineage; pass the exact registered
-SQLite 3.53.4 runtime; and reproduce the exact official MTSS source plus its newly frozen production structured hash,
-historical 147x15 structural controls, and 147-row natural proof. No schema change, multi-agent runtime, provider dependency, recursive
-Derivation graph, or automatic semantic promotion is authorized by this unit.
+The first concrete production consumer is independently certified and merged at `51f21f98`:
+bounded structured SQLite Derivation plus deterministic scalar Verification, exact program/configuration
+identity, explicit Source Authority, conservative source lineage, exact SQLite 3.53.4, and the exact
+MTSS source/Representation/147-row natural counterfactual proof.
+
+**Current gate:** independently certify the minimum Phase-D planner/final-verifier orchestration over
+that consumer. One bounded planner call may propose `0..6` SELECT programs; every program executes
+through an ordinary local `StructuredSQLiteDerivationBackend`; one bounded final-verifier call then
+consumes exact Derivation identities/evidence into the same Verification attempt. Require exact Codex
+0.149.0 / `gpt-5.6-terra` medium, exact prompt/output-contract and egress identity, Phase-D contract
+replay, natural MTSS proposition, SQLite 3.53.4, full regression and fresh-clone proof. No schema
+change, Thucy/multi-agent runtime, provider-API fallback, recursive Derivation graph, or automatic
+semantic promotion is authorized by this unit.
 
 
 ## WP6 — Review and Operator Workflow

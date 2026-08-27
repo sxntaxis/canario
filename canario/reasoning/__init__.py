@@ -43,6 +43,21 @@ from .structured_sqlite import (
     StructuredSQLiteDerivationBackend,
     StructuredSQLitePolicy,
     StructuredScalarVerifierBackend,
+    structured_table_schema_summary,
+)
+
+from .structured_verifier import (
+    CodexStructuredVerifierConfig,
+    CodexStructuredVerifierModel,
+    PlannedStructuredQuery,
+    StructuredFinalDecision,
+    StructuredPlannerCall,
+    StructuredVerificationReceipt,
+    StructuredVerificationRequest,
+    StructuredVerifierContractError,
+    StructuredVerifierError,
+    StructuredVerifierOrchestrator,
+    StructuredVerifierProviderError,
 )
 
 from .writer import (
@@ -58,6 +73,18 @@ from .writer import (
 )
 
 __all__ = [
+    "CodexStructuredVerifierConfig",
+    "CodexStructuredVerifierModel",
+    "PlannedStructuredQuery",
+    "StructuredFinalDecision",
+    "StructuredPlannerCall",
+    "StructuredVerificationReceipt",
+    "StructuredVerificationRequest",
+    "StructuredVerifierContractError",
+    "StructuredVerifierError",
+    "StructuredVerifierOrchestrator",
+    "StructuredVerifierProviderError",
+    "structured_table_schema_summary",
     "QUERY_RESULT_FORMAT",
     "QUERY_RESULT_SCHEMA_KEY",
     "QUERY_RESULT_SCHEMA_VERSION",

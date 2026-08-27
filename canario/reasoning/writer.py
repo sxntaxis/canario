@@ -73,6 +73,7 @@ class DerivationReceipt:
     byte_size: int | None
     targets: tuple[DerivationTargetReceipt, ...]
     replayed: bool
+    error_code: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,6 +84,7 @@ class VerificationReceipt:
     sufficiency_state: str | None
     evidence_target_ids: tuple[str, ...]
     replayed: bool
+    error_code: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -1508,14 +1510,20 @@ class ReasoningWriter:
                 (result[0],),
             )
         )
-        return DerivationReceipt(run_id, run[0], result[0], result[1], result[2], targets, replayed)
+        error_row = con.execute(
+            "SELECT error_code FROM derivation_runs WHERE id=?", (run_id,)
+        ).fetchone()
+        assert error_row is not None
+        return DerivationReceipt(
+            run_id, run[0], result[0], result[1], result[2], targets, replayed, error_row[0]
+        )
 
     @staticmethod
     def _verification_receipt(
         con: sqlite3.Connection, run_id: str, *, replayed: bool
     ) -> VerificationReceipt:
         row = con.execute(
-            "SELECT outcome,verdict,sufficiency_state FROM verification_runs WHERE id=?",
+            "SELECT outcome,verdict,sufficiency_state,error_code FROM verification_runs WHERE id=?",
             (run_id,),
         ).fetchone()
         assert row is not None
@@ -1526,7 +1534,7 @@ class ReasoningWriter:
                 (run_id,),
             )
         )
-        return VerificationReceipt(run_id, row[0], row[1], row[2], evidence, replayed)
+        return VerificationReceipt(run_id, row[0], row[1], row[2], evidence, replayed, row[3])
 
     def _validate_derivation_result(
         self,
