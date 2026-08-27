@@ -1,0 +1,22 @@
+{
+  "a0_a5_runs_started": false,
+  "baseline_work_activation": "9742dc87002003885eebe0475b1534d78d564eeb",
+  "candidate_output_seen": false,
+  "created": "2026-08-27",
+  "documents": [
+    {
+      "bytes": 12280,
+      "path": "notebook/research/lector/fit-bench/BENCHMARK_SEMANTICS_FREEZE_V1.md",
+      "sha256": "a515d0dae5860200d237de090062a8ebf2292f43dbb5c64d7b77a0e54525ebed"
+    },
+    {
+      "bytes": 10662,
+      "path": "notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V1.md",
+      "sha256": "40951f6bb1bf8be75fe2709f6c6257dc58cb567541ce79e889534508c9a2e8c4"
+    }
+  ],
+  "format": "canario.lector.fit-bench.freeze/v1",
+  "production_implementation_authorized": false,
+  "state": "SEMANTICS_AND_REFERENCE_PROTOCOL_FROZEN",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
