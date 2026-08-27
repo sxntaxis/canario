@@ -223,6 +223,8 @@ VLM is required for the reference path.
 
 ## WP5 — Lector and Claim Extraction
 
+**Gate status: OPEN.** LECTOR-001 certified the common boundary/runtime and canonical writer, but the production broad-Claim extractor/mechanism has not been selected or semantically certified. The previous LECTOR-002 campaign is superseded and requires a research-driven re-scope before implementation.
+
 Create a common processor interface for rule-based, model-based, and human
 extraction.
 
@@ -287,19 +289,9 @@ fresh-clone proof passed without schema change.
 
 ## WP6 — Review and Operator Workflow
 
-**REVIEW-001 closed:** claim supervision is certified and merged at `971b9bbf` over
-`review_actions` / `claim_reviews` with deterministic queues, exact evidence reopening,
-strict/batch/supervised decisions, strict readiness and stale/replay guards.
+**REVIEW backend substrate closed through REVIEW-002:** REVIEW-001 is certified/merged at `971b9bbf`; REVIEW-002 is certified/merged at `ce07da94`. The backend now owns deterministic review queues, exact evidence reopening, stale/replay guards, and append-only single-operator correction/restriction/retraction with atomic acceptance of evidence-based corrections.
 
-**Active unit — REVIEW-002:** implement human ClaimRevision correction/lifecycle control. A write must
-start from one exact current prepared snapshot and create a new `origin_kind=human` revision plus a
-narrow attributable `ClaimRevisionAction` for `correct | restrict | unrestrict | retract`. Correction
-selects only already-inspected current evidence/anchors/tags; `correct` atomically creates a fresh
-`accepted` ClaimReview for its exact result revision rather than requiring the single operator to
-review their own correction twice; lifecycle-only actions do not fabricate review decisions. Active
-results must revalidate evidence custody; FTS is rebuilt from only the new current active revision;
-existing ClaimRelations are not automatically retargeted. This concrete actor/action lineage need justifies a
-small prerelease `0001` rebaseline and full schema/storage recertification.
+**Operator-product gate remains OPEN.** No GUI/TUI is claimed. Backend-first sequencing is intentional; the eventual operator surface must expose machine-only vs human-reviewed clearly and make confirm/correct/restrict flows usable without surfacing internal policy jargon as product modes.
 
 Implement review configuration:
 
@@ -325,6 +317,8 @@ future multi-operator system remains possible.
 without claim-by-claim approval fatigue.
 
 ## WP7 — Acta Vertical Proof
+
+**PLANNED / NOT AUTHORIZED.** WP7 is blocked on WP5's broad production Lector gate. The vertical is an integration proof, not permission to invent the missing extractor.
 
 Use a newly available official acta as the first real profile proof:
 

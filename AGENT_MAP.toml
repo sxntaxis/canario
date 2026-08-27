@@ -1,0 +1,49 @@
+schema = "salsa.agent-map/v1"
+
+[frontier]
+entry = "docs/STATUS.md"
+
+[authority]
+order = ["owner", "accepted", "reality", "working", "source"]
+owner = ["human:project-owner"]
+accepted = [
+  "repo:AGENTS.md",
+  "repo:docs/ARCHITECTURE.md",
+  "repo:docs/CONTRACTS.md",
+  "repo:docs/DATA_MODEL.md",
+  "repo:docs/INGRESS.md",
+  "repo:docs/SCOPE.md",
+  "repo:docs/SQLITE_SCHEMA_CANDIDATE.md",
+]
+reality = ["repo:canario", "repo:tests", "repo:scripts"]
+working = ["repo:docs/work", "repo:notebook/implementation"]
+source = ["repo:notebook/research"]
+
+[routes]
+architecture = ["docs/ARCHITECTURE.md", "docs/CONTRACTS.md", "docs/DATA_MODEL.md"]
+frontier = ["docs/STATUS.md"]
+ingress = ["docs/INGRESS.md"]
+planning = ["docs/ROADMAP.md", "docs/IMPLEMENTATION_PLAN.md", "docs/RELEASE_1_0.md"]
+research = ["notebook/research/"]
+implementation_evidence = ["notebook/implementation/"]
+work = ["docs/work/"]
+
+[commands]
+check = "python -m compileall -q canario notebook scripts tests && git diff --check"
+test = "PYTHONPATH=. pytest -q"
+smoke = "python -c 'import canario'"
+
+[proof.check]
+kind = "mechanical"
+proposition = "Canario Python sources compile and the working tree contains no whitespace-error diff"
+limitations = ["Does not establish semantic correctness, external-service behavior, exact-runtime certification, or human UX."]
+
+[proof.test]
+kind = "behavioral"
+proposition = "Canario's declared automated test suite completes successfully"
+limitations = ["Automated tests do not by themselves establish broad Lector semantic quality, external source behavior, exact-runtime certification, or human UX."]
+
+[proof.smoke]
+kind = "behavioral"
+proposition = "The Canario Python package imports successfully"
+limitations = ["Import success is only a bounded package smoke check."]

@@ -8,6 +8,23 @@
 
 ---
 
+## Governance / execution authorization
+
+Canario uses a small-project Salsa-compatible authority/frontier/Work discipline. Read the declared frontier before consequential implementation.
+
+Hard rules:
+
+- roadmap order, implementation-plan order, predecessor completion, certification, merge, `ready`, or an empty frontier **never authorize successor Work**;
+- consequential repository mutation requires one explicit `active` Work owned by the project's declared Work route or stronger owner authority;
+- `docs/` accepted surfaces own product/architecture meaning; source/tests/runtime own implemented reality; Notebook is working/research evidence and cannot authorize implementation by existence;
+- when a surprise threatens problem framing, architecture/reuse assumptions, benchmark validity, scope boundary or major mechanism choice, pause only the affected front and open a Research Interrupt before custom implementation; ordinary bugs stay ordinary Work;
+- before consequential custom mechanism work, perform a proportional prior-art/reuse check and prefer ADOPT -> ADAPT -> BUILD when fit allows;
+- proof must state what proposition it establishes and what it does not; a green generic test suite is not semantic Lector certification;
+- generated/routing/status surfaces own no truth beyond their declared source authorities;
+- live repository surfaces describe the present; Git/checkpoints preserve superseded construction.
+
+Do not import a second governance state engine merely because Salsa supports richer projects. Canario currently uses an authored `docs/STATUS.md` frontier plus bounded Work documents.
+
 ## Product identity and scope invariant
 
 **Canario is not an acta processor.** The historical municipal-acta workflow is the
@@ -225,13 +242,14 @@ Rules for agents/contributors:
   change or Thucy role runtime. REVIEW-001 / Mesa de control is certified and merged at `971b9bbf`:
   `canario.review` provides deterministic current machine-Claim queues, exact retained evidence
   reopening, one-action batch review, machine-only/human-reviewed state, strict readiness and
-  same-transaction stale guards. The active candidate is REVIEW-002 ClaimRevision control: append-only
-  `correct | restrict | unrestrict | retract` with actor/action/request lineage. In the single-operator
-  workflow, `correct` atomically creates a fresh accepted ClaimReview for the exact result revision;
-  predecessor review is not inherited. Lifecycle control remains distinct from epistemic review.
-  The prior
-  LECTOR-002 semantic campaign is
-  superseded and must be re-scoped before replacement reference work. Acta 161 is
+  same-transaction stale guards. REVIEW-002 ClaimRevision control is certified and merged at
+  `ce07da94`: append-only `correct | restrict | unrestrict | retract` with actor/action/request
+  lineage. In the single-operator workflow, `correct` atomically creates a fresh accepted ClaimReview
+  for the exact result revision; predecessor review is not inherited. Lifecycle control remains
+  distinct from epistemic review. The prior LECTOR-002 semantic campaign is superseded and must be
+  re-scoped before replacement reference work. LECTOR-001 proves the semantic boundary/runtime, not
+  production broad-extraction quality; no successor extractor implementation is authorized merely by
+  roadmap order or vertical-proof pressure. Acta 161 is
   case `CR-ESPARZA-MINUTES-001` and cannot establish general extraction quality by itself;
 - LECTOR-002 fixture genre labels are optional `benchmark_archetypes`, not registered
   Canario document classes. Do not create an exhaustive `DocumentType`/`case_class`

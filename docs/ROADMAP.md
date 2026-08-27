@@ -136,6 +136,8 @@ emitted and fails cross-channel inconsistency before derivative acceptance.
 
 ## Phase 4 — Lector and Broad Claim Extraction
 
+**Gate status: OPEN.** `LECTOR-001` is certified as the bounded semantic extraction boundary/runtime, but no production broad-Claim extractor has yet passed the Phase-4 semantic-quality gate. The previous LECTOR-002 campaign is explicitly superseded and requires re-scope. REVIEW/reasoning work completed in parallel does not close this prerequisite.
+
 Implement replaceable processors:
 
 ```text
@@ -199,17 +201,9 @@ and natural MTSS proof, including fresh-clone repetition, without schema change 
 
 ## Phase 5 — Mesa de control
 
-**REVIEW-001 is certified and merged at `971b9bbf`.** The backend now supports deterministic Claim
-review queues, exact retained evidence reopening, strict/batch/supervised decisions and strict
-readiness without conflating review with lifecycle.
+**Backend substrate status:** REVIEW-001 is certified and merged at `971b9bbf`; REVIEW-002 is certified and merged through PR #8 at `ce07da94`. The backend supports deterministic Claim review queues, exact retained evidence reopening, batch decisions, machine-only/human-reviewed state, append-only human correction, and restriction/retraction control without conflating review with lifecycle.
 
-**Active unit: REVIEW-002 human ClaimRevision control.** It adds append-only human correction and
-lifecycle control over the exact current ClaimRevision: `correct | restrict | unrestrict | retract`.
-Every action must produce a new revision plus attributable actor/action/request lineage, reviews must
-not be inherited across revisions, active results must not rely on restricted/purged evidence, and
-restriction/retraction must not leak superseded text through derived search indexes. Existing
-ClaimRelations remain attached to exact historical revision endpoints rather than being silently
-retargeted.
+**Product gate remains OPEN.** No GUI/TUI/operator interface is claimed complete. Backend-first sequencing is intentional; the Phase-5 gate requires an actual operator experience later. `strict/batch/supervised` are internal policy/action semantics, not mandatory user-facing modes.
 
 Implement:
 
@@ -225,6 +219,8 @@ batch without claim-by-claim busywork, and always see whether material is
 machine-only or human-reviewed.
 
 ## Phase 6 — First Vertical Proof
+
+**PLANNED / NOT AUTHORIZED.** This phase is blocked on the still-open Phase-4 broad production Lector gate. A vertical may expose missing prerequisites, but it may not authorize a minimal Lector implementation merely to make the demo complete.
 
 Use one newly acquired acta as the first end-to-end proof because the current
 pipeline already understands that source class.

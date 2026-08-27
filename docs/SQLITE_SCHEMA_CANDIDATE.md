@@ -3,10 +3,10 @@ id: ACTAKIT-SQLITE-CANDIDATE-001
 kind: schema-candidate
 state: prerelease-0001-certified-authority
 created: 2026-08-21
-updated: 2026-08-26
+updated: 2026-08-27
 authority: schema-authority
-baseline: 0e0f56a0c038deebbf55f69e96cbe5f1cc463704
-summary: Derivation/Verification prerelease 0001 rebaseline is independently certified on the registered SQLite 3.53.4 runtime and merged as current schema authority.
+baseline: ce07da9466a638738c845f7fba152a47e9987a59
+summary: REVIEW-002 prerelease 0001 rebaseline is independently certified on the registered SQLite 3.53.4 runtime and merged as current schema authority.
 ---
 
 # SQLite Schema Candidate
@@ -2026,18 +2026,16 @@ proofs on the exact registered upstream SQLite 3.53.4 source ID, added the artif
 ran the full `257 passed, 2 skipped, 2 subtests passed` suite, and passed fresh-clone verification.
 See `notebook/implementation/DERIVATION_VERIFICATION_SCHEMA_REBASELINE.md`.
 
-Current boundary:
+Historical Derivation/Verification boundary at that stage:
 
 ```text
-merged production 0001 authority: 8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
+then-current production 0001:     8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
 merge commit:                     0e0f56a0c038deebbf55f69e96cbe5f1cc463704
-production Derivation/Verification runtime: separate bounded implementation/certification unit
-automatic Assessment promotion:  NOT AUTHORIZED
-forward migration 0002:          NOT AUTHORIZED / NOT NEEDED IN PRERELEASE
 ```
 
+That hash is historical evidence, not the current prerelease schema authority.
 
-### REVIEW-002 prerelease candidate amendment
+### REVIEW-002 prerelease rebaseline — certified authority
 
 REVIEW-001 is certified/merged at `971b9bbf`. The following REVIEW-002 workflow proved one additional
 durable requirement that the prior frozen schema could not represent honestly: an `origin_kind=human`
@@ -2062,7 +2060,7 @@ continues to carry ordinary ClaimRevision supersession. Review remains a separat
 review is copied from the predecessor. `claim_revision_action` is also added to the closed purge-target vocabulary because actor/rationale
 can be purge-scoped material.
 
-Portable candidate identity:
+Certified current identity:
 
 ```text
 MIGRATION_0001_SPEC.sql == canario/persistence/migrations/0001.sql
@@ -2076,6 +2074,7 @@ FK child table scans:    0
 forward migration 0002:  absent
 ```
 
-This amendment remains **candidate**, not schema authority, until the exact registered SQLite 3.53.4
-freeze/storage/purge proof, REVIEW-002 natural Esparza correction proof, full suite and fresh-clone
-certification pass.
+The exact registered SQLite 3.53.4 freeze/storage/purge proofs, REVIEW-002 natural Esparza correction
+proof, full suite and fresh-clone certification all passed. REVIEW-002 merged through PR #8 at
+`ce07da9466a638738c845f7fba152a47e9987a59`; this rebaseline is therefore the current prerelease
+`0001` schema authority.
