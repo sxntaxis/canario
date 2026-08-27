@@ -246,6 +246,46 @@ def populate(con: sqlite3.Connection, archive_root: Path) -> dict[str, str]:
             )
             con.execute("INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)", (f"ev-{label}", None, f"clmr-{label}", tid, "supports", "human", None, "active", None, T))
 
+        # Give the purge Claim real human correction lineage. This proves purge
+        # covers correction-action metadata as well as the Claim revisions and
+        # source evidence it references.
+        purge_text = purge.decode()
+        corrected_purge_text = f"Corrected {purge_text}"
+        con.execute(
+            "INSERT INTO claim_revisions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (
+                "clmr-purge-2", "clm-purge", 2, "clmr-purge", "source_assertion",
+                corrected_purge_text, "human", None, None, None, None, None, None, 1, 0,
+                "active", T,
+            ),
+        )
+        con.execute(
+            "INSERT INTO review_actions VALUES (?,?,?,?,?)",
+            ("ract-purge-correction", "operator", "supervised", T, "Accepted as part of human correction"),
+        )
+        con.execute(
+            "INSERT INTO claim_reviews VALUES (?,?,?,?,?,?,?)",
+            (
+                "clreview-purge-correction", "ract-purge-correction", "clmr-purge-2",
+                "accepted", "operator", f"Correction rationale {SENTINEL}", T,
+            ),
+        )
+        con.execute(
+            "INSERT INTO claim_revision_actions VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (
+                "clact-purge", "clm-purge", "clmr-purge", "clmr-purge-2", "correct",
+                "operator", f"Correction rationale {SENTINEL}", "ract-purge-correction",
+                "a" * 64, T,
+            ),
+        )
+        con.execute(
+            "INSERT INTO evidence_links VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (
+                "ev-purge-2", None, "clmr-purge-2", "target-purge", "supports",
+                "human", None, "active", None, T,
+            ),
+        )
+
         # FTS eligibility is current active canonical claim revisions only.
         # Review state and sensitivity do not gate internal search; rejected,
         # retracted, restricted and superseded revisions are excluded.
@@ -447,9 +487,14 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
         ("derivation_run", "drv-purge", "delete_record"),
         ("acquisition_artifact", "art-purge", "scrub_payload"),
         ("representation_target", "target-purge", "scrub_payload"),
+        ("claim_revision_action", "clact-purge", "delete_record"),
+        ("claim_review", "clreview-purge-correction", "delete_record"),
+        ("review_action", "ract-purge-correction", "delete_record"),
         ("evidence_link", "ev-purge", "delete_record"),
+        ("evidence_link", "ev-purge-2", "delete_record"),
         ("evidence_link", "ev-derived-purge", "delete_record"),
         ("claim_revision", "clmr-purge", "delete_record"),
+        ("claim_revision", "clmr-purge-2", "delete_record"),
         ("claim_revision", "clmr-derived-purge", "delete_record"),
         ("claim", "clm-purge", "delete_record"),
         ("claim", "clm-derived-purge", "delete_record"),
@@ -475,10 +520,13 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
         con.execute("DELETE FROM verification_scope_targets WHERE verification_run_id='vr-purge'")
         con.execute("DELETE FROM verification_run_egress WHERE verification_run_id='vr-purge'")
         con.execute("DELETE FROM verification_runs WHERE id='vr-purge'")
-        con.execute("DELETE FROM evidence_links WHERE id IN ('ev-purge','ev-derived-purge')")
-        con.execute("DELETE FROM claim_fts WHERE claim_revision_id IN ('clmr-purge','clmr-derived-purge')")
+        con.execute("DELETE FROM claim_revision_actions WHERE id='clact-purge'")
+        con.execute("DELETE FROM claim_reviews WHERE id='clreview-purge-correction'")
+        con.execute("DELETE FROM review_actions WHERE id='ract-purge-correction'")
+        con.execute("DELETE FROM evidence_links WHERE id IN ('ev-purge','ev-purge-2','ev-derived-purge')")
+        con.execute("DELETE FROM claim_fts WHERE claim_revision_id IN ('clmr-purge','clmr-purge-2','clmr-derived-purge')")
         con.execute("DELETE FROM representation_fts WHERE representation_id='rep-purge'")
-        con.execute("DELETE FROM claim_revisions WHERE id IN ('clmr-purge','clmr-derived-purge')")
+        con.execute("DELETE FROM claim_revisions WHERE id IN ('clmr-purge-2','clmr-purge','clmr-derived-purge')")
         con.execute("DELETE FROM claims WHERE id IN ('clm-purge','clm-derived-purge')")
         con.execute("DELETE FROM derivation_result_lineage WHERE derivation_result_target_id='drt-purge'")
         con.execute("DELETE FROM derivation_result_targets WHERE id='drt-purge'")
@@ -519,7 +567,7 @@ def purge_live(con: sqlite3.Connection, db_path: Path, archive_root: Path, backu
     # The pre-purge backup remains deliberately out of scope and must be reported as such.
     backup_uri = (backup_root / "canario.sqlite3").resolve().as_uri() + "?mode=ro"
     backup_con = sqlite3.connect(backup_uri, uri=True)
-    backup_has = backup_con.execute("SELECT count(*) FROM claim_revisions WHERE text LIKE ?", (f"%{SENTINEL}%",)).fetchone()[0] == 2
+    backup_has = backup_con.execute("SELECT count(*) FROM claim_revisions WHERE text LIKE ?", (f"%{SENTINEL}%",)).fetchone()[0] == 3
     backup_con.close()
     manifest = json.loads((backup_root / "manifest.json").read_text())
     backup_archive_has = any(e["archive_object_id"] == "aob-purge" for e in manifest["archive_objects"])

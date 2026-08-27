@@ -580,6 +580,37 @@ CREATE TABLE claim_revisions (
   )
 ) STRICT;
 
+CREATE TABLE claim_revision_actions (
+  id TEXT PRIMARY KEY,
+  claim_id TEXT NOT NULL,
+  source_revision_id TEXT NOT NULL,
+  result_revision_id TEXT NOT NULL,
+  action TEXT NOT NULL CHECK (action IN ('correct','restrict','unrestrict','retract')),
+  actor TEXT NOT NULL,
+  rationale TEXT,
+  review_action_id TEXT UNIQUE REFERENCES review_actions(id),
+  request_sha256 TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (source_revision_id, claim_id)
+    REFERENCES claim_revisions(id, claim_id),
+  FOREIGN KEY (result_revision_id, claim_id)
+    REFERENCES claim_revisions(id, claim_id),
+  CHECK (source_revision_id <> result_revision_id),
+  CHECK (
+    (action='correct' AND review_action_id IS NOT NULL)
+    OR (action<>'correct' AND review_action_id IS NULL)
+  ),
+  CHECK (
+    length(request_sha256)=64
+    AND request_sha256=lower(request_sha256)
+    AND request_sha256 NOT GLOB '*[^0-9a-f]*'
+  )
+) STRICT;
+CREATE INDEX claim_revision_actions_source_idx
+  ON claim_revision_actions(source_revision_id, claim_id);
+CREATE UNIQUE INDEX claim_revision_actions_result_uq
+  ON claim_revision_actions(result_revision_id, claim_id);
+
 CREATE TABLE verification_runs (
   id TEXT PRIMARY KEY,
   claim_revision_id TEXT REFERENCES claim_revisions(id),
@@ -1207,7 +1238,7 @@ CREATE TABLE purge_targets (
     'archive_object','artifact','process_run','process_run_egress','quality_evidence','quality_decision','representation','representation_target',
     'derivation_run','derivation_run_egress','derivation_result','derivation_result_target','verification_run','verification_run_egress','assessment',
     'civic_document','civic_document_revision','document_identifier','document_identifier_review','document_classification','document_classification_review','document_representation','document_representation_review',
-    'claim','claim_revision','evidence_link','evidence_link_review','entity_mention','entity','entity_name','entity_name_review','entity_identifier','entity_identifier_review',
+    'claim','claim_revision','claim_revision_action','evidence_link','evidence_link_review','entity_mention','entity','entity_name','entity_name_review','entity_identifier','entity_identifier_review',
     'mention_resolution_candidate','mention_resolution_revision','entity_reconciliation',
     'claim_entity_link','claim_entity_link_review','entity_reconciliation_review','tag','claim_tag_link','claim_tag_link_review','claim_relation','claim_relation_revision','claim_relation_evidence_link',
     'role_assignment','role_assignment_revision','role_assignment_evidence_link','review_action','claim_review',

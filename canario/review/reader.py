@@ -16,6 +16,7 @@ from canario.persistence import open_readonly_v1
 from canario.processors.targets import TargetRegistry
 
 from .contracts import ClaimBatch
+from .control import ClaimControlSnapshot, load_claim_control_snapshot
 
 ConnectionFactory = Callable[[Path], sqlite3.Connection]
 
@@ -32,6 +33,7 @@ class ClaimReviewState:
     text: str
     origin_kind: str
     lifecycle: str
+    current: bool
     sensitive: bool
     quantitative: bool
     latest_decision: str | None
@@ -48,8 +50,26 @@ class ClaimReviewState:
         return self.latest_decision is not None
 
     @property
+    def unreviewed_human(self) -> bool:
+        return self.origin_kind == "human" and self.latest_decision is None
+
+    @property
     def strict_ready(self) -> bool:
-        return self.lifecycle == "active" and self.latest_decision == "accepted"
+        return self.current and self.lifecycle == "active" and self.latest_decision == "accepted"
+
+
+@dataclass(frozen=True, slots=True)
+class ClaimRevisionHistoryEntry:
+    claim_revision_id: str
+    revision_no: int
+    text: str
+    origin_kind: str
+    lifecycle: str
+    current: bool
+    action: str | None
+    actor: str | None
+    rationale: str | None
+    action_created_at: str | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -95,6 +115,58 @@ class ReviewReader:
             if row is None:
                 raise ReviewReadError(f"unknown ClaimRevision: {revision_id}")
             return self._state_from_row(row)
+        finally:
+            con.close()
+
+    def prepare_claim_control(self, revision_id: str) -> ClaimControlSnapshot:
+        validate_id(revision_id, "clrev_")
+        con = self._connect(self.database_path)
+        try:
+            snapshot = load_claim_control_snapshot(con, revision_id)
+            if snapshot is None:
+                raise ReviewReadError(f"unknown ClaimRevision: {revision_id}")
+            if not snapshot.current:
+                raise ReviewReadError("ClaimRevision control requires the exact current revision")
+            return snapshot
+        finally:
+            con.close()
+
+    def claim_history(self, claim_id: str) -> tuple[ClaimRevisionHistoryEntry, ...]:
+        validate_id(claim_id, "clm_")
+        con = self._connect(self.database_path)
+        try:
+            rows = con.execute(
+                """
+                SELECT cr.id,cr.revision_no,cr.text,cr.origin_kind,cr.lifecycle,
+                       NOT EXISTS (
+                         SELECT 1 FROM claim_revisions successor
+                         WHERE successor.supersedes_revision_id=cr.id
+                       ) AS is_current,
+                       action.action,action.actor,action.rationale,action.created_at
+                FROM claim_revisions cr
+                LEFT JOIN claim_revision_actions action ON action.result_revision_id=cr.id
+                WHERE cr.claim_id=?
+                ORDER BY cr.revision_no,cr.id
+                """,
+                (claim_id,),
+            ).fetchall()
+            if not rows:
+                raise ReviewReadError(f"unknown Claim: {claim_id}")
+            return tuple(
+                ClaimRevisionHistoryEntry(
+                    claim_revision_id=row[0],
+                    revision_no=int(row[1]),
+                    text=row[2],
+                    origin_kind=row[3],
+                    lifecycle=row[4],
+                    current=bool(row[5]),
+                    action=row[6],
+                    actor=row[7],
+                    rationale=row[8],
+                    action_created_at=row[9],
+                )
+                for row in rows
+            )
         finally:
             con.close()
 
@@ -144,7 +216,7 @@ class ReviewReader:
             for (revision_id,) in rows:
                 state = self._claim_state_row(con, revision_id)
                 assert state is not None
-                latest_decision = state[7]
+                latest_decision = state[8]
                 if latest_decision is None or (
                     include_needs_work and latest_decision == "needs_work"
                 ):
@@ -252,6 +324,10 @@ class ReviewReader:
         return con.execute(
             """
             SELECT cr.id,cr.claim_id,cr.revision_no,cr.text,cr.origin_kind,cr.lifecycle,
+                   NOT EXISTS (
+                     SELECT 1 FROM claim_revisions successor
+                     WHERE successor.supersedes_revision_id=cr.id
+                   ) AS is_current,
                    cr.sensitive,
                    latest.decision,latest.reviewer,latest.reason,latest.created_at,
                    cr.quantitative
@@ -277,12 +353,13 @@ class ReviewReader:
             text=row[3],
             origin_kind=row[4],
             lifecycle=row[5],
-            sensitive=bool(row[6]),
-            latest_decision=row[7],
-            latest_reviewer=row[8],
-            latest_reason=row[9],
-            latest_reviewed_at=row[10],
-            quantitative=bool(row[11]),
+            current=bool(row[6]),
+            sensitive=bool(row[7]),
+            latest_decision=row[8],
+            latest_reviewer=row[9],
+            latest_reason=row[10],
+            latest_reviewed_at=row[11],
+            quantitative=bool(row[12]),
         )
 
     @staticmethod

@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: REVIEW_WORKFLOW_CORE_CANDIDATE
+state: CLAIM_REVISION_CONTROL_CANDIDATE
 created: 2026-08-19
 updated: 2026-08-26
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The Derivation/Verification schema, generic reasoning runtime, structured SQLite consumer, and minimum Phase-D planner/final-verifier orchestration are certified and merged through e5a0485. The active REVIEW-001 candidate begins Mesa de control with a no-schema-change claim review read/write core: machine-only state, exact evidence reopening, deterministic Representation-scoped batches, default-plus-exception decisions, strict readiness, replay and stale-write protection. Exact SQLite plus natural Esparza review proof remain pending.
+summary: The reasoning stack is certified through e5a0485 and REVIEW-001 claim supervision is certified/merged at 971b9bbf. The active REVIEW-002 candidate adds append-only human ClaimRevision correction/restriction control with explicit actor/action lineage, atomic human acceptance of corrections, safe active-evidence custody, FTS privacy behavior and a narrow prerelease 0001 rebaseline. Exact SQLite 3.53.4 plus natural Esparza correction proof remain pending.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -110,7 +110,8 @@ accepted semantic contracts
 -> bounded canario.reasoning Derivation/Verification runtime certified and merged at b8535195
 -> first production structured SQLite Derivation/Verification consumer certified and merged at 51f21f98
 -> minimum structured planner/final-verifier orchestration certified and merged at e5a0485
--> REVIEW-001 claim review workflow core implemented as candidate; exact SQLite + natural Esparza review proof pending
+-> REVIEW-001 claim review workflow core certified and merged at 971b9bbf
+-> REVIEW-002 human ClaimRevision control implemented as candidate; exact SQLite + natural Esparza correction proof pending
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -138,6 +139,13 @@ Its certified inventory is 71 STRICT tables, 3 FTS tables, 135 explicit indexes 
 paths with zero scans. It passed the exact registered SQLite 3.53.4 runtime, selector,
 backup/restore/purge, full-suite and fresh-clone gates before merge at `0e0f56a0`.
 
+REVIEW-002 currently carries a **candidate** prerelease `0001` rebaseline at
+`55b05a11f129cfbe1ffd199bcb6774ef8096f46424ebca6f43c169cb3eef7356`: 72 STRICT tables,
+3 FTS tables, 137 explicit indexes and 155 FK child paths with zero portable-proof scans. The only
+new canonical family is narrow `claim_revision_actions`; `claim_revision_action` is also added to the
+closed purge-target vocabulary. This candidate is not schema authority until exact SQLite 3.53.4,
+storage/purge, natural correction and fresh-clone certification pass.
+
 The generic `canario.reasoning` runtime is certified and merged at `b8535195`: typed
 Derivation/Verification backend contracts, a core-owned host/writer, conservative selector
 containment, explicit derived-Claim and Assessment writes, and host-owned bounded materialization.
@@ -158,12 +166,22 @@ MTSS supported, then repeated from a fresh bundle clone with the same 10 Codex i
 39,067 prompt bytes. SQL still executes only as ordinary local DerivationRuns and source evidence
 remains separate from execution lineage.
 
-The active edge is REVIEW-001 / Mesa de control. `canario.review` is implemented as a candidate over
-the already-frozen `review_actions` + `claim_reviews` tables: deterministic current machine-Claim
-queues by exact Representation, explicit machine-only/human-reviewed state, exact retained evidence
-reopening, one-action batch review with default + exceptions, strict-ready derivation, immutable
-replay/collision behavior, and same-transaction stale-subject/evidence guards. No schema change or
-synthetic approval is part of this unit. Correction/restriction lineage remains the next review unit.
+REVIEW-001 is certified and merged at `971b9bbf`. `canario.review` now has deterministic current
+machine-Claim queues, exact retained evidence reopening, strict/batch/supervised decisions,
+strict-ready derivation, immutable replay/collision behavior and same-transaction stale guards without
+synthetic approval or Claim lifecycle mutation.
+
+The active edge is REVIEW-002 human ClaimRevision control. A prepared exact current snapshot may be
+mutated only by `correct | restrict | unrestrict | retract`; every successful action creates a new
+human ClaimRevision and one narrow `claim_revision_actions` row binding source/result revisions,
+actor, rationale, the exact correction ReviewAction when applicable, and canonical request SHA-256.
+A `correct` action atomically creates a fresh accepted ClaimReview for the exact result revision; it
+does not inherit a predecessor review or require a redundant second operator action. Any new active
+revision revalidates that all carried evidence custody remains available; restriction/retraction
+removes all revisions of that Claim from derived FTS before optional current-active reindexing. Existing
+ClaimRelations remain attached to their historical exact endpoints. The candidate rebaselines prerelease
+`0001` from the merged 8d6f... authority to `55b05a11...`; exact SQLite 3.53.4 and natural Esparza
+correction/fresh-clone proof are required before it becomes authority. No `0002` exists.
 
 The independently certified WORKBENCH/DIRECT/OCR baseline
 `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior

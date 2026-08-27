@@ -182,3 +182,139 @@ class ClaimBatchReviewRequest:
             note=self.note,
             review_action_id=self.review_action_id,
         )
+
+CLAIM_REVISION_ACTIONS = frozenset({"correct", "restrict", "unrestrict", "retract"})
+HUMAN_CORRECTABLE_CLAIM_KINDS = frozenset(
+    {"source_assertion", "community_report", "verification_question"}
+)
+_MAX_CLAIM_TEXT = 32 * 1024
+_MAX_TEMPORAL = 128
+_MAX_SHA256 = 64
+
+
+def _sha256(value: str, field_name: str) -> str:
+    if (
+        not isinstance(value, str)
+        or len(value) != _MAX_SHA256
+        or value != value.lower()
+        or any(ch not in "0123456789abcdef" for ch in value)
+    ):
+        raise ValueError(f"{field_name} must be lowercase SHA256 hex")
+    return value
+
+
+def _id_tuple(values: tuple[str, ...], prefix: str, field_name: str) -> None:
+    if not isinstance(values, tuple):
+        raise TypeError(f"{field_name} must be a tuple")
+    for value in values:
+        validate_id(value, prefix)
+    if len(values) != len(set(values)):
+        raise ValueError(f"{field_name} cannot contain duplicates")
+
+
+@dataclass(frozen=True, slots=True)
+class HumanClaimCorrection:
+    """Complete human-authored semantic replacement for one non-derived ClaimRevision."""
+
+    claim_kind: str
+    text: str
+    evidence_link_ids: tuple[str, ...]
+    entity_link_ids: tuple[str, ...] = ()
+    tag_link_ids: tuple[str, ...] = ()
+    attribution_entity_id: str | None = None
+    attribution_text: str | None = None
+    temporal_start: str | None = None
+    temporal_end: str | None = None
+    sensitive: bool = False
+    quantitative: bool = False
+
+    def __post_init__(self) -> None:
+        if self.claim_kind not in HUMAN_CORRECTABLE_CLAIM_KINDS:
+            raise ValueError(f"invalid human-correctable claim kind: {self.claim_kind!r}")
+        _bounded_nonempty(self.text, "corrected claim text", _MAX_CLAIM_TEXT)
+        _id_tuple(self.evidence_link_ids, "evl_", "correction evidence_link_ids")
+        _id_tuple(self.entity_link_ids, "clent_", "correction entity_link_ids")
+        _id_tuple(self.tag_link_ids, "cltag_", "correction tag_link_ids")
+        if self.attribution_entity_id is not None:
+            validate_id(self.attribution_entity_id, "ent_")
+        _optional_bounded(self.attribution_text, "corrected attribution text", 4 * 1024)
+        _optional_bounded(self.temporal_start, "corrected temporal_start", _MAX_TEMPORAL)
+        _optional_bounded(self.temporal_end, "corrected temporal_end", _MAX_TEMPORAL)
+        if (
+            self.temporal_start is not None
+            and self.temporal_end is not None
+            and self.temporal_start > self.temporal_end
+        ):
+            raise ValueError("corrected temporal_start cannot exceed temporal_end")
+        if type(self.sensitive) is not bool or type(self.quantitative) is not bool:
+            raise TypeError("corrected sensitive/quantitative flags must be booleans")
+
+    def canonical_payload(self) -> dict[str, object]:
+        return {
+            "claim_kind": self.claim_kind,
+            "text": self.text,
+            "evidence_link_ids": list(self.evidence_link_ids),
+            "entity_link_ids": list(self.entity_link_ids),
+            "tag_link_ids": list(self.tag_link_ids),
+            "attribution_entity_id": self.attribution_entity_id,
+            "attribution_text": self.attribution_text,
+            "temporal_start": self.temporal_start,
+            "temporal_end": self.temporal_end,
+            "sensitive": self.sensitive,
+            "quantitative": self.quantitative,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class ClaimRevisionControlRequest:
+    source_revision_id: str
+    expected_snapshot_sha256: str
+    actor: str
+    action: str
+    correction: HumanClaimCorrection | None = None
+    rationale: str | None = None
+    claim_revision_action_id: str = field(default_factory=lambda: new_id("clact_"))
+    result_revision_id: str = field(default_factory=lambda: new_id("clrev_"))
+    review_action_id: str | None = None
+
+    def __post_init__(self) -> None:
+        validate_id(self.source_revision_id, "clrev_")
+        validate_id(self.claim_revision_action_id, "clact_")
+        validate_id(self.result_revision_id, "clrev_")
+        if self.source_revision_id == self.result_revision_id:
+            raise ValueError("result revision must differ from source revision")
+        _sha256(self.expected_snapshot_sha256, "expected_snapshot_sha256")
+        _bounded_nonempty(self.actor, "claim revision actor", _MAX_ACTOR)
+        if self.action not in CLAIM_REVISION_ACTIONS:
+            raise ValueError(f"invalid claim revision action: {self.action!r}")
+        _optional_bounded(self.rationale, "claim revision rationale", _MAX_REASON)
+        if self.action == "correct":
+            if not isinstance(self.correction, HumanClaimCorrection):
+                raise ValueError("correct action requires HumanClaimCorrection")
+            if self.review_action_id is None:
+                object.__setattr__(self, "review_action_id", new_id("ract_"))
+            else:
+                validate_id(self.review_action_id, "ract_")
+        else:
+            if self.correction is not None:
+                raise ValueError(f"{self.action} action cannot include correction payload")
+            if self.review_action_id is not None:
+                raise ValueError(f"{self.action} action cannot include review_action_id")
+
+    def request_sha256(self) -> str:
+        payload = json.dumps(
+            {
+                "source_revision_id": self.source_revision_id,
+                "expected_snapshot_sha256": self.expected_snapshot_sha256,
+                "actor": self.actor,
+                "action": self.action,
+                "correction": None if self.correction is None else self.correction.canonical_payload(),
+                "rationale": self.rationale,
+                "result_revision_id": self.result_revision_id,
+                "review_action_id": self.review_action_id,
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        return hashlib.sha256(payload).hexdigest()

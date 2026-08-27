@@ -72,7 +72,7 @@ def assert_connection_contract(con: sqlite3.Connection) -> None:
 
 def assert_schema_inventory(con: sqlite3.Connection) -> None:
     strict = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-    assert strict == 71, strict
+    assert strict == 72, strict
     # 0001 deliberately keeps ordinary rowid tables. WITHOUT ROWID remains a later
     # benchmark-driven optimization; no application contract may depend on rowid.
     without_rowid = con.execute(
@@ -170,6 +170,7 @@ def assert_closed_vocabularies(con: sqlite3.Connection) -> None:
     required_new_purge_kinds = {
         "derivation_run", "derivation_run_egress", "derivation_result",
         "derivation_result_target", "verification_run", "verification_run_egress", "assessment",
+        "claim_revision_action",
     }
     assert required_new_purge_kinds.issubset(purge_kinds), (required_new_purge_kinds - purge_kinds)
 
@@ -192,6 +193,17 @@ def assert_closed_vocabularies(con: sqlite3.Connection) -> None:
     ):
         assert enum_values(con, table, "lifecycle") == semantic_lifecycle, table
 
+    assert enum_values(con, "claim_revision_actions", "action") == {
+        "correct", "restrict", "unrestrict", "retract"
+    }
+
+    action_sql = con.execute(
+        "SELECT sql FROM sqlite_schema WHERE type='table' AND name='claim_revision_actions'"
+    ).fetchone()[0]
+    assert "review_action_id TEXT UNIQUE REFERENCES review_actions(id)" in action_sql
+    assert "action='correct' AND review_action_id IS NOT NULL" in action_sql
+    assert "action<>'correct' AND review_action_id IS NULL" in action_sql
+
     review = {"accepted", "rejected", "needs_work"}
     for table in (
         "claim_reviews", "document_identifier_reviews", "document_classification_reviews",
@@ -208,7 +220,7 @@ def assert_index_inventory(con: sqlite3.Connection) -> None:
     explicit = con.execute(
         "SELECT count(*) FROM sqlite_schema WHERE type='index' AND sql IS NOT NULL"
     ).fetchone()[0]
-    assert explicit == 135, explicit
+    assert explicit == 137, explicit
 
     # Freeze rejects exact duplicate explicit indexes and simple same-predicate
     # prefix redundancy. This is intentionally conservative; planner proof below
@@ -588,11 +600,11 @@ def main() -> None:
         print("bootstrap_transaction=PASS")
         print("bootstrap_failure_rollback=PASS markers=0/0 schema=empty journal_mode=wal")
         print("wrong_file_rejection=PASS")
-        print("schema_inventory=PASS strict_tables=71 fts_tables=3 app_triggers=0")
+        print("schema_inventory=PASS strict_tables=72 fts_tables=3 app_triggers=0")
         print("closed_vocabularies=PASS")
         print("core_write_contracts=PASS revision_leaf_process_review_idempotency")
-        print("rowid_strategy=PASS ordinary_rowid_tables=71 without_rowid=0")
-        print("index_inventory=PASS explicit=135 exact_duplicates=0 simple_prefix_redundancy=0")
+        print("rowid_strategy=PASS ordinary_rowid_tables=72 without_rowid=0")
+        print("index_inventory=PASS explicit=137 exact_duplicates=0 simple_prefix_redundancy=0")
         print(f"foreign_key_child_plans=PASS checked={fk_count} scans=0")
         print("query_surface_indexes=PASS")
         print("readonly_open_contract=PASS")
