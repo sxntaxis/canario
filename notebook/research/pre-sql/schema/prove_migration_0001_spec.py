@@ -1332,7 +1332,7 @@ def main() -> None:
 
         assert con.execute("PRAGMA foreign_key_check").fetchall() == []
         strict_count = con.execute("SELECT count(*) FROM pragma_table_list WHERE strict=1").fetchone()[0]
-        assert strict_count == 71
+        assert strict_count == 72
         fts_count = con.execute(
             "SELECT count(*) FROM pragma_table_list WHERE type='virtual' AND name IN ('claim_fts','representation_fts','document_fts')"
         ).fetchone()[0]

@@ -2035,3 +2035,47 @@ production Derivation/Verification runtime: separate bounded implementation/cert
 automatic Assessment promotion:  NOT AUTHORIZED
 forward migration 0002:          NOT AUTHORIZED / NOT NEEDED IN PRERELEASE
 ```
+
+
+### REVIEW-002 prerelease candidate amendment
+
+REVIEW-001 is certified/merged at `971b9bbf`. The following REVIEW-002 workflow proved one additional
+durable requirement that the prior frozen schema could not represent honestly: an `origin_kind=human`
+ClaimRevision does not identify the human canonical mutation that produced it. The candidate therefore
+rebaselines prerelease `0001` with one narrow table:
+
+```text
+claim_revision_actions
+  source_revision_id + claim_id -> ClaimRevision
+  result_revision_id + claim_id -> ClaimRevision (unique result action)
+  action = correct | restrict | unrestrict | retract
+  actor
+  rationale?
+  review_action_id?  # required exactly for `correct`; fresh accepted result review
+  request_sha256
+  created_at
+```
+
+This is Claim-specific mutation provenance, not a generic operation/audit graph. The result revision
+continues to carry ordinary ClaimRevision supersession. Review remains a separate record family, but
+`correct` must reference the fresh ReviewAction that atomically accepts its exact result revision; no
+review is copied from the predecessor. `claim_revision_action` is also added to the closed purge-target vocabulary because actor/rationale
+can be purge-scoped material.
+
+Portable candidate identity:
+
+```text
+MIGRATION_0001_SPEC.sql == canario/persistence/migrations/0001.sql
+SHA256:                 55b05a11f129cfbe1ffd199bcb6774ef8096f46424ebca6f43c169cb3eef7356
+ordinary STRICT tables: 72
+FTS5 virtual tables:     3
+application triggers:    0
+explicit indexes:        137
+FK child paths checked:  155
+FK child table scans:    0
+forward migration 0002:  absent
+```
+
+This amendment remains **candidate**, not schema authority, until the exact registered SQLite 3.53.4
+freeze/storage/purge proof, REVIEW-002 natural Esparza correction proof, full suite and fresh-clone
+certification pass.

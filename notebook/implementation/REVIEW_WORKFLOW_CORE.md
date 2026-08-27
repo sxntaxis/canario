@@ -1,12 +1,14 @@
 # REVIEW-001 — Claim review workflow core
 
-State: **IMPLEMENTED CANDIDATE — EXACT SQLITE + NATURAL ESPARZA REVIEW PROOF PENDING**
+State: **CERTIFIED + MERGED**
 
 Baseline authority:
 
 ```text
 structured verifier orchestration merge: e5a0485dac2db7e5eff61b3cee1dc11c20ae5858
-frozen 0001 SHA256:                 8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
+certified candidate commit:             37c1f8c5630f4e8dbb2a53f0f1a80fc0a6327faa
+merge commit:                            971b9bbfa4af7868b17de46b99d13a3c69dad219
+frozen 0001 SHA256:                     8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
 ```
 
 ## Purpose
@@ -130,5 +132,6 @@ This unit does not implement:
 - synthetic review decisions;
 - schema changes.
 
-The next review unit should add human ClaimRevision correction/restriction with explicit lineage and
-safe metadata/evidence carry rules, using REVIEW-001 as the decision/read foundation.
+REVIEW-002 is now the active follow-up candidate. It adds human ClaimRevision correction/restriction
+with explicit actor/action lineage and safe metadata/evidence carry rules while keeping REVIEW-001
+review decisions separate from canonical mutation.

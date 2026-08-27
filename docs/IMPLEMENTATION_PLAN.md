@@ -287,11 +287,19 @@ fresh-clone proof passed without schema change.
 
 ## WP6 — Review and Operator Workflow
 
-**Active unit — REVIEW-001:** implement and certify the claim-review core over the already-frozen
-`review_actions` / `claim_reviews` schema. The first gate covers deterministic machine-Claim queues
-for one exact Representation, exact evidence reopening, batch default + exceptions, strict readiness,
-replay/collision and stale-write protection. It deliberately leaves ClaimRevision correction and
-restriction to the next review unit so review decisions are not conflated with lifecycle mutation.
+**REVIEW-001 closed:** claim supervision is certified and merged at `971b9bbf` over
+`review_actions` / `claim_reviews` with deterministic queues, exact evidence reopening,
+strict/batch/supervised decisions, strict readiness and stale/replay guards.
+
+**Active unit — REVIEW-002:** implement human ClaimRevision correction/lifecycle control. A write must
+start from one exact current prepared snapshot and create a new `origin_kind=human` revision plus a
+narrow attributable `ClaimRevisionAction` for `correct | restrict | unrestrict | retract`. Correction
+selects only already-inspected current evidence/anchors/tags; `correct` atomically creates a fresh
+`accepted` ClaimReview for its exact result revision rather than requiring the single operator to
+review their own correction twice; lifecycle-only actions do not fabricate review decisions. Active
+results must revalidate evidence custody; FTS is rebuilt from only the new current active revision;
+existing ClaimRelations are not automatically retargeted. This concrete actor/action lineage need justifies a
+small prerelease `0001` rebaseline and full schema/storage recertification.
 
 Implement review configuration:
 

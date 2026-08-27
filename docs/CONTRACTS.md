@@ -226,9 +226,17 @@ flags:
 lifecycle: active | rejected | superseded | retracted | restricted
 ```
 
-Human review is derived from review decisions and remains separate from
-lifecycle. Consumers must at minimum distinguish unreviewed machine/rule output
-from human-reviewed material.
+Human review is derived from review decisions and remains separate from lifecycle. Consumers must at
+minimum distinguish unreviewed machine/rule output from human-reviewed material. ClaimRevision
+**currentness** is also separate from lifecycle: the current revision is the one with no superseding
+ClaimRevision. A historical revision may retain the lifecycle it had when created while being
+non-current because a later exact revision supersedes it.
+
+Review decisions target one exact revision and are never inherited across supersession. In the
+single-operator correction workflow, `correct` is itself an evidence-based human review act: the same
+transaction creates the new human ClaimRevision **and a fresh `accepted` ClaimReview targeting that
+exact result revision**. This is not inherited approval from the predecessor and does not generalize to
+arbitrary human-authored revisions or lifecycle-only actions.
 
 An optional attributable assessment (`supported`, `contested`, `refuted`, etc.)
 may exist when a workflow needs it, but it is **not a mandatory claim field** and
@@ -615,19 +623,32 @@ actions/capabilities rather than requiring staffing roles.
 
 ## Corrections
 
-Claim/document revisions preserve history. Ordinary edits use revision lineage.
-A separate explicit correction event is reserved for actions whose meaning must
-itself be retained, such as:
+Claim/document revisions preserve history. Ordinary edits never rewrite an old revision in place.
+For ClaimRevision control, REVIEW-002 proves that the mutation itself is a durable civic-history fact
+and therefore uses a narrow attributable `ClaimRevisionAction`:
 
 ```text
-retract
-public_correct
-redact
-unlink_evidence
-merge_identity
+current ClaimRevision
+  -> correct | restrict | unrestrict | retract
+  -> new human ClaimRevision
+  -> actor + rationale? + immutable request identity
 ```
 
-A redacted public representation never overwrites the restricted original.
+`ClaimRevisionAction` is not a generic audit/event/OperationRun family. It exists because `origin_kind=human`
+cannot answer who performed a canonical correction or lifecycle action. ReviewAction remains separate:
+reviewing a revision and editing a revision are different human acts.
+
+`correct` may replace non-derived proposition kind/text/attribution/time/flags and may retain only
+EvidenceLinks/entity anchors/tags from the exact prepared source snapshot. It cannot fabricate new
+source evidence or convert a proposition into `derived_inference` without a real DerivationResultTarget.
+`restrict`, `unrestrict`, and `retract` create new revisions that preserve the proposition and its
+current basis while changing lifecycle. A transition back to `active` must fail if carried evidence
+custody is still restricted or purged. Existing ClaimRelations remain attached to their exact historical
+revision endpoints; supersession never retargets them silently.
+
+Additional correction families such as public redaction/release, EvidenceLink unlink/repair, identity
+merge/split, or byte-level purge retain their own bounded semantics. A redacted public representation
+never overwrites the restricted original.
 
 ### Purge and tombstones
 

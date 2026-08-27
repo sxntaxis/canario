@@ -76,6 +76,7 @@ Final SQL may merge/split these after fixture/query tests.
 | process egress | non-secret egress bytes/profile/template provenance for cloud/agent runs; credentials remain external |
 | civic document identity + revisions | stable civic identity separate from representation; title/issuer/date/language corrections are revisioned |
 | claim identity + revisions | proposition lineage, origin, lifecycle, attribution/time/flags |
+| claim revision action | attributable human `correct/restrict/unrestrict/retract` source->result revision mutation + immutable request identity |
 | evidence link | exact claim revision -> representation locator + evidence relation |
 | entity mention | exact observed source text + representation/locator context + origin + optional resolution |
 | entity + identifiers/aliases | stable local resolved retrieval anchor without name-equality merging |
@@ -95,7 +96,7 @@ Final SQL may merge/split these after fixture/query tests.
 | civic collections + memberships | expediente/package/case spans multiple documents |
 | profile data | acta/report/budget semantics need validated specialized fields |
 | typed association/event | a relationship carries independent role/time/amount/term identity that does not fit ClaimRelation |
-| explicit correction/purge event | retraction/redaction/public correction/unlinking/purge itself matters |
+| additional correction/purge event families | public redaction/release, evidence unlink/repair, identity actions or purge require semantics beyond the core ClaimRevisionAction |
 | batch review record | compact subject-set representation cannot be reconstructed cleanly from decisions alone |
 | publication snapshot | deliberate release needs reproducible immutable history |
 
@@ -253,12 +254,23 @@ clm_123@1  machine extracted, active
 clm_123@2  corrected wording, supersedes @1
 ```
 
-A revision carries origin/process provenance, lifecycle, attribution/temporal
-scope, and flags. Human review is derived from `review_decisions`; it is not
-required to insert/search the revision.
+A revision carries origin/process provenance, lifecycle, attribution/temporal scope, and flags.
+Currentness is derived from supersession rather than a mutable current pointer. A later revision does
+not rewrite the historical row it supersedes.
 
-Optional human assessment is separate from lifecycle/review and is only stored
-when a workflow actually records such a judgment.
+Human review is derived from `review_decisions`; it is not required to insert/search the revision and
+is never inherited by a successor revision. REVIEW-002 adds one narrow `ClaimRevisionAction` row for
+human `correct | restrict | unrestrict | retract` mutations so the source/result revision pair, actor,
+rationale and immutable request identity remain attributable without overloading ReviewAction.
+
+A correction can retain/remove only evidence/anchors/tags from the prepared source-revision snapshot;
+creating new source evidence or retargeting existing ClaimRelations is a separate operation. Human
+correction cannot fabricate `derived_inference` origin: a changed derived inference needs a real new
+DerivationResultTarget. Any new `active` revision must remain compatible with the availability of its
+carried source evidence.
+
+Optional human assessment is separate from lifecycle/review and is only stored when a workflow
+actually records such a judgment.
 
 ## Analysis and Verification Boundaries
 
@@ -360,7 +372,8 @@ source-policy table until adapters or policy-history requirements justify one.
 
 ### Strict
 
-Protected use queries only exact revisions satisfying required human review.
+Protected use queries only exact **current** revisions satisfying required human review. A review of
+a superseded revision never authorizes its successor.
 
 ### Batch
 

@@ -199,11 +199,17 @@ and natural MTSS proof, including fresh-clone repetition, without schema change 
 
 ## Phase 5 — Mesa de control
 
-**Active first unit: REVIEW-001 claim review workflow core.** It must prove machine-only visibility,
-exact evidence reopening, deterministic Representation-scoped batch membership, one-action default +
-exception decisions, strict readiness, replay and stale-write protection on the frozen review tables.
-Claim correction/restriction lineage follows as a separate review unit once this foundation is
-certified.
+**REVIEW-001 is certified and merged at `971b9bbf`.** The backend now supports deterministic Claim
+review queues, exact retained evidence reopening, strict/batch/supervised decisions and strict
+readiness without conflating review with lifecycle.
+
+**Active unit: REVIEW-002 human ClaimRevision control.** It adds append-only human correction and
+lifecycle control over the exact current ClaimRevision: `correct | restrict | unrestrict | retract`.
+Every action must produce a new revision plus attributable actor/action/request lineage, reviews must
+not be inherited across revisions, active results must not rely on restricted/purged evidence, and
+restriction/retraction must not leak superseded text through derived search indexes. Existing
+ClaimRelations remain attached to exact historical revision endpoints rather than being silently
+retargeted.
 
 Implement:
 

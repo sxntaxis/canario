@@ -222,11 +222,13 @@ Rules for agents/contributors:
   Derivation and deterministic Verification with causal source lineage. The minimum Phase-D
   planner/final-verifier orchestration is certified and merged at `e5a0485`; the V4 qualified
   Codex/SQLite campaign and fresh-clone repetition passed D1/D2/D3/D8 plus natural MTSS without schema
-  change or Thucy role runtime. The active candidate is REVIEW-001 / Mesa de control: `canario.review`
-  adds deterministic current machine-Claim queues by exact Representation, exact retained evidence
-  reopening, one-action batch review with default + exceptions, machine-only/human-reviewed state,
-  strict readiness, immutable replay/collision behavior and same-transaction stale guards. Review
-  decisions must remain distinct from Claim lifecycle; correction/restriction is a following unit.
+  change or Thucy role runtime. REVIEW-001 / Mesa de control is certified and merged at `971b9bbf`:
+  `canario.review` provides deterministic current machine-Claim queues, exact retained evidence
+  reopening, one-action batch review, machine-only/human-reviewed state, strict readiness and
+  same-transaction stale guards. The active candidate is REVIEW-002 ClaimRevision control: append-only
+  `correct | restrict | unrestrict | retract` with actor/action/request lineage. In the single-operator
+  workflow, `correct` atomically creates a fresh accepted ClaimReview for the exact result revision;
+  predecessor review is not inherited. Lifecycle control remains distinct from epistemic review.
   The prior
   LECTOR-002 semantic campaign is
   superseded and must be re-scoped before replacement reference work. Acta 161 is

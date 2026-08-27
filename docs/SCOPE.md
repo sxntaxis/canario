@@ -86,12 +86,15 @@ Derivation/Verification/Claim/Evidence/Assessment reconciliation is now accepted
 
 The bounded prerelease `0001` rebaseline is certified and merged at `0e0f56a0`, the generic
 `canario.reasoning` runtime/API at `b8535195`, the first structured SQLite consumer at `51f21f98`, and
-the minimum Phase-D planner/final-verifier orchestration at `e5a0485`. The authorized current gate is
-REVIEW-001 / Mesa de control: claim review decisions over exact current revisions, deterministic
-Representation-scoped batch sets, exact evidence reopening, machine-only/human-reviewed visibility,
-strict readiness, and replay/stale-write safety using the frozen review tables. It does not authorize
-synthetic approval, Claim lifecycle mutation, a heavyweight ReviewBatch subsystem, schema change,
-multi-user staffing roles, or replacement semantic gold.
+the minimum Phase-D planner/final-verifier orchestration at `e5a0485`, and REVIEW-001 claim
+supervision at `971b9bbf`. The authorized current gate is REVIEW-002 / Mesa de control: append-only
+human ClaimRevision correction/restriction over exact prepared current snapshots, with explicit
+actor/action/request lineage and an atomic fresh acceptance for human corrections (never inherited
+from the superseded revision). The gate may rebaseline prerelease `0001`
+only for the narrow `claim_revision_actions` family proven necessary by this workflow. It does not
+authorize GUI work, generic audit/operation logs, automatic relation retargeting, fabrication of new
+evidence, human creation of `derived_inference` provenance, multi-user staffing roles, or replacement
+semantic gold.
 
 Acta 161 is retained as the first real semantic fixture because it is frozen and useful. It
 has no authority to introduce acta-specific segmentation rules or to define the universe of
