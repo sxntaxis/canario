@@ -495,6 +495,37 @@ def _normalize_cell(raw: object) -> dict[str, object]:
     raise AssertionError(kind)
 
 
+def structured_table_schema_summary(data: bytes) -> dict[str, object]:
+    """Return deterministic query schema metadata without exposing source cell values."""
+
+    projection = _load_structured_table(data)
+    sheets = projection["sheets"]
+    assert isinstance(sheets, list)
+    records: list[dict[str, object]] = []
+    for sheet in sheets:
+        assert isinstance(sheet, dict)
+        max_column = int(sheet["max_column"])
+        columns = ["row_index"]
+        for ordinal in range(1, max_column + 1):
+            columns.extend(name for name, _kind in _cell_columns(ordinal))
+        records.append({
+            "table": f"sheet_{int(sheet['ordinal'])}_rows",
+            "sheet_ordinal": int(sheet["ordinal"]),
+            "sheet_name": str(sheet["name"]),
+            "max_row": int(sheet["max_row"]),
+            "max_column": max_column,
+            "columns": columns,
+        })
+    return {
+        "format": "canario.structured_sqlite_schema.v1",
+        "projection_sheets_table": {
+            "table": "projection_sheets",
+            "columns": ["ordinal", "name", "state", "max_row", "max_column", "merged_ranges_json"],
+        },
+        "sheet_tables": records,
+    }
+
+
 def _load_structured_table(data: bytes) -> dict[str, object]:
     value = _load_json_decimal(data)
     if not isinstance(value, dict) or value.get("format") != STRUCTURED_TABLE_FORMAT:

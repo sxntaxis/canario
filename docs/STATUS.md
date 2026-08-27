@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: STRUCTURED_REASONING_RUNTIME_CANDIDATE
+state: STRUCTURED_VERIFIER_RUNTIME_CANDIDATE
 created: 2026-08-19
 updated: 2026-08-26
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The frozen Derivation/Verification schema and generic canario.reasoning runtime are certified and merged. The active candidate is the first concrete structured SQLite Derivation/Verification consumer; exact-runtime plus retained natural-MTSS certification remains pending.
+summary: The frozen Derivation/Verification schema, generic canario.reasoning runtime, and first concrete structured SQLite consumer are certified and merged. The active minimum Phase-D planner/final-verifier candidate consumed V2 and V3 D1 attempts; V3 localized the failure to the Codex finalizer after successful planning/SQL, and V4 removes the unsupported `uniqueItems` wire-schema keyword while preserving duplicate-citation rejection locally. Exact Codex/SQLite plus Phase-D replay and natural-MTSS certification remain pending.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -108,7 +108,8 @@ accepted semantic contracts
 -> DERIVATION-VERIFICATION reconciliation merged at 0130762a; SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE
 -> prerelease 0001 Derivation/Verification rebaseline certified and merged at 0e0f56a0
 -> bounded canario.reasoning Derivation/Verification runtime certified and merged at b8535195
--> first production structured SQLite Derivation/Verification consumer implemented as candidate; exact-runtime + retained natural-MTSS proof pending
+-> first production structured SQLite Derivation/Verification consumer certified and merged at 51f21f98
+-> minimum structured planner/final-verifier orchestration implemented as candidate; exact Codex/SQLite + Phase-D replay + natural-MTSS proof pending
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -142,13 +143,22 @@ containment, explicit derived-Claim and Assessment writes, and host-owned bounde
 The runtime refuses to expose a narrow source/result target as containing full bytes unless an exact
 materializer is registered.
 
-The active edge is its first concrete consumer: `StructuredSQLiteDerivationBackend` plus
-`StructuredScalarVerifierBackend`. The candidate runs untrusted SELECTs only against a disposable
-in-memory projection of one exact `canario.structured_table.v1` target, binds the executor policy and
-exact program identity into verification, and requires Source Authority. Final authorization needs the exact official MTSS XLSX proof, the corrected MTSS production
-Representation identity plus historical 147x15 structural controls, and the registered SQLite
-3.53.4 runtime. No
-schema change is part of this unit.
+The first concrete consumer, `StructuredSQLiteDerivationBackend` plus
+`StructuredScalarVerifierBackend`, is certified and merged at `51f21f98`. It runs untrusted SELECTs
+only against a disposable in-memory projection of one exact `canario.structured_table.v1` target,
+binds executor policy and exact program identity into verification, and requires Source Authority.
+Its natural MTSS proof freezes the exact official workbook, production Representation identity,
+historical 147x15 structural controls, source-backed `COUNT(*) = 147`, and the constant-query
+counterfactual that must abstain as `insufficient_evidence`.
+
+The active edge is now the minimum Phase-D orchestration over that proved path: one bounded planner
+call proposes `0..6` SQL programs, each executes as an ordinary local immutable `DerivationRun`, and
+one bounded final-verifier call consumes the exact executed derivation identities/evidence into one
+`VerificationRun`. Planner/finalizer egress belongs to the Verification attempt; SQL DerivationRuns
+remain local deterministic computation. Exact Codex 0.149.0 / `gpt-5.6-terra` medium plus SQLite
+3.53.4, Phase-D contract replay and the natural MTSS proposition are mandatory before merge. No
+schema change, Thucy runtime, generic operation graph, provider-API fallback or automatic semantic
+promotion is part of this unit.
 
 The independently certified WORKBENCH/DIRECT/OCR baseline
 `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior
@@ -261,9 +271,18 @@ design decision is `DECOMPOSITION_VALUE_PROVEN__DESIGN_MINIMUM_CANARIO_DECOMPOSI
 Derivation execution/lineage must precede final Verification judgment, but Thucy's four-role
 runtime is not selected. Phase-D closure and the subsequent Derivation/Verification reconciliation
 are merged. The persistence rebaseline passed exact registered SQLite 3.53.4 certification and is
-merged at `0e0f56a0`. The bounded runtime/API over those records is now implemented as a candidate;
-its independent runtime/fresh-clone certification is the active gate. Metered provider transports
-remain allowed future profiles. The prior LECTOR-002 semantic campaign remains superseded.
+merged at `0e0f56a0`. The bounded runtime/API over those records is certified and merged at `b8535195`, and its first
+structured SQLite consumer is certified and merged at `51f21f98`. The active gate is the minimum
+planner/final-verifier orchestration over that production path, with exact Codex/SQLite identity,
+Phase-D contract replay and the natural MTSS proposition. V2 failed opaquely on D1; V3 exposed the
+durable cause boundary and showed planner + SQL Derivation succeeded while the Codex finalizer exited
+non-zero as `codex_final_failed`. The final wire schema alone carried `uniqueItems`, which the official
+Structured Outputs supported-array subset does not include. V4 removes that redundant wire constraint,
+retains duplicate-citation rejection in `StructuredFinalDecision`, and classifies future
+`invalid_json_schema` stderr without retaining raw stderr. Prompts, verdict rules and evidence rules are
+unchanged.
+Metered provider transports remain allowed future profiles. The prior LECTOR-002 semantic campaign
+remains superseded.
 
 Research basis: `notebook/research/lector/fact-verification/synthesis/BOOK.md`, checkpoint
 `7e7fd85be5ac607fcb02ccb68b97b5e17f8fd9d6`.
@@ -279,8 +298,8 @@ source-contribution lineage, and a separate VerificationRun with bounded scope, 
 Derivation attempts/consumption, evidence, sufficiency and abstention/execution outcome. Derived
 Claims point to exact result targets; EvidenceLink remains source evidence. Assessment remains
 optional, attributable and separate from review/lifecycle. Production `0001` now persists these
-records at the certified schema merge `0e0f56a0`; `canario.reasoning` is the candidate runtime that
-writes them while preserving those distinctions.
+records at the certified schema merge `0e0f56a0`; `canario.reasoning` is certified and merged at
+`b8535195`, and the first structured SQLite execution/verification consumer is merged at `51f21f98`.
 Acta 161 carries the descriptive benchmark archetype `institutional_minutes` and currently
 covers only a subset of declared text/semantic stress capabilities. Real structured-table and timed-media fixtures are frozen externally. Their typed evidence
 substrate is now canonical at `e0ab1cd831740241736086f5db568468aacac779`: deterministic
@@ -340,9 +359,11 @@ flattening unsupported media into text or by extrapolating from the minutes/PDF 
 - No automatic public publication.
 - No claim may conceal whether it is machine-only or human-reviewed.
 - No AI output may serve as factual source evidence for its own claim.
-- No derived-analysis or verifier implementation is authorized by this checkpoint. No
-  executor may access the canonical SQLite DB, arbitrary filesystem/network, extensions,
-  write authority, semantic writers or secrets.
+- Derived analysis and Verification are authorized only through the certified bounded
+  `canario.reasoning` runtime and structured SQLite consumer. Executors may not access the canonical
+  SQLite DB, arbitrary filesystem/network, extensions, semantic writers or secrets. The active
+  planner/final-verifier candidate adds only the qualified bounded Codex subscription profile and
+  remains unauthorized until its exact certification gate passes.
 - No individual political-preference profiling or targeted-persuasion use.
 
 ## Planning Documents

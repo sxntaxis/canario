@@ -6,6 +6,8 @@ Baseline authority:
 
 ```text
 generic reasoning runtime merge: b853519580f75f42385ac11d5a6d7bd4130118d0
+merge authority:                 51f21f98ed377da302309c8a5c46fd0a32f10bbf
+certified implementation commit: b5932e60416a000bcd4b878862bc4483e3dcbbc2
 frozen 0001 SHA256:             8d6f793e1c976221311bd73ffe03bdaa2907e9508e7c0f5fad59131a02dc9f96
 SQLite target:                  3.53.4
 SQLite source ID:               2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e09459bcc
@@ -162,8 +164,11 @@ This unit does not authorize:
 - binary-REAL equality as exact civic truth;
 - universal spreadsheet/document semantics from one MTSS workbook.
 
-## Candidate gate
+## Certification closure
 
-Before publication, require the exact SQLite target runtime, focused + full regression suites,
-unchanged frozen `0001`, the exact natural MTSS proof above, compile/diff checks, and a clean
-fresh-clone repeat. Only then can this concrete structured consumer be considered production-authorized.
+The unit passed the exact SQLite 3.53.4/source-ID runtime, focused + full regression suites,
+unchanged frozen `0001`, the exact natural MTSS proof above, compile/diff checks, bundle verification
+and clean fresh-clone repeat. The certified implementation commit `b5932e604...` is merged through
+`51f21f98...`; this concrete structured consumer is production-authorized within the non-goals above.
+The next gate is the minimum Phase-D planner/final-verifier orchestration documented separately in
+`STRUCTURED_VERIFIER_RUNTIME.md`.
