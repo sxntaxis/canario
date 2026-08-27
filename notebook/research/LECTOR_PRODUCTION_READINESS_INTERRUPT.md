@@ -1,6 +1,6 @@
 # Lector production-readiness Research Interrupt
 
-State: open
+State: resolved_to_fit_bench
 Kind: working research interrupt
 Severity: architecture_or_reuse_threat
 Opened: 2026-08-27
@@ -45,3 +45,16 @@ These are hypotheses to re-evaluate, not accepted changes:
 ## Resume condition
 
 The affected front may resume implementation only after the Discovery/Deep Research/Synthesis/Decision chain produces accepted Lector production design authority and explicitly activated Work.
+
+## Resolution — 2026-08-27
+
+The required Discovery/Deep Research/Synthesis chain completed as the production-readiness research package researched through 2026-08-27. Its decision is intentionally **not** a production-extractor selection:
+
+```text
+BROAD_LECTOR_MECHANISM_NOT_SELECTED
+RUN_CANARIO_NATIVE_LECTOR_FIT_BENCH
+```
+
+The research package, adversarial review, fit-bench design and fixture strategy are preserved under `notebook/research/lector/production-readiness/`. The owner approved and activated `docs/work/20260827-lector-production-fit-bench.md` after governance merge.
+
+This resolves the Research Interrupt only far enough to authorize the benchmark/research Work. Production broad-Lector implementation remains blocked until that Work exits with an explicit lane-selection decision and a later separately authorized implementation Work. The quarantined Phase-6/WP7 extractor remains without authority.
