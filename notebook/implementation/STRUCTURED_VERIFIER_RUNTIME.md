@@ -1,6 +1,9 @@
 # Structured verifier production orchestration
 
-State: **IMPLEMENTED CANDIDATE — EXACT CODEX/SQLITE + PHASE-D REPLAY + NATURAL MTSS CERTIFICATION PENDING**
+State: **CERTIFIED AND MERGED**
+
+Certified candidate commit: `505cdd0d82a3d5cddc3aef6cf9c44598a3c6aa21`
+Merge authority: `e5a0485dac2db7e5eff61b3cee1dc11c20ae5858`
 
 Baseline authority:
 
@@ -11,6 +14,7 @@ SQLite target:                  3.53.4
 SQLite source ID:               2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e09459bcc
 reference Codex CLI:            0.149.0
 reference model:                gpt-5.6-terra / medium
+certified bundle SHA256:        9365774a638992bdf24d8e819f07c42f639641a96feed1a6d1a5aefaefd0998f
 ```
 
 ## Purpose

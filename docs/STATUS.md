@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: STRUCTURED_VERIFIER_RUNTIME_CANDIDATE
+state: REVIEW_WORKFLOW_CORE_CANDIDATE
 created: 2026-08-19
 updated: 2026-08-26
 authority: operating
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: The frozen Derivation/Verification schema, generic canario.reasoning runtime, and first concrete structured SQLite consumer are certified and merged. The active minimum Phase-D planner/final-verifier candidate consumed V2 and V3 D1 attempts; V3 localized the failure to the Codex finalizer after successful planning/SQL, and V4 removes the unsupported `uniqueItems` wire-schema keyword while preserving duplicate-citation rejection locally. Exact Codex/SQLite plus Phase-D replay and natural-MTSS certification remain pending.
+summary: The Derivation/Verification schema, generic reasoning runtime, structured SQLite consumer, and minimum Phase-D planner/final-verifier orchestration are certified and merged through e5a0485. The active REVIEW-001 candidate begins Mesa de control with a no-schema-change claim review read/write core: machine-only state, exact evidence reopening, deterministic Representation-scoped batches, default-plus-exception decisions, strict readiness, replay and stale-write protection. Exact SQLite plus natural Esparza review proof remain pending.
 related:
   - ACTAKIT-ARCH-001
   - ACTAKIT-ROADMAP-001
@@ -109,7 +109,8 @@ accepted semantic contracts
 -> prerelease 0001 Derivation/Verification rebaseline certified and merged at 0e0f56a0
 -> bounded canario.reasoning Derivation/Verification runtime certified and merged at b8535195
 -> first production structured SQLite Derivation/Verification consumer certified and merged at 51f21f98
--> minimum structured planner/final-verifier orchestration implemented as candidate; exact Codex/SQLite + Phase-D replay + natural-MTSS proof pending
+-> minimum structured planner/final-verifier orchestration certified and merged at e5a0485
+-> REVIEW-001 claim review workflow core implemented as candidate; exact SQLite + natural Esparza review proof pending
 -> LECTOR-002 semantic campaign superseded/re-scope pending; no replacement gold generated
 -> explicit canonical-cutover gate later
 ```
@@ -151,24 +152,27 @@ Its natural MTSS proof freezes the exact official workbook, production Represent
 historical 147x15 structural controls, source-backed `COUNT(*) = 147`, and the constant-query
 counterfactual that must abstain as `insufficient_evidence`.
 
-The active edge is now the minimum Phase-D orchestration over that proved path: one bounded planner
-call proposes `0..6` SQL programs, each executes as an ordinary local immutable `DerivationRun`, and
-one bounded final-verifier call consumes the exact executed derivation identities/evidence into one
-`VerificationRun`. Planner/finalizer egress belongs to the Verification attempt; SQL DerivationRuns
-remain local deterministic computation. Exact Codex 0.149.0 / `gpt-5.6-terra` medium plus SQLite
-3.53.4, Phase-D contract replay and the natural MTSS proposition are mandatory before merge. No
-schema change, Thucy runtime, generic operation graph, provider-API fallback or automatic semantic
-promotion is part of this unit.
+The minimum Phase-D orchestration is now certified and merged at `e5a0485`. The qualified V4
+campaign passed D1 supported, D2 supported, D3 contradicted, D8 insufficient_evidence and natural
+MTSS supported, then repeated from a fresh bundle clone with the same 10 Codex invocations and
+39,067 prompt bytes. SQL still executes only as ordinary local DerivationRuns and source evidence
+remains separate from execution lineage.
+
+The active edge is REVIEW-001 / Mesa de control. `canario.review` is implemented as a candidate over
+the already-frozen `review_actions` + `claim_reviews` tables: deterministic current machine-Claim
+queues by exact Representation, explicit machine-only/human-reviewed state, exact retained evidence
+reopening, one-action batch review with default + exceptions, strict-ready derivation, immutable
+replay/collision behavior, and same-transaction stale-subject/evidence guards. No schema change or
+synthetic approval is part of this unit. Correction/restriction lineage remains the next review unit.
 
 The independently certified WORKBENCH/DIRECT/OCR baseline
 `adf14a5006565197af3acf57c5cfc213510ba94217beb650403acbaf363b975a` and prior
-`31cac5...` baseline remain historical evidence. The new candidate changes only the
-`process_run_egress.bytes_egressed` lower bound from positive to non-negative so a
-cloud-capable attempt that fails before external handoff can truthfully persist zero
-source bytes plus policy provenance. The WORKBENCH rebaseline was independently certified
-on the exact registered upstream SQLite 3.53.4 source
-ID; the first attempt correctly rejected a patched build with a mismatched source
-ID. No `0002` exists: prerelease policy requires rebaselining `0001` instead.
+`31cac5...` baseline remain historical evidence. The historical WORKBENCH/Codex integration
+rebaseline changed `process_run_egress.bytes_egressed` from a positive to a non-negative lower
+bound so an externally capable attempt that fails before handoff can truthfully persist zero source
+bytes plus policy provenance. That change is already part of the frozen current `0001`; REVIEW-001
+introduces no schema delta. The exact registered upstream SQLite 3.53.4 source ID remains the runtime
+authority, and no `0002` exists under the prerelease rebaseline policy.
 
 The earlier migration/processor implementation certifications did not themselves
 authorize canonical cutover or semantic writers. The bounded Depósito writer is
