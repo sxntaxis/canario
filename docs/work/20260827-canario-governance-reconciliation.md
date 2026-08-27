@@ -1,8 +1,10 @@
 # Canario governance reconciliation
 
 Kind: work
-Status: candidate
+Status: accepted
 Created: 2026-08-27
+Accepted: 2026-08-27
+Merge: 45997d5088f88ef75e00f08a310e84292a4a077b
 
 ## Goal
 
@@ -55,3 +57,9 @@ This proves a governance defect: planning/predecessor completion was being used 
 ## Closure / next authorization
 
 Candidate review must be explicit. Acceptance of this governance Work does **not** activate the next Lector Work. After acceptance, the owner may separately authorize a Lector production-readiness Discovery/Research Work that re-scopes LECTOR-002 before any extractor implementation.
+
+## Closure record
+
+The exact governance candidate was independently certified, published as `797ca957a9363c51cbbbbc3c68052b70c0cd246b`, reviewed against its complete-history bundle, and merged through PR #9 at `45997d5088f88ef75e00f08a310e84292a4a077b`.
+
+Owner authorization separately approves `LECTOR-PRODUCTION-FIT-BENCH` after this merge. That authorization is exercised in the successor active Work; it does not retroactively authorize the quarantined vertical or any production broad-Lector implementation.

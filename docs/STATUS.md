@@ -1,13 +1,13 @@
 ---
 id: ACTAKIT-STATUS-001
 kind: status
-state: GOVERNANCE_RECONCILIATION_CANDIDATE
+state: LECTOR_PRODUCTION_FIT_BENCH_ACTIVE
 created: 2026-08-19
 updated: 2026-08-27
 authority: operating-frontier
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: REVIEW-002 is certified and merged. No product implementation is currently authorized. Governance reconciliation is a candidate; broad production Lector readiness remains open and blocks the first end-to-end vertical.
+summary: Governance reconciliation is accepted/merged through PR #9. LECTOR-PRODUCTION-FIT-BENCH is the single active Work. It may freeze and run the broad-Lector mechanism benchmark, but no production broad-Lector implementation, provider lock-in or first vertical is authorized.
 ---
 
 # Current Status
@@ -22,27 +22,33 @@ Read in this order:
 AGENTS.md
 AGENT_MAP.toml
 docs/STATUS.md
-active Work, if and only if one is explicitly active
+docs/work/20260827-lector-production-fit-bench.md
 only the authority/evidence routed for that Work
 ```
 
-Do not reconstruct current permission from old chats, branch names, roadmap ordering, completed PRs, or historical Notebook material.
+Do not reconstruct permission from chats, branch names, roadmap ordering, completed PRs, or historical Notebook material.
 
 ## Published authority
 
-Current `main` after REVIEW-002:
+Current `main` after governance reconciliation:
+
+```text
+45997d5088f88ef75e00f08a310e84292a4a077b
+```
+
+Governance candidate topic:
+
+```text
+797ca957a9363c51cbbbbc3c68052b70c0cd246b
+```
+
+REVIEW-002 remains certified/merged at:
 
 ```text
 ce07da9466a638738c845f7fba152a47e9987a59
 ```
 
-REVIEW-002 certified topic:
-
-```text
-5d145828a8724ca0ea8e6420e5d5e09de664f74c
-```
-
-Current prerelease `0001` schema authority:
+Current prerelease `0001` schema authority remains unchanged:
 
 ```text
 SHA256 55b05a11f129cfbe1ffd199bcb6774ef8096f46424ebca6f43c169cb3eef7356
@@ -61,33 +67,37 @@ SHA256 55b05a11f129cfbe1ffd199bcb6774ef8096f46424ebca6f43c169cb3eef7356
 - LECTOR-001 semantic extraction **boundary/runtime**;
 - Derivation / Verification schema + runtime, structured SQLite consumer and minimum structured verifier orchestration;
 - REVIEW-001 Claim review backend;
-- REVIEW-002 append-only human Claim correction/restriction/retraction backend.
+- REVIEW-002 append-only human Claim correction/restriction/retraction backend;
+- governance authority/frontier/Work reconciliation through PR #9.
 
 ### Important gates still open
 
-**Broad production Lector is not closed.** LECTOR-001 proves the generic boundary and writer, not that a selected production extractor can recover a broad civic Claim set with acceptable semantic quality. The previous LECTOR-002 campaign is superseded and requires re-scope.
+**Broad production Lector is not closed.** No production mechanism has been selected. The active fit bench exists specifically to decide whether A0, A1, A2, A3, A4, A5, or no tested lane earns selection.
 
-**Mesa de control product UX is not closed.** Review/correction backend mechanics are certified; no human GUI/TUI is being claimed complete. Backend-first sequencing is intentional.
+**Mesa de control product UX is not closed.** Backend mechanics exist; no human GUI/TUI is claimed complete.
 
-**First vertical is not authorized.** It depends on broad production Lector readiness.
+**First vertical is not authorized.** Acta 160 remains a post-selection natural holdout and may not be used to tune the Lector.
 
 ## Frontier
 
 ```text
-active product Work: none
-candidate governance Work: docs/work/20260827-canario-governance-reconciliation.md
-blocker: Lector production-readiness Research Interrupt
-working evidence: notebook/research/LECTOR_PRODUCTION_READINESS_INTERRUPT.md
-planned later: first end-to-end acta vertical
+active product Work: docs/work/20260827-lector-production-fit-bench.md
+research basis: notebook/research/lector/production-readiness/
+Research Interrupt: resolved_to_fit_bench
+production broad-Lector implementation: BLOCKED
+first end-to-end Acta-160 vertical: PLANNED / BLOCKED
 ```
 
-The next possible product Work is **not implementation**. After this governance candidate is accepted, a separate owner-approved Lector production-readiness Discovery/Research Work may be activated.
+The active Work may freeze benchmark semantics/reference policy, prepare development fixtures, build bounded benchmark mechanics, and run the declared A0-A5 comparison under its proof obligations. It may not promote a winner into production code.
 
 ## Explicitly unauthorized now
 
-- any production broad-Claim extractor implementation or provider selection;
+- production broad-Claim extractor implementation or provider/model architectural lock-in;
+- treating A4, A5, Codex, or any other lane as selected before benchmark evidence;
+- using Acta 160 semantic contents for tuning;
 - certification/publication of the quarantined Phase-6 Codex extractor experiment;
 - first vertical execution/certification;
+- schema rebaseline unless benchmark mechanics unexpectedly prove a canonical invariant is missing, in which case stop for separate design review;
 - canonical source cutover or historical mass import;
 - query/output/Hilo implementation merely because it follows on the roadmap;
 - GUI/MCP/tool-interface work;
@@ -95,8 +105,8 @@ The next possible product Work is **not implementation**. After this governance 
 
 ## Pre-release schema rule
 
-Canario still has no public compatibility-bearing database fleet. Correct schema changes rebaseline `0001` and repeat applicable proofs. Forward migrations begin only after an explicit Beta/public compatibility boundary.
+Canario still has no public compatibility-bearing database fleet. Correct schema changes rebaseline `0001` and repeat applicable proofs. The active fit bench does not presently authorize a schema change.
 
 ## Planning is not authorization
 
-`docs/ROADMAP.md`, `docs/IMPLEMENTATION_PLAN.md`, and `docs/RELEASE_1_0.md` describe horizons and gates. Their ordering never activates Work. `ready`, predecessor completion, certification, merge, or an empty frontier likewise do not authorize the next product change.
+`docs/ROADMAP.md`, `docs/IMPLEMENTATION_PLAN.md`, and `docs/RELEASE_1_0.md` describe horizons and gates. Their ordering never activates Work. The only active Work is the one named in the Frontier above.
