@@ -267,3 +267,14 @@ A PASS may propose a production broad-Lector implementation Work.
 It does **not** authorize that implementation automatically.
 
 The first end-to-end Acta-160 vertical remains a later post-selection proof.
+
+## Progress — F2 fixture/source freeze
+
+F1 semantics/reference protocol: frozen, merged at `61ce4daf6364494b534a50060fea14ca3a81c140`.
+
+F2 D1-D4 fixture/source/Representation/scope freeze: complete. Exact development fixture identities
+are recorded in `notebook/research/lector/fit-bench/FIXTURE_SOURCE_FREEZE_V1.md` and its canonical
+JSON companion. No source bytes or external source packs were committed.
+
+Next gate: F3 human-approved semantic reference construction. Formal A0-A5 output remains unseen,
+Acta 160 remains untouched, and thresholds remain unfrozen.
