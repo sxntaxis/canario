@@ -192,16 +192,18 @@ schema change. Its first concrete structured SQLite consumer is independently ce
 `51f21f98`; the exact MTSS proof demonstrates source-backed `COUNT(*) = 147` while a
 source-independent `SELECT 147` with the same scalar abstains as `insufficient_evidence`.
 
-**Gate:** certify the minimum Phase-D planner/final-verifier orchestration over that production path.
-One bounded planner call may propose `0..6` SELECT programs; each executes only as an ordinary local
-`StructuredSQLiteDerivationBackend` run; one bounded final-verifier call then consumes exact
-Derivation identities/evidence into the same durable Verification attempt. Require the exact Codex
-0.149.0 / `gpt-5.6-terra` medium subscription profile, SQLite 3.53.4, the selected Phase-D contract
-replay cases and the natural MTSS proposition. Do not reopen schema, add Thucy roles/multi-agent
-runtime, provider-API fallback, or a generic operation graph for this lane.
+**Gate closed:** the minimum Phase-D planner/final-verifier orchestration is independently certified
+and merged at `e5a0485`. The exact qualified Codex/SQLite profile passed the selected Phase-D replay
+and natural MTSS proof, including fresh-clone repetition, without schema change or Thucy role runtime.
 
 
 ## Phase 5 — Mesa de control
+
+**Active first unit: REVIEW-001 claim review workflow core.** It must prove machine-only visibility,
+exact evidence reopening, deterministic Representation-scoped batch membership, one-action default +
+exception decisions, strict readiness, replay and stale-write protection on the frozen review tables.
+Claim correction/restriction lineage follows as a separate review unit once this foundation is
+certified.
 
 Implement:
 

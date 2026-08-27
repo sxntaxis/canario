@@ -85,13 +85,13 @@ Derivation/Verification/Claim/Evidence/Assessment reconciliation is now accepted
 `SINGLE_EXECUTION_GRAPH__SOURCE_EVIDENCE_NOT_EXECUTION_LINEAGE`.
 
 The bounded prerelease `0001` rebaseline is certified and merged at `0e0f56a0`, the generic
-`canario.reasoning` runtime/API is certified and merged at `b8535195`, and the first concrete
-structured SQLite consumer is certified and merged at `51f21f98`. The authorized current gate is the
-minimum Phase-D planner/final-verifier orchestration over that proved path: one bounded planner call,
-ordinary local structured-SQLite DerivationRuns for every proposed query, and one bounded final
-verifier call in the same Verification attempt. It does not authorize a Thucy clone/multi-agent
-runtime, recursive derivation graph, schema change, provider-API fallback, automatic semantic
-promotion, or replacement semantic gold. Metered provider profiles remain allowed future transports.
+`canario.reasoning` runtime/API at `b8535195`, the first structured SQLite consumer at `51f21f98`, and
+the minimum Phase-D planner/final-verifier orchestration at `e5a0485`. The authorized current gate is
+REVIEW-001 / Mesa de control: claim review decisions over exact current revisions, deterministic
+Representation-scoped batch sets, exact evidence reopening, machine-only/human-reviewed visibility,
+strict readiness, and replay/stale-write safety using the frozen review tables. It does not authorize
+synthetic approval, Claim lifecycle mutation, a heavyweight ReviewBatch subsystem, schema change,
+multi-user staffing roles, or replacement semantic gold.
 
 Acta 161 is retained as the first real semantic fixture because it is frozen and useful. It
 has no authority to introduce acta-specific segmentation rules or to define the universe of

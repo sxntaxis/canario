@@ -280,17 +280,18 @@ bounded structured SQLite Derivation plus deterministic scalar Verification, exa
 identity, explicit Source Authority, conservative source lineage, exact SQLite 3.53.4, and the exact
 MTSS source/Representation/147-row natural counterfactual proof.
 
-**Current gate:** independently certify the minimum Phase-D planner/final-verifier orchestration over
-that consumer. One bounded planner call may propose `0..6` SELECT programs; every program executes
-through an ordinary local `StructuredSQLiteDerivationBackend`; one bounded final-verifier call then
-consumes exact Derivation identities/evidence into the same Verification attempt. Require exact Codex
-0.149.0 / `gpt-5.6-terra` medium, exact prompt/output-contract and egress identity, Phase-D contract
-replay, natural MTSS proposition, SQLite 3.53.4, full regression and fresh-clone proof. No schema
-change, Thucy/multi-agent runtime, provider-API fallback, recursive Derivation graph, or automatic
-semantic promotion is authorized by this unit.
+**Gate closed:** the minimum Phase-D planner/final-verifier orchestration is certified and merged at
+`e5a0485`; exact qualified Codex/SQLite, Phase-D contract replay, natural MTSS, full regression and
+fresh-clone proof passed without schema change.
 
 
 ## WP6 — Review and Operator Workflow
+
+**Active unit — REVIEW-001:** implement and certify the claim-review core over the already-frozen
+`review_actions` / `claim_reviews` schema. The first gate covers deterministic machine-Claim queues
+for one exact Representation, exact evidence reopening, batch default + exceptions, strict readiness,
+replay/collision and stale-write protection. It deliberately leaves ClaimRevision correction and
+restriction to the next review unit so review decisions are not conflated with lifecycle mutation.
 
 Implement review configuration:
 
