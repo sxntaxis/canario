@@ -345,3 +345,35 @@ that gate.
 
 Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds and references
 remain unfrozen, and production broad-Lector implementation remains unauthorized.
+
+
+### F3 progress — D1 supervisor draft v1
+
+The D1 authoring session hit a conversation context boundary before a final reference existed. Emergency
+checkpoint `8f3a5e0fa0d19e80b8721fae6db3d151b4ec8902` preserved the exact frozen D1 inputs plus 328
+runnable semantic specs and 78 separate fragment records, explicitly as WIP/non-authoritative. Those two
+record counts are not treated as a prior fact count because overlap/revision was possible, and the later
+narrative ~380 state was not fully materialized.
+
+The supervising/cloud author recovered from the exact frozen Representation rather than inventing continuity.
+Known incomplete/evidence-shifted carriers C04/C05/C06/C07/C10/C12/U03/M01 were re-authored source-first,
+the missing M02–M07 and V01–V05 tail was authored from source, and a final 61-unit omission-only plus
+reference→source reverse-semantic/evidence-context audit was completed.
+
+`references/D1_REFERENCE_SUPERVISOR_DRAFT_V1.json` now contains 660 facts, 1,240 exact evidence targets,
+36 semantic carriers and explicit accounting for all 61 frozen units. `U0007` contains only a page marker and
+is classified `NO_MATERIAL_CIVIC_FACT`. The reference binds 221 facts to CTX-01 only where required context
+leaves the local frozen unit/semantic segment; same-unit antecedents do not receive CTX by template.
+
+`references/D1_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1.json` records 38 reproducible supervising-author
+findings: 19 recovery findings, 5 final omission findings and 14 reverse/evidence-context findings. These are
+not claimed to reproduce the 19 narrative findings mentioned before the context cut. Final author-time validation
+reports zero duplicate canonical notes, duplicate reverse-audit notes, empty evidence, scope/structure escapes,
+mid-word selector boundaries, unknown capabilities, generic qualifier placeholders, FID-01 bindings, unaccounted
+units/structures or material carriers without facts. All 1,240 selected-text hashes reopen against the frozen
+Representation.
+
+This author review is explicitly non-independent. Local mechanical certification of the exact D1-v1 candidate
+is still pending, followed by materially independent big-model semantic review before any D1 freeze. Formal
+A0–A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain unfrozen, and production
+broad-Lector implementation remains unauthorized.

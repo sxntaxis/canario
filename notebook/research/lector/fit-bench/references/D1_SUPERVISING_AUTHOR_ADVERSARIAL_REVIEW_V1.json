@@ -1,0 +1,1809 @@
+{
+  "candidate_reviewed": {
+    "candidate_commit": "8f3a5e0fa0d19e80b8721fae6db3d151b4ec8902",
+    "facts_reviewed": null,
+    "reference_id": "D1_CONTEXT_LIMIT_WIP_NON_AUTHORITATIVE",
+    "runnable_builder_specs_reviewed": 328,
+    "scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+    "separate_fragment_specs_reviewed": 78,
+    "structures_reviewed": 36,
+    "units_reviewed": 61,
+    "wip_fact_count_semantics": "No valid prior reference fact count exists. The checkpoint preserved 328 runnable A(...) specs and 78 separate fragment records; overlap/revision was possible and they must not be added as a semantic baseline."
+  },
+  "findings": [
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "finding_id": "D1-SAR-0001",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0022",
+        "D1-F0023",
+        "D1-F0024",
+        "D1-F0025",
+        "D1-F0026"
+      ],
+      "replacement_notes": [
+        "El Comité Cantonal de la Persona Joven solicitó incorporar su “Campaña de emprendedurismo joven” a las actividades municipales de agosto para realizar una mini feria de emprendimientos.",
+        "El Comité Cantonal de la Persona Joven solicitó apoyo municipal para obtener el permiso del Ministerio de Salud necesario para su mini feria de emprendimientos.",
+        "El Comité Cantonal de la Persona Joven solicitó apoyo de la Cruz Roja para su mini feria de emprendimientos.",
+        "El Comité Cantonal de la Persona Joven solicitó apoyo de la Policía Municipal para su mini feria de emprendimientos.",
+        "El Concejo trasladó a la Administración la solicitud del Comité Cantonal de la Persona Joven para que colaborara en la medida de sus posibilidades."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Para conocimiento y fines consiguientes, se transcribe los siguientes acuerdos tomado por\n15   el Comité Cantonal de la Persona Joven de Esparza, según lo indicado en la sección de\n16   acuerdos, de la sesión ordinaria número 33-2026, efectuada el día martes cinco de mayo del\n17   dos mil veintiséis que indica textualmente:\n18   1. SE ACUERDA. Solicitar al Concejo Municipal, al señor alcalde Bienvenido Venegas, se\n19   nos agregue a las actividades del mes de agosto para obtener el permiso del ministerio de\n20   salud y el apoyo de la cruz roja y de la policía municipal, para realizar una mini feria de\n21   emprendimientos, actividad denomina en nuestro plan de trabajo \"Campaña de\n22   emprendedurismo joven\" ACUERDO DEFINITIVAMENTE APROBADO POR\n23   UNANIMIDAD.” Hasta aquí la transcripción de la nota.\n24   SE ACUERDA: Trasladar a la Administración la solicitud del Comité Cantonal de\n25  ",
+      "source_excerpt_scope_char_end": 10983,
+      "source_excerpt_scope_char_start": 10083,
+      "specific_reasons": [
+        "The recoverable WIP fused four independently actionable CCPJ support requests; the final draft separates municipal-program inclusion, Health permit support, Cruz Roja support and Policía Municipal support while preserving the later transfer disposition."
+      ],
+      "structure_ids": [
+        "C04"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0002",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0027",
+        "D1-F0028",
+        "D1-F0029",
+        "D1-F0030",
+        "D1-F0031",
+        "D1-F0032",
+        "D1-F0033",
+        "D1-F0034",
+        "D1-F0035",
+        "D1-F0036",
+        "D1-F0037",
+        "D1-F0038",
+        "D1-F0039",
+        "D1-F0040",
+        "D1-F0041",
+        "D1-F0042",
+        "D1-F0043",
+        "D1-F0044",
+        "D1-F0045",
+        "D1-F0046",
+        "D1-F0047",
+        "D1-F0048",
+        "D1-F0049",
+        "D1-F0050",
+        "D1-F0051",
+        "D1-F0052",
+        "D1-F0053",
+        "D1-F0054",
+        "D1-F0055",
+        "D1-F0056",
+        "D1-F0057",
+        "D1-F0058",
+        "D1-F0059",
+        "D1-F0060",
+        "D1-F0061",
+        "D1-F0062",
+        "D1-F0063",
+        "D1-F0064",
+        "D1-F0065",
+        "D1-F0066",
+        "D1-F0067",
+        "D1-F0068",
+        "D1-F0069",
+        "D1-F0070",
+        "D1-F0071",
+        "D1-F0072",
+        "D1-F0073",
+        "D1-F0074",
+        "D1-F0075",
+        "D1-F0076",
+        "D1-F0077",
+        "D1-F0078",
+        "D1-F0079",
+        "D1-F0080",
+        "D1-F0081",
+        "D1-F0082",
+        "D1-F0083",
+        "D1-F0084",
+        "D1-F0085",
+        "D1-F0086",
+        "D1-F0087",
+        "D1-F0088",
+        "D1-F0089",
+        "D1-F0090",
+        "D1-F0091",
+        "D1-F0092",
+        "D1-F0093",
+        "D1-F0094",
+        "D1-F0095",
+        "D1-F0096",
+        "D1-F0097",
+        "D1-F0098",
+        "D1-F0099",
+        "D1-F0100",
+        "D1-F0101",
+        "D1-F0102",
+        "D1-F0103",
+        "D1-F0104",
+        "D1-F0105",
+        "D1-F0106",
+        "D1-F0107",
+        "D1-F0108",
+        "D1-F0109",
+        "D1-F0110",
+        "D1-F0111",
+        "D1-F0112",
+        "D1-F0113",
+        "D1-F0114",
+        "D1-F0115",
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ],
+      "replacement_notes": [
+        "La Contraloría General indicó que recibió una denuncia digital contra la Municipalidad de Esparza por presuntas irregularidades relacionadas con la falta de apertura al público de la piscina del Polideportivo Las Tres Marías.",
+        "La Contraloría indicó que valoró los aspectos contenidos en la denuncia para atenderla.",
+        "La Contraloría indicó que solicitó información al Concejo Municipal de Esparza sobre la denuncia.",
+        "La Contraloría indicó que solicitó información al Comité de Deportes y Recreación de Esparza sobre la denuncia.",
+        "La Contraloría afirmó que el oficio SCM-015-2026 acreditaba que, en la sesión ordinaria 138-2026 del 3 de febrero de 2026, el Concejo trasladó al gestor jurídico el proyecto de reglamento para uso y administración de la piscina semiolímpica.",
+        "El oficio de la Contraloría reprodujo el criterio GJCME-023-2026 según el cual el Concejo podía pedir al CCDRE que analizara las observaciones hechas al proyecto de reglamento.",
+        "El oficio de la Contraloría reprodujo el criterio GJCME-023-2026 según el cual, por la urgencia de contar pronto con el reglamento, el Concejo podía aprobar que los cambios propuestos se incorporaran durante el proceso de publicación.",
+        "La Contraloría indicó que, en la sesión ordinaria 142-2026 del 23 de febrero de 2026, el Concejo recibió el informe GJCME-023-2026.",
+        "La Contraloría indicó que, en la sesión ordinaria 142-2026, el Concejo aprobó los cambios sugeridos por el asesor legal al proyecto de reglamento de la piscina.",
+        "La Contraloría indicó que, en la sesión ordinaria 142-2026, el Concejo solicitó incorporar al reglamento de la piscina los cambios sugeridos por el asesor legal.",
+        "La Contraloría indicó que, en la sesión ordinaria 142-2026, el Concejo solicitó tramitar la publicación del reglamento de la piscina en el Diario Oficial La Gaceta.",
+        "La Contraloría señaló que, según la respuesta SCM-015-2026, el reglamento de la piscina estaba en trámite de publicación ante el Diario Oficial La Gaceta.",
+        "La Contraloría concluyó que el Concejo había conocido el reglamento para uso y administración de la piscina semiolímpica.",
+        "La Contraloría concluyó que el Concejo había aprobado el reglamento para uso y administración de la piscina semiolímpica.",
+        "La Contraloría concluyó que la publicación del reglamento de la piscina en La Gaceta todavía no se había realizado.",
+        "La Contraloría atribuyó al Concejo Municipal la gestión de la publicación pendiente del reglamento de la piscina.",
+        "La Contraloría señaló que el reglamento era el instrumento que habilitaba el uso del inmueble de la piscina.",
+        "La Contraloría señaló que el inmueble de la piscina se había mantenido en desuso a la espera de la emisión de la normativa.",
+        "La Contraloría direccionó al Concejo Municipal la situación denunciada para que la valorara.",
+        "La Contraloría indicó que, si correspondía, el Concejo debía ejecutar las acciones que estimara pertinentes para atender la gestión dentro de sus competencias.",
+        "La Contraloría indicó que, una vez atendida la gestión, debían informarse los resultados pertinentes a las instancias que correspondieran.",
+        "La Contraloría indicó que, una vez atendida la gestión, debían informarse los resultados pertinentes a la persona denunciante en el medio señalado.",
+        "La Contraloría indicó que podía prescindirse de comunicar al denunciante los resultados o acciones finales si la denuncia no había señalado medio para recibir notificaciones.",
+        "La Contraloría indicó que podía prescindirse de comunicar a la propia Contraloría los resultados o acciones finales de la gestión.",
+        "El direccionamiento citó el artículo 11 de los lineamientos de denuncias de la Contraloría, según el cual, cuando los hechos denunciados son competencia de otra instancia, se advierte esa circunstancia a la persona denunciante.",
+        "El direccionamiento citó el artículo 11 de los lineamientos de denuncias de la Contraloría, según el cual, cuando los hechos denunciados son competencia de otra instancia, se archiva la gestión.",
+        "El oficio citó que, conforme al artículo 17 del reglamento de la Ley 8422, una gestión puede canalizarse al órgano competente cuando resulte pertinente.",
+        "La Contraloría instó a resguardar la confidencialidad en el manejo de la documentación conforme a las normas citadas de control interno y anticorrupción.",
+        "Juan Carlos Zeledón sostuvo que el Concejo había realizado oportunamente la revisión y el trabajo correspondiente sobre el reglamento de la piscina.",
+        "Juan Carlos Zeledón atribuyó el principal atraso del proceso a la publicación pendiente en la Imprenta Nacional.",
+        "Juan Carlos Zeledón propuso notificar esa explicación a la Contraloría General.",
+        "Ronald Robles afirmó que la piscina estaba operando casi todos los días en distintos horarios.",
+        "Ronald Robles indicó que el uso de la piscina se abría de manera ordenada a distintos sectores de la población.",
+        "Ronald Robles indicó que las personas interesadas podían gestionar su acceso en la oficina del Comité Cantonal de Deportes ubicada en el edificio ATM.",
+        "Ronald Robles indicó que para gestionar el uso de la piscina se llenaba un formulario.",
+        "Ronald Robles indicó que para gestionar el uso de la piscina se firmaba una hoja de descargo relacionada con accidentes.",
+        "Ronald Robles indicó que, después del registro, la persona se inscribía en los horarios disponibles para usar la piscina.",
+        "Ronald Robles señaló que existían horarios nocturnos de uso de la piscina.",
+        "Ronald Robles señaló que existían horarios para jóvenes y niños que entrenaban como atletas.",
+        "Ronald Robles sostuvo que la piscina no podía operar sin la presencia de una persona certificada.",
+        "Ronald Robles afirmó que el funcionamiento de la piscina dependía de los entrenadores.",
+        "Ronald Robles afirmó que seguían esperando la publicación de la parte legal aplicable a la piscina.",
+        "Olivier López indicó que la respuesta a la denuncia tramitada por la Contraloría debía ser lo más clara posible.",
+        "Olivier López caracterizó la operación descrita de la piscina como un plan piloto en desarrollo.",
+        "Olivier López sostuvo que, sin el reglamento respectivo, la piscina no podía ponerse en funcionamiento plenamente.",
+        "Olivier López indicó que se realizaban pruebas con ciertos grupos para revisar el mantenimiento de la piscina.",
+        "Olivier López indicó que se realizaban pruebas con ciertos grupos para revisar los horarios de la piscina.",
+        "Olivier López propuso responder a la Contraloría que el Concejo había cumplido los plazos establecidos.",
+        "Olivier López propuso responder a la Contraloría que el Concejo había realizado el trabajo de reglamentar la piscina.",
+        "Olivier López propuso responder a la Contraloría que el Concejo había enviado a publicar el reglamento de la piscina.",
+        "Olivier López propuso adjuntar al acuerdo la factura que mostrara la fecha en que se pagó a la Imprenta Nacional la primera publicación del reglamento.",
+        "Olivier López sostuvo que la factura permitiría mostrar que el atraso de la publicación correspondía a la Imprenta Nacional y no al Concejo.",
+        "Ronald Robles planteó valorar la publicación de una aclaración en la página municipal sobre las actuaciones realizadas respecto de la piscina.",
+        "Ronald Robles describió la operación de la piscina como un proceso de ensayo y error asociado a mantenerla en condiciones óptimas.",
+        "Ronald Robles afirmó que la piscina tenía una capacidad de carga limitada.",
+        "Ronald Robles afirmó que seguían esperando la publicación del reglamento antes de planificar completamente el uso de la piscina.",
+        "Ronald Robles afirmó que el proceso de ensayo y error continuaría hasta alcanzar condiciones óptimas para planificar completamente el uso de la piscina.",
+        "Flor Cubero propuso que la explicación sobre el proceso de la piscina se hiciera llegar a la comunidad y a la persona o personas denunciantes.",
+        "Flor Cubero sostuvo que el proceso de la piscina se estaba realizando correctamente y de acuerdo con la ley.",
+        "Olivier López indicó que la Contraloría podía haber decidido mantener anónima la denuncia.",
+        "Olivier López indicó que la Contraloría podía tener el nombre de la persona denunciante.",
+        "Olivier López indicó que la Auditoría Interna también había sido notificada de la denuncia y podía tener conocimiento del caso.",
+        "Olivier López sostuvo que las pruebas piloto no podían abrirse plenamente al público porque no se contaba con el reglamento respectivo.",
+        "Olivier López consideró irresponsable operar plenamente la piscina sin una reglamentación adecuada.",
+        "Olivier López indicó que el reglamento debía contemplar la responsabilidad del Comité de Deportes.",
+        "Olivier López indicó que el reglamento debía contemplar la responsabilidad de las personas usuarias de la piscina.",
+        "Olivier López indicó que el reglamento debía contemplar medidas de seguridad para el uso de la piscina.",
+        "Olivier López indicó que, mientras no existiera la reglamentación, se mantendría un plan piloto con ciertos grupos para revisar mantenimiento y funcionalidad de la piscina.",
+        "Ronald Robles afirmó que integrantes de la Asociación de Natación y del Comité Cantonal de Deportes trabajaban para poner la piscina en condiciones y brindar servicio a la comunidad.",
+        "Ronald Robles reiteró que la piscina se encontraba en pruebas y que su administración no era sencilla.",
+        "Ronald Robles afirmó que la Municipalidad estaba pagando dos millones de colones por mes para el mantenimiento y funcionamiento de la piscina.",
+        "Bienvenido Venegas afirmó que las disciplinas deportivas del complejo funcionaban a través de asociaciones deportivas.",
+        "Bienvenido Venegas sostuvo que la apertura y operación de la piscina no debía ser una decisión directa de la Municipalidad ni del Comité Cantonal de Deportes.",
+        "Bienvenido Venegas sostuvo que el camino seguido para poner en funcionamiento la piscina había sido lento, pero era el camino que correspondía.",
+        "Bienvenido Venegas afirmó que Esparza no tenía una cultura de natación comparable con otros lugares del país y que el proceso era nuevo para el cantón.",
+        "Bienvenido Venegas identificó el plan piloto como el primer paso para administrar la piscina.",
+        "Bienvenido Venegas pidió acelerar el trámite para contar con el reglamento de la piscina lo antes posible.",
+        "Bienvenido Venegas calificó la piscina como una infraestructura muy valiosa sobre la que existían grandes expectativas.",
+        "Bienvenido Venegas indicó que se esperaba que la piscina sirviera para objetivos competitivos, incluida la participación de jóvenes en Juegos Deportivos Nacionales.",
+        "Bienvenido Venegas afirmó que la primera experiencia en Juegos Deportivos Nacionales sería en 2028, cuando se realizarían en la provincia de Puntarenas.",
+        "Bienvenido Venegas indicó que también se esperaba un uso recreativo de la piscina.",
+        "Bienvenido Venegas indicó que también se contemplaban posibles usos terapéuticos y de recuperación de lesiones en la piscina.",
+        "Bienvenido Venegas afirmó que en el cantón funcionaban aproximadamente dieciséis o diecisiete asociaciones deportivas cuyos integrantes aportaban tiempo sin recibir estipendio, ingreso o dieta.",
+        "El Concejo dio por recibido el oficio 05687 (DFOE-DEC-1553) de la Contraloría General.",
+        "El Concejo acordó comunicar a la Contraloría que había cumplido los plazos establecidos respecto del reglamento de la piscina.",
+        "El Concejo acordó comunicar a la Contraloría que había realizado el trabajo de reglamentar la piscina.",
+        "El Concejo acordó comunicar a la Contraloría que había enviado a publicar el reglamento de la piscina.",
+        "El Concejo solicitó a la Secretaría adjuntar la factura que acreditara la fecha del pago a la Imprenta Nacional de la primera publicación del reglamento.",
+        "El Concejo atribuyó la falta de publicación del reglamento a un atraso de la Imprenta Nacional.",
+        "El Concejo dispuso remitir copia del asunto a la Auditoría Interna.",
+        "El Concejo dispuso remitir copia del asunto a la Contraloría de Servicios de la Municipalidad.",
+        "El Concejo pidió a la Auditoría Interna y a la Contraloría de Servicios responder a la persona denunciante si tenían conocimiento del caso."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "5- Se conoce oficio N° 05687 (DFOE-DEC-1553) de fecha 12 de mayo de 2026,\n28   dirigida a la secretaria del Concejo Municipal de Esparza, por Licda. María\n29   Alejandra Quirós García, Asistente Técnica y Jerson Masís Rodríguez Fiscalizador\n30   Asociado, Contraloría General de la República; texto que se transcribe a\n31   continuación:\n32   “Asunto: Direccionamiento de denuncia\n33   En esta Contraloría General se recibió una denuncia digital en contra de la Municipalidad\n34   de Esparza, por las presuntas irregularidades relacionadas con la falta de apertura al público\n35   de la piscina ubicada en el Polideportivo Las Tres Marías de ese cantón.\n36   Sobre el particular, es importante destacar que a efectos de atender ese requerimiento, este\n37   órgano de fiscalización superior en el ejercicio de sus competencias, llevó a cabo una\n38   valoración de los aspectos contenidos en dicho escr",
+      "source_excerpt_scope_char_end": 12038,
+      "source_excerpt_scope_char_start": 11138,
+      "specific_reasons": [
+        "The recoverable C05 material was not trustworthy as a complete semantic carrier: complaint history, CGR findings, publication status, speaker positions and the final disposition required a fresh source-order decomposition."
+      ],
+      "structure_ids": [
+        "C05"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0003",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0119",
+        "D1-F0120",
+        "D1-F0121",
+        "D1-F0122",
+        "D1-F0123",
+        "D1-F0124",
+        "D1-F0125",
+        "D1-F0126",
+        "D1-F0127",
+        "D1-F0128",
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132",
+        "D1-F0133",
+        "D1-F0134",
+        "D1-F0135",
+        "D1-F0136",
+        "D1-F0137",
+        "D1-F0138",
+        "D1-F0139"
+      ],
+      "replacement_notes": [
+        "Douglas Salazar Cortés propuso designar a la presidenta Laura Fernández Delgado hija predilecta del cantón de Esparza.",
+        "Douglas Salazar Cortés propuso entregar simbólicamente a Laura Fernández Delgado las llaves de la ciudad.",
+        "Douglas Salazar fundamentó su propuesta en que consideraba motivo de orgullo que una persona del cantón ocupara la Presidencia de la República.",
+        "Juan Carlos Zeledón indicó que ya existía un evento de reconocimiento programado para el 12 de junio y organizado con anticipación.",
+        "Fernando Villalobos afirmó que muchas personas del cantón no conocían el acuerdo previo sobre la declaratoria.",
+        "Fernando Villalobos consideró que no había habido suficiente divulgación del acuerdo previo.",
+        "Fernando Villalobos propuso publicar un comunicado municipal que identificara la sesión y la fecha en que se declaró hija predilecta a Laura Fernández Delgado.",
+        "Fernando Villalobos propuso que el comunicado municipal informara la fecha del acto oficial de reconocimiento.",
+        "Fernando Villalobos propuso informar que el homenaje sería un acto público.",
+        "Bienvenido Venegas propuso desarrollar una campaña publicitaria para invitar a la ciudadanía al acto del 12 de junio.",
+        "Bienvenido Venegas afirmó que el reconocimiento no se había realizado antes porque la agenda de Laura Fernández, entonces presidenta electa, estaba muy ajustada.",
+        "Bienvenido Venegas afirmó que se había valorado realizar el reconocimiento ocho o quince días antes de que Laura Fernández asumiera la Presidencia o efectuarlo después.",
+        "Bienvenido Venegas afirmó que finalmente se acordó con Laura Fernández efectuar el reconocimiento después de que asumiera la Presidencia.",
+        "Bienvenido Venegas afirmó que el equipo de Laura Fernández proporcionó la fecha del 12 de junio para el acto.",
+        "Juan Carlos Zeledón propuso responder por medio de la Secretaría a Douglas Salazar que ya existía un evento programado.",
+        "Juan Carlos Zeledón propuso adjuntar a la respuesta copia del acuerdo previo del Concejo.",
+        "Juan Carlos Zeledón propuso publicar en la página oficial municipal información sobre la actividad del 12 de junio.",
+        "El Concejo acordó informar a Douglas Salazar que el acuerdo respectivo ya había sido adoptado en la sesión extraordinaria del 4 de febrero de 2026, Acta 139-2026.",
+        "El Concejo acordó informar a Douglas Salazar que el acto público estaba programado para el 12 de junio.",
+        "El Concejo solicitó a la Administración publicar en la página oficial municipal información sobre la actividad del 12 de junio.",
+        "El Concejo dispuso adjuntar copia del acuerdo previo a la comunicación dirigida a Douglas Salazar."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "6- Se conoce nota de fecha 04 de mayo de 2026, dirigida al Concejo Municipal de\n51   Esparza, por el MSc. Douglas Salazar Cortés; texto que se transcribe a\n52   continuación:\n\f 1   “El suscrito, Douglas Salazar Cortés, con cédula de identidad número 603680744, Máster\n 2   en Relaciones Internacionales & Diplomacia, les envía un cordial saludo y nuestros mayores\n 3   deseos de éxito tanto en lo personal como en lo profesional.\n 4   Por este medio, le propongo a este honorable Consejo Municipal tomar el siguiente acuerdo:\n 5   - Designar a la Presidenta de la República Laura Fernández Delgado como hija predilecta\n 6   del Cantón de Esparza y hacer la entrega simbólica de las llaves de la Ciudad como se estila\n 7   para este tipo de actos.\n 8   Lo anterior, considerando que debe ser motivo de orgullo para todos los esparzanos que un\n 9   ciudadano de nuestro Cantón ocupe el cargo público de",
+      "source_excerpt_scope_char_end": 30665,
+      "source_excerpt_scope_char_start": 29765,
+      "specific_reasons": [
+        "C06 contained evidence/context drift around the prior declaration and publication discussion; the final facts were re-authored from the frozen carrier rather than patched by lexical similarity."
+      ],
+      "structure_ids": [
+        "C06"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0004",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0140",
+        "D1-F0141",
+        "D1-F0142",
+        "D1-F0143",
+        "D1-F0144",
+        "D1-F0145",
+        "D1-F0146",
+        "D1-F0147",
+        "D1-F0148"
+      ],
+      "replacement_notes": [
+        "El Club de Leones de Esparza afirmó que mantenía desde años anteriores alianzas con la Municipalidad para una campaña de prevención de cáncer de colon y medicina biológica dirigida a habitantes interesados en su salud.",
+        "El Club de Leones solicitó la Sala de Sesiones municipal para el 27 de mayo a las 10:00 con el fin de iniciar una charla e informar sobre la campaña de salud.",
+        "Flor Cubero indicó que el doctor Con Wong impartiría una charla de preparación para la campaña.",
+        "Flor Cubero indicó que la charla estaría abierta a todas las personas que desearan asistir.",
+        "Flor Cubero indicó que, a partir de la charla, las personas decidirían si participar en la campaña.",
+        "Flor Cubero afirmó que la campaña ofrecía precios muy cómodos.",
+        "Flor Cubero invitó a la ciudadanía a la charla del 27 de mayo a las 10:00, condicionada a la autorización de uso de la Sala de Sesiones.",
+        "El Concejo aprobó el préstamo de la Sala de Sesiones para una charla sobre cáncer de colon el 27 de mayo a las 10:00 solicitada por el Club de Leones de Esparza.",
+        "El Concejo trasladó a la Administración el acuerdo sobre el préstamo de la Sala de Sesiones para lo que correspondiera."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "7- Se conoce nota de fecha 08 de mayo de 2026, dirigida al Concejo Municipal de\n54   Esparza, por el Club de Leones de Esparza; texto que se transcribe a continuación:\n\f 1   “La Municipalidad de Esparza y el Club de Leones de Esparza desde años anteriores realiza\n 2   Alianzas en conjunto con la finalidad de brindar a los habitantes del cantón interesados en\n 3   su salud “La campaña de Prevención de cáncer de cuolum y medicina biológica por movida\n 4   por el Lic. Mario Li y el Dr. Gil Reynaldo Con Wong.\n 5   Para ese fin solicitamos la sala de sesiones el día 27 de mayo a las 10 am para iniciar con la\n 6   charla e información del proceso mencionado.” Hasta aquí la transcripción de la\n 7   nota.\n 8   Regidora Flor María Cubero Martínez: Ahí se está solicitando la sala, ya que el\n 9   doctor Con Won viene a impartir la charla de preparación. Siempre se ha utilizado\n10   esta sala para d",
+      "source_excerpt_scope_char_end": 34880,
+      "source_excerpt_scope_char_start": 33980,
+      "specific_reasons": [
+        "C07 was re-authored because the WIP did not preserve a sufficiently decomposed request, event-purpose and disposition sequence."
+      ],
+      "structure_ids": [
+        "C07"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0005",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0165",
+        "D1-F0166",
+        "D1-F0167",
+        "D1-F0168",
+        "D1-F0169",
+        "D1-F0170",
+        "D1-F0171",
+        "D1-F0172",
+        "D1-F0173",
+        "D1-F0174"
+      ],
+      "replacement_notes": [
+        "El Consejo Económico de la Iglesia La Riviera solicitó permiso de uso de vías para las festividades de la Virgen Inmaculada Concepción.",
+        "El Consejo Económico de la Iglesia La Riviera solicitó el préstamo de una tarima para las festividades de la Virgen Inmaculada Concepción.",
+        "El Consejo Económico de la Iglesia La Riviera solicitó el préstamo de toldos para las festividades de la Virgen Inmaculada Concepción.",
+        "El Consejo Económico de la Iglesia La Riviera solicitó vallas para mantener el orden durante las festividades de la Virgen Inmaculada Concepción.",
+        "Las festividades de la Virgen Inmaculada Concepción en La Riviera fueron programadas del 6 al 8 de diciembre del presente año.",
+        "La organización indicó que las fechas se escogieron procurando no interferir con la programación de la Esparzaneidad.",
+        "La programación anunciada incluía actividades religiosas, un segundo desfile navideño, noche cultural, bingo y bailes populares en la zona de festejos junto a la iglesia.",
+        "El Concejo trasladó a la Administración la solicitud de La Riviera para que otorgara el permiso de uso de vías durante las festividades del 6 al 8 de diciembre.",
+        "El Concejo trasladó a la Administración la solicitud de La Riviera para que otorgara el préstamo de tarima durante las festividades del 6 al 8 de diciembre.",
+        "El Concejo pidió que cualquier otra colaboración requerida para las festividades de La Riviera se brindara en la medida de las posibilidades administrativas."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "10- Se conoce nota de fecha 13 de mayo de 2026, dirigida al Concejo Municipal\n36   de Esparza, por el Consejo Económico Iglesia La Riviera; texto que se transcribe\n37   a continuación:\n38   “Asunto: Solicitud de uso de vías, préstamo de tarima, toldos y vayas para la festividad de\n39   La Virgen Inmaculada Concepción de María, en La Riviera.\n40   Respetuosamente nos dirigimos a ustedes en representación del comité de fiestas patronales\n41   de la comunidad de la Riviera de Esparza, con el fin de solicitar su valioso apoyo mediante\n42   los permisos necesario como el uso de vías y el préstamo de la tarima para los diferentes\n43   eventos que realizaremos como parte de las celebraciones en honor a nuestra patrona la\n44   Virgen Inmaculada Concepción de María, además de toldos y vallas para mantener el orden\n45   de las diferentes actividades programadas.\n46   En el marco de esta celebració",
+      "source_excerpt_scope_char_end": 41724,
+      "source_excerpt_scope_char_start": 40824,
+      "specific_reasons": [
+        "C10 was re-authored to keep the roadway-use request, logistics and municipal disposition as distinct observable assertions."
+      ],
+      "structure_ids": [
+        "C10"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0006",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0183",
+        "D1-F0184",
+        "D1-F0185",
+        "D1-F0186",
+        "D1-F0187",
+        "D1-F0188",
+        "D1-F0189",
+        "D1-F0190",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0193",
+        "D1-F0194",
+        "D1-F0195",
+        "D1-F0196"
+      ],
+      "replacement_notes": [
+        "La Dirección de Patrimonio Cultural acusó recibo del oficio SM-275-2026, que contenía el acuerdo municipal para que Esparza fuera considerado sede de una próxima edición del Festival Nacional de Folclore de Costa Rica.",
+        "La Dirección de Patrimonio Cultural solicitó que la Municipalidad remitiera el nombre de una persona enlace para coordinar el evento.",
+        "Juan Carlos Zeledón explicó que el asunto provenía de la solicitud para considerar a Esparza como sede de una próxima edición del Festival Nacional de Folclore.",
+        "Christian Tercero afirmó que se realizaría el primer Festival Nacional de Folclore de Costa Rica.",
+        "Christian Tercero sostuvo que el Festival Nacional de Folclore posicionaría a Esparza a nivel nacional.",
+        "Christian Tercero sostuvo que el Festival Nacional de Folclore posiblemente posicionaría a Esparza a nivel internacional.",
+        "Christian Tercero consideró que el Festival Nacional de Folclore representaba una oportunidad para reactivar la economía del cantón.",
+        "Christian Tercero consideró que el Festival Nacional de Folclore representaba una oportunidad para fortalecer la dimensión social y cultural de Esparza.",
+        "Juan Carlos Zeledón indicó que la nota requería remitir el nombre de una persona enlace para coordinar el evento en Esparza.",
+        "Juan Carlos Zeledón indicó que correspondía realizar el nombramiento de la persona enlace.",
+        "Juan Carlos Zeledón aclaró que la nota no exigía que la persona enlace perteneciera a la Administración municipal.",
+        "Ronald Robles propuso a Christian Tercero como enlace por su conocimiento musical y por haber presentado la moción sobre el tema.",
+        "Al no existir más postulaciones, Christian Tercero fue designado como enlace para coordinar la actividad.",
+        "El Concejo designó a Christian Tercero Carvajal como enlace municipal para coordinar el Festival Nacional de Folclore."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "12- Se conoce nota vía correo electrónico enviada el 11 de mayo de 2026, al\n39   Concejo Municipal de Esparza, por la señora Paola Salazar Arce, Jefa de\n40   Patrimonio Cultural Inmaterial, Dirección de Patrimonio Cultural; texto que se\n41   transcribe a continuación:\n42   “Reciba un cordial saludo.\n43   Por este medio se acusa recibo del oficio SM-275-2026, mediante el cual se remite el\n44   acuerdo adoptado por el Concejo Municipal de Esparza, relacionado con la solicitud para\n45   que dicho cantón sea considerado como sede de una próxima edición del Festival Nacional\n46   de Folclore de Costa Rica.\n47   Agradecemos el interés y la disposición de esa Municipalidad para coordinar y colaborar en\n48   iniciativas orientadas a la promoción y fortalecimiento del patrimonio cultural del país.\n49   Favor remitir la persona enlace con quién coordinar este evento.\n50   A la espera de su valiosa",
+      "source_excerpt_scope_char_end": 46097,
+      "source_excerpt_scope_char_start": 45197,
+      "specific_reasons": [
+        "C12 was re-authored because correspondence attribution, event details and the ensuing municipal discussion were not reliably aligned to local evidence in the WIP."
+      ],
+      "structure_ids": [
+        "C12"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0007",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0321",
+        "D1-F0322",
+        "D1-F0323",
+        "D1-F0324",
+        "D1-F0325",
+        "D1-F0326",
+        "D1-F0327"
+      ],
+      "replacement_notes": [
+        "La Escuela El Mojón solicitó el préstamo de veinte vallas publicitarias para un campeonato de fútbol programado para el 22 de mayo.",
+        "La Escuela El Mojón indicó que las vallas se usarían para promover actividades comunitarias y recreativas.",
+        "La Escuela El Mojón indicó que las vallas se usarían para concientizar sobre la importancia del bienestar psicológico.",
+        "La Escuela El Mojón se comprometió a devolver las vallas en perfectas condiciones una vez finalizado el evento.",
+        "El Concejo dio por recibida la nota de la Escuela El Mojón.",
+        "El Concejo trasladó a la Administración la solicitud para que valorara la posibilidad de prestar las vallas dentro de sus posibilidades.",
+        "El Concejo incluyó en el traslado la coordinación de transporte en caso de ser requerido."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "3- La síndica suplente Heidi Hidalgo Madrigal le da lectura la nota DREP-SCE08-\n17   EEM-055-05-2026 de fecha 14 de mayo de 2026, dirigida al Concejo Municipal de\n18   Esparza, por la MSc. Ercilia Obando Gómez, Directora de la Escuela El Mojón; que\n19   dice:\n20   “Asunto: Solicitud de préstamo de 20 vallas para actividad deportiva\n21   Por medio de la presente, me dirijo a ustedes con el propósito de solicitar el préstamo de 20\n22   vallas publicitarias para la realización de un campeonato de fútbol, programado para el\n23   próximo 22 de mayo.\n24   Las vallas serán empleadas para la promoción de actividades comunitarias y recreativas, así\n25   como para la concientización sobre la importancia del bienestar psicológico. Nos\n26   comprometemos a devolver el material en perfectas condiciones una vez finalizado el\n27   evento.\n28   Agradecemos de antemano su atención y apoyo, y quedamos ate",
+      "source_excerpt_scope_char_end": 79869,
+      "source_excerpt_scope_char_start": 78969,
+      "specific_reasons": [
+        "U03 had shifted evidence around the requested 20 barriers and transport support; it was rebuilt against the exact source carrier."
+      ],
+      "structure_ids": [
+        "U03"
+      ]
+    },
+    {
+      "action": "SOURCE_EXHAUSTIVE_REWRITE",
+      "finding_id": "D1-SAR-0008",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0498",
+        "D1-F0499",
+        "D1-F0500",
+        "D1-F0501",
+        "D1-F0502",
+        "D1-F0503",
+        "D1-F0504",
+        "D1-F0505",
+        "D1-F0506",
+        "D1-F0507",
+        "D1-F0508",
+        "D1-F0509",
+        "D1-F0510",
+        "D1-F0511",
+        "D1-F0512",
+        "D1-F0513",
+        "D1-F0514",
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ],
+      "replacement_notes": [
+        "La nota AME-GDHL-011-2026 recordó que las juntas educativas, una vez notificadas por la Municipalidad, deben presupuestar los recursos asignados conforme a la legislación vigente.",
+        "Gestión de Desarrollo Humano Local indicó que las juntas deben elaborar planes anuales de inversión de los recursos asignados.",
+        "Gestión de Desarrollo Humano Local indicó que las juntas deben remitir sus planes anuales de inversión a Gestión de Desarrollo Humano Local antes del 15 de mayo.",
+        "Gestión de Desarrollo Humano Local informó que al 15 de mayo había recibido proyectos de veinticinco centros educativos enumerados en la nota.",
+        "Gestión de Desarrollo Humano Local informó que diez centros educativos enumerados en la nota no habían presentado sus proyectos al 15 de mayo.",
+        "Bienvenido Venegas recomendó extender hasta el 15 de junio el plazo para que los centros educativos pudieran ponerse al día.",
+        "Bienvenido Venegas indicó que la prórroga buscaba permitir que las instituciones pudieran beneficiarse de los recursos asignados.",
+        "Bienvenido Venegas indicó que la solicitud de prórroga había sido remitida por Gestión de Desarrollo Humano Local.",
+        "Tras el receso, el Concejo acordó trasladar nuevamente el oficio AME-GDHL-011-2026 a la Administración.",
+        "El Concejo acordó solicitar un criterio jurídico de los abogados de la Administración sobre la prórroga solicitada.",
+        "Fernando Villalobos propuso instar a los dos supervisores de los dos circuitos educativos de Esparza a hacer llegar la información correspondiente a los centros.",
+        "Fernando Villalobos propuso adjuntar a los supervisores el reglamento y la documentación necesaria para dar seguimiento al cumplimiento del requisito por los centros educativos.",
+        "Fernando Villalobos afirmó que el cumplimiento debía realizarse antes del 15 de mayo.",
+        "Fernando Villalobos afirmó que los centros educativos que no presentaran la documentación antes del 15 de mayo no podrían acceder a los recursos.",
+        "Fernando Villalobos afirmó que el reglamento estaba vigente desde 2016.",
+        "La Presidencia indicó que se remitiría copia del documento a todos los síndicos.",
+        "El Concejo acordó trasladar nuevamente el oficio AME-GDHL-011-2026 a la Administración para solicitar criterio jurídico sobre la prórroga.",
+        "El Concejo acordó que la Administración hiciera llegar la información correspondiente a los dos supervisores de los dos circuitos educativos de Esparza.",
+        "El Concejo acordó que a los supervisores se les adjuntara el reglamento y la documentación necesaria.",
+        "El Concejo indicó que el envío a los supervisores tenía por finalidad dar seguimiento al cumplimiento del requisito por los centros educativos.",
+        "El Concejo afirmó que el requisito debía cumplirse antes del 15 de mayo.",
+        "El Concejo afirmó que los centros educativos que no presentaran la documentación antes del 15 de mayo no podrían acceder a los recursos.",
+        "El Concejo acordó remitir copia del documento a todos los síndicos."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "1- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n18   363-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza,\n19   donde remite la nota AME-GDHL-011-2026 suscrita por el Lic. Cristian Carvajal\n20   Chaves, Gestor Desarrollo Humano Local; que dice:\n21   “En relación con el Reglamento para la Asignación de Recursos a las Juntas de Educación,\n22   Juntas Administrativas y Comedores Escolares, conforme a lo dispuesto en la Ley N.° 5582,\n23   específicamente en el Capítulo IV, artículo 12, referente al uso de los recursos y los\n24   controles de los planes anuales, se establece que:\n25   “Las Juntas, una vez recibida la notificación por parte de la Municipalidad, deberán\n26   presupuestar los recursos de conformidad con la legislación vigente para estos efectos. Por\n27   tal razón, deberán realizar planes anuales de inversión de los recur",
+      "source_excerpt_scope_char_end": 119814,
+      "source_excerpt_scope_char_start": 118914,
+      "specific_reasons": [
+        "M01 was only partly recoverable and mixed request, legal-review, education-supervisor and deadline assertions; it was rebuilt source-first."
+      ],
+      "structure_ids": [
+        "M01"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0009",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0521",
+        "D1-F0522",
+        "D1-F0523",
+        "D1-F0524",
+        "D1-F0525",
+        "D1-F0526",
+        "D1-F0527",
+        "D1-F0528",
+        "D1-F0529",
+        "D1-F0530",
+        "D1-F0531",
+        "D1-F0532",
+        "D1-F0533",
+        "D1-F0534",
+        "D1-F0535",
+        "D1-F0536",
+        "D1-F0537",
+        "D1-F0538",
+        "D1-F0539",
+        "D1-F0540",
+        "D1-F0541",
+        "D1-F0542",
+        "D1-F0543",
+        "D1-F0544",
+        "D1-F0545",
+        "D1-F0546",
+        "D1-F0547",
+        "D1-F0548",
+        "D1-F0549",
+        "D1-F0550",
+        "D1-F0551",
+        "D1-F0552",
+        "D1-F0553",
+        "D1-F0554",
+        "D1-F0555",
+        "D1-F0556",
+        "D1-F0557",
+        "D1-F0558",
+        "D1-F0559",
+        "D1-F0560",
+        "D1-F0561",
+        "D1-F0562",
+        "D1-F0563",
+        "D1-F0564",
+        "D1-F0565",
+        "D1-F0566",
+        "D1-F0567",
+        "D1-F0568",
+        "D1-F0569",
+        "D1-F0570",
+        "D1-F0571",
+        "D1-F0572",
+        "D1-F0573",
+        "D1-F0574",
+        "D1-F0575",
+        "D1-F0576",
+        "D1-F0577"
+      ],
+      "replacement_notes": [
+        "La Alcaldía informó que la última contratación de apoyo a la Auditoría Interna se realizó mediante la Licitación Reducida 2023LD-000012-0004700001 bajo modalidad según demanda.",
+        "La Alcaldía citó el oficio GJ-AM-006-2023, según el cual una necesidad permanente de la actividad ordinaria de Auditoría no podía satisfacerse mediante contratación pública diseñada para necesidades transitorias u ocasionales.",
+        "La Alcaldía informó que no autorizó la prórroga del contrato 0432023001600025-00 con Fanny Maritza Segura Castro porque no estaba claro si las labores contratadas correspondían a actividad ordinaria de la Auditoría.",
+        "La Alcaldía informó que, mediante decisión inicial del 17 de septiembre de 2025, la Auditoría Interna solicitó autorización para una nueva contratación de servicios profesionales de apoyo y colaboración bajo modalidad según demanda.",
+        "La Alcaldía indicó que la decisión inicial justificaba la contratación por falta de personal en la Auditoría Interna.",
+        "La Alcaldía indicó que la decisión inicial justificaba la contratación por la necesidad de cubrir el Plan de Trabajo Anual de la Auditoría Interna.",
+        "La Alcaldía sostuvo que el objeto de la contratación presentaba limitaciones que debían corregirse.",
+        "La Alcaldía sostuvo que la decisión inicial era inconsistente porque reconocía necesidad de especialistas en diversas áreas pero limitaba el perfil de contratación a un solo tipo de profesional.",
+        "La Alcaldía sostuvo que la justificación debía explicar por qué el objeto se definía con perfiles de Contaduría Pública, Administración con énfasis en Contaduría o una maestría en Finanzas.",
+        "La Alcaldía señaló que la propia decisión justificaba la necesidad por carencia de personal suficiente y especialistas en auditoría, riesgos, tecnologías de información, derecho e ingeniería, entre otras áreas.",
+        "La Alcaldía señaló que responsabilidades de la Auditoría como atención de denuncias, análisis de notitia criminis y estudios técnicos de ingeniería civil requerían conocimientos especializados diversos.",
+        "La Alcaldía sostuvo que limitar la contratación a un perfil de contador o administrador contradecía la justificación técnica.",
+        "La Alcaldía sostuvo que la limitación resultaba especialmente contradictoria porque el personal actual de Auditoría ya poseía ese perfil profesional.",
+        "La Alcaldía informó que rechazó la decisión inicial en cumplimiento del acuerdo del Concejo contenido en el Acta 114-2025 del 6 de octubre de 2025.",
+        "La Alcaldía informó que el Concejo consultó a la Contraloría si la contratación externa de apoyo a auditorías internas municipales debía limitarse a necesidades ocasionales y transitorias o podía tener naturaleza permanente.",
+        "La Alcaldía informó que el Concejo consultó a la Contraloría si una municipalidad podía contratar profesionales externos para ejecutar labores ordinarias y permanentes de Auditoría Interna debido a una supuesta insuficiencia de personal en plazas presupuestadas.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239 de la Contraloría, según el cual existen estudios especializados de auditoría interna que pueden requerir perfiles profesionales distintos del auditor, por ejemplo en tecnologías de información, ambiente o derecho.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239, según el cual la contratación externa no sustituye las responsabilidades del Auditor Interno como encargado de su unidad.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239, según el cual la contratación externa no permite delegar funciones sustantivas del Auditor Interno.",
+        "La Alcaldía citó como ejemplos de funciones no delegables la elaboración del plan de trabajo, la atención de denuncias propias de auditoría, propuestas de plazas o perfiles y la emisión de advertencias.",
+        "La Alcaldía afirmó que su objetivo prioritario había sido dotar a la Auditoría de instrumentos e insumos necesarios para su labor de fiscalización.",
+        "La Alcaldía informó que ofreció en varias ocasiones el nombramiento interino de dos profesionales para ocupar plazas vacantes de la Auditoría.",
+        "La Alcaldía indicó que los nombramientos interinos se ofrecieron mientras se resolvía el recurso de apelación del último concurso externo.",
+        "La Alcaldía afirmó que el Auditor había rechazado esa colaboración.",
+        "La Alcaldía afirmó que el Auditor había declinado reintegrar a una funcionaria institucional que ya había ocupado una de las plazas durante un año.",
+        "La Alcaldía sostuvo que esas actuaciones evidenciaban que no obstaculizaba la labor de la Auditoría Interna.",
+        "La Alcaldía indicó que el Auditor podía volver a tramitar una solicitud de contratación de servicios profesionales de apoyo cuando lo estimara pertinente.",
+        "La Alcaldía indicó que una futura solicitud debía ajustarse estrictamente a las observaciones técnicas de la Contraloría General.",
+        "La Alcaldía indicó que una futura solicitud debía contar con aval formal del Concejo Municipal como superior jerárquico.",
+        "La Alcaldía recomendó al Concejo notificar formalmente al Auditor el oficio DFOE-LOC-0239 si aún no lo había hecho.",
+        "La Alcaldía recomendó instruir expresamente al Auditor para que cualquier requerimiento futuro de servicios de apoyo cumpliera los lineamientos del oficio DFOE-LOC-0239.",
+        "Bienvenido Venegas afirmó que las solicitudes del Auditor sobre este asunto habían sido reiterativas ante el Concejo.",
+        "Bienvenido Venegas afirmó que la Contraloría permitía contrataciones por demanda según necesidades de Auditoría siempre que no fueran labores ordinarias propias del departamento.",
+        "Bienvenido Venegas sostuvo que el trabajo ordinario debía ser ejecutado por el Auditor y el personal a su cargo.",
+        "Bienvenido Venegas sostuvo que las contrataciones externas procedían únicamente para trabajos especializados en áreas donde la Auditoría no contaba con profesionales especializados.",
+        "Bienvenido Venegas mencionó como ejemplos tecnologías de información, operación, ingeniería, servicios públicos y gestión vial.",
+        "Bienvenido Venegas afirmó que el Auditor insistía en contratar a una persona que había estado vinculada anteriormente con la Municipalidad de Esparza.",
+        "Bienvenido Venegas afirmó que a esa persona se le había pagado más de cien millones de colones durante el tiempo que prestó servicios en la Municipalidad.",
+        "Bienvenido Venegas consideró que no correspondía aceptar nuevamente la solicitud del Auditor de contratar servicios externos después del criterio de la Contraloría sobre cuándo procedían esas contrataciones.",
+        "Bienvenido Venegas solicitó al Concejo remitir nuevamente al Auditor el documento emitido por la Contraloría.",
+        "Bienvenido Venegas sostuvo que el Auditor debía revisar el documento y, en adelante, apegarse a los lineamientos del órgano contralor.",
+        "Bienvenido Venegas reiteró que las dos plazas disponibles se habían ofrecido repetidamente al Auditor.",
+        "Bienvenido Venegas indicó que se había informado al Auditor que podía nombrar interinamente a personas participantes del concurso anterior.",
+        "Bienvenido Venegas informó que no era posible realizar un nuevo concurso porque el proceso anterior estaba judicializado por un recurso y se encontraba ante los tribunales.",
+        "Bienvenido Venegas afirmó que la Municipalidad no podía abrir un nuevo concurso mientras no existiera una resolución judicial.",
+        "Bienvenido Venegas afirmó que se había indicado al Auditor, en varias ocasiones y por escrito, que podía usar interinamente las plazas con personas del concurso que cumplieran los requisitos legales.",
+        "Bienvenido Venegas afirmó que existían personas con experiencia suficiente para apoyar el trabajo de Auditoría.",
+        "Bienvenido Venegas sostuvo que la Administración no se había negado a colaborar ni a brindar facilidades para el trabajo de la Auditoría.",
+        "Bienvenido Venegas aclaró que las personas mencionadas no eran funcionarios actuales de la Municipalidad.",
+        "Bienvenido Venegas recordó que el concurso externo había sido impugnado mediante un recurso presentado por una persona participante.",
+        "Bienvenido Venegas reiteró que el caso estaba en la vía jurisdiccional y que no podía abrirse un nuevo concurso hasta una resolución definitiva.",
+        "Bienvenido Venegas indicó que el Auditor podía disponer interinamente de las plazas si las requería.",
+        "Bienvenido Venegas afirmó que la posibilidad de utilizar interinamente las plazas con personas participantes del concurso se había comunicado por escrito al Auditor en varias oportunidades y se reiteraba en la nota.",
+        "Bienvenido Venegas indicó que el Auditor podía utilizar a las mismas personas del concurso que cumplieran los requisitos legales.",
+        "Bienvenido Venegas afirmó que hasta ese momento no había sido posible concretar esa solución interina.",
+        "El Concejo dio por recibida la nota AME-300-2026 de la Alcaldía.",
+        "El Concejo trasladó la nota AME-300-2026 a la Auditoría para su conocimiento."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "2- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n47   300-2026 de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de Esparza;\n48   que dice:\n49   “En relación con el acuerdo tomado en el acta No. 156-2026 de la sesión ordinaria efectuada\n50   el 27 de abril de 2026, artículo III, inciso 1, seguidamente se hará un resumen de las\n51   actuaciones, tanto de esta Alcaldía como del Concejo, en torno a la contratación de los\n52   servicios de coadyuvancia y apoyo que requiere la Auditoría Interna:\n53   1.      La última contratación de este servicio se realizó mediante la Licitación Reducida\n54           No. 2023LD-000012-0004700001 (apoyo a la Auditoría Interna según demanda).\n\f 1        En el expediente respectivo se encuentra el oficio GJ-AM-006-2023, emitido por la\n 2        Asesoría Legal de la Comisión de Recomendación de Adjudicación, que en sus\n 3",
+      "source_excerpt_scope_char_end": 124673,
+      "source_excerpt_scope_char_start": 123773,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for M02; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "M02"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0010",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0578",
+        "D1-F0579",
+        "D1-F0580",
+        "D1-F0581",
+        "D1-F0582",
+        "D1-F0583",
+        "D1-F0584",
+        "D1-F0585",
+        "D1-F0586",
+        "D1-F0587",
+        "D1-F0588",
+        "D1-F0589",
+        "D1-F0590",
+        "D1-F0591",
+        "D1-F0592",
+        "D1-F0593",
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "replacement_notes": [
+        "La Unidad de Zona Litoral informó que se realizó un nuevo avalúo para rectificar el canon de un permiso de uso de suelo a título precario de Natalia Araya Freeman en el predio GIS 06 064 021 00, PSI 900140.",
+        "La nota indicó que, con la vigencia del reglamento publicado el 31 de enero de 2024, la Municipalidad empezó a regularizar predios de la Zona Litoral en aplicación de la Ley 10236.",
+        "La nota indicó que Natalia Araya Freeman regularizó el permiso mediante el acuerdo del Acta 72-2025 de la sesión ordinaria del 24 de marzo de 2025.",
+        "La nota indicó que ese acuerdo fue notificado el 26 de marzo del año referido por la fuente.",
+        "La nota indicó que la permisionaria solicitó una nueva valoración del permiso de uso de suelo en marzo del año referido por la fuente.",
+        "La nota indicó que el avalúo GFC-AT-V-AVM-ZL-032-2026, del 11 de mayo de 2026, se realizó con uso habitacional para el permiso precario.",
+        "La analista recomendó mantener el otorgamiento del permiso precario conforme al acuerdo del Acta 72-2025 del 24 de marzo de 2025.",
+        "La analista recomendó modificar el canon anual conforme al avalúo GFC-AT-V-AVM-ZL-032-2026 de uso habitacional a ₡362 277,11.",
+        "La analista recomendó que, una vez aprobada la propuesta, se tuviera por notificado el avalúo GFC-AT-V-AVM-ZL-032-2026.",
+        "La analista indicó que, según el artículo 19 de la Ley 7905, desde la notificación del avalúo se disponía de quince días hábiles para presentar recurso de revocatoria ante la oficina de valoraciones municipal.",
+        "La analista indicó que la oficina de valoraciones debía resolver el recurso en un plazo máximo de quince días hábiles.",
+        "La analista indicó que, si el recurso de revocatoria fuera declarado sin lugar, el sujeto pasivo podía presentar recurso de apelación ante el Concejo Municipal.",
+        "La analista recomendó notificar a Natalia Araya Freeman la decisión sobre el permiso y avalúo.",
+        "La analista recomendó remitir copia a la Unidad de Zona Litoral para incorporarla al expediente administrativo.",
+        "El Concejo aprobó por unanimidad y en firme dispensar del trámite de comisión la propuesta relativa al permiso de uso de suelo a título precario de Natalia Araya Freeman, conforme al artículo 44 del Código Municipal.",
+        "El Concejo acordó acoger el criterio técnico y las recomendaciones de la analista de Zona Litoral contenidas en GOT-ZLMT-130-2026.",
+        "El Concejo acordó mantener el permiso de uso de suelo a título precario conforme al acuerdo del Acta 72-2025 del 24 de marzo de 2025.",
+        "El Concejo acordó modificar el canon anual conforme al avalúo GFC-AT-V-AVM-ZL-032-2026 de uso habitacional a ₡362 277,11.",
+        "El Concejo acordó dar por notificado el avalúo GFC-AT-V-AVM-ZL-032-2026.",
+        "El Concejo consignó que, según el artículo 19 de la Ley 7905, desde la notificación se disponía de quince días hábiles para presentar recurso de revocatoria ante la oficina de valoraciones municipal.",
+        "El Concejo consignó que la oficina de valoraciones debía resolver el recurso en un plazo máximo de quince días hábiles.",
+        "El Concejo consignó que, si el recurso de revocatoria fuera declarado sin lugar, el sujeto pasivo podía apelar ante el Concejo Municipal.",
+        "El Concejo acordó notificar a Natalia Araya Freeman sobre el trámite relativo a su permiso de uso de suelo a título precario.",
+        "El Concejo trasladó a la Administración el trámite relativo al permiso de uso de suelo a título precario de Natalia Araya Freeman."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "3- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n47   358-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza,\n48   donde remite la nota GOT-ZLMT-130-2026 suscrita por la Licda. Mariela Cruz\n49   Pérez, Analista Profesional de Zona Litoral y Marítimo Terrestre; que dice:\n50   “Con respecto al Permiso de Uso de Suelo a título precario en Zona Litoral en donde el\n51   actual permisionario es la señora Natalia Araya Freeman, costarricense, cédula de\n52   identidad 6 0354 0582, casada, docente, con domicilio en Mata de Limón norte, por medio\n53   de la presente se realiza un nuevo avaluó para la rectificación del monto del canon\n\f 1   correspondiente al permiso de uso de suelo, del predio GIS 06 064 021 00, PSI 900140, de\n 2   acuerdo a lo siguiente:\n 3   Resultando\n 4   Primero: La Municipalidad de Esparza, con la entrada en vigencia del",
+      "source_excerpt_scope_char_end": 137921,
+      "source_excerpt_scope_char_start": 137021,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for M03; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "M03"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0011",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0602",
+        "D1-F0603",
+        "D1-F0604",
+        "D1-F0605",
+        "D1-F0606"
+      ],
+      "replacement_notes": [
+        "La Alcaldía remitió al Concejo el oficio GV-059-2026 del Gestor Vial interino para su conocimiento.",
+        "La Alcaldía solicitó trasladar la respuesta a la síndica Karen González en cumplimiento del documento SM-401-2026.",
+        "El Concejo dio por recibidas las notas AME-361-2026 y GV-059-2026.",
+        "El Concejo remitió copia de la respuesta a la síndica Karen González.",
+        "El Concejo remitió copia de la respuesta al Concejo de Distrito de San Jerónimo."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "4- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n 7   361-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza,\n 8   donde remite la nota suscrita por el Gestor Vial a.i.; que dice:\n 9   “Para conocimiento del Concejo Municipal, se remite el oficio GV-059-2026.\n10   Adicionalmente, se solicita trasladar la respuesta a la síndica Karen González, cumpliendo\n11   con lo solicitado en el documento SM-401-2026.En espera de su atención, quedo a sus\n12   gratas órdenes.” Hasta aquí la transcripción de la nota.\n13   SE ACUERDA: Dar por recibida la nota AME-361-2026 de la Alcaldía y la nota GV-\n14   059-2026 el Gestor Vial a.i. y se le remite copia a la síndica Karen González y al\n15   Concejo de Distrito San Jerónimo.",
+      "source_excerpt_scope_char_end": 142824,
+      "source_excerpt_scope_char_start": 142052,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for M04; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "M04"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0012",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0607",
+        "D1-F0608"
+      ],
+      "replacement_notes": [
+        "La Alcaldía informó al Concejo que había respondido a Daniel Lostalo Chacón en cumplimiento del acuerdo SM-399-2026 sobre su solicitud de información y revisión de un aumento en impuestos municipales de su propiedad.",
+        "El Concejo dio por conocida la nota AME-362-2026 de la Alcaldía."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "5- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n18   362-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza;\n19   que dice:\n20   “Para conocimiento del Concejo Municipal, se informa que se brindó respuesta al señor\n21   Daniel Lostalo Chacón en cumplimiento de lo solicitado en el acuerdo SM-399-2026,\n22   referente al asunto Solicitud de información y revisión sobre aumento en impuestos\n23   municipales de mi propiedad. Se junta el documento correspondiente para su estimable\n24   constancia.” Hasta aquí la transcripción de la nota.\n25   SE ACUERDA: Dar por conocida la nota AME-362-2026 de la Alcaldía.",
+      "source_excerpt_scope_char_end": 143563,
+      "source_excerpt_scope_char_start": 142899,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for M05; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "M05"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0013",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0609",
+        "D1-F0610",
+        "D1-F0611",
+        "D1-F0612"
+      ],
+      "replacement_notes": [
+        "La Alcaldía solicitó autorización para firmar una adenda al convenio de transferencia de recursos entre el Patronato Nacional de la Infancia y la Municipalidad de Esparza para ejecutar el Programa Red de Cuido PANI-Municipalidad.",
+        "El Concejo aprobó por unanimidad y en firme dispensar del trámite de comisión la solicitud de adenda del convenio PANI-Municipalidad para el Programa Red de Cuido, conforme al artículo 44 del Código Municipal.",
+        "El Concejo aprobó la adenda al convenio de transferencia de recursos entre el PANI y la Municipalidad para el Programa Red de Cuido PANI-Municipalidad.",
+        "El Concejo autorizó al alcalde a firmar la adenda del convenio para el Programa Red de Cuido PANI-Municipalidad."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "6- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n28   360-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza;\n29   que dice:\n30   “Asunto: Solicitud de autorización para firmar adenda al convenio de otorgamiento de\n31   beneficio patrimonial mediante la transferencia de recursos entre el Patronato Nacional de\n32   la Infancia y la Municipalidad de Esparza para la Ejecución del “PROGRAMA RED DE\n33   CUIDO PANI MUNICIPALIDAD” Hasta aquí la transcripción de la nota.\n34   Se somete a votación la dispensa de trámite de Comisión de acuerdo con el artículo\n35   44 del Código Municipal, la cual resulta APROBADA por unanimidad y en firme\n36   (Artículo 45).\n37   SE ACUERDA: Aprobar y autorizar al señor Alcalde a firmar adenda al convenio\n38   de otorgamiento de beneficio patrimonial mediante la transferencia de recursos\n39   entre el Patronat",
+      "source_excerpt_scope_char_end": 144499,
+      "source_excerpt_scope_char_start": 143599,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for M06; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "M06"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0014",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0613",
+        "D1-F0614",
+        "D1-F0615",
+        "D1-F0616",
+        "D1-F0617",
+        "D1-F0618",
+        "D1-F0619",
+        "D1-F0620",
+        "D1-F0621",
+        "D1-F0622",
+        "D1-F0623",
+        "D1-F0624"
+      ],
+      "replacement_notes": [
+        "Douglas Arce solicitó reconocer a los jugadores de la Academia de Esparza Futsala categoría U-8 por haber sido declarados campeones del torneo Promesas de Costa Rica.",
+        "Douglas Arce solicitó reconocer al entrenador Gerson Cordero Chaves por el campeonato de la Academia de Esparza Futsala U-8.",
+        "Douglas Arce afirmó que el partido se realizó en Cartago y que inicialmente el equipo de Esparza perdió por goleada.",
+        "Douglas Arce afirmó que posteriormente se detectó que el equipo contrario había utilizado niños de mayor edad.",
+        "Douglas Arce afirmó que se presentó un reclamo por la participación de niños de mayor edad en el equipo contrario.",
+        "Douglas Arce afirmó que el equipo contrario fue descalificado.",
+        "Douglas Arce afirmó que, tras la descalificación del rival, los niños de Esparza fueron declarados campeones.",
+        "Juan Carlos Zeledón dio por recibida la solicitud de reconocimiento presentada desde la Alcaldía por medio de Douglas Arce.",
+        "Juan Carlos Zeledón planteó realizar el reconocimiento al entrenador y a los jugadores en la siguiente sesión, sujeto a la valoración de Verónica.",
+        "El Concejo trasladó a la Administración la solicitud para elaborar reconocimientos para el entrenador de la Academia de Esparza Futsala U-8.",
+        "El Concejo trasladó a la Administración la solicitud para elaborar reconocimientos para los jugadores de la Academia de Esparza Futsala U-8.",
+        "El Concejo acordó reconocer posteriormente en sesión al entrenador y a los jugadores de la Academia de Esparza Futsala U-8."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Síndico Douglas Arce Solís: Es para ver si tienen a bien hacerle un reconocimiento\n46   a los niños de la Academia de Esparza Futsala, categoría U-8, y a su entrenador,\n47   Gerson Cordero Chaves, quienes fueron campeones en el torneo Promesas de\n48   Costa Rica. El partido se realizó en Cartago y, en un principio, perdieron el\n49   encuentro por goleada; sin embargo, posteriormente se dieron cuenta de que el\n50   equipo contrario utilizó niños de mayor edad. Se presentó el reclamo\n51   correspondiente y el equipo fue descalificado, por lo que los chicos de Esparza\n52   fueron declarados campeones. Considero que es un logro muy bonito para niños\n53   de tan solo ocho años.\n\f 1   Señor Presidente Municipal: Se recibe entonces la solicitud del señor Alcalde, por\n 2   medio de don Douglas, para tenerlos por acá y entregarles un reconocimiento, en\n 3   la próxima sesión, según lo valore doña",
+      "source_excerpt_scope_char_end": 145833,
+      "source_excerpt_scope_char_start": 144933,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for M07; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "M07"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0015",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0625",
+        "D1-F0626",
+        "D1-F0627",
+        "D1-F0628",
+        "D1-F0629",
+        "D1-F0630",
+        "D1-F0631",
+        "D1-F0632",
+        "D1-F0633",
+        "D1-F0634",
+        "D1-F0635"
+      ],
+      "replacement_notes": [
+        "Aderith Porras transmitió un agradecimiento del Comité de Caminos de Las Parcelas de San Juan Chiquito y de los síndicos a la Administración y Gestión Vial por aportar alcantarillas para reparar un paso.",
+        "Aderith Porras afirmó que la solicitud de alcantarillas había sido presentada a la Administración.",
+        "Aderith Porras afirmó que la Administración otorgó las alcantarillas solicitadas.",
+        "Aderith Porras afirmó que la comunidad ya había realizado el trabajo de reparación.",
+        "Aderith Porras afirmó que la comunidad aportó la mano de obra para realizar el trabajo.",
+        "Aderith Porras afirmó que el Comité de Caminos estaba satisfecho con la colaboración municipal.",
+        "Aderith Porras informó que ya se habían colocado reductores de velocidad en San Juan Grande.",
+        "Aderith Porras afirmó que los reductores de velocidad que estaban pendientes ya habían sido instalados y que ese trabajo había quedado solucionado.",
+        "Aderith Porras recordó que el miércoles 20 pasaría el camión de recolección de residuos no tradicionales por San Juan Grande y San Juan Chiquito.",
+        "Aderith Porras pidió a las comunidades sacar los residuos no tradicionales para su recolección.",
+        "Aderith Porras indicó que la recolección buscaba evitar contaminación."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Síndica Aderith Porras Castillo: Tres anuncios. Uno es de parte del Comité de\n13   Caminos de Las Parcelas de San Juan Chiquito y de nosotros, los síndicos: un\n14   agradecimiento a la Administración y a Gestión Vial, porque ellos necesitaban unas\n15   alcantarillas para arreglar un paso. Hicimos la solicitud a la Administración y se\n16   otorgaron las alcantarillas. Ellos ya realizaron el trabajo, aportaron la mano de obra\n17   y todo quedó muy bonito.\n18   Entonces, muchísimas gracias, don Bienvenido, por la ayuda brindada con las\n19   alcantarillas. El trabajo ya se realizó y ellos están satisfechos con la colaboración\n20   que se hizo de parte de la Municipalidad.\n21   Otro anuncio es para hacerles saber que ya se colocaron los reductores de\n22   velocidad en la comunidad de San Juan Grande. Los que estaban pendientes ya\n23   fueron instalados, entonces ese trabajo ya quedó soluciona",
+      "source_excerpt_scope_char_end": 147255,
+      "source_excerpt_scope_char_start": 146355,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for V01; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "V01"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0016",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0636",
+        "D1-F0637",
+        "D1-F0638",
+        "D1-F0639",
+        "D1-F0640",
+        "D1-F0641"
+      ],
+      "replacement_notes": [
+        "Ronald Robles preguntó cuándo se entregarían los certificados a atletas de baloncesto que habían sido felicitadas aproximadamente quince días antes.",
+        "Ronald Robles afirmó que la Comisión de Cultura debía reunirse para responder a una gestión pendiente.",
+        "Ronald Robles pidió coordinar una fecha para reunir la Comisión de Cultura y dar respuesta al asunto pendiente.",
+        "Juan Carlos Zeledón propuso coordinar por WhatsApp la reunión pendiente.",
+        "Juan Carlos Zeledón indicó que aún faltaba nombrar algunas presidencias de comisiones.",
+        "Juan Carlos Zeledón expresó la expectativa de llevar a la siguiente semana, idealmente el lunes, los dictámenes de cada reunión."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Regidor suplente Ronald Robles Arley: Dos cositas. ¿Se recuerdan que hace\n29   quince días se trajo una felicitación para unas atletas que habían participado en\n30   unos partidos de baloncesto? Era para saber cuándo se les van a entregar los\n31   certificados.\n32   Y lo segundo es que debemos reunirnos en la Comisión de Cultura, porque hay\n33   que contestarle a un señor. Entonces quisiera ver cuándo tienen tiempo para que\n34   nos podamos reunir, ver ese tema y darle una respuesta.\n35   Sr. Presidente Municipal: Gracias, don Ronald. Yo creo que eso lo valoramos\n36   después y, por medio de WhatsApp, hacemos la notificación para ponernos de\n37   acuerdo.\n38   Igualmente, aprovecho para comentar que también hace falta nombrar algunas\n39   presidencias de comisiones. Ojalá para la próxima semana, el próximo lunes,\n40   podamos traer ya los dictámenes de cada reunión.",
+      "source_excerpt_scope_char_end": 148418,
+      "source_excerpt_scope_char_start": 147540,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for V02; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "V02"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0017",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0642",
+        "D1-F0643"
+      ],
+      "replacement_notes": [
+        "Flor Cubero recordó que el miércoles a las 16:00 se realizaría una reunión en Rancho Santa Lucía sobre el puente “Obras que cambian vidas”.",
+        "Flor Cubero invitó a la comunidad y a integrantes del Concejo a asistir a la reunión sobre el puente “Obras que cambian vidas”."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Regidora Flor María Cubero Martínez: Es para recordar que el miércoles, si Dios\n42   quiere, a las cuatro de la tarde, será la reunión en el Rancho Santa Lucía por el\n43   asunto del puente “Obras que cambian vidas”. Entonces, es para recordarle a toda\n44   la comunidad y a nosotros también, obviamente, para que nos hagamos presentes\n45   ese día.",
+      "source_excerpt_scope_char_end": 148773,
+      "source_excerpt_scope_char_start": 148424,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for V03; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "V03"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0018",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0644",
+        "D1-F0645",
+        "D1-F0646",
+        "D1-F0647",
+        "D1-F0648"
+      ],
+      "replacement_notes": [
+        "Luis Diego Estrada reiteró que el Comité Cantonal de la Persona Joven había pedido ser tomado en cuenta en las actividades municipales de agosto porque quería celebrar el Día Internacional de la Juventud el 8 de agosto.",
+        "Luis Diego Estrada afirmó que la instalación de toldos para la actividad requería coordinación directa con la Administración Municipal.",
+        "Luis Diego Estrada recordó que, tras una feria anterior del Comité de la Persona Joven, se había recomendado coordinar con la Administración los permisos del Ministerio de Salud y otras instituciones.",
+        "Luis Diego Estrada aclaró que la nota pedía colaboración municipal con los permisos de la feria de emprendimiento en caso de que hubiera venta de comida empacada.",
+        "Luis Diego Estrada afirmó que el Comité de la Persona Joven contaba con la disposición de funcionarios municipales para los demás apoyos."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Regidor suplente Luis Diego Estrada Jiménez: Era nada más para retomar un poco,\n47   don Bienvenido, la carta que llegó del Comité de la Persona Joven en dos puntos.\n48   Ellos solicitaban que se les tome en cuenta dentro de las actividades de agosto,\n49   precisamente porque no sabemos si para esa fecha, el 8 de agosto, habrá alguna\n50   actividad, ya que ellos quieren celebrar el Día Internacional de la Juventud.\n51   Y lo otro es que, por el tema de la instalación de toldos y demás, siempre se\n52   requiere coordinación directa con la Administración Municipal para que se les\n53   puedan instalar en esa fecha.\n\f 1   También llegó otra nota sobre la cual no quise intervenir antes, pero era porque la\n 2   última vez que el Comité de la Persona Joven realizó una feria de emprendimiento,\n 3   se nos recomendó que era importante coordinar con la Administración el tema de\n 4   los permisos c",
+      "source_excerpt_scope_char_end": 149679,
+      "source_excerpt_scope_char_start": 148779,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for V04; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "V04"
+      ]
+    },
+    {
+      "action": "ADD_MISSING_TAIL",
+      "finding_id": "D1-SAR-0019",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0649",
+        "D1-F0650",
+        "D1-F0651",
+        "D1-F0652",
+        "D1-F0653",
+        "D1-F0654",
+        "D1-F0655",
+        "D1-F0656",
+        "D1-F0657",
+        "D1-F0658",
+        "D1-F0659",
+        "D1-F0660"
+      ],
+      "replacement_notes": [
+        "Douglas Arce informó que ese día había concluido la iluminación del puente de Mata de Limón.",
+        "Douglas Arce indicó que se esperaba el acto oficial para entregar formalmente el proyecto del puente de Mata de Limón.",
+        "Douglas Arce informó que había ingresado el trámite que estaba pendiente y que un mensaje del ICE recibido esa tarde confirmaba su llegada.",
+        "Douglas Arce afirmó que ya podían avanzar en la preparación de la inauguración del proyecto.",
+        "Douglas Arce expresó el deseo de que la Presidenta de la República asistiera a la inauguración del proyecto.",
+        "Douglas Arce sostuvo que el proyecto dinamizaría la economía del distrito de Caldera.",
+        "Douglas Arce identificó como problema grave y urgente el paso de motocicletas por el puente/paradero.",
+        "Douglas Arce pidió eliminar el paso de motocicletas por el puente/paradero.",
+        "Douglas Arce afirmó que la señalización prohibía motocicletas y cualquier vehículo en el sitio.",
+        "Douglas Arce afirmó que la prohibición vehicular no estaba siendo respetada.",
+        "Douglas Arce propuso aplicar, una vez entregado el puente, el mecanismo previamente discutido para eliminar el paso de motocicletas.",
+        "Douglas Arce indicó que eliminar el paso de motocicletas permitiría que las familias disfrutaran el paradero turístico para el propósito con que fue creado."
+      ],
+      "review_pass": "PASS_1_RECOVERY",
+      "source_excerpt": "Síndico Douglas Arce Solís: Era para darles una buena noticia a todos los\n12   habitantes del cantón de Esparza y, sobre todo, al distrito de Caldera y a los turistas\n13   que nos visitan.\n14   El día de hoy se concluyó con la iluminación del puente de Mata de Limón.\n15   Esperamos ya el acto oficial para entregar debidamente el proyecto.\n16   También decirle al señor Alcalde que ya ingresó el trámite del que estábamos\n17   pendientes. Me acaban de enviar un mensaje del ICE indicando que ya llegó el\n18   trámite que comentamos hoy en la tarde.\n19   Entonces, vamos bien para ir preparando la inauguración de este proyecto y ojalá\n20   podamos contar con la señora Presidenta de Costa Rica en ese acto tan esperado,\n21   que hemos postergado durante tanto tiempo.\n22   Estamos muy contentos porque yo sé que eso va a dinamizar la economía de\n23   nuestro distrito.\n24   Sin embargo, tenemos un p",
+      "source_excerpt_scope_char_end": 151044,
+      "source_excerpt_scope_char_start": 150144,
+      "specific_reasons": [
+        "The context-limit checkpoint did not contain a reproducible final semantic build for V05; the complete carrier was read from the frozen Representation and authored in source order."
+      ],
+      "structure_ids": [
+        "V05"
+      ]
+    },
+    {
+      "action": "ADD_OMISSION",
+      "finding_id": "D1-SAR-0020",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0159",
+        "D1-F0160",
+        "D1-F0161",
+        "D1-F0162"
+      ],
+      "replacement_notes": [
+        "Gollo Esparza solicitó permiso para realizar una feria comercial dirigida a habitantes del cantón, orientada a informar sobre productos y promociones.",
+        "Gollo describió la feria como una exhibición de motocicletas, colchones, electrodomésticos y otros productos.",
+        "Gollo propuso realizar la feria el 30 de mayo de 2026, de 10:00 a 15:00, en el Parque de Esparza junto al Banco Nacional.",
+        "Gollo indicó que la feria buscaba generar un espacio ordenado y accesible para la comunidad, promover oportunidades comerciales y acercar beneficios especiales a vecinos del cantón."
+      ],
+      "review_pass": "PASS_2_OMISSION",
+      "source_excerpt": "9- Se conoce nota de fecha 14 de mayo de 2026, dirigida al Concejo Municipal de\n 8   Esparza, por la señora María Daniela García Madrigal, Almacén Gollo; texto que\n 9   se transcribe a continuación:\n10   “Solicitud de permiso para realizar feria comercial\n11   Reciban un cordial saludo de parte de Gollo Esparza.\n12   Por medio de la presente, solicitamos respetuosamente el permiso correspondiente para\n13   realizar una feria comercial dirigida a los habitantes del cantón de Esparza, con el objetivo\n14   de brindar información sobre nuestros productos y ofrecer promociones exclusivas para\n15   beneficio de la comunidad.\n16   La actividad consistirá en una exhibición y feria de productos como motocicletas,\n17   colchones, electrodomésticos y otros artículos, permitiendo que las personas del pueblo\n18   puedan conocer opciones de compra, promociones especiales y facilidades disponibles.\n19 ",
+      "source_excerpt_scope_char_end": 39687,
+      "source_excerpt_scope_char_start": 38787,
+      "specific_reasons": [
+        "The Gollo request was represented, but its explicit stated purpose for the fair had been omitted; the purpose is independently material civic context for the requested use of public space."
+      ],
+      "structure_ids": [
+        "C09"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0021",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0175",
+        "D1-F0176",
+        "D1-F0177"
+      ],
+      "replacement_notes": [
+        "La UNGL convocó a sus delegados a la Asamblea Nacional Ordinaria 01-2026 presencial del 29 de mayo de 2026 en el Hotel Real InterContinental Escazú.",
+        "La primera convocatoria de la Asamblea Nacional Ordinaria 01-2026 se fijó para las 9:00 y una segunda, si no había quórum, para las 10:00.",
+        "La agenda de la Asamblea Nacional Ordinaria 01-2026 incluía verificación de quórum, informes de Presidencia y Dirección Ejecutiva, elección del Consejo Directivo 2026-2028, asuntos varios y clausura."
+      ],
+      "review_pass": "PASS_2_OMISSION",
+      "source_excerpt": "La Unión Nacional de Gobiernos Locales, en apego a sus Estatutos, y según el Acuerdo 28-\n14   2026, convoca a sus delegados y delegadas a la Asamblea Nacional Ordinaria 01-2026 de\n15   manea presencial, el 29 de mayo de 2026, a realizarse en el hotel Real InterContinental\n16   Escazú, con primera convocatoria a las 9:00 a.m. de no haber quórum una segunda\n17   convocatoria a las 10:00 a.m. La agenda será la siguiente:\n18   1.Apertura y Comprobación de Quórum.\n19   2.Informe de la Presidencia.\n20   3.Informe de Dirección Ejecutiva.\n21   4.Elección del Consejo Directivo de la UNGL para el Período 2026-2028.\n22   5.Asunto Varios.\n23   6.Clausura.",
+      "source_excerpt_scope_char_end": 44102,
+      "source_excerpt_scope_char_start": 43451,
+      "specific_reasons": [
+        "The UNGL agenda fact originally relied on an evidence span that skipped intervening agenda lines; the final evidence set preserves the contiguous agenda context needed for the enumerated event program."
+      ],
+      "structure_ids": [
+        "C11"
+      ]
+    },
+    {
+      "action": "ADD_OMISSION",
+      "finding_id": "D1-SAR-0022",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0219"
+      ],
+      "replacement_notes": [
+        "Douglas Arce afirmó que la discusión sobre su integración en la Comisión ZMT se originó a raíz de una publicación realizada por iniciativa del programa Acontecer Esparzano."
+      ],
+      "review_pass": "PASS_2_OMISSION",
+      "source_excerpt": "Síndico Douglas Arce Solís: Esto se origina a raíz de una publicación realizada por\n13   el programa Acontecer Esparzano, quienes, por iniciativa propia, hicieron dicha\n14   publicación.",
+      "source_excerpt_scope_char_end": 55396,
+      "source_excerpt_scope_char_start": 55210,
+      "specific_reasons": [
+        "The final discussion needed the source-explicit origin of the controversy in an Acontecer Esparzano publication; leaving it implicit changed the causal framing of Douglas Arce’s intervention."
+      ],
+      "structure_ids": [
+        "C13"
+      ]
+    },
+    {
+      "action": "ADD_OMISSION",
+      "finding_id": "D1-SAR-0023",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0281"
+      ],
+      "replacement_notes": [
+        "El Concejo dio por recibida la nota 40-154-2026 del Concejo Municipal de Cartago."
+      ],
+      "review_pass": "PASS_2_OMISSION",
+      "source_excerpt": "SE ACUERDA: Dar por recibida la nota N° 40-154-2026 de del Concejo Municipal\n50   de Cartago.",
+      "source_excerpt_scope_char_end": 69888,
+      "source_excerpt_scope_char_start": 69795,
+      "specific_reasons": [
+        "The incoming Cartago communication had a separate formal receipt disposition that was absent from the earlier working set."
+      ],
+      "structure_ids": [
+        "C14"
+      ]
+    },
+    {
+      "action": "ADD_OMISSION",
+      "finding_id": "D1-SAR-0024",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0631",
+        "D1-F0632"
+      ],
+      "replacement_notes": [
+        "Aderith Porras informó que ya se habían colocado reductores de velocidad en San Juan Grande.",
+        "Aderith Porras afirmó que los reductores de velocidad que estaban pendientes ya habían sido instalados y que ese trabajo había quedado solucionado."
+      ],
+      "review_pass": "PASS_2_OMISSION",
+      "source_excerpt": "Síndica Aderith Porras Castillo: Tres anuncios. Uno es de parte del Comité de\n13   Caminos de Las Parcelas de San Juan Chiquito y de nosotros, los síndicos: un\n14   agradecimiento a la Administración y a Gestión Vial, porque ellos necesitaban unas\n15   alcantarillas para arreglar un paso. Hicimos la solicitud a la Administración y se\n16   otorgaron las alcantarillas. Ellos ya realizaron el trabajo, aportaron la mano de obra\n17   y todo quedó muy bonito.\n18   Entonces, muchísimas gracias, don Bienvenido, por la ayuda brindada con las\n19   alcantarillas. El trabajo ya se realizó y ellos están satisfechos con la colaboración\n20   que se hizo de parte de la Municipalidad.\n21   Otro anuncio es para hacerles saber que ya se colocaron los reductores de\n22   velocidad en la comunidad de San Juan Grande. Los que estaban pendientes ya\n23   fueron instalados, entonces ese trabajo ya quedó soluciona",
+      "source_excerpt_scope_char_end": 147255,
+      "source_excerpt_scope_char_start": 146355,
+      "specific_reasons": [
+        "The asuntos-varios intervention explicitly reported that the requested speed reducers were already installed/resolved; the status change is material and could not remain omitted."
+      ],
+      "structure_ids": [
+        "V01"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0025",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0007",
+        "D1-F0008",
+        "D1-F0009",
+        "D1-F0010",
+        "D1-F0011",
+        "D1-F0012"
+      ],
+      "replacement_notes": [
+        "La Dirección de la Escuela IDA El Barón remitió una propuesta para sustituir integrantes de su Junta de Educación, con visto bueno de la Supervisión del Circuito 07.",
+        "La sesión aclaró que la sustitución de la Junta de Educación de la Escuela IDA El Barón respondía a la renuncia de cuatro miembros.",
+        "El Concejo aceptó las renuncias de María Elena García Campos, Saulyn Tamara León Montoya, Karissa Meléndez Campos y Sirley Sujey Céspedes Méndez a la Junta de Educación de la Escuela IDA El Barón.",
+        "El Concejo nombró a Kaleb Djonaikel Rodríguez Mojica, María José Córdoba Arroyo, Candy Vanessa Rojas Bonilla y José Francisco Pérez Castillo como miembros de la Junta de Educación de la Escuela IDA El Barón por el resto del período.",
+        "El Concejo dispuso notificar los nombramientos de la Junta de Educación de la Escuela IDA El Barón a la Supervisión y al centro educativo.",
+        "El Concejo dispuso que los nuevos miembros de la Junta de Educación de la Escuela IDA El Barón se presentaran para juramentación el 25 de mayo a las 18:30 en la Sala de Sesiones municipal."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cédulas de cada una de las personas que\n14   conforman la tema, además de las declaraciones juradas y la copia del acta de reunión de\n15   personal.” Hasta aquí la transcripción de la nota.\n16   Se aclara ",
+      "source_excerpt_scope_char_end": 4292,
+      "source_excerpt_scope_char_start": 3392,
+      "specific_reasons": [
+        "Facts about the school board needed an exact local anchor identifying Escuela IDA El Barón rather than relying on later pronouns or list fragments."
+      ],
+      "structure_ids": [
+        "C01"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0026",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0013",
+        "D1-F0014",
+        "D1-F0015",
+        "D1-F0016",
+        "D1-F0017"
+      ],
+      "replacement_notes": [
+        "La Dirección del CTP de Esparza remitió una propuesta para sustituir dos integrantes de su Junta de Educación que habían renunciado por asuntos personales, con visto bueno de la Supervisión del Circuito 07.",
+        "El Concejo aceptó las renuncias de Wilber Calderón Sibaja y Dayanna Rodríguez Arias a la Junta de Educación del CTP de Esparza.",
+        "El Concejo nombró a Kristhel Anyeli Carvajal Bolaños y Luis Miguel Ugalde Rojas como miembros de la Junta de Educación del CTP de Esparza por el resto del período.",
+        "El Concejo dispuso notificar los nombramientos del CTP de Esparza a la Supervisión y al centro educativo.",
+        "El Concejo dispuso que los nuevos miembros de la Junta de Educación del CTP de Esparza se presentaran para juramentación el 25 de mayo a las 18:30 en la Sala de Sesiones municipal."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "2- Se conoce nota de fecha 15 de mayo de 2026, dirigida al Concejo Municipal de\n29   Esparza, por la Licda. Ana Gricelle Parra Méndez, Directora del CTP de Esparza,\n30   con el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se\n31   transcribe a continuación:\n32   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n33   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n34   propuesta para sustitución de dos miembros de la Junta de Educación del CTP de Esparza,\n35   del Circuito 07, de la Dirección Regional de Educación de Puntarenas, que renunciaron por\n36   asuntos personales.\n\f 1\n\n\n\n\n 2\n 3   Adjunto: Hoja de delincuencia y copia de las cédulas de cada una de las personas que\n 4   conforman la tema, además de las declaraciones juradas y la copia del acta de reunión de\n 5   personal.” Hasta aquí la tra",
+      "source_excerpt_scope_char_end": 6083,
+      "source_excerpt_scope_char_start": 5183,
+      "specific_reasons": [
+        "Facts about the school board needed an exact local anchor identifying the CTP de Esparza rather than relying on later list fragments."
+      ],
+      "structure_ids": [
+        "C02"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0027",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0328",
+        "D1-F0329",
+        "D1-F0330",
+        "D1-F0331",
+        "D1-F0332",
+        "D1-F0336",
+        "D1-F0337",
+        "D1-F0339",
+        "D1-F0340",
+        "D1-F0341",
+        "D1-F0342",
+        "D1-F0343"
+      ],
+      "replacement_notes": [
+        "Luis Pérez Palma afirmó que recorrió aproximadamente 600 metros de la ruta 756 para documentar sus condiciones.",
+        "Luis Pérez Palma reportó tránsito reiterado de un camión cargado de madera por la ruta 756.",
+        "Luis Pérez Palma afirmó que el recorrido mostraba abundantes huecos y deterioro considerable en la ruta 756.",
+        "Luis Pérez Palma sostuvo que, al esquivar huecos, los vehículos habían contribuido a formar zanjas laterales en las orillas de la ruta 756.",
+        "Luis Pérez Palma afirmó que la mezcla asfáltica caliente había dado mejores resultados y mayor durabilidad en la ruta 756.",
+        "Luis Pérez Palma reportó falta de encauzamientos para aguas pluviales en la ruta 756.",
+        "Luis Pérez Palma reportó ausencia de aceras en la ruta 756.",
+        "Luis Pérez Palma sostuvo que el mal estado de la ruta 756 provocaba daños frecuentes a vehículos y gastos adicionales a conductores.",
+        "Luis Pérez Palma afirmó que CONAVI había anunciado meses antes bacheo y reparación de la ruta 756, incluidas sus orillas, pero que esas obras aún no se habían ejecutado.",
+        "Luis Pérez Palma solicitó gestionar ante CONAVI una reparación integral y duradera de la ruta 756 por su tránsito y necesidades de seguridad vial.",
+        "El Concejo acordó trasladar a CONAVI y al MOPT la solicitud sobre la ruta 756.",
+        "El Concejo acordó remitir copia de la gestión sobre la ruta 756 a la Presidencia de la República."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "4- Síndico Luis Alberto Pérez Palma: Indica que trae nuevamente unos videos\n39   relacionados con el estado de la ruta 756. Señala que recorrió aproximadamente\n40   600 metros caminando para documentar las condiciones del camino y solicita la\n41   colaboración para proyectar los videos. Además, menciona un video de un camión\n42   cargado de madera que ha transitado por la ruta en varias ocasiones.\n43   Posteriormente, se proyecta el video del recorrido realizado por don Luis Alberto,\n44   quien manifiesta que el trayecto evidencia el mal estado de la vía, con abundantes\n45   huecos y deterioro considerable. Hace énfasis en las orillas de la carretera,\n46   indicando que, al esquivar los huecos, los vehículos han ido formando zanjas\n47   laterales.\n48   Comenta que la mezcla asfáltica caliente ha dado mejores resultados y mayor\n49   durabilidad en comparación con el perfilado con agua, el",
+      "source_excerpt_scope_char_end": 81514,
+      "source_excerpt_scope_char_start": 80614,
+      "specific_reasons": [
+        "Later road-condition propositions used “la ruta”/continuations; the final evidence adds the local source anchor that identifies route 756."
+      ],
+      "structure_ids": [
+        "U04"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0028",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0364",
+        "D1-F0365",
+        "D1-F0366",
+        "D1-F0367",
+        "D1-F0368",
+        "D1-F0369",
+        "D1-F0370",
+        "D1-F0372",
+        "D1-F0373",
+        "D1-F0375",
+        "D1-F0376",
+        "D1-F0377",
+        "D1-F0379",
+        "D1-F0389",
+        "D1-F0390",
+        "D1-F0392",
+        "D1-F0393",
+        "D1-F0394",
+        "D1-F0412"
+      ],
+      "replacement_notes": [
+        "Ronald Robles destacó entre esos expedientes el 23.898, “Ley para la Reivindicación de los Derechos de los Pobladores y Desafectación de la Zona de Alta Intervención de la Zona Protectora Tivives”.",
+        "Ronald Robles afirmó que Carlos Andrés Robles había impulsado originalmente el expediente 23.898 cuando era diputado.",
+        "Ronald Robles sostuvo que la función ministerial de Carlos Andrés Robles abría una nueva oportunidad para promover el avance del expediente 23.898.",
+        "Ronald Robles sostuvo que el expediente 23.898 podía atender una problemática que, según él, había afectado al cantón por más de treinta años.",
+        "Ronald Robles propuso que el Concejo valorara remitir notas de apoyo o realizar gestiones ante la Asamblea Legislativa para respaldar el expediente 23.898 y procurar su aprobación como ley.",
+        "Douglas Arce afirmó que había sido comisionado para hacer gestión política y seguimiento del expediente 23.898 en la comisión legislativa de Puntarenas.",
+        "Douglas Arce afirmó que la misión de gestión y seguimiento del expediente 23.898 en la comisión legislativa se había cumplido completamente.",
+        "Douglas Arce propuso cambiar la estrategia y visitar despacho por despacho a diputados en la Asamblea Legislativa para explicar y promover el expediente 23.898.",
+        "Douglas Arce afirmó que el expediente 23.898 ya estaba en el plenario y advirtió que debía gestionarse cuidadosamente para evitar que se complicara.",
+        "Ronald Robles sostuvo que los diputados debían percibir el interés del Concejo y de los regidores de Esparza en que el expediente 23.898 fuera votado.",
+        "Ronald Robles respaldó hacer gestión en la Asamblea Legislativa y explicar a cada diputado la importancia de aprobar el expediente 23.898.",
+        "Ronald Robles calificó como urgente que en esos días el Concejo actuara en favor del expediente 23.898.",
+        "Douglas Arce afirmó que el criterio técnico existente daba sustento legal para considerar viable el expediente 23.898.",
+        "Douglas Arce reiteró que no había tiempo para traer a los diputados a Esparza porque el expediente 23.898 ya estaba convocado.",
+        "Douglas Arce afirmó que el expediente 23.898 estaba incluido en el decreto presidencial de proyectos para el plenario.",
+        "Bienvenido Venegas afirmó que Carlos Andrés Robles le había comunicado la semana anterior que el expediente 23.898 estaba incluido en la convocatoria del Poder Ejecutivo a sesiones extraordinarias.",
+        "Bienvenido Venegas interpretó la convocatoria como voluntad expresa del Poder Ejecutivo de apoyar el expediente 23.898.",
+        "Bienvenido Venegas consideró que, por la existencia de una mayoría legislativa afín al Gobierno, había una gran posibilidad de que el expediente 23.898 se convirtiera en ley.",
+        "Juan Carlos Zeledón indicó que en esa eventual sesión se expondrían el expediente 23.898 y otras problemáticas del cantón."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "6- El Regidor suplente Ronald Robles Arley manifiesta que recibió información del\n36   señor Ministro de los Mares, las Costas y la Pesca, don Carlos Andrés Robles,\n37   relacionada con varios expedientes legislativos que serán nuevamente\n38   incorporados a la corriente legislativa.\n39   Entre ellos, destaca el expediente N.° 23.898, denominado “Ley para la\n40   Reivindicación de los Derechos de los Pobladores y Desafectación de la Zona de\n41   Alta Intervención de la Zona Protectora Tivives”, anteriormente relacionado\n42   también con la zona de reserva portuaria.\n43   Indica que considera importante retomar este tema debido a que el actual Ministro,\n44   cuando fungía como diputado, fue quien impulsó originalmente el proyecto de ley\n45   ante la Asamblea Legislativa. Señala que ahora, desde su función ministerial,\n46   existe nuevamente la oportunidad de promover su avance y lograr su",
+      "source_excerpt_scope_char_end": 89290,
+      "source_excerpt_scope_char_start": 88390,
+      "specific_reasons": [
+        "Later legislative discussion repeatedly uses “el proyecto/esa ley”; facts that resolve the referent to expediente 23.898 now include the exact antecedent that names it."
+      ],
+      "structure_ids": [
+        "U06"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0029",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0402",
+        "D1-F0405",
+        "D1-F0411"
+      ],
+      "replacement_notes": [
+        "Bienvenido Venegas recordó que la Presidenta de la República visitaría Esparza el 12 de junio.",
+        "Bienvenido Venegas informó que estaban invitando a los diputados de Puntarenas para el 12 de junio.",
+        "Bienvenido Venegas planteó valorar una sesión extraordinaria con los diputados aprovechando su visita del 12 de junio.",
+        "Bienvenido Venegas indicó que el homenaje a la Presidenta del 12 de junio estaba previsto para las 16:00.",
+        "Bienvenido Venegas propuso recibir a los diputados unas horas antes del homenaje del 12 de junio si podían llegar con anticipación.",
+        "Bienvenido Venegas propuso realizar una sesión extraordinaria antes de las 16:00 del 12 de junio.",
+        "Juan Carlos Zeledón resumió que se valoraría realizar una sesión extraordinaria el 12 de junio."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "Señor Alcalde, Bienvenido Venegas: Me parece que todas las propuestas son muy\n19   acertadas. Efectivamente, don Carlos Andrés fue quien me comunicó la semana\n20   pasada, creo que fue el jueves, que ese proyecto iba incluido dentro de la\n21   convocatoria a sesiones extraordinarias por parte del Poder Ejecutivo.\n22   Entonces, me parece que ese es un gran paso. Significa que hay una voluntad\n23   expresa del Poder Ejecutivo de apoyarnos con ese proyecto y, tomando en cuenta\n24   que existe una mayoría legislativa afín al Gobierno, me parece que estamos ante\n25   una gran posibilidad de que ese proyecto llegue a convertirse en ley de la\n26   República. Exactamente, ya está prácticamente en el tiro penal. Lo importante es\n27   no correr ningún riesgo.\n28   Me parece que las dos propuestas, tanto la de don Douglas como la de don\n29   Fernando, son muy acertadas. Si estamos contra el tiempo",
+      "source_excerpt_scope_char_end": 96002,
+      "source_excerpt_scope_char_start": 95102,
+      "specific_reasons": [
+        "Later scheduling statements depend on an earlier introduction of 12 June; facts that state that date now include its exact antecedent rather than deriving it from “ese día”."
+      ],
+      "structure_ids": [
+        "U06"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0030",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0537",
+        "D1-F0538",
+        "D1-F0539",
+        "D1-F0550",
+        "D1-F0551"
+      ],
+      "replacement_notes": [
+        "La Alcaldía citó el oficio DFOE-LOC-0239 de la Contraloría, según el cual existen estudios especializados de auditoría interna que pueden requerir perfiles profesionales distintos del auditor, por ejemplo en tecnologías de información, ambiente o derecho.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239, según el cual la contratación externa no sustituye las responsabilidades del Auditor Interno como encargado de su unidad.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239, según el cual la contratación externa no permite delegar funciones sustantivas del Auditor Interno.",
+        "La Alcaldía recomendó al Concejo notificar formalmente al Auditor el oficio DFOE-LOC-0239 si aún no lo había hecho.",
+        "La Alcaldía recomendó instruir expresamente al Auditor para que cualquier requerimiento futuro de servicios de apoyo cumpliera los lineamientos del oficio DFOE-LOC-0239."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "2- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n47   300-2026 de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de Esparza;\n48   que dice:\n49   “En relación con el acuerdo tomado en el acta No. 156-2026 de la sesión ordinaria efectuada\n50   el 27 de abril de 2026, artículo III, inciso 1, seguidamente se hará un resumen de las\n51   actuaciones, tanto de esta Alcaldía como del Concejo, en torno a la contratación de los\n52   servicios de coadyuvancia y apoyo que requiere la Auditoría Interna:\n53   1.      La última contratación de este servicio se realizó mediante la Licitación Reducida\n54           No. 2023LD-000012-0004700001 (apoyo a la Auditoría Interna según demanda).\n\f 1        En el expediente respectivo se encuentra el oficio GJ-AM-006-2023, emitido por la\n 2        Asesoría Legal de la Comisión de Recomendación de Adjudicación, que en sus\n 3",
+      "source_excerpt_scope_char_end": 124673,
+      "source_excerpt_scope_char_start": 123773,
+      "specific_reasons": [
+        "Quoted CGR propositions that name DFOE-LOC-0239 now include the sentence that establishes that exact pronouncement identity."
+      ],
+      "structure_ids": [
+        "M02"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "finding_id": "D1-SAR-0031",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0578",
+        "D1-F0580",
+        "D1-F0590",
+        "D1-F0592",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "replacement_notes": [
+        "La Unidad de Zona Litoral informó que se realizó un nuevo avalúo para rectificar el canon de un permiso de uso de suelo a título precario de Natalia Araya Freeman en el predio GIS 06 064 021 00, PSI 900140.",
+        "La nota indicó que Natalia Araya Freeman regularizó el permiso mediante el acuerdo del Acta 72-2025 de la sesión ordinaria del 24 de marzo de 2025.",
+        "La analista recomendó notificar a Natalia Araya Freeman la decisión sobre el permiso y avalúo.",
+        "El Concejo aprobó por unanimidad y en firme dispensar del trámite de comisión la propuesta relativa al permiso de uso de suelo a título precario de Natalia Araya Freeman, conforme al artículo 44 del Código Municipal.",
+        "El Concejo acordó notificar a Natalia Araya Freeman sobre el trámite relativo a su permiso de uso de suelo a título precario.",
+        "El Concejo trasladó a la Administración el trámite relativo al permiso de uso de suelo a título precario de Natalia Araya Freeman."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "3- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n47   358-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza,\n48   donde remite la nota GOT-ZLMT-130-2026 suscrita por la Licda. Mariela Cruz\n49   Pérez, Analista Profesional de Zona Litoral y Marítimo Terrestre; que dice:\n50   “Con respecto al Permiso de Uso de Suelo a título precario en Zona Litoral en donde el\n51   actual permisionario es la señora Natalia Araya Freeman, costarricense, cédula de\n52   identidad 6 0354 0582, casada, docente, con domicilio en Mata de Limón norte, por medio\n53   de la presente se realiza un nuevo avaluó para la rectificación del monto del canon\n\f 1   correspondiente al permiso de uso de suelo, del predio GIS 06 064 021 00, PSI 900140, de\n 2   acuerdo a lo siguiente:\n 3   Resultando\n 4   Primero: La Municipalidad de Esparza, con la entrada en vigencia del",
+      "source_excerpt_scope_char_end": 137921,
+      "source_excerpt_scope_char_start": 137021,
+      "specific_reasons": [
+        "A generic commission-waiver proposition did not identify what was being waived; the final note names Natalia Araya Freeman’s precarious land-use-permit proposal and includes the carrier context."
+      ],
+      "structure_ids": [
+        "M03"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "finding_id": "D1-SAR-0032",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0609",
+        "D1-F0610",
+        "D1-F0611",
+        "D1-F0612"
+      ],
+      "replacement_notes": [
+        "La Alcaldía solicitó autorización para firmar una adenda al convenio de transferencia de recursos entre el Patronato Nacional de la Infancia y la Municipalidad de Esparza para ejecutar el Programa Red de Cuido PANI-Municipalidad.",
+        "El Concejo aprobó por unanimidad y en firme dispensar del trámite de comisión la solicitud de adenda del convenio PANI-Municipalidad para el Programa Red de Cuido, conforme al artículo 44 del Código Municipal.",
+        "El Concejo aprobó la adenda al convenio de transferencia de recursos entre el PANI y la Municipalidad para el Programa Red de Cuido PANI-Municipalidad.",
+        "El Concejo autorizó al alcalde a firmar la adenda del convenio para el Programa Red de Cuido PANI-Municipalidad."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "6- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n28   360-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza;\n29   que dice:\n30   “Asunto: Solicitud de autorización para firmar adenda al convenio de otorgamiento de\n31   beneficio patrimonial mediante la transferencia de recursos entre el Patronato Nacional de\n32   la Infancia y la Municipalidad de Esparza para la Ejecución del “PROGRAMA RED DE\n33   CUIDO PANI MUNICIPALIDAD” Hasta aquí la transcripción de la nota.\n34   Se somete a votación la dispensa de trámite de Comisión de acuerdo con el artículo\n35   44 del Código Municipal, la cual resulta APROBADA por unanimidad y en firme\n36   (Artículo 45).\n37   SE ACUERDA: Aprobar y autorizar al señor Alcalde a firmar adenda al convenio\n38   de otorgamiento de beneficio patrimonial mediante la transferencia de recursos\n39   entre el Patronat",
+      "source_excerpt_scope_char_end": 144499,
+      "source_excerpt_scope_char_start": 143599,
+      "specific_reasons": [
+        "A generic commission-waiver proposition did not identify what was being waived; the final note names the PANI–Municipalidad Red de Cuido addendum request."
+      ],
+      "structure_ids": [
+        "M06"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "finding_id": "D1-SAR-0033",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0590",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "replacement_notes": [
+        "La analista recomendó notificar a Natalia Araya Freeman la decisión sobre el permiso y avalúo.",
+        "El Concejo acordó notificar a Natalia Araya Freeman sobre el trámite relativo a su permiso de uso de suelo a título precario.",
+        "El Concejo trasladó a la Administración el trámite relativo al permiso de uso de suelo a título precario de Natalia Araya Freeman."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "3- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n47   358-2026 de fecha 18 de mayo de 2026, dirigida al Concejo Municipal de Esparza,\n48   donde remite la nota GOT-ZLMT-130-2026 suscrita por la Licda. Mariela Cruz\n49   Pérez, Analista Profesional de Zona Litoral y Marítimo Terrestre; que dice:\n50   “Con respecto al Permiso de Uso de Suelo a título precario en Zona Litoral en donde el\n51   actual permisionario es la señora Natalia Araya Freeman, costarricense, cédula de\n52   identidad 6 0354 0582, casada, docente, con domicilio en Mata de Limón norte, por medio\n53   de la presente se realiza un nuevo avaluó para la rectificación del monto del canon\n\f 1   correspondiente al permiso de uso de suelo, del predio GIS 06 064 021 00, PSI 900140, de\n 2   acuerdo a lo siguiente:\n 3   Resultando\n 4   Primero: La Municipalidad de Esparza, con la entrada en vigencia del",
+      "source_excerpt_scope_char_end": 137921,
+      "source_excerpt_scope_char_start": 137021,
+      "specific_reasons": [
+        "The final M03 disposition sentence contains two observable actions. The working propositions had converged to the same combined wording; the final draft keeps notification and transfer as distinct atomic facts."
+      ],
+      "structure_ids": [
+        "M03"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0034",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0119",
+        "D1-F0120",
+        "D1-F0121",
+        "D1-F0122",
+        "D1-F0123",
+        "D1-F0124",
+        "D1-F0125",
+        "D1-F0126",
+        "D1-F0127",
+        "D1-F0128",
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132",
+        "D1-F0133",
+        "D1-F0134",
+        "D1-F0135",
+        "D1-F0136",
+        "D1-F0137",
+        "D1-F0138",
+        "D1-F0139"
+      ],
+      "replacement_notes": [
+        "Douglas Salazar Cortés propuso designar a la presidenta Laura Fernández Delgado hija predilecta del cantón de Esparza.",
+        "Douglas Salazar Cortés propuso entregar simbólicamente a Laura Fernández Delgado las llaves de la ciudad.",
+        "Douglas Salazar fundamentó su propuesta en que consideraba motivo de orgullo que una persona del cantón ocupara la Presidencia de la República.",
+        "Juan Carlos Zeledón indicó que ya existía un evento de reconocimiento programado para el 12 de junio y organizado con anticipación.",
+        "Fernando Villalobos afirmó que muchas personas del cantón no conocían el acuerdo previo sobre la declaratoria.",
+        "Fernando Villalobos consideró que no había habido suficiente divulgación del acuerdo previo.",
+        "Fernando Villalobos propuso publicar un comunicado municipal que identificara la sesión y la fecha en que se declaró hija predilecta a Laura Fernández Delgado.",
+        "Fernando Villalobos propuso que el comunicado municipal informara la fecha del acto oficial de reconocimiento.",
+        "Fernando Villalobos propuso informar que el homenaje sería un acto público.",
+        "Bienvenido Venegas propuso desarrollar una campaña publicitaria para invitar a la ciudadanía al acto del 12 de junio.",
+        "Bienvenido Venegas afirmó que el reconocimiento no se había realizado antes porque la agenda de Laura Fernández, entonces presidenta electa, estaba muy ajustada.",
+        "Bienvenido Venegas afirmó que se había valorado realizar el reconocimiento ocho o quince días antes de que Laura Fernández asumiera la Presidencia o efectuarlo después.",
+        "Bienvenido Venegas afirmó que finalmente se acordó con Laura Fernández efectuar el reconocimiento después de que asumiera la Presidencia.",
+        "Bienvenido Venegas afirmó que el equipo de Laura Fernández proporcionó la fecha del 12 de junio para el acto.",
+        "Juan Carlos Zeledón propuso responder por medio de la Secretaría a Douglas Salazar que ya existía un evento programado.",
+        "Juan Carlos Zeledón propuso adjuntar a la respuesta copia del acuerdo previo del Concejo.",
+        "Juan Carlos Zeledón propuso publicar en la página oficial municipal información sobre la actividad del 12 de junio.",
+        "El Concejo acordó informar a Douglas Salazar que el acuerdo respectivo ya había sido adoptado en la sesión extraordinaria del 4 de febrero de 2026, Acta 139-2026.",
+        "El Concejo acordó informar a Douglas Salazar que el acto público estaba programado para el 12 de junio.",
+        "El Concejo solicitó a la Administración publicar en la página oficial municipal información sobre la actividad del 12 de junio.",
+        "El Concejo dispuso adjuntar copia del acuerdo previo a la comunicación dirigida a Douglas Salazar."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "6- Se conoce nota de fecha 04 de mayo de 2026, dirigida al Concejo Municipal de\n51   Esparza, por el MSc. Douglas Salazar Cortés; texto que se transcribe a\n52   continuación:\n\f 1   “El suscrito, Douglas Salazar Cortés, con cédula de identidad número 603680744, Máster\n 2   en Relaciones Internacionales & Diplomacia, les envía un cordial saludo y nuestros mayores\n 3   deseos de éxito tanto en lo personal como en lo profesional.\n 4   Por este medio, le propongo a este honorable Consejo Municipal tomar el siguiente acuerdo:\n 5   - Designar a la Presidenta de la República Laura Fernández Delgado como hija predilecta\n 6   del Cantón de Esparza y hacer la entrega simbólica de las llaves de la Ciudad como se estila\n 7   para este tipo de actos.\n 8   Lo anterior, considerando que debe ser motivo de orgullo para todos los esparzanos que un\n 9   ciudadano de nuestro Cantón ocupe el cargo público de",
+      "source_excerpt_scope_char_end": 30665,
+      "source_excerpt_scope_char_start": 29765,
+      "specific_reasons": [
+        "A context-dependent C06 proposition received the explicit prior source anchor needed to resolve its referent without importing session-level memory."
+      ],
+      "structure_ids": [
+        "C06"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0035",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0521",
+        "D1-F0522",
+        "D1-F0523",
+        "D1-F0524",
+        "D1-F0525",
+        "D1-F0526",
+        "D1-F0527",
+        "D1-F0528",
+        "D1-F0529",
+        "D1-F0530",
+        "D1-F0531",
+        "D1-F0532",
+        "D1-F0533",
+        "D1-F0534",
+        "D1-F0535",
+        "D1-F0536",
+        "D1-F0537",
+        "D1-F0538",
+        "D1-F0539",
+        "D1-F0540",
+        "D1-F0541",
+        "D1-F0542",
+        "D1-F0543",
+        "D1-F0544",
+        "D1-F0545",
+        "D1-F0546",
+        "D1-F0547",
+        "D1-F0548",
+        "D1-F0549",
+        "D1-F0550",
+        "D1-F0551",
+        "D1-F0552",
+        "D1-F0553",
+        "D1-F0554",
+        "D1-F0555",
+        "D1-F0556",
+        "D1-F0557",
+        "D1-F0558",
+        "D1-F0559",
+        "D1-F0560",
+        "D1-F0561",
+        "D1-F0562",
+        "D1-F0563",
+        "D1-F0564",
+        "D1-F0565",
+        "D1-F0566",
+        "D1-F0567",
+        "D1-F0568",
+        "D1-F0569",
+        "D1-F0570",
+        "D1-F0571",
+        "D1-F0572",
+        "D1-F0573",
+        "D1-F0574",
+        "D1-F0575",
+        "D1-F0576",
+        "D1-F0577"
+      ],
+      "replacement_notes": [
+        "La Alcaldía informó que la última contratación de apoyo a la Auditoría Interna se realizó mediante la Licitación Reducida 2023LD-000012-0004700001 bajo modalidad según demanda.",
+        "La Alcaldía citó el oficio GJ-AM-006-2023, según el cual una necesidad permanente de la actividad ordinaria de Auditoría no podía satisfacerse mediante contratación pública diseñada para necesidades transitorias u ocasionales.",
+        "La Alcaldía informó que no autorizó la prórroga del contrato 0432023001600025-00 con Fanny Maritza Segura Castro porque no estaba claro si las labores contratadas correspondían a actividad ordinaria de la Auditoría.",
+        "La Alcaldía informó que, mediante decisión inicial del 17 de septiembre de 2025, la Auditoría Interna solicitó autorización para una nueva contratación de servicios profesionales de apoyo y colaboración bajo modalidad según demanda.",
+        "La Alcaldía indicó que la decisión inicial justificaba la contratación por falta de personal en la Auditoría Interna.",
+        "La Alcaldía indicó que la decisión inicial justificaba la contratación por la necesidad de cubrir el Plan de Trabajo Anual de la Auditoría Interna.",
+        "La Alcaldía sostuvo que el objeto de la contratación presentaba limitaciones que debían corregirse.",
+        "La Alcaldía sostuvo que la decisión inicial era inconsistente porque reconocía necesidad de especialistas en diversas áreas pero limitaba el perfil de contratación a un solo tipo de profesional.",
+        "La Alcaldía sostuvo que la justificación debía explicar por qué el objeto se definía con perfiles de Contaduría Pública, Administración con énfasis en Contaduría o una maestría en Finanzas.",
+        "La Alcaldía señaló que la propia decisión justificaba la necesidad por carencia de personal suficiente y especialistas en auditoría, riesgos, tecnologías de información, derecho e ingeniería, entre otras áreas.",
+        "La Alcaldía señaló que responsabilidades de la Auditoría como atención de denuncias, análisis de notitia criminis y estudios técnicos de ingeniería civil requerían conocimientos especializados diversos.",
+        "La Alcaldía sostuvo que limitar la contratación a un perfil de contador o administrador contradecía la justificación técnica.",
+        "La Alcaldía sostuvo que la limitación resultaba especialmente contradictoria porque el personal actual de Auditoría ya poseía ese perfil profesional.",
+        "La Alcaldía informó que rechazó la decisión inicial en cumplimiento del acuerdo del Concejo contenido en el Acta 114-2025 del 6 de octubre de 2025.",
+        "La Alcaldía informó que el Concejo consultó a la Contraloría si la contratación externa de apoyo a auditorías internas municipales debía limitarse a necesidades ocasionales y transitorias o podía tener naturaleza permanente.",
+        "La Alcaldía informó que el Concejo consultó a la Contraloría si una municipalidad podía contratar profesionales externos para ejecutar labores ordinarias y permanentes de Auditoría Interna debido a una supuesta insuficiencia de personal en plazas presupuestadas.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239 de la Contraloría, según el cual existen estudios especializados de auditoría interna que pueden requerir perfiles profesionales distintos del auditor, por ejemplo en tecnologías de información, ambiente o derecho.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239, según el cual la contratación externa no sustituye las responsabilidades del Auditor Interno como encargado de su unidad.",
+        "La Alcaldía citó el oficio DFOE-LOC-0239, según el cual la contratación externa no permite delegar funciones sustantivas del Auditor Interno.",
+        "La Alcaldía citó como ejemplos de funciones no delegables la elaboración del plan de trabajo, la atención de denuncias propias de auditoría, propuestas de plazas o perfiles y la emisión de advertencias.",
+        "La Alcaldía afirmó que su objetivo prioritario había sido dotar a la Auditoría de instrumentos e insumos necesarios para su labor de fiscalización.",
+        "La Alcaldía informó que ofreció en varias ocasiones el nombramiento interino de dos profesionales para ocupar plazas vacantes de la Auditoría.",
+        "La Alcaldía indicó que los nombramientos interinos se ofrecieron mientras se resolvía el recurso de apelación del último concurso externo.",
+        "La Alcaldía afirmó que el Auditor había rechazado esa colaboración.",
+        "La Alcaldía afirmó que el Auditor había declinado reintegrar a una funcionaria institucional que ya había ocupado una de las plazas durante un año.",
+        "La Alcaldía sostuvo que esas actuaciones evidenciaban que no obstaculizaba la labor de la Auditoría Interna.",
+        "La Alcaldía indicó que el Auditor podía volver a tramitar una solicitud de contratación de servicios profesionales de apoyo cuando lo estimara pertinente.",
+        "La Alcaldía indicó que una futura solicitud debía ajustarse estrictamente a las observaciones técnicas de la Contraloría General.",
+        "La Alcaldía indicó que una futura solicitud debía contar con aval formal del Concejo Municipal como superior jerárquico.",
+        "La Alcaldía recomendó al Concejo notificar formalmente al Auditor el oficio DFOE-LOC-0239 si aún no lo había hecho.",
+        "La Alcaldía recomendó instruir expresamente al Auditor para que cualquier requerimiento futuro de servicios de apoyo cumpliera los lineamientos del oficio DFOE-LOC-0239.",
+        "Bienvenido Venegas afirmó que las solicitudes del Auditor sobre este asunto habían sido reiterativas ante el Concejo.",
+        "Bienvenido Venegas afirmó que la Contraloría permitía contrataciones por demanda según necesidades de Auditoría siempre que no fueran labores ordinarias propias del departamento.",
+        "Bienvenido Venegas sostuvo que el trabajo ordinario debía ser ejecutado por el Auditor y el personal a su cargo.",
+        "Bienvenido Venegas sostuvo que las contrataciones externas procedían únicamente para trabajos especializados en áreas donde la Auditoría no contaba con profesionales especializados.",
+        "Bienvenido Venegas mencionó como ejemplos tecnologías de información, operación, ingeniería, servicios públicos y gestión vial.",
+        "Bienvenido Venegas afirmó que el Auditor insistía en contratar a una persona que había estado vinculada anteriormente con la Municipalidad de Esparza.",
+        "Bienvenido Venegas afirmó que a esa persona se le había pagado más de cien millones de colones durante el tiempo que prestó servicios en la Municipalidad.",
+        "Bienvenido Venegas consideró que no correspondía aceptar nuevamente la solicitud del Auditor de contratar servicios externos después del criterio de la Contraloría sobre cuándo procedían esas contrataciones.",
+        "Bienvenido Venegas solicitó al Concejo remitir nuevamente al Auditor el documento emitido por la Contraloría.",
+        "Bienvenido Venegas sostuvo que el Auditor debía revisar el documento y, en adelante, apegarse a los lineamientos del órgano contralor.",
+        "Bienvenido Venegas reiteró que las dos plazas disponibles se habían ofrecido repetidamente al Auditor.",
+        "Bienvenido Venegas indicó que se había informado al Auditor que podía nombrar interinamente a personas participantes del concurso anterior.",
+        "Bienvenido Venegas informó que no era posible realizar un nuevo concurso porque el proceso anterior estaba judicializado por un recurso y se encontraba ante los tribunales.",
+        "Bienvenido Venegas afirmó que la Municipalidad no podía abrir un nuevo concurso mientras no existiera una resolución judicial.",
+        "Bienvenido Venegas afirmó que se había indicado al Auditor, en varias ocasiones y por escrito, que podía usar interinamente las plazas con personas del concurso que cumplieran los requisitos legales.",
+        "Bienvenido Venegas afirmó que existían personas con experiencia suficiente para apoyar el trabajo de Auditoría.",
+        "Bienvenido Venegas sostuvo que la Administración no se había negado a colaborar ni a brindar facilidades para el trabajo de la Auditoría.",
+        "Bienvenido Venegas aclaró que las personas mencionadas no eran funcionarios actuales de la Municipalidad.",
+        "Bienvenido Venegas recordó que el concurso externo había sido impugnado mediante un recurso presentado por una persona participante.",
+        "Bienvenido Venegas reiteró que el caso estaba en la vía jurisdiccional y que no podía abrirse un nuevo concurso hasta una resolución definitiva.",
+        "Bienvenido Venegas indicó que el Auditor podía disponer interinamente de las plazas si las requería.",
+        "Bienvenido Venegas afirmó que la posibilidad de utilizar interinamente las plazas con personas participantes del concurso se había comunicado por escrito al Auditor en varias oportunidades y se reiteraba en la nota.",
+        "Bienvenido Venegas indicó que el Auditor podía utilizar a las mismas personas del concurso que cumplieran los requisitos legales.",
+        "Bienvenido Venegas afirmó que hasta ese momento no había sido posible concretar esa solución interina.",
+        "El Concejo dio por recibida la nota AME-300-2026 de la Alcaldía.",
+        "El Concejo trasladó la nota AME-300-2026 a la Auditoría para su conocimiento."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "2- El Lic. Bienvenido Venegas Porras, Alcalde Municipal, da a conocer nota AME-\n47   300-2026 de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de Esparza;\n48   que dice:\n49   “En relación con el acuerdo tomado en el acta No. 156-2026 de la sesión ordinaria efectuada\n50   el 27 de abril de 2026, artículo III, inciso 1, seguidamente se hará un resumen de las\n51   actuaciones, tanto de esta Alcaldía como del Concejo, en torno a la contratación de los\n52   servicios de coadyuvancia y apoyo que requiere la Auditoría Interna:\n53   1.      La última contratación de este servicio se realizó mediante la Licitación Reducida\n54           No. 2023LD-000012-0004700001 (apoyo a la Auditoría Interna según demanda).\n\f 1        En el expediente respectivo se encuentra el oficio GJ-AM-006-2023, emitido por la\n 2        Asesoría Legal de la Comisión de Recomendación de Adjudicación, que en sus\n 3",
+      "source_excerpt_scope_char_end": 124673,
+      "source_excerpt_scope_char_start": 123773,
+      "specific_reasons": [
+        "A context-dependent M02 proposition received the explicit prior source anchor needed to preserve who/what the continuation referred to."
+      ],
+      "structure_ids": [
+        "M02"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0036",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0636",
+        "D1-F0637",
+        "D1-F0638",
+        "D1-F0639",
+        "D1-F0640",
+        "D1-F0641"
+      ],
+      "replacement_notes": [
+        "Ronald Robles preguntó cuándo se entregarían los certificados a atletas de baloncesto que habían sido felicitadas aproximadamente quince días antes.",
+        "Ronald Robles afirmó que la Comisión de Cultura debía reunirse para responder a una gestión pendiente.",
+        "Ronald Robles pidió coordinar una fecha para reunir la Comisión de Cultura y dar respuesta al asunto pendiente.",
+        "Juan Carlos Zeledón propuso coordinar por WhatsApp la reunión pendiente.",
+        "Juan Carlos Zeledón indicó que aún faltaba nombrar algunas presidencias de comisiones.",
+        "Juan Carlos Zeledón expresó la expectativa de llevar a la siguiente semana, idealmente el lunes, los dictámenes de cada reunión."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "Regidor suplente Ronald Robles Arley: Dos cositas. ¿Se recuerdan que hace\n29   quince días se trajo una felicitación para unas atletas que habían participado en\n30   unos partidos de baloncesto? Era para saber cuándo se les van a entregar los\n31   certificados.\n32   Y lo segundo es que debemos reunirnos en la Comisión de Cultura, porque hay\n33   que contestarle a un señor. Entonces quisiera ver cuándo tienen tiempo para que\n34   nos podamos reunir, ver ese tema y darle una respuesta.\n35   Sr. Presidente Municipal: Gracias, don Ronald. Yo creo que eso lo valoramos\n36   después y, por medio de WhatsApp, hacemos la notificación para ponernos de\n37   acuerdo.\n38   Igualmente, aprovecho para comentar que también hace falta nombrar algunas\n39   presidencias de comisiones. Ojalá para la próxima semana, el próximo lunes,\n40   podamos traer ya los dictámenes de cada reunión.",
+      "source_excerpt_scope_char_end": 148418,
+      "source_excerpt_scope_char_start": 147540,
+      "specific_reasons": [
+        "A context-dependent V02 proposition received its bounded antecedent evidence rather than depending on an unstated prior mention."
+      ],
+      "structure_ids": [
+        "V02"
+      ]
+    },
+    {
+      "action": "EVIDENCE_CONTEXT_REPAIR",
+      "finding_id": "D1-SAR-0037",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0642",
+        "D1-F0643"
+      ],
+      "replacement_notes": [
+        "Flor Cubero recordó que el miércoles a las 16:00 se realizaría una reunión en Rancho Santa Lucía sobre el puente “Obras que cambian vidas”.",
+        "Flor Cubero invitó a la comunidad y a integrantes del Concejo a asistir a la reunión sobre el puente “Obras que cambian vidas”."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "Regidora Flor María Cubero Martínez: Es para recordar que el miércoles, si Dios\n42   quiere, a las cuatro de la tarde, será la reunión en el Rancho Santa Lucía por el\n43   asunto del puente “Obras que cambian vidas”. Entonces, es para recordarle a toda\n44   la comunidad y a nosotros también, obviamente, para que nos hagamos presentes\n45   ese día.",
+      "source_excerpt_scope_char_end": 148773,
+      "source_excerpt_scope_char_start": 148424,
+      "specific_reasons": [
+        "The reminder about the Rancho Santa Lucía meeting now carries the bounded antecedent needed to preserve the bridge-event referent."
+      ],
+      "structure_ids": [
+        "V03"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "finding_id": "D1-SAR-0038",
+      "old_fact_id": "WIP_NON_AUTHORITATIVE",
+      "old_note": null,
+      "replacement_fact_ids": [
+        "D1-F0633"
+      ],
+      "replacement_notes": [
+        "Aderith Porras recordó que el miércoles 20 pasaría el camión de recolección de residuos no tradicionales por San Juan Grande y San Juan Chiquito."
+      ],
+      "review_pass": "PASS_3_REVERSE",
+      "source_excerpt": "Síndica Aderith Porras Castillo: Tres anuncios. Uno es de parte del Comité de\n13   Caminos de Las Parcelas de San Juan Chiquito y de nosotros, los síndicos: un\n14   agradecimiento a la Administración y a Gestión Vial, porque ellos necesitaban unas\n15   alcantarillas para arreglar un paso. Hicimos la solicitud a la Administración y se\n16   otorgaron las alcantarillas. Ellos ya realizaron el trabajo, aportaron la mano de obra\n17   y todo quedó muy bonito.\n18   Entonces, muchísimas gracias, don Bienvenido, por la ayuda brindada con las\n19   alcantarillas. El trabajo ya se realizó y ellos están satisfechos con la colaboración\n20   que se hizo de parte de la Municipalidad.\n21   Otro anuncio es para hacerles saber que ya se colocaron los reductores de\n22   velocidad en la comunidad de San Juan Grande. Los que estaban pendientes ya\n23   fueron instalados, entonces ese trabajo ya quedó soluciona",
+      "source_excerpt_scope_char_end": 147255,
+      "source_excerpt_scope_char_start": 146355,
+      "specific_reasons": [
+        "The source says “miércoles 20” without itself stating a month at that point. The final semantic note preserves that literal temporal scope instead of deriving a month from surrounding calendar knowledge."
+      ],
+      "structure_ids": [
+        "V01"
+      ]
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.lector.supervising-author-adversarial-review/v1",
+  "method": [
+    "Recover only the semantic material reproducibly present in the context-limit checkpoint; do not reconstruct the lost ~380 narrative state from memory.",
+    "Re-read the exact frozen Representation in source order and re-author known drifted/incomplete carriers.",
+    "Complete the missing M02–V05 tail directly from the frozen source.",
+    "Run a dedicated 61-unit omission-only pass.",
+    "Run a fact-by-fact reverse audit for entailment, atomicity, qualifier support, evidence sufficiency, attribution antecedents, CTX semantics and duplicate equivalence.",
+    "Keep formal A0–A5 output, Acta 160 and H2 unseen during reference authorship."
+  ],
+  "results": {
+    "action_counts": {
+      "ADD_MISSING_TAIL": 11,
+      "ADD_OMISSION": 4,
+      "EVIDENCE_CONTEXT_REPAIR": 11,
+      "REWRITE": 3,
+      "SOURCE_EXHAUSTIVE_REWRITE": 7,
+      "SPLIT": 1,
+      "SPLIT_AND_REWRITE": 1
+    },
+    "final_fact_count": 660,
+    "final_reference_id": "CANARIO-D1-REFERENCE-SUPERVISOR-DRAFT-001",
+    "findings_total": 38,
+    "net_semantic_fact_change_from_wip": null,
+    "pass_counts": {
+      "PASS_1_RECOVERY": 19,
+      "PASS_2_OMISSION": 5,
+      "PASS_3_REVERSE": 14
+    },
+    "primary_source_adjudications": 0,
+    "unresolved_semantic_items": 0,
+    "verdict": "CONTEXT_LIMIT_WIP_REQUIRES_RECONSTRUCTION_FINAL_D1_V1_AUTHORED"
+  },
+  "review_id": "CANARIO-D1-SUPERVISING-AUTHOR-ADVERSARIAL-REVIEW-001",
+  "review_passes": [
+    {
+      "pass_id": "PASS_1_RECOVERY",
+      "result": "PASS_WITH_REVISIONS",
+      "scope": "reproducible WIP -> exact frozen source recovery; drifted carriers and missing tail"
+    },
+    {
+      "pass_id": "PASS_2_OMISSION",
+      "result": "PASS_WITH_REVISIONS",
+      "scope": "full source-order omission-only pass across 61 frozen units"
+    },
+    {
+      "pass_id": "PASS_3_REVERSE",
+      "result": "PASS_WITH_REVISIONS",
+      "scope": "fact-by-fact entailment/minimality/qualifier/evidence/context/duplicate challenge"
+    },
+    {
+      "pass_id": "PASS_4_FINAL_INVARIANTS",
+      "result": "PASS",
+      "scope": "final semantic synchronization before local mechanical certification"
+    }
+  ],
+  "reviewer": {
+    "material_independence": "NO",
+    "role": "supervising_cloud_author",
+    "semantic_authority": "YES",
+    "small_local_model_substitution_allowed": "NO"
+  }
+}
