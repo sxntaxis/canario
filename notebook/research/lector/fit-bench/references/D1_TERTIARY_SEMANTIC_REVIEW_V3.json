@@ -1,0 +1,832 @@
+{
+  "anti_anchoring_compliance": {
+    "all_1566_evidence_targets_considered_as_sets_before_prior_review": true,
+    "anchoring_contamination": false,
+    "blind_reference_to_source_pass_completed_before_prior_review": true,
+    "blind_source_to_reference_pass_completed_before_prior_review": true,
+    "frozen_source_read_before_prior_review": true,
+    "prior_review_files_consulted": [
+      "D1_SECONDARY_SEMANTIC_REVIEW_V2.json",
+      "D1_SECONDARY_SEMANTIC_REVIEW_V2.md",
+      "D1_SECONDARY_REVIEW_ADJUDICATION_V2.json",
+      "D1_SECONDARY_REVIEW_ADJUDICATION_V2.md"
+    ],
+    "prior_review_files_read_only_after_provisional_persist": true,
+    "provisional_artifact_persisted_before_prior_review": true,
+    "provisional_artifact_sha256": "e9ea7672925e20ddc5ecccd95e850b7a5576636e49c4a01cf45e76e44a01d437",
+    "provisional_finding_count": 14,
+    "provisional_timestamp": "2026-08-29T14:29:39-06:00",
+    "required_authorities_read_before_semantic_audit": true,
+    "v3_reference_read_before_prior_review": true
+  },
+  "coverage": {
+    "evidence_targets_semantically_considered_as_sets": {
+      "reviewed": 1566,
+      "total": 1566
+    },
+    "facts_reference_to_source": {
+      "reviewed": 700,
+      "total": 700
+    },
+    "frozen_units_source_to_reference": {
+      "reviewed": 61,
+      "total": 61
+    },
+    "structures_source_to_reference": {
+      "reviewed": 36,
+      "total": 36
+    },
+    "v2_repair_findings_regression_checked": {
+      "reviewed": 23,
+      "total": 23
+    }
+  },
+  "cross_cutting_checks": {
+    "U0007_isolated_page_marker_verified": true,
+    "capability_binding_hard_disputes": 0,
+    "semantic_duplicate_hard_disputes": 0
+  },
+  "finding_count": 14,
+  "finding_counts_by_direction": {
+    "REFERENCE_TO_SOURCE": 12,
+    "SOURCE_TO_REFERENCE": 2
+  },
+  "finding_counts_by_issue_type": {
+    "EVIDENCE_INSUFFICIENT": 10,
+    "MISSING_MATERIAL_ASSERTION": 2,
+    "MODALITY_ERROR": 1,
+    "QUANTITATIVE_ERROR": 1
+  },
+  "finding_inventory": [
+    {
+      "affected_fact_ids": [
+        "D1-F0091",
+        "D1-F0092",
+        "D1-F0093"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0001",
+      "issue_type": "MODALITY_ERROR",
+      "problem": "F0091-F0093 change a present-tense description of what the pool regulation contains into a normative claim that it “debía contemplar” those matters.",
+      "recommended_resolution": "Advisory only: preserve the source descriptive modality for these content assertions; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Sería muy irresponsable por parte de\n 8   este gobierno local comenzar a operar un espacio como la piscina semiolímpica\n 9   sin una debida reglamentación, porque ese reglamento contempla absolutamente\n10   todo lo relacionado con la responsabilidad del Comité de Deportes, la\n11   responsabilidad de las personas que harán uso de la piscina, las medidas de\n12   seguridad y muchos otros aspectos.",
+          "location_or_selector": "representation_char_range:22649-23046"
+        }
+      ],
+      "source_grounded_reason": "The frozen source says “ese reglamento contempla absolutamente todo lo relacionado con” the Committee responsibility, user responsibility, and safety measures. It does not say in this passage that the regulation “debía contemplar” them. The canonical propositions therefore change modality.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0015",
+        "U0016"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V3-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "D1 v3 omits Stephannie/Stephanie Quesada’s stated expectation that an Esparza-born President would bring greater attention to the canton’s road needs because of the considerable deterioration of the roads.",
+      "recommended_resolution": "Advisory only: represent the source assertion with source-faithful actor form/attribution and modality, preserving the stated reason; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "La señora Stephanie manifiesta que espera que, al tratarse de una Presidenta de\n29   la República oriunda de Esparza, pueda brindarse mayor atención a las\n30   necesidades viales del cantón, debido al considerable deterioro de las carreteras.\n31   El",
+          "location_or_selector": "representation_char_range:83920-84170"
+        }
+      ],
+      "source_grounded_reason": "This is a source-visible position by a public actor about canton road needs and its stated reason. The U04 fact inventory covers her route 622 and speed-reducer requests but contains no proposition representing this separate expectation/reason assertion.",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0037"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V3-IR-0003",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "D1 v3 omits the source assertion that expediente 23.898 had previously also been related to the port-reserve zone (“zona de reserva portuaria”).",
+      "recommended_resolution": "Advisory only: represent or preserve this source-stated prior relation without outside-world correction; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Entre ellos, destaca el expediente N.° 23.898, denominado “Ley para la\n40   Reivindicación de los Derechos de los Pobladores y Desafectación de la Zona de\n41   Alta Intervención de la Zona Protectora Tivives”, anteriormente relacionado\n42   también con la zona de reserva portuaria.",
+          "location_or_selector": "representation_char_range:88680-88962"
+        }
+      ],
+      "source_grounded_reason": "The source expressly attaches this prior-scope/history statement to expediente 23.898. F0364 names the expediente and title, and many later facts reuse the same evidence as context, but no canonical proposition or mandatory qualifier represents the “anteriormente relacionado también con la zona de reserva portuaria” assertion.",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0039"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0501",
+        "D1-F0502"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0004",
+      "issue_type": "QUANTITATIVE_ERROR",
+      "problem": "F0501 and F0502 assert totals of 25 and 10 educational centers, respectively, although the frozen source only enumerates the centers and never states those totals.",
+      "recommended_resolution": "Advisory only: preserve the enumerated source content without derived totals unless the source itself states the counts; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "En virtud de lo anterior, me permito informar que, al 15 de mayo del presente año, se han\n30   recibido proyectos por parte de los siguientes centros educativos:\n31   • Escuela José Francisco Pérez Muñoz\n32   • Escuela Juan Rafael Jiménez Granados\n33   • Escuela El Barón\n34   • Escuela Gil González Dávila\n35   • Colegio Nocturno de Esparza\n36   • Escuela De Cerrillos\n37   • Escuela Mesetas Abajo\n38   • Jardín de Niños Esparza\n39   • Escuela San Juan Chiquito\n40   • Colegio Técnico Prof. Esparza\n41   • Escuela Mojoncito\n42   • Escuela Salinas\n43   • Escuela Rosario Vásquez Monge\n44   • Escuela Villa Nueva\n45   • Liceo Emiliano Odio Madrigal\n46   • Escuela Antonio Vallerriesta\n47   • Escuela IDA del Barón\n48   • Escuela Bruselas\n49   • Escuela de Marañonal\n50   • Escuela Maratón\n51   • Escuela Guardianes de la Piedra\n52   • Escuela Diego Artieda y Chirino\n53   • Escuela Caldera\n54   • Escuela Arturo Torres Martínez\n\f 1   • Escuela La Riviera\n 2   Por otra parte, los centros educativos que, a la fecha antes indicada, no presentaron los\n 3   respectivos proyectos son los siguientes:\n 4   • Escuela Cambalache\n 5   • Escuela Peñas Blancas\n 6   • Escuela Sabana Bonita\n 7   • Liceo Diurno de Esparza\n 8   • Escuela Justo Antonio Facio de la Guardia\n 9   • Escuela Tivives\n10   • Escuela Heriberto Zeledón\n11   • CINDEA de Esparza\n12   • Escuela Mata Limón\n13   • Escuela Mojón”\n14   Hasta aquí la transcripción de la nota.",
+          "location_or_selector": "representation_char_range:119915-121348"
+        }
+      ],
+      "source_grounded_reason": "The source says projects were received from “los siguientes centros educativos” and then lists names; it separately lists centers that had not presented projects. Deriving 25 and 10 requires counting list items. Under the frozen semantics, arithmetic/computation is not a source assertion and cannot be promoted to a canonical quantity.",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0050",
+        "U0051"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0021"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0005",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0021 carries mandatory temporal qualifier “8 de agosto de 2026”, but its only bound decision evidence says “8 de agosto” and does not bind the 2026 source-date context.",
+      "recommended_resolution": "Advisory only: bind source context that semantically fixes the year or preserve the source temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Trasladar a la Administración la solicitud realizada por el Comité\n 6   Cantonal de la Persona Joven de Esparza, con el fin de que les colabore en la\n 7   medida de las posibilidades, para la celebración del Día Internacional de la\n 8   Juventud el 8 de agosto en el Parque Pérez.",
+          "location_or_selector": "representation_char_range:9428-9720"
+        }
+      ],
+      "source_grounded_reason": "The proposition can preserve 8 August from the operative clause, but the evidence set does not support normalizing that date to 2026. The required review contract rejects calendar inference and canonical detail supported only by unbound surrounding context.",
+      "structure_id": "C03",
+      "unit_ids": [
+        "U0009"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0713",
+        "D1-F0135"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0006",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "Four C06 facts normalize “12 de junio” to mandatory temporal qualifier “12 de junio de 2026” without any bound evidence target supplying the year/date context.",
+      "recommended_resolution": "Advisory only: add source-bound date context if 2026 is retained as a mandatory qualifier, or preserve the source’s day/month form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [
+        "D1-V2-IR-0003"
+      ],
+      "relation_components": {
+        "independently_new_v3_defect_fact_ids": [
+          "D1-F0122",
+          "D1-F0128",
+          "D1-F0135"
+        ],
+        "note": "The original v2 antecedent/ambiguity defect is repaired. D1-F0713, a mapped v3 repair fact, has a different evidence-sufficiency defect: its mandatory year 2026 is not bound. The other three facts in this grouped date-evidence defect are independently new v3 defects.",
+        "repair_regression_fact_ids": [
+          "D1-F0713"
+        ]
+      },
+      "relation_to_v2_review": "REPAIR_REGRESSION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Presidente Municipal: Tal vez es importante también brindar una respuesta por\n13   medio de la Secretaría del Concejo, indicándole que ya tenemos un evento\n14   programado para el 12 de junio, el cual fue organizado con anticipación, donde se\n15   le realizará un reconocimiento.",
+          "location_or_selector": "representation_char_range:30803-31086"
+        },
+        {
+          "exact_text": "Sr. Alcalde: Me parece que más bien podríamos aprovechar la coyuntura y la\n32   preocupación que tienen algunos vecinos del cantón de Esparza, vamos a\n33   desarrollar una campaña publicitaria para invitar a la ciudadanía a la actividad\n34   programada para el 12 de junio.",
+          "location_or_selector": "representation_char_range:32238-32511"
+        },
+        {
+          "exact_text": "Por eso fueron ellos quienes nos brindaron la fecha del 12 de junio.",
+          "location_or_selector": "representation_char_range:32842-32910"
+        },
+        {
+          "exact_text": "Asimismo, atendiendo lo indicado por los compañeros regidores, se realizará la\n44   publicación en la página oficial de la Municipalidad para informar al pueblo de\n45   Esparza sobre la actividad programada para el próximo 12 de junio.",
+          "location_or_selector": "representation_char_range:33164-33399"
+        }
+      ],
+      "source_grounded_reason": "The bound snippets establish the 12 June event and speaker identities, but not the year. Resolving the shorthand date to 2026 depends on unbound session context, which is insufficient under the evidence-set rule.",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0018",
+        "U0019",
+        "U0001"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0146",
+        "D1-F0147"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0007",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0146 and F0147 normalize the 27 May 10:00 event to “27 de mayo de 2026”, but their bound evidence does not include the dated Club de Leones note or other source-date context.",
+      "recommended_resolution": "Advisory only: bind the dated source context if the 2026 qualifier is retained, or preserve the source temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Entonces, más bien aprovechar este medio para invitar a la ciudadanía el próximo\n16   27 de mayo a las 10:00 de la mañana, si Dios lo permite y si están de acuerdo en\n17   que se utilice esta sala; de ser así, la actividad se realizaría aquí.",
+          "location_or_selector": "representation_char_range:35241-35483"
+        },
+        {
+          "exact_text": "SE ACUERDA: Aprobar el préstamo de la sala de sesiones para una charla sobre\n21   cáncer de colon el 27 de mayo a las 10 a.m., solicitado por el Club de Leones de\n22   Esparza, y se traslada a la Administración para lo que corresponda.",
+          "location_or_selector": "representation_char_range:35583-35818"
+        }
+      ],
+      "source_grounded_reason": "The bound evidence establishes 27 May at 10:00 and the proposed/formal action. It does not itself establish 2026; the year is supplied only by unbound surrounding context.",
+      "structure_id": "C07",
+      "unit_ids": [
+        "U0020"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0156",
+        "D1-F0157"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0008",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0156 and F0157 assign 2026 to Ronald Robles’s “próximo 30 de mayo” and “28 de noviembre” statements even though the bound evidence does not supply a source-date anchor for the year.",
+      "recommended_resolution": "Advisory only: bind exact date context supporting the year or preserve the source’s temporal wording; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Regidor suplente Ronald Robles: Sí, también el próximo 30 de mayo, durante el\n52   baile que se realizará en horas de la noche, se llevará a cabo la presentación de\n53   las candidatas al certamen Señorita Esparza. Entonces, invitamos a todas las\n\f 1   personas para que asistan ese día al baile, el cual estará muy bonito, y puedan\n 2   conocer a nuestras candidatas del certamen programado para el 28 de noviembre.",
+          "location_or_selector": "representation_char_range:38051-38467"
+        }
+      ],
+      "source_grounded_reason": "The source snippets support the month/day event statements but not the added year. The year resolution depends on unbound session context.",
+      "structure_id": "C08",
+      "unit_ids": [
+        "U0021"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0164"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0009",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0164 carries “30 de mayo de 2026” while its operative-clause evidence states only “30 de mayo”.",
+      "recommended_resolution": "Advisory only: bind the dated request/source context if the year is retained, or preserve the source temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Trasladar a la Administración la solicitud de uso de suelo del\n31   Parque Pérez para el 30 de mayo, con el fin de que revisen que no haya ningún\n32   inconveniente, en caso de que haya alguna otra actividad y que sea la\n33   administración que tome la decisión al respecto.",
+          "location_or_selector": "representation_char_range:40478-40764"
+        }
+      ],
+      "source_grounded_reason": "The formal decision evidence is sufficient for the day/month and disposition but does not bind the source context needed to add the year 2026.",
+      "structure_id": "C09",
+      "unit_ids": [
+        "U0022"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0181"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0010",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0181 carries “29 de mayo de 2026”, but its decision evidence says only “la asamblea del 29 de mayo”; the embedded document identifier DE-084-05-2026 is not itself an assertion that the assembly date is in 2026.",
+      "recommended_resolution": "Advisory only: bind the dated UNGL invitation if the year qualifier is retained, or preserve the source temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Dar por recibida la nota DE-084-05-2026 de la UNGL, se confirma\n33   la asistencia de la regidora Karol Arroyo Vásquez y del regidor Christian Tercero\n34   Carvajal, a la asamblea del 29 de mayo en el Hotel Real Intercontinental, y se\n35   solicita a la Administración coordinar el uso de un vehículo para que transporte a\n36   los señores regidores a la asamblea.",
+          "location_or_selector": "representation_char_range:44761-45137"
+        }
+      ],
+      "source_grounded_reason": "The original UNGL invitation elsewhere in the source states 29 May 2026, but that dated invitation is not part of F0181’s evidence set. The canonical year therefore depends on unbound context rather than the complete bound set.",
+      "structure_id": "C11",
+      "unit_ids": [
+        "U0024"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0388",
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0735",
+        "D1-F0405",
+        "D1-F0411"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0011",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "Eight U06 facts normalize session-relative shorthand (“este mes”, “12 de junio”, and associated times) to 2026 without binding the session-date context that makes those calendar resolutions possible.",
+      "recommended_resolution": "Advisory only: bind exact source-date context for the normalized dates/month or preserve the source-relative temporal forms; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [
+        "D1-V2-IR-0016"
+      ],
+      "relation_components": {
+        "independently_new_v3_defect_fact_ids": [
+          "D1-F0388",
+          "D1-F0398",
+          "D1-F0399",
+          "D1-F0400",
+          "D1-F0401",
+          "D1-F0405",
+          "D1-F0411"
+        ],
+        "note": "The original v2 U06 project/topic antecedent defects are repaired. D1-F0735, a mapped v3 repair fact, has a different evidence-sufficiency defect: its mandatory year 2026 is not bound. The other seven facts in this grouped date-evidence defect are independently new v3 defects.",
+        "repair_regression_fact_ids": [
+          "D1-F0735"
+        ]
+      },
+      "relation_to_v2_review": "REPAIR_REGRESSION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Tal vez delegar\n10   en el señor Alcalde para que empiece a coordinar con ellos y que vayamos\n11   pensando en una fecha para junio, julio o incluso a finales de este mes.",
+          "location_or_selector": "representation_char_range:94441-94612"
+        },
+        {
+          "exact_text": "Y con respecto a lo que decía don Fernando, me parece importante recordar que\n39   el 12 de junio viene la señora Presidenta. También estamos invitando a los señores\n40   diputados de la provincia de Puntarenas,\n41   Yo no sé si habría posibilidad, si ustedes tendrían oportunidad de realizar una\n42   sesión extraordinaria en una fecha que no coincida con la reunión con la\n43   Presidenta. El homenaje será a las cuatro de la tarde. No sé si ese día podríamos\n44   aprovechar que ellos van a estar acá, si vienen unas horas antes, los atendemos\n45   aquí, me parece que es una buena fecha para que ellos vengan.",
+          "location_or_selector": "representation_char_range:96631-97244"
+        },
+        {
+          "exact_text": "Los que puedan asistir, irían por\n54   un lado y, por otro lado, si les parece, aprovecharíamos la fecha del 12 de junio,\n\f 1   cuando ellos vienen acá. Podríamos realizar una sesión extraordinaria antes de las\n 2   cuatro de la tarde.",
+          "location_or_selector": "representation_char_range:97819-98054"
+        },
+        {
+          "exact_text": "Don Bienvenido ya se\n11   va a poner en marcha para coordinar con todos los jefes de despacho de cada\n12   fracción y valorar la opción de realizar una sesión extraordinaria el propio 12 de\n13   junio, que casualmente es viernes, para ver si es posible contar con todos los\n14   diputados y poder exponerles tanto ese proyecto como las demás problemáticas\n15   que tenemos en el cantón.",
+          "location_or_selector": "representation_char_range:98695-99081"
+        }
+      ],
+      "source_grounded_reason": "The bound snippets establish the proposed months/day and event sequence, but they do not state 2026. F0388 additionally resolves “este mes” to May. Those resolutions require calendar/source-date context outside the evidence sets.",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0041",
+        "U0042",
+        "U0043",
+        "U0001"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0501",
+        "D1-F0502",
+        "D1-F0503"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0012",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0501-F0502 resolve “15 de mayo del presente año” to 15 May 2026, and F0503 normalizes “15 de junio” to 15 June 2026, without binding the dated AME/GDHL source context or session date.",
+      "recommended_resolution": "Advisory only: bind the dated note/session context if 2026 is retained, or preserve the source-relative temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "En virtud de lo anterior, me permito informar que, al 15 de mayo del presente año, se han\n30   recibido proyectos por parte de los siguientes centros educativos:\n31   • Escuela José Francisco Pérez Muñoz\n32   • Escuela Juan Rafael Jiménez Granados\n33   • Escuela El Barón\n34   • Escuela Gil González Dávila\n35   • Colegio Nocturno de Esparza\n36   • Escuela De Cerrillos\n37   • Escuela Mesetas Abajo\n38   • Jardín de Niños Esparza\n39   • Escuela San Juan Chiquito\n40   • Colegio Técnico Prof. Esparza\n41   • Escuela Mojoncito\n42   • Escuela Salinas\n43   • Escuela Rosario Vásquez Monge\n44   • Escuela Villa Nueva\n45   • Liceo Emiliano Odio Madrigal\n46   • Escuela Antonio Vallerriesta\n47   • Escuela IDA del Barón\n48   • Escuela Bruselas\n49   • Escuela de Marañonal\n50   • Escuela Maratón\n51   • Escuela Guardianes de la Piedra\n52   • Escuela Diego Artieda y Chirino\n53   • Escuela Caldera\n54   • Escuela Arturo Torres Martínez\n\f 1   • Escuela La Riviera\n 2   Por otra parte, los centros educativos que, a la fecha antes indicada, no presentaron los\n 3   respectivos proyectos son los siguientes:\n 4   • Escuela Cambalache\n 5   • Escuela Peñas Blancas\n 6   • Escuela Sabana Bonita\n 7   • Liceo Diurno de Esparza\n 8   • Escuela Justo Antonio Facio de la Guardia\n 9   • Escuela Tivives\n10   • Escuela Heriberto Zeledón\n11   • CINDEA de Esparza\n12   • Escuela Mata Limón\n13   • Escuela Mojón”\n14   Hasta aquí la transcripción de la nota.",
+          "location_or_selector": "representation_char_range:119915-121348"
+        },
+        {
+          "exact_text": "Sr. Alcalde: La recomendación sería extender el plazo hasta el 15 de junio para\n16   que las instituciones puedan ponerse al día y beneficiarse de esos recursos,\n17   Esta solicitud fue remitida por la Gestión de Desarrollo Humano Local.",
+          "location_or_selector": "representation_char_range:121354-121591"
+        }
+      ],
+      "source_grounded_reason": "The evidence sets establish “presente año”/day-month wording and the proposed extension, but not the year value used in the mandatory temporal qualifiers. The year resolution therefore relies on unbound context.",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0050",
+        "U0051",
+        "U0001"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0644"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0013",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0644 normalizes “actividades de agosto” and “8 de agosto” to August 2026 / 8 August 2026 without binding the dated CCPJ correspondence or session-date context.",
+      "recommended_resolution": "Advisory only: bind exact dated source context if the 2026 qualifier is retained, or preserve the source temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Ellos solicitaban que se les tome en cuenta dentro de las actividades de agosto,\n49   precisamente porque no sabemos si para esa fecha, el 8 de agosto, habrá alguna\n50   actividad, ya que ellos quieren celebrar el Día Internacional de la Juventud.",
+          "location_or_selector": "representation_char_range:148950-149197"
+        }
+      ],
+      "source_grounded_reason": "The bound evidence supports the month/day and purpose but not the added year. The 2026 qualifier depends on unbound surrounding context.",
+      "structure_id": "V04",
+      "unit_ids": [
+        "U0060"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0649",
+        "D1-F0651"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0014",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "F0649 and F0651 resolve the deictic expressions “el día de hoy” and “hoy en la tarde” to 18 May 2026 without binding the session-date evidence needed for that resolution.",
+      "recommended_resolution": "Advisory only: bind the session-date evidence if the absolute date is retained, or preserve the source deictic temporal form; do not mutate D1 v3 in this audit.",
+      "related_v2_finding_ids": [],
+      "relation_to_v2_review": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "El día de hoy se concluyó con la iluminación del puente de Mata de Limón.",
+          "location_or_selector": "representation_char_range:150338-150411"
+        },
+        {
+          "exact_text": "También decirle al señor Alcalde que ya ingresó el trámite del que estábamos\n17   pendientes. Me acaban de enviar un mensaje del ICE indicando que ya llegó el\n18   trámite que comentamos hoy en la tarde.",
+          "location_or_selector": "representation_char_range:150490-150693"
+        }
+      ],
+      "source_grounded_reason": "The source snippets support same-day/today timing, but the evidence sets do not include the Acta/session date. Converting “hoy” to an absolute calendar date therefore depends on unbound context and is specifically disallowed by the evidence sufficiency/deictic-resolution rule.",
+      "structure_id": "V05",
+      "unit_ids": [
+        "U0061"
+      ]
+    }
+  ],
+  "finding_relation_counts": {
+    "NEW": 12,
+    "REPAIR_REGRESSION": 2
+  },
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "fixture_identity": {
+    "certified_bundle": {
+      "bytes": 2458115,
+      "complete_history": "PASS",
+      "git_bundle_verify": "PASS",
+      "sha256": "7147ef586244c52e548074bc81022261f818b65fef5c8cdc3b21b6c8b55dd49f"
+    },
+    "frozen_unit_inventory": {
+      "sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+      "unit_count": 61
+    },
+    "primary_pdf": {
+      "bytes": 760485,
+      "sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd"
+    },
+    "recovery_archive": {
+      "bytes": 745476,
+      "sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf"
+    },
+    "representation": {
+      "bytes": 154866,
+      "characters": 151940,
+      "kind": "text/plain",
+      "processor": "poppler.pdf_text",
+      "sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1"
+    },
+    "scope": {
+      "kind": "full_source_order",
+      "sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5"
+    }
+  },
+  "format": "canario.d1-tertiary-semantic-review.v3/1",
+  "leakage_declaration": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "reference_freeze_status": "NOT_FROZEN_BY_THIS_REVIEW",
+  "review_id": "CANARIO-D1-TERTIARY-SEMANTIC-REVIEW-V3-001",
+  "reviewed_candidate": {
+    "commit": "f67be88dd34231f472e8bf485aba72760eeb36a0",
+    "parent": "f5b640ce42166a17104054f505ccddbcb9aca8e9",
+    "reference_artifacts": {
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V3.json": {
+        "bytes": 3164399,
+        "sha256": "0d5a4e07e9b2cd9ba3f7dd736f99b08c5202747b87d5f1ca058efee04e67a111"
+      },
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V3.md": {
+        "bytes": 2539,
+        "sha256": "f6904b35c2083fbd347045113c5a2ac54975388af540a6f743012c5c9834afe6"
+      }
+    },
+    "reference_state": "SUPERVISOR_DRAFT",
+    "subject": "research(lector): revise D1 reference after secondary review",
+    "tree": "c19b5a068dcffae6d497ae8eb6e71ad174cf8308"
+  },
+  "reviewer": {
+    "identity": "OpenAI / GPT-5.6 Sol",
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "model": "GPT-5.6 Sol",
+    "provider": "OpenAI",
+    "strong_independent_gate_satisfied": false
+  },
+  "semantic_verdict": "REFERENCE_DISPUTE",
+  "source": "Acta Sesión Ordinaria N.º 161 — 18 May 2026, Municipalidad de Esparza",
+  "timestamp": "2026-08-29T14:34:27-06:00",
+  "v2_regression_counts": {
+    "PARTIALLY_RESOLVED": 0,
+    "REGRESSED_DIFFERENTLY": 2,
+    "RESOLVED_IN_V3": 21,
+    "STILL_PRESENT": 0,
+    "total": 23
+  },
+  "v2_regression_matrix": [
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The source-internal PRE attendance roster is now bound to the local «Rolnald Robles» speaker spans, supporting the canonical Ronald Robles identity without outside correction.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0001",
+      "v3_fact_ids": [
+        "D1-F0079",
+        "D1-F0080",
+        "D1-F0081",
+        "D1-F0082",
+        "D1-F0083"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The v3 evidence sets bind the prior hija-predilecta agreement and Laura Fernández Delgado identity needed by the C06 propositions.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0002",
+      "v3_fact_ids": [
+        "D1-F0711",
+        "D1-F0712",
+        "D1-F0125"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [
+        "D1-V3-IR-0006"
+      ],
+      "source_grounded_regression_reason": "The original Laura Fernández/pronoun defect is repaired and «ellos» is preserved as unresolved ambiguity, but mapped replacement D1-F0713 adds mandatory year 2026 without evidence that binds that year.",
+      "status": "REGRESSED_DIFFERENTLY",
+      "v2_finding_id": "D1-V2-IR-0003",
+      "v3_fact_ids": [
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0713"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The response and attachment facts now bind the Douglas Salazar note/recipient antecedent together with the speaker context.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0004",
+      "v3_fact_ids": [
+        "D1-F0133",
+        "D1-F0134"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "D1-F0139 now binds the operative SE ACUERDA/Concejo status and the Douglas Salazar communication antecedent rather than only the attachment fragment.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0005",
+      "v3_fact_ids": [
+        "D1-F0139"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The invitation/activity evidence now binds the Expo Feria del Aguacate referent for both repaired facts.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0006",
+      "v3_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The replacement fact binds the Asamblea Nacional Ordinaria 01-2026 antecedent rather than leaving «la asamblea» unresolved.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0007",
+      "v3_fact_ids": [
+        "D1-F0714"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The replacement facts bind the required Festival Nacional de Folclore event and enlace antecedents and are self-sufficient.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0008",
+      "v3_fact_ids": [
+        "D1-F0715",
+        "D1-F0716",
+        "D1-F0717",
+        "D1-F0718"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The formal designation/finality evidence now identifies the coordinated event as the Festival Nacional de Folclore.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0009",
+      "v3_fact_ids": [
+        "D1-F0196",
+        "D1-F0676"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The C13 repair sets bind the ZMT dispute/document, commission, stage, expedientes, carta, and suspended meeting/session antecedents required by the canonical propositions.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0010",
+      "v3_fact_ids": [
+        "D1-F0219",
+        "D1-F0719",
+        "D1-F0230",
+        "D1-F0232",
+        "D1-F0720",
+        "D1-F0721",
+        "D1-F0248",
+        "D1-F0722",
+        "D1-F0723",
+        "D1-F0724",
+        "D1-F0258",
+        "D1-F0259",
+        "D1-F0260",
+        "D1-F0725",
+        "D1-F0726",
+        "D1-F0727",
+        "D1-F0728",
+        "D1-F0729",
+        "D1-F0266",
+        "D1-F0730",
+        "D1-F0731"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The reminder-history evidence now binds «ese tema» to the SINAC/Patrimonio Natural del Estado certification topic.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0011",
+      "v3_fact_ids": [
+        "D1-F0696"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The finality evidence now carries both operative items: receipt of the Mata de Limón note and the request for the ZMT pending-expedients report.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0012",
+      "v3_fact_ids": [
+        "D1-F0677"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The proposal and acceptance evidence now bind «la ruta»/the gestión to route 756.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0013",
+      "v3_fact_ids": [
+        "D1-F0697",
+        "D1-F0698"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The finality evidence now includes the full route-756 decision, including remittance to the Presidency of the Republic.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0014",
+      "v3_fact_ids": [
+        "D1-F0682"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The finality evidence now includes both the route-622 intervention clause and the added speed-reducer clause from Nances toward the UCR.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0015",
+      "v3_fact_ids": [
+        "D1-F0683"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [
+        "D1-V3-IR-0011"
+      ],
+      "source_grounded_regression_reason": "The original U06 expediente 23.898/Puntarenas/topic and recognition-context defects are repaired, but mapped replacement D1-F0735 adds mandatory year 2026 without binding a source-date anchor.",
+      "status": "REGRESSED_DIFFERENTLY",
+      "v2_finding_id": "D1-V2-IR-0016",
+      "v3_fact_ids": [
+        "D1-F0374",
+        "D1-F0732",
+        "D1-F0382",
+        "D1-F0383",
+        "D1-F0733",
+        "D1-F0734",
+        "D1-F0735",
+        "D1-F0736",
+        "D1-F0737",
+        "D1-F0738",
+        "D1-F0743"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "The U08 disposition and finality facts now bind «el tema» to the Juegos Deportivos Nacionales topic.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0017",
+      "v3_fact_ids": [
+        "D1-F0494",
+        "D1-F0739",
+        "D1-F0740"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "M01 finality now binds the full multi-clause agreement, including the school-supervisor follow-up clauses.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0018",
+      "v3_fact_ids": [
+        "D1-F0687"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "M02 evidence now resolves «esa posibilidad» and «concretarlo» to the interino-vacancy option and eligible prior-concurso participants.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0019",
+      "v3_fact_ids": [
+        "D1-F0573",
+        "D1-F0575"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "M03 finality now binds the complete operative agreement, including permit, canon, notification/appeal and Natalia Araya Freeman clauses.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0020",
+      "v3_fact_ids": [
+        "D1-F0689"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "V02 replacement facts bind the pending Cultura meeting and its topic instead of leaving those antecedents unresolved.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0021",
+      "v3_fact_ids": [
+        "D1-F0741",
+        "D1-F0742"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "C01/C02 finality evidence now carries the full substitution agreements whose finality is asserted.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0022",
+      "v3_fact_ids": [
+        "D1-F0661",
+        "D1-F0662"
+      ]
+    },
+    {
+      "related_v3_finding_ids": [],
+      "source_grounded_regression_reason": "C04 finality evidence now binds the transferred CCPJ request to the Campaña de emprendedurismo joven.",
+      "status": "RESOLVED_IN_V3",
+      "v2_finding_id": "D1-V2-IR-0023",
+      "v3_fact_ids": [
+        "D1-F0668"
+      ]
+    }
+  ],
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
