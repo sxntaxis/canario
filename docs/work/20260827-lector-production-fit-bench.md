@@ -385,3 +385,26 @@ D1 v1 was mechanically certified unchanged at `6aac2af5802996b8c17c612107f6771e0
 The supervising/cloud author adjudicated all 61 findings from the exact frozen source: 61 accepted, 0 rejected, 0 unresolved. `references/D1_INDEPENDENT_REVIEW_ADJUDICATION_V1.json` is the canonical resolution record. The resulting `references/D1_REFERENCE_SUPERVISOR_DRAFT_V2.json` contains 700 facts and 1,473 evidence targets across the same 36 carriers and 61 units. The v2 delta restores 40 omitted material assertions, repairs systematic named-speaker and formal-decision evidence, preserves the U04 rationale/proposal/acceptance distinctions, and resolves V05 deictic project/bridge/paradero context to the exact Mata de Limón source context.
 
 D1 v1 is retired from the live reference tree and remains in Git history. D1 v2 is still unfrozen. It requires fresh local mechanical certification and a fresh semantic audit; the prior review cannot certify a reference version it never saw. Formal A0–A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain unfrozen, and production broad-Lector implementation remains unauthorized.
+
+### F3 progress — D1 supervisor draft v3
+
+D1 v2 was mechanically certified unchanged at `bf59bddcfe2a4027c86507491f782aa9fe027b7c`. A fresh-context
+secondary semantic audit then completed a blind source→reference and reference→source pass before reading any
+prior review material. It covered all 36 structures, 61 frozen units, 700 v2 facts and 1,473 evidence targets
+and returned `REFERENCE_DISPUTE` with 23 hard findings: 19 `EVIDENCE_INSUFFICIENT`, three `CONTEXT_ERROR`
+and one `SOURCE_FIDELITY_ERROR`. Critically, the source-order pass found **zero additional material
+source→reference omissions**. The reviewer was again OpenAI GPT-5.6 Sol, so the audit remains
+`WEAK_OR_UNKNOWN` independence and does not satisfy the strong materially-independent gate.
+
+The supervising/cloud author reopened all 23 disputes against the exact frozen Representation and accepted all
+23, with zero rejected or unresolved. `references/D1_SECONDARY_REVIEW_ADJUDICATION_V2.json` is the canonical
+resolution record. D1 v3 preserves the 700-fact material inventory, expands semantically sufficient evidence
+binding, and retires/replaces 33 v2 facts whose semantic notes still required source-resolved antecedents or
+explicit ambiguity. The source-local `Rolnald Robles` label is resolved only via the same source's attendance
+roster, and the C06 `ellos` reference is now preserved as unresolved ambiguity rather than guessed as Laura
+Fernández's team.
+
+`references/D1_REFERENCE_SUPERVISOR_DRAFT_V3.json` remains `SUPERVISOR_DRAFT`. It requires exact local
+mechanical certification and another fresh semantic audit before any D1 freeze. Formal A0–A5 output/scores
+remain unseen, Acta 160 and H2 remain untouched, thresholds remain unfrozen, and production broad-Lector
+implementation remains unauthorized.

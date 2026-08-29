@@ -1,0 +1,492 @@
+{
+  "accepted_count": 23,
+  "adjudication_id": "CANARIO-D1-SECONDARY-REVIEW-ADJUDICATION-002",
+  "adjudications": [
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0001",
+      "issue_type": "SOURCE_FIDELITY_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound; source-local typo is resolved only through the frozen roster evidence, not parametric correction",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0079",
+        "D1-F0080",
+        "D1-F0081",
+        "D1-F0082",
+        "D1-F0083"
+      ],
+      "v3_fact_ids": [
+        "D1-F0079",
+        "D1-F0080",
+        "D1-F0081",
+        "D1-F0082",
+        "D1-F0083"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0002",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 2 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0123",
+        "D1-F0124",
+        "D1-F0125"
+      ],
+      "v3_fact_ids": [
+        "D1-F0711",
+        "D1-F0712",
+        "D1-F0125"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0003",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 1 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound; the source pronoun «ellos» remains unresolved and is now represented as ambiguity rather than 'Laura Fernández’s team'",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132"
+      ],
+      "v3_fact_ids": [
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0713"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0004",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0133",
+        "D1-F0134"
+      ],
+      "v3_fact_ids": [
+        "D1-F0133",
+        "D1-F0134"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0005",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0139"
+      ],
+      "v3_fact_ids": [
+        "D1-F0139"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0006",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ],
+      "v3_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0007",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 1 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0179"
+      ],
+      "v3_fact_ids": [
+        "D1-F0714"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0008",
+      "issue_type": "CONTEXT_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 4 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0184",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0195"
+      ],
+      "v3_fact_ids": [
+        "D1-F0715",
+        "D1-F0716",
+        "D1-F0717",
+        "D1-F0718"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0009",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0196",
+        "D1-F0676"
+      ],
+      "v3_fact_ids": [
+        "D1-F0196",
+        "D1-F0676"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0010",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 13 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0219",
+        "D1-F0229",
+        "D1-F0230",
+        "D1-F0232",
+        "D1-F0243",
+        "D1-F0246",
+        "D1-F0248",
+        "D1-F0250",
+        "D1-F0252",
+        "D1-F0255",
+        "D1-F0258",
+        "D1-F0259",
+        "D1-F0260",
+        "D1-F0261",
+        "D1-F0262",
+        "D1-F0263",
+        "D1-F0264",
+        "D1-F0265",
+        "D1-F0266",
+        "D1-F0269",
+        "D1-F0270"
+      ],
+      "v3_fact_ids": [
+        "D1-F0219",
+        "D1-F0719",
+        "D1-F0230",
+        "D1-F0232",
+        "D1-F0720",
+        "D1-F0721",
+        "D1-F0248",
+        "D1-F0722",
+        "D1-F0723",
+        "D1-F0724",
+        "D1-F0258",
+        "D1-F0259",
+        "D1-F0260",
+        "D1-F0725",
+        "D1-F0726",
+        "D1-F0727",
+        "D1-F0728",
+        "D1-F0729",
+        "D1-F0266",
+        "D1-F0730",
+        "D1-F0731"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0011",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0696"
+      ],
+      "v3_fact_ids": [
+        "D1-F0696"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0012",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0677"
+      ],
+      "v3_fact_ids": [
+        "D1-F0677"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0013",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0697",
+        "D1-F0698"
+      ],
+      "v3_fact_ids": [
+        "D1-F0697",
+        "D1-F0698"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0014",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0682"
+      ],
+      "v3_fact_ids": [
+        "D1-F0682"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0015",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0683"
+      ],
+      "v3_fact_ids": [
+        "D1-F0683"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0016",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 8 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0374",
+        "D1-F0378",
+        "D1-F0382",
+        "D1-F0383",
+        "D1-F0391",
+        "D1-F0395",
+        "D1-F0402",
+        "D1-F0406",
+        "D1-F0407",
+        "D1-F0413",
+        "D1-F0685"
+      ],
+      "v3_fact_ids": [
+        "D1-F0374",
+        "D1-F0732",
+        "D1-F0382",
+        "D1-F0383",
+        "D1-F0733",
+        "D1-F0734",
+        "D1-F0735",
+        "D1-F0736",
+        "D1-F0737",
+        "D1-F0738",
+        "D1-F0743"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0017",
+      "issue_type": "CONTEXT_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 2 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0494",
+        "D1-F0495",
+        "D1-F0496"
+      ],
+      "v3_fact_ids": [
+        "D1-F0494",
+        "D1-F0739",
+        "D1-F0740"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0018",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0687"
+      ],
+      "v3_fact_ids": [
+        "D1-F0687"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0019",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0573",
+        "D1-F0575"
+      ],
+      "v3_fact_ids": [
+        "D1-F0573",
+        "D1-F0575"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0020",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0689"
+      ],
+      "v3_fact_ids": [
+        "D1-F0689"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0021",
+      "issue_type": "CONTEXT_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. 2 v2 fact(s) retired/replaced to restore self-sufficient/source-faithful semantics; semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0638",
+        "D1-F0639"
+      ],
+      "v3_fact_ids": [
+        "D1-F0741",
+        "D1-F0742"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0022",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0661",
+        "D1-F0662"
+      ],
+      "v3_fact_ids": [
+        "D1-F0661",
+        "D1-F0662"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V2-IR-0023",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author reopened the exact frozen Representation and accepted the secondary-review dispute on source/protocol grounds. semantically sufficient antecedent/formal-status evidence rebound",
+      "unresolved": false,
+      "v2_affected_fact_ids": [
+        "D1-F0668"
+      ],
+      "v3_fact_ids": [
+        "D1-F0668"
+      ]
+    }
+  ],
+  "findings_reviewed": 23,
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1-secondary-review-adjudication.v2/1",
+  "leakage_declaration": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "reference_to_source_findings": 23,
+  "rejected_count": 0,
+  "result": "REQUIRES_REVISION_COMPLETED",
+  "resulting_reference": "D1_REFERENCE_SUPERVISOR_DRAFT_V3",
+  "review_id": "CANARIO-D1-SECONDARY-SEMANTIC-REVIEW-V2-001",
+  "review_independence_strength": "WEAK_OR_UNKNOWN",
+  "review_verdict": "REFERENCE_DISPUTE",
+  "reviewed_candidate": {
+    "commit": "bf59bddcfe2a4027c86507491f782aa9fe027b7c",
+    "parent": "eaf74f8f65c5f98b79afaa185bc75baa24ac094c",
+    "reference_artifacts": {
+      "notebook/research/lector/fit-bench/references/D1_REFERENCE_SUPERVISOR_DRAFT_V2.json": {
+        "bytes": 3051642,
+        "sha256": "a9689592ed1ce05c2549269bfdc1bfa328e27e9f3644c0de5e825ef644f28d24"
+      },
+      "notebook/research/lector/fit-bench/references/D1_REFERENCE_SUPERVISOR_DRAFT_V2.md": {
+        "bytes": 6659,
+        "sha256": "2bd127567328f8df46baa471312596ceb503a909d2f34d73a5a1e3f93d539b74"
+      }
+    },
+    "reference_state": "SUPERVISOR_DRAFT",
+    "subject": "research(lector): revise D1 reference after semantic review",
+    "tree": "af96133b9e6fe8ce4888a5273c2242152419f4a5"
+  },
+  "source_to_reference_findings": 0,
+  "unresolved_count": 0,
+  "v2_facts_retired_for_rewrite": 33,
+  "v3_fact_count": 700,
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
