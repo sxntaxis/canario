@@ -1,0 +1,382 @@
+{
+  "format": "canario.d1-quaternary-semantic-review.v4/1",
+  "review_id": "CANARIO-D1-QUATERNARY-SEMANTIC-REVIEW-V4-001",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "source": "Acta Sesión Ordinaria N.º 161 — 18 May 2026, Municipalidad de Esparza",
+  "timestamp": "2026-08-29T16:18:27-06:00",
+  "reviewed_candidate": {
+    "commit": "44291aa54f96492d02cc4e9c9f8e4d0bb9ddd770",
+    "parent": "684aa25ec03bafce9724b54f2d211b06d024be78",
+    "tree": "c3cb37b96ac356b952e9454525788dc47e0a0e09",
+    "subject": "research(lector): revise D1 reference after tertiary review",
+    "reference_state": "SUPERVISOR_DRAFT"
+  },
+  "reference_artifacts": {
+    "D1_REFERENCE_SUPERVISOR_DRAFT_V4.json": {
+      "sha256": "c56e499e80a954747bad54a79472fecddc9b451edf80fa18613fd090f4fe1ec2",
+      "bytes": 3370337
+    },
+    "D1_REFERENCE_SUPERVISOR_DRAFT_V4.md": {
+      "sha256": "bacae28a8d56665ca5ac188df8608000b7c59531dc58441bf40b8687e43b6929",
+      "bytes": 1350
+    }
+  },
+  "fixture_identity": {
+    "certified_bundle": {
+      "sha256": "a8d6eea5a80d53b3ee906d7b82505622618a408c705512d4fe3bb431f35be3f8",
+      "bytes": 2492986,
+      "git_bundle_verify": "PASS",
+      "complete_history": "PASS"
+    },
+    "recovery_archive": {
+      "sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf",
+      "bytes": 745476
+    },
+    "primary_pdf": {
+      "sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd",
+      "bytes": 760485
+    },
+    "representation": {
+      "kind": "text/plain",
+      "processor": "poppler.pdf_text",
+      "sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+      "bytes": 154866,
+      "characters": 151940
+    },
+    "scope": {
+      "kind": "full_source_order",
+      "sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5"
+    },
+    "frozen_unit_inventory": {
+      "sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+      "unit_count": 61
+    }
+  },
+  "reviewer": {
+    "provider": "OpenAI",
+    "model": "GPT-5.6 Sol",
+    "identity": "OpenAI / GPT-5.6 Sol",
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false
+  },
+  "required_authorities_read_completely": [
+    "AGENTS.md",
+    "docs/work/20260827-lector-production-fit-bench.md",
+    "notebook/research/lector/fit-bench/BENCHMARK_SEMANTICS_FREEZE_V1.md",
+    "notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V2.md",
+    "notebook/research/lector/fit-bench/REFERENCE_AUTHORING_METHOD_V1.md"
+  ],
+  "anti_anchoring_compliance": {
+    "anchoring_contamination": false,
+    "candidate_source_reference_identities_verified_before_prior_review": true,
+    "frozen_source_read_before_prior_review": true,
+    "v4_reference_read_before_prior_review": true,
+    "blind_source_to_reference_pass_completed_before_prior_review": true,
+    "blind_reference_to_source_pass_completed_before_prior_review": true,
+    "all_1694_evidence_targets_considered_as_sets_before_prior_review": true,
+    "provisional_artifact_persisted_before_prior_review": true,
+    "provisional_artifact_path": "/mnt/data/D1_QUATERNARY_SEMANTIC_REVIEW_V4_PROVISIONAL.json",
+    "provisional_artifact_sha256": "eb8d5b9b236fab3ec6bbcd08f8afc8e1b53fe7486741cde7a032dfb798a3b10c",
+    "provisional_finding_count": 0,
+    "provisional_timestamp": "2026-08-29T16:16:39-06:00",
+    "prior_review_files_read_only_after_provisional_persist": true,
+    "prior_review_files_consulted": [
+      "D1_TERTIARY_SEMANTIC_REVIEW_V3.json",
+      "D1_TERTIARY_SEMANTIC_REVIEW_V3.md",
+      "D1_TERTIARY_REVIEW_ADJUDICATION_V3.json",
+      "D1_TERTIARY_REVIEW_ADJUDICATION_V3.md"
+    ],
+    "prior_review_artifact_hashes": {
+      "D1_TERTIARY_SEMANTIC_REVIEW_V3.json": "dd577b0e1eea37c969d7d967b17f0f2b4dbed363838969f651400ba23981d9a9",
+      "D1_TERTIARY_SEMANTIC_REVIEW_V3.md": "03ce3da57fc5634023ccae731f9d29bd3b164114caafd112c9a2ef1e490c9c33",
+      "D1_TERTIARY_REVIEW_ADJUDICATION_V3.json": "1c60ad40cd43c228a277921321583b292ff6cb4c0bfb246938b1438a446caeb7",
+      "D1_TERTIARY_REVIEW_ADJUDICATION_V3.md": "6d2b3876d80a7ce40b3e25e81dd242cca8ff7c1e76dd8afc0bae4937f4fec187"
+    }
+  },
+  "leakage_declaration": {
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "inventory": {
+    "facts": 735,
+    "evidence_targets": 1694,
+    "semantic_structures": 36,
+    "frozen_units": 61,
+    "cross_unit_facts": 397,
+    "CTX_01_facts": 364,
+    "AMB_01_facts": 6,
+    "QTY_01_facts": 50,
+    "multi_evidence_facts": 639
+  },
+  "coverage": {
+    "structures_source_to_reference": {
+      "reviewed": 36,
+      "total": 36
+    },
+    "frozen_units_source_to_reference": {
+      "reviewed": 61,
+      "total": 61
+    },
+    "facts_reference_to_source": {
+      "reviewed": 735,
+      "total": 735
+    },
+    "evidence_targets_semantically_considered_as_sets": {
+      "reviewed": 1694,
+      "total": 1694
+    },
+    "full_source_order": true
+  },
+  "cross_cutting_checks": {
+    "U0007_isolated_page_marker_verified": true,
+    "list_table_scan_completed": true,
+    "temporal_global_pass_completed": true,
+    "TMP_01_facts_reviewed": 156,
+    "temporal_hard_disputes": 0,
+    "quantitative_global_pass_completed": true,
+    "QTY_01_facts_reviewed": 50,
+    "quantitative_hard_disputes": 0,
+    "semantic_duplicate_scan_completed": true,
+    "semantic_duplicate_hard_disputes": 0,
+    "capability_binding_hard_disputes": 0,
+    "mechanical_evidence_reopen_rechecked": true,
+    "mechanical_evidence_failures": 0
+  },
+  "school_row_verification": {
+    "structure_id": "M01",
+    "source_rows": 35,
+    "row_level_facts": 35,
+    "submitted_rows": 25,
+    "not_submitted_rows": 10,
+    "each_row_represented_exactly_once": true,
+    "submitted_vs_not_submitted_status_correct": true,
+    "rows_moved_between_lists": 0,
+    "omitted_rows": 0,
+    "duplicate_semantic_rows": 0,
+    "derived_25_or_10_source_quantity_present": false,
+    "relative_date_normalization_evidence_supported": true,
+    "result": "PASS"
+  },
+  "provisional_findings": {
+    "artifact_sha256": "eb8d5b9b236fab3ec6bbcd08f8afc8e1b53fe7486741cde7a032dfb798a3b10c",
+    "finding_count": 0
+  },
+  "finding_count": 0,
+  "finding_counts_by_direction": {
+    "SOURCE_TO_REFERENCE": 0,
+    "REFERENCE_TO_SOURCE": 0
+  },
+  "finding_counts_by_issue_type": {},
+  "finding_inventory": [],
+  "v3_regression_counts": {
+    "RESOLVED_IN_V4": 14,
+    "STILL_PRESENT": 0,
+    "PARTIALLY_RESOLVED": 0,
+    "REGRESSED_DIFFERENTLY": 0,
+    "total": 14
+  },
+  "v3_regression_matrix": [
+    {
+      "v3_finding_id": "D1-V3-IR-0001",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0744",
+        "D1-F0745",
+        "D1-F0746"
+      ],
+      "source_grounded_regression_reason": "The three replacement facts preserve the source’s descriptive «el reglamento contempla» modality for Committee responsibility, user responsibility, and safety measures; the v3 normative «debía contemplar» wording is gone."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0002",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0747"
+      ],
+      "source_grounded_regression_reason": "D1-F0747 independently represents Stephannie Quesada’s expectation of greater road attention because the President is from Esparza and preserves the stated road-deterioration reason."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0003",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0748"
+      ],
+      "source_grounded_regression_reason": "D1-F0748 independently represents the source-stated prior relation of expediente 23.898 to the zona de reserva portuaria."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0004",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0749",
+        "D1-F0750",
+        "D1-F0751",
+        "D1-F0752",
+        "D1-F0753",
+        "D1-F0754",
+        "D1-F0755",
+        "D1-F0756",
+        "D1-F0757",
+        "D1-F0758",
+        "D1-F0759",
+        "D1-F0760",
+        "D1-F0761",
+        "D1-F0762",
+        "D1-F0763",
+        "D1-F0764",
+        "D1-F0765",
+        "D1-F0766",
+        "D1-F0767",
+        "D1-F0768",
+        "D1-F0769",
+        "D1-F0770",
+        "D1-F0771",
+        "D1-F0772",
+        "D1-F0773",
+        "D1-F0774",
+        "D1-F0775",
+        "D1-F0776",
+        "D1-F0777",
+        "D1-F0778",
+        "D1-F0779",
+        "D1-F0780",
+        "D1-F0781",
+        "D1-F0782",
+        "D1-F0783"
+      ],
+      "source_grounded_regression_reason": "The arithmetic-derived 25/10 aggregate facts are retired. The two source lists are represented as 35 row-level assertions, with no derived list count promoted as a source quantity."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0005",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0021"
+      ],
+      "source_grounded_regression_reason": "D1-F0021 now binds dated CCPJ correspondence that supports resolving 8 August to 2026."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0006",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0713",
+        "D1-F0135"
+      ],
+      "source_grounded_regression_reason": "All four C06 facts now bind the exact 18 May 2026 session-date sentence in addition to their 12 June evidence, supporting the retained 2026 normalization."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0007",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0146",
+        "D1-F0147"
+      ],
+      "source_grounded_regression_reason": "Both C07 facts now bind dated source context supporting 27 May 2026."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0008",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0156",
+        "D1-F0157"
+      ],
+      "source_grounded_regression_reason": "Both C08 facts now bind the exact 18 May 2026 session-date sentence, supporting the upcoming 30 May and 28 November dates as 2026 dates."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0009",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0164"
+      ],
+      "source_grounded_regression_reason": "D1-F0164 binds source text that explicitly supplies 30 May 2026 for the Gollo request/decision context."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0010",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0181"
+      ],
+      "source_grounded_regression_reason": "D1-F0181 binds the UNGL invitation/source text that explicitly supplies 29 May 2026."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0011",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0388",
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0735",
+        "D1-F0405",
+        "D1-F0411"
+      ],
+      "source_grounded_regression_reason": "All eight U06 facts bind the exact 18 May 2026 session-date sentence, so «este mes», 12 June, and associated event-time resolutions no longer rely on unbound calendar context."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0012",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0749",
+        "D1-F0750",
+        "D1-F0751",
+        "D1-F0752",
+        "D1-F0753",
+        "D1-F0754",
+        "D1-F0755",
+        "D1-F0756",
+        "D1-F0757",
+        "D1-F0758",
+        "D1-F0759",
+        "D1-F0760",
+        "D1-F0761",
+        "D1-F0762",
+        "D1-F0763",
+        "D1-F0764",
+        "D1-F0765",
+        "D1-F0766",
+        "D1-F0767",
+        "D1-F0768",
+        "D1-F0769",
+        "D1-F0770",
+        "D1-F0771",
+        "D1-F0772",
+        "D1-F0773",
+        "D1-F0774",
+        "D1-F0775",
+        "D1-F0776",
+        "D1-F0777",
+        "D1-F0778",
+        "D1-F0779",
+        "D1-F0780",
+        "D1-F0781",
+        "D1-F0782",
+        "D1-F0783",
+        "D1-F0503"
+      ],
+      "source_grounded_regression_reason": "All 35 school-row facts bind the dated 18 May 2026 AME transmittal/source context for «15 de mayo del presente año», and D1-F0503 binds the same dated context for 15 June 2026."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0013",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0644"
+      ],
+      "source_grounded_regression_reason": "D1-F0644 now binds the dated CCPJ correspondence, supporting August 2026 / 8 August 2026."
+    },
+    {
+      "v3_finding_id": "D1-V3-IR-0014",
+      "status": "RESOLVED_IN_V4",
+      "v4_fact_ids": [
+        "D1-F0649",
+        "D1-F0651"
+      ],
+      "source_grounded_regression_reason": "Both V05 facts bind the exact 18 May 2026 session-date sentence, supporting resolution of «hoy» / «hoy en la tarde» to 18 May 2026."
+    }
+  ],
+  "semantic_verdict": "QUATERNARY_AUDIT_PASS_NO_DISPUTES",
+  "reference_freeze_status": "NOT_FROZEN_BY_THIS_REVIEW"
+}
