@@ -92,19 +92,21 @@ These names remain provisional until this Work freezes them.
 
 ### 2. Freeze reference protocol
 
-Reuse the historical leakage controls:
+Use the current leakage controls frozen in `notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V2.md`:
 
 ```text
-freeze source + Representation + scope
--> human-approved reference
--> exact evidence reopening
+freeze source + Representation + scope + units
+-> supervising-author source-exhaustive reference
+-> omission-only + reverse semantic audit
+-> local mechanical evidence/hash certification
+-> materially independent semantic audit
 -> reference freeze
 -> inspect fact counts
 -> threshold freeze
 -> only then tested extraction
 ```
 
-Reference entries are semantic fact-equivalence objects, not one mandatory sentence.
+The project owner is not required to perform fact-by-fact clerical annotation. Human review is reserved for unresolved reference disputes/ambiguity or bounded independent spot-checks. Reference entries remain semantic fact-equivalence objects, not one mandatory sentence.
 
 ### 3. Freeze development versus holdout split
 
@@ -228,7 +230,7 @@ More complexity is justified only by a measured failure that the simpler lane ca
 
 Before tested lanes run:
 - source/Representation/scope identities frozen;
-- reference complete and human-approved;
+- reference complete, supervisor-authored, mechanically certified, independently semantically audited, and frozen;
 - exact reference evidence reopens;
 - candidate output unseen during reference construction;
 - thresholds/policy frozen;
@@ -268,13 +270,12 @@ It does **not** authorize that implementation automatically.
 
 The first end-to-end Acta-160 vertical remains a later post-selection proof.
 
-## Progress — F2 fixture/source freeze
+## Progress — F3 semantic reference construction
 
-F1 semantics/reference protocol: frozen, merged at `61ce4daf6364494b534a50060fea14ca3a81c140`.
+F1 benchmark semantics remain frozen. The original fact-by-fact human-approval reference protocol was superseded before any formal A0-A5 output was seen. Current protocol authority is `REFERENCE_PROTOCOL_FREEZE_V2.md`, which uses supervisor authorship, local mechanical certification, and a materially independent semantic audit before reference freeze.
 
-F2 D1-D4 fixture/source/Representation/scope freeze: complete. Exact development fixture identities
-are recorded in `notebook/research/lector/fit-bench/FIXTURE_SOURCE_FREEZE_V1.md` and its canonical
-JSON companion. No source bytes or external source packs were committed.
+F2 D1-D4 fixture/source/Representation/scope freeze is complete and merged through PR #12 at `da3854bd25f3129244ae49d8cd79a16a2c777ad6`. Exact development fixture identities remain in `FIXTURE_SOURCE_FREEZE_V1.md` and its canonical JSON companion.
 
-Next gate: F3 human-approved semantic reference construction. Formal A0-A5 output remains unseen,
-Acta 160 remains untouched, and thresholds remain unfrozen.
+F3 is active. Semantic/reference writing is owned by the supervising/cloud author. The local execution agent is limited to source-pack access, mechanical evidence/hash validation, repository tests, bundle verification, and exact push unless explicitly authorized otherwise. `REFERENCE_AUTHORING_METHOD_V1.md` records the anti-slop method.
+
+Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, references and thresholds remain unfrozen, and production implementation remains unauthorized.

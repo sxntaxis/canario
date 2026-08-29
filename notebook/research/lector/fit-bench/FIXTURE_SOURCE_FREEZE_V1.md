@@ -100,5 +100,7 @@ attention heuristic is used.
 
 ## Next gate
 
-F3: human-approved semantic reference construction. Thresholds remain unfrozen, and formal A0–A5
-execution remains prohibited.
+F3: source-grounded semantic reference construction under `REFERENCE_PROTOCOL_FREEZE_V2.md`.
+Semantic authorship belongs to the supervising/cloud author; local execution is mechanical
+certification; materially independent semantic audit is required before reference freeze. Thresholds
+remain unfrozen, and formal A0–A5 execution remains prohibited.

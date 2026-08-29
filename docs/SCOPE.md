@@ -55,9 +55,12 @@ The executable benchmark gate is capability coverage: Representation fidelity, t
 evidence reopening and semantic stress dimensions. Verification follows the nature of the
 capability: structural Representation/evidence properties are proved deterministically from
 frozen bytes and locator reopening; semantic-understanding capabilities require a frozen,
-human-approved semantic reference plus candidate adjudication. The active reference workflow may
-use declared AI assistance as long as the tested extractor remains unseen until reference freeze.
-Human review is not used to certify facts that machines can prove exactly. New real-world formats should extend the matrix when they expose a materially
+source-grounded semantic reference plus candidate adjudication. Under the active reference protocol,
+the supervising author constructs the reference, the local agent mechanically certifies exact
+source/evidence invariants, and a materially independent semantic reviewer audits completeness and
+faithfulness before freeze. Tested extractor output remains unseen until reference freeze. Human
+review is reserved for unresolved semantic disputes/ambiguity or bounded independent spot-checks,
+not facts that machines can prove exactly. New real-world formats should extend the matrix when they expose a materially
 new failure mode rather than forcing the product into an ever-growing document-type enum.
 
 The benchmark must always state:
