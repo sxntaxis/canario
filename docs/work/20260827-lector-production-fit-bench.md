@@ -305,3 +305,21 @@ the missing/malformed primary text.
 
 Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds and reference
 remain unfrozen, and production broad-Lector implementation remains unauthorized.
+
+### F3 progress — D4 supervisor draft v1
+
+After the mechanically certified D3 v2 supervisor draft, the supervising/cloud author performed the
+source-order, omission-only, and reverse-semantic passes for the exact frozen D4 CGR audit fixture.
+The resulting candidate is
+`references/D4_REFERENCE_SUPERVISOR_DRAFT_V1.json`, with 185 facts over the full 28-page scope,
+142 annotation structures, 260 frozen units, and 187 exact evidence targets. It includes the report's
+planning/procedure/control findings, text-visible quantitative tables, conclusions, and dispositions
+4.4–4.9 with their compliance dates.
+
+The candidate remains `SUPERVISOR_DRAFT`. The local agent may only certify source identities,
+selectors, structure/unit integrity, repository checks, and exact primary-PDF evidence for the single
+unresolved detached footnote `D4-UQ-0001`; it may not alter semantic content. A materially independent
+big-model semantic review remains required before D4 can freeze.
+
+Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds and references
+remain unfrozen, and production broad-Lector implementation remains unauthorized.
