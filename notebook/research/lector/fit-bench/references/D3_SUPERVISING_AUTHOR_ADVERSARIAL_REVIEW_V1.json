@@ -1,0 +1,1357 @@
+{
+  "candidate_reviewed": {
+    "articles_reviewed": 54,
+    "candidate_commit": "2e8b1e440eb074ed9fb79b822d617d41b6bd7aa7",
+    "facts_reviewed": 294,
+    "reference_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001-reference-v1",
+    "scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81"
+  },
+  "findings": [
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "article_numbers": [
+        1
+      ],
+      "finding_id": "D3-SAR-0001",
+      "old_fact_id": "D3-F0013",
+      "old_note": "El reglamento busca fomentar la participación de oferentes y la proporcionalidad entre las condiciones y su ponderación en el diseño del pliego para favorecer resultados acordes con los principios de integridad, valor por el dinero, eficiencia, eficacia, igualdad y libre concurrencia.",
+      "replacement_fact_ids": [
+        "D3-F0013",
+        "D3-F0014"
+      ],
+      "replacement_notes": [
+        "El reglamento busca fomentar una adecuada participación entre oferentes.",
+        "En la preparación o diseño del pliego, el reglamento busca que exista la proporción que el inciso c) formula entre «estos» y su ponderación para obtener resultados favorables conforme a los principios allí enumerados."
+      ],
+      "source_excerpt": "c) Fomentar una adecuada participación entre oferentes\nen procura que en la etapa de preparación o diseño del\npliego de condiciones exista proporción entre estos y su\nponderación con la finalidad de obtener resultados más\nfavorables para la ME y el CCDRE en cumplimiento a\nlos principios de integridad, valor del dinero, eficiencia y\neficacia, igualdad y libre concurrencia, entre otros.",
+      "source_excerpt_scope_char_end": 3845,
+      "source_excerpt_scope_char_start": 3458,
+      "specific_reasons": [
+        "El primer segmento del inciso c) expresa de forma autónoma el objetivo de fomentar una adecuada participación entre oferentes.",
+        "El inciso c) contiene una segunda finalidad material, pero el referente de «estos» es gramaticalmente ambiguo; la nota conserva esa ambigüedad en vez de convertirla en “condiciones” u “oferentes”."
+      ],
+      "structure_ids": [
+        "A01-c"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        8
+      ],
+      "finding_id": "D3-SAR-0002",
+      "old_fact_id": "D3-F0027",
+      "old_note": "Las contrataciones realizadas prescindiendo de procedimientos ordinarios y las fundamentadas en supuestos de urgencia quedan excluidas de la obligación de publicación del Programa de Adquisiciones.",
+      "replacement_fact_ids": [
+        "D3-F0028"
+      ],
+      "replacement_notes": [
+        "Las contrataciones realizadas prescindiendo de procedimientos ordinarios y las fundamentadas en supuestos de urgencia quedan excluidas de la obligación de publicación prevista en el artículo 8."
+      ],
+      "source_excerpt": "f) Cualquier otra información complementaria que contribuya\na la identificación del bien o servicio.\nEl Programa de Adquisiciones podrá ser modificado\ncuando surja una necesidad administrativa no prevista. Quedan\nexcluidas de la obligación de publicación, las contrataciones\nefectuadas con prescindencia de los procedimientos ordinarios\ny las efectuadas con fundamento en los supuestos de urgencia.\nEl respectivo programa de adquisiciones y sus eventuales\nmodificaciones se deberá publicar a través del SDU.",
+      "source_excerpt_scope_char_end": 7696,
+      "source_excerpt_scope_char_start": 7189,
+      "specific_reasons": [
+        "La fuente excluye esas contrataciones de “la obligación de publicación”; la revisión evita añadir que la obligación sea específicamente “del Programa” cuando el texto no lo dice de forma literal."
+      ],
+      "structure_ids": [
+        "A08-f"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        10
+      ],
+      "finding_id": "D3-SAR-0003",
+      "old_fact_id": "D3-F0031",
+      "old_note": "Si un procedimiento se inicia sin recursos presupuestarios, la Alcaldía Municipal puede autorizar su inicio mediante resolución administrativa y esa circunstancia debe advertirse en el pliego de condiciones.",
+      "replacement_fact_ids": [
+        "D3-F0032",
+        "D3-F0033"
+      ],
+      "replacement_notes": [
+        "Si un procedimiento se inicia sin recursos presupuestarios, la Alcaldía Municipal puede autorizar su inicio mediante resolución administrativa.",
+        "Si un procedimiento se inicia sin recursos presupuestarios, esa circunstancia debe advertirse en el pliego de condiciones."
+      ],
+      "source_excerpt": "Si el procedimiento se iniciara sin disponer de recursos\npresupuestarios, la Alcaldía Municipal, podrá autorizarlo\nmediante resolución administrativa, sin embargo, esto deberá\nadvertirse en el pliego de condiciones. En tal supuesto, no\n\npodrá emitirse el acto de adjudicación hasta que se cuente\ncon el presupuesto suficiente, disponible y aprobado por quien\ncorresponda.",
+      "source_excerpt_scope_char_end": 8609,
+      "source_excerpt_scope_char_start": 8238,
+      "specific_reasons": [
+        "La autorización excepcional de inicio es separable de la obligación posterior de advertir esa circunstancia en el pliego.",
+        "La advertencia en el pliego es una obligación autónoma bajo el mismo supuesto presupuestario."
+      ],
+      "structure_ids": [
+        "A10-P2"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        10
+      ],
+      "finding_id": "D3-SAR-0004",
+      "old_fact_id": "D3-F0033",
+      "old_note": "En contratos que se ejecuten durante varios ejercicios económicos, cada ejercicio debe incorporar solo los recursos necesarios para sus obligaciones anuales y el valor total debe estar contemplado en la presupuestación plurianual.",
+      "replacement_fact_ids": [
+        "D3-F0035",
+        "D3-F0036"
+      ],
+      "replacement_notes": [
+        "Si un contrato se ejecuta durante varios ejercicios económicos, en cada ejercicio deben incorporarse únicamente los recursos necesarios para pagar las obligaciones anuales.",
+        "Si un contrato se ejecuta durante varios ejercicios económicos, su valor total debe estar contemplado en el marco de presupuestación plurianual."
+      ],
+      "source_excerpt": "En caso de que la ejecución de un contrato se prolongue\nen diversos ejercicios económicos, se deberán incorporar\núnicamente los recursos necesarios para garantizar el pago\nde las obligaciones anuales en cada ejercicio, mientras que el\nvalor total de la contratación deberá estar contemplado en el\nmarco de presupuestación plurianual.",
+      "source_excerpt_scope_char_end": 8943,
+      "source_excerpt_scope_char_start": 8610,
+      "specific_reasons": [
+        "La regla de recursos anuales puede cumplirse o incumplirse independientemente de la regla de presupuestación plurianual.",
+        "La exigencia sobre el valor total en presupuestación plurianual es separable de la incorporación anual de recursos."
+      ],
+      "structure_ids": [
+        "A10-P3"
+      ]
+    },
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "article_numbers": [
+        11
+      ],
+      "finding_id": "D3-SAR-0005",
+      "old_fact_id": "D3-F0035",
+      "old_note": "El análisis de razonabilidad del precio debe desarrollarse ampliamente y justificar que la inversión no afecta calidad, servicio ni obligaciones legales del contrato.",
+      "replacement_fact_ids": [
+        "D3-F0038",
+        "D3-F0039"
+      ],
+      "replacement_notes": [
+        "El análisis de razonabilidad del precio debe desarrollarse ampliamente en el informe técnico utilizando bases y elementos que permitan motivar su justificación.",
+        "El análisis de razonabilidad debe verificar los aspectos necesarios para no afectar la calidad, el servicio ni las obligaciones legales que puedan derivarse del contrato."
+      ],
+      "source_excerpt": "Artículo 11.—Razonabilidad del Precio: El administrador\ndel contrato o quien este delegue será el responsable de\nconfeccionar y presentar el análisis de la razonabilidad\ndel precio ofertado, en el informe técnico de la(s) oferta(s)\npresentada(s) a concurso para recomendar la adjudicación.\nLa razonabilidad del precio se debe desarrollar de forma\namplia en el informe técnico, utilizando bases y elementos\nque ayudan para motivar la justificación, se deben verificar\ntodos los aspectos necesarios para no afectar ni la calidad,\nni el servicio, ni las obligaciones legales que podrían derivar\ndel contrato en una sana inversión de los fondos públicos,\napegado a los principios generales de la contratación pública,\npara lo cual deberá cumplir como mínimo con la revisión,\nanálisis e indicación expresa de los siguientes aspectos:",
+      "source_excerpt_scope_char_end": 9772,
+      "source_excerpt_scope_char_start": 8944,
+      "specific_reasons": [
+        "La fuente exige desarrollo amplio y bases de motivación; no afirma simplemente que la inversión “no afecta” los aspectos posteriores.",
+        "La segunda exigencia es preventiva: verificar lo necesario para no afectar calidad, servicio u obligaciones legales."
+      ],
+      "structure_ids": [
+        "A11-INTRO"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        13
+      ],
+      "finding_id": "D3-SAR-0006",
+      "old_fact_id": "D3-F0049",
+      "old_note": "La Unidad Solicitante debe emitir la decisión inicial o autorizar su elaboración cuando la delegue, y justificar la procedencia de la contratación indicando expresamente la necesidad que se pretende satisfacer.",
+      "replacement_fact_ids": [
+        "D3-F0053",
+        "D3-F0054"
+      ],
+      "replacement_notes": [
+        "La Unidad Solicitante debe emitir la decisión inicial o autorizar su elaboración cuando la delegue.",
+        "La Unidad Solicitante debe justificar la procedencia de la contratación e indicar expresamente la necesidad que se pretende satisfacer."
+      ],
+      "source_excerpt": "Es responsabilidad de la Unidad Solicitante, emitir o\nautorizar en caso que delegue la elaboración de la decisión\ninicial, justificar la procedencia de la contratación, con indicación\nexpresa de la necesidad a satisfacer, considerando aspectos\ntales como: los planes de largo y mediano plazo, el Plan\nNacional de Desarrollo, el Plan de Desarrollo Municipal, el Plan\nAnual Operativo, el presupuesto y el programa de adquisición\nmunicipal, según corresponda; la descripción del objeto a\nadquirir; sus especificaciones técnicas y características; los\nprocedimientos de control de calidad que se aplicarán para\nla recepción y durante la ejecución del contrato; la estimación\nactualizada del costo del objeto contractual; la disponibilidad\npresupuestaria suficiente para el pago y la determinación del\ntipo de procedimiento a seguir según los umbrales vigentes de\nla Contraloría General de la República.",
+      "source_excerpt_scope_char_end": 13288,
+      "source_excerpt_scope_char_start": 12390,
+      "specific_reasons": [
+        "La responsabilidad sobre la emisión o delegación de la decisión inicial es autónoma.",
+        "La justificación de procedencia y necesidad es una obligación distinta de emitir o delegar la decisión inicial."
+      ],
+      "structure_ids": [
+        "A13-P3"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        13
+      ],
+      "finding_id": "D3-SAR-0007",
+      "old_fact_id": "D3-F0051",
+      "old_note": "La decisión inicial debe describir el objeto a adquirir, sus especificaciones y características, los controles de calidad, el costo actualizado, la disponibilidad presupuestaria y el tipo de procedimiento según los umbrales vigentes de la Contraloría.",
+      "replacement_fact_ids": [
+        "D3-F0056"
+      ],
+      "replacement_notes": [
+        "La decisión inicial debe describir el objeto a adquirir, sus especificaciones y características, los controles de calidad aplicables en la recepción y durante la ejecución, el costo actualizado, la disponibilidad presupuestaria y el tipo de procedimiento según los umbrales vigentes de la Contraloría."
+      ],
+      "source_excerpt": "Es responsabilidad de la Unidad Solicitante, emitir o\nautorizar en caso que delegue la elaboración de la decisión\ninicial, justificar la procedencia de la contratación, con indicación\nexpresa de la necesidad a satisfacer, considerando aspectos\ntales como: los planes de largo y mediano plazo, el Plan\nNacional de Desarrollo, el Plan de Desarrollo Municipal, el Plan\nAnual Operativo, el presupuesto y el programa de adquisición\nmunicipal, según corresponda; la descripción del objeto a\nadquirir; sus especificaciones técnicas y características; los\nprocedimientos de control de calidad que se aplicarán para\nla recepción y durante la ejecución del contrato; la estimación\nactualizada del costo del objeto contractual; la disponibilidad\npresupuestaria suficiente para el pago y la determinación del\ntipo de procedimiento a seguir según los umbrales vigentes de\nla Contraloría General de la República.",
+      "source_excerpt_scope_char_end": 13288,
+      "source_excerpt_scope_char_start": 12390,
+      "specific_reasons": [
+        "La revisión restaura el alcance temporal de los controles de calidad, omitido por la nota V1."
+      ],
+      "structure_ids": [
+        "A13-P3"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        13
+      ],
+      "finding_id": "D3-SAR-0008",
+      "old_fact_id": "D3-F0053",
+      "old_note": "La Proveeduría debe gestionar actos del procedimiento como elaborar y publicar el pliego, atender objeciones y aclaraciones, tramitar modificaciones del pliego y cambios de apertura, abrir y analizar ofertas, solicitar subsanaciones y recomendar el acto final.",
+      "replacement_fact_ids": [
+        "D3-F0058",
+        "D3-F0059",
+        "D3-F0060",
+        "D3-F0061",
+        "D3-F0062",
+        "D3-F0063",
+        "D3-F0064",
+        "D3-F0065",
+        "D3-F0066"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe elaborar las cláusulas específicas o generales del pliego de condiciones y publicarlo.",
+        "La Proveeduría debe atender los recursos de objeción.",
+        "La Proveeduría debe tramitar las modificaciones del pliego de condiciones.",
+        "La Proveeduría debe tramitar los cambios de fecha de apertura.",
+        "La Proveeduría debe atender las solicitudes de aclaración.",
+        "La Proveeduría debe realizar la apertura de ofertas.",
+        "La Proveeduría debe analizar y valorar las ofertas.",
+        "La Proveeduría debe solicitar las subsanaciones que correspondan.",
+        "La Proveeduría debe formular la recomendación para emitir el acto final, sea adjudicación o declaratoria de infructuoso o desierto."
+      ],
+      "source_excerpt": "La Proveeduría será la encargada de dirigir el procedimiento\nde contratación y llevará a cabo actos tales como: la elaboración de\nlas cláusulas específicas y/o generales del pliego de condiciones\ny su publicación, la atención de recursos de objeción, trámite\nde modificación de pliegos de condiciones, cambio de fecha\nde apertura, solicitudes de aclaración; apertura de ofertas;\nanálisis y valoración de las ofertas; solicitud de subsanación,\nrecomendación para emitir el acto final sea este mediante la\nadjudicación, declaratoria de infructuoso o desierto.",
+      "source_excerpt_scope_char_end": 13846,
+      "source_excerpt_scope_char_start": 13289,
+      "specific_reasons": [
+        "Elaboración/publicación del pliego es una acción material separable del resto de actos enumerados.",
+        "La atención de objeciones es un acto independiente.",
+        "La modificación del pliego es un acto independiente.",
+        "El cambio de fecha de apertura es un acto independiente.",
+        "Las aclaraciones son un acto independiente.",
+        "La apertura de ofertas es un acto independiente.",
+        "Análisis y valoración constituyen una función material separable.",
+        "La solicitud de subsanación es un acto independiente.",
+        "La recomendación del acto final es un acto independiente con tres resultados expresamente enumerados."
+      ],
+      "structure_ids": [
+        "A13-P4"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        13
+      ],
+      "finding_id": "D3-SAR-0009",
+      "old_fact_id": "D3-F0054",
+      "old_note": "La Gestión Jurídica y la Proveeduría deben atender y tramitar recursos de revocatoria y elaborar la formalización contractual.",
+      "replacement_fact_ids": [
+        "D3-F0067",
+        "D3-F0068"
+      ],
+      "replacement_notes": [
+        "La Gestión Jurídica y la Proveeduría deben atender y tramitar los recursos de revocatoria.",
+        "La Gestión Jurídica y la Proveeduría deben elaborar la formalización contractual."
+      ],
+      "source_excerpt": "La Gestión Jurídica en conjunto con la Proveeduría se\nencargará de la atención y trámite de recursos de revocatoria,\nla elaboración de la formalización contractual, así como\nel trámite de procedimientos de incumplimiento, tramitar y\npreparar para firma la rescisión o resolución contractual,\nmodificación unilateral de contrato, así como trámites propios\nde la ejecución contractual a solicitud del administrador del\ncontrato.",
+      "source_excerpt_scope_char_end": 14273,
+      "source_excerpt_scope_char_start": 13847,
+      "specific_reasons": [
+        "Los recursos de revocatoria constituyen una función distinta de la formalización contractual.",
+        "La formalización contractual es una responsabilidad separable."
+      ],
+      "structure_ids": [
+        "A13-P5"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        13
+      ],
+      "finding_id": "D3-SAR-0010",
+      "old_fact_id": "D3-F0055",
+      "old_note": "La Gestión Jurídica y la Proveeduría deben tramitar incumplimientos y preparar para firma rescisión, resolución, modificación unilateral y otros trámites de ejecución solicitados por el administrador del contrato.",
+      "replacement_fact_ids": [
+        "D3-F0069",
+        "D3-F0070",
+        "D3-F0071"
+      ],
+      "replacement_notes": [
+        "La Gestión Jurídica y la Proveeduría deben tramitar los procedimientos de incumplimiento.",
+        "La Gestión Jurídica y la Proveeduría deben tramitar y preparar para firma la rescisión o resolución contractual y la modificación unilateral del contrato.",
+        "A solicitud del Administrador del Contrato, la Gestión Jurídica y la Proveeduría deben tramitar otros asuntos propios de la ejecución contractual."
+      ],
+      "source_excerpt": "La Gestión Jurídica en conjunto con la Proveeduría se\nencargará de la atención y trámite de recursos de revocatoria,\nla elaboración de la formalización contractual, así como\nel trámite de procedimientos de incumplimiento, tramitar y\npreparar para firma la rescisión o resolución contractual,\nmodificación unilateral de contrato, así como trámites propios\nde la ejecución contractual a solicitud del administrador del\ncontrato.",
+      "source_excerpt_scope_char_end": 14273,
+      "source_excerpt_scope_char_start": 13847,
+      "specific_reasons": [
+        "El trámite de incumplimiento es una función material autónoma.",
+        "El texto agrupa estos instrumentos bajo la misma acción de tramitar y preparar para firma; se separan del incumplimiento y de otros trámites de ejecución.",
+        "La condición “a solicitud del administrador” aplica específicamente a los otros trámites de ejecución y se preserva como hecho separado."
+      ],
+      "structure_ids": [
+        "A13-P5"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        13
+      ],
+      "finding_id": "D3-SAR-0011",
+      "old_fact_id": "D3-F0056",
+      "old_note": "El administrador del contrato o su designado debe dar seguimiento y supervisar el objeto contractual y recibirlo conforme a los términos del contrato administrativo.",
+      "replacement_fact_ids": [
+        "D3-F0072",
+        "D3-F0073"
+      ],
+      "replacement_notes": [
+        "El Administrador del Contrato o su designado debe dar seguimiento y supervisar el objeto contractual.",
+        "El Administrador del Contrato o su designado debe recibir el objeto contractual conforme a los términos acordados en el contrato administrativo."
+      ],
+      "source_excerpt": "Es responsabilidad del administrador de contrato o\na quien éste designe, efectuar el seguimiento, supervisión del\nobjeto contractual, así como la recepción del objeto contractual\nde conformidad con los términos acordados por las partes en\nel contrato administrativo.",
+      "source_excerpt_scope_char_end": 14540,
+      "source_excerpt_scope_char_start": 14274,
+      "specific_reasons": [
+        "Seguimiento y supervisión son la función de control continuo; la recepción es un acto distinto.",
+        "La recepción conforme al contrato es una obligación separable del seguimiento y supervisión."
+      ],
+      "structure_ids": [
+        "A13-P6"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        14
+      ],
+      "finding_id": "D3-SAR-0012",
+      "old_fact_id": "D3-F0066",
+      "old_note": "En suministros, la aprobación escrita debe detallar las actividades realizadas y verificadas satisfactoriamente y designar a un responsable que verifique cada etapa, decida su aprobación o rechazo y determine si continúa la siguiente.",
+      "replacement_fact_ids": [
+        "D3-F0083",
+        "D3-F0084",
+        "D3-F0085"
+      ],
+      "replacement_notes": [
+        "En contratos de suministros, la aprobación escrita debe detallar las actividades realizadas y verificadas de forma completa y satisfactoria.",
+        "En contratos de suministros, la aprobación escrita debe designar a una persona responsable de verificar el cumplimiento de cada etapa definida para el suministro.",
+        "La persona responsable designada para las etapas de un suministro debe aprobar o improbar cada etapa y decidir si continúa la siguiente."
+      ],
+      "source_excerpt": "En el caso de contratos de suministros también aplica la\netapa de planificación, siendo que la aprobación escrita debe\nincluir el detalle de cada una de las actividades realizadas y\nverificadas de forma completa y satisfactoria, y la designación\nde un responsable de verificar el cumplimiento de cada una de\nlas etapas definidas para el suministro, de aprobar o improbar\nla etapa, y decidir si continúa o no con la etapa siguiente. Todo\nlo anterior, de conformidad con los lineamentos establecidos\nen los artículos 191 y siguientes del RLGCP.",
+      "source_excerpt_scope_char_end": 17265,
+      "source_excerpt_scope_char_start": 16723,
+      "specific_reasons": [
+        "El detalle de actividades verificadas es un requisito autónomo de la aprobación escrita y está sometido a los artículos 191 y siguientes del RLGCP.",
+        "La designación del responsable es separable del detalle de actividades.",
+        "Las decisiones sobre aprobación y continuidad son responsabilidades propias del responsable designado."
+      ],
+      "structure_ids": [
+        "A14-P6"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        15
+      ],
+      "finding_id": "D3-SAR-0013",
+      "old_fact_id": "D3-F0070",
+      "old_note": "Las unidades solicitantes deben elaborar los estudios de mercado necesarios para fijar un precio referencial y obtener información actual sobre el objeto requerido según su calidad y oportunidad.",
+      "replacement_fact_ids": [
+        "D3-F0089"
+      ],
+      "replacement_notes": [
+        "Las unidades solicitantes deben elaborar los estudios de mercado necesarios para establecer, según la calidad y oportunidad del objeto, un precio referencial para la asignación de los recursos financieros proyectados para su adquisición, así como para obtener información actual y otros aspectos de lo requerido."
+      ],
+      "source_excerpt": "Artículo 15.—Estudio de mercado. Las unidades solicitantes\nserán las responsables de elaborar los estudios de mercado\nque se requieren para determinar, en función de la calidad\ny oportunidad del objeto contractual requerido, un precio\nreferencial para la asignación de los recursos financieros\nproyectados para su adquisición, así como para obtener\ninformación actual y otros aspectos de lo requerido. Lo anterior\nde conformidad con lo establecido en el inciso c) del Artículo\n3 de la LGCP e inciso c) del Artículo 4 y los Artículos 86 y 102\ndel RLGCP.",
+      "source_excerpt_scope_char_end": 18427,
+      "source_excerpt_scope_char_start": 17875,
+      "specific_reasons": [
+        "La revisión restaura la finalidad exacta del precio referencial —la asignación de los recursos financieros proyectados para la adquisición— y las remisiones normativas expresas que la nota V1 omitía."
+      ],
+      "structure_ids": [
+        "A15"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        18
+      ],
+      "finding_id": "D3-SAR-0014",
+      "old_fact_id": "D3-F0076",
+      "old_note": "La Municipalidad de Esparza solo considerará en sus procesos de contratación a proveedores con condición de proveedor activo y se regirá por el reglamento de uso del SDU.",
+      "replacement_fact_ids": [
+        "D3-F0095",
+        "D3-F0096"
+      ],
+      "replacement_notes": [
+        "La Municipalidad de Esparza solo debe considerar en los procesos de contratación que promueva a proveedores con condición de proveedor activo.",
+        "Para todos los efectos del registro de proveedores, la Municipalidad de Esparza debe regirse por el Reglamento para la utilización del SDU."
+      ],
+      "source_excerpt": "La ME solamente considerará para los procesos de\ncontratación que promueva, a los proveedores que ostenten la\ncondición de proveedor activo y para todos los efectos se regirá\npor lo dispuesto en el Reglamento para la utilización del SDU.",
+      "source_excerpt_scope_char_end": 20068,
+      "source_excerpt_scope_char_start": 19831,
+      "specific_reasons": [
+        "La elegibilidad por condición de proveedor activo es una regla autónoma.",
+        "La remisión al reglamento de uso del SDU es separable de la regla de proveedor activo."
+      ],
+      "structure_ids": [
+        "A18-P2"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        20
+      ],
+      "finding_id": "D3-SAR-0015",
+      "old_fact_id": "D3-F0084",
+      "old_note": "La Administración debe proporcionar recursos para que la Proveeduría participe periódicamente en capacitación y adiestramiento orientados a la profesionalización y acreditación según perfil o puesto.",
+      "replacement_fact_ids": [
+        "D3-F0104"
+      ],
+      "replacement_notes": [
+        "La Administración debe disponer los recursos necesarios para que la Proveeduría participe periódicamente en capacitación y adiestramiento orientados a la profesionalización y acreditación según el perfil o puesto, conforme lo defina la Autoridad de Contratación Pública y lo gestione la Dirección de Contratación Pública del Ministerio de Hacienda."
+      ],
+      "source_excerpt": "Para que la Proveeduría pueda cumplir con sus\nfunciones, la administración dispondrá los recursos necesarios\npara su participación en procesos periódicos de capacitación\ny adiestramiento con el propósito que alcance los niveles\nóptimos de profesionalización y acreditación según el perfil\no puesto, conforme lo defina la Autoridad de Contratación\nPública y lo gestione la Dirección de Contratación Pública del\nMinisterio de Hacienda.",
+      "source_excerpt_scope_char_end": 21955,
+      "source_excerpt_scope_char_start": 21522,
+      "specific_reasons": [
+        "La revisión conserva quién define la profesionalización/acreditación y quién la gestiona, información material omitida por V1."
+      ],
+      "structure_ids": [
+        "A20-P2"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        21
+      ],
+      "finding_id": "D3-SAR-0016",
+      "old_fact_id": "D3-F0093",
+      "old_note": "La Proveeduría puede requerir a las áreas solicitantes las modificaciones que considere necesarias para cumplir la LGCP y el RLGCP, y esas áreas deben acatarlas.",
+      "replacement_fact_ids": [
+        "D3-F0113",
+        "D3-F0114"
+      ],
+      "replacement_notes": [
+        "La Proveeduría puede requerir a las áreas solicitantes las modificaciones que considere necesarias para que la documentación se ajuste a la LGCP y al RLGCP.",
+        "Las áreas solicitantes deben acatar las modificaciones que la Proveeduría les requiera para ajustar la documentación a la LGCP y al RLGCP."
+      ],
+      "source_excerpt": "Artículo 21.—Funciones de la Proveeduría: Además\nde las que legal y reglamentariamente se le asignen, la\nProveeduría tendrá las siguientes funciones:\na) Planificar, dirigir, controlar y administrar el adecuado\nfuncionamiento de la Proveeduría, con el fin de\nsatisfacer los requerimientos institucionales en materia\nde adquisición de bienes, servicios y obras.\n\nb) Administrar el SDU.\nc) Dirigir y supervisar a los Analistas de Contratación en la\nejecución de los procedimientos de Contratación Pública.\nd) Adjuntar en el expediente electrónico respectivo, la\ndocumentación enviada por el administrador del contrato\no el que corresponda, previa explicación de las razones\npor las cuales no fueron incorporados previamente en el\nmódulo respectivo.\ne) Analizar todos los requerimientos de ley de los procedimientos\nde contratación en cada una de las etapas.\nf) Revisar y determinar que la información contenida en\nlas decisiones iniciales y en el documento de pliego de\ncondiciones y en otros, se ajusten a lo requerido en la\nLGCP y en el RLGCP. Para lo anterior podrá requerir\na las áreas solicitantes todas las modificaciones que\nconsidere necesarias, las cuales deben ser acatadas.",
+      "source_excerpt_scope_char_end": 23732,
+      "source_excerpt_scope_char_start": 22551,
+      "specific_reasons": [
+        "La facultad de requerir modificaciones es distinta de la obligación de las áreas de acatarlas.",
+        "El deber de acatamiento recae sobre un actor diferente y por ello se separa."
+      ],
+      "structure_ids": [
+        "A21-f"
+      ]
+    },
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "article_numbers": [
+        21
+      ],
+      "finding_id": "D3-SAR-0017",
+      "old_fact_id": "D3-F0095",
+      "old_note": "La versión final del pliego de condiciones debe obtener aprobación de la instancia que corresponda según el procedimiento y dicha instancia también autoriza su publicación.",
+      "replacement_fact_ids": [
+        "D3-F0116",
+        "D3-F0117"
+      ],
+      "replacement_notes": [
+        "La versión final del pliego de condiciones debe obtener la aprobación que el inciso 21.g atribuye, en una primera etapa, a la CRAO y, según corresponda, a la Proveeduría, Alcaldía Municipal, Junta Directiva del CCDRE o Concejo Municipal.",
+        "La autoridad que corresponda según el inciso 21.g debe autorizar además la publicación del pliego de condiciones."
+      ],
+      "source_excerpt": "Artículo 21.—Funciones de la Proveeduría: Además\nde las que legal y reglamentariamente se le asignen, la\nProveeduría tendrá las siguientes funciones:\na) Planificar, dirigir, controlar y administrar el adecuado\nfuncionamiento de la Proveeduría, con el fin de\nsatisfacer los requerimientos institucionales en materia\nde adquisición de bienes, servicios y obras.\n\nb) Administrar el SDU.\nc) Dirigir y supervisar a los Analistas de Contratación en la\nejecución de los procedimientos de Contratación Pública.\nd) Adjuntar en el expediente electrónico respectivo, la\ndocumentación enviada por el administrador del contrato\no el que corresponda, previa explicación de las razones\npor las cuales no fueron incorporados previamente en el\nmódulo respectivo.\ne) Analizar todos los requerimientos de ley de los procedimientos\nde contratación en cada una de las etapas.\nf) Revisar y determinar que la información contenida en\nlas decisiones iniciales y en el documento de pliego de\ncondiciones y en otros, se ajusten a lo requerido en la\nLGCP y en el RLGCP. Para lo anterior podrá requerir\na las áreas solicitantes todas las modificaciones que\nconsidere necesarias, las cuales deben ser acatadas.\ng) Conformar el pliego de condiciones y sus modificaciones\nde las contrataciones públicas. En todos los casos,\ndeberá obtener la aprobación de la versión final del\npliego de condiciones, que será extendido, en una\nprimera etapa por la Comisión de Recomendación\nde Adjudicaciones y Otros de la ME y la Proveeduría,\nAlcaldía Municipal, Junta Directiva del CCRDE o El\nConcejo Municipal según corresponda, quien autorizará,\nademás, la publicación del pliego de condiciones.",
+      "source_excerpt_scope_char_end": 24202,
+      "source_excerpt_scope_char_start": 22551,
+      "specific_reasons": [
+        "V1 colapsaba la referencia a una sola “instancia”; la fuente menciona expresamente la primera etapa de CRAO y la autoridad que corresponda.",
+        "La autorización de publicación es una decisión material separable de la aprobación de la versión final."
+      ],
+      "structure_ids": [
+        "A21-g"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        21
+      ],
+      "finding_id": "D3-SAR-0018",
+      "old_fact_id": "D3-F0116",
+      "old_note": "La Proveeduría debe resolver con el asesor legal los recursos de revocatoria contra el acto final y puede contar con criterio de las unidades técnicas.",
+      "replacement_fact_ids": [
+        "D3-F0138",
+        "D3-F0139"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe resolver junto con el asesor legal los recursos de revocatoria interpuestos contra el acto final.",
+        "Para resolver recursos de revocatoria contra el acto final, puede recabarse el criterio de las unidades técnicas."
+      ],
+      "source_excerpt": "Artículo 21.—Funciones de la Proveeduría: Además\nde las que legal y reglamentariamente se le asignen, la\nProveeduría tendrá las siguientes funciones:\na) Planificar, dirigir, controlar y administrar el adecuado\nfuncionamiento de la Proveeduría, con el fin de\nsatisfacer los requerimientos institucionales en materia\nde adquisición de bienes, servicios y obras.\n\nb) Administrar el SDU.\nc) Dirigir y supervisar a los Analistas de Contratación en la\nejecución de los procedimientos de Contratación Pública.\nd) Adjuntar en el expediente electrónico respectivo, la\ndocumentación enviada por el administrador del contrato\no el que corresponda, previa explicación de las razones\npor las cuales no fueron incorporados previamente en el\nmódulo respectivo.\ne) Analizar todos los requerimientos de ley de los procedimientos\nde contratación en cada una de las etapas.\nf) Revisar y determinar que la información contenida en\nlas decisiones iniciales y en el documento de pliego de\ncondiciones y en otros, se ajusten a lo requerido en la\nLGCP y en el RLGCP. Para lo anterior podrá requerir\na las áreas solicitantes todas las modificaciones que\nconsidere necesarias, las cuales deben ser acatadas.\ng) Conformar el pliego de condiciones y sus modificaciones\nde las contrataciones públicas. En todos los casos,\ndeberá obtener la aprobación de la versión final del\npliego de condiciones, que será extendido, en una\nprimera etapa por la Comisión de Recomendación\nde Adjudicaciones y Otros de la ME y la Proveeduría,\nAlcaldía Municipal, Junta Directiva del CCRDE o El\nConcejo Municipal según corresponda, quien autorizará,\nademás, la publicación del pliego de condiciones.\nh) Elaborar el cronograma propuesto para cada procedimiento\nde compras públicas.\ni) Elaborar la recomendación para la adopción del acto\nfinal.\nj) Consignar en el formulario “Resultado de estudio final de\nlas ofertas” en el sistema digital unificado, la conclusión\nrespecto al cumplimiento indicada por los profesionales\nresponsables de cada estudio de oferta.\nk) Velar porque no se incurra en fragmentación ilícita en las\nlicitaciones.\nl) Atender las consultas que le formulen las diversas\npersonas públicas o privadas relacionadas con sus funciones.\nm) Integrar el programa de adquisiciones y mantenerlo\nactualizado. Dicho programa deberá ser publicado en el\nsistema digital unificado durante el primer mes de cada\nperíodo presupuestario.\nn) Consolidar las adquisiciones de las dependencias de la\ninstitución, en casos de compras que puedan representar\neconomías de escala o que puedan agruparse en objetos\niguales o similares de uso común.\no) Publicitar todas las actuaciones en el sistema digital\nunificado, de forma oportuna.\np) Resolver sobre las solicitudes de declaratoria de\nconfidencialidad que realicen los participantes, en los\ntérminos del artículo 15 de la LGCP.\nq) Realizar, por requerimiento de la unidad solicitante, las\naudiencias previas a que hace referencia el artículo 39\nde la LGCP.\nr) Tramitar las solicitudes de reajustes y/o actualización de\nprecios, valorando el cumplimiento de las formalidades\nestablecidas en la LGCP y en el RLGCP, para ello\ncoordinará el análisis y los cálculos respectivos con el\nadministrador del contrato y la gestión financiera.\ns) Incluir, en el pliego de condiciones, lo referente a la\ngarantía de cumplimiento, en los casos requeridos.\nt) Publicar, en el sistema digital unificado, las invitaciones\npara participar en todos los procedimientos de contratación.\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nu) Realizar la apertura de ofertas en el sistema digital único.\nv) Verificar, en el registro de declaraciones juradas, la\ndeclaración rendida por los oferentes o subcontratistas,\nrelativas al régimen de prohibiciones.\nw) Remitir, mediante el sistema digital unificado, a las\ninstancias respectivas, las ofertas recibidas en cada\nproceso, a fin de que sean evaluadas, según corresponda.\nx) Resolver los recursos de objeción en conjunto con\nla unidad solicitante y con la Gestión Jurídica que\nse planteen contra los pliegos de condiciones de las\nlicitaciones menores y reducidas, así como contestar\nlas audiencias que confiera la Contraloría General de la\nRepública en coordinación con la unidad solicitante y el\nAsesor Jurídico del Concejo, respecto de los recursos de\nobjeción planteados contra los pliegos de condiciones\nde las licitaciones mayores.\ny) Resolver los recursos de revocatorias que se interpongan\ncontra el acto final en conjunto con el asesor legal, para\nlo cual se podrá contar con el criterio de las unidades\ntécnicas.",
+      "source_excerpt_scope_char_end": 27100,
+      "source_excerpt_scope_char_start": 22551,
+      "specific_reasons": [
+        "La resolución conjunta es la obligación principal del inciso y se separa de la facultad de consultar criterio técnico.",
+        "La posibilidad de contar con criterio técnico es una facultad distinta de la obligación de resolver."
+      ],
+      "structure_ids": [
+        "A21-y"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        21
+      ],
+      "finding_id": "D3-SAR-0019",
+      "old_fact_id": "D3-F0120",
+      "old_note": "La Proveeduría debe verificar y controlar el cumplimiento de los plazos que haya definido e informar su estado a las instancias correspondientes.",
+      "replacement_fact_ids": [
+        "D3-F0143",
+        "D3-F0144"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe verificar y controlar el estado de cumplimiento de los plazos que haya definido.",
+        "La Proveeduría debe informar a las instancias correspondientes sobre la verificación y control de los plazos que haya definido."
+      ],
+      "source_excerpt": "Artículo 21.—Funciones de la Proveeduría: Además\nde las que legal y reglamentariamente se le asignen, la\nProveeduría tendrá las siguientes funciones:\na) Planificar, dirigir, controlar y administrar el adecuado\nfuncionamiento de la Proveeduría, con el fin de\nsatisfacer los requerimientos institucionales en materia\nde adquisición de bienes, servicios y obras.\n\nb) Administrar el SDU.\nc) Dirigir y supervisar a los Analistas de Contratación en la\nejecución de los procedimientos de Contratación Pública.\nd) Adjuntar en el expediente electrónico respectivo, la\ndocumentación enviada por el administrador del contrato\no el que corresponda, previa explicación de las razones\npor las cuales no fueron incorporados previamente en el\nmódulo respectivo.\ne) Analizar todos los requerimientos de ley de los procedimientos\nde contratación en cada una de las etapas.\nf) Revisar y determinar que la información contenida en\nlas decisiones iniciales y en el documento de pliego de\ncondiciones y en otros, se ajusten a lo requerido en la\nLGCP y en el RLGCP. Para lo anterior podrá requerir\na las áreas solicitantes todas las modificaciones que\nconsidere necesarias, las cuales deben ser acatadas.\ng) Conformar el pliego de condiciones y sus modificaciones\nde las contrataciones públicas. En todos los casos,\ndeberá obtener la aprobación de la versión final del\npliego de condiciones, que será extendido, en una\nprimera etapa por la Comisión de Recomendación\nde Adjudicaciones y Otros de la ME y la Proveeduría,\nAlcaldía Municipal, Junta Directiva del CCRDE o El\nConcejo Municipal según corresponda, quien autorizará,\nademás, la publicación del pliego de condiciones.\nh) Elaborar el cronograma propuesto para cada procedimiento\nde compras públicas.\ni) Elaborar la recomendación para la adopción del acto\nfinal.\nj) Consignar en el formulario “Resultado de estudio final de\nlas ofertas” en el sistema digital unificado, la conclusión\nrespecto al cumplimiento indicada por los profesionales\nresponsables de cada estudio de oferta.\nk) Velar porque no se incurra en fragmentación ilícita en las\nlicitaciones.\nl) Atender las consultas que le formulen las diversas\npersonas públicas o privadas relacionadas con sus funciones.\nm) Integrar el programa de adquisiciones y mantenerlo\nactualizado. Dicho programa deberá ser publicado en el\nsistema digital unificado durante el primer mes de cada\nperíodo presupuestario.\nn) Consolidar las adquisiciones de las dependencias de la\ninstitución, en casos de compras que puedan representar\neconomías de escala o que puedan agruparse en objetos\niguales o similares de uso común.\no) Publicitar todas las actuaciones en el sistema digital\nunificado, de forma oportuna.\np) Resolver sobre las solicitudes de declaratoria de\nconfidencialidad que realicen los participantes, en los\ntérminos del artículo 15 de la LGCP.\nq) Realizar, por requerimiento de la unidad solicitante, las\naudiencias previas a que hace referencia el artículo 39\nde la LGCP.\nr) Tramitar las solicitudes de reajustes y/o actualización de\nprecios, valorando el cumplimiento de las formalidades\nestablecidas en la LGCP y en el RLGCP, para ello\ncoordinará el análisis y los cálculos respectivos con el\nadministrador del contrato y la gestión financiera.\ns) Incluir, en el pliego de condiciones, lo referente a la\ngarantía de cumplimiento, en los casos requeridos.\nt) Publicar, en el sistema digital unificado, las invitaciones\npara participar en todos los procedimientos de contratación.\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nu) Realizar la apertura de ofertas en el sistema digital único.\nv) Verificar, en el registro de declaraciones juradas, la\ndeclaración rendida por los oferentes o subcontratistas,\nrelativas al régimen de prohibiciones.\nw) Remitir, mediante el sistema digital unificado, a las\ninstancias respectivas, las ofertas recibidas en cada\nproceso, a fin de que sean evaluadas, según corresponda.\nx) Resolver los recursos de objeción en conjunto con\nla unidad solicitante y con la Gestión Jurídica que\nse planteen contra los pliegos de condiciones de las\nlicitaciones menores y reducidas, así como contestar\nlas audiencias que confiera la Contraloría General de la\nRepública en coordinación con la unidad solicitante y el\nAsesor Jurídico del Concejo, respecto de los recursos de\nobjeción planteados contra los pliegos de condiciones\nde las licitaciones mayores.\ny) Resolver los recursos de revocatorias que se interpongan\ncontra el acto final en conjunto con el asesor legal, para\nlo cual se podrá contar con el criterio de las unidades\ntécnicas.\nz) Contestar las audiencias relacionadas con motivo\nde los recursos de apelación en contra del acto final\ninterpuestos ante la Contraloría General de la República\nen conjunto con el Asesor Legal del Concejo.\naa) Garantizar y verificar que el tema de reajuste, revisión\no actualización de precios se incluya en los pliegos de\ncondiciones de contrataciones que así lo requieran.\nbb) Fiscalizar la caducidad de las garantías de cumplimiento.\ncc) Verificar y controlar el estado de cumplimiento de los\nplazos definidos por la Proveeduría e informar a las\ninstancias correspondientes respecto de su verificación\ny control.",
+      "source_excerpt_scope_char_end": 27718,
+      "source_excerpt_scope_char_start": 22551,
+      "specific_reasons": [
+        "El control de plazos es una función separable de informar sus resultados.",
+        "La obligación de informar tiene destinatario y efecto propios."
+      ],
+      "structure_ids": [
+        "A21-cc"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        21
+      ],
+      "finding_id": "D3-SAR-0020",
+      "old_fact_id": "D3-F0123",
+      "old_note": "La Proveeduría debe tramitar junto con la Asesoría Jurídica y el Administrador del Contrato los cobros de multas, cláusulas penales, garantías, reclamos administrativos, nulidades, intereses moratorios y diferenciales cambiarios, e informar esos trámites a la Alcaldía.",
+      "replacement_fact_ids": [
+        "D3-F0147",
+        "D3-F0148"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe tramitar junto con la Asesoría Jurídica y el Administrador del Contrato los cobros de multas, cláusulas penales, ejecución de garantías, reclamos administrativos, nulidades, intereses moratorios y diferenciales cambiarios.",
+        "La Proveeduría, la Asesoría Jurídica y el Administrador del Contrato deben informar a la Alcaldía Municipal sobre los trámites indicados en el inciso 21.ee."
+      ],
+      "source_excerpt": "Artículo 21.—Funciones de la Proveeduría: Además\nde las que legal y reglamentariamente se le asignen, la\nProveeduría tendrá las siguientes funciones:\na) Planificar, dirigir, controlar y administrar el adecuado\nfuncionamiento de la Proveeduría, con el fin de\nsatisfacer los requerimientos institucionales en materia\nde adquisición de bienes, servicios y obras.\n\nb) Administrar el SDU.\nc) Dirigir y supervisar a los Analistas de Contratación en la\nejecución de los procedimientos de Contratación Pública.\nd) Adjuntar en el expediente electrónico respectivo, la\ndocumentación enviada por el administrador del contrato\no el que corresponda, previa explicación de las razones\npor las cuales no fueron incorporados previamente en el\nmódulo respectivo.\ne) Analizar todos los requerimientos de ley de los procedimientos\nde contratación en cada una de las etapas.\nf) Revisar y determinar que la información contenida en\nlas decisiones iniciales y en el documento de pliego de\ncondiciones y en otros, se ajusten a lo requerido en la\nLGCP y en el RLGCP. Para lo anterior podrá requerir\na las áreas solicitantes todas las modificaciones que\nconsidere necesarias, las cuales deben ser acatadas.\ng) Conformar el pliego de condiciones y sus modificaciones\nde las contrataciones públicas. En todos los casos,\ndeberá obtener la aprobación de la versión final del\npliego de condiciones, que será extendido, en una\nprimera etapa por la Comisión de Recomendación\nde Adjudicaciones y Otros de la ME y la Proveeduría,\nAlcaldía Municipal, Junta Directiva del CCRDE o El\nConcejo Municipal según corresponda, quien autorizará,\nademás, la publicación del pliego de condiciones.\nh) Elaborar el cronograma propuesto para cada procedimiento\nde compras públicas.\ni) Elaborar la recomendación para la adopción del acto\nfinal.\nj) Consignar en el formulario “Resultado de estudio final de\nlas ofertas” en el sistema digital unificado, la conclusión\nrespecto al cumplimiento indicada por los profesionales\nresponsables de cada estudio de oferta.\nk) Velar porque no se incurra en fragmentación ilícita en las\nlicitaciones.\nl) Atender las consultas que le formulen las diversas\npersonas públicas o privadas relacionadas con sus funciones.\nm) Integrar el programa de adquisiciones y mantenerlo\nactualizado. Dicho programa deberá ser publicado en el\nsistema digital unificado durante el primer mes de cada\nperíodo presupuestario.\nn) Consolidar las adquisiciones de las dependencias de la\ninstitución, en casos de compras que puedan representar\neconomías de escala o que puedan agruparse en objetos\niguales o similares de uso común.\no) Publicitar todas las actuaciones en el sistema digital\nunificado, de forma oportuna.\np) Resolver sobre las solicitudes de declaratoria de\nconfidencialidad que realicen los participantes, en los\ntérminos del artículo 15 de la LGCP.\nq) Realizar, por requerimiento de la unidad solicitante, las\naudiencias previas a que hace referencia el artículo 39\nde la LGCP.\nr) Tramitar las solicitudes de reajustes y/o actualización de\nprecios, valorando el cumplimiento de las formalidades\nestablecidas en la LGCP y en el RLGCP, para ello\ncoordinará el análisis y los cálculos respectivos con el\nadministrador del contrato y la gestión financiera.\ns) Incluir, en el pliego de condiciones, lo referente a la\ngarantía de cumplimiento, en los casos requeridos.\nt) Publicar, en el sistema digital unificado, las invitaciones\npara participar en todos los procedimientos de contratación.\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nu) Realizar la apertura de ofertas en el sistema digital único.\nv) Verificar, en el registro de declaraciones juradas, la\ndeclaración rendida por los oferentes o subcontratistas,\nrelativas al régimen de prohibiciones.\nw) Remitir, mediante el sistema digital unificado, a las\ninstancias respectivas, las ofertas recibidas en cada\nproceso, a fin de que sean evaluadas, según corresponda.\nx) Resolver los recursos de objeción en conjunto con\nla unidad solicitante y con la Gestión Jurídica que\nse planteen contra los pliegos de condiciones de las\nlicitaciones menores y reducidas, así como contestar\nlas audiencias que confiera la Contraloría General de la\nRepública en coordinación con la unidad solicitante y el\nAsesor Jurídico del Concejo, respecto de los recursos de\nobjeción planteados contra los pliegos de condiciones\nde las licitaciones mayores.\ny) Resolver los recursos de revocatorias que se interpongan\ncontra el acto final en conjunto con el asesor legal, para\nlo cual se podrá contar con el criterio de las unidades\ntécnicas.\nz) Contestar las audiencias relacionadas con motivo\nde los recursos de apelación en contra del acto final\ninterpuestos ante la Contraloría General de la República\nen conjunto con el Asesor Legal del Concejo.\naa) Garantizar y verificar que el tema de reajuste, revisión\no actualización de precios se incluya en los pliegos de\ncondiciones de contrataciones que así lo requieran.\nbb) Fiscalizar la caducidad de las garantías de cumplimiento.\ncc) Verificar y controlar el estado de cumplimiento de los\nplazos definidos por la Proveeduría e informar a las\ninstancias correspondientes respecto de su verificación\ny control.\ndd) Realizar en conjunto con la Gestión Jurídica el procedimiento\npara la ejecución de la garantía de cumplimiento, según\nlo dispuesto por el artículo 45 de la LGCP. Contra la\nresolución para ejecutar la garantía de cumplimiento\ncabrá recurso de revocatoria ante la Alcaldía y de\napelación ante el Concejo Municipal.\nee) Tramitar en conjunto con la Asesoría Jurídica y el\nAdministrador del Contrato los procesos de cobro de\nmultas, cláusulas penales, ejecución de garantías,\nreclamos administrativos, nulidades, intereses moratorios\ny diferenciales cambiarios e informar de dichos trámites\na la Alcaldía Municipal. Las multas podrán tramitarse\ntanto por incumplimientos contractuales como por\npresentación de recursos temerarios. Contra la decisión\nde aplicación de multas y cláusulas penales cabrá\nrecurso de revocatoria ante la ante la Alcaldía y de\napelación ante el Concejo Municipal.",
+      "source_excerpt_scope_char_end": 28607,
+      "source_excerpt_scope_char_start": 22551,
+      "specific_reasons": [
+        "El conjunto de trámites comparte actores y acción; se separa de la obligación posterior de informar.",
+        "Informar a la Alcaldía es una obligación autónoma con destinatario propio."
+      ],
+      "structure_ids": [
+        "A21-ee"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        23
+      ],
+      "finding_id": "D3-SAR-0021",
+      "old_fact_id": "D3-F0140",
+      "old_note": "La CRAO debe recomendar a la autoridad competente la aprobación de los pliegos de licitación de las contrataciones dentro de su rango, así como de donaciones y autorizaciones de remate y subasta.",
+      "replacement_fact_ids": [
+        "D3-F0165"
+      ],
+      "replacement_notes": [
+        "La CRAO debe recomendar al Proveedor, la Alcaldía Municipal, el Concejo Municipal y el CCDRE, dentro de sus respectivos rangos de acción, la aprobación de los pliegos de licitación de las contrataciones, donaciones y autorizaciones de remate y subasta."
+      ],
+      "source_excerpt": "Artículo 23.—Comisión de Recomendaciones de\nAdjudicación y Otros. La CRAO, en apoyo y validación\nde las actuaciones de la Proveeduría, tendrá las siguientes\nfunciones:\na) Recomendar al Proveedor, AM, CM y a el CCDRE\nla aprobación de los pliegos de licitación de todas\nlas contrataciones dentro de sus rangos de acción,\ndonaciones y autorizaciones de procedimientos de remate\ny subasta.",
+      "source_excerpt_scope_char_end": 31305,
+      "source_excerpt_scope_char_start": 30920,
+      "specific_reasons": [
+        "La revisión sustituye “autoridad competente” por los cuatro destinatarios que el inciso enumera expresamente y conserva que cada uno actúa dentro de su respectivo rango."
+      ],
+      "structure_ids": [
+        "A23-a"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        23
+      ],
+      "finding_id": "D3-SAR-0022",
+      "old_fact_id": "D3-F0141",
+      "old_note": "La CRAO debe recomendar a la autoridad competente los actos de adjudicación de las contrataciones dentro de su rango, así como de donaciones y autorizaciones de remate y subasta.",
+      "replacement_fact_ids": [
+        "D3-F0166"
+      ],
+      "replacement_notes": [
+        "La CRAO debe recomendar al Proveedor, la Alcaldía Municipal, el Concejo Municipal y el CCDRE, dentro de sus respectivos rangos de acción, los actos de adjudicación de las contrataciones, donaciones y autorizaciones de remate y subasta."
+      ],
+      "source_excerpt": "Artículo 23.—Comisión de Recomendaciones de\nAdjudicación y Otros. La CRAO, en apoyo y validación\nde las actuaciones de la Proveeduría, tendrá las siguientes\nfunciones:\na) Recomendar al Proveedor, AM, CM y a el CCDRE\nla aprobación de los pliegos de licitación de todas\nlas contrataciones dentro de sus rangos de acción,\ndonaciones y autorizaciones de procedimientos de remate\ny subasta.\nb) Recomendar al Proveedor, AM, CM y a el CCDRE los\nactos de adjudicación de todas las contrataciones dentro\nde sus rangos de acción, donaciones y autorizaciones\nde procedimientos de remate y subasta.",
+      "source_excerpt_scope_char_end": 31506,
+      "source_excerpt_scope_char_start": 30920,
+      "specific_reasons": [
+        "La revisión sustituye “autoridad competente” por los cuatro destinatarios que el inciso enumera expresamente y conserva que cada uno actúa dentro de su respectivo rango."
+      ],
+      "structure_ids": [
+        "A23-b"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        26
+      ],
+      "finding_id": "D3-SAR-0023",
+      "old_fact_id": "D3-F0151",
+      "old_note": "La Unidad Solicitante es la dependencia responsable de satisfacer la necesidad pública mediante la adquisición de bienes, servicios u obras y debe justificar, fundamentar y cumplir los requerimientos técnicos, legales e institucionales para solicitar el inicio de una contratación pública.",
+      "replacement_fact_ids": [
+        "D3-F0176",
+        "D3-F0177"
+      ],
+      "replacement_notes": [
+        "La Unidad Solicitante es la dependencia responsable de satisfacer la necesidad pública mediante la adquisición de bienes, servicios u obras por procedimientos de contratación pública.",
+        "Para solicitar el inicio de una contratación pública, la Unidad Solicitante debe justificarla, fundamentarla y cumplir los requerimientos técnicos, legales e institucionales aplicables."
+      ],
+      "source_excerpt": "Artículo 26.—Unidad Solicitante. La Unidad Solicitante\nes la dependencia responsable de satisfacer la necesidad\npública a través de la adquisición del bien, servicio u obra\nmediante los procedimientos establecidos en materia\nde Contratación Pública, por lo que debe de justificar,\nfundamentar y cumplir con los requerimientos técnicos, legales\ne institucionales para solicitar el inicio de una Contratación\nPública. Para ello, debe realizar lo siguiente:",
+      "source_excerpt_scope_char_end": 33700,
+      "source_excerpt_scope_char_start": 33246,
+      "specific_reasons": [
+        "La definición del rol institucional es separable de los requisitos para solicitar el inicio de una contratación.",
+        "Los deberes previos a solicitar el inicio constituyen una obligación distinta de la definición del rol."
+      ],
+      "structure_ids": [
+        "A26-INTRO"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        27
+      ],
+      "finding_id": "D3-SAR-0024",
+      "old_fact_id": "D3-F0168",
+      "old_note": "El Administrador del Contrato puede solicitar asesoramiento de la Proveeduría en contratación pública cuando lo requiera.",
+      "replacement_fact_ids": [
+        "D3-F0194"
+      ],
+      "replacement_notes": [
+        "Cuando lo requiera, el Administrador del Contrato debe solicitar asesoramiento de la Proveeduría en materia de contratación pública."
+      ],
+      "source_excerpt": "Artículo 27.—Del Administrador del Contrato. Para\ncada procedimiento de contratación, el área solicitante deberá\nasignar uno o varios funcionarios, quienes fungirán como\nadministradores de contrato y tendrán al menos las siguientes\nfunciones y responsabilidades:\na) Solicitar, cuando así lo requiera, el asesoramiento de la\nProveeduría en materia de contratación pública.",
+      "source_excerpt_scope_char_end": 36573,
+      "source_excerpt_scope_char_start": 36202,
+      "specific_reasons": [
+        "El inciso a) forma parte de una lista de funciones y responsabilidades; “cuando así lo requiera” limita cuándo se activa, no convierte la función en una mera facultad opcional."
+      ],
+      "structure_ids": [
+        "A27-a"
+      ]
+    },
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "article_numbers": [
+        27
+      ],
+      "finding_id": "D3-SAR-0025",
+      "old_fact_id": "D3-F0172",
+      "old_note": "El Administrador del Contrato debe pedir a Proveeduría que gestione las aclaraciones de oferentes y debe responderlas dentro del plazo permitido por la LGCP y el RLGCP conforme al manual y formato respectivos.",
+      "replacement_fact_ids": [
+        "D3-F0198",
+        "D3-F0199"
+      ],
+      "replacement_notes": [
+        "El Administrador del Contrato debe requerir a la Proveeduría que gestione ante los oferentes las aclaraciones presentadas.",
+        "El Administrador del Contrato debe responder las aclaraciones de los oferentes dentro del plazo permitido por la LGCP y el RLGCP y conforme al manual y formato respectivos."
+      ],
+      "source_excerpt": "Artículo 27.—Del Administrador del Contrato. Para\ncada procedimiento de contratación, el área solicitante deberá\nasignar uno o varios funcionarios, quienes fungirán como\nadministradores de contrato y tendrán al menos las siguientes\nfunciones y responsabilidades:\na) Solicitar, cuando así lo requiera, el asesoramiento de la\nProveeduría en materia de contratación pública.\nb) Elaborar o delegar la confección de la decisión inicial.\nc) Elaborar o designar la realización de las especificaciones\ntécnicas del pliego de condiciones.\nd) Para contrataciones que involucren arrendamientos\noperativos o financieros, o que sean de software o\nhardware, deben coordinar su trámite por medio de la\nGestión de Tecnologías de Información o por la Gestión\nFinanciera según corresponda en cada caso.\ne) Requerir a la PI que gestione ante los oferentes,\nresponder en el plazo permitido por la LGCP y en el\nRLGCP, las aclaraciones que presenten los oferentes\nsegún el manual y formato respectivos.",
+      "source_excerpt_scope_char_end": 37182,
+      "source_excerpt_scope_char_start": 36202,
+      "specific_reasons": [
+        "El primer infinitivo del inciso e) asigna al AC la gestión de requerir a PI; se separa del deber de responder.",
+        "La segunda acción del inciso e) es responder oportunamente; la estructura de lista mantiene al AC como sujeto."
+      ],
+      "structure_ids": [
+        "A27-e"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        27
+      ],
+      "finding_id": "D3-SAR-0026",
+      "old_fact_id": "D3-F0173",
+      "old_note": "El Administrador del Contrato puede efectuar las aclaraciones o modificaciones al pliego que considere necesarias, respetando los plazos de la LGCP y el RLGCP.",
+      "replacement_fact_ids": [
+        "D3-F0200"
+      ],
+      "replacement_notes": [
+        "El Administrador del Contrato debe realizar en el pliego de condiciones las aclaraciones o modificaciones que considere necesarias dentro de los plazos permitidos por la LGCP y el RLGCP."
+      ],
+      "source_excerpt": "Artículo 27.—Del Administrador del Contrato. Para\ncada procedimiento de contratación, el área solicitante deberá\nasignar uno o varios funcionarios, quienes fungirán como\nadministradores de contrato y tendrán al menos las siguientes\nfunciones y responsabilidades:\na) Solicitar, cuando así lo requiera, el asesoramiento de la\nProveeduría en materia de contratación pública.\nb) Elaborar o delegar la confección de la decisión inicial.\nc) Elaborar o designar la realización de las especificaciones\ntécnicas del pliego de condiciones.\nd) Para contrataciones que involucren arrendamientos\noperativos o financieros, o que sean de software o\nhardware, deben coordinar su trámite por medio de la\nGestión de Tecnologías de Información o por la Gestión\nFinanciera según corresponda en cada caso.\ne) Requerir a la PI que gestione ante los oferentes,\nresponder en el plazo permitido por la LGCP y en el\nRLGCP, las aclaraciones que presenten los oferentes\nsegún el manual y formato respectivos.\nf) Realizar al pliego de condiciones las aclaraciones o\nmodificaciones que considere necesarias cumpliendo\ncon los plazos permitidos por la LGCP y el RLGCP.",
+      "source_excerpt_scope_char_end": 37339,
+      "source_excerpt_scope_char_start": 36202,
+      "specific_reasons": [
+        "El inciso f) está dentro de las funciones y responsabilidades del AC; V1 lo degradó incorrectamente a “puede”."
+      ],
+      "structure_ids": [
+        "A27-f"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        27
+      ],
+      "finding_id": "D3-SAR-0027",
+      "old_fact_id": "D3-F0189",
+      "old_note": "Cuando el contratista deba contratar personal exclusivamente para ejecutar el objeto contractual, el Administrador del Contrato debe verificar el cumplimiento de salarios mínimos, riesgos de trabajo y demás normas de seguridad social y ocupacional aplicables.",
+      "replacement_fact_ids": [
+        "D3-F0216"
+      ],
+      "replacement_notes": [
+        "Cuando un contrato requiera que el contratista contrate personal exclusivamente para cumplir el objeto contractual, el Administrador del Contrato debe verificar el cumplimiento de salarios mínimos, riesgos de trabajo y demás normas de seguridad social y ocupacional aplicables."
+      ],
+      "source_excerpt": "Artículo 27.—Del Administrador del Contrato. Para\ncada procedimiento de contratación, el área solicitante deberá\nasignar uno o varios funcionarios, quienes fungirán como\nadministradores de contrato y tendrán al menos las siguientes\nfunciones y responsabilidades:\na) Solicitar, cuando así lo requiera, el asesoramiento de la\nProveeduría en materia de contratación pública.\nb) Elaborar o delegar la confección de la decisión inicial.\nc) Elaborar o designar la realización de las especificaciones\ntécnicas del pliego de condiciones.\nd) Para contrataciones que involucren arrendamientos\noperativos o financieros, o que sean de software o\nhardware, deben coordinar su trámite por medio de la\nGestión de Tecnologías de Información o por la Gestión\nFinanciera según corresponda en cada caso.\ne) Requerir a la PI que gestione ante los oferentes,\nresponder en el plazo permitido por la LGCP y en el\nRLGCP, las aclaraciones que presenten los oferentes\nsegún el manual y formato respectivos.\nf) Realizar al pliego de condiciones las aclaraciones o\nmodificaciones que considere necesarias cumpliendo\ncon los plazos permitidos por la LGCP y el RLGCP.\ng) Elaborar el análisis de ofertas en el plazo estipulado por\nla Proveeduría\nh) Aprobar la recomendación de adjudicación.\ni) Ser el contacto oficial entre la Municipalidad y el contratista.\nj) Coordinar con el contratista, los aspectos operativos,\nfuncionales y otros durante la fase de ejecución\ncontractual, en las compras públicas que le corresponden.\nk) Adjuntar todos los documentos que le corresponden\ncomo AC en el expediente electrónico respectivo y si\npor alguna razón justificada no lo pudiera colocar donde\nse debe, lo deberá adjuntar en el módulo de ejecución\ndel contrato indicando la razón por la cual no está\ncolocado donde se debe. Por lo anterior, solo en casos\nexcepcionales y justificados, será admisible que solicite\na la PI la colocación de documentos, lo cual realizará\npor medio de correo electrónico, como máximo al día\nsiguiente que el documento fue generado.\nl) Solicitar y justificar la ejecución de la garantía de\ncumplimiento o colateral.\nm) Solicitar y justificar la aplicación de multas o cláusulas\npenales.\nn) Solicitar a la PI, las modificaciones a los contratos que\nse encuentran bajo su fiscalización, cumpliendo con lo\nque señala la LGCP y el RLGCP al respecto. Cuando la\nmodificación exceda el 20% del contrato original hasta un\n50% como máximo, dicha solicitud deberá de contar con\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla aprobación del superior inmediato que corresponda.\no) Supervisar que la compra solicitada y sus modificaciones\nno supere los umbrales previstos en la LGCP y el RLGCP\npara el tipo de procedimiento del concurso.\np) Atender en conjunto con la Gestión Financiera los\naspectos relativos a las solicitudes de reajustes y revisión\nde precios que presenten los contratistas.\nq) Solicitar y justificar los trámites relativos a sanciones,\nrecisiones, resoluciones, terminación de contrato y otros.\nr) Implementar un control de la vigencia de las garantías de\ncumplimiento o colaterales de sus contratos. Lo anterior,\npara asegurar y cumplir con lo que le corresponde\nen cuanto a que las garantías estén vigentes durante\ntodo el plazo que se encuentre en ejecución la compra\npública. Un mes antes del vencimiento de las garantías,\npor medio del SDU debe de forma obligatoria solicitar,\ncuando corresponda, a la PI que gestione su renovación.\ns) Verificar que, tratándose de contratos en los que el\ncontratista requiera contratación de personal exclusivamente\npara el cumplimiento del objeto contractual, se cumplan las\nregulaciones emitidas por las autoridades competentes,\nen relación con el cumplimiento de derechos laborales\nrelativos al pago de los salarios mínimos, riesgos de\ntrabajo y demás disposiciones relativa a la seguridad\nsocial y ocupacional de los trabajadores.",
+      "source_excerpt_scope_char_end": 40077,
+      "source_excerpt_scope_char_start": 36202,
+      "specific_reasons": [
+        "La revisión conserva “requiera contratación de personal” sin convertirlo en una obligación externa del contratista."
+      ],
+      "structure_ids": [
+        "A27-s"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        27
+      ],
+      "finding_id": "D3-SAR-0028",
+      "old_fact_id": "D3-F0190",
+      "old_note": "El Administrador del Contrato debe aprobar o elaborar las órdenes de pedido derivadas de licitaciones de entrega según demanda.",
+      "replacement_fact_ids": [
+        "D3-F0217"
+      ],
+      "replacement_notes": [
+        "El Administrador del Contrato debe aprobar y/o elaborar las órdenes de pedido derivadas de licitaciones de entrega según demanda."
+      ],
+      "source_excerpt": "Artículo 27.—Del Administrador del Contrato. Para\ncada procedimiento de contratación, el área solicitante deberá\nasignar uno o varios funcionarios, quienes fungirán como\nadministradores de contrato y tendrán al menos las siguientes\nfunciones y responsabilidades:\na) Solicitar, cuando así lo requiera, el asesoramiento de la\nProveeduría en materia de contratación pública.\nb) Elaborar o delegar la confección de la decisión inicial.\nc) Elaborar o designar la realización de las especificaciones\ntécnicas del pliego de condiciones.\nd) Para contrataciones que involucren arrendamientos\noperativos o financieros, o que sean de software o\nhardware, deben coordinar su trámite por medio de la\nGestión de Tecnologías de Información o por la Gestión\nFinanciera según corresponda en cada caso.\ne) Requerir a la PI que gestione ante los oferentes,\nresponder en el plazo permitido por la LGCP y en el\nRLGCP, las aclaraciones que presenten los oferentes\nsegún el manual y formato respectivos.\nf) Realizar al pliego de condiciones las aclaraciones o\nmodificaciones que considere necesarias cumpliendo\ncon los plazos permitidos por la LGCP y el RLGCP.\ng) Elaborar el análisis de ofertas en el plazo estipulado por\nla Proveeduría\nh) Aprobar la recomendación de adjudicación.\ni) Ser el contacto oficial entre la Municipalidad y el contratista.\nj) Coordinar con el contratista, los aspectos operativos,\nfuncionales y otros durante la fase de ejecución\ncontractual, en las compras públicas que le corresponden.\nk) Adjuntar todos los documentos que le corresponden\ncomo AC en el expediente electrónico respectivo y si\npor alguna razón justificada no lo pudiera colocar donde\nse debe, lo deberá adjuntar en el módulo de ejecución\ndel contrato indicando la razón por la cual no está\ncolocado donde se debe. Por lo anterior, solo en casos\nexcepcionales y justificados, será admisible que solicite\na la PI la colocación de documentos, lo cual realizará\npor medio de correo electrónico, como máximo al día\nsiguiente que el documento fue generado.\nl) Solicitar y justificar la ejecución de la garantía de\ncumplimiento o colateral.\nm) Solicitar y justificar la aplicación de multas o cláusulas\npenales.\nn) Solicitar a la PI, las modificaciones a los contratos que\nse encuentran bajo su fiscalización, cumpliendo con lo\nque señala la LGCP y el RLGCP al respecto. Cuando la\nmodificación exceda el 20% del contrato original hasta un\n50% como máximo, dicha solicitud deberá de contar con\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla aprobación del superior inmediato que corresponda.\no) Supervisar que la compra solicitada y sus modificaciones\nno supere los umbrales previstos en la LGCP y el RLGCP\npara el tipo de procedimiento del concurso.\np) Atender en conjunto con la Gestión Financiera los\naspectos relativos a las solicitudes de reajustes y revisión\nde precios que presenten los contratistas.\nq) Solicitar y justificar los trámites relativos a sanciones,\nrecisiones, resoluciones, terminación de contrato y otros.\nr) Implementar un control de la vigencia de las garantías de\ncumplimiento o colaterales de sus contratos. Lo anterior,\npara asegurar y cumplir con lo que le corresponde\nen cuanto a que las garantías estén vigentes durante\ntodo el plazo que se encuentre en ejecución la compra\npública. Un mes antes del vencimiento de las garantías,\npor medio del SDU debe de forma obligatoria solicitar,\ncuando corresponda, a la PI que gestione su renovación.\ns) Verificar que, tratándose de contratos en los que el\ncontratista requiera contratación de personal exclusivamente\npara el cumplimiento del objeto contractual, se cumplan las\nregulaciones emitidas por las autoridades competentes,\nen relación con el cumplimiento de derechos laborales\nrelativos al pago de los salarios mínimos, riesgos de\ntrabajo y demás disposiciones relativa a la seguridad\nsocial y ocupacional de los trabajadores.\nt) Aprobar y/o elaborar las órdenes de pedido, que se\nderiven de las licitaciones de entrega según demanda.",
+      "source_excerpt_scope_char_end": 40185,
+      "source_excerpt_scope_char_start": 36202,
+      "specific_reasons": [
+        "La fuente usa “aprobar y/o elaborar”; V1 reducía la posibilidad de que correspondan ambas acciones."
+      ],
+      "structure_ids": [
+        "A27-t"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        28
+      ],
+      "finding_id": "D3-SAR-0029",
+      "old_fact_id": "D3-F0200",
+      "old_note": "El Concejo Municipal o la Junta Directiva del CCDRE, según corresponda, debe autorizar egresos y aprobar el inicio y los pliegos de remates, licitación mayor y procedimientos especiales, extraordinarios o de excepción cuyo monto presupuestado supere el límite superior de la licitación menor.",
+      "replacement_fact_ids": [
+        "D3-F0227"
+      ],
+      "replacement_notes": [
+        "El Concejo Municipal o la Junta Directiva del CCDRE, según corresponda, debe autorizar egresos y aprobar el inicio y los pliegos de remates, licitación mayor, arrendamiento y compra de bienes inmuebles, y procedimientos extraordinarios, especiales o de excepción cuyo monto presupuestado supere el límite superior de la licitación menor."
+      ],
+      "source_excerpt": "Artículo 28.—Competencia para autorizar desembolsos,\naprobar pliego de condiciones, adjudicar declarar desierto o\ninfructuoso los procedimientos de contratación administrativa,\nmodificar contratos y suscripción de finiquitos.\n1) Corresponde a la Concejo Municipal y a la Junta\nDirectiva del CCDRE:\na) Autorizar los egresos y aprobar el inicio de procedimientos\ny los pliegos de condiciones de remates y la licitación\nmayor, así como de los procedimientos especiales",
+      "source_excerpt_scope_char_end": 41772,
+      "source_excerpt_scope_char_start": 41307,
+      "specific_reasons": [
+        "La revisión devuelve al texto canónico los procedimientos especiales de arrendamiento y compra de inmuebles omitidos en V1."
+      ],
+      "structure_ids": [
+        "A28-1-a"
+      ]
+    },
+    {
+      "action": "REWRITE",
+      "article_numbers": [
+        28
+      ],
+      "finding_id": "D3-SAR-0030",
+      "old_fact_id": "D3-F0201",
+      "old_note": "El Concejo Municipal o la Junta Directiva del CCDRE debe aprobar las adjudicaciones y declaratorias de infructuosa o desierta de la licitación mayor y de los procedimientos especiales, extraordinarios o de excepción cuyo monto supere el límite superior de la licitación menor.",
+      "replacement_fact_ids": [
+        "D3-F0228"
+      ],
+      "replacement_notes": [
+        "El Concejo Municipal o la Junta Directiva del CCDRE debe aprobar las adjudicaciones y declaratorias de infructuosa o desierta de la licitación mayor, del arrendamiento y compra de bienes inmuebles y de procedimientos extraordinarios, especiales o de excepción cuyo monto supere el límite superior de la licitación menor."
+      ],
+      "source_excerpt": "Artículo 28.—Competencia para autorizar desembolsos,\naprobar pliego de condiciones, adjudicar declarar desierto o\ninfructuoso los procedimientos de contratación administrativa,\nmodificar contratos y suscripción de finiquitos.\n1) Corresponde a la Concejo Municipal y a la Junta\nDirectiva del CCDRE:\na) Autorizar los egresos y aprobar el inicio de procedimientos\ny los pliegos de condiciones de remates y la licitación\nmayor, así como de los procedimientos especiales\n\nPág 57\n\nde arrendamiento y compra de bienes inmuebles,\nextraordinarios, especiales y de excepción cuyo monto\npresupuestado sobrepase el límite superior de la\nlicitación menor.\nb) Aprobar las resoluciones de adjudicación, declaratoria\nde infructuosa o desierta, que se emitan en la licitación\nmayor, así como de los procedimientos especiales\nde arrendamiento y compra de bienes inmuebles,\nextraordinarios, especiales y de excepción cuyo\nmonto presupuestado sobrepase el límite superior de\nla licitación menor.",
+      "source_excerpt_scope_char_end": 42282,
+      "source_excerpt_scope_char_start": 41307,
+      "specific_reasons": [
+        "La revisión restaura la categoría expresa de arrendamiento y compra de inmuebles."
+      ],
+      "structure_ids": [
+        "A28-1-b"
+      ]
+    },
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "article_numbers": [
+        28
+      ],
+      "finding_id": "D3-SAR-0031",
+      "old_fact_id": "D3-F0209",
+      "old_note": "Las decisiones sobre plazo contractual, prórrogas de ejecución, suspensión del plazo, recibo actualizado de bienes y otros asuntos indicados deben ser revisadas por el Administrador del Contrato y aprobadas por el Alcalde Municipal.",
+      "replacement_fact_ids": [
+        "D3-F0236",
+        "D3-F0237"
+      ],
+      "replacement_notes": [
+        "El Administrador del Contrato debe revisar los asuntos que el inciso 28.2.d enumera sobre plazo contractual, prórrogas, suspensión del plazo, «recibo de bienes actualizados» y otros.",
+        "El Alcalde Municipal debe aprobar los asuntos que el inciso 28.2.d enumera sobre plazo contractual, prórrogas, suspensión del plazo, «recibo de bienes actualizados» y otros."
+      ],
+      "source_excerpt": "2. Corresponde a la Alcaldía Municipal:\na) Autorizar los egresos y aprobar el inicio de procedimientos\ny pliego de condiciones de la licitación menor, así como\nde los procedimientos extraordinarios, especiales y de\nexcepción cuyo monto presupuestado no sobrepase\nel límite superior de la licitación menor.\nb) Aprobar las resoluciones de adjudicación, declaratoria\nde infructuosa o desierta, que se emitan en la\nlicitación menor, así como de los procedimientos\nextraordinarios, especiales y de excepción cuyo\nmonto presupuestado no sobrepase el límite superior\nde la licitaciónmenor.\nc) Aprobar las modificaciones unilaterales de contratos\nde los procedimientos de las licitaciones menores,\nasí como la cesión de derechos de contratos de los\nprocedimientos de licitación menor y reducida.\nd) En el caso del plazo del contrato y prórrogas al plazo\nde ejecución del contrato, suspensión del plazo del\ncontrato, recibo de bienes actualizados y otros,\nserán revisadas por el administrador del contrato y\naprobadas por el Alcalde Municipal.",
+      "source_excerpt_scope_char_end": 43877,
+      "source_excerpt_scope_char_start": 42843,
+      "specific_reasons": [
+        "La fuente contiene la frase anómala “recibo de bienes actualizados”; se conserva literalmente y se separa la revisión del acto de aprobación.",
+        "La aprobación por Alcaldía es una etapa distinta de la revisión por el AC; la frase anómala se conserva."
+      ],
+      "structure_ids": [
+        "A28-2-d"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0032",
+      "old_fact_id": "D3-F0228",
+      "old_note": "Quienes elaboren el pliego deben evitar requisitos o especificaciones técnicas restrictivas, justificar su razonabilidad y proporcionalidad y respetar igualdad, libre competencia, legalidad y transparencia.",
+      "replacement_fact_ids": [
+        "D3-F0256",
+        "D3-F0257",
+        "D3-F0258"
+      ],
+      "replacement_notes": [
+        "Quienes elaboren el pliego deben tomar previsiones para que su contenido y características técnicas no restrinjan la eventual participación de oferentes.",
+        "Las características técnicas del pliego y su puntuación o ponderación deben contar con justificación de razonabilidad y proporcionalidad respecto del objeto contratado.",
+        "La elaboración del pliego debe resguardar los principios de igualdad, libre competencia, legalidad y transparencia."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.",
+      "source_excerpt_scope_char_end": 49212,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "La no restricción de participación es una exigencia autónoma del inciso 35.a.",
+        "La justificación de razonabilidad/proporcionalidad es separable de la prohibición de restricciones.",
+        "Los principios expresamente vinculados al diseño del pliego se conservan como exigencia propia."
+      ],
+      "structure_ids": [
+        "A35-a"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0033",
+      "old_fact_id": "D3-F0232",
+      "old_note": "La Proveeduría debe recibir las solicitudes de aclaración al pliego, remitirlas a la instancia legal, financiera o técnica que corresponda y publicarlas en el SDU.",
+      "replacement_fact_ids": [
+        "D3-F0262",
+        "D3-F0263",
+        "D3-F0264"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe recibir las solicitudes de aclaración al pliego de condiciones.",
+        "La Proveeduría debe gestionar las solicitudes de aclaración ante la instancia legal, financiera o técnica que corresponda según su contenido.",
+        "La Proveeduría debe publicar en el SDU las aclaraciones al pliego de condiciones."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.",
+      "source_excerpt_scope_char_end": 50647,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "Recepción, gestión y publicación son pasos materialmente separables.",
+        "La gestión ante la instancia competente es un paso distinto.",
+        "La publicación es un acto independiente y observable."
+      ],
+      "structure_ids": [
+        "A35-e"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0034",
+      "old_fact_id": "D3-F0233",
+      "old_note": "La Proveeduría debe recibir las objeciones al pliego presentadas ante la Administración, tramitar internamente el recurso en tiempo y forma ante la instancia correspondiente y publicar la resolución en el SDU.",
+      "replacement_fact_ids": [
+        "D3-F0265",
+        "D3-F0266",
+        "D3-F0267"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe recibir las objeciones al pliego de condiciones presentadas ante la Administración.",
+        "La Proveeduría debe tramitar internamente, en tiempo y forma, las objeciones al pliego ante la instancia que corresponda.",
+        "La Proveeduría debe publicar en el SDU la resolución emitida sobre las objeciones al pliego."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.",
+      "source_excerpt_scope_char_end": 50998,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "La recepción del recurso es una etapa independiente.",
+        "El trámite interno tiene exigencia temporal propia.",
+        "La publicación de la resolución es un paso separable."
+      ],
+      "structure_ids": [
+        "A35-f"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0035",
+      "old_fact_id": "D3-F0239",
+      "old_note": "La Proveeduría debe recibir y tramitar con Gestión Jurídica los recursos de revocatoria contra la adjudicación, dar audiencia a las partes, preparar el proyecto de resolución y remitirlo a la Alcaldía para aprobación.",
+      "replacement_fact_ids": [
+        "D3-F0273",
+        "D3-F0274",
+        "D3-F0275"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe recibir los recursos de revocatoria contra el acto de adjudicación y tramitarlos junto con Gestión Jurídica.",
+        "La Proveeduría, en asocio con Gestión Jurídica, debe dar audiencia a las partes durante el trámite de revocatoria contra el acto de adjudicación.",
+        "La Proveeduría y Gestión Jurídica deben preparar el proyecto de resolución final de la revocatoria y remitirlo a la Alcaldía para aprobación."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.\ng) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.\nh) De la prórroga a los plazos de adjudicación. El\nProveedor, mediante acto motivado y así acreditado,\nse encuentra facultado para autorizar en el SDU la\nampliación de los plazos de adjudicación conforme\nlas causas que establece la normativa de contratación\npública. La prórroga deberá ser comunicada a la US\ndel proceso de contratación para su debido control y\nseguimiento.\ni) De los recursos de revocatoria en contra del acto de\nadjudicación. La Proveeduría será la responsable de\nrecibir los recursos de revocatoria en contra del acto de\nadjudicación y en asocio con la Gestión Jurídica, será el\nresponsable de tramitar el recurso correspondiente, para\nlo cual deberá dar audiencia a las partes, preparar el\nproyecto de resolución final y remitirlo a la Alcaldía para\nsu aprobación. Asimismo, de publicar la resolución final\nen el SDU.",
+      "source_excerpt_scope_char_end": 52425,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "Recepción/trámite conjunto se separa de audiencia y proyecto final.",
+        "La audiencia a las partes es una garantía procedimental autónoma y el inciso la atribuye a la Proveeduría actuando en asocio con Gestión Jurídica.",
+        "Preparación/remisión del proyecto forma una etapa decisoria separable."
+      ],
+      "structure_ids": [
+        "A35-i"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0036",
+      "old_fact_id": "D3-F0241",
+      "old_note": "La Proveeduría debe recibir y tramitar, con el Asesor Legal del Concejo Municipal o de la Alcaldía según corresponda, los recursos de apelación contra adjudicaciones, dar audiencia, preparar el proyecto de resolución y remitirlo al órgano competente para aprobación.",
+      "replacement_fact_ids": [
+        "D3-F0277",
+        "D3-F0278",
+        "D3-F0279"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe recibir los recursos de apelación contra la adjudicación y tramitarlos junto con el Asesor Legal del Concejo Municipal o de la Alcaldía, según corresponda.",
+        "La Proveeduría, en asocio con el Asesor Legal del Concejo Municipal o de la Alcaldía según corresponda, debe dar audiencia a las partes durante el trámite de apelación contra el acto de adjudicación.",
+        "La Proveeduría y el asesor legal correspondiente deben preparar el proyecto de resolución final de la apelación y remitirlo al Concejo Municipal o a la Alcaldía, según corresponda, para aprobación."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.\ng) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.\nh) De la prórroga a los plazos de adjudicación. El\nProveedor, mediante acto motivado y así acreditado,\nse encuentra facultado para autorizar en el SDU la\nampliación de los plazos de adjudicación conforme\nlas causas que establece la normativa de contratación\npública. La prórroga deberá ser comunicada a la US\ndel proceso de contratación para su debido control y\nseguimiento.\ni) De los recursos de revocatoria en contra del acto de\nadjudicación. La Proveeduría será la responsable de\nrecibir los recursos de revocatoria en contra del acto de\nadjudicación y en asocio con la Gestión Jurídica, será el\nresponsable de tramitar el recurso correspondiente, para\nlo cual deberá dar audiencia a las partes, preparar el\nproyecto de resolución final y remitirlo a la Alcaldía para\nsu aprobación. Asimismo, de publicar la resolución final\nen el SDU.\nj) De los recursos de apelación en contra del acto de\nadjudicación de licitaciones. La Proveeduría será\nla responsable de recibir los recursos de apelación\nen contra del acto de adjudicación y en asocio con el\nAsesor Legal del CM o la AM según corresponda, será\nel responsable de tramitar el recurso correspondiente,\npara lo cual deberá dar audiencia a las partes, preparar\nel proyecto de resolución final y remitirlo al CM y/o AM\npara su aprobación. Asimismo, de publicar la resolución\nfinal en el SDU.",
+      "source_excerpt_scope_char_end": 52929,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "Recepción/trámite de apelación se separa de audiencia y proyecto final.",
+        "La audiencia es una etapa material autónoma y el inciso la atribuye a la Proveeduría actuando en asocio con el asesor legal que corresponda.",
+        "La preparación/remisión del proyecto es una etapa distinta."
+      ],
+      "structure_ids": [
+        "A35-j"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0037",
+      "old_fact_id": "D3-F0243",
+      "old_note": "Cuando una apelación se interpone ante la CGR, la Proveeduría, la Unidad Solicitante, Gestión Administrativa y Gestión Jurídica deben preparar y tramitar la respuesta digital, que debe ser firmada por el Alcalde Municipal.",
+      "replacement_fact_ids": [
+        "D3-F0281",
+        "D3-F0282"
+      ],
+      "replacement_notes": [
+        "Cuando una apelación se interpone ante la CGR, la Proveeduría, la Unidad Solicitante, Gestión Administrativa y Gestión Jurídica deben preparar y tramitar el escrito de respuesta en documento digital.",
+        "El escrito de respuesta a una apelación interpuesta ante la CGR debe ser firmado por el Alcalde Municipal."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.\ng) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.\nh) De la prórroga a los plazos de adjudicación. El\nProveedor, mediante acto motivado y así acreditado,\nse encuentra facultado para autorizar en el SDU la\nampliación de los plazos de adjudicación conforme\nlas causas que establece la normativa de contratación\npública. La prórroga deberá ser comunicada a la US\ndel proceso de contratación para su debido control y\nseguimiento.\ni) De los recursos de revocatoria en contra del acto de\nadjudicación. La Proveeduría será la responsable de\nrecibir los recursos de revocatoria en contra del acto de\nadjudicación y en asocio con la Gestión Jurídica, será el\nresponsable de tramitar el recurso correspondiente, para\nlo cual deberá dar audiencia a las partes, preparar el\nproyecto de resolución final y remitirlo a la Alcaldía para\nsu aprobación. Asimismo, de publicar la resolución final\nen el SDU.\nj) De los recursos de apelación en contra del acto de\nadjudicación de licitaciones. La Proveeduría será\nla responsable de recibir los recursos de apelación\nen contra del acto de adjudicación y en asocio con el\nAsesor Legal del CM o la AM según corresponda, será\nel responsable de tramitar el recurso correspondiente,\npara lo cual deberá dar audiencia a las partes, preparar\nel proyecto de resolución final y remitirlo al CM y/o AM\npara su aprobación. Asimismo, de publicar la resolución\nfinal en el SDU.\nk) De las apelaciones interpuestas ante la Contraloría\nGeneral de la República. En el caso de recursos de\napelación interpuestos ante la CGR, corresponderá a\nla PI en conjunto con la unidad solicitante, la Gestión\nAdministrativa y la Gestión Jurídica preparar y tramitar\nel escrito de respuesta en documento digital que será\nfirmado por el AM. La Proveeduría la responsable\nde notificar la respuesta a la Contraloría General por\nmedio del SDU. Igual procedimiento se observará en la\natención de audiencias especiales o finales conferidas\npor la Contraloría General.",
+      "source_excerpt_scope_char_end": 53495,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "La preparación/trámite del escrito es separable de la firma del Alcalde.",
+        "La firma del Alcalde es un requisito autónomo."
+      ],
+      "structure_ids": [
+        "A35-k"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0038",
+      "old_fact_id": "D3-F0246",
+      "old_note": "Una vez cumplido el plazo legal, la Proveeduría debe dar firmeza a los actos de adjudicación y publicarlos en el SDU.",
+      "replacement_fact_ids": [
+        "D3-F0285",
+        "D3-F0286"
+      ],
+      "replacement_notes": [
+        "Una vez cumplido el plazo legal, la Proveeduría debe dar firmeza a los actos de adjudicación.",
+        "Una vez cumplido el plazo legal, la Proveeduría debe publicar en el SDU los actos de adjudicación firmes."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.\ng) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.\nh) De la prórroga a los plazos de adjudicación. El\nProveedor, mediante acto motivado y así acreditado,\nse encuentra facultado para autorizar en el SDU la\nampliación de los plazos de adjudicación conforme\nlas causas que establece la normativa de contratación\npública. La prórroga deberá ser comunicada a la US\ndel proceso de contratación para su debido control y\nseguimiento.\ni) De los recursos de revocatoria en contra del acto de\nadjudicación. La Proveeduría será la responsable de\nrecibir los recursos de revocatoria en contra del acto de\nadjudicación y en asocio con la Gestión Jurídica, será el\nresponsable de tramitar el recurso correspondiente, para\nlo cual deberá dar audiencia a las partes, preparar el\nproyecto de resolución final y remitirlo a la Alcaldía para\nsu aprobación. Asimismo, de publicar la resolución final\nen el SDU.\nj) De los recursos de apelación en contra del acto de\nadjudicación de licitaciones. La Proveeduría será\nla responsable de recibir los recursos de apelación\nen contra del acto de adjudicación y en asocio con el\nAsesor Legal del CM o la AM según corresponda, será\nel responsable de tramitar el recurso correspondiente,\npara lo cual deberá dar audiencia a las partes, preparar\nel proyecto de resolución final y remitirlo al CM y/o AM\npara su aprobación. Asimismo, de publicar la resolución\nfinal en el SDU.\nk) De las apelaciones interpuestas ante la Contraloría\nGeneral de la República. En el caso de recursos de\napelación interpuestos ante la CGR, corresponderá a\nla PI en conjunto con la unidad solicitante, la Gestión\nAdministrativa y la Gestión Jurídica preparar y tramitar\nel escrito de respuesta en documento digital que será\nfirmado por el AM. La Proveeduría la responsable\nde notificar la respuesta a la Contraloría General por\nmedio del SDU. Igual procedimiento se observará en la\natención de audiencias especiales o finales conferidas\npor la Contraloría General.\nl) De la firmeza de los actos de adjudicación. La\nProveeduría, una vez cumplido el plazo de ley, será la\nresponsable de dar firmeza a los actos de adjudicación y\npublicarlos en el SDU.",
+      "source_excerpt_scope_char_end": 53680,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "La firmeza del acto es separable de su publicación.",
+        "La publicación es un acto posterior/acompañante distinto de dar firmeza."
+      ],
+      "structure_ids": [
+        "A35-l"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0039",
+      "old_fact_id": "D3-F0247",
+      "old_note": "El pliego puede establecer cláusulas penales pecuniarias para garantizar el cumplimiento del objeto contractual y debe detallarlas cuando se utilicen.",
+      "replacement_fact_ids": [
+        "D3-F0287",
+        "D3-F0288"
+      ],
+      "replacement_notes": [
+        "El pliego puede establecer cláusulas penales de carácter pecuniario para garantizar el cumplimiento del objeto contractual.",
+        "Cuando se establezcan cláusulas penales pecuniarias, deben detallarse en el pliego de condiciones."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.\ng) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.\nh) De la prórroga a los plazos de adjudicación. El\nProveedor, mediante acto motivado y así acreditado,\nse encuentra facultado para autorizar en el SDU la\nampliación de los plazos de adjudicación conforme\nlas causas que establece la normativa de contratación\npública. La prórroga deberá ser comunicada a la US\ndel proceso de contratación para su debido control y\nseguimiento.\ni) De los recursos de revocatoria en contra del acto de\nadjudicación. La Proveeduría será la responsable de\nrecibir los recursos de revocatoria en contra del acto de\nadjudicación y en asocio con la Gestión Jurídica, será el\nresponsable de tramitar el recurso correspondiente, para\nlo cual deberá dar audiencia a las partes, preparar el\nproyecto de resolución final y remitirlo a la Alcaldía para\nsu aprobación. Asimismo, de publicar la resolución final\nen el SDU.\nj) De los recursos de apelación en contra del acto de\nadjudicación de licitaciones. La Proveeduría será\nla responsable de recibir los recursos de apelación\nen contra del acto de adjudicación y en asocio con el\nAsesor Legal del CM o la AM según corresponda, será\nel responsable de tramitar el recurso correspondiente,\npara lo cual deberá dar audiencia a las partes, preparar\nel proyecto de resolución final y remitirlo al CM y/o AM\npara su aprobación. Asimismo, de publicar la resolución\nfinal en el SDU.\nk) De las apelaciones interpuestas ante la Contraloría\nGeneral de la República. En el caso de recursos de\napelación interpuestos ante la CGR, corresponderá a\nla PI en conjunto con la unidad solicitante, la Gestión\nAdministrativa y la Gestión Jurídica preparar y tramitar\nel escrito de respuesta en documento digital que será\nfirmado por el AM. La Proveeduría la responsable\nde notificar la respuesta a la Contraloría General por\nmedio del SDU. Igual procedimiento se observará en la\natención de audiencias especiales o finales conferidas\npor la Contraloría General.\nl) De la firmeza de los actos de adjudicación. La\nProveeduría, una vez cumplido el plazo de ley, será la\nresponsable de dar firmeza a los actos de adjudicación y\npublicarlos en el SDU.\nm) De la cláusula penal en los pliegos de condiciones.\nSe podrán establecer cláusulas penales de carácter\npecuniario y se detallarán en pliego de condiciones con\nel fin de garantizar el cumplimiento del objeto contractual.",
+      "source_excerpt_scope_char_end": 53903,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "La facultad de establecer la cláusula se separa del deber de detallarla.",
+        "El detalle en el pliego es una obligación condicionada autónoma."
+      ],
+      "structure_ids": [
+        "A35-m"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0040",
+      "old_fact_id": "D3-F0248",
+      "old_note": "El pliego puede establecer multas pecuniarias para garantizar la entrega del objeto contractual dentro del plazo estipulado y debe detallarlas cuando se utilicen.",
+      "replacement_fact_ids": [
+        "D3-F0289",
+        "D3-F0290"
+      ],
+      "replacement_notes": [
+        "El pliego puede establecer multas de carácter pecuniario para garantizar que el objeto contractual se entregue dentro del plazo estipulado.",
+        "Cuando se establezcan multas pecuniarias, deben detallarse en el pliego de condiciones."
+      ],
+      "source_excerpt": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.\na) De la elaboración del pliego de condiciones. La\nelaboración del pliego de condiciones es responsabilidad\nde la Proveeduría, atendiendo los requisitos mínimos\nestablecidos en el Artículo 91 del RLGCP, debiendo los\nfuncionarios involucrados en su elaboración, cada uno\ndentro de su área de competencia, tomar las previsiones\npara que en el contenido del mismo y las características\ntécnicas que se consignen, no resulten restrictivas ante\nla eventual participación de potenciales oferentes dentro\ndel mercado; que exista justificación de la razonabilidad\ny proporcionalidad de dichas características y de su\npuntuación o ponderación en relación con el objeto\nque se contrata, con fin de cumplir con el principio de\nigualdad y libre competencia, así como la observancia\na los principios de legalidad y de transparencia en los\nactos administrativos.\nb) De los requisitos del pliego de condiciones. Solo se\npodrán consignar marcas en el pliego de condiciones en\nlos siguientes casos: Únicamente como referencia que\nsirva de orientación acerca de lo que la ME requiere\ncontratar, sin que pueda interpretarse que la participación\nestá limitada a empresas que ofrecen esa marca (lo cual\ndeberá indicarse en el pliego de condiciones haciendo\naclaración que es una mera referencia).\nc) En casos muy excepcionales, en los que se tiene total\ncerteza técnica acerca de la necesidad de una marca\nespecífica, pudiendo exigirse como requisito obligatorio.\nEn estos casos la Administración debe contar con todos\nlos estudios objetivos, claros y sustentados que permitan\ndemostrar que no es posible técnicamente aceptar otra\nmarca.\nd) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.\ne) De la atención de aclaraciones al pliego de\ncondiciones. La Proveeduría será la responsable\nde recibir las solicitudes de aclaración al pliego de\ncondiciones y de gestionarlas ante la instancia que\ncorresponda según el contenido de éstas (legal,\nfinanciera, técnica) así como, de publicarlas en el SDU.\nf) De la atención de objeciones al pliego de condiciones.\nLa Proveeduría será la responsable de recibir las\nobjeciones al pliego de condiciones que se presenten\nante la Administración y de gestionar a lo interno, en\ntiempo y forma, su trámite para la atención del recurso,\nante la instancia respectiva y publicar la resolución que\nse emita en el SDU.\ng) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que\n\n\fLa Gaceta Nº 69 — Jueves 10 de abril del 2025\nla Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.\nh) De la prórroga a los plazos de adjudicación. El\nProveedor, mediante acto motivado y así acreditado,\nse encuentra facultado para autorizar en el SDU la\nampliación de los plazos de adjudicación conforme\nlas causas que establece la normativa de contratación\npública. La prórroga deberá ser comunicada a la US\ndel proceso de contratación para su debido control y\nseguimiento.\ni) De los recursos de revocatoria en contra del acto de\nadjudicación. La Proveeduría será la responsable de\nrecibir los recursos de revocatoria en contra del acto de\nadjudicación y en asocio con la Gestión Jurídica, será el\nresponsable de tramitar el recurso correspondiente, para\nlo cual deberá dar audiencia a las partes, preparar el\nproyecto de resolución final y remitirlo a la Alcaldía para\nsu aprobación. Asimismo, de publicar la resolución final\nen el SDU.\nj) De los recursos de apelación en contra del acto de\nadjudicación de licitaciones. La Proveeduría será\nla responsable de recibir los recursos de apelación\nen contra del acto de adjudicación y en asocio con el\nAsesor Legal del CM o la AM según corresponda, será\nel responsable de tramitar el recurso correspondiente,\npara lo cual deberá dar audiencia a las partes, preparar\nel proyecto de resolución final y remitirlo al CM y/o AM\npara su aprobación. Asimismo, de publicar la resolución\nfinal en el SDU.\nk) De las apelaciones interpuestas ante la Contraloría\nGeneral de la República. En el caso de recursos de\napelación interpuestos ante la CGR, corresponderá a\nla PI en conjunto con la unidad solicitante, la Gestión\nAdministrativa y la Gestión Jurídica preparar y tramitar\nel escrito de respuesta en documento digital que será\nfirmado por el AM. La Proveeduría la responsable\nde notificar la respuesta a la Contraloría General por\nmedio del SDU. Igual procedimiento se observará en la\natención de audiencias especiales o finales conferidas\npor la Contraloría General.\nl) De la firmeza de los actos de adjudicación. La\nProveeduría, una vez cumplido el plazo de ley, será la\nresponsable de dar firmeza a los actos de adjudicación y\npublicarlos en el SDU.\nm) De la cláusula penal en los pliegos de condiciones.\nSe podrán establecer cláusulas penales de carácter\npecuniario y se detallarán en pliego de condiciones con\nel fin de garantizar el cumplimiento del objeto contractual.\nn) De las multas en los pliegos de condiciones. Se\npodrán establecer multas de carácter pecuniario y\ndetallarlas dentro del pliego de condiciones, con el fin de\ngarantizar que el objeto contractual sea entregado en el\nplazo estipulado.",
+      "source_excerpt_scope_char_end": 54139,
+      "source_excerpt_scope_char_start": 48097,
+      "specific_reasons": [
+        "La facultad de establecer multas se separa del deber de detallarlas.",
+        "El detalle de multas en el pliego es una obligación condicionada."
+      ],
+      "structure_ids": [
+        "A35-n"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0041",
+      "old_fact_id": "D3-F0250",
+      "old_note": "Contra la decisión de aplicar multas o cláusulas penales pueden interponerse revocatoria y apelación dentro de los tres días hábiles siguientes a la notificación, y su resolución agota la vía administrativa.",
+      "replacement_fact_ids": [
+        "D3-F0292",
+        "D3-F0293"
+      ],
+      "replacement_notes": [
+        "Contra la decisión de aplicar multas o cláusulas penales pueden interponerse recursos de revocatoria y apelación dentro de los tres días hábiles siguientes a la notificación.",
+        "La resolución de los recursos contra la aplicación de multas o cláusulas penales agota la vía administrativa."
+      ],
+      "source_excerpt": "En contra de esa decisión, el\nafectado podrá interponer los recursos de revocatoria\ny apelación, los cuales deberán presentarse dentro\nde los tres días hábiles siguientes a la notificación del\nacto. La resolución de dichos recursos agota la vía\nadministrativa.",
+      "source_excerpt_scope_char_end": 54540,
+      "source_excerpt_scope_char_start": 54280,
+      "specific_reasons": [
+        "El derecho y plazo de recurso es separable del efecto de la resolución.",
+        "El agotamiento de vía es un efecto jurídico independiente."
+      ],
+      "structure_ids": [
+        "A35-o2"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        35
+      ],
+      "finding_id": "D3-SAR-0042",
+      "old_fact_id": "D3-F0254",
+      "old_note": "Si el contratista incumple totalmente sus obligaciones, desde ese momento no procede seguir cobrando multas; corresponde ejecutar la garantía de cumplimiento y resolver el contrato, sin perjuicio de otras responsabilidades administrativas y civiles.",
+      "replacement_fact_ids": [
+        "D3-F0297",
+        "D3-F0298",
+        "D3-F0299"
+      ],
+      "replacement_notes": [
+        "Si el contratista incumple totalmente sus obligaciones, desde ese momento no procede continuar cobrando multas.",
+        "Si el contratista incumple totalmente sus obligaciones, corresponde ejecutar la garantía de cumplimiento y resolver el contrato.",
+        "El incumplimiento total del contratista puede generar otras responsabilidades administrativas y civiles además de la ejecución de garantía y resolución contractual."
+      ],
+      "source_excerpt": "En caso de incumplimiento total de las obligaciones por\nparte del contratista, no procede el cobro de multas,\nposteriores a ese momento, sino la ejecución de la\ngarantía de cumplimiento y la resolución del contrato,\nsin perjuicio de otras responsabilidades administrativas\ny civiles que se deriven de dicho incumplimiento.",
+      "source_excerpt_scope_char_end": 55237,
+      "source_excerpt_scope_char_start": 54915,
+      "specific_reasons": [
+        "La cesación de multas es una consecuencia autónoma del incumplimiento total.",
+        "La ejecución de garantía y resolución son el régimen sustituto expresamente unido por la fuente.",
+        "La cláusula “sin perjuicio” preserva responsabilidades adicionales y no debe quedar escondida dentro de la regla de multas."
+      ],
+      "structure_ids": [
+        "A35-o6"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        36
+      ],
+      "finding_id": "D3-SAR-0043",
+      "old_fact_id": "D3-F0256",
+      "old_note": "El Administrador del Contrato u órgano fiscalizador debe aprobar los pagos, autorizar la devolución de garantías de cumplimiento y ejercer las demás funciones y obligaciones definidas por la Administración.",
+      "replacement_fact_ids": [
+        "D3-F0301",
+        "D3-F0302",
+        "D3-F0303"
+      ],
+      "replacement_notes": [
+        "El Administrador del Contrato u órgano fiscalizador debe aprobar los pagos respectivos.",
+        "El Administrador del Contrato u órgano fiscalizador debe autorizar la devolución de las garantías de cumplimiento.",
+        "El Administrador del Contrato u órgano fiscalizador debe ejercer además las funciones y obligaciones que defina la Administración."
+      ],
+      "source_excerpt": "De igual manera, le corresponderá aprobar los\npagos respectivos y autorizar la devolución de las garantías\nde cumplimiento; así como, todas aquellas funciones y\nobligaciones definidas por la Administración.",
+      "source_excerpt_scope_char_end": 55782,
+      "source_excerpt_scope_char_start": 55576,
+      "specific_reasons": [
+        "La aprobación de pagos es una función autónoma.",
+        "La devolución de garantías es una función distinta de aprobar pagos.",
+        "La cláusula residual se conserva como regla separada."
+      ],
+      "structure_ids": [
+        "A36-P2"
+      ]
+    },
+    {
+      "action": "SPLIT_AND_REWRITE",
+      "article_numbers": [
+        39
+      ],
+      "finding_id": "D3-SAR-0044",
+      "old_fact_id": "D3-F0260",
+      "old_note": "Toda prórroga de una contratación o contrato debe tramitarse en el SDU por el Administrador del Contrato y ser aprobada por el Alcalde Municipal antes de formalizarse.",
+      "replacement_fact_ids": [
+        "D3-F0307",
+        "D3-F0308",
+        "D3-F0309"
+      ],
+      "replacement_notes": [
+        "Toda prórroga de una contratación o contrato debe ser tramitada en el SDU por el Administrador del Contrato.",
+        "Toda prórroga de una contratación o contrato debe ser aprobada por el Alcalde Municipal.",
+        "El artículo 39 caracteriza la prórroga como una expectativa de derecho que debe valorarse antes de su formalización."
+      ],
+      "source_excerpt": "Artículo 39.—De la prórroga. Toda prórroga de la\ncontratación o contrato, deberá ser tramitada en el SDU por\nel Administrador del Contrato y debe ser aprobada por el\nAlcalde Municipal, esto en razón de ser una expectativa de\nderecho que debe ser valorada, previa a su formalización.",
+      "source_excerpt_scope_char_end": 57065,
+      "source_excerpt_scope_char_start": 56783,
+      "specific_reasons": [
+        "El trámite por AC es una etapa separable de la aprobación de Alcaldía.",
+        "La aprobación por Alcaldía recae en un actor distinto.",
+        "V1 reducía esta afirmación a una mera secuencia; la fuente expresa además la caracterización y deber de valoración."
+      ],
+      "structure_ids": [
+        "A39-P1"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        42
+      ],
+      "finding_id": "D3-SAR-0045",
+      "old_fact_id": "D3-F0266",
+      "old_note": "En un procedimiento de resolución por incumplimiento del contratista debe ejecutarse la garantía de cumplimiento y pueden aplicarse sanciones pertinentes y daños y perjuicios si el pliego los previó.",
+      "replacement_fact_ids": [
+        "D3-F0315",
+        "D3-F0316",
+        "D3-F0317"
+      ],
+      "replacement_notes": [
+        "En el procedimiento de resolución por incumplimiento atribuible al contratista debe ejecutarse la garantía de cumplimiento.",
+        "En el procedimiento de resolución por incumplimiento atribuible al contratista deben aplicarse sanciones si resultan pertinentes.",
+        "En el procedimiento de resolución por incumplimiento atribuible al contratista pueden aplicarse montos por daños y perjuicios si el pliego de condiciones lo dispuso."
+      ],
+      "source_excerpt": "Artículo 42.—De la resolución contractual. La\nresolución contractual operará cuando el órgano competente\nmediante resolución motivada decida resolver o dar por\nterminado un contrato ante el incumplimiento atribuible o\nimputable al contratista, en dicho procedimiento, habrá\nejecución de garantía de cumplimiento, se aplicarán sanciones\nsi resultan pertinentes y se podrá, si el pliego de condiciones\nasí lo dispuso, aplicar montos por daños y perjuicios, todo bajo\nla observancia previa de un debido proceso de conformidad a\nla Ley General de la Administración Pública.",
+      "source_excerpt_scope_char_end": 59132,
+      "source_excerpt_scope_char_start": 58563,
+      "specific_reasons": [
+        "La ejecución de garantía es una consecuencia obligatoria autónoma.",
+        "La aplicación de sanciones es condicional y distinta de la garantía.",
+        "La fuente hace esta consecuencia facultativa y condicionada al pliego; se separa para preservar modalidad."
+      ],
+      "structure_ids": [
+        "A42-P1"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        42
+      ],
+      "finding_id": "D3-SAR-0046",
+      "old_fact_id": "D3-F0268",
+      "old_note": "Para una resolución unilateral por incumplimiento grave, el Alcalde debe documentar preliminarmente el incumplimiento y coordinar con Proveeduría la suspensión; una vez suspendido el contrato, el Administrador debe pedir a Alcaldía tramitar la resolución conforme al artículo 114 de la LGCP.",
+      "replacement_fact_ids": [
+        "D3-F0319",
+        "D3-F0320",
+        "D3-F0321"
+      ],
+      "replacement_notes": [
+        "Para resolver unilateralmente un contrato por incumplimiento grave, el Alcalde Municipal debe documentar preliminarmente el incumplimiento.",
+        "Para resolver unilateralmente un contrato por incumplimiento grave, el Alcalde Municipal debe coordinar con la Proveeduría la orden de suspensión del contrato.",
+        "Una vez suspendido el contrato, el Administrador del Contrato debe solicitar a la Alcaldía que tramite la resolución contractual conforme al artículo 114 de la LGCP."
+      ],
+      "source_excerpt": "La ME podrá resolver unilateralmente sus contratos por\nmotivo de incumplimiento grave imputable al contratista. Para\nello, el Alcalde Municipal deberá documentar preliminarmente\nel incumplimiento y coordinar con la PI la orden de suspensión\ndel contrato. Una vez suspendido el contrato, el AC solicitará a\nla Alcaldía tramite el procedimiento de resolución contractual\nde conformidad con lo dispuesto en el artículo 114 de la\nLGCP.",
+      "source_excerpt_scope_char_end": 59564,
+      "source_excerpt_scope_char_start": 59133,
+      "specific_reasons": [
+        "La documentación preliminar es el primer paso autónomo.",
+        "La suspensión coordinada es un paso distinto de documentar el incumplimiento.",
+        "El paso posterior a la suspensión tiene actor y condición propios."
+      ],
+      "structure_ids": [
+        "A42-P2"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        48
+      ],
+      "finding_id": "D3-SAR-0047",
+      "old_fact_id": "D3-F0285",
+      "old_note": "En servicios o construcción de obras, el Administrador del Contrato es responsable de la supervisión, el trámite de pago y la custodia y administración de la documentación generada.",
+      "replacement_fact_ids": [
+        "D3-F0338",
+        "D3-F0339",
+        "D3-F0340"
+      ],
+      "replacement_notes": [
+        "En servicios o construcción de obras, el Administrador del Contrato es responsable de supervisar la ejecución.",
+        "En servicios o construcción de obras, el Administrador del Contrato es responsable de tramitar el pago.",
+        "En servicios o construcción de obras, el Administrador del Contrato es responsable de custodiar y administrar toda la documentación que se genere."
+      ],
+      "source_excerpt": "En el caso de los servicios y/o construcción de obras, el\nAC será el responsable de la supervisión y trámite de pago\ndel mismo, así como de la custodia y administración de toda la\ndocumentación que se genere.",
+      "source_excerpt_scope_char_end": 63159,
+      "source_excerpt_scope_char_start": 62951,
+      "specific_reasons": [
+        "Supervisión, pago y custodia documental son deberes distintos.",
+        "El trámite de pago es separable de la supervisión.",
+        "La custodia y administración documental es una responsabilidad propia."
+      ],
+      "structure_ids": [
+        "A48-P2"
+      ]
+    },
+    {
+      "action": "SPLIT",
+      "article_numbers": [
+        50
+      ],
+      "finding_id": "D3-SAR-0048",
+      "old_fact_id": "D3-F0289",
+      "old_note": "La Proveeduría debe conducir los procesos de contratación pública requeridos por el CCDRE, que para esos efectos se considera Unidad Solicitante y Administrador del Contrato.",
+      "replacement_fact_ids": [
+        "D3-F0344",
+        "D3-F0345"
+      ],
+      "replacement_notes": [
+        "La Proveeduría debe conducir los procesos de contratación pública que requiera el CCDRE.",
+        "Para los procesos de contratación que requiera, el CCDRE se considera para todos los efectos como una Unidad Solicitante y un Administrador del Contrato más."
+      ],
+      "source_excerpt": "Artículo 50.—De las contrataciones públicas del\nCCDRE. La Proveeduría debe conducir los procesos de\ncontratación pública que requiera el CCDRE, por lo que este\nserá considerado, para todos los efectos, como una unidad\nsolicitante y un administrador de contrato más.",
+      "source_excerpt_scope_char_end": 64081,
+      "source_excerpt_scope_char_start": 63816,
+      "specific_reasons": [
+        "La conducción por Proveeduría es separable de la clasificación funcional del CCDRE.",
+        "La fuente asigna al CCDRE dos roles funcionales para esos procesos; se conservan juntos como una clasificación dual."
+      ],
+      "structure_ids": [
+        "A50-P1"
+      ]
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001",
+  "format": "canario.lector.supervising-author-adversarial-review/v1",
+  "method": {
+    "capability_binding_pass": true,
+    "primary_source_article27_status": "malformed/ambiguous per local mechanical certification; unresolved preserved",
+    "reference_to_source_pass": true,
+    "source_to_reference_pass": true
+  },
+  "results": {
+    "article27_unresolved_regions": 1,
+    "findings_total": 48,
+    "independent_semantic_review_complete": false,
+    "net_fact_increase": 56,
+    "rewrite_findings": 12,
+    "split_and_rewrite_findings": 6,
+    "split_findings": 30,
+    "v1_fact_count": 294,
+    "v2_fact_count": 350,
+    "verdict": "V1_REQUIRES_REVISION"
+  },
+  "review_id": "D3_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1",
+  "reviewer": {
+    "material_independence": false,
+    "note": "This is the cloud author challenging its own draft. It does not satisfy the independent-semantic-review gate in REFERENCE_PROTOCOL_FREEZE_V2.",
+    "role": "supervising_cloud_author_self_adversarial_review"
+  }
+}
