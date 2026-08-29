@@ -1,0 +1,36 @@
+{
+  "a0_a5_runs_started": false,
+  "baseline_work_activation": "9742dc87002003885eebe0475b1534d78d564eeb",
+  "candidate_output_seen": false,
+  "created": "2026-08-28",
+  "documents": [
+    {
+      "path": "notebook/research/lector/fit-bench/BENCHMARK_SEMANTICS_FREEZE_V1.md",
+      "bytes": 12256,
+      "sha256": "ff2dfdee7ac10929bc14bb0ec982a1481b00eb305fd9e5f6c26d70a3ba236765"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V2.md",
+      "bytes": 15914,
+      "sha256": "d0d9b0da17bd6a888b2bd5a70b420d552fed4f5b9a96f550ed2f7bcaf8686a0b"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/REFERENCE_AUTHORING_METHOD_V1.md",
+      "bytes": 5852,
+      "sha256": "e2d619c7f6d39eae02e39bd3d5ed2f9ce7b34893c9c0c465a14b2bc6d23e5c48"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/FIXTURE_SOURCE_FREEZE_V1.json",
+      "bytes": 7574,
+      "sha256": "b3320634026b22ec8bb81a9a88697f1d7410d71bcf93385872b8cfbdd7c730c1"
+    }
+  ],
+  "formal_candidate_scores_seen": false,
+  "format": "canario.lector.fit-bench.freeze/v2",
+  "holdout_semantics_inspected": false,
+  "production_implementation_authorized": false,
+  "reference_protocol": "supervisor-authored + local-mechanical-certification + independent-semantic-audit",
+  "state": "SEMANTICS_REFERENCE_PROTOCOL_AND_F2_FIXTURES_FROZEN",
+  "thresholds_frozen": false,
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}

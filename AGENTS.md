@@ -25,6 +25,26 @@ Hard rules:
 
 Do not import a second governance state engine merely because Salsa supports richer projects. Canario currently uses an authored `docs/STATUS.md` frontier plus bounded Work documents.
 
+## Cloud-author / local-certifier workflow
+
+For owner-directed software/research work, the default role split is:
+
+```text
+supervising/cloud agent
+-> architecture, research reasoning, semantic design, repository writing, candidate commits
+
+local execution agent
+-> machine/source-pack access, compile/tests/validators, hashes/custody, bundle verification, exact push
+```
+
+Hard rules:
+
+- the local execution agent does not redesign architecture, rewrite semantic reference facts, or "fix" a failing candidate on its own unless the owner/supervising author explicitly authorizes that semantic/design task;
+- a local failure is evidence returned to the supervising author, who owns the next design/code revision;
+- bundle exchange is the synchronization boundary: a bundle from local reports exact tested/pushed state, while a bundle from the supervising author carries exact candidate commits for local certification;
+- local machine access does not confer authority over architecture or Notebook semantics;
+- mechanical transformations explicitly defined by the supervising candidate (for example resolving an exact quoted evidence target to deterministic offsets) are allowed, but must not alter semantic content.
+
 ## Product identity and scope invariant
 
 **Canario is not an acta processor.** The historical municipal-acta workflow is the
@@ -259,10 +279,12 @@ Rules for agents/contributors:
   matrix; it does not require inventing a universal record class;
 - each declared capability states its verification mode. Representation/evidence invariants
   use deterministic proof from frozen bytes and exact reopening; semantic-stress capabilities
-  require a frozen, human-approved semantic reference plus candidate adjudication. The active
-  reference workflow may use declared AI assistance, but it must preserve explicit human approval
-  and keep tested-extractor output unseen until the reference is frozen. Do not create annotation
-  work for a property that can be mechanically certified;
+  require a frozen source-grounded semantic reference plus candidate adjudication. The active
+  reference workflow is `REFERENCE_PROTOCOL_FREEZE_V2`: the supervising/cloud author owns semantic
+  reference writing; the local agent mechanically certifies source/evidence/test invariants; and a
+  materially independent semantic reviewer must audit the reference before freeze. Fact-by-fact
+  owner approval is not the default. Keep tested-extractor output unseen until the reference is
+  frozen. Do not create annotation work for a property that can be mechanically certified;
 - the benchmark must report `certification_scope = declared_capabilities_only` and
   `universal_support_claimed = false`. No finite corpus certifies every possible future
   document, container or medium;
@@ -272,13 +294,14 @@ Rules for agents/contributors:
 - current fixture-selection archetypes (minutes, report/audit, correspondence,
   normative/contractual, structured data, timed media) are useful stress sources, not
   ontology. Coverage is accepted only through appropriate typed evidence evaluators;
-- benchmark assistance must be explicit provenance, never silently presented as independent
-  human gold. The historical mode is `human_ai_assisted`: assistant proposals require explicit human
-  approval, exact evidence must reopen mechanically, and `needs_adjudication` remains unresolved
-  until a later review. Do not inspect a tested extractor's output for a case before that case's
-  semantic reference is frozen. If reference assistant and tested extractor share a model/family/
-  provider, or independence is unknown, record that limitation and require an independent
-  second-review sample before treating semantic PASS as strong certification evidence.
+- benchmark assistance must be explicit provenance and never be silently presented as independent
+  human gold. Current F3 references are supervisor-authored model artifacts until a materially
+  independent semantic audit and mechanical certification make them eligible to freeze.
+  `needs_adjudication`/`REFERENCE_DISPUTE` remain real unresolved states. Do not inspect a tested
+  extractor's output for a case before that case's semantic reference is frozen. If reference author,
+  independent reviewer, and tested extractor share a model/family/provider, or independence is
+  unknown, record that limitation and obtain a materially independent review path before treating
+  semantic PASS as strong selection evidence.
 - LECTOR-002 semantic reference uses independent `gold_scope_state`, `gold_state`,
   `adjudication_state`, and per-capability `semantic_verification` with an immutable
   result digest. Gold/adjudication alone never verifies a semantic capability;

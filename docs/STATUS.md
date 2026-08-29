@@ -3,11 +3,11 @@ id: ACTAKIT-STATUS-001
 kind: status
 state: LECTOR_PRODUCTION_FIT_BENCH_ACTIVE
 created: 2026-08-19
-updated: 2026-08-27
+updated: 2026-08-28
 authority: operating-frontier
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: Governance reconciliation is accepted/merged through PR #9. LECTOR-PRODUCTION-FIT-BENCH is the single active Work. It may freeze and run the broad-Lector mechanism benchmark, but no production broad-Lector implementation, provider lock-in or first vertical is authorized.
+summary: LECTOR-PRODUCTION-FIT-BENCH is the single active Work. F1 semantics, F2 D1-D4 fixture identities, and reference protocol v2 are frozen; F3 reference authorship is active. No production broad-Lector implementation, provider lock-in, threshold freeze, A0-A5 run, or first vertical is authorized.
 ---
 
 # Current Status
@@ -30,10 +30,10 @@ Do not reconstruct permission from chats, branch names, roadmap ordering, comple
 
 ## Published authority
 
-Current `main` after governance reconciliation:
+Current accepted `main` after F2 fixture/source freeze merge PR #12:
 
 ```text
-45997d5088f88ef75e00f08a310e84292a4a077b
+da3854bd25f3129244ae49d8cd79a16a2c777ad6
 ```
 
 Governance candidate topic:
@@ -88,7 +88,7 @@ production broad-Lector implementation: BLOCKED
 first end-to-end Acta-160 vertical: PLANNED / BLOCKED
 ```
 
-The active Work may freeze benchmark semantics/reference policy, prepare development fixtures, build bounded benchmark mechanics, and run the declared A0-A5 comparison under its proof obligations. It may not promote a winner into production code.
+The active Work may freeze benchmark semantics/reference policy, prepare development fixtures, construct and independently audit semantic references, build bounded benchmark mechanics, and later run the declared A0-A5 comparison under its proof obligations. F3 currently uses the cloud-author/local-certifier split from `AGENTS.md`: semantic/reference writing belongs to the supervising author; the local agent performs mechanical source/hash/evidence/test certification. It may not promote a winner into production code.
 
 ## Explicitly unauthorized now
 
