@@ -1,0 +1,361 @@
+{
+  "accepted_count": 14,
+  "additional_supervising_author_findings": [
+    {
+      "decision": "REPAIRED",
+      "finding_id": "D1-V4-SA-EXTRA-0001",
+      "issue_type": "UNDER_DECOMPOSED",
+      "source_grounded_reason": "During adjudication of the invalid derived 25/10 totals, the supervising author reapplied self-sufficient minimality to the enumerated M01 source rows. Each educational-center row is a separable material assertion; v4 therefore retires the two aggregate list facts and materializes 35 center-specific facts without arithmetic."
+    }
+  ],
+  "adjudication_id": "CANARIO-D1-TERTIARY-REVIEW-ADJUDICATION-003",
+  "adjudications": [
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0001",
+      "issue_type": "MODALITY_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. F0091-F0093 are retired; D1-F0744..0746 preserve the descriptive source modality «el reglamento contempla» instead of v3 «debía contemplar».",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0091",
+        "D1-F0092",
+        "D1-F0093"
+      ],
+      "v4_fact_ids": [
+        "D1-F0744",
+        "D1-F0745",
+        "D1-F0746"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V3-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0747 restores Stephannie Quesada’s expectation about increased attention to Esparza road needs and the stated road-deterioration reason.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [],
+      "v4_fact_ids": [
+        "D1-F0747"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V3-IR-0003",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0748 restores the explicit prior relation of expediente 23.898 to the zona de reserva portuaria.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [],
+      "v4_fact_ids": [
+        "D1-F0748"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0004",
+      "issue_type": "QUANTITATIVE_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. Derived 25/10 totals are removed. F0501/F0502 are retired; the source list is represented without arithmetic as 35 center-specific row facts D1-F0749..D1-F0783.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0501",
+        "D1-F0502"
+      ],
+      "v4_fact_ids": [
+        "D1-F0749",
+        "D1-F0750",
+        "D1-F0751",
+        "D1-F0752",
+        "D1-F0753",
+        "D1-F0754",
+        "D1-F0755",
+        "D1-F0756",
+        "D1-F0757",
+        "D1-F0758",
+        "D1-F0759",
+        "D1-F0760",
+        "D1-F0761",
+        "D1-F0762",
+        "D1-F0763",
+        "D1-F0764",
+        "D1-F0765",
+        "D1-F0766",
+        "D1-F0767",
+        "D1-F0768",
+        "D1-F0769",
+        "D1-F0770",
+        "D1-F0771",
+        "D1-F0772",
+        "D1-F0773",
+        "D1-F0774",
+        "D1-F0775",
+        "D1-F0776",
+        "D1-F0777",
+        "D1-F0778",
+        "D1-F0779",
+        "D1-F0780",
+        "D1-F0781",
+        "D1-F0782",
+        "D1-F0783"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0005",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0021 gains the dated CCPJ note context that binds 8 August to 2026.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0021"
+      ],
+      "v4_fact_ids": [
+        "D1-F0021"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0006",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. The four C06 facts gain the exact 18 May 2026 session-date context that supports the 12 June 2026 normalization.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0713",
+        "D1-F0135"
+      ],
+      "v4_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0713",
+        "D1-F0135"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0007",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. C07 facts gain the 8 May 2026 dated note context supporting 27 May 2026.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0146",
+        "D1-F0147"
+      ],
+      "v4_fact_ids": [
+        "D1-F0146",
+        "D1-F0147"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0008",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. C08 Ronald Robles facts gain the exact 18 May 2026 session-date context supporting the upcoming 2026 dates.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0156",
+        "D1-F0157"
+      ],
+      "v4_fact_ids": [
+        "D1-F0156",
+        "D1-F0157"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0009",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0164 now binds the transcribed Gollo sentence explicitly stating 30 May 2026.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0164"
+      ],
+      "v4_fact_ids": [
+        "D1-F0164"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0010",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0181 now binds the UNGL invitation sentence explicitly stating 29 May 2026.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0181"
+      ],
+      "v4_fact_ids": [
+        "D1-F0181"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0011",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. The eight U06 facts gain exact session-date context, supporting May/June/July 2026 and 12 June 2026 resolutions without unbound calendar inference.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0388",
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0735",
+        "D1-F0405",
+        "D1-F0411"
+      ],
+      "v4_fact_ids": [
+        "D1-F0388",
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0735",
+        "D1-F0405",
+        "D1-F0411"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0012",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. The two derived aggregate school facts are retired; the 35 row facts and D1-F0503 bind the dated M01 transmittal/source context needed for 2026.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0501",
+        "D1-F0502",
+        "D1-F0503"
+      ],
+      "v4_fact_ids": [
+        "D1-F0749",
+        "D1-F0750",
+        "D1-F0751",
+        "D1-F0752",
+        "D1-F0753",
+        "D1-F0754",
+        "D1-F0755",
+        "D1-F0756",
+        "D1-F0757",
+        "D1-F0758",
+        "D1-F0759",
+        "D1-F0760",
+        "D1-F0761",
+        "D1-F0762",
+        "D1-F0763",
+        "D1-F0764",
+        "D1-F0765",
+        "D1-F0766",
+        "D1-F0767",
+        "D1-F0768",
+        "D1-F0769",
+        "D1-F0770",
+        "D1-F0771",
+        "D1-F0772",
+        "D1-F0773",
+        "D1-F0774",
+        "D1-F0775",
+        "D1-F0776",
+        "D1-F0777",
+        "D1-F0778",
+        "D1-F0779",
+        "D1-F0780",
+        "D1-F0781",
+        "D1-F0782",
+        "D1-F0783",
+        "D1-F0503"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0013",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0644 now binds the original dated CCPJ correspondence, supporting August/8 August 2026.",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0644"
+      ],
+      "v4_fact_ids": [
+        "D1-F0644"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V3-IR-0014",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Accepted. D1-F0649 and D1-F0651 now bind the exact 18 May 2026 session date needed to resolve «hoy»/«hoy en la tarde».",
+      "unresolved": false,
+      "v3_affected_fact_ids": [
+        "D1-F0649",
+        "D1-F0651"
+      ],
+      "v4_fact_ids": [
+        "D1-F0649",
+        "D1-F0651"
+      ]
+    }
+  ],
+  "findings_reviewed": 14,
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1-tertiary-review-adjudication.v3/1",
+  "leakage_declaration": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "reference_to_source_findings": 12,
+  "rejected_count": 0,
+  "result": "REQUIRES_REVISION_COMPLETED",
+  "resulting_reference": "D1_REFERENCE_SUPERVISOR_DRAFT_V4",
+  "review_id": "CANARIO-D1-TERTIARY-SEMANTIC-REVIEW-V3-001",
+  "review_independence_strength": "WEAK_OR_UNKNOWN",
+  "review_verdict": "REFERENCE_DISPUTE",
+  "reviewed_candidate": {
+    "commit": "f67be88dd34231f472e8bf485aba72760eeb36a0",
+    "parent": "f5b640ce42166a17104054f505ccddbcb9aca8e9",
+    "reference_artifacts": {
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V3.json": {
+        "bytes": 3164399,
+        "sha256": "0d5a4e07e9b2cd9ba3f7dd736f99b08c5202747b87d5f1ca058efee04e67a111"
+      },
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V3.md": {
+        "bytes": 2539,
+        "sha256": "f6904b35c2083fbd347045113c5a2ac54975388af540a6f743012c5c9834afe6"
+      }
+    },
+    "reference_state": "SUPERVISOR_DRAFT",
+    "subject": "research(lector): revise D1 reference after secondary review",
+    "tree": "c19b5a068dcffae6d497ae8eb6e71ad174cf8308"
+  },
+  "source_to_reference_findings": 2,
+  "unresolved_count": 0,
+  "v3_facts_retired_for_rewrite": 5,
+  "v4_fact_count": 735,
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
