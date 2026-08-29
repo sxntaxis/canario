@@ -1,0 +1,2377 @@
+{
+  "format": "canario.d1-secondary-semantic-review.v2/1",
+  "review_id": "CANARIO-D1-SECONDARY-SEMANTIC-REVIEW-V2-001",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "reviewed_candidate": {
+    "commit": "bf59bddcfe2a4027c86507491f782aa9fe027b7c",
+    "parent": "eaf74f8f65c5f98b79afaa185bc75baa24ac094c",
+    "tree": "af96133b9e6fe8ce4888a5273c2242152419f4a5",
+    "subject": "research(lector): revise D1 reference after semantic review",
+    "reference_state": "SUPERVISOR_DRAFT",
+    "reference_artifacts": {
+      "notebook/research/lector/fit-bench/references/D1_REFERENCE_SUPERVISOR_DRAFT_V2.json": {
+        "sha256": "a9689592ed1ce05c2549269bfdc1bfa328e27e9f3644c0de5e825ef644f28d24",
+        "bytes": 3051642
+      },
+      "notebook/research/lector/fit-bench/references/D1_REFERENCE_SUPERVISOR_DRAFT_V2.md": {
+        "sha256": "2bd127567328f8df46baa471312596ceb503a909d2f34d73a5a1e3f93d539b74",
+        "bytes": 6659
+      }
+    }
+  },
+  "fixture_identity": {
+    "source": "Acta Sesión Ordinaria N.º 161 — 18 May 2026, Municipalidad de Esparza",
+    "primary_pdf": {
+      "sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd",
+      "bytes": 760485
+    },
+    "representation": {
+      "kind": "text/plain",
+      "processor": "poppler.pdf_text",
+      "sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+      "bytes": 154866,
+      "characters": 151940
+    },
+    "scope": {
+      "kind": "full_source_order",
+      "sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5"
+    },
+    "frozen_unit_inventory": {
+      "sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+      "count": 61
+    },
+    "recovery_archive": {
+      "sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf",
+      "bytes": 745476
+    },
+    "certified_bundle": {
+      "sha256": "260224747754e38fd9d38a814fabb9bd298eaa47a8c5dcaadf1f431355bda99d",
+      "bytes": 2416144,
+      "git_bundle_verify": "PASS",
+      "complete_history": "PASS"
+    }
+  },
+  "reviewer": {
+    "provider": "OpenAI",
+    "model": "GPT-5.6 Sol",
+    "version": "GPT-5.6 Sol",
+    "human_role": null,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false
+  },
+  "anti_anchoring_compliance": {
+    "required_authorities_read_before_semantic_audit": true,
+    "frozen_source_read_before_prior_review": true,
+    "v2_reference_read_before_prior_review": true,
+    "blind_source_to_reference_pass_completed_before_prior_review": true,
+    "blind_reference_to_source_pass_completed_before_prior_review": true,
+    "provisional_artifact_persisted_before_prior_review": true,
+    "provisional_artifact_sha256": "2d3f69cc326e07b3449dc227a6fa080e4c6383c4d011bb70bb01b213fef2e532",
+    "provisional_finding_count": 23,
+    "prior_review_files_read_only_after_provisional_persist": true,
+    "anchoring_contamination": false,
+    "note": "The final finding groups preserve the blind provisional IDs/content. Prior material was used only to classify relation-to-v1 and populate the 61-finding regression matrix."
+  },
+  "leakage_declaration": {
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "mechanical_reopening_checks": {
+    "evidence_target_hashes_reopened": "1473/1473",
+    "structure_hashes_match": "36/36",
+    "U0007_independent_classification": "isolated page marker \"1\"; NO_MATERIAL_CIVIC_FACT justified",
+    "non_authoritative_text_preview_formatting_mismatches": 57,
+    "selector_or_selected_text_hash_failures": 0
+  },
+  "coverage": {
+    "structures_source_to_reference": {
+      "reviewed": 36,
+      "total": 36
+    },
+    "frozen_units_source_to_reference": {
+      "reviewed": 61,
+      "total": 61
+    },
+    "facts_reference_to_source": {
+      "reviewed": 700,
+      "total": 700
+    },
+    "evidence_targets_semantically_considered": {
+      "reviewed": 1473,
+      "total": 1473
+    }
+  },
+  "source_to_reference_result": {
+    "hard_dispute_count": 0,
+    "note": "No missing material civic assertion or wrong NO_MATERIAL_CIVIC_FACT classification survived the blind source-order pass."
+  },
+  "finding_inventory": [
+    {
+      "finding_id": "D1-V2-IR-0001",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "SOURCE_FIDELITY_ERROR",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0014",
+        "U0015"
+      ],
+      "affected_fact_ids": [
+        "D1-F0079",
+        "D1-F0080",
+        "D1-F0081",
+        "D1-F0082",
+        "D1-F0083"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Regidor suplente Rolnald Robles: Aquí estábamos discerniendo acerca de si se\n36   podía publicar esto que estamos hablando en la página de la Municipalidad, porque\n37   a veces hay que aclararle a las personas las cosas que se están haciendo de\n38   buena fe y con buena voluntad.",
+          "location_or_selector": "Representation chars 20577:20857 (bound by D1-F0079)"
+        },
+        {
+          "exact_text": "Estamos en un proceso de ensayo y error, porque\n39   al final tenemos que mantener la piscina en óptimas condiciones.",
+          "location_or_selector": "Representation chars 20858:20975 (bound by D1-F0080)"
+        },
+        {
+          "exact_text": "Imagínense que también tiene una capacidad de carga.",
+          "location_or_selector": "Representation chars 20981:21033 (bound by D1-F0081)"
+        },
+        {
+          "exact_text": "Precisamente estamos en\n42   la parte legal, esperando que se publique el reglamento, y en ese proceso de\n43   ensayo y error hasta tener las condiciones óptimas para planificar completamente\n44   el uso de la piscina.",
+          "location_or_selector": "Representation chars 21118:21336 (bound by D1-F0082)"
+        }
+      ],
+      "problem": "The v2 canonical facts normalize the frozen speaker label “Rolnald Robles” to “Ronald Robles” without binding evidence that authorizes that correction.",
+      "source_grounded_reason": "The frozen Representation itself spells the local speaker label “Rolnald Robles”. The benchmark requires source fidelity and forbids silent helpful correction; the bound evidence does not include a local roster/name-resolution span that would turn this source form into “Ronald”.",
+      "relation_to_v1_review": "NEW",
+      "related_v1_finding_ids": [],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0079",
+          "D1-F0080",
+          "D1-F0081",
+          "D1-F0082",
+          "D1-F0083"
+        ],
+        "note": "Blind provisional defect with no mapped v1 adjudication repair target among its affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0002",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0018"
+      ],
+      "affected_fact_ids": [
+        "D1-F0123",
+        "D1-F0124",
+        "D1-F0125"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Creo que muchas personas en\n18   el cantón no conocen el acuerdo que se tomó creo que en febrero.",
+          "location_or_selector": "Representation chars 31245:31342 (bound by D1-F0123)"
+        },
+        {
+          "exact_text": "Regidor Fernando Villalobos: Yo sugiero, don Juan Carlos, porque ya es la\n17   segunda vez que llega un pronunciamiento similar.",
+          "location_or_selector": "Representation chars 31116:31244 (bound by D1-F0123)"
+        },
+        {
+          "exact_text": "Entonces considero que no ha habido suficiente\n21   divulgación y la gente no lo sabe.",
+          "location_or_selector": "Representation chars 31474:31560 (bound by D1-F0124)"
+        },
+        {
+          "exact_text": "Pienso que sería bueno que don Bienvenido, por medio de la compañera de\n23   comunicación, realice un comunicado indicando que la Municipalidad, en sesión tal\n24   y de fecha tal, declaró hija predilecta a la señora presidenta, y que el acto oficial\n25   será en determinada fecha.",
+          "location_or_selector": "Representation chars 31566:31847 (bound by D1-F0125)"
+        }
+      ],
+      "problem": "The bound evidence does not identify the referenced prior agreement as the hija-predilecta declaratory agreement, and the F0125 evidence names only “la señora presidenta” rather than Laura Fernández Delgado.",
+      "source_grounded_reason": "These propositions depend on the surrounding C06 note/discussion to resolve which prior agreement/declaratory act and person are meant. Their selected evidence omits that antecedent while the canonical propositions make it explicit.",
+      "relation_to_v1_review": "NEW",
+      "related_v1_finding_ids": [],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0123",
+          "D1-F0124",
+          "D1-F0125"
+        ],
+        "note": "Blind provisional defect with no mapped v1 adjudication repair target among its affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0003",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06,PRE",
+      "unit_ids": [
+        "U0001",
+        "U0018",
+        "U0019"
+      ],
+      "affected_fact_ids": [
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Recordemos que no se realizó antes porque la\n35   agenda de la señora presidenta electa, en aquel momento, estaba muy apretada.",
+          "location_or_selector": "Representation chars 32512:32639 (bound by D1-F0129)"
+        },
+        {
+          "exact_text": "Sr. Alcalde: Me parece que más bien podríamos aprovechar la coyuntura y la\n32   preocupación que tienen algunos vecinos del cantón de Esparza, vamos a\n33   desarrollar una campaña publicitaria para invitar a la ciudadanía a la actividad\n34   programada para el 12 de junio.",
+          "location_or_selector": "Representation chars 32238:32511 (bound by D1-F0129)"
+        },
+        {
+          "exact_text": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "location_or_selector": "Representation chars 1370:1435 (bound by D1-F0129)"
+        },
+        {
+          "exact_text": "Incluso valoramos si hacerlo ocho o quince días antes de que asumiera la\n37   presidencia o realizarlo después.",
+          "location_or_selector": "Representation chars 32645:32756 (bound by D1-F0130)"
+        },
+        {
+          "exact_text": "Finalmente, llegamos a un acuerdo con ella para\n38   efectuarlo posteriormente.",
+          "location_or_selector": "Representation chars 32757:32836 (bound by D1-F0131)"
+        },
+        {
+          "exact_text": "Por eso fueron ellos quienes nos brindaron la fecha del 12 de junio.",
+          "location_or_selector": "Representation chars 32842:32910 (bound by D1-F0132)"
+        }
+      ],
+      "problem": "The bound evidence resolves the speaker as Bienvenido Venegas but does not resolve “la señora presidenta electa”, “ella” or “ellos” to Laura Fernández or her team.",
+      "source_grounded_reason": "The canonical propositions name Laura Fernández and her team. The selected spans carry role/pronoun references and the 12 June date but no evidence target that binds those local references to Laura Fernández.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0042"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0129",
+          "D1-F0130",
+          "D1-F0131",
+          "D1-F0132"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0004",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06,PRE",
+      "unit_ids": [
+        "U0001",
+        "U0019"
+      ],
+      "affected_fact_ids": [
+        "D1-F0133",
+        "D1-F0134"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Presidente Municipal: Entonces, daríamos por recibida la nota y se le dará\n41   contestación por medio de la Secretaría, indicándole que ya tenemos un evento\n42   programado.",
+          "location_or_selector": "Representation chars 32916:33094 (bound by D1-F0133)"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "location_or_selector": "Representation chars 518:597 (bound by D1-F0133)"
+        },
+        {
+          "exact_text": "Además, se adjuntará copia del acuerdo tomado por este Concejo.",
+          "location_or_selector": "Representation chars 33095:33158 (bound by D1-F0134)"
+        }
+      ],
+      "problem": "The bound evidence does not bind the response/recipient antecedent to Douglas Salazar.",
+      "source_grounded_reason": "The selected spans say that a note will be answered and a copy of the prior agreement attached, but they do not identify the addressee as Douglas Salazar. The canonical recipient therefore depends on unbound surrounding context.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0042"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0133",
+          "D1-F0134"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0005",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0019"
+      ],
+      "affected_fact_ids": [
+        "D1-F0139"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Se adjunta copia del acuerdo\n52   indicado.",
+          "location_or_selector": "Representation chars 33882:33925 (bound by D1-F0139)"
+        }
+      ],
+      "problem": "The sole bound selector is only the attachment fragment and does not bind either the formal SE ACUERDA status/Concejo actor or the communication to Douglas Salazar.",
+      "source_grounded_reason": "A decomposed operative subfact that says the Concejo disposed an attachment needs evidence carrying the formal agreement context and the recipient/communication antecedent. “Se adjunta copia del acuerdo indicado” alone does not support the full proposition.",
+      "relation_to_v1_review": "NEW",
+      "related_v1_finding_ids": [],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0139"
+        ],
+        "note": "Blind provisional defect with no mapped v1 adjudication repair target among its affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0006",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C08,PRE",
+      "unit_ids": [
+        "U0001",
+        "U0021",
+        "U0022"
+      ],
+      "affected_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "El señor presidente Municipal confirma su asistencia y se da por recibida la\n50   invitación.",
+          "location_or_selector": "Representation chars 37952:38045 (bound by D1-F0155)"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "location_or_selector": "Representation chars 518:597 (bound by D1-F0155)"
+        },
+        {
+          "exact_text": "Sr. Presidente Municipal: Solicitar a la Secretaria del Concejo corroborar la\n 4   información si la invitación es también para los otros regidores propietarios, para\n 5   evitar que se genere alguna confusión y garantizar que la actividad esté\n 6   debidamente coordinada para todas las personas asistentes.",
+          "location_or_selector": "Representation chars 38473:38781 (bound by D1-F0158)"
+        }
+      ],
+      "problem": "The bound evidence does not resolve the invitation/activity to the Expo Feria del Aguacate.",
+      "source_grounded_reason": "The selected spans contain only “la invitación” / “la actividad” plus speaker resolution. The canonical Expo Feria referent is supplied from surrounding text that is not part of the bound evidence set.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0043"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0155",
+          "D1-F0158"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0007",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C11",
+      "unit_ids": [
+        "U0024"
+      ],
+      "affected_fact_ids": [
+        "D1-F0179"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Regidora Karol Arroyo Vásquez: Quisiera confirmar la asistencia y también solicitar\n31   a la administración un vehículo para asistir a la asamblea.",
+          "location_or_selector": "Representation chars 44607:44755 (bound by D1-F0179)"
+        }
+      ],
+      "problem": "The bound evidence does not resolve “la asamblea” to Asamblea Nacional Ordinaria 01-2026.",
+      "source_grounded_reason": "Karol Arroyo’s selected intervention confirms attendance and requests a vehicle for “la asamblea”, but no selected context identifies the specific UNGL assembly named by the canonical fact/mandatory referent.",
+      "relation_to_v1_review": "NEW",
+      "related_v1_finding_ids": [],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0179"
+        ],
+        "note": "Blind provisional defect with no mapped v1 adjudication repair target among its affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0008",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "CONTEXT_ERROR",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C12,PRE",
+      "unit_ids": [
+        "U0001",
+        "U0024",
+        "U0025"
+      ],
+      "affected_fact_ids": [
+        "D1-F0184",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0195"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Favor remitir la persona enlace con quién coordinar este evento.",
+          "location_or_selector": "Representation chars 46002:46066 (bound by D1-F0184)"
+        },
+        {
+          "exact_text": "12- Se conoce nota vía correo electrónico enviada el 11 de mayo de 2026, al\n39   Concejo Municipal de Esparza, por la señora Paola Salazar Arce, Jefa de\n40   Patrimonio Cultural Inmaterial, Dirección de Patrimonio Cultural; texto que se\n41   transcribe a continuación:\n42   “Reciba un cordial saludo.",
+          "location_or_selector": "Representation chars 45197:45497 (bound by D1-F0184)"
+        },
+        {
+          "exact_text": "Sí, la nota indica prácticamente\n10   que, para tomar la decisión, debemos remitir el nombre de la persona que fungirá\n11   como enlace para coordinar este evento en Esparza.",
+          "location_or_selector": "Representation chars 47007:47181 (bound by D1-F0191)"
+        },
+        {
+          "exact_text": "Sr. Presidente Municipal: Gracias, don Christian.",
+          "location_or_selector": "Representation chars 46957:47006 (bound by D1-F0191)"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "location_or_selector": "Representation chars 518:597 (bound by D1-F0191)"
+        },
+        {
+          "exact_text": "Lo que corresponde realizar\n12   el nombramiento.",
+          "location_or_selector": "Representation chars 47182:47231 (bound by D1-F0192)"
+        },
+        {
+          "exact_text": "No habiendo más postulaciones, se designa a don Christian como enlace para la\n21   coordinación de dicha actividad.",
+          "location_or_selector": "Representation chars 47716:47831 (bound by D1-F0195)"
+        }
+      ],
+      "problem": "The canonical/evidence pair leaves required event or enlace antecedents unresolved instead of making the propositions self-sufficient.",
+      "source_grounded_reason": "F0184 and F0191 say “el evento”, F0195 says “la actividad”, and F0192 binds only the fragment “realizar el nombramiento”. The bound sets do not carry the Festival Nacional de Folclore/persona-enlace antecedent needed to interpret those references faithfully.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0044"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0191",
+          "D1-F0192"
+        ],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0184",
+          "D1-F0195"
+        ],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0009",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C12",
+      "unit_ids": [
+        "U0025"
+      ],
+      "affected_fact_ids": [
+        "D1-F0196",
+        "D1-F0676"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Designar al regidor Christian Tercero Carvajal como enlace\n23   municipal para coordinar el evento.",
+          "location_or_selector": "Representation chars 47837:47948 (bound by D1-F0196)"
+        },
+        {
+          "exact_text": "APROBADO\n24   POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 47973:48002 (bound by D1-F0676)"
+        }
+      ],
+      "problem": "The formal designation evidence says only “coordinar el evento” and never binds that event to the Festival Nacional de Folclore.",
+      "source_grounded_reason": "Both the operative fact and its finality fact canonically identify the Festival Nacional de Folclore, but their evidence set contains the generic event phrase plus (for F0676) approval status only.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0016"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0676"
+        ],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0196"
+        ],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0010",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C13,PRE",
+      "unit_ids": [
+        "U0001",
+        "U0028",
+        "U0029",
+        "U0030",
+        "U0031",
+        "U0032"
+      ],
+      "affected_fact_ids": [
+        "D1-F0219",
+        "D1-F0229",
+        "D1-F0230",
+        "D1-F0232",
+        "D1-F0243",
+        "D1-F0246",
+        "D1-F0248",
+        "D1-F0250",
+        "D1-F0252",
+        "D1-F0255",
+        "D1-F0258",
+        "D1-F0259",
+        "D1-F0260",
+        "D1-F0261",
+        "D1-F0262",
+        "D1-F0263",
+        "D1-F0264",
+        "D1-F0265",
+        "D1-F0266",
+        "D1-F0269",
+        "D1-F0270"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Síndico Douglas Arce Solís: Esto se origina a raíz de una publicación realizada por\n13   el programa Acontecer Esparzano, quienes, por iniciativa propia, hicieron dicha\n14   publicación.",
+          "location_or_selector": "Representation chars 55210:55396 (bound by D1-F0219)"
+        },
+        {
+          "exact_text": "Una de las situaciones importantes\n43   es que la comisión anterior estaba conformada por nueve personas, lo cual\n44   dificultaba lograr el quórum y sesionar adecuadamente.",
+          "location_or_selector": "Representation chars 57484:57657 (bound by D1-F0229)"
+        },
+        {
+          "exact_text": "Sr. Presidente Municipal: Claro, don Douglas.",
+          "location_or_selector": "Representation chars 57438:57483 (bound by D1-F0229)"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "location_or_selector": "Representation chars 518:597 (bound by D1-F0229)"
+        },
+        {
+          "exact_text": "Precisamente por eso, en\n45   esta nueva etapa decidí integrarla con cinco miembros, procurando que fuera un\n46   número impar y conformada por los cinco regidores propietarios.",
+          "location_or_selector": "Representation chars 57658:57835 (bound by D1-F0230)"
+        },
+        {
+          "exact_text": "La comisión ha sesionado tres veces en este período y usted\n35   únicamente asistió a una de esas sesiones; faltó a dos, por lo que tal vez por eso\n36   no ha tenido conocimiento de algunos temas.",
+          "location_or_selector": "Representation chars 60859:61055 (bound by D1-F0243)"
+        },
+        {
+          "exact_text": "Regidor Fernando Villalobos Chacón: Para referirme únicamente al tema\n28   mencionado sobre las sesiones, ya que lo demás ha sido debidamente contestado,\n29   quisiera indicarle al compañero Douglas lo siguiente:\n30   Primero, recordarle que durante los seis años en que fui presidente lo integré a la\n31   comisión.",
+          "location_or_selector": "Representation chars 60326:60642 (bound by D1-F0243)"
+        },
+        {
+          "exact_text": "Inclusive, en otra sesión recomendé que aplicáramos el mismo criterio cuando las\n48   denegatorias obedecieran a requisitos subsanables.",
+          "location_or_selector": "Representation chars 61836:61972 (bound by D1-F0246)"
+        },
+        {
+          "exact_text": "En esos casos, lo más razonable sería devolver el expediente a la Administración\n53   para que se le notifique a la persona y aporte el requisito faltante, agilizando así el\n54   trámite.",
+          "location_or_selector": "Representation chars 62207:62394 (bound by D1-F0248)"
+        },
+        {
+          "exact_text": "Esos expedientes sí permanecen pendientes porque dependen de\n 4   información de terceros.",
+          "location_or_selector": "Representation chars 62584:62674 (bound by D1-F0250)"
+        },
+        {
+          "exact_text": "Distinto es cuando existen asuntos de fondo pendientes de resolver, como algunos\n 2   casos relacionados con la certificación de Patrimonio Natural del Estado emitida\n 3   por SINAC.",
+          "location_or_selector": "Representation chars 62401:62583 (bound by D1-F0250)"
+        },
+        {
+          "exact_text": "En honor a la verdad, Douglas, y con todo respeto hacia usted y hacia las personas\n12   que firmaron la carta, considero que en uno de los párrafos se hace una afirmación\n13   equivocada, basada posiblemente en información incorrecta y no en datos\n14   verificables.",
+          "location_or_selector": "Representation chars 63175:63441 (bound by D1-F0252)"
+        },
+        {
+          "exact_text": "A lo que me refiero es a los expedientes pendientes que requieren revisión de\n23   fondo dentro de la comisión, ya que existen varios casos con situaciones complejas\n24   que aún no se han analizado.",
+          "location_or_selector": "Representation chars 63971:64170 (bound by D1-F0255)"
+        },
+        {
+          "exact_text": "Síndico Douglas Arce Solís: Quiero reiterar que inicié mi intervención indicando\n17   que soy respetuoso de la decisión tomada y que conozco plenamente que la\n18   integración de las comisiones corresponde al Presidente del Concejo Municipal.",
+          "location_or_selector": "Representation chars 63487:63729 (bound by D1-F0255)"
+        },
+        {
+          "exact_text": "Considero que Douglas es un gran elemento dentro de esa comisión\n35   y, como colaborador, pienso que debemos tomarlo muy en cuenta.",
+          "location_or_selector": "Representation chars 64871:65003 (bound by D1-F0258)"
+        },
+        {
+          "exact_text": "Regidora Flor María Cubero Martínez: Primeramente, se respeta la decisión de la\n34   Presidencia.",
+          "location_or_selector": "Representation chars 64773:64870 (bound by D1-F0258)"
+        },
+        {
+          "exact_text": "Ojalá que ahora, al estar conformada por los cinco regidores propietarios, la\n37   comisión pueda funcionar adecuadamente, porque realmente es cierto que\n38   anteriormente no funcionó.",
+          "location_or_selector": "Representation chars 65009:65194 (bound by D1-F0259)"
+        },
+        {
+          "exact_text": "Incluso, recuerdo que en la última reunión únicamente\n39   asistimos Mariela y mi persona, ya que fue ella quien la convocó.",
+          "location_or_selector": "Representation chars 65195:65319 (bound by D1-F0260)"
+        },
+        {
+          "exact_text": "Conversando con Mariela, debo indicar que existen muchos expedientes que,\n41   según ella misma manifestó, no requieren el criterio de Patrimonio Natural del\n42   Estado.",
+          "location_or_selector": "Representation chars 65325:65495 (bound by D1-F0261)"
+        },
+        {
+          "exact_text": "En ese sentido, discrepo parcialmente de lo mencionado por don\n43   Fernando, ya que hay varios expedientes que no han sido vistos en comisión.",
+          "location_or_selector": "Representation chars 65496:65639 (bound by D1-F0262)"
+        },
+        {
+          "exact_text": "Aquí en el Concejo se han venido resolviendo algunos asuntos y, de no haberse\n45   hecho así, la situación estaría aún más atrasada.",
+          "location_or_selector": "Representation chars 65645:65777 (bound by D1-F0263)"
+        },
+        {
+          "exact_text": "Existen muchos expedientes que todavía no se han revisado y que requieren\n48   análisis.",
+          "location_or_selector": "Representation chars 65903:65991 (bound by D1-F0264)"
+        },
+        {
+          "exact_text": "Algunos son bastante extensos y necesitan tiempo para estudiarlos\n49   adecuadamente.",
+          "location_or_selector": "Representation chars 65992:66077 (bound by D1-F0265)"
+        },
+        {
+          "exact_text": "Por ello, hago un llamado para que ahora, al estar integrada por los cinco regidores\n52   propietarios, podamos trabajar en los expedientes que verdaderamente continúan\n53   pendientes.",
+          "location_or_selector": "Representation chars 66163:66348 (bound by D1-F0266)"
+        },
+        {
+          "exact_text": "Incluso recuerdo que, en una oportunidad, avisaron mediante el chat de regidores\n 9   que la reunión había sido suspendida.",
+          "location_or_selector": "Representation chars 66828:66951 (bound by D1-F0269)"
+        },
+        {
+          "exact_text": "Síndico Douglas Arce Solís: También quería agregar algo importante que\n 5   considero que a don Fernando se le olvidó mencionar.",
+          "location_or_selector": "Representation chars 66566:66694 (bound by D1-F0269)"
+        },
+        {
+          "exact_text": "Como yo no formo parte de ese chat, me\n10   presenté al Concejo Municipal sin saber que la sesión no se iba a realizar.",
+          "location_or_selector": "Representation chars 66952:67071 (bound by D1-F0270)"
+        }
+      ],
+      "problem": "Multiple C13 facts resolve generic “esto”, “la comisión”, “esta nueva etapa”, “esos expedientes”, “la carta”, or a suspended meeting/session to the ZMT dispute/document without binding the antecedent in the evidence set.",
+      "source_grounded_reason": "The propositions are source-plausible in full C13 context, but the exact selected evidence sets omit the local ZMT/document antecedent that the canonical facts and mandatory qualifiers require. This is a fact-specific evidence/context binding failure, not a challenge to the surrounding source narrative.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0045"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0229",
+          "D1-F0230",
+          "D1-F0232"
+        ],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0219",
+          "D1-F0243",
+          "D1-F0246",
+          "D1-F0248",
+          "D1-F0250",
+          "D1-F0252",
+          "D1-F0255",
+          "D1-F0258",
+          "D1-F0259",
+          "D1-F0260",
+          "D1-F0261",
+          "D1-F0262",
+          "D1-F0263",
+          "D1-F0264",
+          "D1-F0265",
+          "D1-F0266",
+          "D1-F0269",
+          "D1-F0270"
+        ],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0011",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0030",
+        "U0031"
+      ],
+      "affected_fact_ids": [
+        "D1-F0696"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Regidor Fernando Villalobos Chacón: Para referirme únicamente al tema",
+          "location_or_selector": "Representation chars 60326:60395 (bound by D1-F0696)"
+        },
+        {
+          "exact_text": "Incluso, recuerdo que durante la administración anterior, con doña Fiorella Ramírez\n 6   Silva, constantemente se solicitaban acuerdos recordatorios relacionados con ese\n 7   tema, y en este período también se ha hecho en varias ocasiones.",
+          "location_or_selector": "Representation chars 62680:62919 (bound by D1-F0696)"
+        }
+      ],
+      "problem": "The restored reminder-history fact binds only “acuerdos recordatorios relacionados con ese tema” and does not bind “ese tema” to SINAC/Patrimonio Natural del Estado certifications.",
+      "source_grounded_reason": "The canonical fact names certifications of Patrimonio Natural del Estado issued by SINAC. Its two selected spans contain the speaker and the reminder-history sentence but omit the antecedent that identifies the topic.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0035"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0696"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0012",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0032"
+      ],
+      "affected_fact_ids": [
+        "D1-F0677"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Dar por recibida la nota CR-ADI-MLC-008-2026 de la Asociación de Desarrollo\n37   Integral de Mata de Limón de Caldera y un grupo de vecinos del distrito de Caldera.",
+          "location_or_selector": "Representation chars 68817:68981 (bound by D1-F0677)"
+        },
+        {
+          "exact_text": "SE ACUERDA:\n36   1.",
+          "location_or_selector": "Representation chars 68797:68816 (bound by D1-F0677)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 69215:69239 (bound by D1-F0677)"
+        }
+      ],
+      "problem": "The finality evidence covers item 1 (receipt of the Mata de Limón note) but omits item 2 requesting the ZMT pending-expedients report.",
+      "source_grounded_reason": "The canonical finality proposition explicitly covers both the note and the report request. The approval marker is bound only with the item-1 fragment, so the evidence set does not support finality of the full proposition.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0017"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0677"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0013",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "PRE,U04",
+      "unit_ids": [
+        "U0001",
+        "U0037"
+      ],
+      "affected_fact_ids": [
+        "D1-F0697",
+        "D1-F0698"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "El señor Presidente agradece la intervención de don Luis Alberto e indica que se\n14   tomará el acuerdo de trasladar la solicitud al CONAVI y al MOPT. Asimismo,\n15   propone remitir copia a la Presidencia de la República, considerando la importancia\n16   de la ruta y la reciente designación del nuevo Ministro de Obras Públicas y\n17   Transportes. La propuesta es acogida por el Concejo.",
+          "location_or_selector": "Representation chars 82788:83176 (bound by D1-F0697)"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "location_or_selector": "Representation chars 518:597 (bound by D1-F0697)"
+        }
+      ],
+      "problem": "The bound proposal/acceptance evidence refers only to “la ruta” and the preceding solicitud, without binding that route/gestion to route 756.",
+      "source_grounded_reason": "The canonical facts identify route 756. Their selected proposal span contains the Presidency/MOPT language and local actor resolution but no route-number antecedent.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0037"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0697",
+          "D1-F0698"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0014",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0035",
+        "U0037"
+      ],
+      "affected_fact_ids": [
+        "D1-F0682"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Trasladar la solicitud realizada por el síndico Luis Pérez Palma al\n19   CONAVI y al MOPT.",
+          "location_or_selector": "Representation chars 83182:83284 (bound by D1-F0682)"
+        },
+        {
+          "exact_text": "4- Síndico Luis Alberto Pérez Palma: Indica que trae nuevamente unos videos\n39   relacionados con el estado de la ruta 756.",
+          "location_or_selector": "Representation chars 80614:80737 (bound by D1-F0682)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 83417:83441 (bound by D1-F0682)"
+        }
+      ],
+      "problem": "The finality evidence supports transfer of the route-756 request to CONAVI and MOPT but omits the additional remittance to the Presidency of the Republic.",
+      "source_grounded_reason": "The canonical finality proposition expressly includes CONAVI, MOPT and Presidencia. Its bound operative selector ends before the Presidency clause.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0022"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0682"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0015",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0037",
+        "U0038"
+      ],
+      "affected_fact_ids": [
+        "D1-F0683"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Incluir lo solicitado por la síndica Stephennie Quesada al acuerdo\n37   anterior, para también solicitar al CONAVI la intervención de ruta 622,\n38   correspondiente al trayecto de Juanilama hacia Caldera, debido a que presenta un\n39   estado igualmente deteriorado.",
+          "location_or_selector": "Representation chars 84537:84814 (bound by D1-F0683)"
+        },
+        {
+          "exact_text": "SE ACUERDA: Trasladar la solicitud realizada por el síndico Luis Pérez Palma al\n19   CONAVI y al MOPT.",
+          "location_or_selector": "Representation chars 83182:83284 (bound by D1-F0683)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 85067:85091 (bound by D1-F0683)"
+        }
+      ],
+      "problem": "The finality evidence supports the route-622 intervention clause but omits the added speed-bump clause from Nances toward the UCR.",
+      "source_grounded_reason": "The canonical finality proposition expressly covers both route 622 and the reductores de velocidad. The bound agreement selector ends before the speed-bump clause.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0023"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0683"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0016",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "PRE,U06",
+      "unit_ids": [
+        "U0001",
+        "U0040",
+        "U0041",
+        "U0042",
+        "U0043"
+      ],
+      "affected_fact_ids": [
+        "D1-F0374",
+        "D1-F0378",
+        "D1-F0382",
+        "D1-F0383",
+        "D1-F0391",
+        "D1-F0395",
+        "D1-F0402",
+        "D1-F0406",
+        "D1-F0407",
+        "D1-F0413",
+        "D1-F0685"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Entonces, ese es el trabajo que creo que debemos hacer esta semana, o a más\n18   tardar la próxima: irnos a San José e ir diputado por diputado, especialmente los\n19   de la provincia de Puntarenas, porque si esperamos traerlos aquí se nos va a\n20   complicar el tiempo.",
+          "location_or_selector": "Representation chars 91014:91284 (bound by D1-F0374)"
+        },
+        {
+          "exact_text": "Síndico Douglas Arce Solís: Para aportar un poquito más sobre el mismo tema que\n 4   está comentando el compañero Robles, acuérdense de que a mí me han\n 5   comisionado y la misión fue ir a hacer lobby y cuidar el proyecto de ley en la\n 6   comisión de Puntarenas, y eso se logró al cien por ciento.",
+          "location_or_selector": "Representation chars 89982:90281 (bound by D1-F0374)"
+        },
+        {
+          "exact_text": "Señor Douglas Arce: Una cosa muy importante que es la que tenemos que hablar\n34   con ellos es que ya existe el criterio técnico, y eso es lo primordial, porque cuando\n35   se habla de desafectar una zona se genera un impacto de negativa, máxime\n36   cuando no se dan cuenta de la realidad.",
+          "location_or_selector": "Representation chars 92231:92521 (bound by D1-F0378)"
+        },
+        {
+          "exact_text": "En ese momento eran cinco diputados y llegaron tres.",
+          "location_or_selector": "Representation chars 93398:93450 (bound by D1-F0382)"
+        },
+        {
+          "exact_text": "Regidor Fernando Villalobos Chacón: Sí, muy breve.",
+          "location_or_selector": "Representation chars 92674:92724 (bound by D1-F0382)"
+        },
+        {
+          "exact_text": "Ahora son seis.",
+          "location_or_selector": "Representation chars 93456:93471 (bound by D1-F0383)"
+        },
+        {
+          "exact_text": "Hay que actuar rápido; creo que hay que ir a visitarlos\n17   esta misma semana o, como máximo, la próxima.",
+          "location_or_selector": "Representation chars 94990:95096 (bound by D1-F0391)"
+        },
+        {
+          "exact_text": "Señor Douglas Arce: La cuestión es que lo que yo decía es que no hay tiempo para\n13   traerlos, porque el proyecto ya está convocado.",
+          "location_or_selector": "Representation chars 94618:94751 (bound by D1-F0391)"
+        },
+        {
+          "exact_text": "Hoy necesitamos hablar con los jefes de fracción, que\n33   son los voceros de cada bancada en la Asamblea Legislativa.",
+          "location_or_selector": "Representation chars 96178:96296 (bound by D1-F0395)"
+        },
+        {
+          "exact_text": "Señor Alcalde, Bienvenido Venegas: Me parece que todas las propuestas son muy\n19   acertadas.",
+          "location_or_selector": "Representation chars 95102:95195 (bound by D1-F0395)"
+        },
+        {
+          "exact_text": "No sé si ese día podríamos\n44   aprovechar que ellos van a estar acá, si vienen unas horas antes, los atendemos\n45   aquí, me parece que es una buena fecha para que ellos vengan.",
+          "location_or_selector": "Representation chars 97066:97244 (bound by D1-F0402)"
+        },
+        {
+          "exact_text": "Y con respecto a lo que decía don Fernando, me parece importante recordar que\n39   el 12 de junio viene la señora Presidenta.",
+          "location_or_selector": "Representation chars 96631:96756 (bound by D1-F0402)"
+        },
+        {
+          "exact_text": "Sr. Alcalde: Veintinueve o treinta.",
+          "location_or_selector": "Representation chars 98136:98171 (bound by D1-F0406)"
+        },
+        {
+          "exact_text": "Dr. Fernando Villalobos: ¿Cuántos votos ocupa?",
+          "location_or_selector": "Representation chars 98084:98130 (bound by D1-F0406)"
+        },
+        {
+          "exact_text": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "location_or_selector": "Representation chars 1370:1435 (bound by D1-F0406)"
+        },
+        {
+          "exact_text": "Mayoría simple, creo que son veintinueve votos.",
+          "location_or_selector": "Representation chars 98172:98219 (bound by D1-F0407)"
+        },
+        {
+          "exact_text": "SE ACUERDA: Trasladar a la Administración los temas antes mencionados por\n18   los señores regidores y síndico, para lo correspondiente.",
+          "location_or_selector": "Representation chars 99137:99273 (bound by D1-F0413)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 99303:99327 (bound by D1-F0685)"
+        }
+      ],
+      "problem": "Several U06 facts resolve generic project/topic references to expediente 23.898/Puntarenas or add recognition-event context that is not carried by their bound evidence.",
+      "source_grounded_reason": "Examples include “el proyecto de ley” without the 23.898 identifier, five/six deputies without the Puntarenas antecedent, “el proyecto” outside commission without a bound project antecedent, 29/30 votes without a bound expediente referent, and the formal “temas antes mencionados” disposition without the preceding legislative topics. F0685 inherits the same unresolved finality scope.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0025",
+        "D1-IR-0047"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0406",
+          "D1-F0407",
+          "D1-F0685"
+        ],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0374",
+          "D1-F0378",
+          "D1-F0382",
+          "D1-F0383",
+          "D1-F0391",
+          "D1-F0395",
+          "D1-F0402",
+          "D1-F0413"
+        ],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0017",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "CONTEXT_ERROR",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0050"
+      ],
+      "affected_fact_ids": [
+        "D1-F0494",
+        "D1-F0495",
+        "D1-F0496"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Dar por recibido el tema y que se presente una propuesta formal\n12   la próxima sesión.",
+          "location_or_selector": "Representation chars 118492:118591 (bound by D1-F0494)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 118592:118616 (bound by D1-F0496)"
+        }
+      ],
+      "problem": "The U08 disposition/finality set uses the unresolved source phrase “el tema” while the canonical record attributes the action to the Juegos Deportivos Nacionales topic.",
+      "source_grounded_reason": "The exact formal evidence says only “Dar por recibido el tema” and “propuesta formal” plus approval. It does not bind which topic was received or will return next session; F0495/F0496 also retain the unresolved “tema” in the canonical proposition rather than a self-sufficient referent.",
+      "relation_to_v1_review": "NEW",
+      "related_v1_finding_ids": [],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0494",
+          "D1-F0495",
+          "D1-F0496"
+        ],
+        "note": "Blind provisional defect with no mapped v1 adjudication repair target among its affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0018",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ],
+      "affected_fact_ids": [
+        "D1-F0687"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Trasladar nuevamente el oficio AME-GDHL-011-2026 a la\n36   Administración, con el fin de solicitar un criterio jurídico por parte de los abogados\n37   de la Administración respecto a la prórroga solicitada.",
+          "location_or_selector": "Representation chars 122890:123108 (bound by D1-F0687)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 123728:123752 (bound by D1-F0687)"
+        }
+      ],
+      "problem": "The M01 finality evidence covers only the renewed referral/criterion-jurídico clause and omits the school-supervisor follow-up clauses.",
+      "source_grounded_reason": "The canonical finality proposition covers both the requested extension and follow-up to educational centers. The bound operative selector stops before the clauses about supervisors, regulation/documentation, deadline follow-up, and copies to síndicos.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0027"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0687"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0019",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M02,PRE",
+      "unit_ids": [
+        "U0001",
+        "U0056"
+      ],
+      "affected_fact_ids": [
+        "D1-F0573",
+        "D1-F0575"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Esa posibilidad ya se le ha comunicado por escrito en varias\n37   oportunidades y, nuevamente, en este documento se le reitera dicha opción.",
+          "location_or_selector": "Representation chars 136323:136463 (bound by D1-F0573)"
+        },
+        {
+          "exact_text": "Señor Alcalde: No. Recordemos que se realizó un concurso externo que\n31   posteriormente fue impugnado mediante un recurso presentado por una persona\n32   participante.",
+          "location_or_selector": "Representation chars 135858:136026 (bound by D1-F0573)"
+        },
+        {
+          "exact_text": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "location_or_selector": "Representation chars 1370:1435 (bound by D1-F0573)"
+        },
+        {
+          "exact_text": "Sin embargo,\n40   hasta el momento no ha sido posible concretarlo.",
+          "location_or_selector": "Representation chars 136613:136679 (bound by D1-F0575)"
+        }
+      ],
+      "problem": "The M02 bound evidence leaves “esa posibilidad” / “concretarlo” unresolved and does not bind the specific interino use of vacancies that the canonical facts state.",
+      "source_grounded_reason": "The canonical facts resolve the pronouns to using vacancies interinamente with participants from the prior concurso. The selected context only identifies the impugned external concurso, not the omitted interino antecedent.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0050"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0573",
+          "D1-F0575"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0020",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M03",
+      "unit_ids": [
+        "U0058",
+        "U0059"
+      ],
+      "affected_fact_ids": [
+        "D1-F0689"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: De conformidad con la nota AME-358-2026 de la Alcaldía, acoger\n42   el criterio técnico y la recomendación de la Licda. Mariela Cruz Pérez, Analista\n43   Profesional de Zona Litoral y Marítimo Terrestre, mediane nota GOT-ZLMT-130-\n44   2026, de la siguiente manera:\n45   1.",
+          "location_or_selector": "Representation chars 140615:140900 (bound by D1-F0689)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 142007:142031 (bound by D1-F0689)"
+        }
+      ],
+      "problem": "The M03 finality evidence stops at the agreement header and item “1.”, omitting the operative permit, canon, notification/appeal and Natalia Araya Freeman clauses.",
+      "source_grounded_reason": "The canonical finality proposition names the permiso de uso de suelo, canon and Natalia Araya Freeman trámite. The selected evidence does not carry those components before the approval marker.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0029"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0689"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0021",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "CONTEXT_ERROR",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "PRE,V02",
+      "unit_ids": [
+        "U0001",
+        "U0060"
+      ],
+      "affected_fact_ids": [
+        "D1-F0638",
+        "D1-F0639"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Entonces quisiera ver cuándo tienen tiempo para que\n34   nos podamos reunir, ver ese tema y darle una respuesta.",
+          "location_or_selector": "Representation chars 147916:148028 (bound by D1-F0638)"
+        },
+        {
+          "exact_text": "Regidor suplente Ronald Robles Arley: Dos cositas.",
+          "location_or_selector": "Representation chars 147540:147590 (bound by D1-F0638)"
+        },
+        {
+          "exact_text": "Yo creo que eso lo valoramos\n36   después y, por medio de WhatsApp, hacemos la notificación para ponernos de\n37   acuerdo.",
+          "location_or_selector": "Representation chars 148081:148203 (bound by D1-F0639)"
+        },
+        {
+          "exact_text": "Sr. Presidente Municipal: Gracias, don Ronald.",
+          "location_or_selector": "Representation chars 148034:148080 (bound by D1-F0639)"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "location_or_selector": "Representation chars 518:597 (bound by D1-F0639)"
+        }
+      ],
+      "problem": "The V02 follow-up facts leave the pending topic/meeting antecedent unresolved in their bound evidence.",
+      "source_grounded_reason": "F0638 binds only “ver ese tema y darle una respuesta” plus the speaker and omits the immediately preceding Comisión de Cultura sentence; F0639 says “la reunión pendiente” canonically while the bound WhatsApp span does not identify which meeting.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0053"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0639"
+        ],
+        "independently_new_v2_defect_fact_ids": [
+          "D1-F0638"
+        ],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0022",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C01,C02",
+      "unit_ids": [
+        "U0002",
+        "U0003",
+        "U0004",
+        "U0005",
+        "U0006",
+        "U0008"
+      ],
+      "affected_fact_ids": [
+        "D1-F0661",
+        "D1-F0662"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Aceptar la renuncia de las señoras María Elena García Campos, Saulyn Tamara\n19   León Montoya, Karissa Meléndez Campos y Sirley Sujey Céspedes Méndez.",
+          "location_or_selector": "Representation chars 4385:4535 (bound by D1-F0661)"
+        },
+        {
+          "exact_text": "SE ACUERDA:\n18   1.",
+          "location_or_selector": "Representation chars 4365:4384 (bound by D1-F0661)"
+        },
+        {
+          "exact_text": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cédulas de cada una de las personas que\n14   conforman la tema, además de las declaraciones juradas y la copia del acta de reunión de\n15   personal.”",
+          "location_or_selector": "Representation chars 3392:4236 (bound by D1-F0661)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 5138:5162 (bound by D1-F0661)"
+        },
+        {
+          "exact_text": "Aceptar la renuncia del señor Wilber Calderón Sibaja y de la señora Dayanna\n 8   Rodríguez Arias.",
+          "location_or_selector": "Representation chars 6131:6228 (bound by D1-F0662)"
+        },
+        {
+          "exact_text": "SE ACUERDA:\n 7   1.",
+          "location_or_selector": "Representation chars 6111:6130 (bound by D1-F0662)"
+        },
+        {
+          "exact_text": "2- Se conoce nota de fecha 15 de mayo de 2026, dirigida al Concejo Municipal de\n29   Esparza, por la Licda. Ana Gricelle Parra Méndez, Directora del CTP de Esparza,\n30   con el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se\n31   transcribe a continuación:\n32   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n33   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n34   propuesta para sustitución de dos miembros de la Junta de Educación del CTP de Esparza,\n35   del Circuito 07, de la Dirección Regional de Educación de Puntarenas, que renunciaron por\n36   asuntos personales.",
+          "location_or_selector": "Representation chars 5183:5854 (bound by D1-F0662)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 6717:6741 (bound by D1-F0662)"
+        }
+      ],
+      "problem": "The C01/C02 finality evidence does not carry the full substitution agreements whose finality the canonical facts assert.",
+      "source_grounded_reason": "Each bound set includes the resignation item, a generic substitution proposal/source-note context, and the approval marker, but omits the operative appointment/notificación/juramentación item 2. Finality of the full “sustituciones” agreement is therefore not semantically supported by the selected evidence.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0001",
+        "D1-IR-0002"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0661",
+          "D1-F0662"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    },
+    {
+      "finding_id": "D1-V2-IR-0023",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C04",
+      "unit_ids": [
+        "U0009"
+      ],
+      "affected_fact_ids": [
+        "D1-F0668"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "SE ACUERDA: Trasladar a la Administración la solicitud del Comité Cantonal de\n25   la Persona Joven de Esparza, con el fin de que les colabore en la medida de las\n26   posibilidades.",
+          "location_or_selector": "Representation chars 10901:11083 (bound by D1-F0668)"
+        },
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "Representation chars 11108:11132 (bound by D1-F0668)"
+        }
+      ],
+      "problem": "The C04 finality evidence does not bind the generic CCPJ request transferred to the Administration to the Campaña de emprendedurismo joven.",
+      "source_grounded_reason": "The selected formal transfer says only “la solicitud del Comité Cantonal de la Persona Joven”; the campaign/mini-feria antecedent is outside the bound evidence, although the canonical finality fact names it.",
+      "relation_to_v1_review": "REPAIR_REGRESSION",
+      "related_v1_finding_ids": [
+        "D1-IR-0008"
+      ],
+      "recommended_resolution": "Advisory only: rebind the fact to the smallest semantically sufficient source evidence and/or make the canonical proposition self-sufficient without changing source meaning; supervising author must decide. Do not mutate D1 v2 in this review.",
+      "relation_components": {
+        "repair_regression_fact_ids": [
+          "D1-F0668"
+        ],
+        "independently_new_v2_defect_fact_ids": [],
+        "note": "This provisional dispute was found before prior-review access. After the anti-anchoring gate opened, one or more affected v2 facts were found to be repair targets for the listed v1 findings. Where independently_new_v2_defect_fact_ids is non-empty, the grouped dispute contains both repair-regression and new affected facts."
+      }
+    }
+  ],
+  "finding_count": 23,
+  "finding_counts_by_direction": {
+    "REFERENCE_TO_SOURCE": 23
+  },
+  "finding_counts_by_issue_type": {
+    "CONTEXT_ERROR": 3,
+    "EVIDENCE_INSUFFICIENT": 19,
+    "SOURCE_FIDELITY_ERROR": 1
+  },
+  "finding_relation_summary": {
+    "new_independently_found_v2_dispute_groups": 5,
+    "repair_regression_dispute_groups": 18,
+    "new_finding_ids": [
+      "D1-V2-IR-0001",
+      "D1-V2-IR-0002",
+      "D1-V2-IR-0005",
+      "D1-V2-IR-0007",
+      "D1-V2-IR-0017"
+    ],
+    "repair_regression_finding_ids": [
+      "D1-V2-IR-0003",
+      "D1-V2-IR-0004",
+      "D1-V2-IR-0006",
+      "D1-V2-IR-0008",
+      "D1-V2-IR-0009",
+      "D1-V2-IR-0010",
+      "D1-V2-IR-0011",
+      "D1-V2-IR-0012",
+      "D1-V2-IR-0013",
+      "D1-V2-IR-0014",
+      "D1-V2-IR-0015",
+      "D1-V2-IR-0016",
+      "D1-V2-IR-0018",
+      "D1-V2-IR-0019",
+      "D1-V2-IR-0020",
+      "D1-V2-IR-0021",
+      "D1-V2-IR-0022",
+      "D1-V2-IR-0023"
+    ]
+  },
+  "prior_v1_regression_matrix": [
+    {
+      "v1_finding_id": "D1-IR-0001",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0661"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0022"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0022. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0002",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0662"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0022"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0022. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0003",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0663"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0004",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0664"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0005",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0665"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0006",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0666"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0007",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0667"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0008",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0668"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0023"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0023. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0009",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0669"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0010",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0670"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0011",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0671"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0012",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0672"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0013",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0673"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0014",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0674"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0015",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0675"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0016",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0676"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0009"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0009. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0017",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0677"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0012"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0012. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0018",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0678"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0019",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0679"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0020",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0680"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0021",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0681"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0022",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0682"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0014"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0014. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0023",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0683"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0015"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0015. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0024",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0684"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0025",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0685"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0016"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0016. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0026",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0686"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0027",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0687"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0018"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0018. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0028",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0688"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0029",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0689"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0020"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0020. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0030",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0690"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0031",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0691"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0032",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0692"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0033",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0693"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0034",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The reference records approval of Acts 158 and 159 but omits the explicit procedural outcomes that no observations were presented when each act was discussed.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0694",
+        "D1-F0695"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0035",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source states that reminder agreements on the PNE-certification issue were repeatedly requested in the prior administration and several times in the current period; no reference fact preserves that institutional-action history.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0696"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0011"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0011. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0036",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "QUALIFIER_ERROR",
+      "v1_problem": "D1-F0343 preserves the remittance to the Presidency but drops the source-stated rationale “considerando la importancia de la ruta”.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0701"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0037",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The reference does not preserve the President’s proposal to copy the Presidency with the additional reason of the recent MOPT minister designation, nor the explicit statement that the Concejo accepted that proposal.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0697",
+        "D1-F0698",
+        "D1-F0701"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0013"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0013. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0038",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The source attributes to Ronald Robles the statement that Minister Carlos Andrés Robles was already carrying out efforts benefiting Puntarenas; the surrounding legislative-project facts do not preserve this current-action assertion.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0699"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0039",
+      "v1_direction": "SOURCE_TO_REFERENCE",
+      "v1_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v1_problem": "The reference says the later agreement occurred “Tras el receso” but omits that the President explicitly decreed a recess of up to five minutes.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0700"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0040",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "D1-F0055 resolves “todo/el proceso” to the pool regulation, but its bound evidence contains only the President’s deictic wording and omits the local antecedent that makes “reglamento de la piscina” source-resolvable.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0055"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0041",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "15 facts in C05 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0055",
+        "D1-F0056",
+        "D1-F0057",
+        "D1-F0098",
+        "D1-F0099",
+        "D1-F0100",
+        "D1-F0101",
+        "D1-F0102",
+        "D1-F0103",
+        "D1-F0104",
+        "D1-F0105",
+        "D1-F0106",
+        "D1-F0107",
+        "D1-F0108",
+        "D1-F0109"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0042",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "9 facts in C06 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132",
+        "D1-F0133",
+        "D1-F0134",
+        "D1-F0135"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0003",
+        "D1-V2-IR-0004"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0003, D1-V2-IR-0004. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0043",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "2 facts in C08 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0006"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0006. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0044",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "4 facts in C12 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0185",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0193"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0008"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0008. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0045",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "14 facts in C13 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0213",
+        "D1-F0214",
+        "D1-F0215",
+        "D1-F0216",
+        "D1-F0217",
+        "D1-F0218",
+        "D1-F0229",
+        "D1-F0230",
+        "D1-F0231",
+        "D1-F0232",
+        "D1-F0233",
+        "D1-F0275",
+        "D1-F0276",
+        "D1-F0277"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0010"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0010. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0046",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "20 facts in U02 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0297",
+        "D1-F0298",
+        "D1-F0299",
+        "D1-F0300",
+        "D1-F0301",
+        "D1-F0302",
+        "D1-F0303",
+        "D1-F0304",
+        "D1-F0305",
+        "D1-F0306",
+        "D1-F0307",
+        "D1-F0308",
+        "D1-F0309",
+        "D1-F0310",
+        "D1-F0311",
+        "D1-F0312",
+        "D1-F0313",
+        "D1-F0314",
+        "D1-F0315",
+        "D1-F0316"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0047",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "7 facts in U06 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0406",
+        "D1-F0407",
+        "D1-F0408",
+        "D1-F0409",
+        "D1-F0410",
+        "D1-F0411",
+        "D1-F0412"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0016"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0016. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0048",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "10 facts in U08 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0440",
+        "D1-F0451",
+        "D1-F0483",
+        "D1-F0484",
+        "D1-F0485",
+        "D1-F0486",
+        "D1-F0487",
+        "D1-F0491",
+        "D1-F0492",
+        "D1-F0493"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0049",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "4 facts in M01 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0503",
+        "D1-F0504",
+        "D1-F0505",
+        "D1-F0513"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0050",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "24 facts in M02 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0552",
+        "D1-F0553",
+        "D1-F0554",
+        "D1-F0555",
+        "D1-F0556",
+        "D1-F0557",
+        "D1-F0558",
+        "D1-F0559",
+        "D1-F0560",
+        "D1-F0561",
+        "D1-F0562",
+        "D1-F0563",
+        "D1-F0564",
+        "D1-F0565",
+        "D1-F0566",
+        "D1-F0567",
+        "D1-F0568",
+        "D1-F0569",
+        "D1-F0570",
+        "D1-F0571",
+        "D1-F0572",
+        "D1-F0573",
+        "D1-F0574",
+        "D1-F0575"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0019"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0019. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0051",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "2 facts in M03 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0590",
+        "D1-F0591"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0052",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "2 facts in M07 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0620",
+        "D1-F0621"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0053",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "3 facts in V02 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0639",
+        "D1-F0640",
+        "D1-F0641"
+      ],
+      "status": "REGRESSED_DIFFERENTLY",
+      "related_v2_review_finding_ids": [
+        "D1-V2-IR-0021"
+      ],
+      "verification_reason": "The v1 defect itself was addressed in v2 (the missing assertion or original attribution/evidence repair is present), but the mapped v2 repair fact(s) have a different blind-pass semantic defect recorded in D1-V2-IR-0021. Therefore the v1 repair cannot be treated as a clean semantic resolution."
+    },
+    {
+      "v1_finding_id": "D1-IR-0054",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "3 decomposed formal-decision facts in C05 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0055",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "1 decomposed formal-decision facts in C06 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0138"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0056",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "6 decomposed formal-decision facts in M01 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0057",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "8 decomposed formal-decision facts in M03 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0058",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "D1-F0650 names the “puente de Mata de Limón” as the project being formally delivered, but its two evidence targets omit the immediately preceding sentence that identifies the project as that bridge.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0650"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0059",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "D1-F0655 states that the motorcycle problem was “por el puente/paradero”, while its bound evidence only states that the problem is eliminating motorcycle passage and does not bind the later bridge/paradero context.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0705"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0060",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v1_problem": "D1-F0656 similarly asks to eliminate motorcycle passage “por el puente/paradero”, but the bound evidence does not identify where the passage occurs.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0706"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    },
+    {
+      "v1_finding_id": "D1-IR-0061",
+      "v1_direction": "REFERENCE_TO_SOURCE",
+      "v1_issue_type": "CONTEXT_ERROR",
+      "v1_problem": "The V05 tail retains generic/deictic referents such as “el proyecto”, “el sitio”, “ese puente” and “ese paradero” across seven canonical notes without consistently resolving the antecedent that makes those propositions self-sufficient.",
+      "adjudication_decision": "ACCEPT",
+      "v2_fact_ids": [
+        "D1-F0702",
+        "D1-F0703",
+        "D1-F0704",
+        "D1-F0705",
+        "D1-F0706",
+        "D1-F0707",
+        "D1-F0708",
+        "D1-F0709",
+        "D1-F0710"
+      ],
+      "status": "RESOLVED_IN_V2",
+      "related_v2_review_finding_ids": [],
+      "verification_reason": "The mapped v2 fact(s) were independently rechecked against the frozen Representation during the 700/700 reverse pass. The original v1 defect is no longer present, and no blind provisional dispute affected these mapped repair facts."
+    }
+  ],
+  "prior_v1_regression_counts": {
+    "RESOLVED_IN_V2": 42,
+    "STILL_PRESENT": 0,
+    "PARTIALLY_RESOLVED": 0,
+    "REGRESSED_DIFFERENTLY": 19,
+    "total": 61
+  },
+  "semantic_verdict": "REFERENCE_DISPUTE",
+  "reference_freeze_status": "NOT_FROZEN_BY_THIS_REVIEW",
+  "timestamp": "2026-08-29T19:17:58+00:00"
+}
