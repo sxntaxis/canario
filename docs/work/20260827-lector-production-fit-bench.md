@@ -280,19 +280,28 @@ F3 is active. Semantic/reference writing is owned by the supervising/cloud autho
 
 Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, references and thresholds remain unfrozen, and production implementation remains unauthorized.
 
-### F3 progress — D3 supervisor draft
+### F3 progress — D3 supervisor draft v2
 
-Under `REFERENCE_PROTOCOL_FREEZE_V2.md`, the supervising/cloud author has authored a source-exhaustive
-D3 semantic reference candidate at
-`notebook/research/lector/fit-bench/references/D3_REFERENCE_SUPERVISOR_DRAFT_V1.json` with a concise
-provenance/status companion. The January 2025 stale regulation remains excluded and all reference
-selectors remain bound to the exact F2 source/Representation/scope/unit identities.
+The cloud-authored D3 v1 draft was mechanically certified unchanged at
+`2e8b1e440eb074ed9fb79b822d617d41b6bd7aa7`: exact source/Representation/scope/unit identities,
+452 selectors, repository checks, and the 341-passed/2-skipped/5-subtest baseline all passed. The
+primary PDF independently confirmed that Article 27 y)/z) is itself malformed/ambiguous rather
+than merely a Representation defect.
 
-The candidate is `SUPERVISOR_DRAFT`, not frozen reference authority. Local mechanical certification
-is the next gate and may not change semantic content. Article 27 y)/z) remains explicitly
-`NEEDS_ADJUDICATION` because the frozen text Representation is malformed there; the local certifier
-may report primary-source evidence but may not guess or author the missing semantics. Independent
-semantic review is still required after mechanical certification.
+The supervising/cloud author then performed a fresh adversarial source→reference and
+reference→source review over all 54 articles and all 294 v1 facts. That review found 48 localized
+semantic/minimality defects and produced
+`references/D3_REFERENCE_SUPERVISOR_DRAFT_V2.json`, with 350 facts. The complete non-independent
+review record is `references/D3_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1.json`. The v1 draft is
+retired from the live tree and remains available in Git history.
 
-Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain
-unfrozen, and production broad-Lector implementation remains unauthorized.
+This author review does **not** satisfy the materially independent semantic-review gate: it was
+performed by the same supervising/cloud author. A small local model must not substitute for that
+gate. Local execution may mechanically certify the exact v2 selectors/hashes/tests and return
+failures unchanged; a later independent big-model review is still required before reference freeze.
+
+Article 27 y)/z) remains explicitly `D3-UQ-0001 / NEEDS_ADJUDICATION`; no semantics are inferred from
+the missing/malformed primary text.
+
+Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds and reference
+remain unfrozen, and production broad-Lector implementation remains unauthorized.
