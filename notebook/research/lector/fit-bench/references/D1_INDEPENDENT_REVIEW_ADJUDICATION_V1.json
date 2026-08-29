@@ -1,0 +1,1258 @@
+{
+  "adjudication_id": "CANARIO-D1-INDEPENDENT-REVIEW-ADJUDICATION-001",
+  "adjudications": [
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0009",
+        "D1-F0010",
+        "D1-F0011",
+        "D1-F0012"
+      ],
+      "v2_fact_ids": [
+        "D1-F0661"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0014",
+        "D1-F0015",
+        "D1-F0016",
+        "D1-F0017"
+      ],
+      "v2_fact_ids": [
+        "D1-F0662"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0003",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0018"
+      ],
+      "v2_fact_ids": [
+        "D1-F0663"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0004",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0019"
+      ],
+      "v2_fact_ids": [
+        "D1-F0664"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0005",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0020"
+      ],
+      "v2_fact_ids": [
+        "D1-F0665"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0006",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0021"
+      ],
+      "v2_fact_ids": [
+        "D1-F0666"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0007",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0022",
+        "D1-F0023",
+        "D1-F0024",
+        "D1-F0025"
+      ],
+      "v2_fact_ids": [
+        "D1-F0667"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0008",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0026"
+      ],
+      "v2_fact_ids": [
+        "D1-F0668"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0009",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0034",
+        "D1-F0035",
+        "D1-F0036",
+        "D1-F0037"
+      ],
+      "v2_fact_ids": [
+        "D1-F0669"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0010",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0110",
+        "D1-F0111",
+        "D1-F0112",
+        "D1-F0113",
+        "D1-F0114",
+        "D1-F0115",
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ],
+      "v2_fact_ids": [
+        "D1-F0670"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0011",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0136",
+        "D1-F0137",
+        "D1-F0138",
+        "D1-F0139"
+      ],
+      "v2_fact_ids": [
+        "D1-F0671"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0012",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0147",
+        "D1-F0148"
+      ],
+      "v2_fact_ids": [
+        "D1-F0672"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0013",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0164"
+      ],
+      "v2_fact_ids": [
+        "D1-F0673"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0014",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0172",
+        "D1-F0173",
+        "D1-F0174"
+      ],
+      "v2_fact_ids": [
+        "D1-F0674"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0015",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0180",
+        "D1-F0181",
+        "D1-F0182"
+      ],
+      "v2_fact_ids": [
+        "D1-F0675"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0016",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0196"
+      ],
+      "v2_fact_ids": [
+        "D1-F0676"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0017",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0278",
+        "D1-F0279"
+      ],
+      "v2_fact_ids": [
+        "D1-F0677"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0018",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0281"
+      ],
+      "v2_fact_ids": [
+        "D1-F0678"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0019",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0283"
+      ],
+      "v2_fact_ids": [
+        "D1-F0679"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0020",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0319",
+        "D1-F0320"
+      ],
+      "v2_fact_ids": [
+        "D1-F0680"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0021",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0325",
+        "D1-F0326",
+        "D1-F0327"
+      ],
+      "v2_fact_ids": [
+        "D1-F0681"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0022",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0342",
+        "D1-F0343"
+      ],
+      "v2_fact_ids": [
+        "D1-F0682"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0023",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0347",
+        "D1-F0348"
+      ],
+      "v2_fact_ids": [
+        "D1-F0683"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0024",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0362"
+      ],
+      "v2_fact_ids": [
+        "D1-F0684"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0025",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0413"
+      ],
+      "v2_fact_ids": [
+        "D1-F0685"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0026",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0420"
+      ],
+      "v2_fact_ids": [
+        "D1-F0686"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0027",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0514",
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ],
+      "v2_fact_ids": [
+        "D1-F0687"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0028",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0576",
+        "D1-F0577"
+      ],
+      "v2_fact_ids": [
+        "D1-F0688"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0029",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0593",
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "v2_fact_ids": [
+        "D1-F0689"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0030",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0604",
+        "D1-F0605",
+        "D1-F0606"
+      ],
+      "v2_fact_ids": [
+        "D1-F0690"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0031",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0608"
+      ],
+      "v2_fact_ids": [
+        "D1-F0691"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0032",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0611",
+        "D1-F0612"
+      ],
+      "v2_fact_ids": [
+        "D1-F0692"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0033",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0622",
+        "D1-F0623",
+        "D1-F0624"
+      ],
+      "v2_fact_ids": [
+        "D1-F0693"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0034",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0005",
+        "D1-F0006"
+      ],
+      "v2_fact_ids": [
+        "D1-F0694",
+        "D1-F0695"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0035",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [],
+      "v2_fact_ids": [
+        "D1-F0696"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0036",
+      "issue_type": "QUALIFIER_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0343"
+      ],
+      "v2_fact_ids": [
+        "D1-F0701"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0037",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0343"
+      ],
+      "v2_fact_ids": [
+        "D1-F0697",
+        "D1-F0698",
+        "D1-F0701"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0038",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [],
+      "v2_fact_ids": [
+        "D1-F0699"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-IR-0039",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0506"
+      ],
+      "v2_fact_ids": [
+        "D1-F0700"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0040",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0055"
+      ],
+      "v2_fact_ids": [
+        "D1-F0055"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0041",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0055",
+        "D1-F0056",
+        "D1-F0057",
+        "D1-F0098",
+        "D1-F0099",
+        "D1-F0100",
+        "D1-F0101",
+        "D1-F0102",
+        "D1-F0103",
+        "D1-F0104",
+        "D1-F0105",
+        "D1-F0106",
+        "D1-F0107",
+        "D1-F0108",
+        "D1-F0109"
+      ],
+      "v2_fact_ids": [
+        "D1-F0055",
+        "D1-F0056",
+        "D1-F0057",
+        "D1-F0098",
+        "D1-F0099",
+        "D1-F0100",
+        "D1-F0101",
+        "D1-F0102",
+        "D1-F0103",
+        "D1-F0104",
+        "D1-F0105",
+        "D1-F0106",
+        "D1-F0107",
+        "D1-F0108",
+        "D1-F0109"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0042",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132",
+        "D1-F0133",
+        "D1-F0134",
+        "D1-F0135"
+      ],
+      "v2_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132",
+        "D1-F0133",
+        "D1-F0134",
+        "D1-F0135"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0043",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ],
+      "v2_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0044",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0185",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0193"
+      ],
+      "v2_fact_ids": [
+        "D1-F0185",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0193"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0045",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0213",
+        "D1-F0214",
+        "D1-F0215",
+        "D1-F0216",
+        "D1-F0217",
+        "D1-F0218",
+        "D1-F0229",
+        "D1-F0230",
+        "D1-F0231",
+        "D1-F0232",
+        "D1-F0233",
+        "D1-F0275",
+        "D1-F0276",
+        "D1-F0277"
+      ],
+      "v2_fact_ids": [
+        "D1-F0213",
+        "D1-F0214",
+        "D1-F0215",
+        "D1-F0216",
+        "D1-F0217",
+        "D1-F0218",
+        "D1-F0229",
+        "D1-F0230",
+        "D1-F0231",
+        "D1-F0232",
+        "D1-F0233",
+        "D1-F0275",
+        "D1-F0276",
+        "D1-F0277"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0046",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0297",
+        "D1-F0298",
+        "D1-F0299",
+        "D1-F0300",
+        "D1-F0301",
+        "D1-F0302",
+        "D1-F0303",
+        "D1-F0304",
+        "D1-F0305",
+        "D1-F0306",
+        "D1-F0307",
+        "D1-F0308",
+        "D1-F0309",
+        "D1-F0310",
+        "D1-F0311",
+        "D1-F0312",
+        "D1-F0313",
+        "D1-F0314",
+        "D1-F0315",
+        "D1-F0316"
+      ],
+      "v2_fact_ids": [
+        "D1-F0297",
+        "D1-F0298",
+        "D1-F0299",
+        "D1-F0300",
+        "D1-F0301",
+        "D1-F0302",
+        "D1-F0303",
+        "D1-F0304",
+        "D1-F0305",
+        "D1-F0306",
+        "D1-F0307",
+        "D1-F0308",
+        "D1-F0309",
+        "D1-F0310",
+        "D1-F0311",
+        "D1-F0312",
+        "D1-F0313",
+        "D1-F0314",
+        "D1-F0315",
+        "D1-F0316"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0047",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0406",
+        "D1-F0407",
+        "D1-F0408",
+        "D1-F0409",
+        "D1-F0410",
+        "D1-F0411",
+        "D1-F0412"
+      ],
+      "v2_fact_ids": [
+        "D1-F0406",
+        "D1-F0407",
+        "D1-F0408",
+        "D1-F0409",
+        "D1-F0410",
+        "D1-F0411",
+        "D1-F0412"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0048",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0440",
+        "D1-F0451",
+        "D1-F0483",
+        "D1-F0484",
+        "D1-F0485",
+        "D1-F0486",
+        "D1-F0487",
+        "D1-F0491",
+        "D1-F0492",
+        "D1-F0493"
+      ],
+      "v2_fact_ids": [
+        "D1-F0440",
+        "D1-F0451",
+        "D1-F0483",
+        "D1-F0484",
+        "D1-F0485",
+        "D1-F0486",
+        "D1-F0487",
+        "D1-F0491",
+        "D1-F0492",
+        "D1-F0493"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0049",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0503",
+        "D1-F0504",
+        "D1-F0505",
+        "D1-F0513"
+      ],
+      "v2_fact_ids": [
+        "D1-F0503",
+        "D1-F0504",
+        "D1-F0505",
+        "D1-F0513"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0050",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0552",
+        "D1-F0553",
+        "D1-F0554",
+        "D1-F0555",
+        "D1-F0556",
+        "D1-F0557",
+        "D1-F0558",
+        "D1-F0559",
+        "D1-F0560",
+        "D1-F0561",
+        "D1-F0562",
+        "D1-F0563",
+        "D1-F0564",
+        "D1-F0565",
+        "D1-F0566",
+        "D1-F0567",
+        "D1-F0568",
+        "D1-F0569",
+        "D1-F0570",
+        "D1-F0571",
+        "D1-F0572",
+        "D1-F0573",
+        "D1-F0574",
+        "D1-F0575"
+      ],
+      "v2_fact_ids": [
+        "D1-F0552",
+        "D1-F0553",
+        "D1-F0554",
+        "D1-F0555",
+        "D1-F0556",
+        "D1-F0557",
+        "D1-F0558",
+        "D1-F0559",
+        "D1-F0560",
+        "D1-F0561",
+        "D1-F0562",
+        "D1-F0563",
+        "D1-F0564",
+        "D1-F0565",
+        "D1-F0566",
+        "D1-F0567",
+        "D1-F0568",
+        "D1-F0569",
+        "D1-F0570",
+        "D1-F0571",
+        "D1-F0572",
+        "D1-F0573",
+        "D1-F0574",
+        "D1-F0575"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0051",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds. The reviewer’s generic roster example was not itself the right identity evidence for Mariela Cruz Pérez; v2 instead binds the exact local GOT-ZLMT-130-2026 author identification, preserving the valid underlying evidence-sufficiency dispute.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0590",
+        "D1-F0591"
+      ],
+      "v2_fact_ids": [
+        "D1-F0590",
+        "D1-F0591"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0052",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0620",
+        "D1-F0621"
+      ],
+      "v2_fact_ids": [
+        "D1-F0620",
+        "D1-F0621"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0053",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0639",
+        "D1-F0640",
+        "D1-F0641"
+      ],
+      "v2_fact_ids": [
+        "D1-F0639",
+        "D1-F0640",
+        "D1-F0641"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0054",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ],
+      "v2_fact_ids": [
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0055",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0138"
+      ],
+      "v2_fact_ids": [
+        "D1-F0138"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0056",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ],
+      "v2_fact_ids": [
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0057",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "v2_fact_ids": [
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0058",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0650"
+      ],
+      "v2_fact_ids": [
+        "D1-F0650"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0059",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0655"
+      ],
+      "v2_fact_ids": [
+        "D1-F0705"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0060",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0656"
+      ],
+      "v2_fact_ids": [
+        "D1-F0706"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-IR-0061",
+      "issue_type": "CONTEXT_ERROR",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "The supervising author independently re-opened the exact frozen Representation and accepted the dispute on source/protocol grounds.",
+      "unresolved": false,
+      "v1_affected_fact_ids": [
+        "D1-F0652",
+        "D1-F0653",
+        "D1-F0654",
+        "D1-F0657",
+        "D1-F0658",
+        "D1-F0659",
+        "D1-F0660"
+      ],
+      "v2_fact_ids": [
+        "D1-F0702",
+        "D1-F0703",
+        "D1-F0704",
+        "D1-F0705",
+        "D1-F0706",
+        "D1-F0707",
+        "D1-F0708",
+        "D1-F0709",
+        "D1-F0710"
+      ]
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.lector.independent-review-adjudication/v1",
+  "independent_review": {
+    "finding_count": 61,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "review_commit": "eaf74f8f65c5f98b79afaa185bc75baa24ac094c",
+    "review_id": "CANARIO-D1-INDEPENDENT-SEMANTIC-REVIEW-001",
+    "verdict": "REFERENCE_DISPUTE"
+  },
+  "leakage": {
+    "a0_a5_runs_started": false,
+    "acta160_semantics_inspected": false,
+    "formal_candidate_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "h2_selected_or_inspected": false,
+    "production_implementation_authorized": false,
+    "thresholds_frozen": false
+  },
+  "reviewed_v1": {
+    "commit": "6aac2af5802996b8c17c612107f6771e0e612318",
+    "reference_sha256": {
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V1.json": "56a485ef4dfc5923ad059c47337f14db608ddd82a6a1f7aef4642b6ec0af625f",
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V1.md": "a75535a4993cdc6ee44482e63624e634ae236a32765c4b075a79b28020af1fc0"
+    },
+    "tree": "130b4a8a50e96ead79fbc8217f5f605fd3c8264b"
+  },
+  "supervising_author_decision": {
+    "accepted": 61,
+    "fresh_mechanical_certification_required": true,
+    "fresh_semantic_review_required": true,
+    "rejected": 0,
+    "unresolved": 0,
+    "v1_requires_revision": true,
+    "v2_reference_id": "CANARIO-D1-REFERENCE-SUPERVISOR-DRAFT-002"
+  },
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}

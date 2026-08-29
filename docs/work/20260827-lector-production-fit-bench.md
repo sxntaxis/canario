@@ -377,3 +377,11 @@ This author review is explicitly non-independent. Local mechanical certification
 is still pending, followed by materially independent big-model semantic review before any D1 freeze. Formal
 A0–A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain unfrozen, and production
 broad-Lector implementation remains unauthorized.
+
+### F3 progress — D1 supervisor draft v2
+
+D1 v1 was mechanically certified unchanged at `6aac2af5802996b8c17c612107f6771e0e612318`. A separate clean-context semantic review committed at `eaf74f8f65c5f98b79afaa185bc75baa24ac094c` then audited all 36 structures, 61 frozen units, 660 facts and 1,240 evidence targets and returned `REFERENCE_DISPUTE` with 61 hard findings. The reviewer was also OpenAI GPT-5.6 Sol, so the review truthfully records `WEAK_OR_UNKNOWN` independence and does not satisfy the strong materially-independent gate.
+
+The supervising/cloud author adjudicated all 61 findings from the exact frozen source: 61 accepted, 0 rejected, 0 unresolved. `references/D1_INDEPENDENT_REVIEW_ADJUDICATION_V1.json` is the canonical resolution record. The resulting `references/D1_REFERENCE_SUPERVISOR_DRAFT_V2.json` contains 700 facts and 1,473 evidence targets across the same 36 carriers and 61 units. The v2 delta restores 40 omitted material assertions, repairs systematic named-speaker and formal-decision evidence, preserves the U04 rationale/proposal/acceptance distinctions, and resolves V05 deictic project/bridge/paradero context to the exact Mata de Limón source context.
+
+D1 v1 is retired from the live reference tree and remains in Git history. D1 v2 is still unfrozen. It requires fresh local mechanical certification and a fresh semantic audit; the prior review cannot certify a reference version it never saw. Formal A0–A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain unfrozen, and production broad-Lector implementation remains unauthorized.
