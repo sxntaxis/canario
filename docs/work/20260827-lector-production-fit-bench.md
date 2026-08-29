@@ -279,3 +279,20 @@ F2 D1-D4 fixture/source/Representation/scope freeze is complete and merged throu
 F3 is active. Semantic/reference writing is owned by the supervising/cloud author. The local execution agent is limited to source-pack access, mechanical evidence/hash validation, repository tests, bundle verification, and exact push unless explicitly authorized otherwise. `REFERENCE_AUTHORING_METHOD_V1.md` records the anti-slop method.
 
 Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, references and thresholds remain unfrozen, and production implementation remains unauthorized.
+
+### F3 progress — D3 supervisor draft
+
+Under `REFERENCE_PROTOCOL_FREEZE_V2.md`, the supervising/cloud author has authored a source-exhaustive
+D3 semantic reference candidate at
+`notebook/research/lector/fit-bench/references/D3_REFERENCE_SUPERVISOR_DRAFT_V1.json` with a concise
+provenance/status companion. The January 2025 stale regulation remains excluded and all reference
+selectors remain bound to the exact F2 source/Representation/scope/unit identities.
+
+The candidate is `SUPERVISOR_DRAFT`, not frozen reference authority. Local mechanical certification
+is the next gate and may not change semantic content. Article 27 y)/z) remains explicitly
+`NEEDS_ADJUDICATION` because the frozen text Representation is malformed there; the local certifier
+may report primary-source evidence but may not guess or author the missing semantics. Independent
+semantic review is still required after mechanical certification.
+
+Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain
+unfrozen, and production broad-Lector implementation remains unauthorized.
