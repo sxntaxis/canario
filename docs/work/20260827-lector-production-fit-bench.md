@@ -305,3 +305,43 @@ the missing/malformed primary text.
 
 Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds and reference
 remain unfrozen, and production broad-Lector implementation remains unauthorized.
+
+### F3 progress — D4 supervisor draft v2
+
+The cloud-authored D4 v1 draft was mechanically certified unchanged at
+`c4fddeca4996254b6c8609ee586a1ad695c9f5f3`: exact source/Representation/scope/unit identities,
+187 selectors, repository checks, and the 341-passed/2-skipped/5-subtest baseline all passed. That
+mechanical certification also returned exact primary-PDF evidence establishing that paragraph 2.13
+contains `10` followed by superscript footnote marker `4`, not the quantity `104` produced by the
+linear text Representation. D4 v1 is therefore preserved in Git evidence but is **not mergeable** as
+semantic reference authority.
+
+The supervising/cloud author rebuilt and re-audited D4 from the complete frozen scope. The final
+`references/D4_REFERENCE_SUPERVISOR_DRAFT_V2.json` contains 289 facts, 368 evidence targets, 150
+structure carriers and complete accounting for all 260 frozen units. The accompanying
+`references/D4_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1.json` records 98 findings across four
+source-order/omission/reverse-semantic/primary-source passes. No semantic structures remain
+unresolved after two primary-source adjudications.
+
+`D4-PSA-0001` resolves the footnote-4 extraction artifact from the exact frozen primary PDF: 10
+exception procedures, broken down 5 provider-unique + 4 indeterminate repairs + 1 artistic/cultural/
+intellectual goods or services. `D4-PSA-0002` preserves an internal source wording conflict for the
+same 9-case finding: the executive summary says `acto motivado`, while Cuadro n.° 2 visibly prints
+`activo motivado`. The latter remains `AMB-01`/`REC-01` evidence rather than being silently corrected.
+Exact byte-identical confirmation of that table wording in the frozen source-pack PDF is still a local
+mechanical certification check; local execution may report literal evidence but may not alter D4
+semantics.
+
+The author-time D4-v2 quality audit reports zero empty evidence, scope escapes, unknown capabilities,
+unaccounted units/structures, generic qualifier placeholders, generic/blank reverse-audit notes,
+all-15 capability templates, FID-01 bindings, or material carriers without facts. A final selector-
+boundary pass also found zero selectors beginning or ending inside a word. Local execution must still
+reopen all 368 selectors against the exact frozen source pack and run repository tests before the v2
+candidate can be published.
+
+This author review is explicitly **not materially independent**. A later independent big-model
+semantic review remains required before D4 can freeze; a small local model must not substitute for
+that gate.
+
+Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds and references
+remain unfrozen, and production broad-Lector implementation remains unauthorized.
