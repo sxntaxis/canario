@@ -1,0 +1,1787 @@
+{
+  "format": "canario.lector.independent-semantic-review/v1",
+  "review_id": "CANARIO-D1-INDEPENDENT-SEMANTIC-REVIEW-001",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "reviewed_candidate": {
+    "commit": "6aac2af5802996b8c17c612107f6771e0e612318",
+    "parent": "b92f0132269c9cf90439d948f85f5ab78f60d68c",
+    "tree": "130b4a8a50e96ead79fbc8217f5f605fd3c8264b",
+    "reference_state": "SUPERVISOR_DRAFT",
+    "reviewed_reference_sha256": {
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V1.json": "56a485ef4dfc5923ad059c47337f14db608ddd82a6a1f7aef4642b6ec0af625f",
+      "D1_REFERENCE_SUPERVISOR_DRAFT_V1.md": "a75535a4993cdc6ee44482e63624e634ae236a32765c4b075a79b28020af1fc0"
+    },
+    "supervising_author_review_sha256": {
+      "D1_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1.json": "89ae61aca3e1cf40f3cb812d2849210773355630074d46ea4f480b8137fd9bee",
+      "D1_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1.md": "ba34c88ecc2ca2ae43e057e40c26dfa5e094269e8e366800dd565128b7aa027e"
+    }
+  },
+  "fixture_identity": {
+    "primary_pdf_sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd",
+    "primary_pdf_bytes": 760485,
+    "representation_kind": "text/plain",
+    "representation_processor": "poppler.pdf_text",
+    "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+    "representation_bytes": 154866,
+    "representation_characters": 151940,
+    "scope": "full_source_order",
+    "scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+    "unit_inventory_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+    "frozen_unit_count": 61,
+    "recovery_archive_sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf"
+  },
+  "reviewer": {
+    "provider": "OpenAI",
+    "model": "GPT-5.6 Sol",
+    "model_version": "GPT-5.6 Sol",
+    "human_role": null,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false,
+    "reason": "The supervising reference author was also OpenAI GPT-5.6 Sol; a separate session/process does not create material provider/model-family independence."
+  },
+  "leakage_declaration": {
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false
+  },
+  "coverage": {
+    "source_to_reference_full_scope_completed": true,
+    "reference_to_source_all_facts_completed": true,
+    "structures_reviewed": 36,
+    "structures_total": 36,
+    "units_reviewed": 61,
+    "units_total": 61,
+    "facts_reviewed": 660,
+    "facts_total": 660,
+    "evidence_targets_reviewed": 1240,
+    "evidence_targets_total": 1240,
+    "U0007_independent_classification": "NO_MATERIAL_CIVIC_FACT_CONFIRMED_PAGE_MARKER_ONLY"
+  },
+  "independent_pass_provenance": {
+    "provisional_findings_persisted_before_supervising_self_review": true,
+    "provisional_findings_sha256": "944b6221e330a73d5d6839692433cde7b6df7f2b4398e8ea7cff4029605449a8",
+    "provisional_finding_count": 61,
+    "supervising_self_review_read_after_provisional_pass": true,
+    "supervising_self_review_finding_count": 38,
+    "comparison_result": "The supervising self-review did not disprove any independent dispute from exact source evidence. It documented earlier repairs, including several evidence-context repairs, but the frozen candidate still contains the disputes listed here. The independent pass additionally identified systematic omitted unanimous/finality outcomes and unresolved evidence-attribution/context defects not reported as surviving defects by the supervising review."
+  },
+  "finding_inventory": [
+    {
+      "finding_id": "D1-IR-0001",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C01",
+      "unit_ids": [
+        "U0006"
+      ],
+      "affected_fact_ids": [
+        "D1-F0009",
+        "D1-F0010",
+        "D1-F0011",
+        "D1-F0012"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 5138:5162"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0002",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C02",
+      "unit_ids": [
+        "U0008"
+      ],
+      "affected_fact_ids": [
+        "D1-F0014",
+        "D1-F0015",
+        "D1-F0016",
+        "D1-F0017"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 6717:6741"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0003",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C03",
+      "unit_ids": [
+        "U0008"
+      ],
+      "affected_fact_ids": [
+        "D1-F0018"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR\n32        UNANIMIDAD.",
+          "location_or_selector": "representation chars 8016:8050"
+        }
+      ],
+      "problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0004",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C03",
+      "unit_ids": [
+        "U0008"
+      ],
+      "affected_fact_ids": [
+        "D1-F0019"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 8683:8707"
+        }
+      ],
+      "problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0005",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C03",
+      "unit_ids": [
+        "U0009"
+      ],
+      "affected_fact_ids": [
+        "D1-F0020"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 9347:9371"
+        }
+      ],
+      "problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0006",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C03",
+      "unit_ids": [
+        "U0009"
+      ],
+      "affected_fact_ids": [
+        "D1-F0021"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 9750:9774"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0007",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C04",
+      "unit_ids": [
+        "U0009"
+      ],
+      "affected_fact_ids": [
+        "D1-F0022",
+        "D1-F0023",
+        "D1-F0024",
+        "D1-F0025"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR\n23   UNANIMIDAD.",
+          "location_or_selector": "representation chars 10825:10854"
+        }
+      ],
+      "problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0008",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C04",
+      "unit_ids": [
+        "U0009"
+      ],
+      "affected_fact_ids": [
+        "D1-F0026"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 11108:11132"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0009",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0011"
+      ],
+      "affected_fact_ids": [
+        "D1-F0034",
+        "D1-F0035",
+        "D1-F0036",
+        "D1-F0037"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 14022:14046"
+        }
+      ],
+      "problem": "The source explicitly records a quoted prior/committee unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0010",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ],
+      "affected_fact_ids": [
+        "D1-F0110",
+        "D1-F0111",
+        "D1-F0112",
+        "D1-F0113",
+        "D1-F0114",
+        "D1-F0115",
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 29735:29759"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0011",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0019"
+      ],
+      "affected_fact_ids": [
+        "D1-F0136",
+        "D1-F0137",
+        "D1-F0138",
+        "D1-F0139"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 33950:33974"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0012",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C07",
+      "unit_ids": [
+        "U0020"
+      ],
+      "affected_fact_ids": [
+        "D1-F0147",
+        "D1-F0148"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 35848:35872"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0013",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C09",
+      "unit_ids": [
+        "U0022"
+      ],
+      "affected_fact_ids": [
+        "D1-F0164"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 40794:40818"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0014",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C10",
+      "unit_ids": [
+        "U0024"
+      ],
+      "affected_fact_ids": [
+        "D1-F0172",
+        "D1-F0173",
+        "D1-F0174"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 42857:42881"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0015",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C11",
+      "unit_ids": [
+        "U0024"
+      ],
+      "affected_fact_ids": [
+        "D1-F0180",
+        "D1-F0181",
+        "D1-F0182"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 45167:45191"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0016",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C12",
+      "unit_ids": [
+        "U0025"
+      ],
+      "affected_fact_ids": [
+        "D1-F0196"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO\n24   POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 47973:48002"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0017",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0032"
+      ],
+      "affected_fact_ids": [
+        "D1-F0278",
+        "D1-F0279"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 69215:69239"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0018",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C14",
+      "unit_ids": [
+        "U0032"
+      ],
+      "affected_fact_ids": [
+        "D1-F0281"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 69913:69937"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0019",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U01",
+      "unit_ids": [
+        "U0033"
+      ],
+      "affected_fact_ids": [
+        "D1-F0283"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 71023:71047"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0020",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U02",
+      "unit_ids": [
+        "U0035"
+      ],
+      "affected_fact_ids": [
+        "D1-F0319",
+        "D1-F0320"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO\n15   POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 78919:78948"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0021",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U03",
+      "unit_ids": [
+        "U0035"
+      ],
+      "affected_fact_ids": [
+        "D1-F0325",
+        "D1-F0326",
+        "D1-F0327"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 80569:80593"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0022",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0037"
+      ],
+      "affected_fact_ids": [
+        "D1-F0342",
+        "D1-F0343"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 83417:83441"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0023",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0038"
+      ],
+      "affected_fact_ids": [
+        "D1-F0347",
+        "D1-F0348"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 85067:85091"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0024",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U05",
+      "unit_ids": [
+        "U0039"
+      ],
+      "affected_fact_ids": [
+        "D1-F0362"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 88345:88369"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0025",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0043"
+      ],
+      "affected_fact_ids": [
+        "D1-F0413"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 99303:99327"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0026",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U07",
+      "unit_ids": [
+        "U0043"
+      ],
+      "affected_fact_ids": [
+        "D1-F0420"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 100682:100706"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0027",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ],
+      "affected_fact_ids": [
+        "D1-F0514",
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 123728:123752"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0028",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M02",
+      "unit_ids": [
+        "U0056"
+      ],
+      "affected_fact_ids": [
+        "D1-F0576",
+        "D1-F0577"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO\n45   POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 136971:137000"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0029",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M03",
+      "unit_ids": [
+        "U0059"
+      ],
+      "affected_fact_ids": [
+        "D1-F0593",
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 142007:142031"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0030",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M04",
+      "unit_ids": [
+        "U0059"
+      ],
+      "affected_fact_ids": [
+        "D1-F0604",
+        "D1-F0605",
+        "D1-F0606"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO\n16   POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 142849:142878"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0031",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M05",
+      "unit_ids": [
+        "U0059"
+      ],
+      "affected_fact_ids": [
+        "D1-F0608"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 143569:143593"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0032",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M06",
+      "unit_ids": [
+        "U0059"
+      ],
+      "affected_fact_ids": [
+        "D1-F0611",
+        "D1-F0612"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR UNANIMIDAD.",
+          "location_or_selector": "representation chars 144654:144678"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0033",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M07",
+      "unit_ids": [
+        "U0060"
+      ],
+      "affected_fact_ids": [
+        "D1-F0622",
+        "D1-F0623",
+        "D1-F0624"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "APROBADO POR\n 9   UNANIMIDAD.",
+          "location_or_selector": "representation chars 146195:146224"
+        }
+      ],
+      "problem": "The source explicitly records a current-session unanimous/final approval outcome for this decision, but the mapped reference facts preserve the operative content without that vote/finality outcome.",
+      "source_grounded_reason": "The frozen semantic target explicitly includes votes, approvals, and procedural outcomes. The source-visible unanimous/final approval changes the procedural status and is not an exact duplicate with no added qualifier/status.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0034",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "ACT",
+      "unit_ids": [
+        "U0001"
+      ],
+      "affected_fact_ids": [
+        "D1-F0005",
+        "D1-F0006"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "No se presenta ninguna observación.",
+          "location_or_selector": "representation chars 2751:2786"
+        },
+        {
+          "exact_text": "No se presenta ninguna observación.",
+          "location_or_selector": "representation chars 3112:3147"
+        }
+      ],
+      "problem": "The reference records approval of Acts 158 and 159 but omits the explicit procedural outcomes that no observations were presented when each act was discussed.",
+      "source_grounded_reason": "An explicit no-objection/no-observation result is a source-stated procedural outcome and adds status beyond the approval vote itself.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0035",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0031"
+      ],
+      "affected_fact_ids": [],
+      "source_evidence": [
+        {
+          "exact_text": "constantemente se solicitaban acuerdos recordatorios relacionados con ese\n 7   tema, y en este período también se ha hecho en varias ocasiones.",
+          "location_or_selector": "representation chars 62776:62919"
+        }
+      ],
+      "problem": "The source states that reminder agreements on the PNE-certification issue were repeatedly requested in the prior administration and several times in the current period; no reference fact preserves that institutional-action history.",
+      "source_grounded_reason": "This is an explicit occurrence/status statement about repeated institutional operations with temporal attribution, not ceremonial or navigation text.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0036",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "QUALIFIER_ERROR",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0037"
+      ],
+      "affected_fact_ids": [
+        "D1-F0343"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "remitir copia a la Presidencia de la República,\n20   considerando la importancia de la ruta.",
+          "location_or_selector": "representation chars 83295:83387"
+        }
+      ],
+      "problem": "D1-F0343 preserves the remittance to the Presidency but drops the source-stated rationale “considerando la importancia de la ruta”.",
+      "source_grounded_reason": "The formal agreement itself states the reason; removing a meaning-bearing reason/status context loses source information used to explain why that disposition was taken.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0037",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U04",
+      "unit_ids": [
+        "U0037"
+      ],
+      "affected_fact_ids": [
+        "D1-F0343"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Asimismo,\n15   propone remitir copia a la Presidencia de la República, considerando la importancia\n16   de la ruta y la reciente designación del nuevo Ministro de Obras Públicas y\n17   Transportes. La propuesta es acogida por el Concejo.",
+          "location_or_selector": "representation chars 82939:83176"
+        }
+      ],
+      "problem": "The reference does not preserve the President’s proposal to copy the Presidency with the additional reason of the recent MOPT minister designation, nor the explicit statement that the Concejo accepted that proposal.",
+      "source_grounded_reason": "The source adds both actor-attributed proposal context and a procedural acceptance outcome; the later formal agreement does not restate the “recent designation” reason.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0038",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0039"
+      ],
+      "affected_fact_ids": [],
+      "source_evidence": [
+        {
+          "exact_text": "agradece al señor Ministro Carlos Andrés Robles por las gestiones que,\n51   según manifiesta, ya está realizando en beneficio de la provincia de Puntarenas.",
+          "location_or_selector": "representation chars 89527:89683"
+        }
+      ],
+      "problem": "The source attributes to Ronald Robles the statement that Minister Carlos Andrés Robles was already carrying out efforts benefiting Puntarenas; the surrounding legislative-project facts do not preserve this current-action assertion.",
+      "source_grounded_reason": "This is an explicit attributed action/status statement about a public official and province, independent of the separate claim that legislative files would return to the legislative stream.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0039",
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ],
+      "affected_fact_ids": [
+        "D1-F0506"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Presidente Municipal: Decreta un receso de hasta cinco minutos.",
+          "location_or_selector": "representation chars 121597:121664"
+        }
+      ],
+      "problem": "The reference says the later agreement occurred “Tras el receso” but omits that the President explicitly decreed a recess of up to five minutes.",
+      "source_grounded_reason": "The decree is a source-stated procedural action with a bounded duration; it is not closing boilerplate or page furniture.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0040",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0013"
+      ],
+      "affected_fact_ids": [
+        "D1-F0055"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Señor Presidente Municipal: Solicitamos que se le dé respuesta a la Contraloría,\n44   porque todo se hizo en su debido tiempo, se revisó todo y, en este momento, lo\n45   que tiene prácticamente detenido el proceso es la publicación a nivel de la Imprenta\n46   Nacional.",
+          "location_or_selector": "representation chars 17086:17355"
+        },
+        {
+          "exact_text": " Entonces, que se les notifique a ellos. Adelante, don Ronald.\n47   Regidor suplente Ronald Robles Arley: Es muy importante que esto le quede claro\n48   a todo el pueblo y a todas las p",
+          "location_or_selector": "representation chars 17355:17540"
+        }
+      ],
+      "problem": "D1-F0055 resolves “todo/el proceso” to the pool regulation, but its bound evidence contains only the President’s deictic wording and omits the local antecedent that makes “reglamento de la piscina” source-resolvable.",
+      "source_grounded_reason": "The protocol permits canonical antecedent resolution only when the evidence set also supports that resolution; the selected target alone does not identify the reviewed matter as the pool regulation.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0041",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0013",
+        "U0016",
+        "U0017"
+      ],
+      "affected_fact_ids": [
+        "D1-F0055",
+        "D1-F0056",
+        "D1-F0057",
+        "D1-F0098",
+        "D1-F0099",
+        "D1-F0100",
+        "D1-F0101",
+        "D1-F0102",
+        "D1-F0103",
+        "D1-F0104",
+        "D1-F0105",
+        "D1-F0106",
+        "D1-F0107",
+        "D1-F0108",
+        "D1-F0109"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Señor Presidente Municipal: Solicitamos que se le dé respuesta a la Contraloría,\n44   porque todo se hizo en su debido tiempo, se revisó todo y, en este momento, lo\n45   que tiene prácticamente detenido el proceso es la publicación a nivel de la Imprenta\n46   Nacional.",
+          "location_or_selector": "representation chars 17086:17355"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "15 facts in C05 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 15
+    },
+    {
+      "finding_id": "D1-IR-0042",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0018",
+        "U0019"
+      ],
+      "affected_fact_ids": [
+        "D1-F0122",
+        "D1-F0128",
+        "D1-F0129",
+        "D1-F0130",
+        "D1-F0131",
+        "D1-F0132",
+        "D1-F0133",
+        "D1-F0134",
+        "D1-F0135"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Presidente Municipal: Tal vez es importante también brindar una respuesta por\n13   medio de la Secretaría del Concejo, indicándole que ya tenemos un evento\n14   programado para el 12 de junio, el cual fue organizado con anticipación, donde se\n15   le realizará un reconocimiento.",
+          "location_or_selector": "representation chars 30803:31086"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "9 facts in C06 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 9
+    },
+    {
+      "finding_id": "D1-IR-0043",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C08",
+      "unit_ids": [
+        "U0021",
+        "U0022"
+      ],
+      "affected_fact_ids": [
+        "D1-F0155",
+        "D1-F0158"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "El señor presidente Municipal confirma su asistencia y se da por recibida la\n50   invitación.",
+          "location_or_selector": "representation chars 37952:38045"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "2 facts in C08 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 2
+    },
+    {
+      "finding_id": "D1-IR-0044",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C12",
+      "unit_ids": [
+        "U0024",
+        "U0025"
+      ],
+      "affected_fact_ids": [
+        "D1-F0185",
+        "D1-F0191",
+        "D1-F0192",
+        "D1-F0193"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Presidente Municipal: Esto surge a raíz de la solicitud para que el cantón sea\n52   considerado como sede en la próxima edición del Festival Nacional de Folclor de\n53   Costa Rica.",
+          "location_or_selector": "representation chars 46155:46339"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "4 facts in C12 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 4
+    },
+    {
+      "finding_id": "D1-IR-0045",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0027",
+        "U0028",
+        "U0029",
+        "U0032"
+      ],
+      "affected_fact_ids": [
+        "D1-F0213",
+        "D1-F0214",
+        "D1-F0215",
+        "D1-F0216",
+        "D1-F0217",
+        "D1-F0218",
+        "D1-F0229",
+        "D1-F0230",
+        "D1-F0231",
+        "D1-F0232",
+        "D1-F0233",
+        "D1-F0275",
+        "D1-F0276",
+        "D1-F0277"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "De igual forma, corresponde reconocer públicamente el trabajo y compromiso del\n42   señor síndico Douglas Arce Solís durante el tiempo en que participó en la Comisión\n43   Especial de Zona Marítimo Terrestre.",
+          "location_or_selector": "representation chars 53360:53568"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "14 facts in C13 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 14
+    },
+    {
+      "finding_id": "D1-IR-0046",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U02",
+      "unit_ids": [
+        "U0034"
+      ],
+      "affected_fact_ids": [
+        "D1-F0297",
+        "D1-F0298",
+        "D1-F0299",
+        "D1-F0300",
+        "D1-F0301",
+        "D1-F0302",
+        "D1-F0303",
+        "D1-F0304",
+        "D1-F0305",
+        "D1-F0306",
+        "D1-F0307",
+        "D1-F0308",
+        "D1-F0309",
+        "D1-F0310",
+        "D1-F0311",
+        "D1-F0312",
+        "D1-F0313",
+        "D1-F0314",
+        "D1-F0315",
+        "D1-F0316"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Efectivamente, la delincuencia ha venido creciendo de manera acelerada y, para\n 4   nadie es un secreto, que también utilizan la tecnología para su beneficio.",
+          "location_or_selector": "representation chars 74085:74243"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "20 facts in U02 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 20
+    },
+    {
+      "finding_id": "D1-IR-0047",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0039",
+        "U0043"
+      ],
+      "affected_fact_ids": [
+        "D1-F0406",
+        "D1-F0407",
+        "D1-F0408",
+        "D1-F0409",
+        "D1-F0410",
+        "D1-F0411",
+        "D1-F0412"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Alcalde: Veintinueve o treinta.",
+          "location_or_selector": "representation chars 98136:98171"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "7 facts in U06 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 7
+    },
+    {
+      "finding_id": "D1-IR-0048",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0044",
+        "U0045",
+        "U0046",
+        "U0049",
+        "U0050"
+      ],
+      "affected_fact_ids": [
+        "D1-F0440",
+        "D1-F0451",
+        "D1-F0483",
+        "D1-F0484",
+        "D1-F0485",
+        "D1-F0486",
+        "D1-F0487",
+        "D1-F0491",
+        "D1-F0492",
+        "D1-F0493"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Procedemos entonces, por medio de la\n42   Secretaría del Concejo, a emitir la nota al ICODER.",
+          "location_or_selector": "representation chars 104991:105084"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "10 facts in U08 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 10
+    },
+    {
+      "finding_id": "D1-IR-0049",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ],
+      "affected_fact_ids": [
+        "D1-F0503",
+        "D1-F0504",
+        "D1-F0505",
+        "D1-F0513"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sr. Alcalde: La recomendación sería extender el plazo hasta el 15 de junio para\n16   que las instituciones puedan ponerse al día y beneficiarse de esos recursos,\n17   Esta solicitud fue remitida por la Gestión de Desarrollo Humano Local.",
+          "location_or_selector": "representation chars 121354:121591"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "4 facts in M01 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 4
+    },
+    {
+      "finding_id": "D1-IR-0050",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M02",
+      "unit_ids": [
+        "U0055",
+        "U0056"
+      ],
+      "affected_fact_ids": [
+        "D1-F0552",
+        "D1-F0553",
+        "D1-F0554",
+        "D1-F0555",
+        "D1-F0556",
+        "D1-F0557",
+        "D1-F0558",
+        "D1-F0559",
+        "D1-F0560",
+        "D1-F0561",
+        "D1-F0562",
+        "D1-F0563",
+        "D1-F0564",
+        "D1-F0565",
+        "D1-F0566",
+        "D1-F0567",
+        "D1-F0568",
+        "D1-F0569",
+        "D1-F0570",
+        "D1-F0571",
+        "D1-F0572",
+        "D1-F0573",
+        "D1-F0574",
+        "D1-F0575"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Señor Alcalde: Han sido reiterativas en este Concejo las solicitudes planteadas por\n46   el señor Auditor.",
+          "location_or_selector": "representation chars 132919:133025"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "24 facts in M02 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 24
+    },
+    {
+      "finding_id": "D1-IR-0051",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M03",
+      "unit_ids": [
+        "U0057"
+      ],
+      "affected_fact_ids": [
+        "D1-F0590",
+        "D1-F0591"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Se le notifique a la señora Natalia Araya Freeman al correo electrónico\n36   nataliaarayafreeman@gmail.com con copia a la unidad de la Zona Litoral para que la misma\n37   conste dentro del expediente administrativo.”",
+          "location_or_selector": "representation chars 140164:140380"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "2 facts in M03 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 2
+    },
+    {
+      "finding_id": "D1-IR-0052",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M07",
+      "unit_ids": [
+        "U0060"
+      ],
+      "affected_fact_ids": [
+        "D1-F0620",
+        "D1-F0621"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Señor Presidente Municipal: Se recibe entonces la solicitud del señor Alcalde, por\n 2   medio de don Douglas, para tenerlos por acá y entregarles un reconocimiento, en\n 3   la próxima sesión, según lo valore doña Verónica, tanto al entrenador como a los\n 4   jugadores.",
+          "location_or_selector": "representation chars 145621:145890"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "2 facts in M07 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 2
+    },
+    {
+      "finding_id": "D1-IR-0053",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "V02",
+      "unit_ids": [
+        "U0060"
+      ],
+      "affected_fact_ids": [
+        "D1-F0639",
+        "D1-F0640",
+        "D1-F0641"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Yo creo que eso lo valoramos\n36   después y, por medio de WhatsApp, hacemos la notificación para ponernos de\n37   acuerdo.",
+          "location_or_selector": "representation chars 148081:148203"
+        },
+        {
+          "exact_text": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro Antonio\n18   Barrantes Araya, Carlos Ernesto Zamora Benavides, Rebeca Salas Aguilar, Karen\n19   Raquel González Barrantes, Saviney Arlen Morales Segura.\n20   Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.\n23   ",
+          "location_or_selector": "representation chars 518:1553"
+        }
+      ],
+      "problem": "3 facts in V02 resolve a role-only or otherwise underidentified speaker in their selected statement evidence to a named person, but their evidence target sets do not bind the roster/local speaker-identification evidence needed for that named attribution.",
+      "source_grounded_reason": "The reference protocol requires evidence to support every mandatory attribution and required antecedent. A canonical name can resolve a role only when the bound evidence set also supports that resolution.",
+      "recommended_resolution": "advisory only; do not mutate the reference",
+      "affected_instance_count": 3
+    },
+    {
+      "finding_id": "D1-IR-0054",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ],
+      "affected_fact_ids": [
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Remitir copia a la\n47   Auditoría Interna y la Contraloría de Servicios de esta Municipalidad, con el fin de\n48   que le brinden respuesta al denunciante, en caso de tener conocimiento.",
+          "location_or_selector": "representation chars 29520:29705"
+        },
+        {
+          "exact_text": "SE ACUERDA: Dar por recibido el oficio N° 05687 (DFOE-DEC-1553) de la\n40   Contraloría General de la República y se le comunica que este Concejo Municipal\n41   ha cumplido con los plazos establecidos y ha realizado el tr",
+          "location_or_selector": "representation chars 28891:29111"
+        }
+      ],
+      "problem": "3 decomposed formal-decision facts in C05 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "source_grounded_reason": "The operative fragments support their objects/actions but not, by themselves, the complete proposition that these were dispositions of the Concejo. The protocol expressly requires semantically sufficient evidence for attribution and modality.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0055",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0019"
+      ],
+      "affected_fact_ids": [
+        "D1-F0138"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Asimismo, se solicita a la Administración realizar la publicación\n50   en la página oficial de la Municipalidad para informar al pueblo de Esparza sobre\n51   la actividad programada para el próximo 12 de junio.",
+          "location_or_selector": "representation chars 33671:33881"
+        },
+        {
+          "exact_text": "SE ACUERDA: Informar a el MSc. Douglas Salazar Cortés que el acuerdo\n47   respectivo ya se había adoptado en la sesión extraordinaria celebrada el 04 de\n48   febrero de dos mil veintiséis, Acta N° 139-2026 y el acto públ",
+          "location_or_selector": "representation chars 33405:33625"
+        }
+      ],
+      "problem": "1 decomposed formal-decision facts in C06 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "source_grounded_reason": "The operative fragments support their objects/actions but not, by themselves, the complete proposition that these were dispositions of the Concejo. The protocol expressly requires semantically sufficient evidence for attribution and modality.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0056",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ],
+      "affected_fact_ids": [
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Asimismo, que la\n38   Administración haga llegar a los dos asesores supervisores de los dos circuitos\n39   educativos de Esparza, la información correspondiente, que se les adjunte el\n40   reglamento y toda la documentación necesaria, con el fin de que den el debido\n41   seguimiento al cumplimiento de este requisito por parte de los centros educativos.",
+          "location_or_selector": "representation chars 123109:123463"
+        },
+        {
+          "exact_text": "SE ACUERDA: Trasladar nuevamente el oficio AME-GDHL-011-2026 a la\n36   Administración, con el fin de solicitar un criterio jurídico por parte de los abogados\n37   de la Administración respecto a la prórroga solicitada. A",
+          "location_or_selector": "representation chars 122890:123110"
+        }
+      ],
+      "problem": "6 decomposed formal-decision facts in M01 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "source_grounded_reason": "The operative fragments support their objects/actions but not, by themselves, the complete proposition that these were dispositions of the Concejo. The protocol expressly requires semantically sufficient evidence for attribution and modality.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0057",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "M03",
+      "unit_ids": [
+        "U0056",
+        "U0057",
+        "U0058",
+        "U0059"
+      ],
+      "affected_fact_ids": [
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0600",
+        "D1-F0601"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Mantener el otorgamiento del permiso de uso de suelo a título precario conforme\n46   al acuerdo N°72-2025 de Sesión Ordinaria, articulo VI, inciso 3 de fecha 24 de\n47   marzo del 2025 en donde se autorizó el permiso de uso de suelo.",
+          "location_or_selector": "representation chars 140901:141133"
+        },
+        {
+          "exact_text": "SE ACUERDA: De conformidad con la nota AME-358-2026 de la Alcaldía, acoger\n42   el criterio técnico y la recomendación de la Licda. Mariela Cruz Pérez, Analista\n43   Profesional de Zona Litoral y Marítimo Terrestre, medi",
+          "location_or_selector": "representation chars 140615:140835"
+        }
+      ],
+      "problem": "8 decomposed formal-decision facts in M03 attribute the operative subclauses to the Concejo, but their selected evidence targets begin inside the agreement and omit the “SE ACUERDA” context that establishes the formal actor/status.",
+      "source_grounded_reason": "The operative fragments support their objects/actions but not, by themselves, the complete proposition that these were dispositions of the Concejo. The protocol expressly requires semantically sufficient evidence for attribution and modality.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0058",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "V05",
+      "unit_ids": [
+        "U0061"
+      ],
+      "affected_fact_ids": [
+        "D1-F0650"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Esperamos ya el acto oficial para entregar debidamente el proyecto.",
+          "location_or_selector": "representation chars 150417:150484"
+        },
+        {
+          "exact_text": "Síndico Douglas Arce Solís: Era para darles una buena noticia a todos los\n12   habitantes del cantón de Esparza y, sobre todo, al distrito de Caldera y a los turistas\n13   que nos visitan.",
+          "location_or_selector": "representation chars 150144:150332"
+        }
+      ],
+      "problem": "D1-F0650 names the “puente de Mata de Limón” as the project being formally delivered, but its two evidence targets omit the immediately preceding sentence that identifies the project as that bridge.",
+      "source_grounded_reason": "The selected sentence says only “el proyecto”; the canonical antecedent resolution is source-plausible but not supported by the bound evidence set.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0059",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "V05",
+      "unit_ids": [
+        "U0061"
+      ],
+      "affected_fact_ids": [
+        "D1-F0655"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sin embargo, tenemos un problema grave que debemos atender pronto, señor\n25   Alcalde, y es eliminar el paso de motocicletas.",
+          "location_or_selector": "representation chars 151019:151144"
+        },
+        {
+          "exact_text": "Síndico Douglas Arce Solís: Era para darles una buena noticia a todos los\n12   habitantes del cantón de Esparza y, sobre todo, al distrito de Caldera y a los turistas\n13   que nos visitan.",
+          "location_or_selector": "representation chars 150144:150332"
+        }
+      ],
+      "problem": "D1-F0655 states that the motorcycle problem was “por el puente/paradero”, while its bound evidence only states that the problem is eliminating motorcycle passage and does not bind the later bridge/paradero context.",
+      "source_grounded_reason": "The selected evidence does not entail the inserted location/referent wording “puente/paradero”; additional local context is required.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0060",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "V05",
+      "unit_ids": [
+        "U0061"
+      ],
+      "affected_fact_ids": [
+        "D1-F0656"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "Sin embargo, tenemos un problema grave que debemos atender pronto, señor\n25   Alcalde, y es eliminar el paso de motocicletas.",
+          "location_or_selector": "representation chars 151019:151144"
+        },
+        {
+          "exact_text": "Síndico Douglas Arce Solís: Era para darles una buena noticia a todos los\n12   habitantes del cantón de Esparza y, sobre todo, al distrito de Caldera y a los turistas\n13   que nos visitan.",
+          "location_or_selector": "representation chars 150144:150332"
+        }
+      ],
+      "problem": "D1-F0656 similarly asks to eliminate motorcycle passage “por el puente/paradero”, but the bound evidence does not identify where the passage occurs.",
+      "source_grounded_reason": "The exact target supports the requested action but not the inserted bridge/paradero referent.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    },
+    {
+      "finding_id": "D1-IR-0061",
+      "direction": "REFERENCE_TO_SOURCE",
+      "issue_type": "CONTEXT_ERROR",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "structure_id": "V05",
+      "unit_ids": [
+        "U0061"
+      ],
+      "affected_fact_ids": [
+        "D1-F0652",
+        "D1-F0653",
+        "D1-F0654",
+        "D1-F0657",
+        "D1-F0658",
+        "D1-F0659",
+        "D1-F0660"
+      ],
+      "source_evidence": [
+        {
+          "exact_text": "El día de hoy se concluyó con la iluminación del puente de Mata de Limón.\n15   Esperamos ya el acto oficial para entregar debidamente el proyecto.",
+          "location_or_selector": "representation chars 150338:150484"
+        },
+        {
+          "exact_text": "Entonces, vamos bien para ir preparando la inauguración de este proyecto y ojalá\n20   podamos contar con la señora Presidenta de Costa Rica en ese acto tan esperado,\n21   que hemos postergado durante tanto tiempo.",
+          "location_or_selector": "representation chars 150699:150912"
+        }
+      ],
+      "problem": "The V05 tail retains generic/deictic referents such as “el proyecto”, “el sitio”, “ese puente” and “ese paradero” across seven canonical notes without consistently resolving the antecedent that makes those propositions self-sufficient.",
+      "source_grounded_reason": "The frozen granularity rule requires antecedent/context needed to resolve a reference to remain with the proposition. The source supplies the local Mata de Limón bridge context, but these notes/evidence sets do not consistently carry it forward.",
+      "recommended_resolution": "advisory only; do not mutate the reference"
+    }
+  ],
+  "finding_count": 61,
+  "finding_counts_by_issue_type": {
+    "CONTEXT_ERROR": 1,
+    "EVIDENCE_INSUFFICIENT": 21,
+    "MISSING_MATERIAL_ASSERTION": 38,
+    "QUALIFIER_ERROR": 1
+  },
+  "finding_counts_by_direction": {
+    "REFERENCE_TO_SOURCE": 23,
+    "SOURCE_TO_REFERENCE": 38
+  },
+  "unresolved_inventory": [
+    "D1-IR-0001",
+    "D1-IR-0002",
+    "D1-IR-0003",
+    "D1-IR-0004",
+    "D1-IR-0005",
+    "D1-IR-0006",
+    "D1-IR-0007",
+    "D1-IR-0008",
+    "D1-IR-0009",
+    "D1-IR-0010",
+    "D1-IR-0011",
+    "D1-IR-0012",
+    "D1-IR-0013",
+    "D1-IR-0014",
+    "D1-IR-0015",
+    "D1-IR-0016",
+    "D1-IR-0017",
+    "D1-IR-0018",
+    "D1-IR-0019",
+    "D1-IR-0020",
+    "D1-IR-0021",
+    "D1-IR-0022",
+    "D1-IR-0023",
+    "D1-IR-0024",
+    "D1-IR-0025",
+    "D1-IR-0026",
+    "D1-IR-0027",
+    "D1-IR-0028",
+    "D1-IR-0029",
+    "D1-IR-0030",
+    "D1-IR-0031",
+    "D1-IR-0032",
+    "D1-IR-0033",
+    "D1-IR-0034",
+    "D1-IR-0035",
+    "D1-IR-0036",
+    "D1-IR-0037",
+    "D1-IR-0038",
+    "D1-IR-0039",
+    "D1-IR-0040",
+    "D1-IR-0041",
+    "D1-IR-0042",
+    "D1-IR-0043",
+    "D1-IR-0044",
+    "D1-IR-0045",
+    "D1-IR-0046",
+    "D1-IR-0047",
+    "D1-IR-0048",
+    "D1-IR-0049",
+    "D1-IR-0050",
+    "D1-IR-0051",
+    "D1-IR-0052",
+    "D1-IR-0053",
+    "D1-IR-0054",
+    "D1-IR-0055",
+    "D1-IR-0056",
+    "D1-IR-0057",
+    "D1-IR-0058",
+    "D1-IR-0059",
+    "D1-IR-0060",
+    "D1-IR-0061"
+  ],
+  "unresolved_count": 61,
+  "semantic_verdict": "REFERENCE_DISPUTE",
+  "timestamp": "2026-08-29T11:18:44.026964+00:00"
+}
