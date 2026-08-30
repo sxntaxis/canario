@@ -448,3 +448,33 @@ notes, zero `FID-01` bindings and zero unresolved structures/adjudications. D1 v
 Exact local mechanical certification and a fresh semantic audit are required before any freeze discussion; the
 human/material-independence gate remains unsatisfied. Formal A0-A5 output/scores remain unseen, Acta 160 and H2
 remain untouched, thresholds remain unfrozen, and production broad-Lector implementation remains unauthorized.
+
+### F3 progress — D1 supervisor draft v6
+
+D1 v5 was mechanically certified unchanged at `e1ebb27f646ca54546bf2b5aff75f09b28b29ffb`. A fifth
+fresh-context semantic audit, preserved at `42f82be473e447176bde912625229dc2151f76c8`, completed the blind
+36-structure / 61-unit / 61-unit-state / 744-fact / 1,727-evidence pass before opening prior semantic-review
+artifacts. It returned `REFERENCE_DISPUTE` with **30 hard groups**: 13 source→reference omissions, 15
+evidence-insufficiency groups and two capability-binding errors. The reviewer remained OpenAI GPT-5.6 Sol, so
+independence remains `WEAK_OR_UNKNOWN`; the human/material-independence gate is still unsatisfied.
+
+The supervising/cloud author reopened all 30 findings against the exact frozen source and accepted all 30,
+with zero rejected or unresolved. `references/D1_QUINARY_REVIEW_ADJUDICATION_V5.json` is the canonical
+source-only adjudication record. One reviewer problem statement misnamed Heriberto Alvarado Méndez as
+“Heriberto González”; the omission itself is valid and v6 preserves the exact source speaker. Two omission
+groups contain separable speech acts, so the 13 source→reference groups produce 15 new material facts.
+
+D1 v6 contains **759 facts and 1,939 exact evidence targets**. The principal repair is systemic rather than
+fact-by-fact: facts whose canonical actor/institution identity was more specific than their local evidence now
+bind exact same-source roster/header/provenance resolvers. V6 also binds the first-hand-information purpose on
+D1-F0466, the explicit recommendation heading on D1-F0586, adds `TMP-01` to D1-F0511/D1-F0519, and adds
+`SCP-01` to D1-F0748. Unit-state decisions remain 57 `MATERIAL_FACTS` / four
+`NO_MATERIAL_CIVIC_FACT` (`U0003`, `U0004`, `U0005`, `U0007`).
+
+The author-time v6 validator reports 759 unique facts, 1,939 reopenable evidence targets, 36 structures, 61
+units, 536 cross-unit facts, 505 `CTX-01`, nine `AMB-01`, 52 `QTY-01`, 716 multi-evidence facts, zero
+selector hash/range/structure/unit failures, zero mid-word selector boundaries, zero duplicate canonical or
+reverse-audit notes, zero `FID-01` bindings and zero unresolved quinary adjudications. D1 v6 remains
+`SUPERVISOR_DRAFT`. Exact local mechanical certification and a fresh semantic audit are required before any
+freeze decision. Formal A0-A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain
+unfrozen, and production broad-Lector implementation remains unauthorized.

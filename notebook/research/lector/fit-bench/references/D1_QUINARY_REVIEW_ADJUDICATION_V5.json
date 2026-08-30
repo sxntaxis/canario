@@ -1,0 +1,464 @@
+{
+  "decision_counts": {
+    "ACCEPT": 30,
+    "REJECT": 0,
+    "UNRESOLVED": 0
+  },
+  "decisions": [
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. The group is decomposed into separate expectation and disclosure-request facts in v6."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0003",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. The group is decomposed into separate denunciation-conduct and association-cooperation facts in v6."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0004",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0005",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0006",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Reviewer problem text says “Heriberto González”; exact source speaker is Heriberto Alvarado Méndez, which v6 preserves."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0007",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0008",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0009",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0010",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0011",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0012",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0013",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0003",
+        "D1-F0004",
+        "D1-F0005",
+        "D1-F0006",
+        "D1-F0010",
+        "D1-F0015",
+        "D1-F0026",
+        "D1-F0110",
+        "D1-F0111",
+        "D1-F0112",
+        "D1-F0113",
+        "D1-F0114",
+        "D1-F0115",
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118",
+        "D1-F0136",
+        "D1-F0137",
+        "D1-F0138",
+        "D1-F0139",
+        "D1-F0148",
+        "D1-F0164",
+        "D1-F0172",
+        "D1-F0173",
+        "D1-F0174",
+        "D1-F0180",
+        "D1-F0181",
+        "D1-F0182",
+        "D1-F0278",
+        "D1-F0279",
+        "D1-F0281",
+        "D1-F0283",
+        "D1-F0319",
+        "D1-F0320",
+        "D1-F0325",
+        "D1-F0327",
+        "D1-F0342",
+        "D1-F0347",
+        "D1-F0348",
+        "D1-F0362",
+        "D1-F0738",
+        "D1-F0420",
+        "D1-F0497",
+        "D1-F0506",
+        "D1-F0507",
+        "D1-F0514",
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520",
+        "D1-F0576",
+        "D1-F0577",
+        "D1-F0593",
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0604",
+        "D1-F0605",
+        "D1-F0606",
+        "D1-F0608",
+        "D1-F0611",
+        "D1-F0612",
+        "D1-F0666",
+        "D1-F0670",
+        "D1-F0671",
+        "D1-F0672",
+        "D1-F0673",
+        "D1-F0674",
+        "D1-F0675",
+        "D1-F0677",
+        "D1-F0678",
+        "D1-F0679",
+        "D1-F0680",
+        "D1-F0681",
+        "D1-F0682",
+        "D1-F0683",
+        "D1-F0684",
+        "D1-F0743",
+        "D1-F0686",
+        "D1-F0687",
+        "D1-F0688",
+        "D1-F0690",
+        "D1-F0691",
+        "D1-F0692",
+        "D1-F0694",
+        "D1-F0695",
+        "D1-F0698",
+        "D1-F0701"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0014",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0084",
+        "D1-F0085",
+        "D1-F0488",
+        "D1-F0489",
+        "D1-F0490"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0015",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0086",
+        "D1-F0087",
+        "D1-F0088",
+        "D1-F0089",
+        "D1-F0090",
+        "D1-F0744",
+        "D1-F0745",
+        "D1-F0746",
+        "D1-F0094",
+        "D1-F0452",
+        "D1-F0453",
+        "D1-F0454",
+        "D1-F0455",
+        "D1-F0456",
+        "D1-F0457",
+        "D1-F0458",
+        "D1-F0459"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0016",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0095",
+        "D1-F0096",
+        "D1-F0097",
+        "D1-F0156",
+        "D1-F0157",
+        "D1-F0194",
+        "D1-F0272",
+        "D1-F0273",
+        "D1-F0274",
+        "D1-F0375",
+        "D1-F0376",
+        "D1-F0377"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0017",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0711",
+        "D1-F0712",
+        "D1-F0125",
+        "D1-F0126",
+        "D1-F0127",
+        "D1-F0508",
+        "D1-F0509",
+        "D1-F0510",
+        "D1-F0511",
+        "D1-F0512"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0018",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0186",
+        "D1-F0187",
+        "D1-F0188",
+        "D1-F0189",
+        "D1-F0190"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0019",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0349",
+        "D1-F0350",
+        "D1-F0351",
+        "D1-F0354",
+        "D1-F0355",
+        "D1-F0356"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0020",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0732",
+        "D1-F0379",
+        "D1-F0389",
+        "D1-F0390",
+        "D1-F0733"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0021",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0392",
+        "D1-F0393",
+        "D1-F0394",
+        "D1-F0734",
+        "D1-F0396",
+        "D1-F0397",
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0735",
+        "D1-F0403",
+        "D1-F0404",
+        "D1-F0405"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0022",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0460",
+        "D1-F0461",
+        "D1-F0462",
+        "D1-F0463",
+        "D1-F0464",
+        "D1-F0465",
+        "D1-F0466",
+        "D1-F0479",
+        "D1-F0480",
+        "D1-F0481",
+        "D1-F0482"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0023",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0049",
+        "D1-F0050"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0024",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0499",
+        "D1-F0500"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0025",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0212"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0026",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0466"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0027",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the source-internal identity/provenance/antecedent evidence to every affected fact."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0511",
+        "D1-F0519"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0028",
+      "issue_type": "CAPABILITY_BINDING_ERROR",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired with TMP-01 on both deadline facts."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0748"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0029",
+      "issue_type": "CAPABILITY_BINDING_ERROR",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired with SCP-01."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0586"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0030",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. Repaired by binding the explicit recommendation heading."
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1-quinary-review-adjudication.v5/1",
+  "human_independence_gate_satisfied": false,
+  "id": "CANARIO-D1-QUINARY-REVIEW-ADJUDICATION-V5-001",
+  "independence_strength": "WEAK_OR_UNKNOWN",
+  "resulting_reference": "D1_REFERENCE_SUPERVISOR_DRAFT_V6.json",
+  "review_commit": "42f82be473e447176bde912625229dc2151f76c8",
+  "review_id": "CANARIO-D1-QUINARY-SEMANTIC-REVIEW-V5-001",
+  "reviewed_v5_commit": "e1ebb27f646ca54546bf2b5aff75f09b28b29ffb",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
