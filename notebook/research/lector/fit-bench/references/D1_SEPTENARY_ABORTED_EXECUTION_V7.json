@@ -1,0 +1,284 @@
+{
+  "coverage_completed_before_stop": {
+    "evidence_targets_mechanically_reopened": 2007,
+    "full_semantic_fact_review_completed": false,
+    "full_source_assertion_mapping_completed": false,
+    "reference_facts_inventory_verified": 781,
+    "senary_regression_completed": false,
+    "structures_identity_verified": 36,
+    "unit_states_source_ledgered": 61,
+    "units_source_ledgered": 61
+  },
+  "evidence_id": "CANARIO-D1-SEPTENARY-ABORTED-EXECUTION-V7-001",
+  "execution": {
+    "audit_complete": false,
+    "bundle_created_by_reviewer": false,
+    "final_canonical_septenary_review_artifacts_created_by_reviewer": false,
+    "history_anchoring_contamination": false,
+    "reason_incomplete": "The initially sealed source-only ledger was discovered after opening v7 to have omitted the material request «Que diga qué fue lo que encontró.»; exhaustive 781/2007 semantic review, senary regression, tests, review commit and bundle were not completed.",
+    "reference_anchoring_contamination": true,
+    "review_commit_created_by_reviewer": false,
+    "semantic_disposition": "REFERENCE_DISPUTE"
+  },
+  "findings": {
+    "confirmed_hard_group_count": 10,
+    "note": "The reviewer also mentioned unresolved potential event/program and other forward rows. They are intentionally excluded from the hard count because the required adjudication was not completed.",
+    "reviewer_reported_count": 7,
+    "reviewer_reported_definite_hard_findings": [
+      {
+        "affected_fact_ids": [
+          "D1-F0079"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0001",
+        "issue_type": "CONTEXT_ERROR",
+        "problem": "D1-F0079 resolves source-deictic «esto / las cosas» into municipal communication about actions concerning the pool, but its own evidence set does not bind the topic antecedent.",
+        "recommended_resolution": "Bind the smallest sufficient preceding pool/Contraloría discussion context or narrow the canonical proposition.",
+        "source_assertion_ids": [
+          "D1-SA-0081"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Regidor suplente Rolnald Robles: Aquí estábamos discerniendo acerca de si se\n36   podía publicar esto que estamos hablando en la página de la Municipalidad, porque\n37   a veces hay que aclararle a las personas las cosas que se están haciendo de\n38   buena fe y con buena voluntad.",
+            "location_or_selector": "representation_char_range:20577-20857"
+          }
+        ],
+        "source_grounded_reason": "The local source only says they were considering publishing «esto que estamos hablando» and clarifying «las cosas» being done in good faith. The canonical pool-process topic requires bound surrounding discussion."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0493"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0002",
+        "issue_type": "ATTRIBUTION_ERROR",
+        "problem": "D1-F0493 canonicalizes «don Diego» as Luis Diego Estrada without a fact-local resolver for that identity.",
+        "recommended_resolution": "Bind same-source Diego speaker context and/or PRE roster sufficient for Luis Diego Estrada.",
+        "source_assertion_ids": [
+          "D1-SA-0594"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Tal vez, don Diego, usted mismo lo puede\n 9   preparar tomando en cuenta todo lo que se ha mencionado y lo volvemos a leer\n10   acá.",
+            "location_or_selector": "representation_char_range:118322-118454"
+          }
+        ],
+        "source_grounded_reason": "The operative evidence contains only «don Diego». A same-source Diego/Luis Diego resolver must be bound to the fact."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0734"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0003",
+        "issue_type": "QUALIFIER_ERROR",
+        "problem": "D1-F0734 strengthens the source contrast into an explicit current status/reason that expediente 23.898 was «fuera de comisión».",
+        "recommended_resolution": "Preserve the explicit before/today contrast without inventing a stronger current-status formulation.",
+        "source_assertion_ids": [
+          "D1-SA-0473",
+          "D1-SA-0474"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Antes, cuando el proyecto estaba en comisión, necesitábamos hablar con los\n32   diputados de Puntarenas. Hoy necesitamos hablar con los jefes de fracción, que\n33   son los voceros de cada bancada en la Asamblea Legislativa.",
+            "location_or_selector": "representation_char_range:96073-96296"
+          }
+        ],
+        "source_grounded_reason": "The source states that before, when the project was in commission, they needed to speak with Puntarenas deputies, and today they needed to speak with faction chiefs. It does not literally assert the canonical «al estar ... fuera de comisión» status."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0810"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0004",
+        "issue_type": "EVIDENCE_INSUFFICIENT",
+        "problem": "D1-F0810 resolves «su labor / representación comunal» to Douglas Arce, but the evidence set omits the nearby text naming Douglas.",
+        "recommended_resolution": "Bind the local Douglas-Arce naming/antecedent span.",
+        "source_assertion_ids": [
+          "D1-SA-0242",
+          "D1-SA-0243",
+          "D1-SA-0244"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "De igual forma, corresponde reconocer públicamente el trabajo y compromiso del\n42   señor síndico Douglas Arce Solís durante el tiempo en que participó en la Comisión\n43   Especial de Zona Marítimo Terrestre. Su conocimiento territorial y cercanía con las\n44   comunidades han representado un aporte importante para este proceso. Esta\n45   Presidencia valora ese esfuerzo y mantiene total respeto hacia su labor y hacia la\n46   representación comunal que ejerce dentro del distrito de Caldera.",
+            "location_or_selector": "representation_char_range:53360-53853"
+          }
+        ],
+        "source_grounded_reason": "The missing preceding source explicitly names «Douglas Arce Solís» and then carries the pronouns into the respect/representation statement."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0811"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0005",
+        "issue_type": "EVIDENCE_INSUFFICIENT",
+        "problem": "D1-F0811 resolves «señor síndico» to Douglas Arce without binding the local source span that names Douglas.",
+        "recommended_resolution": "Bind the local Douglas-Arce naming span.",
+        "source_assertion_ids": [
+          "D1-SA-0242",
+          "D1-SA-0248"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "De igual forma, corresponde reconocer públicamente el trabajo y compromiso del\n42   señor síndico Douglas Arce Solís durante el tiempo en que participó en la Comisión\n43   Especial de Zona Marítimo Terrestre.",
+            "location_or_selector": "representation_char_range:53360-53568"
+          },
+          {
+            "exact_text": "Lo anterior no significa, de ninguna manera, una desvalorización del aporte del\n 5   señor síndico ni de las comunidades de Caldera.",
+            "location_or_selector": "representation_char_range:54616-54748"
+          }
+        ],
+        "source_grounded_reason": "The operative line only says «señor síndico»; the prior sentence explicitly identifies Douglas Arce Solís."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0827"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0006",
+        "issue_type": "CONTEXT_ERROR",
+        "problem": "D1-F0827 resolves «ellos» and the disliked position to ICODER, but its own evidence set omits the preceding ICODER antecedent.",
+        "recommended_resolution": "Bind the immediately preceding ICODER antecedent.",
+        "source_assertion_ids": [
+          "D1-SA-0522",
+          "D1-SA-0523",
+          "D1-SA-0524"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Bueno, no se ha\n44   pedido la votación, pero de antemano voy a decir que voy a votar negativo, porque\n45   si fue una decisión que el ICODER tomó, ¿qué vamos a lograr nosotros con que\n46   nos respondan todas esas cosas? Por lo menos yo no lo tengo claro. Entonces,\n47   me parece que es gastar pólvora en zopilotes, porque si el ICODER decidió hacerlo\n48   cada dos años, ellos tendrán sus justificaciones.\n49   Y si hay algo que a mí no me parece, ¿qué voy a hacer? Tengo que acomodarme\n50   a lo que ellos están exponiendo.",
+            "location_or_selector": "representation_char_range:105154-105681"
+          }
+        ],
+        "source_grounded_reason": "The preceding source explicitly says ICODER made the decision and «ellos tendrán sus justificaciones» before Flor says she must accommodate herself to what «ellos» expose."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0828"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0007",
+        "issue_type": "CONTEXT_ERROR",
+        "problem": "D1-F0828 resolves «tomemos un acuerdo hoy mismo» into an agreement specifically about the bianual Games change, but the fact does not bind the proposal content that establishes the agreement's subject.",
+        "recommended_resolution": "Bind the proposal-content antecedent before the same-day agreement sentence.",
+        "source_assertion_ids": [
+          "D1-SA-0564",
+          "D1-SA-0567",
+          "D1-SA-0570",
+          "D1-SA-0573"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Creo que lo importante es afinar un acuerdo. Los años sentado en esta\n53   silla me han enseñado que al final lo que queda es un acuerdo con el que todos\n54   estemos conformes.\n\f 1   Yo tampoco iría donde el ICODER de manera confrontativa, como se dice\n 2   popularmente, “entrando con una patada”. No sería llegar a exigir: “deme esto y\n 3   esto”.\n 4   Más bien, yo plantearía algo en términos de que al Concejo Municipal de Esparza\n 5   le preocupa que los Juegos Deportivos Nacionales se vayan a realizar, a partir del\n 6   2028, de manera bianual, porque eso perjudicaría a generaciones de atletas, niños\n 7   y jóvenes que durante muchos años se han preparado y que verían limitada en un\n 8   50 % su posibilidad de participación.\n 9   Alguien que antes podía participar varias veces, ahora tendrá la mitad de las\n10   oportunidades; dependiendo de la edad, podría participar solo una o dos veces.\n11   Eso tiene implicaciones importantes.\n12   Entonces, yo externaría como Concejo nuestra preocupación y preguntaría —tal\n13   vez no todo lo que dijo Diego—, pero sí a qué obedece ese cambio y cuál es la\n14   estrategia que ellos tienen para los atletas.\n15   Puede ser que tengan algo pensado, como decía Olivier, o una alternativa distinta,\n16   y sería interesante conocer cuál es esa estrategia y a qué obedeció el cambio. Tal\n17   vez no pedir tanta información, pero sí una explicación general.\n18   Y tomemos un acuerdo hoy mismo.",
+            "location_or_selector": "representation_char_range:113776-115221"
+          }
+        ],
+        "source_grounded_reason": "The intervening source lays out the concern over bianual Games, athlete impacts and the desired explanation before the same-day agreement proposal."
+      }
+    ],
+    "supervising_followup_count": 3,
+    "supervising_followup_source_confirmed_hard_findings": [
+      {
+        "affected_fact_ids": [],
+        "direction": "SOURCE_TO_REFERENCE",
+        "finding_id": "D1-V7-AB-0008",
+        "issue_type": "MISSING_MATERIAL_ASSERTION",
+        "problem": "V7 omits Olivier López's proposal/possibility to copy Auditoría together with Contraloría so they could respond to the complainant.",
+        "recommended_resolution": "Add a separate source-faithful fact preserving Olivier, possibility/proposal force, both institutions, and response purpose.",
+        "source_assertion_ids": [
+          "D1-SA-0090"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Entonces se le puede copiar a la\n\f 1   Auditoría también, junto con la Contraloría, para que ellos le den respuesta al\n 2   denunciante.",
+            "location_or_selector": "representation_char_range:22134-22270"
+          }
+        ],
+        "source_grounded_reason": "The source contains an explicit procedural proposal with a stated purpose. No v7 fact evidence overlaps this source span."
+      },
+      {
+        "affected_fact_ids": [],
+        "direction": "SOURCE_TO_REFERENCE",
+        "finding_id": "D1-V7-AB-0009",
+        "issue_type": "MISSING_MATERIAL_ASSERTION",
+        "problem": "V7 omits Ronald Robles's explicit negative evaluation that people working to provide the service should not have to face situations of that type.",
+        "recommended_resolution": "Add a minimally separated source-faithful evaluation fact with adequate complaint/service context.",
+        "source_assertion_ids": [
+          "D1-SA-0100"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "No se vale que las\n29   personas que estamos trabajando para brindar ese servicio tengamos que\n30   enfrentar situaciones de este tipo.",
+            "location_or_selector": "representation_char_range:24225-24360"
+          }
+        ],
+        "source_grounded_reason": "Under the frozen rules, explicit actor evaluations about civic service work are material. No v7 fact evidence overlaps this source span."
+      },
+      {
+        "affected_fact_ids": [
+          "D1-F0785"
+        ],
+        "direction": "REFERENCE_TO_SOURCE",
+        "finding_id": "D1-V7-AB-0010",
+        "issue_type": "QUALIFIER_ERROR",
+        "problem": "D1-F0785 preserves the preferred alternative but drops the attached reason/contrast that carrying the matter to Contraloría consumed time and effort when the issue was already being worked on and promoted.",
+        "recommended_resolution": "Extend D1-F0785 evidence and canonical semantics to preserve the attached reason without turning it into unsupported stronger fact.",
+        "source_assertion_ids": [
+          "D1-SA-0117"
+        ],
+        "source_evidence": [
+          {
+            "exact_text": "Hubiera sido mucho mejor esa posibilidad, y no invertir todo ese tiempo y esfuerzo\n13   en llevar un asunto a la Contraloría, cuando era un tema que ya se venía trabajando\n14   e impulsando.",
+            "location_or_selector": "representation_char_range:26917-27107"
+          }
+        ],
+        "source_grounded_reason": "The reason/contrast immediately follows «Hubiera sido mucho mejor esa posibilidad» and changes the full evaluative proposition."
+      }
+    ],
+    "unadjudicated_potential_forward_rows_not_promoted_to_findings": true
+  },
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1.septenary-aborted-execution-evidence/v1",
+  "leakage": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false
+  },
+  "preliminary_source_ledger": {
+    "assertion_count": 781,
+    "json_bytes": 1420945,
+    "json_sha256": "6bf6bd2415be28004d09949f40cb44b3fe114942f76aca616aa941b0b2f86fda",
+    "known_ledger_omission": {
+      "reference_itself_correct_on_this_point": true,
+      "representation_char_range": [
+        24453,
+        24486
+      ],
+      "source_text": "Que diga qué fue lo que encontró.",
+      "v7_fact_id": "D1-F0795"
+    },
+    "preliminary_seal_invalidated_for_clean_anti_anchoring_claim": true,
+    "repository_committed": false,
+    "seal_bytes": 367,
+    "seal_sha256": "303e131b2f0e43b838f144582f03b462c4f6b48d985156a6951b4e5e74102c8e",
+    "unit_count": 61,
+    "unit_states_complete": true
+  },
+  "recorded_at": "2026-08-30T09:06:11.818282+00:00",
+  "recorded_by": "supervising_cloud_author",
+  "reviewed_candidate": {
+    "commit": "a400b5982d47f37756a5bf072a60f6ba208a5841",
+    "semantic_parent": "8f05e7551d6887f6f90d3e93b42060cba9eb224f",
+    "tree": "59ffa6f158c2afcc2211f337d5769cd7b236f74d"
+  },
+  "reviewer": {
+    "human_independence_gate_satisfied": false,
+    "identity": "OpenAI / GPT-5.6 Sol",
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false
+  }
+}
