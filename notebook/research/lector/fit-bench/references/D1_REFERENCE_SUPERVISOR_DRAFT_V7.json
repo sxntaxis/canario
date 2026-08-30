@@ -50,6 +50,9 @@
     "secondary_semantic_review_v2_independence_strength": "WEAK_OR_UNKNOWN",
     "secondary_semantic_review_v2_received": true,
     "semantic_author_role": "supervising_cloud_author",
+    "senary_semantic_review_v6_disputes_adjudicated": true,
+    "senary_semantic_review_v6_independence_strength": "WEAK_OR_UNKNOWN",
+    "senary_semantic_review_v6_received": true,
     "supervising_author_adversarial_review_complete": true,
     "tertiary_semantic_review_v3_disputes_adjudicated": true,
     "tertiary_semantic_review_v3_independence_strength": "WEAK_OR_UNKNOWN",
@@ -6459,7 +6462,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0019 ACCEPT: bound exact CGR correspondence provenance in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El direccionamiento citó el artículo 11 de los lineamientos de denuncias de la Contraloría, según el cual, cuando los hechos denunciados son competencia de otra instancia, se advierte esa circunstancia a la persona denunciante.",
       "capability_bindings": [
@@ -6468,10 +6473,29 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 11791,
+          "representation_char_start": 11138,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 11791,
+          "scope_char_start": 11138,
+          "scope_containment": "PASS",
+          "selected_characters": 653,
+          "selected_text_sha256": "5731feb948afdab066d4ccb57f06797e7bb001f61e276c3e46582528c47256d8",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "5- Se conoce oficio N° 05687 (DFOE-DEC-1553) de fecha 12 de mayo de 2026,\n28   dirigida a la secretaria del Concejo Municipal de Esparza, por Licda. María\n29   Alejandra Quirós García, Asistente Técnica y Jerson Masís Rodríguez Fiscalizador\n30   Asociado, Contraloría General de la República; texto que se transcribe a\n31   continuación:\n32   “Asunto: Direccionamiento de denuncia\n33   En esta Contraloría General se recibió una denuncia digital en contra de la Municipalidad\n34   de Esparza, por las presuntas irregularidades relacionadas con la falta de apertura al público\n35   de la piscina ubicada en el Polideportivo Las Tres Marías de ese cantón.",
+          "unit_ids": [
+            "U0009"
+          ]
+        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -6525,7 +6549,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C05-009 supports the semantic focus ‘El direccionamiento citó el artículo 11 de los lineamientos de denuncias de la Contraloría, según el cual, cuando los hechos denunciados son competencia de otra instancia, se ad...’ with attribution=Contraloría General de la República; condition=cuando los hechos denunciados sean competencia de otra instancia; modality=citó; referent=artículo 11 de los Lineamientos para la atención de denuncias; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0051 now binds exact Contraloría General de la República correspondence provenance plus proposition evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -6534,11 +6558,14 @@
         "C05"
       ],
       "unit_ids": [
+        "U0009",
         "U0011"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0019 ACCEPT: bound exact CGR correspondence provenance in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El direccionamiento citó el artículo 11 de los lineamientos de denuncias de la Contraloría, según el cual, cuando los hechos denunciados son competencia de otra instancia, se archiva la gestión.",
       "capability_bindings": [
@@ -6547,10 +6574,29 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 11791,
+          "representation_char_start": 11138,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 11791,
+          "scope_char_start": 11138,
+          "scope_containment": "PASS",
+          "selected_characters": 653,
+          "selected_text_sha256": "5731feb948afdab066d4ccb57f06797e7bb001f61e276c3e46582528c47256d8",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "5- Se conoce oficio N° 05687 (DFOE-DEC-1553) de fecha 12 de mayo de 2026,\n28   dirigida a la secretaria del Concejo Municipal de Esparza, por Licda. María\n29   Alejandra Quirós García, Asistente Técnica y Jerson Masís Rodríguez Fiscalizador\n30   Asociado, Contraloría General de la República; texto que se transcribe a\n31   continuación:\n32   “Asunto: Direccionamiento de denuncia\n33   En esta Contraloría General se recibió una denuncia digital en contra de la Municipalidad\n34   de Esparza, por las presuntas irregularidades relacionadas con la falta de apertura al público\n35   de la piscina ubicada en el Polideportivo Las Tres Marías de ese cantón.",
+          "unit_ids": [
+            "U0009"
+          ]
+        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -6604,7 +6650,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C05-009 supports the semantic focus ‘El direccionamiento citó el artículo 11 de los lineamientos de denuncias de la Contraloría, según el cual, cuando los hechos denunciados son competencia de otra instancia, se ar...’ with attribution=Contraloría General de la República; condition=cuando los hechos denunciados sean competencia de otra instancia; modality=citó; referent=artículo 11 de los Lineamientos para la atención de denuncias; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0052 now binds exact Contraloría General de la República correspondence provenance plus proposition evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -6613,11 +6659,14 @@
         "C05"
       ],
       "unit_ids": [
+        "U0009",
         "U0011"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0019 ACCEPT: bound exact CGR correspondence provenance in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El oficio citó que, conforme al artículo 17 del reglamento de la Ley 8422, una gestión puede canalizarse al órgano competente cuando resulte pertinente.",
       "capability_bindings": [
@@ -6626,6 +6675,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -6633,19 +6683,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 16498,
-          "representation_char_start": 16256,
+          "representation_char_end": 11791,
+          "representation_char_start": 11138,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 16498,
-          "scope_char_start": 16256,
+          "scope_char_end": 11791,
+          "scope_char_start": 11138,
           "scope_containment": "PASS",
-          "selected_characters": 242,
-          "selected_text_sha256": "9dd2997aec08cdcb07637e3490658474f21f427ccfc90ce8ce143ae8b004a958",
+          "selected_characters": 653,
+          "selected_text_sha256": "5731feb948afdab066d4ccb57f06797e7bb001f61e276c3e46582528c47256d8",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C05",
-          "text_preview": "De conformidad con lo dispuesto en el artículo 17 del Reglamento a la Ley Contra\n35   la Corrupción y el Enriquecimiento Ilícito en la Función Pública (ley N.° 8422), de resultar\n36   pertinente se podrá canalizar la gestión al competente.” .",
+          "text_preview": "5- Se conoce oficio N° 05687 (DFOE-DEC-1553) de fecha 12 de mayo de 2026,\n28   dirigida a la secretaria del Concejo Municipal de Esparza, por Licda. María\n29   Alejandra Quirós García, Asistente Técnica y Jerson Masís Rodríguez Fiscalizador\n30   Asociado, Contraloría General de la República; texto que se transcribe a\n31   continuación:\n32   “Asunto: Direccionamiento de denuncia\n33   En esta Contraloría General se recibió una denuncia digital en contra de la Municipalidad\n34   de Esparza, por las presuntas irregularidades relacionadas con la falta de apertura al público\n35   de la piscina ubicada en el Polideportivo Las Tres Marías de ese cantón.",
           "unit_ids": [
-            "U0011"
+            "U0009"
           ]
         },
         {
@@ -6662,6 +6712,24 @@
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C05",
           "text_preview": "Este direccionamiento se da con fundamento en el párrafo segundo del artículo 11 de los\n31   Lineamientos para la atención de denuncias presentadas ante la Contraloría General de la\n32   República2, el cual señala que “(...) En caso de que los hechos denunciados sean\n33   competencia de otra instancia, se advertirá así a la persona denunciante y se archivará la\n34   gestión.",
+          "unit_ids": [
+            "U0011"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 16498,
+          "representation_char_start": 16256,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 16498,
+          "scope_char_start": 16256,
+          "scope_containment": "PASS",
+          "selected_characters": 242,
+          "selected_text_sha256": "9dd2997aec08cdcb07637e3490658474f21f427ccfc90ce8ce143ae8b004a958",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "De conformidad con lo dispuesto en el artículo 17 del Reglamento a la Ley Contra\n35   la Corrupción y el Enriquecimiento Ilícito en la Función Pública (ley N.° 8422), de resultar\n36   pertinente se podrá canalizar la gestión al competente.” .",
           "unit_ids": [
             "U0011"
           ]
@@ -6701,7 +6769,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C05-010, C05-009 supports the semantic focus ‘El oficio citó que, conforme al artículo 17 del reglamento de la Ley 8422, una gestión puede canalizarse al órgano competente cuando resulte pertinente.’ with attribution=Contraloría General de la República; condition=cuando resulte pertinente; modality=citó; referent=artículo 17 del Reglamento a la Ley 8422; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0053 now binds exact Contraloría General de la República correspondence provenance plus proposition evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -6710,11 +6778,14 @@
         "C05"
       ],
       "unit_ids": [
+        "U0009",
         "U0011"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0019 ACCEPT: bound exact CGR correspondence provenance in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "La Contraloría instó a resguardar la confidencialidad en el manejo de la documentación conforme a las normas citadas de control interno y anticorrupción.",
       "capability_bindings": [
@@ -6723,6 +6794,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -6730,21 +6802,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 17080,
-          "representation_char_start": 16499,
+          "representation_char_end": 11791,
+          "representation_char_start": 11138,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 17080,
-          "scope_char_start": 16499,
+          "scope_char_end": 11791,
+          "scope_char_start": 11138,
           "scope_containment": "PASS",
-          "selected_characters": 581,
-          "selected_text_sha256": "e355b5cb66f0e68205731fd49c43b1eabd5d97b7784fa996912b224bb5ca1aed",
+          "selected_characters": 653,
+          "selected_text_sha256": "5731feb948afdab066d4ccb57f06797e7bb001f61e276c3e46582528c47256d8",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C05",
-          "text_preview": "Finalmente, se le insta a guardar\n37   las previsiones contenidas en los numerales 6° de la Ley General de Control Interno, Nro.\n38   8292 y 8° de la Ley Contra la Corrupción y el Enriquecimiento Ilícito en la Función Pública,\n39   Nro. 8422, en torno al resguardo de la confidencialidad en el manejo de la documentación.\n40   1 Medio de notificación de la persona denunciante CAROLBAD21@YAHOO.ES\n\n41   2 Resolución Nro. R-DC-82-2020 del Despacho Contralor, publicada en el diario oficial La Gaceta Nro. 266\n\n42   del 5 de noviembre de 2020” Hasta aquí la transcripción de la nota.",
+          "text_preview": "5- Se conoce oficio N° 05687 (DFOE-DEC-1553) de fecha 12 de mayo de 2026,\n28   dirigida a la secretaria del Concejo Municipal de Esparza, por Licda. María\n29   Alejandra Quirós García, Asistente Técnica y Jerson Masís Rodríguez Fiscalizador\n30   Asociado, Contraloría General de la República; texto que se transcribe a\n31   continuación:\n32   “Asunto: Direccionamiento de denuncia\n33   En esta Contraloría General se recibió una denuncia digital en contra de la Municipalidad\n34   de Esparza, por las presuntas irregularidades relacionadas con la falta de apertura al público\n35   de la piscina ubicada en el Polideportivo Las Tres Marías de ese cantón.",
           "unit_ids": [
-            "U0011",
-            "U0012",
-            "U0013"
+            "U0009"
           ]
         },
         {
@@ -6763,6 +6833,26 @@
           "text_preview": "Este direccionamiento se da con fundamento en el párrafo segundo del artículo 11 de los\n31   Lineamientos para la atención de denuncias presentadas ante la Contraloría General de la\n32   República2, el cual señala que “(...) En caso de que los hechos denunciados sean\n33   competencia de otra instancia, se advertirá así a la persona denunciante y se archivará la\n34   gestión.",
           "unit_ids": [
             "U0011"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 17080,
+          "representation_char_start": 16499,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 17080,
+          "scope_char_start": 16499,
+          "scope_containment": "PASS",
+          "selected_characters": 581,
+          "selected_text_sha256": "e355b5cb66f0e68205731fd49c43b1eabd5d97b7784fa996912b224bb5ca1aed",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Finalmente, se le insta a guardar\n37   las previsiones contenidas en los numerales 6° de la Ley General de Control Interno, Nro.\n38   8292 y 8° de la Ley Contra la Corrupción y el Enriquecimiento Ilícito en la Función Pública,\n39   Nro. 8422, en torno al resguardo de la confidencialidad en el manejo de la documentación.\n40   1 Medio de notificación de la persona denunciante CAROLBAD21@YAHOO.ES\n\n41   2 Resolución Nro. R-DC-82-2020 del Despacho Contralor, publicada en el diario oficial La Gaceta Nro. 266\n\n42   del 5 de noviembre de 2020” Hasta aquí la transcripción de la nota.",
+          "unit_ids": [
+            "U0011",
+            "U0012",
+            "U0013"
           ]
         }
       ],
@@ -6798,7 +6888,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C05-011, C05-009 supports the semantic focus ‘La Contraloría instó a resguardar la confidencialidad en el manejo de la documentación conforme a las normas citadas de control interno y anticorrupción.’ with attribution=Contraloría General de la República; modality=instó; scope=confidencialidad de la documentación; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0054 now binds exact Contraloría General de la República correspondence provenance plus proposition evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -6807,6 +6897,7 @@
         "C05"
       ],
       "unit_ids": [
+        "U0009",
         "U0011",
         "U0012",
         "U0013"
@@ -12242,12 +12333,13 @@
     },
     {
       "adjudication_notes": [
-        "D1-V4-AS-0004: accepted; restored source-visible actor assessment from HF-002."
+        "D1-V4-AS-0004: accepted; restored source-visible actor assessment from HF-002.",
+        "Senary D1-V6-IR-0021 ACCEPT: restored source “me parece” as consideró rather than afirmó."
       ],
       "allowed_variants_or_equivalence_notes": [
         "La fuente dice «la junta directiva» sin volver a identificarla en esta proposición; no resolver el referente más allá de lo explícito."
       ],
-      "canonical_semantic_note": "Bienvenido Venegas afirmó que había compañeros en una junta directiva que estaban haciendo un gran trabajo.",
+      "canonical_semantic_note": "Bienvenido Venegas consideró que había compañeros en una junta directiva que estaban haciendo un gran trabajo.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -12327,7 +12419,7 @@
         "exception": [],
         "location": [],
         "modality": [
-          "afirmó"
+          "consideró"
         ],
         "negation": [],
         "period": [],
@@ -12346,7 +12438,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-V4-AS-0004: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0784 — Bienvenido Venegas afirmó que había compañeros en una junta directiva que estaban haciendo un gran trabajo.",
+        "review_note": "PASS v7: exact evidence supports evaluative “me parece que” preserved canonically as consideró, without strengthening to assertion.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -37591,9 +37683,11 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0020 ACCEPT: restored conditional proposal and “sería” modality in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "Bienvenido Venegas señaló al Ministerio de Seguridad Pública como institución encargada del monitoreo de las cámaras.",
+      "canonical_semantic_note": "Bienvenido Venegas planteó que, si los Concejos de Distrito colaboraban con parte de los recursos para cámaras, se podría coordinar con el Ministerio de Seguridad Pública, que sería la institución encargada del monitoreo.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -37666,19 +37760,26 @@
         "attribution": [
           "Bienvenido Venegas Porras, alcalde municipal"
         ],
-        "condition": [],
+        "condition": [
+          "si los Concejos de Distrito colaboraban con parte de los recursos"
+        ],
         "cross_reference": [],
         "currency": [],
         "denominator": [],
         "exception": [],
         "location": [],
         "modality": [
-          "señaló"
+          "planteó",
+          "podría",
+          "sería"
         ],
         "negation": [],
         "period": [],
         "quantity": [],
-        "referent": [],
+        "referent": [
+          "Concejos de Distrito",
+          "Ministerio de Seguridad Pública"
+        ],
         "scope": [
           "monitoreo de cámaras de seguridad"
         ],
@@ -37692,7 +37793,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-IR-0046: bound exact source identification for the named attribution in addition to the statement evidence; entailment, qualifier support and evidence sufficiency rechecked. [fact D1-F0310]",
+        "review_note": "PASS v7: exact evidence preserves the condition on district-council resources and the conditional “podría/sería” force.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -78869,7 +78970,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0022 ACCEPT: bound exact “El Concejo Municipal de Esparza” resolver in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El Concejo trasladó a la Administración la solicitud para elaborar reconocimientos para el entrenador de la Academia de Esparza Futsala U-8.",
       "capability_bindings": [
@@ -78877,10 +78980,29 @@
         "ENT-01",
         "ATR-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 99,
+          "representation_char_start": 68,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 99,
+          "scope_char_start": 68,
+          "scope_containment": "PASS",
+          "selected_characters": 31,
+          "selected_text_sha256": "e49ac10ab66aa2f7d7a5f1f2b4a42ba5bba6140f0aee170ecfc93c88c309bdf1",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "El Concejo Municipal de Esparza",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -78933,20 +79055,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence M07-007 supports the semantic focus ‘El Concejo trasladó a la Administración la solicitud para elaborar reconocimientos para el entrenador de la Academia de Esparza Futsala U-8.’ with attribution=Concejo Municipal de Esparza; modality=trasladó; referent=entrenador | Academia de Esparza Futsala U-8; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0622 now binds exact PRE resolver for canonical actor Concejo Municipal de Esparza plus M07 operative evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "M07"
+        "M07",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0060"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0022 ACCEPT: bound exact “El Concejo Municipal de Esparza” resolver in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El Concejo trasladó a la Administración la solicitud para elaborar reconocimientos para los jugadores de la Academia de Esparza Futsala U-8.",
       "capability_bindings": [
@@ -78954,10 +79080,29 @@
         "ENT-01",
         "ATR-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 99,
+          "representation_char_start": 68,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 99,
+          "scope_char_start": 68,
+          "scope_containment": "PASS",
+          "selected_characters": 31,
+          "selected_text_sha256": "e49ac10ab66aa2f7d7a5f1f2b4a42ba5bba6140f0aee170ecfc93c88c309bdf1",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "El Concejo Municipal de Esparza",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -79010,20 +79155,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence M07-007 supports the semantic focus ‘El Concejo trasladó a la Administración la solicitud para elaborar reconocimientos para los jugadores de la Academia de Esparza Futsala U-8.’ with attribution=Concejo Municipal de Esparza; modality=trasladó; referent=jugadores | Academia de Esparza Futsala U-8; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0623 now binds exact PRE resolver for canonical actor Concejo Municipal de Esparza plus M07 operative evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "M07"
+        "M07",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0060"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Senary D1-V6-IR-0022 ACCEPT: bound exact “El Concejo Municipal de Esparza” resolver in v7."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El Concejo acordó reconocer posteriormente en sesión al entrenador y a los jugadores de la Academia de Esparza Futsala U-8.",
       "capability_bindings": [
@@ -79032,10 +79181,29 @@
         "ATR-01",
         "MOD-01",
         "TMP-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 99,
+          "representation_char_start": 68,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 99,
+          "scope_char_start": 68,
+          "scope_containment": "PASS",
+          "selected_characters": 31,
+          "selected_text_sha256": "e49ac10ab66aa2f7d7a5f1f2b4a42ba5bba6140f0aee170ecfc93c88c309bdf1",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "El Concejo Municipal de Esparza",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -79091,21 +79259,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence M07-007 supports the semantic focus ‘El Concejo acordó reconocer posteriormente en sesión al entrenador y a los jugadores de la Academia de Esparza Futsala U-8.’ with attribution=Concejo Municipal de Esparza; modality=acordó; referent=entrenador | jugadores | Academia de Esparza Futsala U-8; temporal=posteriormente; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v7: D1-F0624 now binds exact PRE resolver for canonical actor Concejo Municipal de Esparza plus M07 operative evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "M07"
+        "M07",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0060"
       ]
     },
     {
       "adjudication_notes": [
-        "D1-IR-0033"
+        "D1-IR-0033",
+        "Senary D1-V6-IR-0022 ACCEPT: bound exact “El Concejo Municipal de Esparza” resolver in v7."
       ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El acuerdo del Concejo sobre los reconocimientos a la Academia de Esparza Futsala U-8 quedó definitivamente aprobado por unanimidad.",
@@ -79114,10 +79285,29 @@
         "ENT-01",
         "ATR-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 99,
+          "representation_char_start": 68,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 99,
+          "scope_char_start": 68,
+          "scope_containment": "PASS",
+          "selected_characters": 31,
+          "selected_text_sha256": "e49ac10ab66aa2f7d7a5f1f2b4a42ba5bba6140f0aee170ecfc93c88c309bdf1",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "El Concejo Municipal de Esparza",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -79187,15 +79377,17 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-IR-0033: source entailment, self-sufficient minimality, mandatory qualifiers, exact evidence and unit/structure mapping were re-adjudicated for ‘El acuerdo del Concejo sobre los reconocimientos a la Academia de Esparza Futsala U-8 quedó definitivamente aprobado por unanimidad.’.",
+        "review_note": "PASS v7: D1-F0693 now binds exact PRE resolver for canonical actor Concejo Municipal de Esparza plus M07 operative evidence.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "M07"
+        "M07",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0060"
       ]
     },
@@ -83277,6 +83469,2526 @@
       "unit_ids": [
         "U0061"
       ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0001 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Fernando Villalobos señaló que era la segunda vez que llegaba al Concejo un pronunciamiento similar relacionado con la propuesta de reconocer a Laura Fernández Delgado.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "QTY-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 743,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 743,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 225,
+          "selected_text_sha256": "42af0259e204f47d987bd97a7afbc29a62c35f2b942ba2d9655e7925fc3e9ad5",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   ",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 30511,
+          "representation_char_start": 30200,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 30511,
+          "scope_char_start": 30200,
+          "scope_containment": "PASS",
+          "selected_characters": 311,
+          "selected_text_sha256": "b0aaeb660a4a8d7beb0c452278c48c3f0b98e26dac0608a7661580e876e4e4d6",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "Por este medio, le propongo a este honorable Consejo Municipal tomar el siguiente acuerdo:\n 5   - Designar a la Presidenta de la República Laura Fernández Delgado como hija predilecta\n 6   del Cantón de Esparza y hacer la entrega simbólica de las llaves de la Ciudad como se estila\n 7   para este tipo de actos.",
+          "unit_ids": [
+            "U0018"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 31244,
+          "representation_char_start": 31116,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 31244,
+          "scope_char_start": 31116,
+          "scope_containment": "PASS",
+          "selected_characters": 128,
+          "selected_text_sha256": "c47a92cf0e52108b7a83b42f072fefb51ee3644c50a88d7e78609972989b9623",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "Regidor Fernando Villalobos: Yo sugiero, don Juan Carlos, porque ya es la\n17   segunda vez que llega un pronunciamiento similar.",
+          "unit_ids": [
+            "U0018"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 31244,
+          "representation_char_start": 31174,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 31244,
+          "scope_char_start": 31174,
+          "scope_containment": "PASS",
+          "selected_characters": 70,
+          "selected_text_sha256": "b0bda596611d00c344e85c2cb2e9ee1b18d13ed4de33168f79f2b34c8db92f14",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "porque ya es la\n17   segunda vez que llega un pronunciamiento similar.",
+          "unit_ids": [
+            "U0018"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0808",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Fernando Villalobos Chacón, regidor"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "señaló"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [
+          "segunda vez"
+        ],
+        "referent": [
+          "pronunciamiento similar sobre el reconocimiento a Laura Fernández Delgado"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0808 — Fernando Villalobos señaló que era la segunda vez que llegaba al Concejo un pronunciamiento similar relacionado con la propuesta de reconocer a Laura Fernández Delgado. Senary repair source: D1-V6-IR-0001.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C06",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0018"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0001 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Fernando Villalobos atribuyó al desconocimiento del acuerdo previo tanto las preguntas sobre por qué no se había realizado el reconocimiento como la llegada de una nueva nota sobre el mismo asunto.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 743,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 743,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 225,
+          "selected_text_sha256": "42af0259e204f47d987bd97a7afbc29a62c35f2b942ba2d9655e7925fc3e9ad5",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,\n 9   Karol Arroyo Vásquez – Vicepresidenta, Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   ",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 30511,
+          "representation_char_start": 30200,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 30511,
+          "scope_char_start": 30200,
+          "scope_containment": "PASS",
+          "selected_characters": 311,
+          "selected_text_sha256": "b0aaeb660a4a8d7beb0c452278c48c3f0b98e26dac0608a7661580e876e4e4d6",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "Por este medio, le propongo a este honorable Consejo Municipal tomar el siguiente acuerdo:\n 5   - Designar a la Presidenta de la República Laura Fernández Delgado como hija predilecta\n 6   del Cantón de Esparza y hacer la entrega simbólica de las llaves de la Ciudad como se estila\n 7   para este tipo de actos.",
+          "unit_ids": [
+            "U0018"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 31244,
+          "representation_char_start": 31116,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 31244,
+          "scope_char_start": 31116,
+          "scope_containment": "PASS",
+          "selected_characters": 128,
+          "selected_text_sha256": "c47a92cf0e52108b7a83b42f072fefb51ee3644c50a88d7e78609972989b9623",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "Regidor Fernando Villalobos: Yo sugiero, don Juan Carlos, porque ya es la\n17   segunda vez que llega un pronunciamiento similar.",
+          "unit_ids": [
+            "U0018"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 32232,
+          "representation_char_start": 31981,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 32232,
+          "scope_char_start": 31981,
+          "scope_containment": "PASS",
+          "selected_characters": 251,
+          "selected_text_sha256": "b6147256e7c975c58e9b5d83560b4cb610045de3ca1b98f8a61792309b1e5fd4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "Esto\n27   ya se había acordado hace tiempo; entiendo que muchas personas no lo saben y\n28   por eso preguntan por qué no se ha hecho.\n29   Ahora llega también una nota del compañero y es precisamente por eso, porque la\n30   gente desconoce el acuerdo.",
+          "unit_ids": [
+            "U0018"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0809",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Fernando Villalobos Chacón, regidor"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "atribuyó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "acuerdo previo sobre el reconocimiento a Laura Fernández Delgado"
+        ],
+        "scope": [
+          "causa de nuevas preguntas y de una nueva nota"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0809 — Fernando Villalobos atribuyó al desconocimiento del acuerdo previo tanto las preguntas sobre por qué no se había realizado el reconocimiento como la llegada de una nueva nota sobre el mismo asunto. Senary repair source: D1-V6-IR-0001.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C06",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0018"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Juan Carlos Zeledón manifestó que la Presidencia mantenía total respeto hacia la labor de Douglas Arce y hacia la representación comunal que ejercía en Caldera.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 597,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 597,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4140ec8451ace68f0c6eea6d92b1b713677c16d3a4ec4620dd935d524ae8e5ff",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 53354,
+          "representation_char_start": 52963,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 53354,
+          "scope_char_start": 52963,
+          "scope_containment": "PASS",
+          "selected_characters": 391,
+          "selected_text_sha256": "e1758f4772bfc6310b4c4b22391bedc84519f360c66af1a5ca7f4a2c1e96dcc3",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Sr. Presidente Municipal: Con respecto a este tema, igualmente traigo una nota y\n37   deseo que conste en actas lo siguiente:\n38   “Primeramente, quiero agradecer a la Asociación de Desarrollo Integral de Mata\n39   Limón y a las personas firmantes por el interés y la participación activa en los temas\n40   relacionados con la Zona Marítimo Terrestre y el desarrollo del distrito de Caldera.",
+          "unit_ids": [
+            "U0027"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 53853,
+          "representation_char_start": 53690,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 53853,
+          "scope_char_start": 53690,
+          "scope_containment": "PASS",
+          "selected_characters": 163,
+          "selected_text_sha256": "c05390d74c51805958db0562e63088645aecc266fd870c51820105cf646bb265",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Esta\n45   Presidencia valora ese esfuerzo y mantiene total respeto hacia su labor y hacia la\n46   representación comunal que ejerce dentro del distrito de Caldera.",
+          "unit_ids": [
+            "U0027"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0810",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Juan Carlos Zeledón Maffio, presidente municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [
+          "Caldera"
+        ],
+        "modality": [
+          "manifestó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Douglas Arce Solís",
+          "representación comunal"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0810 — Juan Carlos Zeledón manifestó que la Presidencia mantenía total respeto hacia la labor de Douglas Arce y hacia la representación comunal que ejercía en Caldera. Senary repair source: D1-V6-IR-0002.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C13",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0027"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Juan Carlos Zeledón afirmó que la integración vigente de la Comisión ZMT no significaba desvalorizar el aporte de Douglas Arce ni el de las comunidades de Caldera.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 597,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 597,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4140ec8451ace68f0c6eea6d92b1b713677c16d3a4ec4620dd935d524ae8e5ff",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 53354,
+          "representation_char_start": 52963,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 53354,
+          "scope_char_start": 52963,
+          "scope_containment": "PASS",
+          "selected_characters": 391,
+          "selected_text_sha256": "e1758f4772bfc6310b4c4b22391bedc84519f360c66af1a5ca7f4a2c1e96dcc3",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Sr. Presidente Municipal: Con respecto a este tema, igualmente traigo una nota y\n37   deseo que conste en actas lo siguiente:\n38   “Primeramente, quiero agradecer a la Asociación de Desarrollo Integral de Mata\n39   Limón y a las personas firmantes por el interés y la participación activa en los temas\n40   relacionados con la Zona Marítimo Terrestre y el desarrollo del distrito de Caldera.",
+          "unit_ids": [
+            "U0027"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 54616,
+          "representation_char_start": 53854,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 54616,
+          "scope_char_start": 53854,
+          "scope_containment": "PASS",
+          "selected_characters": 762,
+          "selected_text_sha256": "555dc3646961c266a9f65eda227923eb702d70c07fdcd164ef4b75b62de0fd06",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "47   No obstante, también es importante señalar que la integración y conformación de\n48   las comisiones especiales corresponde legalmente a una competencia propia de\n49   la Presidencia del Concejo Municipal, conforme a lo establecido en el Código\n50   Municipal. En ese sentido, la integración actualmente definida para la Comisión\n51   Especial de Zona Marítimo Terrestre responde a una decisión administrativa\n52   adoptada dentro del marco de las facultades legales correspondientes a esta\n53   Presidencia.\n\f 1   Asimismo, debe indicarse que las conformaciones realizadas en períodos\n 2   anteriores o las prácticas históricas de participación no constituyen una obligación\n 3   jurídica de continuidad automática dentro de las comisiones especiales.\n 4   ",
+          "unit_ids": [
+            "U0027",
+            "U0028"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 54748,
+          "representation_char_start": 54616,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 54748,
+          "scope_char_start": 54616,
+          "scope_containment": "PASS",
+          "selected_characters": 132,
+          "selected_text_sha256": "5daa0db9029f88488a58c6d941b82c3bd25f4476c79306accae652b2f5796fbd",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Lo anterior no significa, de ninguna manera, una desvalorización del aporte del\n 5   señor síndico ni de las comunidades de Caldera.",
+          "unit_ids": [
+            "U0028"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0811",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Juan Carlos Zeledón Maffio, presidente municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [
+          "Caldera"
+        ],
+        "modality": [
+          "afirmó"
+        ],
+        "negation": [
+          "no significaba desvalorización"
+        ],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Douglas Arce Solís",
+          "comunidades de Caldera",
+          "Comisión ZMT"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0811 — Juan Carlos Zeledón afirmó que la integración vigente de la Comisión ZMT no significaba desvalorizar el aporte de Douglas Arce ni el de las comunidades de Caldera. Senary repair source: D1-V6-IR-0002.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C13",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0027",
+        "U0028"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Juan Carlos Zeledón reiteró el compromiso de la Presidencia con la transparencia, la participación ciudadana y el trabajo coordinado en beneficio de Caldera y del cantón.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 597,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 597,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4140ec8451ace68f0c6eea6d92b1b713677c16d3a4ec4620dd935d524ae8e5ff",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 53354,
+          "representation_char_start": 52963,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 53354,
+          "scope_char_start": 52963,
+          "scope_containment": "PASS",
+          "selected_characters": 391,
+          "selected_text_sha256": "e1758f4772bfc6310b4c4b22391bedc84519f360c66af1a5ca7f4a2c1e96dcc3",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Sr. Presidente Municipal: Con respecto a este tema, igualmente traigo una nota y\n37   deseo que conste en actas lo siguiente:\n38   “Primeramente, quiero agradecer a la Asociación de Desarrollo Integral de Mata\n39   Limón y a las personas firmantes por el interés y la participación activa en los temas\n40   relacionados con la Zona Marítimo Terrestre y el desarrollo del distrito de Caldera.",
+          "unit_ids": [
+            "U0027"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 55135,
+          "representation_char_start": 54951,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 55135,
+          "scope_char_start": 54951,
+          "scope_containment": "PASS",
+          "selected_characters": 184,
+          "selected_text_sha256": "5a27b14381fddf3204e6e9d05a36c52af0699923bac03b90fb90354db702fc11",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Finalmente, reitero nuestro compromiso con la transparencia, la participación\n 9   ciudadana y el trabajo coordinado en beneficio del distrito de Caldera y del cantón\n10   en general”.",
+          "unit_ids": [
+            "U0028"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0812",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Juan Carlos Zeledón Maffio, presidente municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [
+          "distrito de Caldera",
+          "cantón de Esparza"
+        ],
+        "modality": [
+          "reiteró"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [],
+        "scope": [
+          "transparencia, participación ciudadana y trabajo coordinado"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0812 — Juan Carlos Zeledón reiteró el compromiso de la Presidencia con la transparencia, la participación ciudadana y el trabajo coordinado en beneficio de Caldera y del cantón. Senary repair source: D1-V6-IR-0002.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C13",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0027",
+        "U0028"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0003 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Douglas Arce consideró inadecuado ampliar en el Concejo el análisis de asuntos de ZMT que llegaban con recomendación de denegatoria.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 55396,
+          "representation_char_start": 55210,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 55396,
+          "scope_char_start": 55210,
+          "scope_containment": "PASS",
+          "selected_characters": 186,
+          "selected_text_sha256": "f8b4f16945fdc6e18af52ddc1d6d4dcb990085f0166aa58665562eaf7950f649",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Síndico Douglas Arce Solís: Esto se origina a raíz de una publicación realizada por\n13   el programa Acontecer Esparzano, quienes, por iniciativa propia, hicieron dicha\n14   publicación.",
+          "unit_ids": [
+            "U0028"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 56723,
+          "representation_char_start": 56352,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 56723,
+          "scope_char_start": 56352,
+          "scope_containment": "PASS",
+          "selected_characters": 371,
+          "selected_text_sha256": "d38425aedfd09807f1e99eaec8d67b09418c26da0fa2ac1629b3fd774d8ac200",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Incluso, recuerdo que en alguna sesión don Fernando intervino ampliando el\n28   criterio sobre algunos temas que venían para aprobación. Si no me equivoco,\n29   indicó que también podían revisarse asuntos que venían con recomendación de\n30   denegatoria, ampliando así el análisis en el seno del Concejo, y eso es\n31   precisamente lo que a mí no me ha parecido adecuado.",
+          "unit_ids": [
+            "U0028"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0813",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Douglas Arce Solís, síndico"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró inadecuado"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "asuntos de ZMT con recomendación de denegatoria"
+        ],
+        "scope": [
+          "ampliación del análisis en el Concejo"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0813 — Douglas Arce consideró inadecuado ampliar en el Concejo el análisis de asuntos de ZMT que llegaban con recomendación de denegatoria. Senary repair source: D1-V6-IR-0003.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C13"
+      ],
+      "unit_ids": [
+        "U0028"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0004 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Flor Cubero consideró que la existencia de expedientes de ZMT extensos que requerían tiempo para estudiarse también había dificultado el funcionamiento de la Comisión ZMT.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 64870,
+          "representation_char_start": 64773,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 64870,
+          "scope_char_start": 64773,
+          "scope_containment": "PASS",
+          "selected_characters": 97,
+          "selected_text_sha256": "8d8afe4b01d28e95e5efe4aecd0439aa0b544c69e9ef7c53738911aa6e174b47",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Regidora Flor María Cubero Martínez: Primeramente, se respeta la decisión de la\n34   Presidencia.",
+          "unit_ids": [
+            "U0031"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 66157,
+          "representation_char_start": 65903,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 66157,
+          "scope_char_start": 65903,
+          "scope_containment": "PASS",
+          "selected_characters": 254,
+          "selected_text_sha256": "92de4f4f5106f03d0899588540b885d69761945cab1d05edf83b3ffde03bb3ce",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Existen muchos expedientes que todavía no se han revisado y que requieren\n48   análisis. Algunos son bastante extensos y necesitan tiempo para estudiarlos\n49   adecuadamente. Considero que eso también ha dificultado el funcionamiento de la\n50   comisión.",
+          "unit_ids": [
+            "U0031"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0814",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Flor María Cubero Martínez, regidora"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "expedientes de ZMT",
+          "Comisión ZMT"
+        ],
+        "scope": [
+          "causa que dificultaba el funcionamiento"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0814 — Flor Cubero consideró que la existencia de expedientes de ZMT extensos que requerían tiempo para estudiarse también había dificultado el funcionamiento de la Comisión ZMT. Senary repair source: D1-V6-IR-0004.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C13"
+      ],
+      "unit_ids": [
+        "U0031"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0005 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Heriberto Alvarado afirmó que personas ajenas a las comunidades habían aprovechado la tranquilidad del sector para cometer diversos actos indebidos.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 71339,
+          "representation_char_start": 71068,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 71339,
+          "scope_char_start": 71068,
+          "scope_containment": "PASS",
+          "selected_characters": 271,
+          "selected_text_sha256": "e399a03fb0a88851d2ec5debc49035e9b83d009f56d9a407794cea90cb23c0d9",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "2- Síndico Heriberto Alvarado Méndez: El otro tema es que los vecinos del distrito\n15   de San Jerónimo, Peñas Blancas, Sabanas y Cerrillos nos encontramos\n16   sinceramente muy preocupados por los recientes hechos de inseguridad que se\n17   están presentando en la zona.",
+          "unit_ids": [
+            "U0033"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 71478,
+          "representation_char_start": 71345,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 71478,
+          "scope_char_start": 71345,
+          "scope_containment": "PASS",
+          "selected_characters": 133,
+          "selected_text_sha256": "135b58b84241e2d76d12c84d8023ab6966e842b86f80e37d90b337efe834a34d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Últimamente, personas ajenas a las comunidades han aprovechado la tranquilidad\n19   del sector para cometer diversos actos indebidos.",
+          "unit_ids": [
+            "U0033"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0815",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Heriberto Alvarado Méndez, síndico"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "afirmó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [],
+        "scope": [
+          "situación de inseguridad en el distrito"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0815 — Heriberto Alvarado afirmó que personas ajenas a las comunidades habían aprovechado la tranquilidad del sector para cometer diversos actos indebidos. Senary repair source: D1-V6-IR-0005.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U02"
+      ],
+      "unit_ids": [
+        "U0033"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0005 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Heriberto Alvarado sostuvo que la tranquilidad que históricamente caracterizaba a los caseríos y al distrito en general se había visto afectada.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 71339,
+          "representation_char_start": 71068,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 71339,
+          "scope_char_start": 71068,
+          "scope_containment": "PASS",
+          "selected_characters": 271,
+          "selected_text_sha256": "e399a03fb0a88851d2ec5debc49035e9b83d009f56d9a407794cea90cb23c0d9",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "2- Síndico Heriberto Alvarado Méndez: El otro tema es que los vecinos del distrito\n15   de San Jerónimo, Peñas Blancas, Sabanas y Cerrillos nos encontramos\n16   sinceramente muy preocupados por los recientes hechos de inseguridad que se\n17   están presentando en la zona.",
+          "unit_ids": [
+            "U0033"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 73218,
+          "representation_char_start": 73052,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 73218,
+          "scope_char_start": 73052,
+          "scope_containment": "PASS",
+          "selected_characters": 166,
+          "selected_text_sha256": "f9ecf9ae785bfd194af1abc89575af559cec452effd899862757da1c320305d5",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Sin embargo, la preocupación persiste, ya que la tranquilidad que históricamente\n43   ha caracterizado a estos caseríos y al distrito en general se ha visto afectada.",
+          "unit_ids": [
+            "U0033"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0816",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Heriberto Alvarado Méndez, síndico"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "sostuvo"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [],
+        "scope": [
+          "afectación de la tranquilidad histórica de los caseríos y el distrito"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0816 — Heriberto Alvarado sostuvo que la tranquilidad que históricamente caracterizaba a los caseríos y al distrito en general se había visto afectada. Senary repair source: D1-V6-IR-0005.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U02"
+      ],
+      "unit_ids": [
+        "U0033"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0006 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Bienvenido Venegas consideró importante que la comunidad expusiera directamente los incidentes de inseguridad porque los delincuentes solían actuar en horarios específicos.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1435,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1435,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 65,
+          "selected_text_sha256": "15dd53784be0b3a653acf824c60eadf64ed9cfbaf1e958cd87387f48bddde0ea",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 74037,
+          "representation_char_start": 73983,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 74037,
+          "scope_char_start": 73983,
+          "scope_containment": "PASS",
+          "selected_characters": 54,
+          "selected_text_sha256": "6727a1f53ff786af33bd32a1d106a9065d5c54057cdd6e29065c42db59397299",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Señor Alcalde Municipal: Sí, gracias señor presidente.",
+          "unit_ids": [
+            "U0034"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 75075,
+          "representation_char_start": 74924,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 75075,
+          "scope_char_start": 74924,
+          "scope_containment": "PASS",
+          "selected_characters": 151,
+          "selected_text_sha256": "2155562e23435ede1d5caa685b98d5a5f192b4415dbe5e98becc645ffe5e4826",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Don Heriberto, considero importante coordinar una reunión con la comunidad y las\n15   autoridades policiales, la cual podría realizarse en el distrito.",
+          "unit_ids": [
+            "U0034"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 75401,
+          "representation_char_start": 75238,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 75401,
+          "scope_char_start": 75238,
+          "scope_containment": "PASS",
+          "selected_characters": 163,
+          "selected_text_sha256": "79985f99d873e7f3c67873e38d06869057646534f331e8a5b338383d14dc0314",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Es importante que ustedes puedan exponer directamente las situaciones que se\n19   están presentando, ya que los delincuentes suelen actuar en horarios específicos.",
+          "unit_ids": [
+            "U0034"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0817",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró importante"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "comunidad",
+          "incidentes de inseguridad"
+        ],
+        "scope": [
+          "exposición directa de incidentes de inseguridad"
+        ],
+        "temporal": [
+          "horarios específicos"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0817 — Bienvenido Venegas consideró importante que la comunidad expusiera directamente los incidentes de inseguridad porque los delincuentes solían actuar en horarios específicos. Senary repair source: D1-V6-IR-0006.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U02",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0034"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0007 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Flor Cubero fundamentó su propuesta de impulsar una Red Distrital de Seguridad en que este tipo de organización fortalecería el trabajo preventivo y la coordinación comunitaria.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 78115,
+          "representation_char_start": 77901,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 78115,
+          "scope_char_start": 77901,
+          "scope_containment": "PASS",
+          "selected_characters": 214,
+          "selected_text_sha256": "a076ae77623f0a7250b9b29e071238b5021b868fa3360bc8bf6d1f8836b7f40d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Regidora Flor María Cubero Martínez: Muy brevemente, considero importante\n 2   señalar que, hasta donde tengo conocimiento, existe una Red Cantonal de\n 3   Seguridad, de la cual se desprenden las redes distritales.",
+          "unit_ids": [
+            "U0035"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 78420,
+          "representation_char_start": 78121,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 78420,
+          "scope_char_start": 78121,
+          "scope_containment": "PASS",
+          "selected_characters": 299,
+          "selected_text_sha256": "3c56a5cb0efb2b0f2f00e2599c9d1308f2fbf54a89640cfc1a2dbead1449913f",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U02",
+          "text_preview": "Tal vez, aprovechando la reunión que propone el señor alcalde, se podría brindar\n 5   una inducción a la comunidad para iniciar el trabajo mediante una Red Distrital de\n 6   Seguridad, ya que este tipo de organización también fortalece mucho el trabajo\n 7   preventivo y la coordinación comunitaria.",
+          "unit_ids": [
+            "U0035"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0818",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Flor María Cubero Martínez, regidora"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "fundamentó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Red Distrital de Seguridad"
+        ],
+        "scope": [
+          "trabajo preventivo y coordinación comunitaria"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0818 — Flor Cubero fundamentó su propuesta de impulsar una Red Distrital de Seguridad en que este tipo de organización fortalecería el trabajo preventivo y la coordinación comunitaria. Senary repair source: D1-V6-IR-0007.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U02"
+      ],
+      "unit_ids": [
+        "U0035"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0008 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Ronald Robles consideró importante retomar el expediente 23.898 porque Carlos Andrés Robles, entonces ministro y anteriormente diputado, había impulsado originalmente el proyecto de ley.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 88674,
+          "representation_char_start": 88390,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 88674,
+          "scope_char_start": 88390,
+          "scope_containment": "PASS",
+          "selected_characters": 284,
+          "selected_text_sha256": "aa3831c899c852c40c951e09b9acbf71d6a3db09542f82498be50401bc10ac07",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "6- El Regidor suplente Ronald Robles Arley manifiesta que recibió información del\n36   señor Ministro de los Mares, las Costas y la Pesca, don Carlos Andrés Robles,\n37   relacionada con varios expedientes legislativos que serán nuevamente\n38   incorporados a la corriente legislativa.",
+          "unit_ids": [
+            "U0039"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 88962,
+          "representation_char_start": 88680,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 88962,
+          "scope_char_start": 88680,
+          "scope_containment": "PASS",
+          "selected_characters": 282,
+          "selected_text_sha256": "af430cd704463643dcc886f2729521549edc24ce73065db315b43a46abffdc91",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Entre ellos, destaca el expediente N.° 23.898, denominado “Ley para la\n40   Reivindicación de los Derechos de los Pobladores y Desafectación de la Zona de\n41   Alta Intervención de la Zona Protectora Tivives”, anteriormente relacionado\n42   también con la zona de reserva portuaria.",
+          "unit_ids": [
+            "U0039"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 89170,
+          "representation_char_start": 88968,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 89170,
+          "scope_char_start": 88968,
+          "scope_containment": "PASS",
+          "selected_characters": 202,
+          "selected_text_sha256": "4ad1b11988c376ac36db64af96f4d73e34c9346156fd99138b78c849de9677c0",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Indica que considera importante retomar este tema debido a que el actual Ministro,\n44   cuando fungía como diputado, fue quien impulsó originalmente el proyecto de ley\n45   ante la Asamblea Legislativa.",
+          "unit_ids": [
+            "U0039"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0819",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Ronald Robles Arley, regidor suplente"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró importante"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "expediente legislativo 23.898",
+          "Carlos Andrés Robles"
+        ],
+        "scope": [
+          "razón para retomar el expediente"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0819 — Ronald Robles consideró importante retomar el expediente 23.898 porque Carlos Andrés Robles, entonces ministro y anteriormente diputado, había impulsado originalmente el proyecto de ley. Senary repair source: D1-V6-IR-0008.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U06"
+      ],
+      "unit_ids": [
+        "U0039"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0009 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Douglas Arce sostuvo que visitar a los diputados en San José era la mejor salida porque esperar traerlos a Esparza complicaría el tiempo, el tiempo en el plenario era valioso y el manejo de reuniones y agendas era complicado.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 90281,
+          "representation_char_start": 89982,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 90281,
+          "scope_char_start": 89982,
+          "scope_containment": "PASS",
+          "selected_characters": 299,
+          "selected_text_sha256": "ac24b76e4429760f279a67ab8f5f81883fea2952c9f2c17161bf1ce22d47b02a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Síndico Douglas Arce Solís: Para aportar un poquito más sobre el mismo tema que\n 4   está comentando el compañero Robles, acuérdense de que a mí me han\n 5   comisionado y la misión fue ir a hacer lobby y cuidar el proyecto de ley en la\n 6   comisión de Puntarenas, y eso se logró al cien por ciento.",
+          "unit_ids": [
+            "U0040"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 91284,
+          "representation_char_start": 91014,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 91284,
+          "scope_char_start": 91014,
+          "scope_containment": "PASS",
+          "selected_characters": 270,
+          "selected_text_sha256": "a02dc8e3fc9e302d6ab1a1cc1598319f8fb352510894630a06a8c1300bb1c1f2",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Entonces, ese es el trabajo que creo que debemos hacer esta semana, o a más\n18   tardar la próxima: irnos a San José e ir diputado por diputado, especialmente los\n19   de la provincia de Puntarenas, porque si esperamos traerlos aquí se nos va a\n20   complicar el tiempo.",
+          "unit_ids": [
+            "U0040"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 91537,
+          "representation_char_start": 91285,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 91537,
+          "scope_char_start": 91285,
+          "scope_containment": "PASS",
+          "selected_characters": 252,
+          "selected_text_sha256": "7c6721a0ce7443291f24f3b34a31a4985770ee5a78e7c6729dc9f4c26bfd77cf",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Los tiempos en el plenario son muy valiosos y hay que saber\n21   aprovecharlos, entender el manejo de las reuniones y las agendas; entonces, es\n22   bastante complicado. Creo que la mejor salida es que vayamos a visitar a los\n23   diputados a San José.",
+          "unit_ids": [
+            "U0040"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0820",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Douglas Arce Solís, síndico"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [
+          "San José",
+          "plenario legislativo"
+        ],
+        "modality": [
+          "sostuvo"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [],
+        "scope": [
+          "razón para visitar diputados"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact source binds the proposed visit to San José to the time-pressure, plenary-time and agenda-management rationale.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U06"
+      ],
+      "unit_ids": [
+        "U0040"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0010 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Bienvenido Venegas respaldó como acertadas las propuestas planteadas para impulsar el expediente 23.898 y, ante la premura, afirmó que Douglas Arce tenía razón.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1547,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1547,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 177,
+          "selected_text_sha256": "08f3562210cd800aab7705320ef4e9755be8518b58626cb99d944474d46bf383",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 88962,
+          "representation_char_start": 88680,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 88962,
+          "scope_char_start": 88680,
+          "scope_containment": "PASS",
+          "selected_characters": 282,
+          "selected_text_sha256": "af430cd704463643dcc886f2729521549edc24ce73065db315b43a46abffdc91",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Entre ellos, destaca el expediente N.° 23.898, denominado “Ley para la\n40   Reivindicación de los Derechos de los Pobladores y Desafectación de la Zona de\n41   Alta Intervención de la Zona Protectora Tivives”, anteriormente relacionado\n42   también con la zona de reserva portuaria.",
+          "unit_ids": [
+            "U0039"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 95195,
+          "representation_char_start": 95102,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 95195,
+          "scope_char_start": 95102,
+          "scope_containment": "PASS",
+          "selected_characters": 93,
+          "selected_text_sha256": "0ec790d24fd9580c6d09a8e783ffd94ea183ec99d2e2ea5620e8084acc4d7a2d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Señor Alcalde, Bienvenido Venegas: Me parece que todas las propuestas son muy\n19   acertadas.",
+          "unit_ids": [
+            "U0041"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 96024,
+          "representation_char_start": 95868,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 96024,
+          "scope_char_start": 95868,
+          "scope_containment": "PASS",
+          "selected_characters": 156,
+          "selected_text_sha256": "07c9ad17810d7ae33bcf257bc32ddf66ce699238dadca2471bd1a810d29f1bf0",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Me parece que las dos propuestas, tanto la de don Douglas como la de don\n29   Fernando, son muy acertadas. Si estamos contra el tiempo, Douglas tiene razón.",
+          "unit_ids": [
+            "U0041"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0821",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [
+          "ante la premura"
+        ],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "respaldó",
+          "afirmó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "propuestas para impulsar el expediente 23.898",
+          "Douglas Arce Solís"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0821 — Bienvenido Venegas respaldó como acertadas las propuestas planteadas para impulsar el expediente 23.898 y, ante la premura, afirmó que Douglas Arce tenía razón. Senary repair source: D1-V6-IR-0010.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U06",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0039",
+        "U0041"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0011 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Bienvenido Venegas sostuvo que coordinar audiencias por teléfono era más rápido que hacerlo por correo porque esperar una respuesta consumía tiempo, y consideró mejor lograr una audiencia con los jefes de fracción.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1547,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1547,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 177,
+          "selected_text_sha256": "08f3562210cd800aab7705320ef4e9755be8518b58626cb99d944474d46bf383",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 95195,
+          "representation_char_start": 95102,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 95195,
+          "scope_char_start": 95102,
+          "scope_containment": "PASS",
+          "selected_characters": 93,
+          "selected_text_sha256": "0ec790d24fd9580c6d09a8e783ffd94ea183ec99d2e2ea5620e8084acc4d7a2d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Señor Alcalde, Bienvenido Venegas: Me parece que todas las propuestas son muy\n19   acertadas.",
+          "unit_ids": [
+            "U0041"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 96625,
+          "representation_char_start": 96438,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 96625,
+          "scope_char_start": 96438,
+          "scope_containment": "PASS",
+          "selected_characters": 187,
+          "selected_text_sha256": "155a7cee401130ec8018421366a650a73e30a6c782c163d4e6dcef01a60d9bab",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Es más rápido hacerlo por teléfono,\n36   porque si mandamos un correo, mientras nos responden, pasa el tiempo. Si\n37   logramos una audiencia con los jefes de fracción, sería mucho mejor.",
+          "unit_ids": [
+            "U0041"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0822",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "sostuvo",
+          "consideró"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "audiencias con jefes de fracción"
+        ],
+        "scope": [
+          "canal y oportunidad de coordinación"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0822 — Bienvenido Venegas sostuvo que coordinar audiencias por teléfono era más rápido que hacerlo por correo porque esperar una respuesta consumía tiempo, y consideró mejor lograr una audiencia con los jefes de fracción. Senary repair source: D1-V6-IR-0011.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U06",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0041"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0012 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Bienvenido Venegas manifestó incertidumbre sobre la factibilidad de realizar la sesión extraordinaria propuesta para antes de las 16:00 del 12 de junio.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1547,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1547,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 177,
+          "selected_text_sha256": "08f3562210cd800aab7705320ef4e9755be8518b58626cb99d944474d46bf383",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municipal, Margoth León Vásquez -\n22   secretaria.",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 95195,
+          "representation_char_start": 95102,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 95195,
+          "scope_char_start": 95102,
+          "scope_containment": "PASS",
+          "selected_characters": 93,
+          "selected_text_sha256": "0ec790d24fd9580c6d09a8e783ffd94ea183ec99d2e2ea5620e8084acc4d7a2d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Señor Alcalde, Bienvenido Venegas: Me parece que todas las propuestas son muy\n19   acertadas.",
+          "unit_ids": [
+            "U0041"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 98078,
+          "representation_char_start": 97819,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 98078,
+          "scope_char_start": 97819,
+          "scope_containment": "PASS",
+          "selected_characters": 259,
+          "selected_text_sha256": "3c0fcebebc5014d634a37ecacb7bafdd04c4271a90bfd05bd8ffe9f047346ed7",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Los que puedan asistir, irían por\n54   un lado y, por otro lado, si les parece, aprovecharíamos la fecha del 12 de junio,\n\f 1   cuando ellos vienen acá. Podríamos realizar una sesión extraordinaria antes de las\n 2   cuatro de la tarde. No sé si será factible.",
+          "unit_ids": [
+            "U0042",
+            "U0043"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0823",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "manifestó incertidumbre"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "sesión extraordinaria propuesta"
+        ],
+        "scope": [],
+        "temporal": [
+          "12 de junio",
+          "antes de las 16:00"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0823 — Bienvenido Venegas manifestó incertidumbre sobre la factibilidad de realizar la sesión extraordinaria propuesta para antes de las 16:00 del 12 de junio. Senary repair source: D1-V6-IR-0012.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U06",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0041",
+        "U0042",
+        "U0043"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0013 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Luis Diego Estrada expresó la expectativa de que pudiera cumplirse lo dicho en campaña sobre los Juegos Deportivos Nacionales.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 101000,
+          "representation_char_start": 100727,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 101000,
+          "scope_char_start": 100727,
+          "scope_containment": "PASS",
+          "selected_characters": 273,
+          "selected_text_sha256": "5e9ef2a64468b43005162eea75d8817bc3a3df8bfd5c25f748ba70c667aaf37a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "8- Regidor suplente Luis Diego Estrada Jiménez: Quiero aprovechar también este\n40   espacio de asuntos urgentes para tratar un tema bastante importante relacionado\n41   con el deporte, que ya no es un secreto para nadie, porque lo hemos venido\n42   hablando constantemente.",
+          "unit_ids": [
+            "U0043"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 101829,
+          "representation_char_start": 101546,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 101829,
+          "scope_char_start": 101546,
+          "scope_containment": "PASS",
+          "selected_characters": 283,
+          "selected_text_sha256": "3696fe94bc51cbffaf550ef9c38b39484c97c44ca0b6b9bf1176a35121aaec5d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Cuando estamos en campaña se dicen muchas cosas, pero lo legal es que a cada\n51   cantón se le abrirá un espacio para que postule su nombre y pueda ser tomado en\n52   cuenta como sede de los Juegos Deportivos Nacionales.\n53   Esperamos que lo que se dijo en campaña se pueda cumplir;",
+          "unit_ids": [
+            "U0043"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0824",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Luis Diego Estrada Jiménez, regidor suplente"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "expresó expectativa"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "afirmaciones de campaña sobre los Juegos Deportivos Nacionales"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0824 — Luis Diego Estrada expresó la expectativa de que pudiera cumplirse lo dicho en campaña sobre los Juegos Deportivos Nacionales. Senary repair source: D1-V6-IR-0013.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08"
+      ],
+      "unit_ids": [
+        "U0043"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0014 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Luis Diego Estrada reportó que personas no identificadas por la fuente habían manifestado estar contentas porque se estaba posicionando el nombre de Esparza, también en relación con los Juegos Deportivos Nacionales.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "AMB-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 101000,
+          "representation_char_start": 100727,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 101000,
+          "scope_char_start": 100727,
+          "scope_containment": "PASS",
+          "selected_characters": 273,
+          "selected_text_sha256": "5e9ef2a64468b43005162eea75d8817bc3a3df8bfd5c25f748ba70c667aaf37a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "8- Regidor suplente Luis Diego Estrada Jiménez: Quiero aprovechar también este\n40   espacio de asuntos urgentes para tratar un tema bastante importante relacionado\n41   con el deporte, que ya no es un secreto para nadie, porque lo hemos venido\n42   hablando constantemente.",
+          "unit_ids": [
+            "U0043"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 102177,
+          "representation_char_start": 102032,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 102177,
+          "scope_char_start": 102032,
+          "scope_containment": "PASS",
+          "selected_characters": 145,
+          "selected_text_sha256": "414916ff51646fd15aeec97644aca89f9a8ab08aee6dc95ceb3247d613fb1615",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Nos indican que están contentos porque estamos posicionando el nombre\n 3   de Esparza, y así también sucede con los Juegos Deportivos Nacionales.",
+          "unit_ids": [
+            "U0044"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0825",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Luis Diego Estrada Jiménez, regidor suplente"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [
+          "Esparza"
+        ],
+        "modality": [
+          "reportó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "personas no identificadas por la fuente",
+          "Juegos Deportivos Nacionales"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0825 — Luis Diego Estrada reportó que personas no identificadas por la fuente habían manifestado estar contentas porque se estaba posicionando el nombre de Esparza, también en relación con los Juegos Deportivos Nacionales. Senary repair source: D1-V6-IR-0014.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08"
+      ],
+      "unit_ids": [
+        "U0043",
+        "U0044"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0015 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Luis Diego Estrada consideró importante vincular el cambio de los Juegos Deportivos Nacionales con la responsabilidad de la Municipalidad y del Concejo Municipal dentro del sistema deportivo nacional.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 101000,
+          "representation_char_start": 100727,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 101000,
+          "scope_char_start": 100727,
+          "scope_containment": "PASS",
+          "selected_characters": 273,
+          "selected_text_sha256": "5e9ef2a64468b43005162eea75d8817bc3a3df8bfd5c25f748ba70c667aaf37a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "8- Regidor suplente Luis Diego Estrada Jiménez: Quiero aprovechar también este\n40   espacio de asuntos urgentes para tratar un tema bastante importante relacionado\n41   con el deporte, que ya no es un secreto para nadie, porque lo hemos venido\n42   hablando constantemente.",
+          "unit_ids": [
+            "U0043"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 103293,
+          "representation_char_start": 103131,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 103293,
+          "scope_char_start": 103131,
+          "scope_containment": "PASS",
+          "selected_characters": 162,
+          "selected_text_sha256": "e245e365a2b9bae5f025599c6093c5ad143ff9b0ecc60748d1e891977a2fbe91",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Por eso es importante enlazar este tema con la responsabilidad que tenemos como\n18   Municipalidad y como Concejo Municipal dentro del sistema deportivo nacional.",
+          "unit_ids": [
+            "U0044"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0826",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Luis Diego Estrada Jiménez, regidor suplente"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró importante"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Municipalidad",
+          "Concejo Municipal",
+          "sistema deportivo nacional"
+        ],
+        "scope": [
+          "responsabilidad institucional frente al cambio de los Juegos"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0826 — Luis Diego Estrada consideró importante vincular el cambio de los Juegos Deportivos Nacionales con la responsabilidad de la Municipalidad y del Concejo Municipal dentro del sistema deportivo nacional. Senary repair source: D1-V6-IR-0015.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08"
+      ],
+      "unit_ids": [
+        "U0043",
+        "U0044"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0016 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Flor Cubero manifestó que, aunque la posición de ICODER no le pareciera adecuada, tendría que acomodarse a lo que la institución estaba exponiendo.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 105153,
+          "representation_char_start": 105090,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 105153,
+          "scope_char_start": 105090,
+          "scope_containment": "PASS",
+          "selected_characters": 63,
+          "selected_text_sha256": "8af8779b6f753712bcbc491065bd1036c54c4f38dc2c32037ceca13abae691cd",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Regidora Flor María Cubero Martínez: Gracias, señor Presidente.",
+          "unit_ids": [
+            "U0045"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 105681,
+          "representation_char_start": 105568,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 105681,
+          "scope_char_start": 105568,
+          "scope_containment": "PASS",
+          "selected_characters": 113,
+          "selected_text_sha256": "c66d00ff77b5c1349d79a102872df461574fb20a97e8fb22c93d9f2f8f6868e3",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Y si hay algo que a mí no me parece, ¿qué voy a hacer? Tengo que acomodarme\n50   a lo que ellos están exponiendo.",
+          "unit_ids": [
+            "U0045"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0827",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Flor María Cubero Martínez, regidora"
+        ],
+        "condition": [
+          "aunque la posición de ICODER no le pareciera adecuada"
+        ],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "manifestó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "ICODER"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0827 — Flor Cubero manifestó que, aunque la posición de ICODER no le pareciera adecuada, tendría que acomodarse a lo que la institución estaba exponiendo. Senary repair source: D1-V6-IR-0016.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08"
+      ],
+      "unit_ids": [
+        "U0045"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0017 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Fernando Villalobos propuso que el Concejo tomara un acuerdo ese mismo día sobre su posición frente al cambio bianual de los Juegos Deportivos Nacionales.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 112919,
+          "representation_char_start": 112696,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 112919,
+          "scope_char_start": 112696,
+          "scope_containment": "PASS",
+          "selected_characters": 223,
+          "selected_text_sha256": "a36cb4c79151ad7fb690eb47cbc98e29f30c9c7c3f9343084ee861f0c202277a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Regidor Fernando Villalobos Chacón: Tal vez recogiendo un poquito el espíritu de\n39   lo que decía o planteaba el compañero Diego, así como lo que plantearon la\n40   compañera Flor, Cristian, el señor asesor legal y Ronald.",
+          "unit_ids": [
+            "U0048"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 115221,
+          "representation_char_start": 115190,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 115221,
+          "scope_char_start": 115190,
+          "scope_containment": "PASS",
+          "selected_characters": 31,
+          "selected_text_sha256": "1511f21cd6434f6598e44eb284ae65ed261dd95b314b3745916c074414392127",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Y tomemos un acuerdo hoy mismo.",
+          "unit_ids": [
+            "U0049"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0828",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Fernando Villalobos Chacón, regidor"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "propuso"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "acuerdo sobre el cambio bianual de los Juegos Deportivos Nacionales"
+        ],
+        "scope": [],
+        "temporal": [
+          "ese mismo día"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0828 — Fernando Villalobos propuso que el Concejo tomara un acuerdo ese mismo día sobre su posición frente al cambio bianual de los Juegos Deportivos Nacionales. Senary repair source: D1-V6-IR-0017.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08"
+      ],
+      "unit_ids": [
+        "U0048",
+        "U0049"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Senary finding D1-V6-IR-0018 ACCEPT: restored from exact frozen source in v7."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Douglas Arce consideró que el campeonato obtenido por los niños de la Academia de Esparza Futsala U-8 era un logro muy bonito para niños de apenas ocho años.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "QTY-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 145196,
+          "representation_char_start": 144933,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 145196,
+          "scope_char_start": 144933,
+          "scope_containment": "PASS",
+          "selected_characters": 263,
+          "selected_text_sha256": "f72f180fdfdae4de7e29b531f37f9c96b38cd2f15b231550de6a284a8d2665aa",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "M07",
+          "text_preview": "Síndico Douglas Arce Solís: Es para ver si tienen a bien hacerle un reconocimiento\n46   a los niños de la Academia de Esparza Futsala, categoría U-8, y a su entrenador,\n47   Gerson Cordero Chaves, quienes fueron campeones en el torneo Promesas de\n48   Costa Rica.",
+          "unit_ids": [
+            "U0059"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 145614,
+          "representation_char_start": 145539,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 145614,
+          "scope_char_start": 145539,
+          "scope_containment": "PASS",
+          "selected_characters": 75,
+          "selected_text_sha256": "7bd9e37a1ebb9205a999bf2ae2e7f96a086e065f6c312226515234f5fe56983b",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "M07",
+          "text_preview": "Considero que es un logro muy bonito para niños\n53   de tan solo ocho años.",
+          "unit_ids": [
+            "U0059"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0829",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Douglas Arce Solís, síndico"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [
+          "8"
+        ],
+        "referent": [
+          "campeonato de la Academia de Esparza Futsala U-8"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": [
+          "años"
+        ]
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v7: exact frozen evidence supports D1-F0829 — Douglas Arce consideró que el campeonato obtenido por los niños de la Academia de Esparza Futsala U-8 era un logro muy bonito para niños de apenas ocho años. Senary repair source: D1-V6-IR-0018.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "M07"
+      ],
+      "unit_ids": [
+        "U0059"
+      ]
     }
   ],
   "fixture": {
@@ -83328,10 +86040,10 @@
     "all_15_capability_bindings": 0,
     "blank_reverse_audit_notes": 0,
     "context_only_structures_without_consumers": 0,
-    "cross_unit_fact_count": 536,
+    "cross_unit_fact_count": 555,
     "empty_or_zero_evidence": 0,
-    "evidence_target_count": 1939,
-    "fact_count": 759,
+    "evidence_target_count": 2007,
+    "fact_count": 781,
     "facts_without_units": 0,
     "generic_placeholder_qualifiers": 0,
     "generic_reverse_audit_notes": 0,
@@ -83340,12 +86052,13 @@
     "independent_review_v1_findings_rejected": 0,
     "independent_review_v1_unresolved": 0,
     "material_carriers_without_facts": 0,
-    "multi_evidence_fact_count": 716,
+    "multi_evidence_fact_count": 743,
     "new_or_replacement_v2_fact_count": 50,
     "new_or_replacement_v3_fact_count": 33,
     "new_or_replacement_v4_fact_count": 40,
     "new_or_replacement_v5_fact_count": 9,
     "new_or_replacement_v6_fact_count": 15,
+    "new_or_replacement_v7_fact_count": 22,
     "no_material_structures_with_fact_refs": 0,
     "note_equals_single_evidence": 0,
     "primary_source_adjudications_resolved": 0,
@@ -83370,6 +86083,13 @@
     "secondary_review_v2_reference_to_source_findings": 23,
     "secondary_review_v2_source_to_reference_findings": 0,
     "secondary_review_v2_unresolved": 0,
+    "senary_review_v6_findings": 22,
+    "senary_review_v6_findings_accepted": 22,
+    "senary_review_v6_findings_rejected": 0,
+    "senary_review_v6_reference_to_source_findings": 4,
+    "senary_review_v6_source_to_reference_findings": 18,
+    "senary_review_v6_unit_state_findings": 0,
+    "senary_review_v6_unresolved": 0,
     "string_false_qualifiers": 0,
     "structure_carrier_count": 36,
     "supervising_author_findings": 38,
@@ -83397,7 +86117,10 @@
     "v5_reclassified_nonmaterial_units": 3,
     "v6_AMB_01_fact_count": 9,
     "v6_CTX_01_fact_count": 505,
-    "v6_QTY_01_fact_count": 52
+    "v6_QTY_01_fact_count": 52,
+    "v7_AMB_01_fact_count": 10,
+    "v7_CTX_01_fact_count": 525,
+    "v7_QTY_01_fact_count": 54
   },
   "quaternary_semantic_review": {
     "finding_count": 0,
@@ -83439,7 +86162,7 @@
     "unit_state_findings": 0,
     "verdict": "REFERENCE_DISPUTE"
   },
-  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-006",
+  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-007",
   "reference_state": "SUPERVISOR_DRAFT",
   "secondary_review_adjudication": {
     "accepted_count": 23,
@@ -83465,6 +86188,35 @@
     "reviewed_commit": "bf59bddcfe2a4027c86507491f782aa9fe027b7c",
     "source_to_reference_findings": 0,
     "strong_independent_gate_satisfied": false,
+    "verdict": "REFERENCE_DISPUTE"
+  },
+  "senary_review_adjudication": {
+    "accepted_count": 22,
+    "adjudication_artifact": "D1_SENARY_REVIEW_ADJUDICATION_V6.json",
+    "finding_count": 22,
+    "rejected_count": 0,
+    "review_id": "CANARIO-D1-SENARY-SEMANTIC-REVIEW-V6-001",
+    "review_independence_strength": "WEAK_OR_UNKNOWN",
+    "review_verdict": "REFERENCE_DISPUTE",
+    "reviewed_v6_commit": "87cc3a1eeef8b95f49abb2a671f84f7653040883",
+    "unresolved_count": 0,
+    "v7_requires_fresh_semantic_review": true
+  },
+  "senary_semantic_review": {
+    "anti_anchoring_compliance": "PASS",
+    "finding_count": 22,
+    "human_independence_gate_satisfied": false,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "provisional_blind_pass_sha256": "4c1dc41a035513384164f2f79aff1b156082fa943e7b28974bc93591dd053580",
+    "reference_to_source_findings": 4,
+    "review_commit": "4dc3c3e9299aa52acccb4bd7de25b6b2dd938687",
+    "review_id": "CANARIO-D1-SENARY-SEMANTIC-REVIEW-V6-001",
+    "review_json_sha256": "f899f8099ebf1907df3244e3171c8603e3e3f439c9c40a3b1132777dbd9c908e",
+    "review_md_sha256": "de8841e8df04b77287782278ad1308cff80931d12813a716191a3b1400f012d0",
+    "reviewed_commit": "87cc3a1eeef8b95f49abb2a671f84f7653040883",
+    "source_to_reference_findings": 18,
+    "strong_independent_gate_satisfied": false,
+    "unit_state_findings": 0,
     "verdict": "REFERENCE_DISPUTE"
   },
   "structure_ledger": [
@@ -83783,11 +86535,24 @@
         "D1-F0692",
         "D1-F0620",
         "D1-F0621",
+        "D1-F0622",
+        "D1-F0623",
+        "D1-F0624",
+        "D1-F0693",
         "D1-F0742",
         "D1-F0640",
         "D1-F0641",
         "D1-F0649",
-        "D1-F0651"
+        "D1-F0651",
+        "D1-F0808",
+        "D1-F0809",
+        "D1-F0810",
+        "D1-F0811",
+        "D1-F0812",
+        "D1-F0817",
+        "D1-F0821",
+        "D1-F0822",
+        "D1-F0823"
       ],
       "kind": "minutes_preamble",
       "label": "Session preamble, attendance and agenda",
@@ -84068,7 +86833,9 @@
         "D1-F0137",
         "D1-F0138",
         "D1-F0139",
-        "D1-F0671"
+        "D1-F0671",
+        "D1-F0808",
+        "D1-F0809"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -84329,7 +87096,12 @@
         "D1-F0277",
         "D1-F0278",
         "D1-F0279",
-        "D1-F0677"
+        "D1-F0677",
+        "D1-F0810",
+        "D1-F0811",
+        "D1-F0812",
+        "D1-F0813",
+        "D1-F0814"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -84423,7 +87195,11 @@
         "D1-F0318",
         "D1-F0319",
         "D1-F0320",
-        "D1-F0680"
+        "D1-F0680",
+        "D1-F0815",
+        "D1-F0816",
+        "D1-F0817",
+        "D1-F0818"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -84592,7 +87368,12 @@
         "D1-F0408",
         "D1-F0409",
         "D1-F0410",
-        "D1-F0411"
+        "D1-F0411",
+        "D1-F0819",
+        "D1-F0820",
+        "D1-F0821",
+        "D1-F0822",
+        "D1-F0823"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -84714,7 +87495,12 @@
         "D1-F0491",
         "D1-F0492",
         "D1-F0493",
-        "D1-F0497"
+        "D1-F0497",
+        "D1-F0824",
+        "D1-F0825",
+        "D1-F0826",
+        "D1-F0827",
+        "D1-F0828"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -84996,7 +87782,8 @@
         "D1-F0622",
         "D1-F0623",
         "D1-F0624",
-        "D1-F0693"
+        "D1-F0693",
+        "D1-F0829"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -85124,15 +87911,17 @@
   ],
   "supervising_author_conclusion": {
     "ai_assisted_bounded_spotcheck_v4_adjudication": "13_ACCEPTED_0_REJECTED_0_UNRESOLVED",
-    "final_evidence_context_pass": "PASS_AFTER_V5_TARGET_REBINDING",
-    "note": "D1 v6 repairs all 30 quinary v5 dispute groups, including systemic source-internal identity/provenance binding, 15 newly represented material assertions, and two capability-binding defects. Independence remains WEAK_OR_UNKNOWN; fresh semantic review is required before any freeze decision.",
+    "final_evidence_context_pass": "PASS_AFTER_V7_SENARY_REBINDING",
+    "note": "D1 v7 repairs all 22 senary v6 dispute groups: 22 newly represented material assertions, systemic provenance repairs on CGR and M07 decisions, conditional force on D1-F0310, and evaluative modality on D1-F0784. Independence remains WEAK_OR_UNKNOWN; fresh semantic review is required before any freeze decision.",
     "omission_only_pass": "PASS_AFTER_RESTORING_9_SPOTCHECK_EXPOSED_ASSERTIONS",
     "quaternary_review_v4": "CLEAN_PASS_0_DISPUTES_WEAK_OR_UNKNOWN_INDEPENDENCE",
     "quinary_review_v5": "REFERENCE_DISPUTE; 30/30 source-grounded groups accepted into v6 repair.",
     "quinary_review_v5_adjudication": "30 ACCEPT / 0 REJECT / 0 UNRESOLVED; v6 requires fresh semantic review.",
     "reference_state": "SUPERVISOR_DRAFT",
-    "reverse_fact_audit": "PASS_AFTER_EVIDENCE_IDENTITY_AND_UNIT_ACCOUNTING_REPAIRS",
-    "source_order_pass": "PASS_AFTER_AI_ASSISTED_SPOTCHECK_ADJUDICATION_AND_DIRECTED_FAMILY_RECHECK"
+    "reverse_fact_audit": "PASS_AFTER_SENARY_PROVENANCE_QUALIFIER_MODALITY_REPAIRS",
+    "senary_review_v6": "REFERENCE_DISPUTE; 22/22 source-grounded groups accepted into v7 repair.",
+    "senary_review_v6_adjudication": "22 ACCEPT / 0 REJECT / 0 UNRESOLVED; v7 requires fresh semantic review.",
+    "source_order_pass": "PASS_AFTER_SENARY_REVIEW_ADJUDICATION_AND_SOURCE_WIDE_LEXICAL_SEMANTIC_RECHECK"
   },
   "tertiary_review_adjudication": {
     "accepted_count": 14,
@@ -85483,11 +88272,24 @@
         "D1-F0692",
         "D1-F0620",
         "D1-F0621",
+        "D1-F0622",
+        "D1-F0623",
+        "D1-F0624",
+        "D1-F0693",
         "D1-F0742",
         "D1-F0640",
         "D1-F0641",
         "D1-F0649",
-        "D1-F0651"
+        "D1-F0651",
+        "D1-F0808",
+        "D1-F0809",
+        "D1-F0810",
+        "D1-F0811",
+        "D1-F0812",
+        "D1-F0817",
+        "D1-F0821",
+        "D1-F0822",
+        "D1-F0823"
       ],
       "material_structure_ids": [
         "PRE",
@@ -85717,7 +88519,11 @@
         "D1-F0048",
         "D1-F0669",
         "D1-F0049",
-        "D1-F0050"
+        "D1-F0050",
+        "D1-F0051",
+        "D1-F0052",
+        "D1-F0053",
+        "D1-F0054"
       ],
       "material_structure_ids": [
         "C03",
@@ -86223,7 +89029,9 @@
         "D1-F0122",
         "D1-F0126",
         "D1-F0127",
-        "D1-F0128"
+        "D1-F0128",
+        "D1-F0808",
+        "D1-F0809"
       ],
       "material_structure_ids": [
         "C06"
@@ -86242,7 +89050,9 @@
         "D1-F0122",
         "D1-F0126",
         "D1-F0127",
-        "D1-F0128"
+        "D1-F0128",
+        "D1-F0808",
+        "D1-F0809"
       ],
       "scope_char_end": 32805,
       "scope_char_start": 29941,
@@ -86706,7 +89516,10 @@
         "D1-F0215",
         "D1-F0216",
         "D1-F0217",
-        "D1-F0218"
+        "D1-F0218",
+        "D1-F0810",
+        "D1-F0811",
+        "D1-F0812"
       ],
       "material_structure_ids": [
         "C13"
@@ -86727,7 +89540,8 @@
         "D1-F0215",
         "D1-F0216",
         "D1-F0217",
-        "D1-F0218"
+        "D1-F0218",
+        "D1-F0810"
       ],
       "scope_char_end": 54368,
       "scope_char_start": 50384,
@@ -86752,7 +89566,10 @@
         "D1-F0225",
         "D1-F0226",
         "D1-F0227",
-        "D1-F0228"
+        "D1-F0228",
+        "D1-F0811",
+        "D1-F0812",
+        "D1-F0813"
       ],
       "material_structure_ids": [
         "C13"
@@ -86769,7 +89586,10 @@
         "D1-F0225",
         "D1-F0226",
         "D1-F0227",
-        "D1-F0228"
+        "D1-F0228",
+        "D1-F0811",
+        "D1-F0812",
+        "D1-F0813"
       ],
       "scope_char_end": 57233,
       "scope_char_start": 54368,
@@ -86896,7 +89716,8 @@
         "D1-F0254",
         "D1-F0256",
         "D1-F0257",
-        "D1-F0267"
+        "D1-F0267",
+        "D1-F0814"
       ],
       "material_structure_ids": [
         "C13"
@@ -86921,7 +89742,8 @@
         "D1-F0254",
         "D1-F0256",
         "D1-F0257",
-        "D1-F0267"
+        "D1-F0267",
+        "D1-F0814"
       ],
       "scope_char_end": 66350,
       "scope_char_start": 62396,
@@ -87007,7 +89829,9 @@
         "D1-F0295",
         "D1-F0296",
         "D1-F0800",
-        "D1-F0801"
+        "D1-F0801",
+        "D1-F0815",
+        "D1-F0816"
       ],
       "material_structure_ids": [
         "U01",
@@ -87031,7 +89855,9 @@
         "D1-F0295",
         "D1-F0296",
         "D1-F0800",
-        "D1-F0801"
+        "D1-F0801",
+        "D1-F0815",
+        "D1-F0816"
       ],
       "scope_char_end": 73978,
       "scope_char_start": 70053,
@@ -87064,7 +89890,8 @@
         "D1-F0313",
         "D1-F0314",
         "D1-F0315",
-        "D1-F0316"
+        "D1-F0316",
+        "D1-F0817"
       ],
       "material_structure_ids": [
         "U02"
@@ -87089,7 +89916,8 @@
         "D1-F0313",
         "D1-F0314",
         "D1-F0315",
-        "D1-F0316"
+        "D1-F0316",
+        "D1-F0817"
       ],
       "scope_char_end": 77896,
       "scope_char_start": 73978,
@@ -87136,7 +89964,8 @@
         "D1-F0682",
         "D1-F0697",
         "D1-F0698",
-        "D1-F0701"
+        "D1-F0701",
+        "D1-F0818"
       ],
       "material_structure_ids": [
         "U02",
@@ -87175,7 +90004,8 @@
         "D1-F0682",
         "D1-F0697",
         "D1-F0698",
-        "D1-F0701"
+        "D1-F0701",
+        "D1-F0818"
       ],
       "scope_char_end": 80774,
       "scope_char_start": 77896,
@@ -87371,7 +90201,9 @@
         "D1-F0737",
         "D1-F0412",
         "D1-F0738",
-        "D1-F0743"
+        "D1-F0743",
+        "D1-F0819",
+        "D1-F0821"
       ],
       "material_structure_ids": [
         "U05",
@@ -87423,7 +90255,8 @@
         "D1-F0737",
         "D1-F0412",
         "D1-F0738",
-        "D1-F0743"
+        "D1-F0743",
+        "D1-F0819"
       ],
       "scope_char_end": 89862,
       "scope_char_start": 85937,
@@ -87458,7 +90291,8 @@
         "D1-F0386",
         "D1-F0387",
         "D1-F0388",
-        "D1-F0802"
+        "D1-F0802",
+        "D1-F0820"
       ],
       "material_structure_ids": [
         "U06"
@@ -87485,7 +90319,8 @@
         "D1-F0386",
         "D1-F0387",
         "D1-F0388",
-        "D1-F0802"
+        "D1-F0802",
+        "D1-F0820"
       ],
       "scope_char_end": 93810,
       "scope_char_start": 89862,
@@ -87519,7 +90354,10 @@
         "D1-F0401",
         "D1-F0403",
         "D1-F0404",
-        "D1-F0405"
+        "D1-F0405",
+        "D1-F0821",
+        "D1-F0822",
+        "D1-F0823"
       ],
       "material_structure_ids": [
         "U06"
@@ -87545,7 +90383,9 @@
         "D1-F0401",
         "D1-F0403",
         "D1-F0404",
-        "D1-F0405"
+        "D1-F0405",
+        "D1-F0821",
+        "D1-F0822"
       ],
       "scope_char_end": 96626,
       "scope_char_start": 93810,
@@ -87566,7 +90406,8 @@
         "D1-F0401",
         "D1-F0403",
         "D1-F0404",
-        "D1-F0405"
+        "D1-F0405",
+        "D1-F0823"
       ],
       "material_structure_ids": [
         "U06"
@@ -87632,7 +90473,11 @@
         "D1-F0436",
         "D1-F0437",
         "D1-F0438",
-        "D1-F0439"
+        "D1-F0439",
+        "D1-F0823",
+        "D1-F0824",
+        "D1-F0825",
+        "D1-F0826"
       ],
       "material_structure_ids": [
         "U06",
@@ -87677,7 +90522,9 @@
         "D1-F0436",
         "D1-F0437",
         "D1-F0438",
-        "D1-F0439"
+        "D1-F0439",
+        "D1-F0823",
+        "D1-F0824"
       ],
       "scope_char_end": 101934,
       "scope_char_start": 97942,
@@ -87707,7 +90554,9 @@
         "D1-F0437",
         "D1-F0438",
         "D1-F0439",
-        "D1-F0440"
+        "D1-F0440",
+        "D1-F0825",
+        "D1-F0826"
       ],
       "material_structure_ids": [
         "U08"
@@ -87729,7 +90578,9 @@
         "D1-F0437",
         "D1-F0438",
         "D1-F0439",
-        "D1-F0440"
+        "D1-F0440",
+        "D1-F0825",
+        "D1-F0826"
       ],
       "scope_char_end": 104803,
       "scope_char_start": 101934,
@@ -87759,7 +90610,8 @@
         "D1-F0447",
         "D1-F0448",
         "D1-F0449",
-        "D1-F0450"
+        "D1-F0450",
+        "D1-F0827"
       ],
       "material_structure_ids": [
         "U08"
@@ -87781,7 +90633,8 @@
         "D1-F0447",
         "D1-F0448",
         "D1-F0449",
-        "D1-F0450"
+        "D1-F0450",
+        "D1-F0827"
       ],
       "scope_char_end": 105984,
       "scope_char_start": 104803,
@@ -87904,7 +90757,8 @@
         "D1-F0475",
         "D1-F0476",
         "D1-F0477",
-        "D1-F0478"
+        "D1-F0478",
+        "D1-F0828"
       ],
       "material_structure_ids": [
         "U08"
@@ -87963,7 +90817,8 @@
         "D1-F0791",
         "D1-F0488",
         "D1-F0489",
-        "D1-F0490"
+        "D1-F0490",
+        "D1-F0828"
       ],
       "material_structure_ids": [
         "U08"
@@ -87989,7 +90844,8 @@
         "D1-F0791",
         "D1-F0488",
         "D1-F0489",
-        "D1-F0490"
+        "D1-F0490",
+        "D1-F0828"
       ],
       "scope_char_end": 117756,
       "scope_char_start": 113955,
@@ -88655,7 +91511,8 @@
         "D1-F0616",
         "D1-F0617",
         "D1-F0618",
-        "D1-F0619"
+        "D1-F0619",
+        "D1-F0829"
       ],
       "material_structure_ids": [
         "M03",
@@ -88689,7 +91546,8 @@
         "D1-F0616",
         "D1-F0617",
         "D1-F0618",
-        "D1-F0619"
+        "D1-F0619",
+        "D1-F0829"
       ],
       "scope_char_end": 145616,
       "scope_char_start": 141720,

@@ -1,0 +1,245 @@
+{
+  "decision_counts": {
+    "ACCEPT": 22,
+    "REJECT": 0,
+    "UNRESOLVED": 0
+  },
+  "decisions": [
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 decomposes recurrence and its causal explanation into two facts."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 decomposes respect, non-devaluation and institutional commitment into three facts."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0003",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0004",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0005",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 preserves the two separable public-safety/status assessments as two facts."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0006",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0007",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0008",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0009",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0010",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0011",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0012",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0013",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0014",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0015",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0016",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0017",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V6-IR-0018",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0051",
+        "D1-F0052",
+        "D1-F0053",
+        "D1-F0054"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V6-IR-0019",
+      "issue_type": "ATTRIBUTION_ERROR",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 binds exact CGR correspondence provenance to all four affected facts."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0310"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V6-IR-0020",
+      "issue_type": "QUALIFIER_ERROR",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 restores the resource condition and conditional “podría/sería” force on D1-F0310."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0784"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V6-IR-0021",
+      "issue_type": "MODALITY_ERROR",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 restores evaluative “me parece” modality on D1-F0784."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0622",
+        "D1-F0623",
+        "D1-F0624",
+        "D1-F0693"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V6-IR-0022",
+      "issue_type": "ATTRIBUTION_ERROR",
+      "source_grounded_adjudication": "Accepted from exact frozen source under broad materiality/evidence rules. V7 binds exact PRE Concejo Municipal de Esparza resolver to all four M07 decision facts."
+    }
+  ],
+  "format": "canario.d1-senary-review-adjudication.v6/1",
+  "review_id": "CANARIO-D1-SENARY-SEMANTIC-REVIEW-V6-001",
+  "review_independence_strength": "WEAK_OR_UNKNOWN",
+  "review_verdict": "REFERENCE_DISPUTE",
+  "reviewed_v6_commit": "87cc3a1eeef8b95f49abb2a671f84f7653040883",
+  "v7_repair_summary": {
+    "new_fact_count": 22,
+    "new_fact_ids": [
+      "D1-F0808",
+      "D1-F0809",
+      "D1-F0810",
+      "D1-F0811",
+      "D1-F0812",
+      "D1-F0813",
+      "D1-F0814",
+      "D1-F0815",
+      "D1-F0816",
+      "D1-F0817",
+      "D1-F0818",
+      "D1-F0819",
+      "D1-F0820",
+      "D1-F0821",
+      "D1-F0822",
+      "D1-F0823",
+      "D1-F0824",
+      "D1-F0825",
+      "D1-F0826",
+      "D1-F0827",
+      "D1-F0828",
+      "D1-F0829"
+    ],
+    "note": "18 omission groups produce 22 facts because IR-0001, IR-0002 and IR-0005 contain source-separable assertions; all four reverse groups repair existing IDs.",
+    "retired_v6_fact_count": 0,
+    "reverse_repairs": [
+      "D1-F0051",
+      "D1-F0052",
+      "D1-F0053",
+      "D1-F0054",
+      "D1-F0310",
+      "D1-F0784",
+      "D1-F0622",
+      "D1-F0623",
+      "D1-F0624",
+      "D1-F0693"
+    ]
+  }
+}
