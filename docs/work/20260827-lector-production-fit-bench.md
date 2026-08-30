@@ -416,3 +416,35 @@ D1 v3 was mechanically certified unchanged at `f67be88dd34231f472e8bf485aba72760
 The supervising/cloud author reopened all 14 findings against the exact frozen Representation and accepted all 14, with zero rejected or unresolved. `references/D1_TERTIARY_REVIEW_ADJUDICATION_V3.json` is the canonical adjudication record. D1 v4 restores Stephannie Quesada’s road-attention expectation/reason and the explicit prior port-reserve relation of expediente 23.898, repairs the pool-regulation modality, and binds normalized calendar dates to exact dated source/session evidence. The tertiary quantity finding also exposed a deeper authoring defect: v3’s `25`/`10` school totals were arithmetic derivations and the two aggregate list facts were under-decomposed. V4 therefore retires those two facts and represents all 35 enumerated educational-center rows individually, without derived totals. The resulting candidate contains **735 facts and 1,694 exact evidence targets** across the same 36 semantic carriers and 61 frozen units.
 
 `references/D1_REFERENCE_SUPERVISOR_DRAFT_V4.json` remains `SUPERVISOR_DRAFT`. It requires exact local mechanical certification and another fresh semantic audit before any D1 freeze. Formal A0–A5 output/scores remain unseen, Acta 160 and H2 remain untouched, thresholds remain unfrozen, and production broad-Lector implementation remains unauthorized.
+
+### F3 progress — D1 supervisor draft v5
+
+D1 v4 was mechanically certified unchanged at `44291aa54f96492d02cc4e9c9f8e4d0bb9ddd770`. A fourth
+fresh-context semantic audit then completed the blind 36-structure / 61-unit / 735-fact / 1,694-evidence
+pass and returned `QUATERNARY_AUDIT_PASS_NO_DISPUTES`; that clean review is preserved at
+`5456898a78082061ca6536dd0bd74373fea95cf0`. The reviewer was still OpenAI GPT-5.6 Sol, so the clean
+result remains `WEAK_OR_UNKNOWN` independence and does not satisfy the materially-independent gate.
+
+A deterministic 30-decision human-independence spot-check packet was then generated without using prior
+review findings for selection. The owner explicitly delegated those decisions back to the supervising OpenAI
+model. That review is therefore preserved as **AI-assisted supplemental defect-finding evidence**, not as a
+human review and not as material independence. `references/D1_AI_ASSISTED_BOUNDED_SPOTCHECK_V4.json`
+records `REFERENCE_DISPUTE` with 13 hard groups: three reference→source evidence/attribution defects, nine
+source→reference omissions exposed inside the sampled forward units, and one wrong unit classification family.
+
+The supervising/cloud author adjudicated all 13 findings source-only: 13 accepted, 0 rejected, 0 unresolved.
+`references/D1_AI_ASSISTED_BOUNDED_SPOTCHECK_ADJUDICATION_V4.json` is the canonical resolution record.
+D1 v5 contains **744 facts and 1,727 evidence targets**. It restores nine explicit actor positions,
+recommendations, proposals, procedural/status assertions; binds the missing M02 future-request antecedent and
+C06 Laura-agreement sentence; binds same-source PRE identity evidence to eight normalized Stephannie-Quesada
+facts; and narrows the overbroad C01 context selector that crossed three content-free numeric extraction units.
+`U0003`, `U0004`, `U0005` and `U0007` are now `NO_MATERIAL_CIVIC_FACT`; their exact frozen contents are only
+`9`, `10`, `11` and `1` respectively.
+
+The author-time v5 validator reports 744 unique facts, 1,727 reopenable evidence targets, 36 structures, 61
+units, 411 cross-unit facts, 378 `CTX-01`, eight `AMB-01`, 50 `QTY-01`, 649 multi-evidence facts, zero selector
+hash/range/structure/unit failures, zero mid-word selector boundaries, zero duplicate canonical/reverse-audit
+notes, zero `FID-01` bindings and zero unresolved structures/adjudications. D1 v5 remains `SUPERVISOR_DRAFT`.
+Exact local mechanical certification and a fresh semantic audit are required before any freeze discussion; the
+human/material-independence gate remains unsatisfied. Formal A0-A5 output/scores remain unseen, Acta 160 and H2
+remain untouched, thresholds remain unfrozen, and production broad-Lector implementation remains unauthorized.

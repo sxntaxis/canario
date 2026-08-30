@@ -1,10 +1,37 @@
 {
+  "ai_assisted_bounded_spotcheck_adjudication_v4": {
+    "accepted_count": 13,
+    "adjudication_artifact": "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_ADJUDICATION_V4.json",
+    "finding_count": 13,
+    "rejected_count": 0,
+    "resulting_reference": "D1_REFERENCE_SUPERVISOR_DRAFT_V5",
+    "unresolved_count": 0,
+    "v5_requires_fresh_semantic_review": true
+  },
+  "ai_assisted_bounded_spotcheck_v4": {
+    "finding_count": 13,
+    "human_independence_gate_satisfied": false,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "reference_to_source_findings": 3,
+    "review_id": "CANARIO-D1-AI-ASSISTED-BOUNDED-SPOTCHECK-V4-001",
+    "review_json_sha256": "c15dfcde0ee0af6d18759e0c3e069cca6820ac08bfe445cb0b4bff22db256c2d",
+    "review_md_sha256": "5e80c03b3cc5e237855fa69c4e1bdb41978982f725f8142d7cac55e888ae4da1",
+    "reviewed_commit": "44291aa54f96492d02cc4e9c9f8e4d0bb9ddd770",
+    "selection_manifest_sha256": "e87d0a04745838a67892b98ca7cfb46233ac4500f381fef1cb03e688fada347c",
+    "source_to_reference_findings": 10,
+    "strong_independent_gate_satisfied": false,
+    "verdict": "REFERENCE_DISPUTE"
+  },
   "authority": {
     "authoring_method": "REFERENCE_AUTHORING_METHOD_V1",
     "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2",
     "semantic_target": "BENCHMARK_SEMANTICS_FREEZE_V1"
   },
   "authorship": {
+    "ai_assisted_bounded_spotcheck_v4_disputes_adjudicated": true,
+    "ai_assisted_bounded_spotcheck_v4_independence_strength": "WEAK_OR_UNKNOWN",
+    "ai_assisted_bounded_spotcheck_v4_received": true,
+    "human_independence_gate_satisfied": false,
     "independent_review_v1_disputes_adjudicated": true,
     "independent_review_v1_independence_strength": "WEAK_OR_UNKNOWN",
     "independent_review_v1_received": true,
@@ -12,6 +39,9 @@
     "independent_semantic_review_required": true,
     "local_agent_semantic_authoring_authorized": false,
     "local_mechanical_certification_pending": true,
+    "quaternary_semantic_review_v4_clean_pass": true,
+    "quaternary_semantic_review_v4_independence_strength": "WEAK_OR_UNKNOWN",
+    "quaternary_semantic_review_v4_received": true,
     "script_generated_semantic_notes": false,
     "secondary_semantic_review_v2_disputes_adjudicated": true,
     "secondary_semantic_review_v2_independence_strength": "WEAK_OR_UNKNOWN",
@@ -535,7 +565,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0013: accepted; the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "La Dirección de la Escuela IDA El Barón remitió una propuesta para sustituir integrantes de su Junta de Educación, con visto bueno de la Supervisión del Circuito 07.",
       "capability_bindings": [
@@ -550,23 +582,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 4236,
+          "representation_char_end": 4013,
           "representation_char_start": 3392,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 4236,
+          "scope_char_end": 4013,
           "scope_char_start": 3392,
           "scope_containment": "PASS",
-          "selected_characters": 844,
-          "selected_text_sha256": "5ff3f118b042fef3ba297c480ac6e7a6539b2bea76aec689b4e6376ab55eb632",
+          "selected_characters": 621,
+          "selected_text_sha256": "f7379a92d2b22937c40f819c8b0a6d28da4a1096730c37a4add6ee3ade367412",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C01",
-          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cé...",
+          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n",
           "unit_ids": [
-            "U0002",
-            "U0003",
-            "U0004",
-            "U0005",
-            "U0006"
+            "U0002"
           ]
         }
       ],
@@ -602,7 +630,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C01-001 supports the semantic focus ‘La Dirección de la Escuela IDA El Barón remitió una propuesta para sustituir integrantes de su Junta de Educación, con visto bueno de la Supervisión del Circuito 07.’ with attribution=Julissa García Leal / Escuela IDA El Barón; modality=remitió; referent=Junta de Educación de la Escuela IDA El Barón; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0013: the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected. Fact-specific check: D1-F0007 — La Dirección de la Escuela IDA El Barón remitió una propuesta para sustituir integrantes de su Junta de Educación, con visto bueno de la Supervisión del Circuito 07.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -611,15 +639,13 @@
         "C01"
       ],
       "unit_ids": [
-        "U0002",
-        "U0003",
-        "U0004",
-        "U0005",
-        "U0006"
+        "U0002"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0013: accepted; the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "La sesión aclaró que la sustitución de la Junta de Educación de la Escuela IDA El Barón respondía a la renuncia de cuatro miembros.",
       "capability_bindings": [
@@ -653,23 +679,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 4236,
+          "representation_char_end": 4013,
           "representation_char_start": 3392,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 4236,
+          "scope_char_end": 4013,
           "scope_char_start": 3392,
           "scope_containment": "PASS",
-          "selected_characters": 844,
-          "selected_text_sha256": "5ff3f118b042fef3ba297c480ac6e7a6539b2bea76aec689b4e6376ab55eb632",
+          "selected_characters": 621,
+          "selected_text_sha256": "f7379a92d2b22937c40f819c8b0a6d28da4a1096730c37a4add6ee3ade367412",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C01",
-          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cé...",
+          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n",
           "unit_ids": [
-            "U0002",
-            "U0003",
-            "U0004",
-            "U0005",
-            "U0006"
+            "U0002"
           ]
         }
       ],
@@ -705,7 +727,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C01-003, C01-001 supports the semantic focus ‘La sesión aclaró que la sustitución de la Junta de Educación de la Escuela IDA El Barón respondía a la renuncia de cuatro miembros.’ with attribution=Concejo Municipal de Esparza; quantity=4; referent=Junta de Educación de la Escuela IDA El Barón; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0013: the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected. Fact-specific check: D1-F0008 — La sesión aclaró que la sustitución de la Junta de Educación de la Escuela IDA El Barón respondía a la renuncia de cuatro miembros.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -714,15 +736,14 @@
         "C01"
       ],
       "unit_ids": [
-        "U0006",
         "U0002",
-        "U0003",
-        "U0004",
-        "U0005"
+        "U0006"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0013: accepted; the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El Concejo aceptó las renuncias de María Elena García Campos, Saulyn Tamara León Montoya, Karissa Meléndez Campos y Sirley Sujey Céspedes Méndez a la Junta de Educación de la Escuela IDA El Barón.",
       "capability_bindings": [
@@ -774,23 +795,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 4236,
+          "representation_char_end": 4013,
           "representation_char_start": 3392,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 4236,
+          "scope_char_end": 4013,
           "scope_char_start": 3392,
           "scope_containment": "PASS",
-          "selected_characters": 844,
-          "selected_text_sha256": "5ff3f118b042fef3ba297c480ac6e7a6539b2bea76aec689b4e6376ab55eb632",
+          "selected_characters": 621,
+          "selected_text_sha256": "f7379a92d2b22937c40f819c8b0a6d28da4a1096730c37a4add6ee3ade367412",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C01",
-          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cé...",
+          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n",
           "unit_ids": [
-            "U0002",
-            "U0003",
-            "U0004",
-            "U0005",
-            "U0006"
+            "U0002"
           ]
         }
       ],
@@ -826,7 +843,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C01-005, C01-004, C01-001 supports the semantic focus ‘El Concejo aceptó las renuncias de María Elena García Campos, Saulyn Tamara León Montoya, Karissa Meléndez Campos y Sirley Sujey Céspedes Méndez a la Junta de Educación de la Es...’ with attribution=Concejo Municipal de Esparza; modality=aceptó; referent=Junta de Educación de la Escuela IDA El Barón; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0013: the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected. Fact-specific check: D1-F0009 — El Concejo aceptó las renuncias de María Elena García Campos, Saulyn Tamara León Montoya, Karissa Meléndez Campos y Sirley Sujey Céspedes Méndez a la Junta de Educación de la Escuela IDA El Barón.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -835,11 +852,8 @@
         "C01"
       ],
       "unit_ids": [
-        "U0006",
         "U0002",
-        "U0003",
-        "U0004",
-        "U0005"
+        "U0006"
       ]
     },
     {
@@ -940,7 +954,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0013: accepted; the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El Concejo dispuso notificar los nombramientos de la Junta de Educación de la Escuela IDA El Barón a la Supervisión y al centro educativo.",
       "capability_bindings": [
@@ -992,23 +1008,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 4236,
+          "representation_char_end": 4013,
           "representation_char_start": 3392,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 4236,
+          "scope_char_end": 4013,
           "scope_char_start": 3392,
           "scope_containment": "PASS",
-          "selected_characters": 844,
-          "selected_text_sha256": "5ff3f118b042fef3ba297c480ac6e7a6539b2bea76aec689b4e6376ab55eb632",
+          "selected_characters": 621,
+          "selected_text_sha256": "f7379a92d2b22937c40f819c8b0a6d28da4a1096730c37a4add6ee3ade367412",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C01",
-          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cé...",
+          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n",
           "unit_ids": [
-            "U0002",
-            "U0003",
-            "U0004",
-            "U0005",
-            "U0006"
+            "U0002"
           ]
         }
       ],
@@ -1044,7 +1056,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C01-008, C01-004, C01-001 supports the semantic focus ‘El Concejo dispuso notificar los nombramientos de la Junta de Educación de la Escuela IDA El Barón a la Supervisión y al centro educativo.’ with attribution=Concejo Municipal de Esparza; modality=dispuso notificar; referent=Junta de Educación de la Escuela IDA El Barón; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0013: the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected. Fact-specific check: D1-F0011 — El Concejo dispuso notificar los nombramientos de la Junta de Educación de la Escuela IDA El Barón a la Supervisión y al centro educativo.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -1053,15 +1065,14 @@
         "C01"
       ],
       "unit_ids": [
-        "U0006",
         "U0002",
-        "U0003",
-        "U0004",
-        "U0005"
+        "U0006"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0013: accepted; the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El Concejo dispuso que los nuevos miembros de la Junta de Educación de la Escuela IDA El Barón se presentaran para juramentación el 25 de mayo a las 18:30 en la Sala de Sesiones municipal.",
       "capability_bindings": [
@@ -1115,23 +1126,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 4236,
+          "representation_char_end": 4013,
           "representation_char_start": 3392,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 4236,
+          "scope_char_end": 4013,
           "scope_char_start": 3392,
           "scope_containment": "PASS",
-          "selected_characters": 844,
-          "selected_text_sha256": "5ff3f118b042fef3ba297c480ac6e7a6539b2bea76aec689b4e6376ab55eb632",
+          "selected_characters": 621,
+          "selected_text_sha256": "f7379a92d2b22937c40f819c8b0a6d28da4a1096730c37a4add6ee3ade367412",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C01",
-          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cé...",
+          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n",
           "unit_ids": [
-            "U0002",
-            "U0003",
-            "U0004",
-            "U0005",
-            "U0006"
+            "U0002"
           ]
         }
       ],
@@ -1172,7 +1179,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C01-008, C01-004, C01-001 supports the semantic focus ‘El Concejo dispuso que los nuevos miembros de la Junta de Educación de la Escuela IDA El Barón se presentaran para juramentación el 25 de mayo a las 18:30 en la Sala de Sesiones...’ with attribution=Concejo Municipal de Esparza; location=Sala de Sesiones de la Municipalidad; modality=dispuso; referent=Junta de Educación de la Escuela IDA El Barón; temporal=25 de mayo de 2026 | 18:30; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0013: the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected. Fact-specific check: D1-F0012 — El Concejo dispuso que los nuevos miembros de la Junta de Educación de la Escuela IDA El Barón se presentaran para juramentación el 25 de mayo a las 18:30 en la Sala de Sesiones municipal.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -1181,11 +1188,8 @@
         "C01"
       ],
       "unit_ids": [
-        "U0006",
         "U0002",
-        "U0003",
-        "U0004",
-        "U0005"
+        "U0006"
       ]
     },
     {
@@ -9995,6 +9999,127 @@
       ]
     },
     {
+      "adjudication_notes": [
+        "D1-V4-AS-0004: accepted; restored source-visible actor assessment from HF-002."
+      ],
+      "allowed_variants_or_equivalence_notes": [
+        "La fuente dice «la junta directiva» sin volver a identificarla en esta proposición; no resolver el referente más allá de lo explícito."
+      ],
+      "canonical_semantic_note": "Bienvenido Venegas afirmó que había compañeros en una junta directiva que estaban haciendo un gran trabajo.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "AMB-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 26217,
+          "representation_char_start": 26075,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 26217,
+          "scope_char_start": 26075,
+          "scope_containment": "PASS",
+          "selected_characters": 142,
+          "selected_text_sha256": "c5ca9e7afd5f43d5611e2514806c55a85a0a073670692c5ea98da301fe59f858",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Sin embargo, el esfuerzo se ha venido realizando y me parece que hay\n 2   compañeros que están en la junta directiva haciendo un gran trabajo.",
+          "unit_ids": [
+            "U0017"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 25400,
+          "representation_char_start": 25157,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 25400,
+          "scope_char_start": 25157,
+          "scope_containment": "PASS",
+          "selected_characters": 243,
+          "selected_text_sha256": "d45f0a5c0bac05d5c446fc05033c60b1b3ba864b6096168742d3ccb7458f9066",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Señor Alcalde: Sí, ha sido una tarea difícil, no ha sido fácil para todas las personas\n43   que han estado involucradas en esto: desde el Comité, nosotros acá, el Comité\n44   Cantonal de Deportes y la asociación que se creó para estos efectos.",
+          "unit_ids": [
+            "U0016"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1435,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1435,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 65,
+          "selected_text_sha256": "15dd53784be0b3a653acf824c60eadf64ed9cfbaf1e958cd87387f48bddde0ea",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0784",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "afirmó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "junta directiva no identificada de forma autónoma en el pasaje"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0004: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0784 — Bienvenido Venegas afirmó que había compañeros en una junta directiva que estaban haciendo un gran trabajo.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0016",
+        "U0017"
+      ]
+    },
+    {
       "adjudication_notes": [],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Bienvenido Venegas identificó el plan piloto como el primer paso para administrar la piscina.",
@@ -10225,6 +10350,132 @@
         "U0017",
         "U0016",
         "U0001"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V4-AS-0005: accepted; restored explicit recommendation/position from HF-002."
+      ],
+      "allowed_variants_or_equivalence_notes": [
+        "La persona aludida permanece sin identificar; no inferir su identidad."
+      ],
+      "canonical_semantic_note": "Bienvenido Venegas sostuvo que habría sido mejor que la persona que llevó el asunto a la Contraloría se acercara a la Asociación Deportiva para ofrecer sus conocimientos y preocupación por la piscina.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "AMB-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 26957,
+          "representation_char_start": 26593,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 26957,
+          "scope_char_start": 26593,
+          "scope_containment": "PASS",
+          "selected_characters": 364,
+          "selected_text_sha256": "e7537d6c473f59c6c5d14197e3d3768e141d782e8aa19fbe858da54e29aabfc5",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Esa persona que sacó todo ese tiempo y tuvo la disposición de ir hasta\n 9   la Contraloría, ¿No hubiera sido más fácil acercarse a la Asociación Deportiva y\n10   ponerse a la orden, aportando sus conocimientos y su preocupación para que esta\n11   piscina llegue a cumplir todas las expectativas que tenemos sobre ella?\n12   Hubiera sido mucho mejor esa posibilidad",
+          "unit_ids": [
+            "U0017"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 25400,
+          "representation_char_start": 25157,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 25400,
+          "scope_char_start": 25157,
+          "scope_containment": "PASS",
+          "selected_characters": 243,
+          "selected_text_sha256": "d45f0a5c0bac05d5c446fc05033c60b1b3ba864b6096168742d3ccb7458f9066",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Señor Alcalde: Sí, ha sido una tarea difícil, no ha sido fácil para todas las personas\n43   que han estado involucradas en esto: desde el Comité, nosotros acá, el Comité\n44   Cantonal de Deportes y la asociación que se creó para estos efectos.",
+          "unit_ids": [
+            "U0016"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1435,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1435,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 65,
+          "selected_text_sha256": "15dd53784be0b3a653acf824c60eadf64ed9cfbaf1e958cd87387f48bddde0ea",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0785",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "sostuvo",
+          "habría sido mejor"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "persona no identificada que llevó el asunto a la Contraloría",
+          "Asociación Deportiva"
+        ],
+        "scope": [
+          "forma de atender la preocupación por la piscina"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0005: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0785 — Bienvenido Venegas sostuvo que habría sido mejor que la persona que llevó el asunto a la Contraloría se acercara a la Asociación Deportiva para ofrecer sus conocimientos y preocupación por la piscina.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0016",
+        "U0017"
       ]
     },
     {
@@ -10818,6 +11069,125 @@
       ]
     },
     {
+      "adjudication_notes": [
+        "D1-V4-AS-0006: accepted; restored explicit proactive-engagement recommendation from HF-002."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Bienvenido Venegas recomendó seguir haciendo un gran esfuerzo y acercarse proactivamente a los grupos y asociaciones deportivas.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 28115,
+          "representation_char_start": 27877,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 28115,
+          "scope_char_start": 27877,
+          "scope_containment": "PASS",
+          "selected_characters": 238,
+          "selected_text_sha256": "dc00516f8fe1de7b4ab698475b08db66d41ba75594c3cd39afcd8af9ce3e566f",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Así que quería aprovechar la oportunidad para reforzar las palabras de los\n27   compañeros, tanto de don Olivier como de Ronald, y decir que sigamos haciendo\n28   un gran esfuerzo. Más bien, seamos proactivos y acerquémonos a estos grupos",
+          "unit_ids": [
+            "U0017"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 25400,
+          "representation_char_start": 25157,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 25400,
+          "scope_char_start": 25157,
+          "scope_containment": "PASS",
+          "selected_characters": 243,
+          "selected_text_sha256": "d45f0a5c0bac05d5c446fc05033c60b1b3ba864b6096168742d3ccb7458f9066",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Señor Alcalde: Sí, ha sido una tarea difícil, no ha sido fácil para todas las personas\n43   que han estado involucradas en esto: desde el Comité, nosotros acá, el Comité\n44   Cantonal de Deportes y la asociación que se creó para estos efectos.",
+          "unit_ids": [
+            "U0016"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1435,
+          "representation_char_start": 1370,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1435,
+          "scope_char_start": 1370,
+          "scope_containment": "PASS",
+          "selected_characters": 65,
+          "selected_text_sha256": "15dd53784be0b3a653acf824c60eadf64ed9cfbaf1e958cd87387f48bddde0ea",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0786",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Bienvenido Venegas Porras, alcalde municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "recomendó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [],
+        "scope": [
+          "continuidad del esfuerzo y acercamiento proactivo a grupos/asociaciones deportivas"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0006: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0786 — Bienvenido Venegas recomendó seguir haciendo un gran esfuerzo y acercarse proactivamente a los grupos y asociaciones deportivas.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0016",
+        "U0017"
+      ]
+    },
+    {
       "adjudication_notes": [],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Bienvenido Venegas afirmó que en el cantón funcionaban aproximadamente dieciséis o diecisiete asociaciones deportivas cuyos integrantes aportaban tiempo sin recibir estipendio, ingreso o dieta.",
@@ -10937,6 +11307,228 @@
         "U0017",
         "U0016",
         "U0001"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V4-AS-0007: accepted; restored proposal modality preceding the later formal receipt."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Juan Carlos Zeledón propuso dar por recibida la nota de la Contraloría.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 28601,
+          "representation_char_start": 28494,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 28601,
+          "scope_char_start": 28494,
+          "scope_containment": "PASS",
+          "selected_characters": 107,
+          "selected_text_sha256": "76eb7c843d726910fc7ea44d315a430bdc9b3556fb75804feb640d997f8247a9",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Señor Presidente: Entonces, tomaríamos el acuerdo: primero, dar por recibida la\n35   nota de la Contraloría",
+          "unit_ids": [
+            "U0017"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 597,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 597,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4140ec8451ace68f0c6eea6d92b1b713677c16d3a4ec4620dd935d524ae8e5ff",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0787",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Juan Carlos Zeledón Maffio, presidente municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "propuso"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "nota de la Contraloría"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0007: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0787 — Juan Carlos Zeledón propuso dar por recibida la nota de la Contraloría.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0017"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V4-AS-0008: accepted; restored proposal modality preceding the later formal disposition."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Juan Carlos Zeledón propuso consultar a la Auditoría Interna y a la Contraloría de Servicios para valorar si podía brindarse una respuesta directa a la persona denunciante.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 28885,
+          "representation_char_start": 28682,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 28885,
+          "scope_char_start": 28682,
+          "scope_containment": "PASS",
+          "selected_characters": 203,
+          "selected_text_sha256": "39e9cd44a5e3997d4c697dce2cc4a104c6307d33d2b26ebce581c8cd69fc0e93",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "tomando en cuenta que también se pueda consultar a la Auditoría\n37   y a la Contraloría de Servicios para valorar si se le puede brindar una respuesta\n38   directa a la persona que interpuso la denuncia.",
+          "unit_ids": [
+            "U0017"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 28511,
+          "representation_char_start": 28494,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 28511,
+          "scope_char_start": 28494,
+          "scope_containment": "PASS",
+          "selected_characters": 17,
+          "selected_text_sha256": "e9e5a0448f2857f19987be16749fbaba0bd70e59cc5f73af97d9280278a14b47",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Señor Presidente:",
+          "unit_ids": [
+            "U0017"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 597,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 597,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4140ec8451ace68f0c6eea6d92b1b713677c16d3a4ec4620dd935d524ae8e5ff",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0788",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Juan Carlos Zeledón Maffio, presidente municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "propuso",
+          "valorar si podía"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Auditoría Interna",
+          "Contraloría de Servicios",
+          "persona denunciante"
+        ],
+        "scope": [
+          "posible respuesta directa a la persona denunciante"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0008: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0788 — Juan Carlos Zeledón propuso consultar a la Auditoría Interna y a la Contraloría de Servicios para valorar si podía brindarse una respuesta directa a la persona denunciante.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0017"
       ]
     },
     {
@@ -13196,7 +13788,8 @@
     {
       "adjudication_notes": [
         "D1-V2-IR-0003",
-        "D1-V3-IR-0006: accepted; exact dated source context added to support the normalized temporal qualifier."
+        "D1-V3-IR-0006: accepted; exact dated source context added to support the normalized temporal qualifier.",
+        "D1-V4-AS-0002: accepted; the evidence set now binds the source sentence explicitly asserting that an agreement was reached with «ella» to perform the recognition later."
       ],
       "allowed_variants_or_equivalence_notes": [
         "La fuente usa «ellos» sin identificar explícitamente al grupo; no resolverlo como el equipo de Laura Fernández sin evidencia adicional."
@@ -13303,6 +13896,25 @@
           "unit_ids": [
             "U0001"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 32836,
+          "representation_char_start": 32757,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 32836,
+          "scope_char_start": 32757,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4d24a859d07c545c7b01aec0ea8a342282cf49861863fc05b37449bf6f354991",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C06",
+          "text_preview": "Finalmente, llegamos a un acuerdo con ella para\n38   efectuarlo posteriormente.",
+          "unit_ids": [
+            "U0018",
+            "U0019"
+          ]
         }
       ],
       "fact_id": "D1-F0713",
@@ -13340,7 +13952,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-V3-IR-0006: the fact’s original proposition remains unchanged, while the evidence set now binds the exact source/session date needed to support its absolute 2026 temporal qualifier; entailment, qualifiers, context and unit mapping were rechecked. Fact-specific check: D1-F0713 — Bienvenido Venegas afirmó que, después de acordar con Laura Fernández realizar el reconocimiento posteriormente, la fecha del 12 de junio fue proporcionada por un grupo al que se refirió únicamente como «ellos».",
+        "review_note": "PASS after D1-V4-AS-0002: the evidence set now binds the source sentence explicitly asserting that an agreement was reached with «ella» to perform the recognition later. Fact-specific check: D1-F0713 — Bienvenido Venegas afirmó que, después de acordar con Laura Fernández realizar el reconocimiento posteriormente, la fecha del 12 de junio fue proporcionada por un grupo al que se refirió únicamente como «ellos».",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -35332,7 +35944,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada propuso incluir en la gestión la ruta 622 entre Juanilama y Caldera por presentar un deterioro similar.",
       "capability_bindings": [
@@ -35341,6 +35955,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -35361,6 +35976,24 @@
           "text_preview": "Síndica Stephannie Quesada toma la palabra y propone incluir también la ruta 622,\n23   correspondiente al trayecto de Juanilama hacia Caldera, debido a que presenta un\n24   estado igualmente deteriorado.",
           "unit_ids": [
             "U0037"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
           ]
         }
       ],
@@ -35396,20 +36029,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U04-019 supports the semantic focus ‘Diana Stephannie Quesada propuso incluir en la gestión la ruta 622 entre Juanilama y Caldera por presentar un deterioro similar.’ with attribution=Diana Stephannie Quesada Arroyo, síndica; location=ruta 622, Juanilama–Caldera; modality=propuso; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0344 — Diana Stephannie Quesada propuso incluir en la gestión la ruta 622 entre Juanilama y Caldera por presentar un deterioro similar.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U04"
+        "U04",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0037"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada pidió incluir en la gestión el tema de los reductores de velocidad desde Nances hacia la UCR.",
       "capability_bindings": [
@@ -35418,6 +36055,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -35456,6 +36094,24 @@
           "text_preview": "Síndica Stephannie Quesada toma la palabra y propone incluir también la ruta 622,\n23   correspondiente al trayecto de Juanilama hacia Caldera, debido a que presenta un\n24   estado igualmente deteriorado.",
           "unit_ids": [
             "U0037"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
           ]
         }
       ],
@@ -35494,20 +36150,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U04-020, U04-019 supports the semantic focus ‘Diana Stephannie Quesada pidió incluir en la gestión el tema de los reductores de velocidad desde Nances hacia la UCR.’ with attribution=Diana Stephannie Quesada, síndica; location=Nances | UCR; modality=pidió; referent=reductores de velocidad; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0345 — Diana Stephannie Quesada pidió incluir en la gestión el tema de los reductores de velocidad desde Nances hacia la UCR.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U04"
+        "U04",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0037"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada afirmó que el asunto de los reductores de velocidad ya se había planteado al Concejo sin obtener respuesta de CONAVI.",
       "capability_bindings": [
@@ -35515,6 +36175,7 @@
         "ENT-01",
         "ATR-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -35554,6 +36215,24 @@
           "unit_ids": [
             "U0037"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
+          ]
         }
       ],
       "fact_id": "D1-F0346",
@@ -35590,15 +36269,17 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U04-020, U04-019 supports the semantic focus ‘Diana Stephannie Quesada afirmó que el asunto de los reductores de velocidad ya se había planteado al Concejo sin obtener respuesta de CONAVI.’ with attribution=Diana Stephannie Quesada, síndica; modality=afirmó; negation=sin respuesta de CONAVI; referent=reductores de velocidad; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0346 — Diana Stephannie Quesada afirmó que el asunto de los reductores de velocidad ya se había planteado al Concejo sin obtener respuesta de CONAVI.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U04"
+        "U04",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0037"
       ]
     },
@@ -35976,6 +36657,85 @@
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
         "review_note": "PASS: exact evidence U05-001 supports the semantic focus ‘Luis Pérez Palma solicitó al ICE sustituir dos lámparas quemadas cerca de la Escuela Juan Rafael Jiménez, sobre la ruta hacia San Rafael.’ with attribution=Luis Alberto Pérez Palma, síndico; location=cercanías de Escuela Juan Rafael Jiménez | ruta hacia San Rafael; modality=solicitó; quantity=2 lámparas; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U05"
+      ],
+      "unit_ids": [
+        "U0038"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V4-AS-0009: accepted; restored explicit procedural request from HF-004 without inventing an unnamed requesting actor."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Durante la sesión se solicitó a Luis Pérez Palma indicar la ubicación exacta de las dos lámparas para efectos del acta.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 85432,
+          "representation_char_start": 85117,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 85432,
+          "scope_char_start": 85117,
+          "scope_containment": "PASS",
+          "selected_characters": 315,
+          "selected_text_sha256": "664a7cb110bca279f9ea2d713f3b6cd74e462c0d3ea2502fdab02d4ae906df35",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U05",
+          "text_preview": "5- El síndico Luis Pérez Palma solicita la colaboración al ICE para la sustitución de\n45   dos lámparas ubicadas en las cercanías de la Escuela Juan Rafael Jiménez, sobre\n46   la ruta hacia San Rafael, debido a que se encuentran quemadas. Se le solicita\n47   indicar la ubicación exacta para efectos del acta.\n48   ",
+          "unit_ids": [
+            "U0038"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0789",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "se solicitó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Luis Pérez Palma",
+          "dos lámparas"
+        ],
+        "scope": [
+          "ubicación exacta para efectos del acta"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0009: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0789 — Durante la sesión se solicitó a Luis Pérez Palma indicar la ubicación exacta de las dos lámparas para efectos del acta.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -36688,7 +37448,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada afirmó que las interrupciones eléctricas también se presentaban en otros sectores, incluido Nances.",
       "capability_bindings": [
@@ -36697,6 +37459,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -36717,6 +37480,24 @@
           "text_preview": "Posteriormente, toma la palabra la señora Stephannie Quesada, quien manifiesta\n17   que esta problemática también se presenta en otros sectores del cantón,\n18   incluyendo Nances.",
           "unit_ids": [
             "U0039"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
           ]
         }
       ],
@@ -36752,20 +37533,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U05-011 supports the semantic focus ‘Diana Stephannie Quesada afirmó que las interrupciones eléctricas también se presentaban en otros sectores, incluido Nances.’ with attribution=Diana Stephannie Quesada Arroyo, síndica; location=Nances; modality=afirmó; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0357 — Diana Stephannie Quesada afirmó que las interrupciones eléctricas también se presentaban en otros sectores, incluido Nances.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U05"
+        "U05",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0039"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada afirmó que las interrupciones eléctricas frecuentes afectaban equipos y sistemas electrónicos.",
       "capability_bindings": [
@@ -36774,6 +37559,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -36813,6 +37599,24 @@
           "unit_ids": [
             "U0039"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
+          ]
         }
       ],
       "fact_id": "D1-F0358",
@@ -36847,20 +37651,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U05-012, U05-011 supports the semantic focus ‘Diana Stephannie Quesada afirmó que las interrupciones eléctricas frecuentes afectaban equipos y sistemas electrónicos.’ with attribution=Diana Stephannie Quesada Arroyo, síndica; modality=afirmó; scope=efectos de interrupciones eléctricas; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0358 — Diana Stephannie Quesada afirmó que las interrupciones eléctricas frecuentes afectaban equipos y sistemas electrónicos.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U05"
+        "U05",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0039"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada afirmó que al iniciar tormentas o lluvia se producían fluctuaciones eléctricas frecuentes.",
       "capability_bindings": [
@@ -36869,6 +37677,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -36907,6 +37716,24 @@
           "text_preview": "Posteriormente, toma la palabra la señora Stephannie Quesada, quien manifiesta\n17   que esta problemática también se presenta en otros sectores del cantón,\n18   incluyendo Nances.",
           "unit_ids": [
             "U0039"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
           ]
         }
       ],
@@ -36944,20 +37771,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U05-013, U05-011 supports the semantic focus ‘Diana Stephannie Quesada afirmó que al iniciar tormentas o lluvia se producían fluctuaciones eléctricas frecuentes.’ with attribution=Diana Stephannie Quesada, síndica; condition=al iniciar tormentas o lluvia; modality=afirmó; scope=fluctuaciones eléctricas; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0359 — Diana Stephannie Quesada afirmó que al iniciar tormentas o lluvia se producían fluctuaciones eléctricas frecuentes.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U05"
+        "U05",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0039"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada pidió al ICE una explicación sobre las fallas eléctricas reportadas en distintas comunidades.",
       "capability_bindings": [
@@ -36966,6 +37797,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -37004,6 +37836,24 @@
           "text_preview": "Posteriormente, toma la palabra la señora Stephannie Quesada, quien manifiesta\n17   que esta problemática también se presenta en otros sectores del cantón,\n18   incluyendo Nances.",
           "unit_ids": [
             "U0039"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
           ]
         }
       ],
@@ -37041,20 +37891,24 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U05-013, U05-011 supports the semantic focus ‘Diana Stephannie Quesada pidió al ICE una explicación sobre las fallas eléctricas reportadas en distintas comunidades.’ with attribution=Diana Stephannie Quesada, síndica; modality=pidió; referent=ICE; scope=explicación de fallas eléctricas; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0360 — Diana Stephannie Quesada pidió al ICE una explicación sobre las fallas eléctricas reportadas en distintas comunidades.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U05"
+        "U05",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0039"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Diana Stephannie Quesada pidió al ICE una revisión técnica sobre las fallas eléctricas reportadas en distintas comunidades.",
       "capability_bindings": [
@@ -37063,6 +37917,7 @@
         "ATR-01",
         "SCP-01",
         "MOD-01",
+        "CTX-01",
         "EVD-01",
         "LANG-ES-01"
       ],
@@ -37102,6 +37957,24 @@
           "unit_ids": [
             "U0039"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 1135,
+          "representation_char_start": 939,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 1135,
+          "scope_char_start": 939,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "fd1853ca187e374f948b86179222bee899fe92b4a053b66de31ba534b32263d4",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.",
+          "unit_ids": [
+            "U0001"
+          ]
         }
       ],
       "fact_id": "D1-F0361",
@@ -37138,15 +38011,17 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence U05-013, U05-011 supports the semantic focus ‘Diana Stephannie Quesada pidió al ICE una revisión técnica sobre las fallas eléctricas reportadas en distintas comunidades.’ with attribution=Diana Stephannie Quesada, síndica; modality=pidió; referent=ICE; scope=revisión técnica de fallas eléctricas; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0361 — Diana Stephannie Quesada pidió al ICE una revisión técnica sobre las fallas eléctricas reportadas en distintas comunidades.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "U05"
+        "U05",
+        "PRE"
       ],
       "unit_ids": [
+        "U0001",
         "U0039"
       ]
     },
@@ -49179,6 +50054,108 @@
       ]
     },
     {
+      "adjudication_notes": [
+        "D1-V4-AS-0010: accepted; restored explicit non-confrontational institutional-engagement position from HF-005."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Fernando Villalobos sostuvo que no abordaría al ICODER de manera confrontativa ni llegaría a exigirle información.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 114126,
+          "representation_char_start": 113960,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 114126,
+          "scope_char_start": 113960,
+          "scope_containment": "PASS",
+          "selected_characters": 166,
+          "selected_text_sha256": "5ac0efc597a56d5adfff098af877a820b767ba95b8c89c3e246a840d591fcb92",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Yo tampoco iría donde el ICODER de manera confrontativa, como se dice\n 2   popularmente, “entrando con una patada”. No sería llegar a exigir: “deme esto y\n 3   esto”.",
+          "unit_ids": [
+            "U0049"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 112731,
+          "representation_char_start": 112696,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 112731,
+          "scope_char_start": 112696,
+          "scope_containment": "PASS",
+          "selected_characters": 35,
+          "selected_text_sha256": "8d3d52a74981b501d51df5c48b95ecafc11f84237f55d6d8c4f7d6f0d598fe8d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Regidor Fernando Villalobos Chacón:",
+          "unit_ids": [
+            "U0048"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0790",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Fernando Villalobos Chacón, regidor"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "sostuvo",
+          "no abordaría",
+          "no llegaría a exigir"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "ICODER"
+        ],
+        "scope": [
+          "forma de plantear la gestión ante ICODER"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0010: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0790 — Fernando Villalobos sostuvo que no abordaría al ICODER de manera confrontativa ni llegaría a exigirle información.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08"
+      ],
+      "unit_ids": [
+        "U0048",
+        "U0049"
+      ]
+    },
+    {
       "adjudication_notes": [],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Fernando Villalobos propuso expresar preocupación porque, a partir de 2028, la periodicidad bianual pudiera perjudicar a generaciones de atletas, niños y jóvenes.",
@@ -50467,6 +51444,125 @@
       "unit_ids": [
         "U0049",
         "U0001"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V4-AS-0011: accepted; restored distinct presidential recommendation about consultation content from HF-005."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Juan Carlos Zeledón consideró que la consulta debía retomar los puntos más importantes de lo dicho anteriormente por cada participante.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 117248,
+          "representation_char_start": 117123,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 117248,
+          "scope_char_start": 117123,
+          "scope_containment": "PASS",
+          "selected_characters": 125,
+          "selected_text_sha256": "9f5780e8fb6b3c4a2d7b68f82ab5d4fa10d6afa55eb137044513b89bfa05586f",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Entonces, considero que la consulta debería retomar los puntos más importantes\n47   de lo que cada uno a dicho anteriormente.",
+          "unit_ids": [
+            "U0049"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 115978,
+          "representation_char_start": 115906,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 115978,
+          "scope_char_start": 115906,
+          "scope_containment": "PASS",
+          "selected_characters": 72,
+          "selected_text_sha256": "af7ca3037b1b8e6eb1151a0013de0813131861f0d893756545491cf40124b537",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Señor Presidente Municipal: Procederíamos entonces a tomar los acuerdos.",
+          "unit_ids": [
+            "U0049"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 597,
+          "representation_char_start": 518,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 597,
+          "scope_char_start": 518,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "4140ec8451ace68f0c6eea6d92b1b713677c16d3a4ec4620dd935d524ae8e5ff",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Propietarios presentes: Lic. Juan Carlos Zeledón Maffio – Presidente,",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0791",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Juan Carlos Zeledón Maffio, presidente municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "consideró",
+          "debía"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [],
+        "scope": [
+          "contenido de la consulta"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0011: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0791 — Juan Carlos Zeledón consideró que la consulta debía retomar los puntos más importantes de lo dicho anteriormente por cada participante.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U08",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0001",
+        "U0049"
       ]
     },
     {
@@ -60396,7 +61492,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0001: accepted; the evidence set now binds the immediately preceding source antecedent that defines «Dicha gestión» as a renewed future request."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "La Alcaldía indicó que una futura solicitud debía ajustarse estrictamente a las observaciones técnicas de la Contraloría General.",
       "capability_bindings": [
@@ -60445,6 +61543,24 @@
           "unit_ids": [
             "U0051"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 132110,
+          "representation_char_start": 131934,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 132110,
+          "scope_char_start": 131934,
+          "scope_containment": "PASS",
+          "selected_characters": 176,
+          "selected_text_sha256": "252374ddcdaa8f57a663a5e70754972bc3f6c96761a8531b64625f40542b9944",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "M02",
+          "text_preview": "En razón de lo expuesto, cuando el auditor lo estime pertinente, podrá nuevamente tramitar\n34   la solicitud de contratación de servicios profesionales de apoyo para su unidad.",
+          "unit_ids": [
+            "U0055"
+          ]
         }
       ],
       "fact_id": "D1-F0548",
@@ -60482,7 +61598,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence M02-025, M02-001 supports the semantic focus ‘La Alcaldía indicó que una futura solicitud debía ajustarse estrictamente a las observaciones técnicas de la Contraloría General.’ with attribution=Bienvenido Venegas Porras, alcalde municipal; modality=indicó | debía; referent=observaciones técnicas de la Contraloría General; scope=condición para futura solicitud; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0001: the evidence set now binds the immediately preceding source antecedent that defines «Dicha gestión» as a renewed future request. Fact-specific check: D1-F0548 — La Alcaldía indicó que una futura solicitud debía ajustarse estrictamente a las observaciones técnicas de la Contraloría General.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -60491,12 +61607,14 @@
         "M02"
       ],
       "unit_ids": [
-        "U0055",
-        "U0051"
+        "U0051",
+        "U0055"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V4-AS-0001: accepted; the evidence set now binds the immediately preceding source antecedent that defines «Dicha gestión» as a renewed future request."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "La Alcaldía indicó que una futura solicitud debía contar con aval formal del Concejo Municipal como superior jerárquico.",
       "capability_bindings": [
@@ -60545,6 +61663,24 @@
           "unit_ids": [
             "U0051"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 132110,
+          "representation_char_start": 131934,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 132110,
+          "scope_char_start": 131934,
+          "scope_containment": "PASS",
+          "selected_characters": 176,
+          "selected_text_sha256": "252374ddcdaa8f57a663a5e70754972bc3f6c96761a8531b64625f40542b9944",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "M02",
+          "text_preview": "En razón de lo expuesto, cuando el auditor lo estime pertinente, podrá nuevamente tramitar\n34   la solicitud de contratación de servicios profesionales de apoyo para su unidad.",
+          "unit_ids": [
+            "U0055"
+          ]
         }
       ],
       "fact_id": "D1-F0549",
@@ -60582,7 +61718,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence M02-025, M02-001 supports the semantic focus ‘La Alcaldía indicó que una futura solicitud debía contar con aval formal del Concejo Municipal como superior jerárquico.’ with attribution=Bienvenido Venegas Porras, alcalde municipal; modality=indicó | debía; referent=Concejo Municipal; scope=condición para futura solicitud; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS after D1-V4-AS-0001: the evidence set now binds the immediately preceding source antecedent that defines «Dicha gestión» as a renewed future request. Fact-specific check: D1-F0549 — La Alcaldía indicó que una futura solicitud debía contar con aval formal del Concejo Municipal como superior jerárquico.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -60591,8 +61727,8 @@
         "M02"
       ],
       "unit_ids": [
-        "U0055",
-        "U0051"
+        "U0051",
+        "U0055"
       ]
     },
     {
@@ -70204,6 +71340,106 @@
       ]
     },
     {
+      "adjudication_notes": [
+        "D1-V4-AS-0012: accepted; restored explicit uncertainty/status assertion from HF-006."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Luis Diego Estrada señaló que no se sabía si el 8 de agosto habría alguna actividad.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "TMP-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 149197,
+          "representation_char_start": 148950,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 149197,
+          "scope_char_start": 148950,
+          "scope_containment": "PASS",
+          "selected_characters": 247,
+          "selected_text_sha256": "26ff1c7b619d73bdc1d592bcd578f10e089c211ec42a6a7c05ae072ac32e5437",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "V04",
+          "text_preview": "Ellos solicitaban que se les tome en cuenta dentro de las actividades de agosto,\n49   precisamente porque no sabemos si para esa fecha, el 8 de agosto, habrá alguna\n50   actividad, ya que ellos quieren celebrar el Día Internacional de la Juventud.",
+          "unit_ids": [
+            "U0060"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 148858,
+          "representation_char_start": 148779,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 148858,
+          "scope_char_start": 148779,
+          "scope_containment": "PASS",
+          "selected_characters": 79,
+          "selected_text_sha256": "aca266800a7ed04b3911cdc964048861fab9b6606456a59892b2d97e0a204c61",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "V04",
+          "text_preview": "Regidor suplente Luis Diego Estrada Jiménez: Era nada más para retomar un poco,",
+          "unit_ids": [
+            "U0060"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0792",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Luis Diego Estrada Jiménez, regidor suplente"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "señaló",
+          "no se sabía si"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "alguna actividad"
+        ],
+        "scope": [],
+        "temporal": [
+          "8 de agosto"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS after D1-V4-AS-0012: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0792 — Luis Diego Estrada señaló que no se sabía si el 8 de agosto habría alguna actividad.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "V04"
+      ],
+      "unit_ids": [
+        "U0060"
+      ]
+    },
+    {
       "adjudication_notes": [],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Luis Diego Estrada afirmó que la instalación de toldos para la actividad requería coordinación directa con la Administración Municipal.",
@@ -70976,7 +72212,8 @@
     {
       "adjudication_notes": [
         "D1-IR-0001",
-        "D1-V2-IR-0022"
+        "D1-V2-IR-0022",
+        "D1-V4-AS-0013: accepted; the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected."
       ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "El acuerdo del Concejo sobre las sustituciones en la Junta de Educación de la Escuela IDA El Barón quedó definitivamente aprobado por unanimidad.",
@@ -71028,23 +72265,19 @@
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
-          "representation_char_end": 4236,
+          "representation_char_end": 4013,
           "representation_char_start": 3392,
           "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 4236,
+          "scope_char_end": 4013,
           "scope_char_start": 3392,
           "scope_containment": "PASS",
-          "selected_characters": 844,
-          "selected_text_sha256": "5ff3f118b042fef3ba297c480ac6e7a6539b2bea76aec689b4e6376ab55eb632",
+          "selected_characters": 621,
+          "selected_text_sha256": "f7379a92d2b22937c40f819c8b0a6d28da4a1096730c37a4add6ee3ade367412",
           "selector_kind": "scope_char_range/v1",
           "structure_id": "C01",
-          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n 9\n\n\n\n\n10\n\n\n\n\n11\n\n\n\n\n12\n13   Adjunto: Hoja de delincuencia y copia de las cé...",
+          "text_preview": "1- Se conoce nota de fecha 11 de mayo de 2026, dirigida al Concejo Municipal de\n 2   Esparza, por la Prof. Julissa García Leal, Directora de la Escuela IDA El Barón, con\n 3   el V°B° del Supervisor de Centros Educativos Circuito 07; texto que se transcribe\n 4   a continuación:\n 5   “En concordancia con el artículo 41 de la Ley 2160 \"Ley Fundamental de Educación\" y los\n 6   artículos 5,6,7 y 8 de la Ley 10631 Ley de Juntas de Educación procedo a remitir la\n 7   propuesta para sustitución de la Junta de Educación de la Escuela IDA El Barón del Circuito\n 8   07 de la Dirección Regional de Educación de Puntarenas\n\n\n\n\n",
           "unit_ids": [
-            "U0002",
-            "U0003",
-            "U0004",
-            "U0005",
-            "U0006"
+            "U0002"
           ]
         },
         {
@@ -71116,7 +72349,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after secondary-v2 adjudication D1-V2-IR-0022 for D1-F0661: reopened source entailment, self-sufficient minimality, qualifiers and evidence for “El acuerdo del Concejo sobre las sustituciones en la Junta de Educación de la Escuela IDA El Barón quedó definitivamente aprobado por unanimidad.” against the exact frozen D1 Representation.",
+        "review_note": "PASS after D1-V4-AS-0013: the C01 context selector is narrowed to the complete meaningful note/proposal text before isolated numeric extraction artifacts U0003-U0005; semantic support is unchanged while unit accounting is corrected. Fact-specific check: D1-F0661 — El acuerdo del Concejo sobre las sustituciones en la Junta de Educación de la Escuela IDA El Barón quedó definitivamente aprobado por unanimidad.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -71125,11 +72358,8 @@
         "C01"
       ],
       "unit_ids": [
-        "U0006",
         "U0002",
-        "U0003",
-        "U0004",
-        "U0005"
+        "U0006"
       ]
     },
     {
@@ -76515,13 +77745,19 @@
   "primary_source_adjudications": [],
   "quality_audit": {
     "FID_01_bindings": 0,
+    "ai_assisted_bounded_spotcheck_v4_findings": 13,
+    "ai_assisted_bounded_spotcheck_v4_findings_accepted": 13,
+    "ai_assisted_bounded_spotcheck_v4_findings_rejected": 0,
+    "ai_assisted_bounded_spotcheck_v4_reference_to_source_findings": 3,
+    "ai_assisted_bounded_spotcheck_v4_source_to_reference_findings": 10,
+    "ai_assisted_bounded_spotcheck_v4_unresolved": 0,
     "all_15_capability_bindings": 0,
     "blank_reverse_audit_notes": 0,
     "context_only_structures_without_consumers": 0,
-    "cross_unit_fact_count": 397,
+    "cross_unit_fact_count": 411,
     "empty_or_zero_evidence": 0,
-    "evidence_target_count": 1694,
-    "fact_count": 735,
+    "evidence_target_count": 1727,
+    "fact_count": 744,
     "facts_without_units": 0,
     "generic_placeholder_qualifiers": 0,
     "generic_reverse_audit_notes": 0,
@@ -76530,16 +77766,19 @@
     "independent_review_v1_findings_rejected": 0,
     "independent_review_v1_unresolved": 0,
     "material_carriers_without_facts": 0,
-    "multi_evidence_fact_count": 639,
+    "multi_evidence_fact_count": 649,
     "new_or_replacement_v2_fact_count": 50,
     "new_or_replacement_v3_fact_count": 33,
     "new_or_replacement_v4_fact_count": 40,
+    "new_or_replacement_v5_fact_count": 9,
     "no_material_structures_with_fact_refs": 0,
     "note_equals_single_evidence": 0,
     "primary_source_adjudications_resolved": 0,
+    "quaternary_review_v4_findings": 0,
     "retired_v1_fact_count": 10,
     "retired_v2_fact_count": 33,
     "retired_v3_fact_count": 5,
+    "retired_v4_fact_count": 0,
     "scope_escape_evidence": 0,
     "secondary_review_v2_findings": 23,
     "secondary_review_v2_findings_accepted": 23,
@@ -76569,9 +77808,24 @@
     "v3_CTX_01_fact_count": 348,
     "v4_AMB_01_fact_count": 6,
     "v4_CTX_01_fact_count": 364,
-    "v4_QTY_01_fact_count": 50
+    "v4_QTY_01_fact_count": 50,
+    "v5_AMB_01_fact_count": 8,
+    "v5_CTX_01_fact_count": 378,
+    "v5_QTY_01_fact_count": 50,
+    "v5_reclassified_nonmaterial_units": 3
   },
-  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-004",
+  "quaternary_semantic_review": {
+    "finding_count": 0,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "review_commit": "5456898a78082061ca6536dd0bd74373fea95cf0",
+    "review_id": "CANARIO-D1-QUATERNARY-SEMANTIC-REVIEW-V4-001",
+    "review_json_sha256": "a9df43a7076176b6601c17b7883f7de57fb97ed4f2ae3347f83ea7ad7d706079",
+    "review_md_sha256": "5f12b34a003afa69dbc4bf826ad0f4b9d68b201ccd482f7a5a4459277472ca0d",
+    "reviewed_commit": "44291aa54f96492d02cc4e9c9f8e4d0bb9ddd770",
+    "strong_independent_gate_satisfied": false,
+    "verdict": "QUATERNARY_AUDIT_PASS_NO_DISPUTES"
+  },
+  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-005",
   "reference_state": "SUPERVISOR_DRAFT",
   "secondary_review_adjudication": {
     "accepted_count": 23,
@@ -76617,14 +77871,19 @@
         "D1-F0099",
         "D1-F0100",
         "D1-F0101",
+        "D1-F0784",
         "D1-F0102",
         "D1-F0103",
+        "D1-F0785",
         "D1-F0104",
         "D1-F0105",
         "D1-F0106",
         "D1-F0107",
         "D1-F0108",
+        "D1-F0786",
         "D1-F0109",
+        "D1-F0787",
+        "D1-F0788",
         "D1-F0122",
         "D1-F0128",
         "D1-F0129",
@@ -76676,6 +77935,14 @@
         "D1-F0314",
         "D1-F0315",
         "D1-F0316",
+        "D1-F0344",
+        "D1-F0345",
+        "D1-F0346",
+        "D1-F0357",
+        "D1-F0358",
+        "D1-F0359",
+        "D1-F0360",
+        "D1-F0361",
         "D1-F0388",
         "D1-F0398",
         "D1-F0399",
@@ -76697,6 +77964,7 @@
         "D1-F0485",
         "D1-F0486",
         "D1-F0487",
+        "D1-F0791",
         "D1-F0491",
         "D1-F0492",
         "D1-F0493",
@@ -76950,14 +78218,19 @@
         "D1-F0099",
         "D1-F0100",
         "D1-F0101",
+        "D1-F0784",
         "D1-F0102",
         "D1-F0103",
+        "D1-F0785",
         "D1-F0104",
         "D1-F0105",
         "D1-F0106",
         "D1-F0107",
         "D1-F0108",
+        "D1-F0786",
         "D1-F0109",
+        "D1-F0787",
+        "D1-F0788",
         "D1-F0110",
         "D1-F0111",
         "D1-F0112",
@@ -77441,6 +78714,7 @@
       "material_assertions_exhausted": "PASS",
       "material_fact_ids": [
         "D1-F0349",
+        "D1-F0789",
         "D1-F0350",
         "D1-F0351",
         "D1-F0352",
@@ -77619,6 +78893,7 @@
         "D1-F0472",
         "D1-F0473",
         "D1-F0474",
+        "D1-F0790",
         "D1-F0475",
         "D1-F0476",
         "D1-F0477",
@@ -77632,6 +78907,7 @@
         "D1-F0485",
         "D1-F0486",
         "D1-F0487",
+        "D1-F0791",
         "D1-F0488",
         "D1-F0489",
         "D1-F0490",
@@ -78006,6 +79282,7 @@
       "material_assertions_exhausted": "PASS",
       "material_fact_ids": [
         "D1-F0644",
+        "D1-F0792",
         "D1-F0645",
         "D1-F0646",
         "D1-F0647",
@@ -78047,16 +79324,14 @@
     }
   ],
   "supervising_author_conclusion": {
-    "final_evidence_context_pass": "PASS_AFTER_TERTIARY_V3_DISPUTE_REPAIR",
-    "final_omission_pass": "PASS_AFTER_V4_SOURCE_ORDER_RECHECK",
-    "independent_review_v1_adjudication": "61_ACCEPTED_0_REJECTED_0_UNRESOLVED",
-    "note": "D1 v4 supersedes v3 after accepting all 14 hard disputes from the fresh-context tertiary semantic audit. Two omitted source assertions are restored; three modality-upgraded facts are rewritten; temporal evidence is rebound to exact dated source/session context; and the invalid derived 25/10 school totals are removed. During that quantity adjudication the supervising author additionally reapplied self-sufficient minimality to the underlying enumeration, retiring the two aggregate school-list facts and replacing them with 35 source-row facts without arithmetic. The candidate remains unfrozen and requires exact local mechanical certification plus a fresh semantic audit.",
-    "omission_only_pass": "PASS_AFTER_RESTORING_2_TERTIARY_OMISSIONS_AND_M01_LIST_ROW_MINIMALITY",
+    "ai_assisted_bounded_spotcheck_v4_adjudication": "13_ACCEPTED_0_REJECTED_0_UNRESOLVED",
+    "final_evidence_context_pass": "PASS_AFTER_V5_TARGET_REBINDING",
+    "note": "D1 v5 supersedes v4 after the user delegated the mechanically selected 30-item human-independence packet to the supervising OpenAI model. That supplemental review is explicitly not human and does not satisfy material independence. It exposed 13 hard dispute groups: three reference→source evidence/attribution defects, nine omitted material assertions in sampled forward units, and three isolated numeric extraction units incorrectly marked material because of an overbroad C01 context selector. All 13 are accepted source-only. V5 adds nine material facts, rebinds M02/C06/Stephannie identity evidence, narrows the C01 selector without losing support, and reclassifies U0003-U0005 as NO_MATERIAL_CIVIC_FACT. The reference remains unfrozen and requires exact local mechanical certification plus another fresh semantic audit.",
+    "omission_only_pass": "PASS_AFTER_RESTORING_9_SPOTCHECK_EXPOSED_ASSERTIONS",
+    "quaternary_review_v4": "CLEAN_PASS_0_DISPUTES_WEAK_OR_UNKNOWN_INDEPENDENCE",
     "reference_state": "SUPERVISOR_DRAFT",
-    "reverse_fact_audit": "PASS_AFTER_TERTIARY_V3_DISPUTE_REPAIR_AND_M01_ROW_DECOMPOSITION",
-    "secondary_review_v2_adjudication": "23_ACCEPTED_0_REJECTED_0_UNRESOLVED",
-    "source_order_pass": "PASS_AFTER_TERTIARY_V3_ADJUDICATION",
-    "tertiary_review_v3_adjudication": "14_ACCEPTED_0_REJECTED_0_UNRESOLVED"
+    "reverse_fact_audit": "PASS_AFTER_EVIDENCE_IDENTITY_AND_UNIT_ACCOUNTING_REPAIRS",
+    "source_order_pass": "PASS_AFTER_AI_ASSISTED_SPOTCHECK_ADJUDICATION_AND_DIRECTED_FAMILY_RECHECK"
   },
   "tertiary_review_adjudication": {
     "accepted_count": 14,
@@ -78112,14 +79387,19 @@
         "D1-F0099",
         "D1-F0100",
         "D1-F0101",
+        "D1-F0784",
         "D1-F0102",
         "D1-F0103",
+        "D1-F0785",
         "D1-F0104",
         "D1-F0105",
         "D1-F0106",
         "D1-F0107",
         "D1-F0108",
+        "D1-F0786",
         "D1-F0109",
+        "D1-F0787",
+        "D1-F0788",
         "D1-F0122",
         "D1-F0128",
         "D1-F0129",
@@ -78171,6 +79451,14 @@
         "D1-F0314",
         "D1-F0315",
         "D1-F0316",
+        "D1-F0344",
+        "D1-F0345",
+        "D1-F0346",
+        "D1-F0357",
+        "D1-F0358",
+        "D1-F0359",
+        "D1-F0360",
+        "D1-F0361",
         "D1-F0388",
         "D1-F0398",
         "D1-F0399",
@@ -78192,6 +79480,7 @@
         "D1-F0485",
         "D1-F0486",
         "D1-F0487",
+        "D1-F0791",
         "D1-F0491",
         "D1-F0492",
         "D1-F0493",
@@ -78281,76 +79570,37 @@
       "unresolved_structure_ids": []
     },
     {
-      "context_structure_ids": [
-        "C01"
-      ],
-      "material_fact_ids": [
-        "D1-F0007",
-        "D1-F0008",
-        "D1-F0009",
-        "D1-F0011",
-        "D1-F0012",
-        "D1-F0661"
-      ],
-      "material_structure_ids": [
-        "C01"
-      ],
-      "primary_evidence_fact_ids": [
-        "D1-F0007"
-      ],
+      "context_structure_ids": [],
+      "material_fact_ids": [],
+      "material_structure_ids": [],
+      "primary_evidence_fact_ids": [],
       "scope_char_end": 4020,
       "scope_char_start": 4013,
-      "semantic_state": "MATERIAL_FACTS",
+      "semantic_state": "NO_MATERIAL_CIVIC_FACT",
       "source_order": 3,
       "unit_id": "U0003",
       "unresolved_structure_ids": []
     },
     {
-      "context_structure_ids": [
-        "C01"
-      ],
-      "material_fact_ids": [
-        "D1-F0007",
-        "D1-F0008",
-        "D1-F0009",
-        "D1-F0011",
-        "D1-F0012",
-        "D1-F0661"
-      ],
-      "material_structure_ids": [
-        "C01"
-      ],
-      "primary_evidence_fact_ids": [
-        "D1-F0007"
-      ],
+      "context_structure_ids": [],
+      "material_fact_ids": [],
+      "material_structure_ids": [],
+      "primary_evidence_fact_ids": [],
       "scope_char_end": 4027,
       "scope_char_start": 4020,
-      "semantic_state": "MATERIAL_FACTS",
+      "semantic_state": "NO_MATERIAL_CIVIC_FACT",
       "source_order": 4,
       "unit_id": "U0004",
       "unresolved_structure_ids": []
     },
     {
-      "context_structure_ids": [
-        "C01"
-      ],
-      "material_fact_ids": [
-        "D1-F0007",
-        "D1-F0008",
-        "D1-F0009",
-        "D1-F0011",
-        "D1-F0012",
-        "D1-F0661"
-      ],
-      "material_structure_ids": [
-        "C01"
-      ],
-      "primary_evidence_fact_ids": [
-        "D1-F0007"
-      ],
+      "context_structure_ids": [],
+      "material_fact_ids": [],
+      "material_structure_ids": [],
+      "primary_evidence_fact_ids": [],
       "scope_char_end": 4034,
       "scope_char_start": 4027,
-      "semantic_state": "MATERIAL_FACTS",
+      "semantic_state": "NO_MATERIAL_CIVIC_FACT",
       "source_order": 5,
       "unit_id": "U0005",
       "unresolved_structure_ids": []
@@ -78361,7 +79611,6 @@
         "C02"
       ],
       "material_fact_ids": [
-        "D1-F0007",
         "D1-F0008",
         "D1-F0009",
         "D1-F0010",
@@ -78379,7 +79628,6 @@
         "C02"
       ],
       "primary_evidence_fact_ids": [
-        "D1-F0007",
         "D1-F0008",
         "D1-F0009",
         "D1-F0010",
@@ -78809,13 +80057,16 @@
         "D1-F0099",
         "D1-F0100",
         "D1-F0101",
+        "D1-F0784",
         "D1-F0102",
         "D1-F0103",
+        "D1-F0785",
         "D1-F0104",
         "D1-F0105",
         "D1-F0106",
         "D1-F0107",
         "D1-F0108",
+        "D1-F0786",
         "D1-F0109"
       ],
       "material_structure_ids": [
@@ -78849,14 +80100,19 @@
         "C06"
       ],
       "material_fact_ids": [
+        "D1-F0784",
         "D1-F0102",
         "D1-F0103",
+        "D1-F0785",
         "D1-F0104",
         "D1-F0105",
         "D1-F0106",
         "D1-F0107",
         "D1-F0108",
+        "D1-F0786",
         "D1-F0109",
+        "D1-F0787",
+        "D1-F0788",
         "D1-F0110",
         "D1-F0111",
         "D1-F0112",
@@ -78878,14 +80134,19 @@
         "C06"
       ],
       "primary_evidence_fact_ids": [
+        "D1-F0784",
         "D1-F0102",
         "D1-F0103",
+        "D1-F0785",
         "D1-F0104",
         "D1-F0105",
         "D1-F0106",
         "D1-F0107",
         "D1-F0108",
+        "D1-F0786",
         "D1-F0109",
+        "D1-F0787",
+        "D1-F0788",
         "D1-F0110",
         "D1-F0111",
         "D1-F0112",
@@ -79890,6 +81151,7 @@
         "D1-F0347",
         "D1-F0348",
         "D1-F0349",
+        "D1-F0789",
         "D1-F0350",
         "D1-F0351",
         "D1-F0352",
@@ -79907,6 +81169,7 @@
         "D1-F0347",
         "D1-F0348",
         "D1-F0349",
+        "D1-F0789",
         "D1-F0350",
         "D1-F0351",
         "D1-F0683"
@@ -80421,6 +81684,7 @@
         "D1-F0472",
         "D1-F0473",
         "D1-F0474",
+        "D1-F0790",
         "D1-F0475",
         "D1-F0476",
         "D1-F0477",
@@ -80457,6 +81721,7 @@
         "U08"
       ],
       "material_fact_ids": [
+        "D1-F0790",
         "D1-F0475",
         "D1-F0476",
         "D1-F0477",
@@ -80470,6 +81735,7 @@
         "D1-F0485",
         "D1-F0486",
         "D1-F0487",
+        "D1-F0791",
         "D1-F0488",
         "D1-F0489",
         "D1-F0490",
@@ -80481,6 +81747,7 @@
         "U08"
       ],
       "primary_evidence_fact_ids": [
+        "D1-F0790",
         "D1-F0475",
         "D1-F0476",
         "D1-F0477",
@@ -80494,6 +81761,7 @@
         "D1-F0485",
         "D1-F0486",
         "D1-F0487",
+        "D1-F0791",
         "D1-F0488",
         "D1-F0489"
       ],
@@ -81159,6 +82427,7 @@
         "D1-F0642",
         "D1-F0643",
         "D1-F0644",
+        "D1-F0792",
         "D1-F0645",
         "D1-F0646",
         "D1-F0647",
@@ -81198,6 +82467,7 @@
         "D1-F0642",
         "D1-F0643",
         "D1-F0644",
+        "D1-F0792",
         "D1-F0645",
         "D1-F0693"
       ],

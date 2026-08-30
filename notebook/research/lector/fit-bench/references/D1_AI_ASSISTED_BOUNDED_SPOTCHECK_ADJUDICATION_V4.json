@@ -1,0 +1,198 @@
+{
+  "accepted_count": 13,
+  "adjudication_id": "CANARIO-D1-AI-ASSISTED-BOUNDED-SPOTCHECK-ADJUDICATION-004",
+  "adjudications": [
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0001",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Bound 131934:132110 to both facts so «Dicha gestión» is explicitly resolved as a renewed future request.",
+      "v4_affected_fact_ids": [
+        "D1-F0548",
+        "D1-F0549"
+      ],
+      "v5_fact_ids": [
+        "D1-F0548",
+        "D1-F0549"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0002",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Bound 32757:32836, the explicit source sentence that an agreement was reached with «ella» to do the recognition later.",
+      "v4_affected_fact_ids": [
+        "D1-F0713"
+      ],
+      "v5_fact_ids": [
+        "D1-F0713"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0003",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Bound the same-source PRE roster 939:1135 to all eight normalized Stephannie-Quesada facts and added CTX-01 for the now-explicit cross-unit identity context.",
+      "v4_affected_fact_ids": [
+        "D1-F0344",
+        "D1-F0345",
+        "D1-F0346",
+        "D1-F0357",
+        "D1-F0358",
+        "D1-F0359",
+        "D1-F0360",
+        "D1-F0361"
+      ],
+      "v5_fact_ids": [
+        "D1-F0344",
+        "D1-F0345",
+        "D1-F0346",
+        "D1-F0357",
+        "D1-F0358",
+        "D1-F0359",
+        "D1-F0360",
+        "D1-F0361"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0004",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored Bienvenido Venegas’s explicit assessment of board members’ work while preserving the source’s unresolved board referent.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0784"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0005",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored the explicit recommendation/position that the unidentified complainant would have done better approaching the sports association to offer knowledge/help.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0785"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0006",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored the explicit recommendation to continue the effort and proactively approach the sports groups/associations.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0786"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0007",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored the President’s proposal to receive the Contraloría note, preserving proposal modality separately from the later formal agreement.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0787"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0008",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored the President’s proposal to consult Auditoría Interna/Contraloría de Servicios about a direct response to the complainant.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0788"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0009",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored the passive procedural request to Luis Pérez Palma for the exact lamp location, without inventing the unnamed requesting actor.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0789"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0010",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored Fernando Villalobos’s explicit non-confrontational institutional-engagement position toward ICODER.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0790"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0011",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored Juan Carlos Zeledón’s distinct recommendation that the consultation retain the most important prior intervention points.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0791"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0012",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Restored Luis Diego Estrada’s explicit uncertainty about whether any activity would occur on 8 August.",
+      "v4_affected_fact_ids": [],
+      "v5_fact_ids": [
+        "D1-F0792"
+      ]
+    },
+    {
+      "decision": "ACCEPT",
+      "finding_id": "D1-V4-AS-0013",
+      "resolution": "ACCEPTED_AND_REPAIRED",
+      "source_grounded_reason": "Narrowed the shared C01 context target from 3392:4236 to 3392:4013 and reclassified U0003-U0005, whose exact contents are only numeric extraction artifacts 9/10/11, as NO_MATERIAL_CIVIC_FACT.",
+      "v4_affected_fact_ids": [
+        "D1-F0007",
+        "D1-F0008",
+        "D1-F0009",
+        "D1-F0011",
+        "D1-F0012",
+        "D1-F0661"
+      ],
+      "v5_fact_ids": [
+        "D1-F0007",
+        "D1-F0008",
+        "D1-F0009",
+        "D1-F0011",
+        "D1-F0012",
+        "D1-F0661"
+      ]
+    }
+  ],
+  "findings_reviewed": 13,
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1-ai-assisted-bounded-spotcheck-adjudication.v4/1",
+  "human_independence_gate_satisfied": false,
+  "leakage_declaration": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "new_v5_fact_count": 9,
+  "reclassified_nonmaterial_unit_count": 3,
+  "reference_to_source_findings": 3,
+  "rejected_count": 0,
+  "result": "REQUIRES_REVISION_COMPLETED",
+  "resulting_reference": "D1_REFERENCE_SUPERVISOR_DRAFT_V5",
+  "review_id": "CANARIO-D1-AI-ASSISTED-BOUNDED-SPOTCHECK-V4-001",
+  "review_independence_strength": "WEAK_OR_UNKNOWN",
+  "review_verdict": "REFERENCE_DISPUTE",
+  "reviewed_candidate": {
+    "commit": "44291aa54f96492d02cc4e9c9f8e4d0bb9ddd770",
+    "tree": "c3cb37b96ac356b952e9454525788dc47e0a0e09"
+  },
+  "source_to_reference_findings": 10,
+  "unresolved_count": 0,
+  "v5_fact_count": 744,
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
