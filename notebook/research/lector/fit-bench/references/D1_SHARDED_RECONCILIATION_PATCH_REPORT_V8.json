@@ -1,0 +1,41 @@
+{
+  "format": "canario.d1.v8.s01-reopening-orchestration-report/v1",
+  "v8_commit": "98ca3fbc84f6d35a0ba52068b98da4ea10ec1aad",
+  "original_six_shard_run": {
+    "status": "completed before this patch",
+    "s01_original_audit_blocker": "twelve reverse-owned facts lacked authorized exact reopening in the S01 context packet"
+  },
+  "s01_audit_rerun": {
+    "worker": "OpenCode Terra shard worker S01 (openai/gpt-5.6-terra)",
+    "source_ledger_worker_continuity": true,
+    "source_ledger_reused_byte_for_byte": true,
+    "source_ledger_sha256": "dbf4d0adf4c15b674066ef494b5cf606137a22f91f7e28a40c4ebe991a45d243",
+    "source_ledger_bytes": 43894,
+    "source_ledger_seal_sha256": "2de1ab5d6cf5be40795dfd20775da40196ade569a9c030cb4a7a0a0baa11cdd3",
+    "source_ledger_seal_bytes": 979,
+    "reverse_facts": "156/156 PASS",
+    "evidence_targets": "384/384 exact-reopened",
+    "findings": 0,
+    "s01_reopening_blocker": "RESOLVED"
+  },
+  "unchanged_shards": {
+    "shards": ["S02", "S03", "S04", "S05", "S06"],
+    "treatment": "reused byte-for-byte from unchanged-shards/; not rerun"
+  },
+  "fresh_reconciliation": {
+    "worker": "OpenCode Terra reconciliation worker (openai/gpt-5.6-terra)",
+    "fresh_context": true,
+    "verdict": "REFERENCE_DISPUTE",
+    "s01_reopening_blocker": "RESOLVED",
+    "coverage": {"frozen_units": "61/61", "reverse_facts": "783/783", "evidence_targets": "2019/2019", "source_assertions": "241/241"},
+    "hard_findings": {"total": 10, "by_direction": {"source_to_reference": 5, "reference_to_source": 3, "both": 2}, "by_type": {"MISSING_MATERIAL_ASSERTION": 5, "MODALITY_ERROR": 3, "QUALIFIER_ERROR": 2}},
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "v8_mutation": "none"
+  },
+  "canonical_artifacts": [
+    {"path": "outputs/S01/D1_V8_S01_SHARD_AUDIT.json", "sha256": "a0e172feb2bffbb8f408299ea695772e916d943a65253c843821031c7e6da982", "bytes": 78722},
+    {"path": "outputs/S01/D1_V8_S01_SHARD_AUDIT.md", "sha256": "8679402502519a2759984cda81ebffa355c4eb578151ecd170223f74f395409b", "bytes": 874},
+    {"path": "final/D1_SHARDED_SEMANTIC_REVIEW_V8_RECONCILED_R2.json", "sha256": "b07f35882d73a989d62a3876be56cabf5bb509d88ec9e74073f194da60fd1c91", "bytes": 8953},
+    {"path": "final/D1_SHARDED_SEMANTIC_REVIEW_V8_RECONCILED_R2.md", "sha256": "067618f458964c150aa7c93095189ece156330342e03e5a5d116f26dde470a41", "bytes": 4216}
+  ]
+}

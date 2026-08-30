@@ -1,0 +1,84 @@
+{
+  "format": "canario.d1.v8.sharded-semantic-reconciliation/v1",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "verdict": "REFERENCE_DISPUTE",
+  "s01_reopening_blocker": "RESOLVED",
+  "exact_identities": {
+    "v8_commit": "98ca3fbc84f6d35a0ba52068b98da4ea10ec1aad",
+    "v8_reference_sha256": "c440c76a70c31107f47d3df91701d971a75c18341ec2a8b41e328c801473a6db",
+    "v8_bundle_sha256": "53a5c3a7c1d375cfa43d71ec6c93cec8b95be04c4b79bd851d85a629b166e8ec",
+    "recovery_sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf",
+    "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+    "scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+    "unit_inventory_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+    "kit_manifest_sha256": "17c2ca1c1ca7b01db6a5bd813a8ca839cff6e9d2112d858f4e1b5c07cadad7ec",
+    "global_fact_index_sha256": "4961c17dd7263c7524d4e2363e6066be60d760e0dc1978dfb8e5647e89f2d51c"
+  },
+  "mechanical_completeness": {
+    "core_ranges": [[0, 29941], [29941, 49187], [49187, 80774], [80774, 97942], [97942, 124494], [124494, 151940]],
+    "core_ranges_contiguous_gap_free_non_overlapping": true,
+    "frozen_units_owned_exactly_once": "61/61",
+    "reverse_facts_owned_exactly_once": "783/783",
+    "evidence_targets_audited": "2019/2019",
+    "source_assertions": 241,
+    "forward_mapping_rows": "241/241",
+    "reverse_audit_rows": "783/783",
+    "source_only_unit_judgments": "61/61",
+    "sealed_before_reference_exposure": true,
+    "prior_review_history_seen_by_shard_workers": false,
+    "exact_reopening": "complete target audit recorded by every shard; S06 records 294 local-context reopens and 51 exact resolver/provenance targets accepted as semantically sufficient, with no unresolved reopening blocker"
+  },
+  "s01_reopening": {
+    "status": "RESOLVED",
+    "ledger_sha256": "dbf4d0adf4c15b674066ef494b5cf606137a22f91f7e28a40c4ebe991a45d243",
+    "ledger_bytes": 43894,
+    "audit_sha256": "a0e172feb2bffbb8f408299ea695772e916d943a65253c843821031c7e6da982",
+    "audit_bytes": 78722,
+    "forward": {"covered_exactly": 25, "covered_with_multiple_facts": 16, "missing": 0, "partial": 0, "overstated": 0},
+    "reverse": {"pass": 156, "fail": 0},
+    "evidence_targets_reopened_and_audited": "384/384",
+    "prior_blocker_facts_passed": ["D1-F0807", "D1-F0622", "D1-F0623", "D1-F0624", "D1-F0693", "D1-F0810", "D1-F0811", "D1-F0812", "D1-F0817", "D1-F0821", "D1-F0822", "D1-F0823"],
+    "findings": 0
+  },
+  "shards": [
+    {"shard_id":"S01","reviewer_identity":"OpenCode Terra shard worker S01 (openai/gpt-5.6-terra)","ledger_sha256":"dbf4d0adf4c15b674066ef494b5cf606137a22f91f7e28a40c4ebe991a45d243","ledger_bytes":43894,"audit_sha256":"a0e172feb2bffbb8f408299ea695772e916d943a65253c843821031c7e6da982","audit_bytes":78722,"assertions":41,"units":17,"facts":156,"targets":384,"verdict":"SHARD_PASS_NO_DISPUTES"},
+    {"shard_id":"S02","reviewer_identity":"Terra shard worker S02","ledger_sha256":"088852399fdb557c116a134f45cb4cf4bd09f6354e342e888eab96c26a443e7e","ledger_bytes":69700,"audit_sha256":"2ca890e56e91da3fe1abfb3d1f51fec5b544ebfc46fa475b1a1edb2ba294a8c3","assertions":33,"units":8,"facts":89,"targets":227,"verdict":"REFERENCE_DISPUTE"},
+    {"shard_id":"S03","reviewer_identity":"Terra shard worker S03","ledger_sha256":"b245130c5cbbe8f5c64dd725bcde6ad779c273300cbabbd1bfb4918422576ae7","ledger_bytes":94906,"audit_sha256":"08cfcf3f0ca8af52b0f020c9c50bf9756e6006e00115dd450a3b40fd1d762c6c","assertions":67,"units":10,"facts":142,"targets":379,"verdict":"REFERENCE_DISPUTE"},
+    {"shard_id":"S04","reviewer_identity":"Terra shard worker S04","ledger_sha256":"d0ec576f84ae7390aac4d8ec5c6bd285d9f4247253dad0b2a5e6323bf02e680e","ledger_bytes":64992,"audit_sha256":"98910697aae80d9cc5548111a2d2234b272212873a95bef2c20de15f214bf993","assertions":36,"units":7,"facts":88,"targets":256,"verdict":"REFERENCE_DISPUTE"},
+    {"shard_id":"S05","reviewer_identity":"OpenCode Terra shard worker S05 (openai/gpt-5.6-terra)","ledger_sha256":"b8e2719d7e02654df9148e61a6263f5a58a7fdbb93869b7207f9779f6a0394dc","ledger_bytes":30404,"audit_sha256":"bdae8bc419131140a9f12845049672693802fa563c143ab56221ab38cd3a2bf0","assertions":27,"units":9,"facts":165,"targets":428,"verdict":"REFERENCE_DISPUTE"},
+    {"shard_id":"S06","reviewer_identity":"OpenCode Terra shard worker S06","ledger_sha256":"a93bde036f0a2ef517e2a4a699c8675d849944aae7683066bed7cf38ad832e3d","ledger_bytes":41490,"audit_sha256":"217d42059694b19ef822d23e2ecddad0a6716dd442131d25676b6c13515283d2","assertions":37,"units":10,"facts":143,"targets":345,"verdict":"REFERENCE_DISPUTE"}
+  ],
+  "provisional_blind_merge": {"path":"work/reconciliation-r2/D1_V8_PROVISIONAL_BLIND_MERGE.json","sha256":"3f704ff369b88eb6a4472ff8688169d1b1a1941e317cda5fc9245f907d40a080","bytes":1654,"verdict":"REFERENCE_DISPUTE"},
+  "hard_finding_inventory": {
+    "total":10,
+    "by_direction":{"source_to_reference":5,"reference_to_source":3,"both":2},
+    "by_issue_type":{"MISSING_MATERIAL_ASSERTION":5,"MODALITY_ERROR":3,"QUALIFIER_ERROR":2},
+    "findings":[
+      {"id":"D1-V8-S02-IR-0001","direction":"source_to_reference","type":"MISSING_MATERIAL_ASSERTION","facts":["D1-F0154"],"summary":"Omits offered lunch and confirmation contact channels."},
+      {"id":"D1-V8-S02-IR-0002","direction":"source_to_reference","type":"MISSING_MATERIAL_ASSERTION","facts":["D1-F0156","D1-F0157"],"summary":"Omits the explicit public invitation to the 30 May dance."},
+      {"id":"D1-V8-S02-IR-0003","direction":"both","type":"MODALITY_ERROR","facts":["D1-F0714"],"summary":"Changes a desiderative/request to a completed attendance confirmation."},
+      {"id":"D1-V8-S02-IR-0004","direction":"reference_to_source","type":"QUALIFIER_ERROR","facts":["D1-F0174"],"summary":"Adds unsupported administrative qualification to available possibilities."},
+      {"id":"D1-V8-S02-IR-0005","direction":"both","type":"QUALIFIER_ERROR","facts":["D1-F0194"],"summary":"Omits the stated reason that Tercero was more familiar with the topic."},
+      {"id":"D1-V8-S03-IR-0001","direction":"source_to_reference","type":"MISSING_MATERIAL_ASSERTION","facts":[],"summary":"Omits that dissolving the commission does not eliminate its pending work."},
+      {"id":"D1-V8-S04-IR-0001","direction":"reference_to_source","type":"MODALITY_ERROR","facts":["D1-F0360"],"summary":"Changes considered-important request for ICE explanation into direct request."},
+      {"id":"D1-V8-S04-IR-0002","direction":"reference_to_source","type":"MODALITY_ERROR","facts":["D1-F0361"],"summary":"Changes considered-important request for ICE technical review into direct request."},
+      {"id":"D1-V8-S05-IR-0001","direction":"source_to_reference","type":"MISSING_MATERIAL_ASSERTION","facts":[],"summary":"Omits president's procedural receipt and direction to make the CCCI request."},
+      {"id":"D1-V8-S06-IR-0001","direction":"source_to_reference","type":"MISSING_MATERIAL_ASSERTION","facts":[],"summary":"Omits unanimous Council transfer to Administration to prepare and later present Futsala U-8 recognitions."}
+    ]
+  },
+  "v8_repair_regression": [
+    {"v7_finding":"D1-V7-AB-0001","repair_fact":"D1-F0079","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0002","repair_fact":"D1-F0493","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0003","repair_fact":"D1-F0734","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0004","repair_fact":"D1-F0810","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0005","repair_fact":"D1-F0811","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0006","repair_fact":"D1-F0827","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0007","repair_fact":"D1-F0828","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0008","repair_fact":"D1-F0830","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0009","repair_fact":"D1-F0831","result":"PASS"},
+    {"v7_finding":"D1-V7-AB-0010","repair_fact":"D1-F0785","result":"PASS"}
+  ],
+  "independence": {"assessment":"WEAK_OR_UNKNOWN","strong_independent_gate_satisfied":false,"reason":"All six reviewers are Terra/OpenAI family workers; source-only sealing controls leakage but does not establish material model/provider independence from the supervising author."},
+  "provenance_and_leakage": {"replacement_s01_only":"S01 ledger, seal, and audit came only from s01/ and outputs/S01/.","unchanged_reviewers":"S02-S06 ledger, seals, JSON, and Markdown were used byte-for-byte only from unchanged-shards/S02 through S06.","prior_history_order":"Prior v7 adjudication was opened only after the provisional blind merge was persisted and hashed.","shard_history_exposure":"All shards declare prior review history unseen; all declare reference exposure after source-only seal.","v8_mutation":"none"},
+  "blockers": ["Ten unresolved hard findings require reference adjudication/repair before no-disputes certification.","Strong material independence is not established."]
+}
