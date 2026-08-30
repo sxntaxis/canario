@@ -11,4 +11,4 @@ D1 v7 is the supervising-author revision after the blind senary semantic audit o
 
 V7 restores 18 source→reference omission groups as 22 minimally separated facts, repairs CGR and M07 provenance binding, restores the conditional force of `D1-F0310`, and preserves `me parece` modality in `D1-F0784`.
 
-Inventory at authoring: **781 facts**, **2004 evidence targets**, 36 structures and 61 frozen units. D1 remains `SUPERVISOR_DRAFT`; strong/human independence is not satisfied and a fresh semantic audit is required after mechanical certification.
+Inventory at authoring: **781 facts**, **2007 evidence targets**, 36 structures and 61 frozen units. D1 remains `SUPERVISOR_DRAFT`; strong/human independence is not satisfied and a fresh semantic audit is required after mechanical certification.
