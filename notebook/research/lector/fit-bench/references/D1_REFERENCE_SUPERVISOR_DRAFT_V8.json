@@ -53,6 +53,11 @@
     "senary_semantic_review_v6_disputes_adjudicated": true,
     "senary_semantic_review_v6_independence_strength": "WEAK_OR_UNKNOWN",
     "senary_semantic_review_v6_received": true,
+    "septenary_confirmed_partial_findings_adjudicated": true,
+    "septenary_execution_v7_complete": false,
+    "septenary_execution_v7_history_anchoring_contamination": false,
+    "septenary_execution_v7_received": true,
+    "septenary_execution_v7_reference_anchoring_contamination": true,
     "supervising_author_adversarial_review_complete": true,
     "tertiary_semantic_review_v3_disputes_adjudicated": true,
     "tertiary_semantic_review_v3_independence_strength": "WEAK_OR_UNKNOWN",
@@ -9116,7 +9121,8 @@
     },
     {
       "adjudication_notes": [
-        "D1-V2-IR-0001"
+        "D1-V2-IR-0001",
+        "Septenary aborted-execution finding D1-V7-AB-0001 ACCEPT: added bound preceding pool/Contraloría discussion context for source-deictic «esto / las cosas»."
       ],
       "allowed_variants_or_equivalence_notes": [
         "The frozen local speaker label reads «Rolnald Robles»; the same frozen source attendance roster identifies the regidor suplente as Ronald Gerardo Robles Arley. The canonical name is resolved only from that source-internal evidence."
@@ -9168,6 +9174,24 @@
           "unit_ids": [
             "U0001"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 20544,
+          "representation_char_start": 19704,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 20544,
+          "scope_char_start": 19704,
+          "scope_containment": "PASS",
+          "selected_characters": 840,
+          "selected_text_sha256": "1b264fa41ce7e4933367a562ff08555f75bdc6592c311dc97c1e26012d61db82",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Le podemos solicitar a la Secretaría del Concejo que adjunte al acuerdo que se\n24   vaya a tomar la factura de la fecha en que se le pagó a la Imprenta Nacional la\n25   primera publicación de ese reglamento, para que la Contraloría vea y note que no\n26   es culpa de este Concejo Municipal, sino debido a un atraso que ha tenido la\n27   Imprenta Nacional en la publicación de este reglamento en La Gaceta.\n28   Entonces, más o menos recogiendo las ideas que mencionaban el señor regidor y\n29   el señor Presidente, que la Secretaría le responda en esos términos a la\n30   Contraloría y adjunte, por favor, el recibo de pago de la primera publicación en el\n31   periódico La Gaceta.\n32   Señor Presidente Municipal: Gracias, don Olivier. Entonces procedemos a realizar\n33   la votación del acuerdo, tal y como lo indica nuestro asesor legal.",
+          "unit_ids": [
+            "U0014"
+          ]
         }
       ],
       "fact_id": "D1-F0079",
@@ -9202,7 +9226,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after secondary-v2 adjudication D1-V2-IR-0001 for D1-F0079: reopened source entailment, self-sufficient minimality, qualifiers and evidence for “Ronald Robles planteó valorar la publicación de una aclaración en la página municipal sobre las actuaciones realizadas respecto de la piscina.” against the exact frozen D1 Representation.",
+        "review_note": "PASS v8 after D1-V7-AB-0001: bound preceding C05 discussion resolves the publication topic to the ongoing pool/Contraloría matter without relying on another fact.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -9212,8 +9236,8 @@
         "PRE"
       ],
       "unit_ids": [
-        "U0001",
-        "U0014"
+        "U0014",
+        "U0001"
       ]
     },
     {
@@ -12688,12 +12712,13 @@
     },
     {
       "adjudication_notes": [
-        "D1-V4-AS-0005: accepted; restored explicit recommendation/position from HF-002."
+        "D1-V4-AS-0005: accepted; restored explicit recommendation/position from HF-002.",
+        "Septenary aborted-execution finding D1-V7-AB-0010 ACCEPT: restored the attached time/effort and already-underway reason/contrast."
       ],
       "allowed_variants_or_equivalence_notes": [
         "La persona aludida permanece sin identificar; no inferir su identidad."
       ],
-      "canonical_semantic_note": "Bienvenido Venegas sostuvo que habría sido mejor que la persona que llevó el asunto a la Contraloría se acercara a la Asociación Deportiva para ofrecer sus conocimientos y preocupación por la piscina.",
+      "canonical_semantic_note": "Bienvenido Venegas sostuvo que habría sido mejor que la persona que llevó el asunto a la Contraloría se acercara a la Asociación Deportiva para ofrecer sus conocimientos y preocupación por la piscina, en vez de invertir ese tiempo y esfuerzo en llevar a la Contraloría un tema que ya se venía trabajando e impulsando.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -12706,24 +12731,6 @@
         "LANG-ES-01"
       ],
       "evidence_targets": [
-        {
-          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
-          "reopening": "PASS",
-          "representation_char_end": 26957,
-          "representation_char_start": 26593,
-          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
-          "scope_char_end": 26957,
-          "scope_char_start": 26593,
-          "scope_containment": "PASS",
-          "selected_characters": 364,
-          "selected_text_sha256": "e7537d6c473f59c6c5d14197e3d3768e141d782e8aa19fbe858da54e29aabfc5",
-          "selector_kind": "scope_char_range/v1",
-          "structure_id": "C05",
-          "text_preview": "Esa persona que sacó todo ese tiempo y tuvo la disposición de ir hasta\n 9   la Contraloría, ¿No hubiera sido más fácil acercarse a la Asociación Deportiva y\n10   ponerse a la orden, aportando sus conocimientos y su preocupación para que esta\n11   piscina llegue a cumplir todas las expectativas que tenemos sobre ella?\n12   Hubiera sido mucho mejor esa posibilidad",
-          "unit_ids": [
-            "U0017"
-          ]
-        },
         {
           "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
           "reopening": "PASS",
@@ -12758,6 +12765,24 @@
           "text_preview": "Funcionarios presentes: Lic. Bienvenido Venegas Porras - Alcalde,",
           "unit_ids": [
             "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 27107,
+          "representation_char_start": 26593,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 27107,
+          "scope_char_start": 26593,
+          "scope_containment": "PASS",
+          "selected_characters": 514,
+          "selected_text_sha256": "6bc705384ae27c4d74b8645f7702ce1b92e6790c09b9cd3af87a9204f4d0bd97",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Esa persona que sacó todo ese tiempo y tuvo la disposición de ir hasta\n 9   la Contraloría, ¿No hubiera sido más fácil acercarse a la Asociación Deportiva y\n10   ponerse a la orden, aportando sus conocimientos y su preocupación para que esta\n11   piscina llegue a cumplir todas las expectativas que tenemos sobre ella?\n12   Hubiera sido mucho mejor esa posibilidad, y no invertir todo ese tiempo y esfuerzo\n13   en llevar un asunto a la Contraloría, cuando era un tema que ya se venía trabajando\n14   e impulsando.",
+          "unit_ids": [
+            "U0017"
           ]
         }
       ],
@@ -12797,7 +12822,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-V4-AS-0005: exact source evidence supports the new material proposition; source entailment, attribution/modality, self-sufficient minimality, evidence sufficiency and unit mapping were rechecked. Fact-specific check: D1-F0785 — Bienvenido Venegas sostuvo que habría sido mejor que la persona que llevó el asunto a la Contraloría se acercara a la Asociación Deportiva para ofrecer sus conocimientos y preocupación por la piscina.",
+        "review_note": "PASS v8 after D1-V7-AB-0010: exact evidence now includes the attached evaluative reason/contrast through «ya se venía trabajando e impulsando».",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -12807,8 +12832,8 @@
         "PRE"
       ],
       "unit_ids": [
-        "U0001",
         "U0016",
+        "U0001",
         "U0017"
       ]
     },
@@ -47625,10 +47650,11 @@
     {
       "adjudication_notes": [
         "D1-V2-IR-0016",
-        "Accepted D1-V5-IR-0022: bound source-internal attribution/provenance resolver in v6."
+        "Accepted D1-V5-IR-0022: bound source-internal attribution/provenance resolver in v6.",
+        "Septenary aborted-execution finding D1-V7-AB-0003 ACCEPT: removed unsupported «fuera de comisión» inference and preserved the source's explicit antes/hoy contrast."
       ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "Bienvenido Venegas sostuvo que, al estar el expediente 23.898 fuera de comisión, la gestión debía dirigirse a los jefes de fracción de la Asamblea Legislativa.",
+      "canonical_semantic_note": "Bienvenido Venegas contrastó que antes, cuando el expediente 23.898 estaba en comisión, necesitaban hablar con los diputados de Puntarenas, mientras que en ese momento necesitaban hablar con los jefes de fracción de la Asamblea Legislativa.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -47711,6 +47737,24 @@
           "unit_ids": [
             "U0001"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 96177,
+          "representation_char_start": 96073,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 96177,
+          "scope_char_start": 96073,
+          "scope_containment": "PASS",
+          "selected_characters": 104,
+          "selected_text_sha256": "5ce62a8c9a749d10d0d84676eda9637df76010df2b78c04c0ca76970dec0f52a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U06",
+          "text_preview": "Antes, cuando el proyecto estaba en comisión, necesitábamos hablar con los\n32   diputados de Puntarenas.",
+          "unit_ids": [
+            "U0041"
+          ]
         }
       ],
       "fact_id": "D1-F0734",
@@ -47726,7 +47770,7 @@
         "exception": [],
         "location": [],
         "modality": [
-          "sostuvo"
+          "contrastó"
         ],
         "negation": [],
         "period": [],
@@ -47745,7 +47789,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after secondary-v2 adjudication D1-V2-IR-0016 for D1-F0734: reopened source entailment, self-sufficient minimality, qualifiers and evidence for “Bienvenido Venegas sostuvo que, al estar el expediente 23.898 fuera de comisión, la gestión debía dirigirse a los jefes de fracción de la Asamblea Legislativa.” against the exact frozen D1 Representation.",
+        "review_note": "PASS v8 after D1-V7-AB-0003: canonical semantics now preserve only the explicit source contrast between prior commission-stage outreach and current faction-chief outreach.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -47755,9 +47799,9 @@
         "PRE"
       ],
       "unit_ids": [
-        "U0001",
+        "U0041",
         "U0039",
-        "U0041"
+        "U0001"
       ]
     },
     {
@@ -60523,7 +60567,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "Septenary aborted-execution finding D1-V7-AB-0002 ACCEPT: bound same-source «Señor Diego Estrada» plus PRE roster resolving Luis Diego Estrada."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Juan Carlos Zeledón propuso que Luis Diego Estrada preparara el borrador del acuerdo con base en la discusión.",
       "capability_bindings": [
@@ -60589,6 +60635,42 @@
           "unit_ids": [
             "U0001"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 115552,
+          "representation_char_start": 115531,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 115552,
+          "scope_char_start": 115531,
+          "scope_containment": "PASS",
+          "selected_characters": 21,
+          "selected_text_sha256": "00c87b734c3bc7a00d5c0a6025f002fef7a7916a4ab6dce4f7a9969cc8a80617",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Señor Diego Estrada: ",
+          "unit_ids": [
+            "U0049"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 890,
+          "representation_char_start": 743,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 890,
+          "scope_char_start": 743,
+          "scope_containment": "PASS",
+          "selected_characters": 147,
+          "selected_text_sha256": "a298e43ba7cd4eb354e2daec1e725a8d1a2a293f4b676e39cae7bfb5ef6ec687",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.",
+          "unit_ids": [
+            "U0001"
+          ]
         }
       ],
       "fact_id": "D1-F0493",
@@ -60624,7 +60706,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-IR-0048: bound exact source identification for the named attribution in addition to the statement evidence; entailment, qualifier support and evidence sufficiency rechecked. [fact D1-F0493]",
+        "review_note": "PASS v8 after D1-V7-AB-0002: fact-local same-source speaker and PRE roster evidence resolves «don Diego» to Luis Diego Estrada.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -60634,8 +60716,9 @@
         "PRE"
       ],
       "unit_ids": [
+        "U0050",
         "U0001",
-        "U0050"
+        "U0049"
       ]
     },
     {
@@ -83748,7 +83831,8 @@
     },
     {
       "adjudication_notes": [
-        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7."
+        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7.",
+        "Septenary aborted-execution finding D1-V7-AB-0004 ACCEPT: bound local Douglas Arce Solís naming antecedent."
       ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Juan Carlos Zeledón manifestó que la Presidencia mantenía total respeto hacia la labor de Douglas Arce y hacia la representación comunal que ejercía en Caldera.",
@@ -83816,6 +83900,24 @@
           "unit_ids": [
             "U0027"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 53568,
+          "representation_char_start": 53360,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 53568,
+          "scope_char_start": 53360,
+          "scope_containment": "PASS",
+          "selected_characters": 208,
+          "selected_text_sha256": "204331de0782efe25f25b8d9964568cf7ee71a45e4780ae390bd0bfa209aed5d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "De igual forma, corresponde reconocer públicamente el trabajo y compromiso del\n42   señor síndico Douglas Arce Solís durante el tiempo en que participó en la Comisión\n43   Especial de Zona Marítimo Terrestre.",
+          "unit_ids": [
+            "U0027"
+          ]
         }
       ],
       "fact_id": "D1-F0810",
@@ -83853,14 +83955,14 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS v7: exact frozen evidence supports D1-F0810 — Juan Carlos Zeledón manifestó que la Presidencia mantenía total respeto hacia la labor de Douglas Arce y hacia la representación comunal que ejercía en Caldera. Senary repair source: D1-V6-IR-0002.",
+        "review_note": "PASS v8 after D1-V7-AB-0004: the fact's evidence now explicitly names Douglas Arce Solís before resolving «su labor / representación comunal».",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "C13",
-        "PRE"
+        "PRE",
+        "C13"
       ],
       "unit_ids": [
         "U0001",
@@ -83869,7 +83971,8 @@
     },
     {
       "adjudication_notes": [
-        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7."
+        "Senary finding D1-V6-IR-0002 ACCEPT: restored from exact frozen source in v7.",
+        "Septenary aborted-execution finding D1-V7-AB-0005 ACCEPT: bound local Douglas Arce Solís naming antecedent for «señor síndico»."
       ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Juan Carlos Zeledón afirmó que la integración vigente de la Comisión ZMT no significaba desvalorizar el aporte de Douglas Arce ni el de las comunidades de Caldera.",
@@ -83956,6 +84059,24 @@
           "unit_ids": [
             "U0028"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 53568,
+          "representation_char_start": 53360,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 53568,
+          "scope_char_start": 53360,
+          "scope_containment": "PASS",
+          "selected_characters": 208,
+          "selected_text_sha256": "204331de0782efe25f25b8d9964568cf7ee71a45e4780ae390bd0bfa209aed5d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "De igual forma, corresponde reconocer públicamente el trabajo y compromiso del\n42   señor síndico Douglas Arce Solís durante el tiempo en que participó en la Comisión\n43   Especial de Zona Marítimo Terrestre.",
+          "unit_ids": [
+            "U0027"
+          ]
         }
       ],
       "fact_id": "D1-F0811",
@@ -83996,14 +84117,14 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS v7: exact frozen evidence supports D1-F0811 — Juan Carlos Zeledón afirmó que la integración vigente de la Comisión ZMT no significaba desvalorizar el aporte de Douglas Arce ni el de las comunidades de Caldera. Senary repair source: D1-V6-IR-0002.",
+        "review_note": "PASS v8 after D1-V7-AB-0005: the fact's evidence now resolves «señor síndico» to Douglas Arce Solís from the same source.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
       },
       "structure_ids": [
-        "C13",
-        "PRE"
+        "PRE",
+        "C13"
       ],
       "unit_ids": [
         "U0001",
@@ -85692,7 +85813,8 @@
     },
     {
       "adjudication_notes": [
-        "Senary finding D1-V6-IR-0016 ACCEPT: restored from exact frozen source in v7."
+        "Senary finding D1-V6-IR-0016 ACCEPT: restored from exact frozen source in v7.",
+        "Septenary aborted-execution finding D1-V7-AB-0006 ACCEPT: bound preceding ICODER decision/justification antecedent for «ellos»."
       ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Flor Cubero manifestó que, aunque la posición de ICODER no le pareciera adecuada, tendría que acomodarse a lo que la institución estaba exponiendo.",
@@ -85740,6 +85862,24 @@
           "unit_ids": [
             "U0045"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 105562,
+          "representation_char_start": 105154,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 105562,
+          "scope_char_start": 105154,
+          "scope_containment": "PASS",
+          "selected_characters": 408,
+          "selected_text_sha256": "5bb950b2751df9ae26589101a14058bd31987f498a0243ff21c9c9c04feb197e",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Bueno, no se ha\n44   pedido la votación, pero de antemano voy a decir que voy a votar negativo, porque\n45   si fue una decisión que el ICODER tomó, ¿qué vamos a lograr nosotros con que\n46   nos respondan todas esas cosas? Por lo menos yo no lo tengo claro. Entonces,\n47   me parece que es gastar pólvora en zopilotes, porque si el ICODER decidió hacerlo\n48   cada dos años, ellos tendrán sus justificaciones.",
+          "unit_ids": [
+            "U0045"
+          ]
         }
       ],
       "fact_id": "D1-F0827",
@@ -85776,7 +85916,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS v7: exact frozen evidence supports D1-F0827 — Flor Cubero manifestó que, aunque la posición de ICODER no le pareciera adecuada, tendría que acomodarse a lo que la institución estaba exponiendo. Senary repair source: D1-V6-IR-0016.",
+        "review_note": "PASS v8 after D1-V7-AB-0006: bound same-turn ICODER antecedent supports the canonical institution/referent and condition.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -85790,7 +85930,8 @@
     },
     {
       "adjudication_notes": [
-        "Senary finding D1-V6-IR-0017 ACCEPT: restored from exact frozen source in v7."
+        "Senary finding D1-V6-IR-0017 ACCEPT: restored from exact frozen source in v7.",
+        "Septenary aborted-execution finding D1-V7-AB-0007 ACCEPT: bound the bianual-Games proposal content preceding «tomemos un acuerdo hoy mismo»."
       ],
       "allowed_variants_or_equivalence_notes": [],
       "canonical_semantic_note": "Fernando Villalobos propuso que el Concejo tomara un acuerdo ese mismo día sobre su posición frente al cambio bianual de los Juegos Deportivos Nacionales.",
@@ -85840,6 +85981,24 @@
           "unit_ids": [
             "U0049"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 115184,
+          "representation_char_start": 114132,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 115184,
+          "scope_char_start": 114132,
+          "scope_containment": "PASS",
+          "selected_characters": 1052,
+          "selected_text_sha256": "c1279d4c3f5bc60c8e03a7ccd66f64f9a5c6e8cd5b4f004ca1d3f6e7a2cdf156",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U08",
+          "text_preview": "Más bien, yo plantearía algo en términos de que al Concejo Municipal de Esparza\n 5   le preocupa que los Juegos Deportivos Nacionales se vayan a realizar, a partir del\n 6   2028, de manera bianual, porque eso perjudicaría a generaciones de atletas, niños\n 7   y jóvenes que durante muchos años se han preparado y que verían limitada en un\n 8   50 % su posibilidad de participación.\n 9   Alguien que antes podía participar varias veces, ahora tendrá la mitad de las\n10   oportunidades; dependiendo de la edad, podría participar solo una o dos veces.\n11   Eso tiene implicaciones importantes.\n12   Entonces, yo externaría como Concejo nuestra preocupación y preguntaría —tal\n13   vez no todo lo que dijo Diego—, pero sí a qué obedece ese cambio y cuál es la\n14   estrategia que ellos tienen para los atletas.\n15   Puede ser que tengan algo pensado, como decía Olivier, o una alternativa distinta,\n16   y sería interesante conocer cuál es esa estrategia y a qué obedeció el cambio. Tal\n17   vez no pedir tanta información, pero sí una explicación general.",
+          "unit_ids": [
+            "U0049"
+          ]
         }
       ],
       "fact_id": "D1-F0828",
@@ -85876,7 +86035,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS v7: exact frozen evidence supports D1-F0828 — Fernando Villalobos propuso que el Concejo tomara un acuerdo ese mismo día sobre su posición frente al cambio bianual de los Juegos Deportivos Nacionales. Senary repair source: D1-V6-IR-0017.",
+        "review_note": "PASS v8 after D1-V7-AB-0007: same-turn proposal content binds the subject of the same-day agreement.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -85989,6 +86148,211 @@
       "unit_ids": [
         "U0059"
       ]
+    },
+    {
+      "adjudication_notes": [
+        "Septenary aborted-execution finding D1-V7-AB-0008 ACCEPT: restored explicit copy/response proposal from D1-SA-0090."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Olivier López indicó que también podía copiarse a la Auditoría, junto con la Contraloría, para que ambas instancias dieran respuesta a la persona denunciante.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 21962,
+          "representation_char_start": 21828,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 21962,
+          "scope_char_start": 21828,
+          "scope_containment": "PASS",
+          "selected_characters": 134,
+          "selected_text_sha256": "c7a3c542218f34454cc761dd928ef3764e67acb4f3d4b736671adc44aa7a3088",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Lic. Olivier López: Con relación al anonimato de la denuncia, posiblemente fue una\n52   decisión de la Contraloría mantenerla anónima.",
+          "unit_ids": [
+            "U0015"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 22270,
+          "representation_char_start": 22134,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 22270,
+          "scope_char_start": 22134,
+          "scope_containment": "PASS",
+          "selected_characters": 136,
+          "selected_text_sha256": "5f7bdcc015334dd2e85c1b105f1b3fc5ad8574ad899e35f35c6177816956b09d",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Entonces se le puede copiar a la\n\f 1   Auditoría también, junto con la Contraloría, para que ellos le den respuesta al\n 2   denunciante.",
+          "unit_ids": [
+            "U0015",
+            "U0016"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0830",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Olivier López"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "indicó",
+          "podía"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Auditoría",
+          "Contraloría",
+          "persona denunciante"
+        ],
+        "scope": [
+          "respuesta a la denuncia"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v8: exact frozen evidence supports D1-F0830 — Olivier López indicó que también podía copiarse a la Auditoría, junto con la Contraloría, para que ambas instancias dieran respuesta a la persona denunciante.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05"
+      ],
+      "unit_ids": [
+        "U0015",
+        "U0016"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "Septenary aborted-execution finding D1-V7-AB-0009 ACCEPT: restored explicit negative evaluation from D1-SA-0100 with complaint/service context."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Ronald Robles sostuvo que no se valía que las personas que estaban trabajando para brindar el servicio de la piscina tuvieran que enfrentar situaciones como la denuncia que se estaba discutiendo.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "SCP-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 23367,
+          "representation_char_start": 23347,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 23367,
+          "scope_char_start": 23347,
+          "scope_containment": "PASS",
+          "selected_characters": 20,
+          "selected_text_sha256": "33a7d678d2eb202bc0382832016f040bfd7da134f6e8d0d644dd21b96c7246c8",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Señor Ronald Robles:",
+          "unit_ids": [
+            "U0016"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 24360,
+          "representation_char_start": 23578,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 24360,
+          "scope_char_start": 23578,
+          "scope_containment": "PASS",
+          "selected_characters": 782,
+          "selected_text_sha256": "08e0cc82595a60c8f8d2c3af0ef013ea713dce8547cadb2242a927af0e609196",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C05",
+          "text_preview": "Cuando uno quiere ir a quejarse de algo es porque ya fue al lugar\n21   a colaborar, porque ya visitó el lugar, vio cómo estaba y, si no le pareció, preguntó,\n22   indagó y requirió información antes de presentar una denuncia.\n23   No se vale, no sé quién fue la persona ni quiero saber el nombre, pero si nos está\n24   escuchando o va a ver la grabación, cuando uno denuncia es porque ya agotó\n25   todas las instancias.\n26   Mire, ahí hay compañeros de la Asociación de Natación y gente del Comité\n27   Cantonal de Deportes poniéndole alma y corazón para que esa piscina esté en las\n28   mejores condiciones y darle servicio a toda la comunidad. No se vale que las\n29   personas que estamos trabajando para brindar ese servicio tengamos que\n30   enfrentar situaciones de este tipo.",
+          "unit_ids": [
+            "U0016"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0831",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Ronald Robles"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "sostuvo",
+          "no se valía"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "personas que trabajaban para brindar el servicio de la piscina",
+          "situación de la denuncia"
+        ],
+        "scope": [
+          "impacto de la denuncia sobre quienes trabajaban en el servicio de la piscina"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v8: exact frozen evidence supports D1-F0831 — Ronald Robles sostuvo que no se valía que las personas que estaban trabajando para brindar el servicio de la piscina tuvieran que enfrentar situaciones como la denuncia que se estaba discutiendo.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C05"
+      ],
+      "unit_ids": [
+        "U0016"
+      ]
     }
   ],
   "fixture": {
@@ -86040,10 +86404,10 @@
     "all_15_capability_bindings": 0,
     "blank_reverse_audit_notes": 0,
     "context_only_structures_without_consumers": 0,
-    "cross_unit_fact_count": 555,
+    "cross_unit_fact_count": 556,
     "empty_or_zero_evidence": 0,
-    "evidence_target_count": 2007,
-    "fact_count": 781,
+    "evidence_target_count": 2019,
+    "fact_count": 783,
     "facts_without_units": 0,
     "generic_placeholder_qualifiers": 0,
     "generic_reverse_audit_notes": 0,
@@ -86052,13 +86416,14 @@
     "independent_review_v1_findings_rejected": 0,
     "independent_review_v1_unresolved": 0,
     "material_carriers_without_facts": 0,
-    "multi_evidence_fact_count": 743,
+    "multi_evidence_fact_count": 745,
     "new_or_replacement_v2_fact_count": 50,
     "new_or_replacement_v3_fact_count": 33,
     "new_or_replacement_v4_fact_count": 40,
     "new_or_replacement_v5_fact_count": 9,
     "new_or_replacement_v6_fact_count": 15,
     "new_or_replacement_v7_fact_count": 22,
+    "new_or_replacement_v8_fact_count": 2,
     "no_material_structures_with_fact_refs": 0,
     "note_equals_single_evidence": 0,
     "primary_source_adjudications_resolved": 0,
@@ -86090,6 +86455,15 @@
     "senary_review_v6_source_to_reference_findings": 18,
     "senary_review_v6_unit_state_findings": 0,
     "senary_review_v6_unresolved": 0,
+    "septenary_aborted_v7_audit_complete": false,
+    "septenary_aborted_v7_confirmed_findings": 10,
+    "septenary_aborted_v7_confirmed_findings_accepted": 10,
+    "septenary_aborted_v7_confirmed_findings_rejected": 0,
+    "septenary_aborted_v7_confirmed_findings_unresolved": 0,
+    "septenary_aborted_v7_reference_anchoring_contamination": true,
+    "septenary_aborted_v7_reference_to_source_findings": 8,
+    "septenary_aborted_v7_source_to_reference_findings": 2,
+    "septenary_aborted_v7_unit_state_findings": 0,
     "string_false_qualifiers": 0,
     "structure_carrier_count": 36,
     "supervising_author_findings": 38,
@@ -86120,7 +86494,10 @@
     "v6_QTY_01_fact_count": 52,
     "v7_AMB_01_fact_count": 10,
     "v7_CTX_01_fact_count": 525,
-    "v7_QTY_01_fact_count": 54
+    "v7_QTY_01_fact_count": 54,
+    "v8_AMB_01_fact_count": 10,
+    "v8_CTX_01_fact_count": 526,
+    "v8_QTY_01_fact_count": 54
   },
   "quaternary_semantic_review": {
     "finding_count": 0,
@@ -86162,7 +86539,7 @@
     "unit_state_findings": 0,
     "verdict": "REFERENCE_DISPUTE"
   },
-  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-007",
+  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-008",
   "reference_state": "SUPERVISOR_DRAFT",
   "secondary_review_adjudication": {
     "accepted_count": 23,
@@ -86218,6 +86595,37 @@
     "strong_independent_gate_satisfied": false,
     "unit_state_findings": 0,
     "verdict": "REFERENCE_DISPUTE"
+  },
+  "septenary_aborted_execution_adjudication_v7": {
+    "accepted_count": 10,
+    "adjudication_id": "CANARIO-D1-SEPTENARY-ABORTED-EXECUTION-ADJUDICATION-V7-001",
+    "adjudication_json_sha256": "bdbf7c08c151aabddc9007fc11ad893eb586824d4f721fc3f049c0b744be5c41",
+    "adjudication_md_sha256": "62d96467500873a8c31afbe748631ef3de2313935096accdd2aefc2810cada33",
+    "confirmed_hard_groups": 10,
+    "in_place_v8_repair_count": 8,
+    "new_v8_fact_count": 2,
+    "rejected_count": 0,
+    "unresolved_count": 0,
+    "v8_requires_fresh_semantic_review": true
+  },
+  "septenary_aborted_execution_v7": {
+    "audit_complete": false,
+    "confirmed_hard_groups": 10,
+    "evidence_id": "CANARIO-D1-SEPTENARY-ABORTED-EXECUTION-V7-001",
+    "evidence_json_sha256": "e166399ac66d5c3aaa57a87bb7fdf8d3e3f2a762d00dc5a2db29e0ad076f44a5",
+    "evidence_md_sha256": "879c8e2c3a969653efe51ea75de57fb1dd7c8fc6ff0b638ac55768b8b24ff67b",
+    "history_anchoring_contamination": false,
+    "human_independence_gate_satisfied": false,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "preliminary_source_ledger_assertion_count": 781,
+    "preliminary_source_ledger_sha256": "6bf6bd2415be28004d09949f40cb44b3fe114942f76aca616aa941b0b2f86fda",
+    "reference_anchoring_contamination": true,
+    "reviewed_commit": "a400b5982d47f37756a5bf072a60f6ba208a5841",
+    "reviewer": "OpenAI / GPT-5.6 Sol",
+    "reviewer_reported_definite_hard_groups": 7,
+    "semantic_disposition": "REFERENCE_DISPUTE",
+    "strong_independent_gate_satisfied": false,
+    "supervising_followup_confirmed_hard_groups": 3
   },
   "structure_ledger": [
     {
@@ -86795,7 +87203,9 @@
         "D1-F0118",
         "D1-F0670",
         "D1-F0114",
-        "D1-F0115"
+        "D1-F0115",
+        "D1-F0830",
+        "D1-F0831"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -87911,17 +88321,19 @@
   ],
   "supervising_author_conclusion": {
     "ai_assisted_bounded_spotcheck_v4_adjudication": "13_ACCEPTED_0_REJECTED_0_UNRESOLVED",
-    "final_evidence_context_pass": "PASS_AFTER_V7_SENARY_REBINDING",
-    "note": "D1 v7 repairs all 22 senary v6 dispute groups: 22 newly represented material assertions, systemic provenance repairs on CGR and M07 decisions, conditional force on D1-F0310, and evaluative modality on D1-F0784. Independence remains WEAK_OR_UNKNOWN; fresh semantic review is required before any freeze decision.",
+    "final_evidence_context_pass": "PASS_AFTER_V8_CONFIRMED_PARTIAL_SEPTENARY_REPAIRS",
+    "note": "D1 v8 repairs only the 10 hard groups confirmed from the aborted septenary execution: seven reported reverse defects, two source→reference omissions independently reopened by the supervisor, and the missing attached reason on D1-F0785. The aborted v7 ledger is not treated as a clean or complete audit. Independence remains WEAK_OR_UNKNOWN; fresh semantic review is required before any freeze decision.",
     "omission_only_pass": "PASS_AFTER_RESTORING_9_SPOTCHECK_EXPOSED_ASSERTIONS",
     "quaternary_review_v4": "CLEAN_PASS_0_DISPUTES_WEAK_OR_UNKNOWN_INDEPENDENCE",
     "quinary_review_v5": "REFERENCE_DISPUTE; 30/30 source-grounded groups accepted into v6 repair.",
     "quinary_review_v5_adjudication": "30 ACCEPT / 0 REJECT / 0 UNRESOLVED; v6 requires fresh semantic review.",
     "reference_state": "SUPERVISOR_DRAFT",
-    "reverse_fact_audit": "PASS_AFTER_SENARY_PROVENANCE_QUALIFIER_MODALITY_REPAIRS",
+    "reverse_fact_audit": "PASS_FOR_10_CONFIRMED_ABORTED_SEPTENARY_FINDINGS_AFTER_V8_REPAIRS",
     "senary_review_v6": "REFERENCE_DISPUTE; 22/22 source-grounded groups accepted into v7 repair.",
     "senary_review_v6_adjudication": "22 ACCEPT / 0 REJECT / 0 UNRESOLVED; v7 requires fresh semantic review.",
-    "source_order_pass": "PASS_AFTER_SENARY_REVIEW_ADJUDICATION_AND_SOURCE_WIDE_LEXICAL_SEMANTIC_RECHECK"
+    "septenary_aborted_execution_v7": "REFERENCE_DISPUTE with incomplete audit; 10 confirmed hard groups source-reopened and accepted; reference anchoring contamination true; other potential rows not promoted.",
+    "septenary_aborted_execution_v7_adjudication": "10 ACCEPT / 0 REJECT / 0 UNRESOLVED among confirmed partial findings; v8 requires fresh semantic review.",
+    "source_order_pass": "PARTIAL_SEPTENARY_EXECUTION_NOT_A_COMPLETE_FRESH_AUDIT; CONFIRMED_FINDINGS_REPAIRED"
   },
   "tertiary_review_adjudication": {
     "accepted_count": 14,
@@ -88830,7 +89242,8 @@
         "D1-F0744",
         "D1-F0745",
         "D1-F0746",
-        "D1-F0094"
+        "D1-F0094",
+        "D1-F0830"
       ],
       "material_structure_ids": [
         "C05"
@@ -88850,7 +89263,8 @@
         "D1-F0744",
         "D1-F0745",
         "D1-F0746",
-        "D1-F0094"
+        "D1-F0094",
+        "D1-F0830"
       ],
       "scope_char_end": 22168,
       "scope_char_start": 20906,
@@ -88892,7 +89306,9 @@
         "D1-F0107",
         "D1-F0108",
         "D1-F0786",
-        "D1-F0109"
+        "D1-F0109",
+        "D1-F0830",
+        "D1-F0831"
       ],
       "material_structure_ids": [
         "C05"
@@ -88926,7 +89342,9 @@
         "D1-F0107",
         "D1-F0108",
         "D1-F0786",
-        "D1-F0109"
+        "D1-F0109",
+        "D1-F0830",
+        "D1-F0831"
       ],
       "scope_char_end": 26070,
       "scope_char_start": 22168,
@@ -90818,7 +91236,8 @@
         "D1-F0488",
         "D1-F0489",
         "D1-F0490",
-        "D1-F0828"
+        "D1-F0828",
+        "D1-F0493"
       ],
       "material_structure_ids": [
         "U08"
@@ -90845,7 +91264,8 @@
         "D1-F0488",
         "D1-F0489",
         "D1-F0490",
-        "D1-F0828"
+        "D1-F0828",
+        "D1-F0493"
       ],
       "scope_char_end": 117756,
       "scope_char_start": 113955,
