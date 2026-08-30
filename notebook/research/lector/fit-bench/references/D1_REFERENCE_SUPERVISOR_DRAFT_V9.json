@@ -58,6 +58,11 @@
     "septenary_execution_v7_history_anchoring_contamination": false,
     "septenary_execution_v7_received": true,
     "septenary_execution_v7_reference_anchoring_contamination": true,
+    "sharded_semantic_review_v8_complete": true,
+    "sharded_semantic_review_v8_disputes_adjudicated": true,
+    "sharded_semantic_review_v8_independence_strength": "WEAK_OR_UNKNOWN",
+    "sharded_semantic_review_v8_received": true,
+    "sharded_semantic_review_v8_s01_reopening_blocker_resolved": true,
     "supervising_author_adversarial_review_complete": true,
     "tertiary_semantic_review_v3_disputes_adjudicated": true,
     "tertiary_semantic_review_v3_independence_strength": "WEAK_OR_UNKNOWN",
@@ -19177,9 +19182,11 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D1-V8-S02-IR-0001 ACCEPT: v9 restores the explicit confirmation channels; the separately scheduled lunch is represented as D1-F0832."
+      ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "La invitación pidió confirmar asistencia y acompañante a más tardar el 20 de mayo de 2026.",
+      "canonical_semantic_note": "La invitación pidió confirmar asistencia y acompañante a más tardar el 20 de mayo de 2026 mediante el correo asodesanjeronimo@gmail.com o con Judith Paniagua Mora, presidenta de la ADI, al teléfono 89-11-27-60.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -19262,7 +19269,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C08-006, C08-001 supports the semantic focus ‘La invitación pidió confirmar asistencia y acompañante a más tardar el 20 de mayo de 2026.’ with attribution=Asociación de Desarrollo Integral de San Jerónimo; modality=pidió; referent=invitación a Expo Feria del Aguacate; temporal=20 de mayo de 2026; cross-unit context=required; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v9 after D1-V8-S02-IR-0001: exact C08 evidence preserves deadline plus the stated email/ADI-president telephone confirmation channels.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -21403,10 +21410,11 @@
     },
     {
       "adjudication_notes": [
-        "Accepted D1-V5-IR-0014: bound source-internal attribution/provenance resolver in v6."
+        "Accepted D1-V5-IR-0014: bound source-internal attribution/provenance resolver in v6.",
+        "D1-V8-S02-IR-0004 ACCEPT: v9 removes unsupported «administrativas» from the possibilities qualifier."
       ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "El Concejo pidió que cualquier otra colaboración requerida para las festividades de La Riviera se brindara en la medida de las posibilidades administrativas.",
+      "canonical_semantic_note": "El Concejo pidió que cualquier otra colaboración requerida para las festividades de La Riviera se brindara en la medida de las posibilidades.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -21489,7 +21497,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C10-006 supports the semantic focus ‘El Concejo pidió que cualquier otra colaboración requerida para las festividades de La Riviera se brindara en la medida de las posibilidades administrativas.’ with attribution=Concejo Municipal de Esparza; condition=en la medida de las posibilidades; modality=pidió; referent=festividades de La Riviera; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v9 after D1-V8-S02-IR-0004: the formal agreement supports only «en la medida de las posibilidades».",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -22135,10 +22143,11 @@
     },
     {
       "adjudication_notes": [
-        "D1-V2-IR-0007"
+        "D1-V2-IR-0007",
+        "D1-V8-S02-IR-0003 ACCEPT: v9 restores desiderative «Quisiera confirmar» rather than treating Karol herself as having already confirmed attendance."
       ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "Karol Arroyo confirmó su asistencia a la Asamblea Nacional Ordinaria 01-2026 de la UNGL y solicitó a la Administración un vehículo para asistir.",
+      "canonical_semantic_note": "Karol Arroyo manifestó que quisiera confirmar su asistencia a la Asamblea Nacional Ordinaria 01-2026 de la UNGL y solicitó a la Administración un vehículo para asistir.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -22198,7 +22207,7 @@
         "exception": [],
         "location": [],
         "modality": [
-          "confirmó",
+          "quisiera confirmar",
           "solicitó"
         ],
         "negation": [],
@@ -22218,7 +22227,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after secondary-v2 adjudication D1-V2-IR-0007 for D1-F0714: reopened source entailment, self-sufficient minimality, qualifiers and evidence for “Karol Arroyo confirmó su asistencia a la Asamblea Nacional Ordinaria 01-2026 de la UNGL y solicitó a la Administración un vehículo para asistir.” against the exact frozen D1 Representation.",
+        "review_note": "PASS v9 after D1-V8-S02-IR-0003: exact source preserves Karol’s desiderative/request wording plus the separate vehicle request.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -24280,10 +24289,11 @@
     },
     {
       "adjudication_notes": [
-        "Accepted D1-V5-IR-0017: bound source-internal attribution/provenance resolver in v6."
+        "Accepted D1-V5-IR-0017: bound source-internal attribution/provenance resolver in v6.",
+        "D1-V8-S02-IR-0005 ACCEPT: v9 restores the third stated ground, that Tercero was more familiar with the topic."
       ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "Ronald Robles propuso a Christian Tercero como enlace por su conocimiento musical y por haber presentado la moción sobre el tema.",
+      "canonical_semantic_note": "Ronald Robles propuso a Christian Tercero como enlace por su conocimiento musical, por haber presentado la moción y porque estaba más empapado del tema.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -24364,7 +24374,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS: exact evidence C12-017 supports the semantic focus ‘Ronald Robles propuso a Christian Tercero como enlace por su conocimiento musical y por haber presentado la moción sobre el tema.’ with attribution=Ronald Robles Arley, regidor suplente; modality=propuso; referent=Christian Tercero | persona enlace; source entailment, minimality and unit mapping were rechecked in the final reverse pass.",
+        "review_note": "PASS v9 after D1-V8-S02-IR-0005: exact evidence binds all three stated grounds for the liaison proposal.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -44055,10 +44065,11 @@
     },
     {
       "adjudication_notes": [
-        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution.",
+        "D1-V8-S04-IR-0001 ACCEPT: v9 restores evaluative/request-recommendation force rather than a completed direct request."
       ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "Diana Stephannie Quesada pidió al ICE una explicación sobre las fallas eléctricas reportadas en distintas comunidades.",
+      "canonical_semantic_note": "Diana Stephannie Quesada consideró importante solicitar al ICE una explicación sobre las fallas eléctricas reportadas en distintas comunidades.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -44138,7 +44149,7 @@
         "exception": [],
         "location": [],
         "modality": [
-          "pidió"
+          "consideró importante solicitar"
         ],
         "negation": [],
         "period": [],
@@ -44159,7 +44170,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0360 — Diana Stephannie Quesada pidió al ICE una explicación sobre las fallas eléctricas reportadas en distintas comunidades.",
+        "review_note": "PASS v9: source «considera importante solicitar» supports the corrected modality for D1-F0360.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -44175,10 +44186,11 @@
     },
     {
       "adjudication_notes": [
-        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution."
+        "D1-V4-AS-0003: accepted; same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution.",
+        "D1-V8-S04-IR-0002 ACCEPT: v9 restores evaluative/request-recommendation force rather than a completed direct request."
       ],
       "allowed_variants_or_equivalence_notes": [],
-      "canonical_semantic_note": "Diana Stephannie Quesada pidió al ICE una revisión técnica sobre las fallas eléctricas reportadas en distintas comunidades.",
+      "canonical_semantic_note": "Diana Stephannie Quesada consideró importante solicitar al ICE una revisión técnica sobre las fallas eléctricas reportadas en distintas comunidades.",
       "capability_bindings": [
         "COV-01",
         "ENT-01",
@@ -44258,7 +44270,7 @@
         "exception": [],
         "location": [],
         "modality": [
-          "pidió"
+          "consideró importante solicitar"
         ],
         "negation": [],
         "period": [],
@@ -44279,7 +44291,7 @@
         "duplicate_equivalence": "PASS",
         "evidence_semantic_sufficiency": "PASS",
         "qualifier_support": "PASS",
-        "review_note": "PASS after D1-V4-AS-0003: same-source PRE attendance evidence now binds the normalized Diana Stephannie Quesada [Arroyo] identity and síndica role used by the canonical attribution. Fact-specific check: D1-F0361 — Diana Stephannie Quesada pidió al ICE una revisión técnica sobre las fallas eléctricas reportadas en distintas comunidades.",
+        "review_note": "PASS v9: source «considera importante solicitar» supports the corrected modality for D1-F0361.",
         "self_sufficient_minimality": "PASS",
         "source_entailment": "PASS",
         "unit_mapping": "PASS"
@@ -86353,6 +86365,551 @@
       "unit_ids": [
         "U0016"
       ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V8-S02-IR-0001 ACCEPT: separate source-faithful lunch assertion restored."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "La Asociación de Desarrollo Integral de San Jerónimo anunció que después del acto inaugural de la Expo Feria del Aguacate se ofrecería un almuerzo para las personas asistentes y su acompañante.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 37420,
+          "representation_char_start": 37317,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 37420,
+          "scope_char_start": 37317,
+          "scope_containment": "PASS",
+          "selected_characters": 103,
+          "selected_text_sha256": "0f220697405ed509484dc6ba28d9a32ff86d7b17023ae1c91cc7688ab01b6ec6",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C08",
+          "text_preview": "Después del acto inaugural, se ofrecerá un almuerzo para los asistentes y la persona\n42   acompañante. ",
+          "unit_ids": [
+            "U0021"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 36473,
+          "representation_char_start": 35878,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 36473,
+          "scope_char_start": 35878,
+          "scope_containment": "PASS",
+          "selected_characters": 595,
+          "selected_text_sha256": "e081d47bd0a314ffecacb9aa1142b6cfe572db117888c1a99faa542a632ee4cd",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C08",
+          "text_preview": "8- Se conoce nota de fecha 13 de mayo de 2026, dirigida al Presidente del Concejo\n25   Municipal de Esparza, por la Asociación de Desarrollo Integral de San Jerónimo de\n26   Esparza; texto que se transcribe a continuación:\n27   “La Asociación de Desarrollo Integral de San Jerónimo del cantón de Esparza, cédula\n28   jurídica 3-002-084080, les brinda un atento y cordial saludo, y tiene el honor de invitarles a\n29   participar como invitados especiales en el acto inaugural de la Expo Feria del Aguacate,\n30   Esparza 2026, en su décima edición, donde podrá asistir con una persona acompañante.",
+          "unit_ids": [
+            "U0020"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0832",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Asociación de Desarrollo Integral de San Jerónimo"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "anunció",
+          "se ofrecería"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "almuerzo para asistentes y acompañante",
+          "Expo Feria del Aguacate"
+        ],
+        "scope": [],
+        "temporal": [
+          "después del acto inaugural"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v9 after sharded R2 adjudication: D1-F0832 — La Asociación de Desarrollo Integral de San Jerónimo anunció que después del acto inaugural de la Expo Feria del Aguacate se ofrecería un almuerzo para las personas asistentes y su acompañante.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C08"
+      ],
+      "unit_ids": [
+        "U0021",
+        "U0020"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V8-S02-IR-0002 ACCEPT: explicit public invitation restored separately from event/date facts."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Ronald Robles invitó a todas las personas a asistir al baile del 30 de mayo de 2026 para conocer a las candidatas del certamen Señorita Esparza.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 38265,
+          "representation_char_start": 38051,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 38265,
+          "scope_char_start": 38051,
+          "scope_containment": "PASS",
+          "selected_characters": 214,
+          "selected_text_sha256": "f3d997d73479c7225cf428f17ff583f0f9402d650d345e50df3c40048b1f722c",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C08",
+          "text_preview": "Regidor suplente Ronald Robles: Sí, también el próximo 30 de mayo, durante el\n52   baile que se realizará en horas de la noche, se llevará a cabo la presentación de\n53   las candidatas al certamen Señorita Esparza.",
+          "unit_ids": [
+            "U0021"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 38467,
+          "representation_char_start": 38266,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 38467,
+          "scope_char_start": 38266,
+          "scope_containment": "PASS",
+          "selected_characters": 201,
+          "selected_text_sha256": "4766d248b6bc5a4a757ea01e590dc60e2f59eb651445bb449015b3bdc765df38",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C08",
+          "text_preview": "Entonces, invitamos a todas las\n\f 1   personas para que asistan ese día al baile, el cual estará muy bonito, y puedan\n 2   conocer a nuestras candidatas del certamen programado para el 28 de noviembre.",
+          "unit_ids": [
+            "U0021",
+            "U0022"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 278,
+          "representation_char_start": 68,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 278,
+          "scope_char_start": 68,
+          "scope_containment": "PASS",
+          "selected_characters": 210,
+          "selected_text_sha256": "ba12ca0775173d6a6d5edd5da33b345695a34c138b571c2f0da31c0b938250fa",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "El Concejo Municipal de Esparza, el lunes dieciocho de mayo del dos mil\n 3   veintiséis, en el Salón de Sesiones de la Municipalidad de Esparza, a las\n 4   dieciocho horas con treinta minutos, inicia la sesión.",
+          "unit_ids": [
+            "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 939,
+          "representation_char_start": 743,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 939,
+          "scope_char_start": 743,
+          "scope_containment": "PASS",
+          "selected_characters": 196,
+          "selected_text_sha256": "08ac4b510bed789b66ab67aa0ea1f600e7625120668d87a4b59f7d87c036c422",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "Regidores Suplentes presentes: Ronald Gerardo Robles Arley, Erika Yorleny\n12   García Porras, Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   ",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0833",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Ronald Robles Arley, regidor suplente"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "invitó"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "baile",
+          "candidatas del certamen Señorita Esparza"
+        ],
+        "scope": [
+          "todas las personas"
+        ],
+        "temporal": [
+          "30 de mayo de 2026"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v9 after sharded R2 adjudication: D1-F0833 — Ronald Robles invitó a todas las personas a asistir al baile del 30 de mayo de 2026 para conocer a las candidatas del certamen Señorita Esparza.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C08",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0021",
+        "U0022",
+        "U0001"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V8-S03-IR-0001 ACCEPT: explicit negated status of pending commission work restored."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "Flor María Cubero Martínez sostuvo que resolver algunos asuntos en el Concejo no significaba eliminar el trabajo pendiente de la comisión.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 64809,
+          "representation_char_start": 64773,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 64809,
+          "scope_char_start": 64773,
+          "scope_containment": "PASS",
+          "selected_characters": 36,
+          "selected_text_sha256": "2e8a31a700ecd795d74ba42f2ca236b6a7b2c1c626e8f75c10f6f1c9cdf717e0",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "Regidora Flor María Cubero Martínez:",
+          "unit_ids": [
+            "U0031"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 65897,
+          "representation_char_start": 65833,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 65897,
+          "scope_char_start": 65833,
+          "scope_containment": "PASS",
+          "selected_characters": 64,
+          "selected_text_sha256": "32ba5f5408ba15cb0c234dd59dccee3547bd1b66ec67ca2bf2b51230c9dc9d2e",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "C13",
+          "text_preview": "no significa que se elimine el trabajo pendiente de la comisión.",
+          "unit_ids": [
+            "U0031"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0834",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Flor María Cubero Martínez, regidora"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "sostuvo"
+        ],
+        "negation": [
+          "no significaba eliminar"
+        ],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "trabajo pendiente de la comisión"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v9 after sharded R2 adjudication: D1-F0834 — Flor María Cubero Martínez sostuvo que resolver algunos asuntos en el Concejo no significaba eliminar el trabajo pendiente de la comisión.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "C13"
+      ],
+      "unit_ids": [
+        "U0031"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V8-S05-IR-0001 ACCEPT: distinct presidential procedural receipt/direction restored before the formal Council agreement."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "El Presidente Municipal dio por recibido el planteamiento y dispuso hacer la solicitud al Consejo Cantonal de Coordinación.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 100305,
+          "representation_char_start": 99950,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 100305,
+          "scope_char_start": 99950,
+          "scope_containment": "PASS",
+          "selected_characters": 355,
+          "selected_text_sha256": "e8e75b64c5898e2c6765323886266b320a8708228cfa5df0011accf85f7f6a11",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U07",
+          "text_preview": "Por esta razón, me gustaría solicitarles a los compañeros regidores que tomemos\n29   el acuerdo de pedirle a ese Consejo Cantonal de Coordinación Institucional, el\n30   reglamento aprobado, el informe anual 2025, el plan de trabajo y los logros\n31   obtenidos en el 2025, así como también el plan de trabajo del 2026. Ese sería el\n32   primer punto.\n33   ",
+          "unit_ids": [
+            "U0043"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 100417,
+          "representation_char_start": 100305,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 100417,
+          "scope_char_start": 100305,
+          "scope_containment": "PASS",
+          "selected_characters": 112,
+          "selected_text_sha256": "ed9db1cfaffb52113f583488292ff6fb7374a4c7260145de3655bfcdbcea9c69",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "U07",
+          "text_preview": "Señor Presidente Municipal: Lo damos por recibido y hacer la solicitud al Consejo\n34   Cantonal de Coordinación.",
+          "unit_ids": [
+            "U0043"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0835",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Presidente Municipal"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "dio por recibido",
+          "dispuso hacer la solicitud"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "solicitud al Consejo Cantonal de Coordinación"
+        ],
+        "scope": [],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v9 after sharded R2 adjudication: D1-F0835 — El Presidente Municipal dio por recibido el planteamiento y dispuso hacer la solicitud al Consejo Cantonal de Coordinación.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "U07"
+      ],
+      "unit_ids": [
+        "U0043"
+      ]
+    },
+    {
+      "adjudication_notes": [
+        "D1-V8-S06-IR-0001 ACCEPT: formal unanimous/final recognition-preparation transfer restored."
+      ],
+      "allowed_variants_or_equivalence_notes": [],
+      "canonical_semantic_note": "El Concejo Municipal de Esparza acordó trasladar a la Administración la solicitud para elaborar reconocimientos para el entrenador y los jugadores de la Academia de Esparza Futsala, categoría U-8, y posteriormente hacerles el reconocimiento en el Concejo; el acuerdo fue definitivamente aprobado por unanimidad.",
+      "capability_bindings": [
+        "COV-01",
+        "ENT-01",
+        "ATR-01",
+        "MOD-01",
+        "TMP-01",
+        "CTX-01",
+        "EVD-01",
+        "LANG-ES-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 146240,
+          "representation_char_start": 145896,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 146240,
+          "scope_char_start": 145896,
+          "scope_containment": "PASS",
+          "selected_characters": 344,
+          "selected_text_sha256": "1875dd6806e2005bd5fb9356e99ed700ac227918c6027943fb2b7e9c2f864be7",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "M07",
+          "text_preview": "SE ACUERDA: Trasladar la solicitud a la Administración, para la elaboración de\n 6   los reconocimientos para el entrenador como a los jugadores de la Academia de\n 7   Esparza Futsala, categoría U-8, y posteriormente hacerles el reconocimiento en\n 8   este Concejo Municipal. ACUERDO DEFINITIVAMENTE APROBADO POR\n 9   UNANIMIDAD. (Artículo 45).\n",
+          "unit_ids": [
+            "U0060"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+          "reopening": "PASS",
+          "representation_char_end": 99,
+          "representation_char_start": 68,
+          "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+          "scope_char_end": 99,
+          "scope_char_start": 68,
+          "scope_containment": "PASS",
+          "selected_characters": 31,
+          "selected_text_sha256": "e49ac10ab66aa2f7d7a5f1f2b4a42ba5bba6140f0aee170ecfc93c88c309bdf1",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE",
+          "text_preview": "El Concejo Municipal de Esparza",
+          "unit_ids": [
+            "U0001"
+          ]
+        }
+      ],
+      "fact_id": "D1-F0836",
+      "fixture_id": "CR-ESPARZA-MINUTES-001",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Concejo Municipal de Esparza"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "acordó",
+          "definitivamente aprobado por unanimidad"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "Administración",
+          "reconocimientos para entrenador y jugadores de Academia de Esparza Futsala U-8"
+        ],
+        "scope": [],
+        "temporal": [
+          "posteriormente"
+        ],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "PASS v9 after sharded R2 adjudication: D1-F0836 — El Concejo Municipal de Esparza acordó trasladar a la Administración la solicitud para elaborar reconocimientos para el entrenador y los jugadores de la Academia de Esparza Futsala, categoría U-8, y posteriormente hacerles el reconocimiento en el Concejo; el acuerdo fue definitivamente aprobado por unanimidad.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "M07",
+        "PRE"
+      ],
+      "unit_ids": [
+        "U0060",
+        "U0001"
+      ]
     }
   ],
   "fixture": {
@@ -86404,10 +86961,10 @@
     "all_15_capability_bindings": 0,
     "blank_reverse_audit_notes": 0,
     "context_only_structures_without_consumers": 0,
-    "cross_unit_fact_count": 556,
+    "cross_unit_fact_count": 559,
     "empty_or_zero_evidence": 0,
-    "evidence_target_count": 2019,
-    "fact_count": 783,
+    "evidence_target_count": 2031,
+    "fact_count": 788,
     "facts_without_units": 0,
     "generic_placeholder_qualifiers": 0,
     "generic_reverse_audit_notes": 0,
@@ -86416,7 +86973,7 @@
     "independent_review_v1_findings_rejected": 0,
     "independent_review_v1_unresolved": 0,
     "material_carriers_without_facts": 0,
-    "multi_evidence_fact_count": 745,
+    "multi_evidence_fact_count": 750,
     "new_or_replacement_v2_fact_count": 50,
     "new_or_replacement_v3_fact_count": 33,
     "new_or_replacement_v4_fact_count": 40,
@@ -86424,6 +86981,7 @@
     "new_or_replacement_v6_fact_count": 15,
     "new_or_replacement_v7_fact_count": 22,
     "new_or_replacement_v8_fact_count": 2,
+    "new_or_replacement_v9_fact_count": 5,
     "no_material_structures_with_fact_refs": 0,
     "note_equals_single_evidence": 0,
     "primary_source_adjudications_resolved": 0,
@@ -86464,6 +87022,13 @@
     "septenary_aborted_v7_reference_to_source_findings": 8,
     "septenary_aborted_v7_source_to_reference_findings": 2,
     "septenary_aborted_v7_unit_state_findings": 0,
+    "sharded_review_v8_both_direction_findings": 2,
+    "sharded_review_v8_findings": 10,
+    "sharded_review_v8_findings_accepted": 10,
+    "sharded_review_v8_findings_rejected": 0,
+    "sharded_review_v8_reference_to_source_findings": 3,
+    "sharded_review_v8_source_to_reference_findings": 5,
+    "sharded_review_v8_unresolved": 0,
     "string_false_qualifiers": 0,
     "structure_carrier_count": 36,
     "supervising_author_findings": 38,
@@ -86497,7 +87062,10 @@
     "v7_QTY_01_fact_count": 54,
     "v8_AMB_01_fact_count": 10,
     "v8_CTX_01_fact_count": 526,
-    "v8_QTY_01_fact_count": 54
+    "v8_QTY_01_fact_count": 54,
+    "v9_AMB_01_fact_count": 10,
+    "v9_CTX_01_fact_count": 529,
+    "v9_QTY_01_fact_count": 54
   },
   "quaternary_semantic_review": {
     "finding_count": 0,
@@ -86539,7 +87107,7 @@
     "unit_state_findings": 0,
     "verdict": "REFERENCE_DISPUTE"
   },
-  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-008",
+  "reference_id": "CANARIO-LECTOR-FIT-BENCH-D1-REFERENCE-SUPERVISOR-DRAFT-009",
   "reference_state": "SUPERVISOR_DRAFT",
   "secondary_review_adjudication": {
     "accepted_count": 23,
@@ -86626,6 +87194,41 @@
     "semantic_disposition": "REFERENCE_DISPUTE",
     "strong_independent_gate_satisfied": false,
     "supervising_followup_confirmed_hard_groups": 3
+  },
+  "sharded_review_adjudication_v8": {
+    "accepted_count": 10,
+    "adjudication_artifact": "D1_SHARDED_REVIEW_ADJUDICATION_V8.json",
+    "adjudication_json_sha256": "8e71b3c9472ae4e9ff641a96a70c23b5e7ce05c77a34023d78e689ac013197fe",
+    "adjudication_md_sha256": "9052fddd27b3da02b372bd883a16dc75dfea32ca57abdf1ca35bfd55e228aa3a",
+    "in_place_v9_repair_count": 6,
+    "new_v9_fact_count": 5,
+    "rejected_count": 0,
+    "unresolved_count": 0,
+    "v9_requires_fresh_semantic_review": true
+  },
+  "sharded_semantic_review_v8": {
+    "both_direction_findings": 2,
+    "evidence_targets": "2019/2019",
+    "finding_count": 10,
+    "frozen_units": "61/61",
+    "human_independence_gate_satisfied": false,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "missing_material_assertion_findings": 5,
+    "modality_error_findings": 3,
+    "patch_report_json_sha256": "909669ddea71793746e5cb6fab5f2f65d55b7e1ef997e62902de25157fb20467",
+    "patch_report_md_sha256": "0c5695fb343a271e54d84a9e7aebef025ee4d4d67942c276b35e68fcbb41b0e8",
+    "qualifier_error_findings": 2,
+    "reference_to_source_findings": 3,
+    "reverse_facts": "783/783",
+    "review_id": "CANARIO-D1-SHARDED-SEMANTIC-REVIEW-V8-RECONCILED-R2",
+    "review_json_sha256": "b07f35882d73a989d62a3876be56cabf5bb509d88ec9e74073f194da60fd1c91",
+    "review_md_sha256": "067618f458964c150aa7c93095189ece156330342e03e5a5d116f26dde470a41",
+    "reviewed_commit": "98ca3fbc84f6d35a0ba52068b98da4ea10ec1aad",
+    "s01_reopening_blocker": "RESOLVED",
+    "source_assertions": "241/241",
+    "source_to_reference_findings": 5,
+    "strong_independent_gate_satisfied": false,
+    "verdict": "REFERENCE_DISPUTE"
   },
   "structure_ledger": [
     {
@@ -86960,7 +87563,9 @@
         "D1-F0817",
         "D1-F0821",
         "D1-F0822",
-        "D1-F0823"
+        "D1-F0823",
+        "D1-F0833",
+        "D1-F0836"
       ],
       "kind": "minutes_preamble",
       "label": "Session preamble, attendance and agenda",
@@ -87297,7 +87902,9 @@
         "D1-F0155",
         "D1-F0158",
         "D1-F0156",
-        "D1-F0157"
+        "D1-F0157",
+        "D1-F0832",
+        "D1-F0833"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -87511,7 +88118,8 @@
         "D1-F0811",
         "D1-F0812",
         "D1-F0813",
-        "D1-F0814"
+        "D1-F0814",
+        "D1-F0834"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -87808,7 +88416,8 @@
         "D1-F0419",
         "D1-F0803",
         "D1-F0420",
-        "D1-F0686"
+        "D1-F0686",
+        "D1-F0835"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -88193,7 +88802,8 @@
         "D1-F0623",
         "D1-F0624",
         "D1-F0693",
-        "D1-F0829"
+        "D1-F0829",
+        "D1-F0836"
       ],
       "parent_structure_id": null,
       "semantic_state": "MATERIAL_ASSERTION_CARRIER",
@@ -88321,19 +88931,21 @@
   ],
   "supervising_author_conclusion": {
     "ai_assisted_bounded_spotcheck_v4_adjudication": "13_ACCEPTED_0_REJECTED_0_UNRESOLVED",
-    "final_evidence_context_pass": "PASS_AFTER_V8_CONFIRMED_PARTIAL_SEPTENARY_REPAIRS",
-    "note": "D1 v8 repairs only the 10 hard groups confirmed from the aborted septenary execution: seven reported reverse defects, two source→reference omissions independently reopened by the supervisor, and the missing attached reason on D1-F0785. The aborted v7 ledger is not treated as a clean or complete audit. Independence remains WEAK_OR_UNKNOWN; fresh semantic review is required before any freeze decision.",
+    "final_evidence_context_pass": "PASS_AFTER_V9_SHARDED_R2_REPAIRS",
+    "note": "D1 v9 repairs only the ten hard groups from the completed sharded v8 reconciliation R2. Five new facts restore omitted lunch/event-invitation/commission-status/presidential-procedure/formal-recognition assertions; six existing facts restore contact-channel, modality and qualifier fidelity. All ten v8 repairs pass sharded regression. Independence remains WEAK_OR_UNKNOWN and strong material independence is not satisfied.",
     "omission_only_pass": "PASS_AFTER_RESTORING_9_SPOTCHECK_EXPOSED_ASSERTIONS",
     "quaternary_review_v4": "CLEAN_PASS_0_DISPUTES_WEAK_OR_UNKNOWN_INDEPENDENCE",
     "quinary_review_v5": "REFERENCE_DISPUTE; 30/30 source-grounded groups accepted into v6 repair.",
     "quinary_review_v5_adjudication": "30 ACCEPT / 0 REJECT / 0 UNRESOLVED; v6 requires fresh semantic review.",
     "reference_state": "SUPERVISOR_DRAFT",
-    "reverse_fact_audit": "PASS_FOR_10_CONFIRMED_ABORTED_SEPTENARY_FINDINGS_AFTER_V8_REPAIRS",
+    "reverse_fact_audit": "PASS_FOR_10_SHARDED_R2_FINDINGS_AFTER_V9_REPAIRS",
     "senary_review_v6": "REFERENCE_DISPUTE; 22/22 source-grounded groups accepted into v7 repair.",
     "senary_review_v6_adjudication": "22 ACCEPT / 0 REJECT / 0 UNRESOLVED; v7 requires fresh semantic review.",
     "septenary_aborted_execution_v7": "REFERENCE_DISPUTE with incomplete audit; 10 confirmed hard groups source-reopened and accepted; reference anchoring contamination true; other potential rows not promoted.",
     "septenary_aborted_execution_v7_adjudication": "10 ACCEPT / 0 REJECT / 0 UNRESOLVED among confirmed partial findings; v8 requires fresh semantic review.",
-    "source_order_pass": "PARTIAL_SEPTENARY_EXECUTION_NOT_A_COMPLETE_FRESH_AUDIT; CONFIRMED_FINDINGS_REPAIRED"
+    "sharded_review_v8": "REFERENCE_DISPUTE; complete 61-unit / 783-fact / 2,019-target / 241-source-assertion sharded R2 review with S01 blocker resolved; independence WEAK_OR_UNKNOWN.",
+    "sharded_review_v8_adjudication": "10 ACCEPT / 0 REJECT / 0 UNRESOLVED; v9 requires fresh semantic review.",
+    "source_order_pass": "PASS_AFTER_SHARDED_SOURCE_ONLY_REVIEW_AND_V9_REPAIRS"
   },
   "tertiary_review_adjudication": {
     "accepted_count": 14,
@@ -88701,7 +89313,9 @@
         "D1-F0817",
         "D1-F0821",
         "D1-F0822",
-        "D1-F0823"
+        "D1-F0823",
+        "D1-F0833",
+        "D1-F0836"
       ],
       "material_structure_ids": [
         "PRE",
@@ -89550,7 +90164,8 @@
         "D1-F0153",
         "D1-F0154",
         "D1-F0155",
-        "D1-F0158"
+        "D1-F0158",
+        "D1-F0832"
       ],
       "material_structure_ids": [
         "C07",
@@ -89574,7 +90189,8 @@
         "D1-F0153",
         "D1-F0154",
         "D1-F0155",
-        "D1-F0158"
+        "D1-F0158",
+        "D1-F0832"
       ],
       "scope_char_end": 37003,
       "scope_char_start": 34149,
@@ -89594,7 +90210,9 @@
         "D1-F0154",
         "D1-F0155",
         "D1-F0156",
-        "D1-F0157"
+        "D1-F0157",
+        "D1-F0832",
+        "D1-F0833"
       ],
       "material_structure_ids": [
         "C08"
@@ -89606,7 +90224,9 @@
         "D1-F0154",
         "D1-F0155",
         "D1-F0156",
-        "D1-F0157"
+        "D1-F0157",
+        "D1-F0832",
+        "D1-F0833"
       ],
       "scope_char_end": 38299,
       "scope_char_start": 37003,
@@ -89636,7 +90256,8 @@
         "D1-F0168",
         "D1-F0169",
         "D1-F0170",
-        "D1-F0171"
+        "D1-F0171",
+        "D1-F0833"
       ],
       "material_structure_ids": [
         "C08",
@@ -89659,7 +90280,8 @@
         "D1-F0168",
         "D1-F0169",
         "D1-F0170",
-        "D1-F0171"
+        "D1-F0171",
+        "D1-F0833"
       ],
       "scope_char_end": 41106,
       "scope_char_start": 38299,
@@ -90135,7 +90757,8 @@
         "D1-F0256",
         "D1-F0257",
         "D1-F0267",
-        "D1-F0814"
+        "D1-F0814",
+        "D1-F0834"
       ],
       "material_structure_ids": [
         "C13"
@@ -90161,7 +90784,8 @@
         "D1-F0256",
         "D1-F0257",
         "D1-F0267",
-        "D1-F0814"
+        "D1-F0814",
+        "D1-F0834"
       ],
       "scope_char_end": 66350,
       "scope_char_start": 62396,
@@ -90895,7 +91519,8 @@
         "D1-F0823",
         "D1-F0824",
         "D1-F0825",
-        "D1-F0826"
+        "D1-F0826",
+        "D1-F0835"
       ],
       "material_structure_ids": [
         "U06",
@@ -90942,7 +91567,8 @@
         "D1-F0438",
         "D1-F0439",
         "D1-F0823",
-        "D1-F0824"
+        "D1-F0824",
+        "D1-F0835"
       ],
       "scope_char_end": 101934,
       "scope_char_start": 97942,
@@ -92015,7 +92641,8 @@
         "D1-F0645",
         "D1-F0646",
         "D1-F0647",
-        "D1-F0648"
+        "D1-F0648",
+        "D1-F0836"
       ],
       "material_structure_ids": [
         "M07",
@@ -92055,7 +92682,8 @@
         "D1-F0645",
         "D1-F0646",
         "D1-F0647",
-        "D1-F0648"
+        "D1-F0648",
+        "D1-F0836"
       ],
       "scope_char_end": 149400,
       "scope_char_start": 145616,

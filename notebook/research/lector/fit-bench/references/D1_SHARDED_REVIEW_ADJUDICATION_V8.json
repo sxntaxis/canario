@@ -1,0 +1,138 @@
+{
+  "adjudicated_by": "supervising_cloud_author",
+  "decision_counts": {
+    "ACCEPT": 10,
+    "REJECT": 0,
+    "UNRESOLVED": 0
+  },
+  "decisions": [
+    {
+      "affected_fact_ids": [
+        "D1-F0154"
+      ],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V8-S02-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 adds D1-F0832 for the scheduled lunch and expands D1-F0154 to retain the stated confirmation channels."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0156",
+        "D1-F0157"
+      ],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V8-S02-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 adds D1-F0833 for Ronald Robles’s explicit public invitation."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0714"
+      ],
+      "decision": "ACCEPT",
+      "direction": "BOTH",
+      "finding_id": "D1-V8-S02-IR-0003",
+      "issue_type": "MODALITY_ERROR",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 restores desiderative «Quisiera confirmar» rather than completed self-confirmation."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0174"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V8-S02-IR-0004",
+      "issue_type": "QUALIFIER_ERROR",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 removes unsupported «administrativas»."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0194"
+      ],
+      "decision": "ACCEPT",
+      "direction": "BOTH",
+      "finding_id": "D1-V8-S02-IR-0005",
+      "issue_type": "QUALIFIER_ERROR",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 restores Tercero’s greater familiarity with the topic as the third stated reason."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V8-S03-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 adds D1-F0834 preserving that resolving matters does not eliminate pending commission work."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0360"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V8-S04-IR-0001",
+      "issue_type": "MODALITY_ERROR",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 restores «consideró importante solicitar» force for the ICE explanation."
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0361"
+      ],
+      "decision": "ACCEPT",
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V8-S04-IR-0002",
+      "issue_type": "MODALITY_ERROR",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 restores «consideró importante solicitar» force for the ICE technical review."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V8-S05-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 adds D1-F0835 for the President’s separate procedural receipt/direction."
+    },
+    {
+      "affected_fact_ids": [],
+      "decision": "ACCEPT",
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V8-S06-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "source_grounded_adjudication": "ACCEPT after reopening exact frozen source. V9 adds D1-F0836 for the formal unanimous/final Futsala U-8 recognition transfer."
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1.sharded-semantic-review-adjudication.v8/1",
+  "mechanical_coverage": {
+    "evidence_targets": "2019/2019",
+    "frozen_units": "61/61",
+    "reverse_facts": "783/783",
+    "source_assertions": "241/241"
+  },
+  "review_id": "CANARIO-D1-SHARDED-SEMANTIC-REVIEW-V8-RECONCILED-R2",
+  "review_independence_strength": "WEAK_OR_UNKNOWN",
+  "review_verdict": "REFERENCE_DISPUTE",
+  "reviewed_v8_commit": "98ca3fbc84f6d35a0ba52068b98da4ea10ec1aad",
+  "s01_reopening_blocker": "RESOLVED",
+  "timestamp": "2026-08-30T23:51:01.136314+00:00",
+  "v9_repair_summary": {
+    "in_place_repair_fact_ids": [
+      "D1-F0154",
+      "D1-F0714",
+      "D1-F0174",
+      "D1-F0194",
+      "D1-F0360",
+      "D1-F0361"
+    ],
+    "new_fact_count": 5,
+    "new_fact_ids": [
+      "D1-F0832",
+      "D1-F0833",
+      "D1-F0834",
+      "D1-F0835",
+      "D1-F0836"
+    ],
+    "note": "Ten hard groups produce five new facts plus six in-place repairs because S02-IR-0001 requires both a separate lunch assertion and restoration of contact-channel semantics in D1-F0154."
+  }
+}
