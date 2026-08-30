@@ -1,0 +1,379 @@
+{
+  "finding_count": 13,
+  "finding_counts_by_direction": {
+    "REFERENCE_TO_SOURCE": 3,
+    "SOURCE_TO_REFERENCE": 10
+  },
+  "finding_counts_by_issue_type": {
+    "ATTRIBUTION_ERROR": 1,
+    "EVIDENCE_INSUFFICIENT": 2,
+    "MISSING_MATERIAL_ASSERTION": 9,
+    "WRONG_NON_MATERIAL_CLASSIFICATION": 1
+  },
+  "findings": [
+    {
+      "affected_fact_ids": [
+        "D1-F0548",
+        "D1-F0549"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V4-AS-0001",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "packet_item_ids": [
+        "HR-009"
+      ],
+      "problem": "Both facts describe the two conditions as applying to a future request, but their bound evidence starts at «Dicha gestión» and does not bind the immediately preceding antecedent that defines that gestión as a renewed future request.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "131934:132110",
+          "text": "En razón de lo expuesto, cuando el auditor lo estime pertinente, podrá nuevamente tramitar\n34   la solicitud de contratación de servicios profesionales de apoyo para su unidad."
+        }
+      ],
+      "source_grounded_reason": "The antecedent at 131934:132110 is required to justify the canonical scope «una futura solicitud».",
+      "structure_id": "M02",
+      "unit_ids": [
+        "U0055",
+        "U0051"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0713"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V4-AS-0002",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "packet_item_ids": [
+        "HR-014"
+      ],
+      "problem": "The canonical proposition says the date was supplied after an agreement with Laura Fernández to hold the recognition later, but the bound set omitted the source sentence asserting that agreement.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "32757:32836",
+          "text": "Finalmente, llegamos a un acuerdo con ella para\n38   efectuarlo posteriormente."
+        }
+      ],
+      "source_grounded_reason": "The missing sentence is the only direct support for the «después de acordar con Laura Fernández ... posteriormente» clause.",
+      "structure_id": "C06",
+      "unit_ids": [
+        "U0019",
+        "U0018",
+        "U0001"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0344",
+        "D1-F0345",
+        "D1-F0346",
+        "D1-F0357",
+        "D1-F0358",
+        "D1-F0359",
+        "D1-F0360",
+        "D1-F0361"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V4-AS-0003",
+      "issue_type": "ATTRIBUTION_ERROR",
+      "packet_item_ids": [
+        "HR-023"
+      ],
+      "problem": "The local speaker passages identify «Stephannie Quesada» (and in U05 only «señora Stephannie Quesada»), while the canonical facts normalize to Diana Stephannie Quesada [Arroyo], síndica without binding the same-source roster that permits that identity resolution.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "939:1135",
+          "text": "Síndicos Propietarios presentes: Gerardo Porras Garita, Aderith Porras Castillo,\n15   Diana Stephannie Quesada Arroyo, Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís."
+        }
+      ],
+      "source_grounded_reason": "The PRE attendance roster supplies the exact full identity and síndica role from the same frozen source.",
+      "structure_id": "U04/U05",
+      "unit_ids": [
+        "U0037",
+        "U0039"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0004",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-002"
+      ],
+      "problem": "D1 v4 does not preserve Bienvenido Venegas’s stated assessment that people on the board were doing very good work.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "26075:26217",
+          "text": "Sin embargo, el esfuerzo se ha venido realizando y me parece que hay\n 2   compañeros que están en la junta directiva haciendo un gran trabajo."
+        }
+      ],
+      "source_grounded_reason": "The frozen semantics includes an actor’s stated position/finding without editorial-interest filtering.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0005",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-002"
+      ],
+      "problem": "D1 v4 omits Bienvenido Venegas’s stated position that it would have been better for the person who took the matter to the Contraloría to approach the sports association and offer help/knowledge.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "26593:26957",
+          "text": "Esa persona que sacó todo ese tiempo y tuvo la disposición de ir hasta\n 9   la Contraloría, ¿No hubiera sido más fácil acercarse a la Asociación Deportiva y\n10   ponerse a la orden, aportando sus conocimientos y su preocupación para que esta\n11   piscina llegue a cumplir todas las expectativas que tenemos sobre ella?\n12   Hubiera sido mucho mejor esa posibilidad"
+        }
+      ],
+      "source_grounded_reason": "This is an explicit actor recommendation/position about handling the civic complaint.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0006",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-002"
+      ],
+      "problem": "D1 v4 omits Bienvenido Venegas’s recommendation to continue the effort and proactively approach the sports groups/associations.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "27877:28115",
+          "text": "Así que quería aprovechar la oportunidad para reforzar las palabras de los\n27   compañeros, tanto de don Olivier como de Ronald, y decir que sigamos haciendo\n28   un gran esfuerzo. Más bien, seamos proactivos y acerquémonos a estos grupos"
+        }
+      ],
+      "source_grounded_reason": "The recommendation is explicitly asserted and materially distinct from the separate fact about unpaid association work.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0007",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-002"
+      ],
+      "problem": "D1 v4 preserves the later formal receipt but omits Juan Carlos Zeledón’s preceding proposal to receive the Contraloría note.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "28494:28601",
+          "text": "Señor Presidente: Entonces, tomaríamos el acuerdo: primero, dar por recibida la\n35   nota de la Contraloría"
+        }
+      ],
+      "source_grounded_reason": "Proposal and final agreement are materially distinct modalities under the frozen semantics.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0008",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-002"
+      ],
+      "problem": "D1 v4 preserves the later formal disposition but omits Juan Carlos Zeledón’s proposal to consult Auditoría Interna and Contraloría de Servicios about a direct response to the complainant.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "28682:28885",
+          "text": "tomando en cuenta que también se pueda consultar a la Auditoría\n37   y a la Contraloría de Servicios para valorar si se le puede brindar una respuesta\n38   directa a la persona que interpuso la denuncia."
+        }
+      ],
+      "source_grounded_reason": "The proposal is an independently material actor recommendation preceding the formal decision.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0017"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0009",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-004"
+      ],
+      "problem": "D1 v4 omits the procedural request that Luis Pérez Palma provide the exact location of the two lamps for the minutes.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "85117:85432",
+          "text": "5- El síndico Luis Pérez Palma solicita la colaboración al ICE para la sustitución de\n45   dos lámparas ubicadas en las cercanías de la Escuela Juan Rafael Jiménez, sobre\n46   la ruta hacia San Rafael, debido a que se encuentran quemadas. Se le solicita\n47   indicar la ubicación exacta para efectos del acta.\n48   "
+        }
+      ],
+      "source_grounded_reason": "This is an explicit procedural action in the institutional session.",
+      "structure_id": "U05",
+      "unit_ids": [
+        "U0038"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0010",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-005"
+      ],
+      "problem": "D1 v4 omits Fernando Villalobos’s explicit position against approaching ICODER confrontationally or as a demand.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "113960:114126",
+          "text": "Yo tampoco iría donde el ICODER de manera confrontativa, como se dice\n 2   popularmente, “entrando con una patada”. No sería llegar a exigir: “deme esto y\n 3   esto”."
+        }
+      ],
+      "source_grounded_reason": "An actor’s stated position/recommendation about institutional engagement is material under the frozen definition.",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0049"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0011",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-005"
+      ],
+      "problem": "D1 v4 omits Juan Carlos Zeledón’s recommendation that the consultation retain the most important points from the previous interventions.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "117123:117248",
+          "text": "Entonces, considero que la consulta debería retomar los puntos más importantes\n47   de lo que cada uno a dicho anteriormente."
+        }
+      ],
+      "source_grounded_reason": "This is a distinct actor recommendation about the content of the official consultation.",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0049"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0012",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "packet_item_ids": [
+        "HF-006"
+      ],
+      "problem": "D1 v4 omits Luis Diego Estrada’s stated uncertainty about whether there would be any activity on 8 August.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "148950:149197",
+          "text": "Ellos solicitaban que se les tome en cuenta dentro de las actividades de agosto,\n49   precisamente porque no sabemos si para esa fecha, el 8 de agosto, habrá alguna\n50   actividad, ya que ellos quieren celebrar el Día Internacional de la Juventud."
+        }
+      ],
+      "source_grounded_reason": "This is an explicit status/uncertainty statement about a civic activity calendar and is not equivalent to the separate request to be included in August activities.",
+      "structure_id": "V04",
+      "unit_ids": [
+        "U0060"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0007",
+        "D1-F0008",
+        "D1-F0009",
+        "D1-F0011",
+        "D1-F0012",
+        "D1-F0661"
+      ],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V4-AS-0013",
+      "issue_type": "WRONG_NON_MATERIAL_CLASSIFICATION",
+      "packet_item_ids": [
+        "HF-001"
+      ],
+      "problem": "U0003-U0005 contain only isolated extraction line-number/page-furniture artifacts but are classified MATERIAL_FACTS because one overbroad C01 context selector crosses them.",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "range": "4013:4020",
+          "text": " 9\\n\\n\\n\\n\\n"
+        },
+        {
+          "range": "4020:4027",
+          "text": "10\\n\\n\\n\\n\\n"
+        },
+        {
+          "range": "4027:4034",
+          "text": "11\\n\\n\\n\\n\\n"
+        }
+      ],
+      "source_grounded_reason": "The protocol excludes page/navigation/transcription artifacts and requires unit state to reflect whether a unit itself contains an independent material assertion. The C01 context selector can be shortened to the complete meaningful text before U0003 without losing support.",
+      "structure_id": "C01",
+      "unit_ids": [
+        "U0003",
+        "U0004",
+        "U0005"
+      ]
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "format": "canario.d1-ai-assisted-bounded-spotcheck.v4/1",
+  "leakage_declaration": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "note": "This review does not satisfy the planned human-independence gate. The user delegated the bounded packet to the supervising OpenAI model; the result is preserved only as additional defect-finding evidence.",
+  "packet": {
+    "forward_items": 6,
+    "markdown_bytes": 75794,
+    "markdown_sha256": "c9b3a070bbd3f3d8b9c8e14f45daab1760859dc56bbbadc1376432f3070e7df0",
+    "readme_bytes": 1547,
+    "readme_sha256": "8f355996246fff194a4bc1100fa40154a4abd710b0435ef0292b64df291a2853",
+    "reverse_items": 24,
+    "seed_sha256": "ec9bb3d80099c3eb1ef80c18f7bbce53b79efbab7c31344c063a6e4466302880",
+    "selection_manifest_bytes": 88224,
+    "selection_manifest_sha256": "e87d0a04745838a67892b98ca7cfb46233ac4500f381fef1cb03e688fada347c",
+    "selection_prior_review_content_used": false
+  },
+  "reference_freeze_status": "BLOCKED_BY_SEMANTIC_DISPUTES",
+  "review_id": "CANARIO-D1-AI-ASSISTED-BOUNDED-SPOTCHECK-V4-001",
+  "reviewed_candidate": {
+    "commit": "44291aa54f96492d02cc4e9c9f8e4d0bb9ddd770",
+    "reference_json_sha256": "c56e499e80a954747bad54a79472fecddc9b451edf80fa18613fd090f4fe1ec2",
+    "reference_state": "SUPERVISOR_DRAFT",
+    "tree": "c3cb37b96ac356b952e9454525788dc47e0a0e09"
+  },
+  "reviewer": {
+    "human_independence_gate_satisfied": false,
+    "identity": "OpenAI / GPT-5.6 Sol",
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "model": "GPT-5.6 Sol",
+    "provider": "OpenAI",
+    "review_mode": "user-delegated AI-assisted bounded spot-check",
+    "reviewer_prior_project_context_present": true,
+    "strong_independent_gate_satisfied": false
+  },
+  "semantic_verdict": "REFERENCE_DISPUTE",
+  "timestamp": "2026-08-29T22:22:00-06:00",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
