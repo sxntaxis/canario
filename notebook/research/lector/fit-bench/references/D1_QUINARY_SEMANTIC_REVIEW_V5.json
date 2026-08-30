@@ -1,0 +1,1436 @@
+{
+  "anti_anchoring_compliance": {
+    "all_1727_evidence_targets_considered_as_sets_before_prior_review": true,
+    "all_61_unit_state_classifications_completed_before_prior_review": true,
+    "all_global_scans_completed_before_prior_review": true,
+    "anchoring_contamination": false,
+    "blind_reference_to_source_pass_completed_before_prior_review": true,
+    "blind_source_to_reference_pass_completed_before_prior_review": true,
+    "candidate_source_reference_identities_verified_before_prior_review": true,
+    "frozen_source_read_before_prior_review": true,
+    "prior_review_files_consulted": [
+      "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_V4.json",
+      "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_V4.md",
+      "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_ADJUDICATION_V4.json",
+      "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_ADJUDICATION_V4.md",
+      "D1_QUATERNARY_SEMANTIC_REVIEW_V4.json",
+      "D1_QUATERNARY_SEMANTIC_REVIEW_V4.md"
+    ],
+    "prior_review_files_read_only_after_provisional_persist": true,
+    "provisional_artifact_path": "/mnt/data/d1v5-blind/D1_QUINARY_SEMANTIC_REVIEW_V5_PROVISIONAL.json",
+    "provisional_artifact_persisted_before_prior_review": true,
+    "provisional_artifact_sha256": "cc3d06a1dc5a8a52eea09bf0c0beb4f72723e82205e85b127e41ae9d23ffba11",
+    "provisional_finding_count": 30,
+    "provisional_timestamp": "2026-08-30T06:17:40.180067+00:00",
+    "v4_spotcheck_regression_matrix_persisted_before_quaternary_read": true,
+    "v4_spotcheck_regression_matrix_sha256": "23308db1d18d7ecd60346789d6f1aaf034a2680dfc8014df0b50fbbdba1cde49",
+    "v5_reference_read_before_prior_review": true
+  },
+  "coverage": {
+    "evidence_targets_semantically_considered_as_sets": {
+      "reviewed": 1727,
+      "total": 1727
+    },
+    "facts_reference_to_source": {
+      "reviewed": 744,
+      "total": 744
+    },
+    "frozen_units_source_to_reference": {
+      "reviewed": 61,
+      "total": 61
+    },
+    "full_source_order": true,
+    "structures_source_to_reference": {
+      "reviewed": 36,
+      "total": 36
+    },
+    "unit_state_classifications": {
+      "reviewed": 61,
+      "total": 61
+    }
+  },
+  "finding_count": 30,
+  "finding_counts_by_direction": {
+    "REFERENCE_TO_SOURCE": 17,
+    "SOURCE_TO_REFERENCE": 13,
+    "UNIT_STATE": 0
+  },
+  "finding_counts_by_issue_type": {
+    "CAPABILITY_BINDING_ERROR": 2,
+    "EVIDENCE_INSUFFICIENT": 15,
+    "MISSING_MATERIAL_ASSERTION": 13
+  },
+  "finding_inventory": [
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0001",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Ronald Robles stated a due-diligence/exhaustion standard for making a denunciation, including first visiting, asking, investigating and exhausting prior instances; v5 has no fact for that independent position.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Cuando uno quiere ir a quejarse de algo es porque ya fue al lugar\n21   a colaborar, porque ya visitó el lugar, vio cómo estaba y, si no le pareció, preguntó,\n22   indagó y requirió información antes de presentar una denuncia.\n23   No se vale, no sé quién fue la persona ni quiero saber el nombre, pero si nos está\n24   escuchando o va a ver la grabación, cuando uno denunci",
+          "location_or_selector": "representation_char_range:23578-23951"
+        }
+      ],
+      "source_grounded_reason": "The frozen source contains an explicit speaker position about prerequisites for denouncing. Nearby v5 facts cover the pool process and responses, but not this distinct normative/position assertion.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0016"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0002",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Ronald Robles expressed the expectation that the complaint not be politicking and that the complainant actually have found an irregularity, and asked that the complainant say what was found; v5 omits it.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Esperemos que no sea politiquería y que realmente haya encontrado algo irregular.\n32   Que diga qué fue lo que encontró. Pero, como lo explicó muy bien el señor aseso",
+          "location_or_selector": "representation_char_range:24366-24532"
+        }
+      ],
+      "source_grounded_reason": "The expectation and requested disclosure are explicit, materially distinct speaker assertions and their modality is source-visible.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0016"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0003",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Ronald Robles appealed to the public to investigate and know the process before denouncing and expressed a wish that people cooperate in sports associations; v5 omits the position.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Así que, a todo el pueblo, cuando uno vaya a denunciar algo es porque ya estuvo\n39   ahí, indagó y conoció el proceso. Ojalá las personas vayan con buena voluntad a\n40   cooperar, no solamente en la Asociación de Natación, sino en todas las\n41   asociaciones deportivas de este cantón..\n42   Señor Alcalde: Sí, ha sido una tarea difícil, no ha sido fácil para",
+          "location_or_selector": "representation_char_range:24865-25224"
+        }
+      ],
+      "source_grounded_reason": "This is an explicit civic-facing recommendation/position about complaint conduct and cooperation, not merely conversational filler.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0016"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0004",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "The UNGL letter states that UNGL represents municipalities, municipal district councils and municipal federations and has done so for 48 years; v5 omits this institutional scope/history assertion.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "institución que representa a las municipalidades, concejos municipales de distrito y\n12   federaciones municipales del país dese hace 48 años.\n13   La Unión Nacional de Gobiernos Locales, en apego a sus Estatut",
+          "location_or_selector": "representation_char_range:43303-43513"
+        }
+      ],
+      "source_grounded_reason": "The source directly asserts institutional representative scope and a 48-year historical duration; neither is represented by the v5 C11 facts.",
+      "structure_id": "C11",
+      "unit_ids": [
+        "U0024"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0005",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Douglas Arce explained that he wanted the legal adviser’s comment to clarify whether he was wrong, whether things were being done correctly, or could be improved; v5 reduces this to the request topic and omits the stated uncertainty/purpose.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Entiendo que es potestad de los señores regidores, pero me gustaría escuchar un\n 6   comentario para tener claridad sobre lo que he venido manifestando y saber si\n 7   estoy equivocado, si las cosas se están haciendo correctamente o si podrían\n 8   mejorarse. Eso es lo que quisiera tener claro.\n 9   Lic. Olivier López Agüero, Gestor Jurídico del Concejo Municipal: Sobre el tema de\n10",
+          "location_or_selector": "representation_char_range:58712-59098"
+        }
+      ],
+      "source_grounded_reason": "The reason and uncertainty materially qualify the procedural request and are independently asserted in the frozen source.",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0030"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0006",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Heriberto González characterized the security situation as getting out of control and generating fear; v5 omits that qualitative status/impact assertion.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Son situaciones que se están saliendo de control y que generan mucho temor entre\n31   los habitantes de la zona.\n32   Inclusive, hace aproximadamente dos meses, en el cruce de Saban",
+          "location_or_selector": "representation_char_range:72195-72376"
+        }
+      ],
+      "source_grounded_reason": "This is an explicit civic security status judgment, stronger and more specific than a generic expression of concern.",
+      "structure_id": "U02",
+      "unit_ids": [
+        "U0033"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0007",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Heriberto González stated that preventive measures should be taken before a more serious situation occurs; v5 omits that position.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Considero que debemos tomar medidas preventivas antes de que ocurra una\n50   situación aún más grave.\n51   Esa es mi preocupación y solicitud respecto a la insegur",
+          "location_or_selector": "representation_char_range:73616-73779"
+        }
+      ],
+      "source_grounded_reason": "The source uses explicit normative modality (“debemos”) tied to public-safety action; it is a material proposal/position under the frozen rules.",
+      "structure_id": "U02",
+      "unit_ids": [
+        "U0033"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0008",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Fernando Villalobos proposed making a presence in the commission and going with a strategy; v5 omits the commission-presence proposal.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "hacer presencia en la comisión y, como\n41   decía Ronald, ir con estrategia. También el señor Alcalde puede hacer mucho,\n42   porque",
+          "location_or_selector": "representation_char_range:92798-92930"
+        }
+      ],
+      "source_grounded_reason": "The source contains an operative strategy proposal materially separable from the nearby comments about the mayor and deputies.",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0040"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0009",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "The speaker characterized the CCCI as valuable for local development and prioritizing cantonal needs; v5 omits this evaluative civic position.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "consejo valioso para el desarrollo local y para\n27   priorizar necesidades en nuestro cantón, que sabemos son muchas.\n28   Por esta razón, me gustaría s",
+          "location_or_selector": "representation_char_range:99827-99979"
+        }
+      ],
+      "source_grounded_reason": "The source explicitly evaluates the institutional council’s civic value; v5 captures requests for documents but not this independent assessment.",
+      "structure_id": "U07",
+      "unit_ids": [
+        "U0043"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0010",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Flor Cubero stated that the ICODER-related course under discussion had no basis (“no tiene fundamento”); v5 omits that explicit position.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Entonces, personalmente considero que esto no\n51   tiene fundamento.\n52   Regidor Christian Tercero Carvajal: Yo, en lo ",
+          "location_or_selector": "representation_char_range:105682-105802"
+        }
+      ],
+      "source_grounded_reason": "The source contains a direct personal evaluative position distinct from her nearby comments about futility and accepting ICODER’s decision.",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0045"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0011",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Luis Diego Estrada expressed uncertainty whether the Concejo could issue a position for or against because he believed ICODER had already made the decision; v5 omits it.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Tampoco sé si nosotros, desde el Concejo Municipal, podemos emitir algún criterio\n 6   a favor o en contra, porque me parece que es una decisión ya tomada por parte de\n 7   ellos.\n 8   También, si no me equivoco, don Bienvenido nos había comentado que Cr",
+          "location_or_selector": "representation_char_range:110272-110526"
+        }
+      ],
+      "source_grounded_reason": "This is explicit uncertainty about institutional authority/status and a reason for it, both material to the civic discussion.",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0048"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0012",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Fernando Villalobos stated that, because the regulation had been in force since 2016, schools should not still be presenting last-minute situations almost ten years later; v5 captures the 2016 date but omits the evaluative conclusion.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Este es un reglamento vigente desde el año 2016, por lo\n30   que no debería ocurrir que, casi diez años después, aún existan centros educativos\n31   presentando estas situaciones de última hora.\n32   Sr. Presidente Municipal",
+          "location_or_selector": "representation_char_range:122524-122748"
+        }
+      ],
+      "source_grounded_reason": "The conclusion uses explicit “no debería” modality and is a material reason/position, not entailed by merely recording the regulation’s age.",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ]
+    },
+    {
+      "affected_fact_ids": [],
+      "direction": "SOURCE_TO_REFERENCE",
+      "finding_id": "D1-V5-IR-0013",
+      "issue_type": "MISSING_MATERIAL_ASSERTION",
+      "problem": "Bienvenido Venegas requested that the Contraloría document be resent to the Auditor because it appeared he did not have it, had not studied it, or had not read it; v5 omits the source-visible uncertain reason attached to the request.",
+      "recommended_resolution": "Add a separate source-faithful fact (or minimally revise coverage in a future reference version) preserving the speaker, modality and attached reason; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "que remita nuevamente al señor Auditor el documento emitido por la\n10   Contraloría, ya que pareciera que no lo tiene, no lo ha estudiado o no lo ha leído.\n11   Es importante que lo revise y que, en adelante, se apegue a los lineamientos\n12   establecidos claramente por el órgano contralor.",
+          "location_or_selector": "representation_char_range:134338-134629"
+        }
+      ],
+      "source_grounded_reason": "The “pareciera” allegation is an explicit uncertainty/reason qualifying the procedural request and must be preserved rather than silently dropped.",
+      "structure_id": "M02",
+      "unit_ids": [
+        "U0056"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0003",
+        "D1-F0004",
+        "D1-F0005",
+        "D1-F0006",
+        "D1-F0010",
+        "D1-F0015",
+        "D1-F0026",
+        "D1-F0110",
+        "D1-F0111",
+        "D1-F0112",
+        "D1-F0113",
+        "D1-F0114",
+        "D1-F0115",
+        "D1-F0116",
+        "D1-F0117",
+        "D1-F0118",
+        "D1-F0136",
+        "D1-F0137",
+        "D1-F0138",
+        "D1-F0139",
+        "D1-F0148",
+        "D1-F0164",
+        "D1-F0172",
+        "D1-F0173",
+        "D1-F0174",
+        "D1-F0180",
+        "D1-F0181",
+        "D1-F0182",
+        "D1-F0278",
+        "D1-F0279",
+        "D1-F0281",
+        "D1-F0283",
+        "D1-F0319",
+        "D1-F0320",
+        "D1-F0325",
+        "D1-F0327",
+        "D1-F0342",
+        "D1-F0347",
+        "D1-F0348",
+        "D1-F0362",
+        "D1-F0738",
+        "D1-F0420",
+        "D1-F0497",
+        "D1-F0506",
+        "D1-F0507",
+        "D1-F0514",
+        "D1-F0515",
+        "D1-F0516",
+        "D1-F0517",
+        "D1-F0518",
+        "D1-F0519",
+        "D1-F0520",
+        "D1-F0576",
+        "D1-F0577",
+        "D1-F0593",
+        "D1-F0594",
+        "D1-F0595",
+        "D1-F0596",
+        "D1-F0597",
+        "D1-F0598",
+        "D1-F0599",
+        "D1-F0604",
+        "D1-F0605",
+        "D1-F0606",
+        "D1-F0608",
+        "D1-F0611",
+        "D1-F0612",
+        "D1-F0666",
+        "D1-F0670",
+        "D1-F0671",
+        "D1-F0672",
+        "D1-F0673",
+        "D1-F0674",
+        "D1-F0675",
+        "D1-F0677",
+        "D1-F0678",
+        "D1-F0679",
+        "D1-F0680",
+        "D1-F0681",
+        "D1-F0682",
+        "D1-F0683",
+        "D1-F0684",
+        "D1-F0743",
+        "D1-F0686",
+        "D1-F0687",
+        "D1-F0688",
+        "D1-F0690",
+        "D1-F0691",
+        "D1-F0692",
+        "D1-F0694",
+        "D1-F0695",
+        "D1-F0698",
+        "D1-F0701"
+      ],
+      "audit_detail": {
+        "affected_count": 93,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0014",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "93 v5 fact(s) canonically attribute the proposition to “Concejo Municipal de Esparza”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Por lo que la agenda queda de la siguiente manera:\n27                                    ORDEN DEL DÍA\n28           I-    Lectura y aprobación de actas anteriores (Acta 01/05/2026, 158 y\n29                 159)\n30           II-   Lectura de Correspondencia\n31           III-  Asuntos de Trámite Urgente\n32           IV-   Mociones del señor Alcalde\n33           V-    Asuntos varios\n34   APROBADO por unanimidad.",
+          "location_or_selector": "D1-F0003 bound target representation_char_range:1812-2224"
+        },
+        {
+          "exact_text": "Se da por conocida el Acta de la Sesión Solemne del primero de mayo del dos mil\n40   veintiséis.\n41   2- Se conoce texto del Acta número Ciento cincuenta y ocho, correspondiente a la\n42   sesión extraordinaria del miércoles seis de mayo del dos mil veintiséis.",
+          "location_or_selector": "D1-F0004 bound target representation_char_range:2457-2717"
+        },
+        {
+          "exact_text": "El Concejo Municipal de Esparza, el lunes dieciocho de mayo del dos mil\n 3   veintiséis, en el Salón de Sesiones de la Municipalidad de Esparza, a las\n",
+          "location_or_selector": "representation_char_range:68-219"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "ACT,C01,C02,C03,C04,C05,C06,C07,C09,C10,C11,C13,C14,M01,M02,M03,M04,M05,M06,PRE,U01,U02,U03,U04,U05,U06,U07,U08",
+      "unit_ids": [
+        "U0001",
+        "U0006",
+        "U0008",
+        "U0009",
+        "U0017",
+        "U0019",
+        "U0020",
+        "U0022",
+        "U0024",
+        "U0032",
+        "U0033",
+        "U0035",
+        "U0037",
+        "U0038",
+        "U0039",
+        "U0043",
+        "U0050",
+        "U0051",
+        "U0056",
+        "U0058",
+        "U0059"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0084",
+        "D1-F0085",
+        "D1-F0488",
+        "D1-F0489",
+        "D1-F0490"
+      ],
+      "audit_detail": {
+        "affected_count": 5,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0015",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "5 v5 fact(s) canonically attribute the proposition to “Flor María Cubero Martínez, regidora”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Entonces, creo que de alguna manera hay que hacerlo llegar a la\n48   comunidad, y que las personas que pusieron la denuncia, o la persona que la\n49   presentó, se enteren de que el proceso está bien hecho y que todo se está\n50   realizando de acuerdo con la ley.",
+          "location_or_selector": "D1-F0084 bound target representation_char_range:21560-21822"
+        },
+        {
+          "exact_text": "Entonces, creo que de alguna manera hay que hacerlo llegar a la\n48   comunidad, y que las personas que pusieron la denuncia, o la persona que la\n49   presentó, se enteren de que el proceso está bien hecho y que todo se está\n50   realizando de acuerdo con la ley.",
+          "location_or_selector": "D1-F0085 bound target representation_char_range:21560-21822"
+        },
+        {
+          "exact_text": "Flor María Cubero Martínez: Ahí se está solicitando la sala, ya que el\n 9   doctor Con Won viene a imparti",
+          "location_or_selector": "representation_char_range:34701-34807"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "C05,U08",
+      "unit_ids": [
+        "U0015",
+        "U0049",
+        "U0050"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0086",
+        "D1-F0087",
+        "D1-F0088",
+        "D1-F0089",
+        "D1-F0090",
+        "D1-F0744",
+        "D1-F0745",
+        "D1-F0746",
+        "D1-F0094",
+        "D1-F0452",
+        "D1-F0453",
+        "D1-F0454",
+        "D1-F0455",
+        "D1-F0456",
+        "D1-F0457",
+        "D1-F0458",
+        "D1-F0459"
+      ],
+      "audit_detail": {
+        "affected_count": 17,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0016",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "17 v5 fact(s) canonically attribute the proposition to “Olivier López Agüero, gestor jurídico del Concejo Municipal”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Lic. Olivier López: Con relación al anonimato de la denuncia, posiblemente fue una\n52   decisión de la Contraloría mantenerla anónima.",
+          "location_or_selector": "D1-F0086 bound target representation_char_range:21828-21962"
+        },
+        {
+          "exact_text": "Entonces ellos sí podrían tener el\n53   nombre del denunciante.",
+          "location_or_selector": "D1-F0087 bound target representation_char_range:21963-22026"
+        },
+        {
+          "exact_text": "Olivier López Agüero, Gestor Jurídico del Concejo Municipal, se\n 6   aprueban los cambios sugeridos ",
+          "location_or_selector": "representation_char_range:13729-13829"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "C05,U08",
+      "unit_ids": [
+        "U0015",
+        "U0016",
+        "U0046",
+        "U0047"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0095",
+        "D1-F0096",
+        "D1-F0097",
+        "D1-F0156",
+        "D1-F0157",
+        "D1-F0194",
+        "D1-F0272",
+        "D1-F0273",
+        "D1-F0274",
+        "D1-F0375",
+        "D1-F0376",
+        "D1-F0377"
+      ],
+      "audit_detail": {
+        "affected_count": 12,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0017",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "12 v5 fact(s) canonically attribute the proposition to “Ronald Robles Arley, regidor suplente”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Mire, ahí hay compañeros de la Asociación de Natación y gente del Comité\n27   Cantonal de Deportes poniéndole alma y corazón para que esa piscina esté en las\n28   mejores condiciones y darle servicio a toda la comunidad.",
+          "location_or_selector": "D1-F0095 bound target representation_char_range:24004-24224"
+        },
+        {
+          "exact_text": "Pero, como lo explicó muy bien el señor asesor,\n33   estamos en pruebas y no es fácil administrar esa piscina.",
+          "location_or_selector": "D1-F0096 bound target representation_char_range:24487-24597"
+        },
+        {
+          "exact_text": "Ronald Robles Arley: Es muy importante que esto le quede claro\n48   a todo el pueblo y a todas las ",
+          "location_or_selector": "representation_char_range:17440-17539"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "C05,C08,C12,C13,PRE,U06",
+      "unit_ids": [
+        "U0001",
+        "U0016",
+        "U0021",
+        "U0022",
+        "U0025",
+        "U0032",
+        "U0039",
+        "U0040"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0711",
+        "D1-F0712",
+        "D1-F0125",
+        "D1-F0126",
+        "D1-F0127",
+        "D1-F0508",
+        "D1-F0509",
+        "D1-F0510",
+        "D1-F0511",
+        "D1-F0512"
+      ],
+      "audit_detail": {
+        "affected_count": 10,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0018",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "10 v5 fact(s) canonically attribute the proposition to “Fernando Villalobos Chacón, regidor”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Creo que muchas personas en\n18   el cantón no conocen el acuerdo que se tomó creo que en febrero.",
+          "location_or_selector": "D1-F0711 bound target representation_char_range:31245-31342"
+        },
+        {
+          "exact_text": "Entonces considero que no ha habido suficiente\n21   divulgación y la gente no lo sabe.",
+          "location_or_selector": "D1-F0712 bound target representation_char_range:31474-31560"
+        },
+        {
+          "exact_text": "Fernando Villalobos Chacón, Flor María\n10   Cubero Martínez, Christian Alonso Tercero Carvajal.\n11   Regid",
+          "location_or_selector": "representation_char_range:642-748"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "C06,M01",
+      "unit_ids": [
+        "U0018",
+        "U0051"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0186",
+        "D1-F0187",
+        "D1-F0188",
+        "D1-F0189",
+        "D1-F0190"
+      ],
+      "audit_detail": {
+        "affected_count": 5,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0019",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "5 v5 fact(s) canonically attribute the proposition to “Christian Tercero Carvajal, regidor”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Se va a realizar el primer Festival Nacional de Folclor de Costa Rica,\n 4   por lo que se trata de un evento que nos va a posicionar a nivel nacional y,\n 5   posiblemente, también internacionalmente.",
+          "location_or_selector": "D1-F0186 bound target representation_char_range:46538-46737"
+        },
+        {
+          "exact_text": "Se va a realizar el primer Festival Nacional de Folclor de Costa Rica,\n 4   por lo que se trata de un evento que nos va a posicionar a nivel nacional y,\n 5   posiblemente, también internacionalmente.",
+          "location_or_selector": "D1-F0187 bound target representation_char_range:46538-46737"
+        },
+        {
+          "exact_text": "Christian Tercero Carvajal, delegados\n 8   Asamblea Nacional de Municipalidades, Municipalidad de Esparza,",
+          "location_or_selector": "representation_char_range:43012-43118"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "C12",
+      "unit_ids": [
+        "U0025"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0349",
+        "D1-F0350",
+        "D1-F0351",
+        "D1-F0354",
+        "D1-F0355",
+        "D1-F0356"
+      ],
+      "audit_detail": {
+        "affected_count": 6,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0020",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "6 v5 fact(s) canonically attribute the proposition to “Luis Alberto Pérez Palma, síndico”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "5- El síndico Luis Pérez Palma solicita la colaboración al ICE para la sustitución de\n45   dos lámparas ubicadas en las cercanías de la Escuela Juan Rafael Jiménez, sobre\n46   la ruta hacia San Rafael, debido a que se encuentran quemadas.",
+          "location_or_selector": "D1-F0349 bound target representation_char_range:85117-85355"
+        },
+        {
+          "exact_text": "Don Luis señala que las lámparas se localizan aproximadamente 15 metros al\n49   noroeste de la Escuela Juan Rafael Jiménez e indica que los funcionarios pueden\n50   identificarlas mediante la numeración de los postes, que uno es 725-068 y el otro\n51   725-067.",
+          "location_or_selector": "D1-F0350 bound target representation_char_range:85432-85692"
+        },
+        {
+          "exact_text": "Luis Alberto Pérez Palma, Heriberto Alvarado\n16   Méndez, Douglas Arce Solís.\n17   Síndicos Suplentes pr",
+          "location_or_selector": "representation_char_range:1058-1162"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "U05",
+      "unit_ids": [
+        "U0038",
+        "U0039"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0732",
+        "D1-F0379",
+        "D1-F0389",
+        "D1-F0390",
+        "D1-F0733"
+      ],
+      "audit_detail": {
+        "affected_count": 5,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0021",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "5 v5 fact(s) canonically attribute the proposition to “Douglas Arce Solís, síndico”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Señor Douglas Arce: Una cosa muy importante que es la que tenemos que hablar\n34   con ellos es que ya existe el criterio técnico, y eso es lo primordial, porque cuando\n35   se habla de desafectar una zona se genera un impacto de negativa, máxime\n36   cuando no se dan cuenta de la realidad.",
+          "location_or_selector": "D1-F0732 bound target representation_char_range:92231-92521"
+        },
+        {
+          "exact_text": "Entonces, lo que hay que destacar es que\n37   ya existe el criterio técnico que da el sustento legal para que ese proyecto de ley\n38   sea viable.",
+          "location_or_selector": "D1-F0379 bound target representation_char_range:92522-92668"
+        },
+        {
+          "exact_text": "Douglas Arce Solís.\n17   Síndicos Suplentes presentes: Heidi Marianela Hidalgo Madrigal, Álvaro An",
+          "location_or_selector": "representation_char_range:1116-1214"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0039",
+        "U0040",
+        "U0041"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0392",
+        "D1-F0393",
+        "D1-F0394",
+        "D1-F0734",
+        "D1-F0396",
+        "D1-F0397",
+        "D1-F0398",
+        "D1-F0399",
+        "D1-F0400",
+        "D1-F0401",
+        "D1-F0735",
+        "D1-F0403",
+        "D1-F0404",
+        "D1-F0405"
+      ],
+      "audit_detail": {
+        "affected_count": 14,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0022",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "14 v5 fact(s) canonically attribute the proposition to “Bienvenido Venegas Porras, alcalde municipal”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Efectivamente, don Carlos Andrés fue quien me comunicó la semana\n20   pasada, creo que fue el jueves, que ese proyecto iba incluido dentro de la\n21   convocatoria a sesiones extraordinarias por parte del Poder Ejecutivo.",
+          "location_or_selector": "D1-F0392 bound target representation_char_range:95196-95416"
+        },
+        {
+          "exact_text": "Significa que hay una voluntad\n23   expresa del Poder Ejecutivo de apoyarnos con ese proyecto y, tomando en cuenta\n24   que existe una mayoría legislativa afín al Gobierno, me parece que estamos ante\n25   una gran posibilidad de que ese proyecto llegue a convertirse en ley de la\n26   República.",
+          "location_or_selector": "D1-F0393 bound target representation_char_range:95467-95762"
+        },
+        {
+          "exact_text": "Bienvenido Venegas Porras - Alcalde, Lic. Olivier\n21   López Agüero - Gestor Jurídico del Concejo Municip",
+          "location_or_selector": "representation_char_range:1399-1504"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "PRE,U06",
+      "unit_ids": [
+        "U0001",
+        "U0039",
+        "U0041",
+        "U0042",
+        "U0043"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0460",
+        "D1-F0461",
+        "D1-F0462",
+        "D1-F0463",
+        "D1-F0464",
+        "D1-F0465",
+        "D1-F0466",
+        "D1-F0479",
+        "D1-F0480",
+        "D1-F0481",
+        "D1-F0482"
+      ],
+      "audit_detail": {
+        "affected_count": 11,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0023",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "11 v5 fact(s) canonically attribute the proposition to “Luis Diego Estrada Jiménez, regidor suplente”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Yo no es que esté en contra de la\n48   decisión tomada por el ICODER; sin embargo, lo que sí quisiera —y es justamente\n49   lo que acaba de mencionar don Olivier— es conocer cuáles son las estrategias que\n50   va a tomar el ICODER para evitar la deserción deportiva, porque, como bien lo dijo\n51   Christian Tercero, hay generaciones que se van a ver afectadas y habrá otras que,\n52   incluso en cantones no tan grandes, ni siquiera llegarán a disputar Juegos\n53   Nacionales porque se van a cansar de esperar.",
+          "location_or_selector": "D1-F0460 bound target representation_char_range:109475-109985"
+        },
+        {
+          "exact_text": "Y eso que decía Olivier es cierto, que podría existir algo en el lapso intermedio,\n 2   pero eso yo no lo conozco ni lo he visto en las publicaciones oficiales del ICODER.",
+          "location_or_selector": "D1-F0461 bound target representation_char_range:109992-110163"
+        },
+        {
+          "exact_text": "Luis Diego Estrada Jiménez, Ilianette Picado Sánchez.\n13   Ausente: Luis Fernando González Díaz.\n14   Sínd",
+          "location_or_selector": "representation_char_range:837-943"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0047",
+        "U0048",
+        "U0049"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0049",
+        "D1-F0050"
+      ],
+      "audit_detail": {
+        "affected_count": 2,
+        "systemic_family": "unbound_identity_resolution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0024",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "2 v5 fact(s) canonically attribute the proposition to “Contraloría General de la República”, but each fact’s complete bound evidence set uses a less-specific local label or omits at least one identity component and does not bind the source text that resolves the fuller identity.",
+      "recommended_resolution": "In a future reference revision, bind source-internal roster/header evidence sufficient for the canonical identity, or keep the canonical attribution no more specific than the bound evidence. Do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Además, se le\n27   indica que podrá prescindir de la comunicación de los resultados y/o acciones finales en las\n28   que concluya el trámite de la gestión tanto al denunciante siendo que la denuncia no señaló\n29   medio alguno para recibir notificaciones, así como a esta Contraloría General.",
+          "location_or_selector": "D1-F0049 bound target representation_char_range:15580-15872"
+        },
+        {
+          "exact_text": "Además, se le\n27   indica que podrá prescindir de la comunicación de los resultados y/o acciones finales en las\n28   que concluya el trámite de la gestión tanto al denunciante siendo que la denuncia no señaló\n29   medio alguno para recibir notificaciones, así como a esta Contraloría General.",
+          "location_or_selector": "D1-F0050 bound target representation_char_range:15580-15872"
+        },
+        {
+          "exact_text": "Contraloría General de la República; texto que se transcribe a\n31   continuación:\n32   “Asunto: Direccionamiento de",
+          "location_or_selector": "representation_char_range:11394-11509"
+        }
+      ],
+      "source_grounded_reason": "The prompt requires a global pass whenever the canonical actor/person is more specific than local evidence wording and expressly forbids relying on unbound same-source context. The frozen source contains resolving roster/header text, but it is not in these facts’ complete evidence sets.",
+      "structure_id": "C05",
+      "unit_ids": [
+        "U0011"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0499",
+        "D1-F0500"
+      ],
+      "audit_detail": {
+        "affected_count": 2,
+        "systemic_family": "unbound_composite_institutional_attribution"
+      },
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0025",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "D1-F0499 and D1-F0500 attribute the propositions to Gestión de Desarrollo Humano Local / Alcaldía Municipal de Esparza, but their only bound substantive evidence is the quoted requirement itself and does not bind the source header/author context that makes it an assertion of that office.",
+      "recommended_resolution": "Bind the source header/provenance in a future reference revision or narrow the mandatory attribution; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Por\n27   tal razón, deberán realizar planes anuales de inversión de los recursos asignados y remitirlos\n28   a la Gestión de Desarrollo Humano Local antes del 15 de mayo…”.",
+          "location_or_selector": "D1-F0499 bound target representation_char_range:119737-119909"
+        },
+        {
+          "exact_text": "Por\n27   tal razón, deberán realizar planes anuales de inversión de los recursos asignados y remitirlos\n28   a la Gestión de Desarrollo Humano Local antes del 15 de mayo…”.",
+          "location_or_selector": "D1-F0500 bound target representation_char_range:119737-119909"
+        },
+        {
+          "exact_text": "nota AME-GDHL-011-2026 suscrita por el Lic. Cristian Carvajal\n20   Chaves, Gestor Desarrollo Humano Local; que dice:\n21   “En relación con el Reglamento para la Asignación de Recursos a las J",
+          "location_or_selector": "representation_char_range:119100-119291"
+        }
+      ],
+      "source_grounded_reason": "The complete bound evidence sets must support mandatory attribution. The source header provides the needed provenance, but it is unbound for these two facts.",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0050"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0212"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0026",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "D1-F0212 canonically attributes the request to the Asociación de Desarrollo Integral de Mata de Limón de Caldera and 18 neighbors of Caldera, but its bound evidence contains only the first-person-plural request and does not bind the sender/count context establishing those declarants.",
+      "recommended_resolution": "Bind the letter’s declarant/sender context in a future reference revision, or narrow attribution to what the evidence supports; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "De igual manera, solicitamos se valore la posibilidad de permitir la participación de\n32   representantes comunales del Distrito de Caldera y de la Asociación de Desarrollo Integral\n33   de Mata de Limón de Esparza, considerando el interés directo que poseen las comunidades\n34   del distrito en los temas relacionados con la Zona Marítimo Terrestre.”",
+          "location_or_selector": "D1-F0212 bound target representation_char_range:52561-52912"
+        },
+        {
+          "exact_text": " 2026, dirigida\n26   al Concejo Municipal de Esparza, por la Asociación de Desarrollo Integral de Mata\n27   de Limón de Caldera y firmada por 18 vecinos del distrito de Caldera; texto que se\n28   transcribe a continuación:\n29   “Asunto: Solicitud de representación territorial del distrito de Caldera en la Comisión\n30   Especial de Zona Marítimo Terrestre",
+          "location_or_selector": "representation_char_range:48069-48425"
+        }
+      ],
+      "source_grounded_reason": "The complete evidence set does not establish the mandatory collective attribution/count; that information exists elsewhere in the same source letter but is unbound.",
+      "structure_id": "C13",
+      "unit_ids": [
+        "U0027"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0466"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0027",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "D1-F0466 says the purpose of requesting the formal ICODER consultation was to obtain information first-hand, but the bound proposition evidence only says “Por eso solicité la consulta formal al ICODER”; the first-hand-information purpose is in adjacent unbound text.",
+      "recommended_resolution": "Extend the evidence set in a future reference revision to bind the purpose clause (and the identity resolver as needed), or narrow the proposition; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Por eso solicité la consulta formal al\n24   ICODER.",
+          "location_or_selector": "D1-F0466 bound target representation_char_range:111669-111720"
+        },
+        {
+          "exact_text": "nsultas que solicité son\n22   bastante importantes para tener conocimiento, porque yo no lo tengo y me gusta\n23   estar enterado de las cosas de primera mano. Por eso solicité la consulta formal al\n24   ICODER.\n25   Regidor suplente Ronald Robles Arley: Apro",
+          "location_or_selector": "representation_char_range:111510-111768"
+        }
+      ],
+      "source_grounded_reason": "A mandatory semantic component of the canonical proposition depends on source context that is not part of the complete bound evidence set.",
+      "structure_id": "U08",
+      "unit_ids": [
+        "U0047",
+        "U0048"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0511",
+        "D1-F0519"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0028",
+      "issue_type": "CAPABILITY_BINDING_ERROR",
+      "problem": "D1-F0511 and D1-F0519 make the deadline “antes del 15 de mayo” material to the condition but do not bind TMP-01.",
+      "recommended_resolution": "Add TMP-01 to the capability bindings in a future reference revision; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "El cumplimiento debe realizarse antes del 15 de mayo y aquellos centros\n28   educativos que no presenten la documentación antes de esa fecha no podrán\n29   acceder a los recursos.",
+          "location_or_selector": "D1-F0511 bound target representation_char_range:122344-122523"
+        },
+        {
+          "exact_text": "El cumplimiento debe realizarse antes del 15 de mayo y aquellos centros\n43   educativos que no presenten la documentación antes de esa fecha no podrán\n44   acceder a los recursos.",
+          "location_or_selector": "D1-F0519 bound target representation_char_range:123469-123648"
+        }
+      ],
+      "source_grounded_reason": "TMP-01 is the frozen temporal-preservation capability for material dates/deadlines/periods. A material deadline is explicitly exercised by both facts even though it is stored under the condition qualifier rather than the temporal array.",
+      "structure_id": "M01",
+      "unit_ids": [
+        "U0051"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0748"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0029",
+      "issue_type": "CAPABILITY_BINDING_ERROR",
+      "problem": "D1-F0748 has a mandatory scope qualifier “relación previa del expediente” but omits SCP-01 from capability bindings.",
+      "recommended_resolution": "Add SCP-01 in a future reference revision; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "Entre ellos, destaca el expediente N.° 23.898, denominado “Ley para la\n40   Reivindicación de los Derechos de los Pobladores y Desafectación de la Zona de\n41   Alta Intervención de la Zona Protectora Tivives”, anteriormente relacionado\n42   también con la zona de reserva portuaria.",
+          "location_or_selector": "D1-F0748 bound target representation_char_range:88680-88962"
+        }
+      ],
+      "source_grounded_reason": "The proposition specifically preserves the scope/relation of expediente 23.898 to an additional zone in its prior history, exercising the frozen scope-preservation capability.",
+      "structure_id": "U06",
+      "unit_ids": [
+        "U0039"
+      ]
+    },
+    {
+      "affected_fact_ids": [
+        "D1-F0586"
+      ],
+      "direction": "REFERENCE_TO_SOURCE",
+      "finding_id": "D1-V5-IR-0030",
+      "issue_type": "EVIDENCE_INSUFFICIENT",
+      "problem": "D1-F0586 canonically says the analyst “recomendó” the notification treatment, but its bound item text is phrased as “se da por notificado” and the source heading that establishes the recommendation speech act is not bound.",
+      "recommended_resolution": "Bind the recommendation heading/context in a future reference revision or use modality no stronger than the bound item; do not mutate D1 v5 in this audit.",
+      "related_v4_spotcheck_finding_ids": [],
+      "relation_to_v4_spotcheck": "NEW",
+      "severity": "HARD_REFERENCE_DISPUTE",
+      "source_evidence": [
+        {
+          "exact_text": "En este mismo acto una vez aprobado la presente, se da por notificado el avalúo N° GFC-\n29   AT-V-AVM-ZL-032-2026 el cual forma parte del presente oficio, el cual según el Artículo\n30   No 19 de la Ley 7905, \"... a partir de su notificación dispone de 15 días hábiles para presentar\n31   formal recurso de revocatoria ante la oficina de valoraciones en la Municipalidad de\n32   Esparza.",
+          "location_or_selector": "D1-F0586 bound target representation_char_range:139551-139937"
+        },
+        {
+          "exact_text": "Se recomienda\n21   Se traslade la presente al Concejo Municipal para que se acoja la siguiente recomendación,\n22   de acuerdo a lo siguiente:\n23   1. Se mante",
+          "location_or_selector": "representation_char_range:138996-139154"
+        }
+      ],
+      "source_grounded_reason": "The complete evidence set establishes author identity and the item content, but not the mandatory recommendation modality; the explicit “Se recomienda … recomendación” context is adjacent and unbound.",
+      "structure_id": "M03",
+      "unit_ids": [
+        "U0056",
+        "U0057"
+      ]
+    }
+  ],
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "fixture_identity": {
+    "certified_bundle": {
+      "advertised_ref": "refs/heads/research/lector-d1-reference-cloud-author-v5",
+      "bytes": 2518209,
+      "complete_history": "PASS",
+      "git_bundle_verify": "PASS",
+      "sha256": "513246a22ed743bc88f592bb7e50d209487904d990fc8782e78bb131001ada70"
+    },
+    "frozen_unit_inventory": {
+      "sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+      "unit_count": 61
+    },
+    "primary_pdf": {
+      "bytes": 760485,
+      "sha256": "ffb354c67d8b56ebf265884c820a98fee27015cadaac3ea1011069f7969b8bfd"
+    },
+    "recovery_archive": {
+      "bytes": 745476,
+      "sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf"
+    },
+    "representation": {
+      "bytes": 154866,
+      "characters": 151940,
+      "kind": "text/plain",
+      "processor": "poppler.pdf_text",
+      "sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1"
+    },
+    "scope": {
+      "kind": "full_source_order",
+      "sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5"
+    }
+  },
+  "format": "canario.d1-quinary-semantic-review.v5/1",
+  "global_scans": {
+    "all_61_unit_states_reviewed": true,
+    "capability_binding_scan_completed": true,
+    "deictic_antecedent_scan_completed": true,
+    "formal_decision_finality_scan_completed": true,
+    "identity_resolution_scan_completed": true,
+    "list_table_scan_completed": true,
+    "quantitative_scan_completed": true,
+    "semantic_duplicate_scan_completed": true,
+    "temporal_scan_completed": true
+  },
+  "inventory": {
+    "AMB_01_facts": 8,
+    "CTX_01_facts": 378,
+    "QTY_01_facts": 50,
+    "cross_unit_facts": 411,
+    "evidence_targets": 1727,
+    "facts": 744,
+    "frozen_units": 61,
+    "multi_evidence_facts": 649,
+    "semantic_structures": 36
+  },
+  "leakage_declaration": {
+    "Acta_160_semantics_inspected": false,
+    "H2_selected_or_inspected": false,
+    "formal_A0_A5_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "tested_extraction_behavior_seen": false
+  },
+  "mechanical_evidence_reopening": {
+    "in_bounds": 1727,
+    "note": "Mechanical validity was not treated as semantic sufficiency.",
+    "selected_text_sha256_matches": 1727,
+    "targets_checked": 1727
+  },
+  "provisional_findings": {
+    "artifact_sha256": "cc3d06a1dc5a8a52eea09bf0c0beb4f72723e82205e85b127e41ae9d23ffba11",
+    "finding_count": 30
+  },
+  "quaternary_comparison": {
+    "diagnostic_only": true,
+    "prior_verdict": "QUATERNARY_AUDIT_PASS_NO_DISPUTES",
+    "quinary_result": "FINDS_DEFECTS_DESPITE_EARLIER_CLEAN_V4_AUDIT",
+    "review_artifacts": {
+      "D1_QUATERNARY_SEMANTIC_REVIEW_V4.json": "a9df43a7076176b6601c17b7883f7de57fb97ed4f2ae3347f83ea7ad7d706079",
+      "D1_QUATERNARY_SEMANTIC_REVIEW_V4.md": "5f12b34a003afa69dbc4bf826ad0f4b9d68b201ccd482f7a5a4459277472ca0d"
+    }
+  },
+  "reference_artifacts": {
+    "D1_REFERENCE_SUPERVISOR_DRAFT_V5.json": {
+      "bytes": 3425949,
+      "sha256": "3c74b8142933531e6e6aa4a9c1ab016e7cace0e6ca39d32500f08cb3d63f81ec"
+    },
+    "D1_REFERENCE_SUPERVISOR_DRAFT_V5.md": {
+      "bytes": 1011,
+      "sha256": "7b2e26d3bb2de71018954030819dc84a901aa4fea770484ed9aca8823540e0b4"
+    }
+  },
+  "reference_freeze_status": "NOT_FROZEN_BY_THIS_REVIEW",
+  "required_authorities_read_completely": [
+    "AGENTS.md",
+    "docs/work/20260827-lector-production-fit-bench.md",
+    "notebook/research/lector/fit-bench/BENCHMARK_SEMANTICS_FREEZE_V1.md",
+    "notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V2.md",
+    "notebook/research/lector/fit-bench/REFERENCE_AUTHORING_METHOD_V1.md"
+  ],
+  "review_id": "CANARIO-D1-QUINARY-SEMANTIC-REVIEW-V5-001",
+  "reviewed_candidate": {
+    "commit": "e1ebb27f646ca54546bf2b5aff75f09b28b29ffb",
+    "parent": "03fed18a609eaed516dfacf361a520a9ad6371bd",
+    "reference_state": "SUPERVISOR_DRAFT",
+    "subject": "research(lector): revise D1 reference after bounded spot-check",
+    "tree": "aa4a8d78f3c8a66b03cd272071d76dd2e9ccb7a2"
+  },
+  "reviewer": {
+    "human_independence_gate_satisfied": false,
+    "identity": "OpenAI / GPT-5.6 Sol",
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "model": "GPT-5.6 Sol",
+    "provider": "OpenAI",
+    "strong_independent_gate_satisfied": false
+  },
+  "semantic_verdict": "REFERENCE_DISPUTE",
+  "source": "Acta Sesión Ordinaria N.º 161 — 18 May 2026, Municipalidad de Esparza",
+  "timestamp": "2026-08-30T00:21:58-06:00",
+  "unit_state_result_inventory": {
+    "MATERIAL_FACTS": 57,
+    "NO_MATERIAL_CIVIC_FACT": 4,
+    "independent_result": "MATCHES_V5",
+    "non_material_units": [
+      "U0003",
+      "U0004",
+      "U0005",
+      "U0007"
+    ],
+    "unit_state_finding_count": 0
+  },
+  "v4_spotcheck_regression_artifacts": {
+    "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_ADJUDICATION_V4.json": "27d6f959b386cf33c69c9053af1f106dea1e0a4f1cb249ee46729d42cc78230f",
+    "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_ADJUDICATION_V4.md": "67d488df0187de1ed49f10f800f3fe7cfbe32dcdfa512745c847e36260cbaa33",
+    "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_V4.json": "c15dfcde0ee0af6d18759e0c3e069cca6820ac08bfe445cb0b4bff22db256c2d",
+    "D1_AI_ASSISTED_BOUNDED_SPOTCHECK_V4.md": "5e80c03b3cc5e237855fa69c4e1bdb41978982f725f8142d7cac55e888ae4da1"
+  },
+  "v4_spotcheck_regression_counts": {
+    "PARTIALLY_RESOLVED": 0,
+    "REGRESSED_DIFFERENTLY": 0,
+    "RESOLVED_IN_V5": 13,
+    "STILL_PRESENT": 0
+  },
+  "v4_spotcheck_regression_matrix": [
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "Both D1-F0548/F0549 now bind 131934:132110, explicitly resolving “Dicha gestión” to a renewed future request; the conditions and attribution are supported by the complete evidence sets.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "REFERENCE_TO_SOURCE",
+      "v4_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0001",
+      "v5_fact_ids": [
+        "D1-F0548",
+        "D1-F0549"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0713 now binds 32757:32836, the explicit agreement-with-“ella” sentence, while retaining source ambiguity for “ellos” and binding the 12 June context.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "REFERENCE_TO_SOURCE",
+      "v4_issue_type": "EVIDENCE_INSUFFICIENT",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0002",
+      "v5_fact_ids": [
+        "D1-F0713"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "All eight Stephannie-Quesada facts now bind PRE roster 939:1135 and CTX-01, supporting the full Diana Stephannie Quesada Arroyo identity/role from the same frozen source.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "REFERENCE_TO_SOURCE",
+      "v4_issue_type": "ATTRIBUTION_ERROR",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0003",
+      "v5_fact_ids": [
+        "D1-F0344",
+        "D1-F0345",
+        "D1-F0346",
+        "D1-F0357",
+        "D1-F0358",
+        "D1-F0359",
+        "D1-F0360",
+        "D1-F0361"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0784 restores the explicit board-work assessment and binds both the local mayor turn and the PRE identity resolver; the board referent remains appropriately ambiguous.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0004",
+      "v5_fact_ids": [
+        "D1-F0784"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0785 restores the explicit recommendation/position about approaching the sports association and binds the speaker/identity context.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0005",
+      "v5_fact_ids": [
+        "D1-F0785"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0786 restores the explicit recommendation to continue the effort and proactively approach sports groups/associations, with speaker/identity context bound.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0006",
+      "v5_fact_ids": [
+        "D1-F0786"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0787 separately represents the President’s proposal to receive the Contraloría note, preserving proposal modality and binding the President’s identity.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0007",
+      "v5_fact_ids": [
+        "D1-F0787"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0788 separately represents the President’s proposal to consult Auditoría/Contraloría de Servicios about a direct response, with proposal modality and identity support.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0008",
+      "v5_fact_ids": [
+        "D1-F0788"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0789 restores the passive procedural request for the exact lamp location without inventing an unnamed requesting actor.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0009",
+      "v5_fact_ids": [
+        "D1-F0789"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0790 restores Fernando Villalobos’s non-confrontational ICODER position and its evidence directly names Fernando Villalobos Chacón.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0010",
+      "v5_fact_ids": [
+        "D1-F0790"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0791 restores Juan Carlos Zeledón’s recommendation about retaining the most important intervention points and binds the President identity resolver.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0011",
+      "v5_fact_ids": [
+        "D1-F0791"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "D1-F0792 restores Luis Diego Estrada’s uncertainty about activity on 8 August with the full named speaker locally bound and TMP-01 present.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "MISSING_MATERIAL_ASSERTION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0012",
+      "v5_fact_ids": [
+        "D1-F0792"
+      ]
+    },
+    {
+      "blind_new_defect_overlap": false,
+      "regression_reason": "U0003/U0004/U0005 are now NO_MATERIAL_CIVIC_FACT (isolated 9/10/11 artifacts), the C01 context target is narrowed to 3392:4013, and no material source text is lost.",
+      "status": "RESOLVED_IN_V5",
+      "v4_direction": "SOURCE_TO_REFERENCE",
+      "v4_issue_type": "WRONG_NON_MATERIAL_CLASSIFICATION",
+      "v4_spotcheck_finding_id": "D1-V4-AS-0013",
+      "v5_fact_ids": [
+        "D1-F0007",
+        "D1-F0008",
+        "D1-F0009",
+        "D1-F0011",
+        "D1-F0012",
+        "D1-F0661"
+      ]
+    }
+  ],
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}
