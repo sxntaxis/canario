@@ -1,0 +1,15 @@
+{
+  "all_target_hashes_reopened_against_exact_representation": true,
+  "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+  "evidence_target_count": 545,
+  "fact_count": 351,
+  "fixture_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001",
+  "format": "canario.lector.evidence-reopening-proof/v1",
+  "manifest_digest_algorithm": "SHA256(canonical JSON; sort_keys=true; separators=(comma,colon); UTF-8)",
+  "manifest_sha256": "9c064fa7db6b6674e3e2f0cc2dd4d49d929e5901049004096595e753b32c10ff",
+  "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+  "semantic_digest_sha256": "1cc2fc43e9c45c14125c1cddb3e41cc0432f0d94bc20f2f55fa9c16ae0253206",
+  "source_v3_commit": "877fe12e9de40ff5fe3473c011c1aa8e39b4dd40",
+  "source_v3_reference_sha256": "9144066703622f683b8bcaa0bae4d748c8d7631d13884f3ea4d69147f7b8c94b",
+  "unit_inventory_sha256": "b744773c22ee862904052db0ee19bcbdf3674d5935016054795ad38705a87253"
+}

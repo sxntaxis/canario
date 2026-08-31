@@ -557,3 +557,12 @@ No further broad D1 semantic audit is authorized. Reopening D1 semantics now req
 - No further broad D4 semantic audit is authorized.
 - D3 targeted closure/freeze remains the only development-reference semantic gate before reference-only threshold policy.
 
+
+
+## F3 governance closure — D3 targeted closure PASS / internal freeze candidate
+
+D3 v3 was mechanically certified unchanged at `877fe12e9de40ff5fe3473c011c1aa8e39b4dd40` with 351 facts and 545/545 exact evidence targets reopened. The fresh targeted post-repair audit then returned `TARGETED_CLOSURE_PASS`: all 24/24 page-adjacent evidence rows were verified, all 12/12 systemic layout-boundary repairs are sufficient, both dangling referents and all three local semantic repairs pass, Article 27(y)/z) ambiguity remains source-faithful, HF-001..HF-006 are `RESOLVED_IN_V3` 6/6, and residual hard findings are zero. No broad semantic audit was performed.
+
+Under `REFERENCE_ASSURANCE_AMENDMENT_V1`, D3 is promoted to `FROZEN_INTERNAL / SATURATED_INTERNAL` with semantic digest `1cc2fc43e9c45c14125c1cddb3e41cc0432f0d94bc20f2f55fa9c16ae0253206` and evidence-reopening manifest digest `9c064fa7db6b6674e3e2f0cc2dd4d49d929e5901049004096595e753b32c10ff`. Independence remains `WEAK_OR_UNKNOWN`; strong/human gates remain false. No further broad D3 semantic audit is authorized; reopening requires `REFERENCE_DEFECT`.
+
+D1, D3 and D4 development references are therefore all internally frozen. F3 reference authoring is closed. The next gate is reference-only count/capability distribution inspection followed by threshold-policy freeze. Formal A0-A5 candidate execution remains blocked until that policy and the remaining lane-common pre-run identities/bounds are frozen.

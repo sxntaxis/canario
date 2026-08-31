@@ -1,0 +1,120 @@
+{
+  "a0_a5_runs_started": false,
+  "all_development_references_frozen_internal": true,
+  "candidate_output_seen": false,
+  "development_references": {
+    "d1": {
+      "assurance": "SATURATED_INTERNAL",
+      "facts": 789,
+      "independence": "WEAK_OR_UNKNOWN",
+      "state": "FROZEN_INTERNAL",
+      "targets": 2035
+    },
+    "d3": {
+      "assurance": "SATURATED_INTERNAL",
+      "facts": 351,
+      "independence": "WEAK_OR_UNKNOWN",
+      "state": "FROZEN_INTERNAL",
+      "targets": 545
+    },
+    "d4": {
+      "assurance": "SATURATED_INTERNAL",
+      "facts": 289,
+      "independence": "WEAK_OR_UNKNOWN",
+      "state": "FROZEN_INTERNAL",
+      "targets": 368
+    }
+  },
+  "documents": [
+    {
+      "bytes": 12256,
+      "path": "notebook/research/lector/fit-bench/BENCHMARK_SEMANTICS_FREEZE_V1.md",
+      "sha256": "ff2dfdee7ac10929bc14bb0ec982a1481b00eb305fd9e5f6c26d70a3ba236765"
+    },
+    {
+      "bytes": 15914,
+      "path": "notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V2.md",
+      "sha256": "d0d9b0da17bd6a888b2bd5a70b420d552fed4f5b9a96f550ed2f7bcaf8686a0b"
+    },
+    {
+      "bytes": 4171,
+      "path": "notebook/research/lector/fit-bench/REFERENCE_ASSURANCE_AMENDMENT_V1.md",
+      "sha256": "f40091b6590f5ffa8214f957ad8d4effb8a5b441da33123dd314a965565b72f4"
+    },
+    {
+      "bytes": 5852,
+      "path": "notebook/research/lector/fit-bench/REFERENCE_AUTHORING_METHOD_V1.md",
+      "sha256": "e2d619c7f6d39eae02e39bd3d5ed2f9ce7b34893c9c0c465a14b2bc6d23e5c48"
+    },
+    {
+      "bytes": 7574,
+      "path": "notebook/research/lector/fit-bench/FIXTURE_SOURCE_FREEZE_V1.json",
+      "sha256": "b3320634026b22ec8bb81a9a88697f1d7410d71bcf93385872b8cfbdd7c730c1"
+    },
+    {
+      "bytes": 3858315,
+      "path": "notebook/research/lector/fit-bench/references/D1_REFERENCE_FROZEN_INTERNAL_V1.json",
+      "sha256": "8b47dc397aedb7f580117925d1913b3a45d63dea2b68e5d6946a56543341ee7a"
+    },
+    {
+      "bytes": 2277,
+      "path": "notebook/research/lector/fit-bench/references/D1_REFERENCE_FREEZE_DECISION_V1.json",
+      "sha256": "98e263d07c9fcf98cb80a57c92b8198a1b1ae23a3a8e087d9c3a0d950a3acc4c"
+    },
+    {
+      "bytes": 969,
+      "path": "notebook/research/lector/fit-bench/references/D1_EVIDENCE_REOPENING_PROOF_V10.json",
+      "sha256": "0dab412f55043ee02fc8ae209202d07b91aa882b73df28643c3edb828d68b478"
+    },
+    {
+      "bytes": 1434488,
+      "path": "notebook/research/lector/fit-bench/references/D3_REFERENCE_FROZEN_INTERNAL_V1.json",
+      "sha256": "0b8f4eef4bd2ea75d01ccba3fb66c96e33a4b2224840f8790a2ab422de516739"
+    },
+    {
+      "bytes": 2446,
+      "path": "notebook/research/lector/fit-bench/references/D3_REFERENCE_FREEZE_DECISION_V1.json",
+      "sha256": "56b8cda46510b569e2c177e289c4132e602e012048b3539d9313c343024d46a2"
+    },
+    {
+      "bytes": 981,
+      "path": "notebook/research/lector/fit-bench/references/D3_EVIDENCE_REOPENING_PROOF_V3.json",
+      "sha256": "57f29aaa23a8faeedd5d07346bff4de0ad0f9b5a95b675223939c3914b4d9561"
+    },
+    {
+      "bytes": 12557,
+      "path": "notebook/research/lector/fit-bench/references/D3_V3_TARGETED_POST_REPAIR_AUDIT.json",
+      "sha256": "5d2b15c67961762db5b8a6e53ff3403a5abfc8a9b86c17ab98e358dd8bac0008"
+    },
+    {
+      "bytes": 1198318,
+      "path": "notebook/research/lector/fit-bench/references/D4_REFERENCE_FROZEN_INTERNAL_V1.json",
+      "sha256": "fc41779afe1ffe8aba50ceceb264765fae5d6aaee8e5fabf6cf8568ac56c697e"
+    },
+    {
+      "bytes": 2144,
+      "path": "notebook/research/lector/fit-bench/references/D4_REFERENCE_FREEZE_DECISION_V1.json",
+      "sha256": "2ca90cfd5805c387b1e13facda16fe1ec5aa079fe8e8dd8afe4ce8154bbbabc0"
+    },
+    {
+      "bytes": 989,
+      "path": "notebook/research/lector/fit-bench/references/D4_EVIDENCE_REOPENING_PROOF_V2.json",
+      "sha256": "7853ba7c769a134dfae93df19a109699d5a022644b0a7f24ea3e98ebcd5151eb"
+    },
+    {
+      "bytes": 16181,
+      "path": "notebook/research/lector/fit-bench/references/D4_CLOSURE_AUDIT_V2.json",
+      "sha256": "269a3fff4928258a2e5be7838dbf761071b2ba196748968e1f99c7aa4b096178"
+    }
+  ],
+  "formal_candidate_scores_seen": false,
+  "format": "canario.lector.fit-bench.freeze/v5",
+  "holdout_semantics_inspected": false,
+  "next_gate": "REFERENCE_ONLY_COUNTS_CAPABILITY_DISTRIBUTION_AND_THRESHOLD_POLICY_FREEZE",
+  "production_implementation_authorized": false,
+  "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
+  "state": "D1_D3_D4_REFERENCES_FROZEN_INTERNAL__THRESHOLD_POLICY_NEXT",
+  "supersedes_manifest": "FREEZE_MANIFEST_V4.json",
+  "thresholds_frozen": false,
+  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+}

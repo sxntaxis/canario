@@ -124,3 +124,10 @@ D3 supervisor draft v3 is the bounded targeted repair candidate after the single
 
 Next D3 gate: one fresh targeted post-repair audit limited to this closure surface, then governance/internal freeze if clean. A0-A5, thresholds and production Lector remain unauthorized.
 
+
+
+## Lector fit bench — all development references internally frozen
+
+D3 `CR-ESPARZA-PROCUREMENT-REGULATION-001` is now a governance freeze candidate for `FROZEN_INTERNAL / SATURATED_INTERNAL` after targeted post-repair closure passed with 0 residual findings: 24/24 page-boundary rows verified, 12/12 systemic repairs sufficient, and HF-001..HF-006 resolved 6/6. Its immutable semantic payload is 351 facts / 545 evidence targets with semantic digest `1cc2fc43e9c45c14125c1cddb3e41cc0432f0d94bc20f2f55fa9c16ae0253206`. Independence remains `WEAK_OR_UNKNOWN`; strong/human gates are false.
+
+Together with already frozen D1 and D4, all three development references are now semantically closed for ordinary iteration. The next gate after local certification of this D3 governance freeze is **reference-only counts/capability-distribution inspection and threshold-policy freeze**. Formal A0-A5 runs, Acta 160/H2 inspection and production Lector remain unauthorized.

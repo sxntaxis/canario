@@ -1,0 +1,56 @@
+{
+  "assurance_tier": "SATURATED_INTERNAL",
+  "candidate_source": {
+    "commit": "877fe12e9de40ff5fe3473c011c1aa8e39b4dd40",
+    "mechanically_certified_bundle_bytes": 3292250,
+    "mechanically_certified_bundle_sha256": "7533f11582535f0bb4a7977f0154d982e669436552d28422844c62906c34bcad",
+    "reference_sha256": "9144066703622f683b8bcaa0bae4d748c8d7631d13884f3ea4d69147f7b8c94b"
+  },
+  "closure_evidence": {
+    "broad_semantic_iteration_closed": true,
+    "page_boundary_rows_verified": "24/24",
+    "prior_findings_resolved": "6/6",
+    "residual_hard_findings": 0,
+    "systemic_layout_boundary_class_closed": true,
+    "systemic_repairs_verified": "12/12",
+    "targeted_audit_json_sha256": "5d2b15c67961762db5b8a6e53ff3403a5abfc8a9b86c17ab98e358dd8bac0008",
+    "targeted_audit_md_sha256": "f5bcea7d9ff7a968f3f31f3eeb507b1a7fab3e86547f1dbb478c021e55078e6a",
+    "targeted_audit_verdict": "TARGETED_CLOSURE_PASS"
+  },
+  "decision": "FREEZE_INTERNAL",
+  "decision_id": "CANARIO-D3-INTERNAL-REFERENCE-FREEZE-001",
+  "fixture_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001",
+  "format": "canario.lector.reference-freeze-decision/v1",
+  "governance_authority": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
+  "independence": {
+    "human_independent_gate_satisfied": false,
+    "strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false
+  },
+  "leakage": {
+    "a0_a5_runs_started": false,
+    "acta160_semantics_inspected": false,
+    "formal_candidate_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "h2_selected_or_inspected": false,
+    "production_implementation_authorized": false,
+    "thresholds_frozen": false
+  },
+  "next_gate": "REFERENCE_ONLY_COUNTS_CAPABILITY_DISTRIBUTION_AND_THRESHOLD_POLICY_FREEZE",
+  "permissions": {
+    "broad_d3_semantic_reaudit_authorized": false,
+    "derive_thresholds_now": true,
+    "inspect_reference_counts_after_freeze": true,
+    "production_implementation_authorized": false,
+    "run_formal_a0_a5_now": false
+  },
+  "reference": {
+    "evidence_reopening_manifest_sha256": "9c064fa7db6b6674e3e2f0cc2dd4d49d929e5901049004096595e753b32c10ff",
+    "evidence_target_count": 545,
+    "fact_count": 351,
+    "frozen_artifact": "D3_REFERENCE_FROZEN_INTERNAL_V1.json",
+    "semantic_digest_sha256": "1cc2fc43e9c45c14125c1cddb3e41cc0432f0d94bc20f2f55fa9c16ae0253206",
+    "unresolved_adjudications": 0
+  },
+  "reference_state": "FROZEN_INTERNAL"
+}
