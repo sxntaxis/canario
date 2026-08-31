@@ -542,4 +542,18 @@ No further broad D1 semantic audit is authorized. Reopening D1 semantics now req
 - v3 inventory: 351 facts / 545 evidence targets.
 - New fact: `D3-F0351` for the recoverable portion of Article 27(y), with `AMB-01`; no completion of the missing text or 27(z) is invented.
 - No generic broad D3 audit was performed or authorized.
-- Next: mechanical certification then one targeted fresh-chat post-repair audit of the exact closure surface only.
+- Mechanical certification passed at `877fe12e9de40ff5fe3473c011c1aa8e39b4dd40`; next is one targeted fresh-chat post-repair audit of the exact closure surface only.
+
+## F3 progress — D4 closure and internal freeze
+
+- Exact D4 closure audit preserved as `D4_CLOSURE_AUDIT_V2.{json,md}`.
+- Verdict: `CLOSURE_PASS_NO_DISPUTES`.
+- Phase 0: both primary-source literal checks PASS (`10` + footnote marker `4`; `activo motivado` preserved separately from `acto motivado`).
+- Phase 1: 260/260 scoped units, 0 hard omissions.
+- Phase 2: 80/80 bounded reverse sample, 0 hard findings.
+- Systemic class: none.
+- D4 semantic payload remains exactly supervisor draft v2: 289 facts / 368 evidence targets.
+- Governance state promoted to `FROZEN_INTERNAL / SATURATED_INTERNAL`; independence remains `WEAK_OR_UNKNOWN`.
+- No further broad D4 semantic audit is authorized.
+- D3 targeted closure/freeze remains the only development-reference semantic gate before reference-only threshold policy.
+

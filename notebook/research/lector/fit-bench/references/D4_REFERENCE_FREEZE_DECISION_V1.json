@@ -1,0 +1,51 @@
+{
+  "format": "canario.lector.reference-freeze-decision/v1",
+  "decision_id": "CANARIO-D4-INTERNAL-REFERENCE-FREEZE-001",
+  "fixture_id": "CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001",
+  "decision": "FREEZE_INTERNAL",
+  "reference_state": "FROZEN_INTERNAL",
+  "assurance_tier": "SATURATED_INTERNAL",
+  "governance_authority": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
+  "candidate_source": {
+    "commit": "a3fd4cd73bab241d0797cb84b2b3f52729bc498b",
+    "reference_sha256": "042c08443f1083adc0d11e1123471529d1a42619d7f5993754eb6459e7cc5e76"
+  },
+  "closure_evidence": {
+    "closure_audit_json_sha256": "269a3fff4928258a2e5be7838dbf761071b2ba196748968e1f99c7aa4b096178",
+    "closure_audit_md_sha256": "758e5da980d8ffb8c6f71012827011bff68557ef978a9d15b91d2f5489561f37",
+    "closure_audit_verdict": "CLOSURE_PASS_NO_DISPUTES",
+    "closure_hard_findings": 0,
+    "systemic_class_found": false,
+    "broad_semantic_iteration_closed": true
+  },
+  "reference": {
+    "frozen_artifact": "D4_REFERENCE_FROZEN_INTERNAL_V1.json",
+    "fact_count": 289,
+    "evidence_target_count": 368,
+    "semantic_digest_sha256": "d335ecbb8a6265db9211f648eb7d83a17ee8ac58b1a835dd20c9ddc9eea5a93c",
+    "evidence_reopening_manifest_sha256": "0403dee6fda323db3551b0488e3fa64761c357edc171cb93b712ce05da7fe67a",
+    "unresolved_adjudications": 0
+  },
+  "independence": {
+    "strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false,
+    "human_independent_gate_satisfied": false
+  },
+  "leakage": {
+    "a0_a5_runs_started": false,
+    "acta160_semantics_inspected": false,
+    "formal_candidate_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "h2_selected_or_inspected": false,
+    "production_implementation_authorized": false,
+    "thresholds_frozen": false
+  },
+  "permissions": {
+    "inspect_reference_counts_after_freeze": true,
+    "derive_thresholds_now": false,
+    "run_formal_a0_a5_now": false,
+    "production_implementation_authorized": false,
+    "broad_d4_semantic_reaudit_authorized": false
+  },
+  "next_gate": "D3_TARGETED_CLOSURE_REPAIR_AND_FREEZE_THEN_REFERENCE_ONLY_THRESHOLD_POLICY"
+}

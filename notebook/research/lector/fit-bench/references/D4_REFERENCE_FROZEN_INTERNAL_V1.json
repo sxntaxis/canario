@@ -1,7 +1,7 @@
 {
   "authority": {
     "authoring_method": "REFERENCE_AUTHORING_METHOD_V1",
-    "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2",
+    "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
     "semantic_target": "BENCHMARK_SEMANTICS_FREEZE_V1"
   },
   "authorship": {
@@ -11,7 +11,16 @@
     "local_mechanical_certification_pending": true,
     "script_generated_semantic_notes": false,
     "semantic_author_role": "supervising_cloud_author",
-    "supervising_author_adversarial_review_complete": true
+    "supervising_author_adversarial_review_complete": true,
+    "closure_audit_v2_received": true,
+    "closure_audit_v2_complete": true,
+    "closure_audit_v2_independence_strength": "WEAK_OR_UNKNOWN",
+    "closure_audit_v2_hard_findings": 0,
+    "broad_d4_semantic_iteration_closed": true,
+    "reference_assurance_tier": "SATURATED_INTERNAL",
+    "strong_independent_gate_satisfied": false,
+    "human_independent_gate_satisfied": false,
+    "material_independent_review_required_for_strong_assurance": true
   },
   "facts": [
     {
@@ -72,7 +81,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -151,7 +160,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -227,7 +236,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -313,7 +322,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -394,7 +403,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -469,7 +478,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -543,7 +552,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -620,7 +629,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -696,7 +705,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -772,7 +781,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -848,7 +857,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -924,7 +933,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1007,7 +1016,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1130,7 +1139,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1212,7 +1221,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1289,7 +1298,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1363,7 +1372,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1437,7 +1446,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1511,7 +1520,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1588,7 +1597,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1662,7 +1671,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1739,7 +1748,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1815,7 +1824,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1892,7 +1901,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -1984,7 +1993,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2060,7 +2069,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2131,7 +2140,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2205,7 +2214,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2282,7 +2291,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2359,7 +2368,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2433,7 +2442,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2510,7 +2519,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2591,7 +2600,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2669,7 +2678,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2747,7 +2756,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2824,7 +2833,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2900,7 +2909,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -2976,7 +2985,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3052,7 +3061,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3129,7 +3138,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3208,7 +3217,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3286,7 +3295,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3363,7 +3372,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3438,7 +3447,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3517,7 +3526,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3613,7 +3622,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3695,7 +3704,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3778,7 +3787,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3863,7 +3872,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -3944,7 +3953,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4022,7 +4031,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4096,7 +4105,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4174,7 +4183,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4251,7 +4260,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4327,7 +4336,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4405,7 +4414,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4485,7 +4494,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4564,7 +4573,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4644,7 +4653,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4727,7 +4736,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4811,7 +4820,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -4922,7 +4931,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5044,7 +5053,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5166,7 +5175,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5288,7 +5297,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5404,7 +5413,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5545,7 +5554,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5693,7 +5702,7 @@
         ]
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5779,7 +5788,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5856,7 +5865,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -5938,7 +5947,7 @@
         ]
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6020,7 +6029,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6096,7 +6105,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6170,7 +6179,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6246,7 +6255,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6324,7 +6333,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6400,7 +6409,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6481,7 +6490,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6561,7 +6570,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6642,7 +6651,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6720,7 +6729,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6794,7 +6803,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6871,7 +6880,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -6952,7 +6961,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7023,7 +7032,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7094,7 +7103,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7168,7 +7177,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7239,7 +7248,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7316,7 +7325,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7393,7 +7402,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7473,7 +7482,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7554,7 +7563,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7631,7 +7640,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7712,7 +7721,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7792,7 +7801,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7871,7 +7880,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -7954,7 +7963,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8026,7 +8035,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8103,7 +8112,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8187,7 +8196,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8283,7 +8292,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8362,7 +8371,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8463,7 +8472,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8568,7 +8577,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8673,7 +8682,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8778,7 +8787,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8883,7 +8892,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -8988,7 +8997,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9093,7 +9102,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9198,7 +9207,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9303,7 +9312,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9408,7 +9417,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9512,7 +9521,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9615,7 +9624,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9718,7 +9727,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9821,7 +9830,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -9924,7 +9933,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10027,7 +10036,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10132,7 +10141,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10238,7 +10247,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10347,7 +10356,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10436,7 +10445,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10541,7 +10550,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10644,7 +10653,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10747,7 +10756,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10820,7 +10829,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10894,7 +10903,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -10970,7 +10979,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11047,7 +11056,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11126,7 +11135,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11205,7 +11214,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11286,7 +11295,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11369,7 +11378,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11455,7 +11464,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11542,7 +11551,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11623,7 +11632,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11704,7 +11713,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11783,7 +11792,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11867,7 +11876,7 @@
         ]
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -11946,7 +11955,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12025,7 +12034,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12104,7 +12113,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12183,7 +12192,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12260,7 +12269,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12339,7 +12348,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12420,7 +12429,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12497,7 +12506,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12586,7 +12595,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12665,7 +12674,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12747,7 +12756,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12827,7 +12836,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12907,7 +12916,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -12987,7 +12996,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13067,7 +13076,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13147,7 +13156,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13225,7 +13234,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13305,7 +13314,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13386,7 +13395,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13467,7 +13476,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13548,7 +13557,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13626,7 +13635,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13702,7 +13711,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13780,7 +13789,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13860,7 +13869,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -13944,7 +13953,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14033,7 +14042,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14122,7 +14131,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14212,7 +14221,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14292,7 +14301,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14368,7 +14377,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14443,7 +14452,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14522,7 +14531,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14599,7 +14608,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14679,7 +14688,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14759,7 +14768,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14839,7 +14848,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -14922,7 +14931,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15005,7 +15014,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15088,7 +15097,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15169,7 +15178,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15252,7 +15261,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15332,7 +15341,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15414,7 +15423,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15495,7 +15504,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15576,7 +15585,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15660,7 +15669,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15745,7 +15754,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15830,7 +15839,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15912,7 +15921,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -15994,7 +16003,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16076,7 +16085,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16161,7 +16170,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16241,7 +16250,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16317,7 +16326,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16396,7 +16405,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16475,7 +16484,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16554,7 +16563,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16633,7 +16642,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16712,7 +16721,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16791,7 +16800,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16870,7 +16879,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -16949,7 +16958,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17028,7 +17037,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17109,7 +17118,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17188,7 +17197,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17267,7 +17276,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17346,7 +17355,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17425,7 +17434,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17506,7 +17515,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17580,7 +17589,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17659,7 +17668,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17735,7 +17744,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17809,7 +17818,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17883,7 +17892,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -17958,7 +17967,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18037,7 +18046,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18117,7 +18126,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18198,7 +18207,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18274,7 +18283,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18348,7 +18357,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18425,7 +18434,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18502,7 +18511,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18580,7 +18589,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18661,7 +18670,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18740,7 +18749,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18821,7 +18830,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -18936,7 +18945,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19049,7 +19058,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19162,7 +19171,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19275,7 +19284,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19388,7 +19397,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19486,7 +19495,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19585,7 +19594,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19684,7 +19693,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19782,7 +19791,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19880,7 +19889,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -19996,7 +20005,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20112,7 +20121,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20211,7 +20220,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20311,7 +20320,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20411,7 +20420,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20511,7 +20520,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20611,7 +20620,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20712,7 +20721,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20812,7 +20821,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -20913,7 +20922,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21013,7 +21022,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21115,7 +21124,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21216,7 +21225,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21318,7 +21327,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21421,7 +21430,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21499,7 +21508,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21578,7 +21587,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21657,7 +21666,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21738,7 +21747,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21821,7 +21830,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21899,7 +21908,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -21978,7 +21987,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22057,7 +22066,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22138,7 +22147,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22221,7 +22230,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22304,7 +22313,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22387,7 +22396,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22470,7 +22479,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22553,7 +22562,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22636,7 +22645,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22719,7 +22728,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22798,7 +22807,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22877,7 +22886,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -22957,7 +22966,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23037,7 +23046,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23138,7 +23147,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23242,7 +23251,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23346,7 +23355,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23445,7 +23454,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23540,7 +23549,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23635,7 +23644,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23730,7 +23739,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23825,7 +23834,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -23920,7 +23929,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24018,7 +24027,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24116,7 +24125,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24214,7 +24223,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24296,7 +24305,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24378,7 +24387,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24457,7 +24466,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24560,7 +24569,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24669,7 +24678,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24778,7 +24787,7 @@
         "unit": []
       },
       "material_civic": true,
-      "reference_state": "SUPERVISOR_DRAFT",
+      "reference_state": "FROZEN_INTERNAL",
       "semantic_support_audit": {
         "capability_binding": "PASS",
         "duplicate_equivalence": "PASS",
@@ -24816,7 +24825,7 @@
     "unit_count": 260,
     "unit_inventory_sha256": "b4c45ebccf7bfc4ec02d902aaa96b7f968bcc07719b40ceef28c79985bf1c5b4"
   },
-  "format": "canario.lector.reference-candidate/v1",
+  "format": "canario.lector.reference-frozen/v1",
   "leakage": {
     "a0_a5_runs_started": false,
     "acta160_semantics_inspected": false,
@@ -24883,8 +24892,8 @@
     "unknown_capability_ids": 0,
     "unresolved_structure_count": 0
   },
-  "reference_id": "CANARIO-D4-REFERENCE-SUPERVISOR-DRAFT-002",
-  "reference_state": "SUPERVISOR_DRAFT",
+  "reference_id": "CANARIO-D4-REFERENCE-FROZEN-INTERNAL-001",
+  "reference_state": "FROZEN_INTERNAL",
   "structure_ledger": [
     {
       "article_number": null,
@@ -27692,14 +27701,16 @@
   "supervising_author_conclusion": {
     "final_pass_3": "PASS",
     "final_pass_4": "PASS",
-    "note": "D4 v2 final incorporates the supervising author’s full source-order, omission-only, reverse-semantic and pass-3 challenge of v1/provisional-v2. It remains non-independent and unfrozen.",
+    "note": "D4 v2 is operationally frozen for internal fit-bench use under REFERENCE_ASSURANCE_AMENDMENT_V1 after a clean closure audit. Material model/provider independence remains WEAK_OR_UNKNOWN; strong/human independence is not satisfied.",
     "omission_only_pass": "PASS",
     "primary_source_adjudication_fn4": "D4-PSA-0001 resolved from exact frozen primary PDF",
     "primary_source_adjudication_t2_r09": "D4-PSA-0002: official CGR primary PDF visual confirms the table literally prints “activo motivado”; EXEC-3 independently prints “acto motivado” for the same 9-case finding, so the reference preserves an internal source conflict. Exact byte-identical frozen-PDF literal confirmation remains pending as a local mechanical certification check.",
-    "reference_state": "SUPERVISOR_DRAFT",
+    "reference_state": "FROZEN_INTERNAL",
     "reverse_fact_audit": "PASS",
     "source_order_pass": "PASS",
-    "supervising_author_adversarial_review": "PASS_WITH_REVISIONS_APPLIED"
+    "supervising_author_adversarial_review": "PASS_WITH_REVISIONS_APPLIED",
+    "closure_audit_v2": "CLOSURE_PASS_NO_DISPUTES; Phase 0 primary-source checks PASS; 260/260 source units swept; 80/80 reverse sample PASS; 0 hard findings; no systemic class; independence WEAK_OR_UNKNOWN.",
+    "next_gate": "D3_TARGETED_CLOSURE_REPAIR_AND_FREEZE_THEN_REFERENCE_ONLY_THRESHOLD_POLICY"
   },
   "unit_state_inventory": [
     {
@@ -33141,5 +33152,47 @@
     }
   ],
   "unresolved_adjudications": [],
-  "work": "LECTOR-PRODUCTION-FIT-BENCH"
+  "work": "LECTOR-PRODUCTION-FIT-BENCH",
+  "freeze": {
+    "decision_id": "CANARIO-D4-INTERNAL-REFERENCE-FREEZE-001",
+    "assurance_amendment": "REFERENCE_ASSURANCE_AMENDMENT_V1",
+    "state": "FROZEN_INTERNAL",
+    "assurance_tier": "SATURATED_INTERNAL",
+    "frozen_from_reference": "D4_REFERENCE_SUPERVISOR_DRAFT_V2.json",
+    "frozen_from_commit": "a3fd4cd73bab241d0797cb84b2b3f52729bc498b",
+    "frozen_from_reference_sha256": "042c08443f1083adc0d11e1123471529d1a42619d7f5993754eb6459e7cc5e76",
+    "semantic_digest_format": "canario.lector.reference-semantic-digest/v1",
+    "semantic_digest_sha256": "d335ecbb8a6265db9211f648eb7d83a17ee8ac58b1a835dd20c9ddc9eea5a93c",
+    "evidence_reopening_manifest_format": "canario.lector.evidence-reopening-manifest/v1",
+    "evidence_reopening_manifest_sha256": "0403dee6fda323db3551b0488e3fa64761c357edc171cb93b712ce05da7fe67a",
+    "evidence_target_count": 368,
+    "fact_count": 289,
+    "unit_state_counts": {
+      "CONTEXT_ONLY": 2,
+      "MATERIAL_FACTS": 170,
+      "NO_MATERIAL_CIVIC_FACT": 88
+    },
+    "capability_counts": {
+      "AMB-01": 2,
+      "ATR-01": 289,
+      "COV-01": 289,
+      "CTX-01": 70,
+      "ENT-01": 289,
+      "EVD-01": 289,
+      "LANG-ES-01": 289,
+      "MOD-01": 174,
+      "QTY-01": 44,
+      "REC-01": 3,
+      "SCP-01": 182,
+      "TMP-01": 68
+    },
+    "unresolved_adjudications": 0,
+    "candidate_output_seen": false,
+    "candidate_scores_seen": false,
+    "thresholds_frozen": false,
+    "strong_independent_gate_satisfied": false,
+    "human_independent_gate_satisfied": false,
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "broad_semantic_reaudit_authorized": false
+  }
 }

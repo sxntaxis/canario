@@ -116,10 +116,11 @@ Canario still has no public compatibility-bearing database fleet. Correct schema
 
 `CR-ESPARZA-MINUTES-001` is `FROZEN_INTERNAL` under `REFERENCE_ASSURANCE_AMENDMENT_V1`: 789 facts / 2,035 evidence targets, semantic digest `dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df`, assurance `SATURATED_INTERNAL`, independence `WEAK_OR_UNKNOWN`, strong/human gates false. No further broad D1 semantic audit is authorized. This does not yet authorize A0–A5 because remaining development references and threshold policy are still open.
 
-## Lector fit bench — D3 targeted closure repair
+## Lector fit bench — D3 targeted closure repair + D4 internal freeze
 
-The single-webchat D3 closure audit found one demonstrated systemic class, `EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION`, affecting 12 facts across 9 source regions, plus five localized finding records. Generic broad D3 re-audit is closed by the stop rule.
+D4 `CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001` is `FROZEN_INTERNAL / SATURATED_INTERNAL`: its closure audit passed with 0 hard findings, both primary-source literal checks PASS, 260/260 source units swept, 80/80 reverse sample PASS, and no systemic class. Independence remains `WEAK_OR_UNKNOWN`; strong/human gates are false. No further broad D4 semantic audit is authorized.
 
-Supervisor draft v3 is the bounded repair candidate: 351 facts / 545 evidence targets; all 6 closure finding records accepted; all 24 existing targets ending adjacent to a page/layout marker classified, with 12 continuation repairs and 12 already sufficient. Article 27(y) is preserved as a bounded `AMB-01` partial fact and 27(z) is not reconstructed.
+D3 supervisor draft v3 is the bounded targeted repair candidate after the single-webchat closure audit found one demonstrated systemic class, `EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION`, affecting 12 facts across 9 source regions, plus five localized finding records. V3 contains 351 facts / 545 evidence targets; all 6 closure finding records are accepted; all 24 existing targets ending adjacent to a page/layout marker are classified, with 12 continuation repairs and 12 already sufficient. Article 27(y) is preserved as a bounded `AMB-01` partial fact and 27(z) is not reconstructed. Generic broad D3 re-audit is closed by the stop rule.
 
-Next D3 gate: exact mechanical certification, then one fresh targeted post-repair audit limited to this closure surface. A0-A5, thresholds and production Lector remain unauthorized.
+Next D3 gate: one fresh targeted post-repair audit limited to this closure surface, then governance/internal freeze if clean. A0-A5, thresholds and production Lector remain unauthorized.
+
