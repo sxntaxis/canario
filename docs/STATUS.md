@@ -3,11 +3,11 @@ id: ACTAKIT-STATUS-001
 kind: status
 state: LECTOR_PRODUCTION_FIT_BENCH_ACTIVE
 created: 2026-08-19
-updated: 2026-08-28
+updated: 2026-08-30
 authority: operating-frontier
 release_phase: prerelease
 schema_compatibility_boundary: not-established
-summary: LECTOR-PRODUCTION-FIT-BENCH is the single active Work. F1 semantics, F2 D1-D4 fixture identities, and reference protocol v2 are frozen; F3 reference authorship is active. No production broad-Lector implementation, provider lock-in, threshold freeze, A0-A5 run, or first vertical is authorized.
+summary: LECTOR-PRODUCTION-FIT-BENCH is the single active Work. F1 semantics and F2 D1-D4 fixture identities are frozen. Reference protocol v2 now carries assurance amendment v1. F3 remains active for D3/D4; D1 is FROZEN_INTERNAL / SATURATED_INTERNAL with independence WEAK_OR_UNKNOWN. No production broad-Lector implementation, provider lock-in, threshold freeze, A0-A5 run, or first vertical is authorized.
 ---
 
 # Current Status
@@ -110,3 +110,8 @@ Canario still has no public compatibility-bearing database fleet. Correct schema
 ## Planning is not authorization
 
 `docs/ROADMAP.md`, `docs/IMPLEMENTATION_PLAN.md`, and `docs/RELEASE_1_0.md` describe horizons and gates. Their ordering never activates Work. The only active Work is the one named in the Frontier above.
+
+
+## D1 reference assurance frontier
+
+`CR-ESPARZA-MINUTES-001` is `FROZEN_INTERNAL` under `REFERENCE_ASSURANCE_AMENDMENT_V1`: 789 facts / 2,035 evidence targets, semantic digest `dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df`, assurance `SATURATED_INTERNAL`, independence `WEAK_OR_UNKNOWN`, strong/human gates false. No further broad D1 semantic audit is authorized. This does not yet authorize A0–A5 because remaining development references and threshold policy are still open.

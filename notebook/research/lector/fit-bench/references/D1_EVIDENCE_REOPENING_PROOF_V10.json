@@ -1,0 +1,15 @@
+{
+  "format": "canario.lector.evidence-reopening-proof/v1",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+  "benchmark_scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+  "unit_inventory_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+  "fact_count": 789,
+  "evidence_target_count": 2035,
+  "all_target_hashes_reopened_against_exact_representation": true,
+  "manifest_digest_algorithm": "SHA256(canonical JSON; sort_keys=true; separators=(comma,colon); UTF-8)",
+  "manifest_sha256": "cdec79058c0de89b8d7d17ac4a4e9597778b4829ed9a9174168a004dfe512714",
+  "semantic_digest_sha256": "dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df",
+  "source_v10_reference_sha256": "4ec21d52e442f331b58e2a88cc6440e86176dcb394ffe09f48f13e0a97671616",
+  "source_v10_commit": "7a1441c736653d67737378545d038105fa8b572d"
+}

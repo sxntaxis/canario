@@ -1,0 +1,54 @@
+{
+  "format": "canario.lector.reference-freeze-decision/v1",
+  "decision_id": "CANARIO-D1-INTERNAL-REFERENCE-FREEZE-001",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "decision": "FREEZE_INTERNAL",
+  "reference_state": "FROZEN_INTERNAL",
+  "assurance_tier": "SATURATED_INTERNAL",
+  "governance_authority": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
+  "candidate_source": {
+    "commit": "7a1441c736653d67737378545d038105fa8b572d",
+    "tree": "73e049aa475856833fe85f0deaf56fad4e2fdc50",
+    "reference_sha256": "4ec21d52e442f331b58e2a88cc6440e86176dcb394ffe09f48f13e0a97671616",
+    "mechanically_certified_bundle_sha256": "c9535afc86d6a36995cb6133767cb04aebe9501ebfde29e25618a448bfd74e88",
+    "mechanically_certified_bundle_bytes": 3117959
+  },
+  "closure_evidence": {
+    "closure_audit_json_sha256": "9f580846e82332986eb3cd2d2e825a63103ecd495eea9206f21731b464549300",
+    "closure_audit_verdict": "CLOSURE_LOCAL_REPAIRS_ONLY",
+    "closure_hard_findings": 3,
+    "systemic_class_found": false,
+    "closure_repairs_accepted": 3,
+    "closure_repairs_rejected": 0,
+    "closure_repairs_unresolved": 0,
+    "broad_semantic_iteration_closed": true
+  },
+  "reference": {
+    "frozen_artifact": "D1_REFERENCE_FROZEN_INTERNAL_V1.json",
+    "fact_count": 789,
+    "evidence_target_count": 2035,
+    "semantic_digest_sha256": "dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df",
+    "evidence_reopening_manifest_sha256": "cdec79058c0de89b8d7d17ac4a4e9597778b4829ed9a9174168a004dfe512714",
+    "unresolved_adjudications": 0
+  },
+  "independence": {
+    "strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false,
+    "human_independent_gate_satisfied": false
+  },
+  "leakage": {
+    "formal_candidate_output_seen": false,
+    "formal_candidate_scores_seen": false,
+    "acta160_semantics_inspected": false,
+    "h2_selected_or_inspected": false,
+    "thresholds_frozen": false
+  },
+  "permissions": {
+    "inspect_reference_counts_after_freeze": true,
+    "derive_thresholds_now": false,
+    "run_formal_a0_a5_now": false,
+    "production_implementation_authorized": false,
+    "broad_d1_semantic_reaudit_authorized": false
+  },
+  "next_gate": "FREEZE_REMAINING_DEVELOPMENT_REFERENCES_THEN_REFERENCE_ONLY_THRESHOLD_POLICY"
+}

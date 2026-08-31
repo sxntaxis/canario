@@ -1,0 +1,59 @@
+{
+  "format": "canario.lector.fit-bench.freeze/v3",
+  "state": "D1_REFERENCE_FROZEN_INTERNAL__D3_D4_REFERENCE_WORK_OPEN",
+  "work": "LECTOR-PRODUCTION-FIT-BENCH",
+  "supersedes_manifest": "FREEZE_MANIFEST_V2.json",
+  "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
+  "d1_reference_state": "FROZEN_INTERNAL",
+  "d1_reference_assurance_tier": "SATURATED_INTERNAL",
+  "d1_independence_strength": "WEAK_OR_UNKNOWN",
+  "d1_strong_independent_gate_satisfied": false,
+  "documents": [
+    {
+      "path": "notebook/research/lector/fit-bench/BENCHMARK_SEMANTICS_FREEZE_V1.md",
+      "bytes": 12256,
+      "sha256": "ff2dfdee7ac10929bc14bb0ec982a1481b00eb305fd9e5f6c26d70a3ba236765"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/REFERENCE_PROTOCOL_FREEZE_V2.md",
+      "bytes": 15914,
+      "sha256": "d0d9b0da17bd6a888b2bd5a70b420d552fed4f5b9a96f550ed2f7bcaf8686a0b"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/REFERENCE_ASSURANCE_AMENDMENT_V1.md",
+      "bytes": 4171,
+      "sha256": "f40091b6590f5ffa8214f957ad8d4effb8a5b441da33123dd314a965565b72f4"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/REFERENCE_AUTHORING_METHOD_V1.md",
+      "bytes": 5852,
+      "sha256": "e2d619c7f6d39eae02e39bd3d5ed2f9ce7b34893c9c0c465a14b2bc6d23e5c48"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/FIXTURE_SOURCE_FREEZE_V1.json",
+      "bytes": 7574,
+      "sha256": "b3320634026b22ec8bb81a9a88697f1d7410d71bcf93385872b8cfbdd7c730c1"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/references/D1_REFERENCE_FROZEN_INTERNAL_V1.json",
+      "bytes": 3858315,
+      "sha256": "8b47dc397aedb7f580117925d1913b3a45d63dea2b68e5d6946a56543341ee7a"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/references/D1_REFERENCE_FREEZE_DECISION_V1.json",
+      "bytes": 2277,
+      "sha256": "98e263d07c9fcf98cb80a57c92b8198a1b1ae23a3a8e087d9c3a0d950a3acc4c"
+    },
+    {
+      "path": "notebook/research/lector/fit-bench/references/D1_EVIDENCE_REOPENING_PROOF_V10.json",
+      "bytes": 969,
+      "sha256": "0dab412f55043ee02fc8ae209202d07b91aa882b73df28643c3edb828d68b478"
+    }
+  ],
+  "a0_a5_runs_started": false,
+  "candidate_output_seen": false,
+  "formal_candidate_scores_seen": false,
+  "holdout_semantics_inspected": false,
+  "thresholds_frozen": false,
+  "production_implementation_authorized": false
+}
