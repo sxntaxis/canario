@@ -1,0 +1,566 @@
+{
+  "artifact": "D4_CLOSURE_AUDIT",
+  "audit_date": "2026-08-30",
+  "custody": {
+    "fixture": "D4",
+    "fixture_id": "CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001",
+    "reference_commit": "a3fd4cd73bab241d0797cb84b2b3f52729bc498b",
+    "reference_file": "D4_REFERENCE_SUPERVISOR_DRAFT_V2.json",
+    "reference_sha256": "042c08443f1083adc0d11e1123471529d1a42619d7f5993754eb6459e7cc5e76",
+    "reference_bytes": 1196145,
+    "reference_state": "SUPERVISOR_DRAFT",
+    "fact_count": 289,
+    "evidence_target_count": 368,
+    "source_pack_sha256": "eb729446edb1c698cc0ea3ecc6e92a1cf3cf217a24bea6320c744e919699f7ae",
+    "source_pack_bytes": 1790561,
+    "primary_source_sha256": "587e4ba2ca65c4a3f453471434ca69b41ba71fe59ae64897590b1fc6c44c97fe",
+    "representation_sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d",
+    "scope_sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d",
+    "unit_inventory_sha256": "b4c45ebccf7bfc4ec02d902aaa96b7f968bcc07719b40ceef28c79985bf1c5b4",
+    "unit_count": 260,
+    "independence_policy": {
+      "fresh_webchat_execution_independence": true,
+      "if_openai_gpt_5_6_family": "WEAK_OR_UNKNOWN",
+      "strong_gate": false,
+      "human_gate": false
+    }
+  },
+  "custody_verification": {
+    "result": "PASS",
+    "note": "Declared custody identities were preserved exactly. Direct file identities checked for reference, source pack, primary source, Representation, and unit inventory matched the declared custody values. custody.scope_sha256 is the benchmark selected-text/source-Representation identity recorded in SOURCE/scope.json, not the byte hash of scope.json.",
+    "input_integrity": [
+      {
+        "file": "CUSTODY/CUSTODY.json",
+        "sha256": "5438061a6410d8da60dfd637c323090073332d5bda4d06615556c1a119d56476",
+        "bytes": 1120
+      },
+      {
+        "file": "PRIMARY_SOURCE_CHECK/D4_PDF_PAGE_15.png",
+        "sha256": "7cbd80c1b6cfff222315eab21ea4b2fd71e069b3a6b0d1f10a0c349aa072b25a",
+        "bytes": 326412
+      },
+      {
+        "file": "PRIMARY_SOURCE_CHECK/D4_PDF_PAGE_16.png",
+        "sha256": "bbc1964ee14bdb36fe7748b45d36a4141d3618786e7fc9f0fc2294b6dd9d90f4",
+        "bytes": 605500
+      },
+      {
+        "file": "REFERENCE/D4_REFERENCE_SUPERVISOR_DRAFT_V2.json",
+        "sha256": "042c08443f1083adc0d11e1123471529d1a42619d7f5993754eb6459e7cc5e76",
+        "bytes": 1196145
+      },
+      {
+        "file": "REFERENCE/REFERENCE_COVERAGE_INDEX.json",
+        "sha256": "c5453c5ec759a5fcca86db54a59de48744dc3cbd278fdd056627be9c9b9ba9f3",
+        "bytes": 354446
+      },
+      {
+        "file": "REVERSE_SAMPLE/REVERSE_SAMPLE.json",
+        "sha256": "1acdefe6648f8ecf9448123f6d7e4fbac73d4f4a230e061ab69dfb24bcb40372",
+        "bytes": 196472
+      },
+      {
+        "file": "SOURCE/SCOPED_SOURCE_UNITS.json",
+        "sha256": "6c3fbb907a40579e33f59d4720aa04df9a5004763aeaf5506e7cc08ac1b84664",
+        "bytes": 118891
+      },
+      {
+        "file": "SOURCE/representation.txt",
+        "sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d",
+        "bytes": 61507
+      },
+      {
+        "file": "SOURCE/source.pdf",
+        "sha256": "587e4ba2ca65c4a3f453471434ca69b41ba71fe59ae64897590b1fc6c44c97fe",
+        "bytes": 1911828
+      },
+      {
+        "file": "SOURCE/units.csv",
+        "sha256": "b4c45ebccf7bfc4ec02d902aaa96b7f968bcc07719b40ceef28c79985bf1c5b4",
+        "bytes": 31296
+      },
+      {
+        "file": "CUSTODY/D4-CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001.tar.gz",
+        "sha256": "eb729446edb1c698cc0ea3ecc6e92a1cf3cf217a24bea6320c744e919699f7ae",
+        "bytes": 1790561
+      }
+    ]
+  },
+  "reviewer": {
+    "organization": "OpenAI",
+    "model": "GPT-5.6 Sol",
+    "execution_context": "single fresh temporary ChatGPT webchat",
+    "independence": "WEAK_OR_UNKNOWN",
+    "independence_basis": "Required by the supplied audit policy for OpenAI/GPT-5.6-family reviewers; fresh-chat execution does not constitute materially independent model assurance."
+  },
+  "constraints_observed": {
+    "reference_edited": false,
+    "repository_files_mutated": false,
+    "commits_created": false,
+    "lector_implemented_or_run": false,
+    "prohibited_material_inspected": false,
+    "prohibited_material": [
+      "A0-A5 candidate outputs/scores",
+      "Acta 160",
+      "H2",
+      "production Lector output",
+      "thresholds"
+    ]
+  },
+  "phase_0": {
+    "result": "PASS",
+    "checks": [
+      {
+        "check_id": "D4-PRIMARY-FOOTNOTE4",
+        "result": "PASS",
+        "image": "PRIMARY_SOURCE_CHECK/D4_PDF_PAGE_16.png",
+        "observation": "Frozen PDF page 16 visibly shows civic quantity 10 followed by superscript footnote marker 4, not civic quantity 104. Footnote 4 visibly breaks the 10 cases into 5 proveedor único, 4 reparaciones indeterminadas, and 1 bienes o servicios artísticos, culturales e intelectuales.",
+        "representation_artifact": "The text Representation linearizes the visible 10 plus superscript 4 as 104; this is an extraction artifact, not a civic quantity."
+      },
+      {
+        "check_id": "D4-PRIMARY-ACTIVO-MOTIVADO",
+        "result": "PASS",
+        "image": "PRIMARY_SOURCE_CHECK/D4_PDF_PAGE_15.png",
+        "observation": "Frozen PDF page 15, Cuadro n.° 2, literally prints “activo motivado”. The separate report occurrence “acto motivado” remains distinct and is not used to silently normalize the table wording.",
+        "table_representation_range": {
+          "start": 30395,
+          "end": 30545
+        },
+        "table_exact_text": "➔ 9\n\nDiferencias entre el monto y cantidad ofertada con la adjudicada, del cual no\nconsta un activo motivado para la justificación de las diferencias.",
+        "separate_acto_occurrence_range": {
+          "start": 6959,
+          "end": 7206
+        },
+        "separate_acto_exact_text": "hay incumplimientos del plazo establecido en el pliego de condiciones para la adjudicación (acto\nfinal), y en otros 9 la carencia de un acto motivado para la justificación de las diferencias entre\nel monto y la cantidad ofertada con la adjudicada."
+      }
+    ],
+    "hard_source_fidelity_findings": []
+  },
+  "phase_1": {
+    "result": "PASS",
+    "completion": {
+      "scoped_units_reviewed": 260,
+      "scoped_units_total": 260,
+      "all_scoped_units_reviewed": true,
+      "source_order_complete": true,
+      "first_unit": "U0001",
+      "last_unit": "U0260"
+    },
+    "comparison_target": "REFERENCE/REFERENCE_COVERAGE_INDEX.json",
+    "coverage_index_fact_count": 289,
+    "reference_evidence_target_count": 368,
+    "source_unit_semantic_checkpoint": {
+      "material_fact_units": 170,
+      "no_material_civic_fact_units": 88,
+      "context_only_units": 2,
+      "unresolved_units": 0
+    },
+    "review_dimensions": [
+      "actor",
+      "modality",
+      "condition",
+      "reason",
+      "scope",
+      "negation",
+      "quantity/time",
+      "procedural/finality status",
+      "attribution"
+    ],
+    "exclusions_applied": [
+      "ceremonial/page furniture",
+      "exact repeats",
+      "extraction artifacts",
+      "derived arithmetic",
+      "completions requiring guessing"
+    ],
+    "coverage_search_before_omission_call": true,
+    "checkpoint": {
+      "scoped_units_reviewed": "all 260/260",
+      "candidate_omissions": [],
+      "confirmed_hard_omissions": []
+    },
+    "notes": [
+      "Executive/conclusion/disposition restatements without separate direct unit-to-fact links were checked against the complete coverage index and were represented by their corresponding detailed source assertions; exact repeats were not counted as omissions.",
+      "The page-16 104 extraction artifact was resolved only from the frozen primary-source image as 10 with footnote marker 4.",
+      "The page-15 “activo motivado” table wording and the separate “acto motivado” occurrence are both preserved as an internal source wording conflict rather than silently harmonized.",
+      "The source graphic occurrence “16 expedientes” is preserved literally in the reference rather than silently normalized to the 15-procedure count used elsewhere."
+    ],
+    "hard_findings": []
+  },
+  "phase_2": {
+    "result": "PASS",
+    "completion": "80/80",
+    "sample_count": 80,
+    "pass_count": 80,
+    "fail_count": 0,
+    "criteria_verified_for_each_fact": [
+      "source entailment",
+      "attribution/provenance",
+      "modality",
+      "conditions/reasons/negation",
+      "referent resolution",
+      "temporal/quantitative qualifiers",
+      "evidence sufficiency",
+      "minimality",
+      "no stronger claim than source"
+    ],
+    "fact_results": [
+      {
+        "fact_id": "D4-F0003",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0005",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0007",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0011",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0014",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0024",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0025",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0026",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0028",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0030",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0032",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0034",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0039",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0042",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0050",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0059",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0060",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0061",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0062",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0063",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0064",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0065",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0066",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0067",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0071",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0083",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0087",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0106",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0110",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0112",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0117",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0120",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0121",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0123",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0126",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0152",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0163",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0178",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0185",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0202",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0203",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0208",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0213",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0216",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0218",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0220",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0235",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0239",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0240",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0241",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0242",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0243",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0244",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0245",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0248",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0249",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0253",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0254",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0255",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0265",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0269",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0274",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0292",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0293",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0294",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0296",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0297",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0302",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0308",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0324",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0333",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0336",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0337",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0340",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0342",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0346",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0355",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0356",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0366",
+        "result": "PASS"
+      },
+      {
+        "fact_id": "D4-F0368",
+        "result": "PASS"
+      }
+    ],
+    "embedded_evidence_integrity": {
+      "evidence_entries_checked": 115,
+      "exact_range_text_matches": 115,
+      "selected_text_sha256_matches": 115,
+      "mechanical_mismatches": 0
+    },
+    "special_resolutions": [
+      {
+        "fact_id": "D4-F0067",
+        "result": "PASS",
+        "basis": "The table literal “activo motivado” and separate executive-summary “acto motivado” occurrence are both retained; the latter independently supports the semantic “acto motivado” fact while the internal source wording conflict remains explicit."
+      },
+      {
+        "fact_id": "D4-F0218",
+        "result": "PASS",
+        "basis": "Frozen page 16 resolves the text-extraction “104” as visible 10 plus superscript footnote marker 4."
+      },
+      {
+        "fact_id": "D4-F0220",
+        "result": "PASS",
+        "basis": "Frozen page 16 and footnote 4 support the 10-case total and 5/4/1 breakdown."
+      }
+    ],
+    "hard_findings": []
+  },
+  "hard_findings": [],
+  "hard_finding_count": 0,
+  "systemic_class_analysis": {
+    "found": false,
+    "result": "NO_SYSTEMIC_CLASS",
+    "threshold_rule": "Normally >=3 confirmed affected facts across >=2 distinct structures/source regions, or a demonstrated shared authoring transformation with multiple confirmed instances and plausible wider reach.",
+    "confirmed_affected_facts": 0,
+    "confirmed_classes": [],
+    "basis": "No hard semantic or source-fidelity finding was confirmed, so the systemic-class threshold is not met."
+  },
+  "final_verdict": "CLOSURE_PASS_NO_DISPUTES",
+  "recommended_next_action": "Governance/freeze decision; no further broad audit."
+}

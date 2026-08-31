@@ -530,3 +530,16 @@ D1 v10 was mechanically certified unchanged at `7a1441c736653d67737378545d038105
 `REFERENCE_ASSURANCE_AMENDMENT_V1.md` separates immutable benchmark freeze from independence assurance. D1 is therefore promoted to `FROZEN_INTERNAL` with assurance tier `SATURATED_INTERNAL`: its semantic digest is `dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df` and its deterministic evidence-reopening manifest digest is `cdec79058c0de89b8d7d17ac4a4e9597778b4829ed9a9174168a004dfe512714`. This state is eligible for internal fit-bench use once the remaining pre-run gates close, but it is not strong materially-independent certification. Independence remains `WEAK_OR_UNKNOWN`; strong/human gates remain false.
 
 No further broad D1 semantic audit is authorized. Reopening D1 semantics now requires an explicit `REFERENCE_DEFECT` Research Interrupt. Formal A0–A5 outputs/scores remain unseen, thresholds remain unfrozen, Acta 160 and H2 remain untouched, and production broad-Lector implementation remains unauthorized. F3 continues only for the remaining development references.
+
+## F3 progress — D4 closure and internal freeze
+
+- Exact D4 closure audit preserved as `D4_CLOSURE_AUDIT_V2.{json,md}`.
+- Verdict: `CLOSURE_PASS_NO_DISPUTES`.
+- Phase 0: both primary-source literal checks PASS (`10` + footnote marker `4`; `activo motivado` preserved separately from `acto motivado`).
+- Phase 1: 260/260 scoped units, 0 hard omissions.
+- Phase 2: 80/80 bounded reverse sample, 0 hard findings.
+- Systemic class: none.
+- D4 semantic payload remains exactly supervisor draft v2: 289 facts / 368 evidence targets.
+- Governance state promoted to `FROZEN_INTERNAL / SATURATED_INTERNAL`; independence remains `WEAK_OR_UNKNOWN`.
+- No further broad D4 semantic audit is authorized.
+- D3 targeted closure repair remains the only development-reference semantic gate before reference-only threshold policy.

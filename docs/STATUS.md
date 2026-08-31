@@ -115,3 +115,9 @@ Canario still has no public compatibility-bearing database fleet. Correct schema
 ## D1 reference assurance frontier
 
 `CR-ESPARZA-MINUTES-001` is `FROZEN_INTERNAL` under `REFERENCE_ASSURANCE_AMENDMENT_V1`: 789 facts / 2,035 evidence targets, semantic digest `dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df`, assurance `SATURATED_INTERNAL`, independence `WEAK_OR_UNKNOWN`, strong/human gates false. No further broad D1 semantic audit is authorized. This does not yet authorize A0–A5 because remaining development references and threshold policy are still open.
+
+## Lector fit bench — D4 internal reference freeze
+
+D4 `CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001` is now `FROZEN_INTERNAL / SATURATED_INTERNAL` pending local mechanical certification of this governance commit. Its closure audit passed with 0 hard findings: both primary-source literal checks PASS, 260/260 source units swept, 80/80 reverse sample PASS, no systemic class. Independence remains `WEAK_OR_UNKNOWN`; strong/human gates are false.
+
+D1 and D4 are closed for ordinary broad semantic iteration. D3 remains open only for the targeted closure repair/audit required by its demonstrated layout-boundary evidence class. A0-A5, thresholds and production Lector remain unauthorized.

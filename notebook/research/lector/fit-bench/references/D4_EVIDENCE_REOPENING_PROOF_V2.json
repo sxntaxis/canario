@@ -1,0 +1,15 @@
+{
+  "format": "canario.lector.evidence-reopening-proof/v1",
+  "fixture_id": "CR-CGR-SANTA-ANA-PROCUREMENT-AUDIT-001",
+  "representation_sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d",
+  "benchmark_scope_sha256": "324dfd50e4cee6619bf0f8cbce223004bc34bd9d980cad90823f3a195111893d",
+  "unit_inventory_sha256": "b4c45ebccf7bfc4ec02d902aaa96b7f968bcc07719b40ceef28c79985bf1c5b4",
+  "fact_count": 289,
+  "evidence_target_count": 368,
+  "all_target_hashes_reopened_against_exact_representation": true,
+  "manifest_digest_algorithm": "SHA256(canonical JSON; sort_keys=true; separators=(comma,colon); UTF-8)",
+  "manifest_sha256": "0403dee6fda323db3551b0488e3fa64761c357edc171cb93b712ce05da7fe67a",
+  "semantic_digest_sha256": "d335ecbb8a6265db9211f648eb7d83a17ee8ac58b1a835dd20c9ddc9eea5a93c",
+  "source_v2_reference_sha256": "042c08443f1083adc0d11e1123471529d1a42619d7f5993754eb6459e7cc5e76",
+  "source_reference_commit": "a3fd4cd73bab241d0797cb84b2b3f52729bc498b"
+}
