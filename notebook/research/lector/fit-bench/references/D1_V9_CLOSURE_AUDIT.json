@@ -1,0 +1,411 @@
+{
+  "audit_format": "canario.d1.v9.closure-audit-result/v1",
+  "custody": {
+    "format": "canario.d1.v9.single-webchat-closure-audit/v1",
+    "fixture_id": "CR-ESPARZA-MINUTES-001",
+    "candidate_commit": "807c49c7768f435405b760104fb90a14e5b06064",
+    "candidate_tree": "2cd668be6d1ad1c54d4b0874001a8d0ffa660a31",
+    "reported_local_certified_bundle": {
+      "sha256": "c0d2c3ea4d437f206f7729a0e877cc89978640b66e8d5b2eb8fbd08d4644c35b",
+      "bytes": 2825262,
+      "advertised_ref": "refs/heads/research/lector-d1-reference-cloud-author-v9",
+      "note": "Mechanical certification result reported by local certifier; the closure package uses semantic artifacts extracted from the exact candidate commit."
+    },
+    "reference": {
+      "sha256": "88bf2160fd286116bd9501778b03b39febdac5bedfc9be02355c3b18541b40a7",
+      "bytes": 3848773,
+      "facts": 788,
+      "evidence_targets": 2031
+    },
+    "frozen_source": {
+      "recovery_sha256": "ace4020b156888474ef7097b98e405756abbb1e1d06366165ab796d1593a5fbf",
+      "recovery_bytes": 745476,
+      "representation_sha256": "02d1578cfc44097c6e5e802880919ff6f7a18bd2105330035959c4cccd467ea1",
+      "representation_bytes": 154866,
+      "representation_characters": 151940,
+      "scope_sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+      "unit_inventory_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+      "units": 61
+    },
+    "independence_policy": {
+      "if_reviewer_is_openai_gpt_5_6_sol": "WEAK_OR_UNKNOWN",
+      "strong_independent_gate_satisfied": false,
+      "human_independent_gate_satisfied": false
+    }
+  },
+  "source_scope": {
+    "scope_version": "canario.lector.fit-bench.benchmark-scope/v1",
+    "selection": "full_source_order",
+    "char_start": 0,
+    "char_end": 151940,
+    "sha256": "25d3bb9dd604109e1d01b7465f11c88a35a2adb26a388a0dd4ef48842cb9c3a5",
+    "unit_inventory_sha256": "0a2f76f1e737acb82a3430b7d6a7b1394525d9502dc4163298d45e3d6f4cf3de",
+    "unit_count": 61
+  },
+  "reviewer": {
+    "provider": "OpenAI",
+    "model": "GPT-5.6 Sol"
+  },
+  "independence": {
+    "independence_strength": "WEAK_OR_UNKNOWN",
+    "strong_independent_gate_satisfied": false,
+    "human_independent_gate_satisfied": false
+  },
+  "phase1": {
+    "units_reviewed": "61/61",
+    "candidate_omissions": [
+      {
+        "candidate_id": "P1-C001",
+        "unit_id": "U0014",
+        "char_start": 20115,
+        "char_end": 20385,
+        "status": "CONFIRMED_HARD_OMISSION",
+        "summary": "Procedural action-agent omission: the source directs the Secretaría to respond to the Contraloría in the stated terms and attach the first-publication receipt; the indexed facts preserve response substance/attachment but not the Secretaría as the directed respondent."
+      },
+      {
+        "candidate_id": "P1-C002",
+        "unit_id": "U0015",
+        "char_start": 21382,
+        "char_end": 21559,
+        "status": "CONFIRMED_HARD_OMISSION",
+        "summary": "Uncertainty/reason omission: Flor Cubero explicitly says they do not know who filed the complaint, as the reason for wanting the response to reach the community/complainant."
+      },
+      {
+        "candidate_id": "P1-C003",
+        "unit_id": "U0061",
+        "char_start": 151623,
+        "char_end": 151762,
+        "status": "CONFIRMED_HARD_OMISSION",
+        "summary": "Formal session finality/time omission: the presidency ends the session at 21:07 on 18 May 2026."
+      },
+      {
+        "candidate_id": "P1-C004",
+        "unit_id": "U0014",
+        "status": "DISMISSED_EXACT_REPEAT_OR_ATTRIBUTIVE_RESTATEMENT",
+        "summary": "Ronald Robles repeats the President’s requested Contraloría response and publication-wait point; no additional meaning-changing proposition beyond indexed content."
+      },
+      {
+        "candidate_id": "P1-C005",
+        "unit_id": "U0016",
+        "status": "DISMISSED_NONMATERIAL_EVALUATION",
+        "summary": "Generic evaluation that the pool work has been difficult; no distinct material civic assertion requiring a canonical fact."
+      },
+      {
+        "candidate_id": "P1-C006",
+        "unit_id": "U0061",
+        "status": "DISMISSED_EMOTIVE_OR_REDUNDANT",
+        "summary": "Happiness/postponement phrasing around the bridge inauguration is emotive or redundant with indexed project/inauguration facts."
+      }
+    ],
+    "confirmed_hard_omissions": [
+      "D1-V9-CLOSURE-P1-0001",
+      "D1-V9-CLOSURE-P1-0002",
+      "D1-V9-CLOSURE-P1-0003"
+    ],
+    "phase1_checkpoint_sha256": "71086f41146e2cfee52e704662e17fa991e143a8a3f9a4eee582d75495242720",
+    "checkpoint_hash_definition": "SHA256 of canonical UTF-8 JSON serialization of all checkpoint fields except phase1_checkpoint_sha256."
+  },
+  "phase2": {
+    "sampled_facts_reviewed": "125/125",
+    "reviewed_fact_ids": [
+      "D1-F0026",
+      "D1-F0033",
+      "D1-F0041",
+      "D1-F0129",
+      "D1-F0141",
+      "D1-F0142",
+      "D1-F0153",
+      "D1-F0160",
+      "D1-F0167",
+      "D1-F0170",
+      "D1-F0189",
+      "D1-F0196",
+      "D1-F0199",
+      "D1-F0200",
+      "D1-F0204",
+      "D1-F0205",
+      "D1-F0223",
+      "D1-F0228",
+      "D1-F0235",
+      "D1-F0238",
+      "D1-F0248",
+      "D1-F0249",
+      "D1-F0251",
+      "D1-F0259",
+      "D1-F0267",
+      "D1-F0289",
+      "D1-F0296",
+      "D1-F0301",
+      "D1-F0302",
+      "D1-F0310",
+      "D1-F0316",
+      "D1-F0323",
+      "D1-F0331",
+      "D1-F0332",
+      "D1-F0333",
+      "D1-F0336",
+      "D1-F0337",
+      "D1-F0338",
+      "D1-F0340",
+      "D1-F0352",
+      "D1-F0353",
+      "D1-F0366",
+      "D1-F0367",
+      "D1-F0368",
+      "D1-F0369",
+      "D1-F0370",
+      "D1-F0371",
+      "D1-F0372",
+      "D1-F0373",
+      "D1-F0374",
+      "D1-F0381",
+      "D1-F0382",
+      "D1-F0384",
+      "D1-F0386",
+      "D1-F0387",
+      "D1-F0412",
+      "D1-F0422",
+      "D1-F0425",
+      "D1-F0461",
+      "D1-F0504",
+      "D1-F0523",
+      "D1-F0529",
+      "D1-F0532",
+      "D1-F0534",
+      "D1-F0549",
+      "D1-F0556",
+      "D1-F0564",
+      "D1-F0569",
+      "D1-F0580",
+      "D1-F0581",
+      "D1-F0582",
+      "D1-F0583",
+      "D1-F0584",
+      "D1-F0585",
+      "D1-F0586",
+      "D1-F0587",
+      "D1-F0589",
+      "D1-F0592",
+      "D1-F0604",
+      "D1-F0609",
+      "D1-F0617",
+      "D1-F0621",
+      "D1-F0625",
+      "D1-F0628",
+      "D1-F0632",
+      "D1-F0642",
+      "D1-F0645",
+      "D1-F0647",
+      "D1-F0648",
+      "D1-F0696",
+      "D1-F0708",
+      "D1-F0713",
+      "D1-F0715",
+      "D1-F0718",
+      "D1-F0721",
+      "D1-F0722",
+      "D1-F0723",
+      "D1-F0725",
+      "D1-F0731",
+      "D1-F0741",
+      "D1-F0742",
+      "D1-F0747",
+      "D1-F0748",
+      "D1-F0751",
+      "D1-F0771",
+      "D1-F0773",
+      "D1-F0774",
+      "D1-F0775",
+      "D1-F0776",
+      "D1-F0777",
+      "D1-F0778",
+      "D1-F0779",
+      "D1-F0780",
+      "D1-F0781",
+      "D1-F0782",
+      "D1-F0783",
+      "D1-F0784",
+      "D1-F0785",
+      "D1-F0788",
+      "D1-F0789",
+      "D1-F0802",
+      "D1-F0813",
+      "D1-F0815",
+      "D1-F0825",
+      "D1-F0829"
+    ],
+    "hard_reverse_findings": [],
+    "suspected_systemic_classes": [],
+    "evidence_integrity": {
+      "embedded_evidence_text_sha256_mismatches": 0
+    },
+    "phase2_checkpoint_sha256": "7e1f599b9376bc914d5252e16fc3f1961afd4fc1df990397cfca4a607a341a02",
+    "checkpoint_hash_definition": "SHA256 of canonical UTF-8 JSON serialization of all checkpoint fields except phase2_checkpoint_sha256."
+  },
+  "phase3": {
+    "regression_rows_reviewed": "10/10",
+    "delta_fact_count": 11,
+    "regression_matrix": [
+      {
+        "row": 1,
+        "prior_finding_id": "D1-V8-S02-IR-0001",
+        "v9_fact_ids": [
+          "D1-F0154",
+          "D1-F0832"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0154 restores the confirmation deadline and both stated contact channels; D1-F0832 separately preserves the post-inaugural lunch for attendees and their accompanying person. Exact evidence entails both repairs."
+      },
+      {
+        "row": 2,
+        "prior_finding_id": "D1-V8-S02-IR-0002",
+        "v9_fact_ids": [
+          "D1-F0833"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0833 preserves Ronald Robles’s explicit invitation to all persons to attend the 30 May 2026 dance and meet the Señorita Esparza candidates."
+      },
+      {
+        "row": 3,
+        "prior_finding_id": "D1-V8-S02-IR-0003",
+        "v9_fact_ids": [
+          "D1-F0714"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0714 uses desiderative “quisiera confirmar” and separately preserves the request for an Administration vehicle; it does not convert the utterance into completed self-confirmation."
+      },
+      {
+        "row": 4,
+        "prior_finding_id": "D1-V8-S02-IR-0004",
+        "v9_fact_ids": [
+          "D1-F0174"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0174 preserves “cualquier otra colaboración” subject to “en la medida de las posibilidades” without the unsupported qualifier “administrativas”."
+      },
+      {
+        "row": 5,
+        "prior_finding_id": "D1-V8-S02-IR-0005",
+        "v9_fact_ids": [
+          "D1-F0194"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0194 preserves all three stated reasons for proposing Christian Tercero as liaison: musical knowledge, having presented the motion, and being more familiar with the topic."
+      },
+      {
+        "row": 6,
+        "prior_finding_id": "D1-V8-S03-IR-0001",
+        "v9_fact_ids": [
+          "D1-F0834"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0834 separately preserves Flor Cubero’s statement that resolving some matters in the Concejo does not mean eliminating pending commission work."
+      },
+      {
+        "row": 7,
+        "prior_finding_id": "D1-V8-S04-IR-0001",
+        "v9_fact_ids": [
+          "D1-F0360"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0360 restores the source modality “consideró importante solicitar” for an ICE explanation rather than strengthening it to a completed request."
+      },
+      {
+        "row": 8,
+        "prior_finding_id": "D1-V8-S04-IR-0002",
+        "v9_fact_ids": [
+          "D1-F0361"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0361 restores the source modality “consideró importante solicitar” for an ICE technical review rather than strengthening it to a completed request."
+      },
+      {
+        "row": 9,
+        "prior_finding_id": "D1-V8-S05-IR-0001",
+        "v9_fact_ids": [
+          "D1-F0835"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0835 preserves the President’s distinct procedural receipt and direction to make the request to the Consejo Cantonal de Coordinación."
+      },
+      {
+        "row": 10,
+        "prior_finding_id": "D1-V8-S06-IR-0001",
+        "v9_fact_ids": [
+          "D1-F0836"
+        ],
+        "classification": "RESOLVED_IN_V9",
+        "verification": "D1-F0836 preserves the formal transfer to the Administration for recognitions, the later recognition in the Concejo, and final unanimous approval."
+      }
+    ],
+    "hard_regression_findings": []
+  },
+  "hard_findings": [
+    {
+      "finding_id": "D1-V9-CLOSURE-P1-0001",
+      "phase": 1,
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "PROCEDURAL_ACTION_AGENT_OMISSION",
+      "affected_fact_ids": [
+        "D1-F0074",
+        "D1-F0075",
+        "D1-F0076",
+        "D1-F0077"
+      ],
+      "exact source evidence/range": {
+        "unit_id": "U0014",
+        "char_start": 20115,
+        "char_end": 20385,
+        "exact_text": "Entonces, más o menos recogiendo las ideas que mencionaban el señor regidor y\n29   el señor Presidente, que la Secretaría le responda en esos términos a la\n30   Contraloría y adjunte, por favor, el recibo de pago de la primera publicación en el\n31   periódico La Gaceta."
+      },
+      "problem": "The index preserves the proposed response content and the invoice attachment, but omits Olivier López’s procedural direction that the Secretaría be the actor that responds to the Contraloría in those terms.",
+      "source-grounded reason": "The source explicitly assigns the response action to “la Secretaría”. D1-F0074–D1-F0076 encode what should be communicated and D1-F0077 encodes the attachment, but none preserves that response-agent assignment. The later formal agreement likewise preserves Concejo communication plus the Secretaría attachment, not this discussion-level direction that the Secretaría respond.",
+      "systemic_class_candidate": false,
+      "systemic_class_name": null
+    },
+    {
+      "finding_id": "D1-V9-CLOSURE-P1-0002",
+      "phase": 1,
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "UNCERTAINTY_REASON_OMISSION",
+      "affected_fact_ids": [
+        "D1-F0084"
+      ],
+      "exact source evidence/range": {
+        "unit_id": "U0015",
+        "char_start": 21382,
+        "char_end": 21559,
+        "exact_text": "Regidora Flor Cubero Martínez: Yo quisiera reafirmar un poquito eso, porque es\n46   una denuncia que se presentó y no sabemos quién la interpuso para enviarle la\n47   respuesta."
+      },
+      "problem": "Flor Cubero’s explicit uncertainty that they did not know who filed the complaint—and its role as the reason direct response was problematic—is absent from the index.",
+      "source-grounded reason": "D1-F0084 preserves Flor Cubero’s proposal to make the explanation reach the community and complainant(s), while D1-F0086–D1-F0088 separately preserve Olivier López’s later possibilities about anonymity and who might know the complainant. None preserves Flor’s own “no sabemos quién la interpuso” uncertainty and reason.",
+      "systemic_class_candidate": false,
+      "systemic_class_name": null
+    },
+    {
+      "finding_id": "D1-V9-CLOSURE-P1-0003",
+      "phase": 1,
+      "direction": "SOURCE_TO_REFERENCE",
+      "issue_type": "FORMAL_FINALITY_OMISSION",
+      "affected_fact_ids": [],
+      "exact source evidence/range": {
+        "unit_id": "U0061",
+        "char_start": 151623,
+        "char_end": 151762,
+        "exact_text": "A las veintiún horas con siete minutos del lunes dieciocho de mayo del dos\n33   mil veintiséis, la presidencia da por finalizada la sesión."
+      },
+      "problem": "The formal adjournment of the session, including its 21:07 time and 18 May 2026 date, is not represented by any canonical fact.",
+      "source-grounded reason": "The source explicitly records final procedural status and exact time/date. Searches across all 788 canonical semantic notes found no fact representing the session’s finalization or 21:07 adjournment.",
+      "systemic_class_candidate": false,
+      "systemic_class_name": null
+    }
+  ],
+  "hard_finding_count": 3,
+  "systemic_class_analysis": {
+    "systemic_class_found": false,
+    "demonstrated_systemic_classes": [],
+    "analysis": "The three confirmed defects are localized and semantically distinct: one procedural response-agent omission, one uncertainty/reason omission, and one formal adjournment/finality omission. They do not establish at least three confirmed affected facts across at least two structures/source regions for the same underlying failure, and no shared unbounded authoring transformation is demonstrated by multiple confirmed examples."
+  },
+  "final_closure_verdict": "CLOSURE_LOCAL_REPAIRS_ONLY",
+  "recommended_next_action": "Perform one bounded source-only repair pass for exactly these findings.\nMechanically certify the repaired reference.\nDO NOT run another broad D1 semantic audit.\nThen proceed to governance closure/freeze decision."
+}
