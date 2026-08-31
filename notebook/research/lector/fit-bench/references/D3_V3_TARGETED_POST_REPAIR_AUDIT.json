@@ -1,0 +1,256 @@
+{
+  "format": "canario.lector.d3-v3-targeted-post-repair-audit/v1",
+  "audit_name": "Canario D3 v3 targeted post-repair audit",
+  "candidate": {
+    "path": "REFERENCE/D3_REFERENCE_SUPERVISOR_DRAFT_V3.json",
+    "sha256": "9144066703622f683b8bcaa0bae4d748c8d7631d13884f3ea4d69147f7b8c94b",
+    "facts": 351,
+    "evidence_targets": 545,
+    "reference_state": "SUPERVISOR_DRAFT"
+  },
+  "independence": "WEAK_OR_UNKNOWN",
+  "scope_constraint": "Targeted regression only. No broad semantic audit performed.",
+  "input_integrity": {
+    "package_sha256s_and_bytes": "PASS",
+    "frozen_source_tar_matches_supplied_source_pdf": true,
+    "frozen_source_tar_matches_supplied_representation": true,
+    "candidate_evidence_target_hashes_for_all_24_layout_rows": "PASS"
+  },
+  "layout_boundary_class": {
+    "status": "VERIFIED_24_OF_24",
+    "page_adjacent_rows_verified": 24,
+    "page_adjacent_rows_total": 24,
+    "repair_required_verified": 12,
+    "repair_required_total": 12,
+    "already_sufficient_verified": 12,
+    "already_sufficient_total": 12,
+    "systemic_class_closed": true,
+    "rows": [
+      {
+        "fact_id": "D3-F0008",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation supplies Municipalidad de Esparza, CCDRE, procurement-procedure scope, and execution phase required by the canonical assertion."
+      },
+      {
+        "fact_id": "D3-F0017",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Article 3 intro establishes that Proveeduría need not process listed items in the SDU; post-boundary continuation completes the caja-chica legal references to LGCP/RLGCP."
+      },
+      {
+        "fact_id": "D3-F0018",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Post-boundary continuation expressly supplies Tesorería, the next-business-day deadline after vale liquidation, and SDU entry of the caja-chica purchase information."
+      },
+      {
+        "fact_id": "D3-F0050",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The pre-boundary target is a complete sentence covering participating units, Proveeduría, start-to-finish scope, and competence limitation; no omitted continuation is needed."
+      },
+      {
+        "fact_id": "D3-F0078",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation completes the community referent as the community where the project will be developed, making the quality/communication assertion self-sufficient."
+      },
+      {
+        "fact_id": "D3-F0079",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation expressly lists object, start/end timing, cost, contractor, inspection personnel, and communication medium with the promoting entity."
+      },
+      {
+        "fact_id": "D3-F0091",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The complete Article 17 target before the marker directly supports PI management of convenio-marco/entrega-según-demanda tenders and case-by-case selection for ME/CCDRE."
+      },
+      {
+        "fact_id": "D3-F0092",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The same complete pre-boundary Article 17 target expressly states approval under the internal regulation, LGCP, and RLGCP."
+      },
+      {
+        "fact_id": "D3-F0093",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The pre-boundary Article 17 target expressly places convenio-marco processing with PI before DCPMH under LGCP, RLGCP, and the regulation."
+      },
+      {
+        "fact_id": "D3-F0132",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "Article 21 intro attributes the duty to Proveeduría and item t) fully states SDU publication of invitations for all procurement procedures before the marker."
+      },
+      {
+        "fact_id": "D3-F0153",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "Article 21 intro plus complete item hh) before the marker directly supports the condition and requirement for proof of additional budget content."
+      },
+      {
+        "fact_id": "D3-F0154",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The same complete pre-boundary item hh) expressly requires reasons for the budget difference to be incorporated into the award recommendation."
+      },
+      {
+        "fact_id": "D3-F0168",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "Article 23 intro attributes the function to CRAO and complete item d) states review/approval of final resource-resolution recommendations under the RLGCP procedure."
+      },
+      {
+        "fact_id": "D3-F0169",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "Before the marker the target fully states that CRAO members must process all preceding recommendations in the SDU."
+      },
+      {
+        "fact_id": "D3-F0209",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "Article 27 intro plus the first complete sentence of item n) fully supports the contract-modification request duty under LGCP/RLGCP; the truncated next sentence concerns a separate 20%-50% condition."
+      },
+      {
+        "fact_id": "D3-F0210",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Post-boundary continuation completes the 20%-to-50% modification condition with the required approval of the corresponding immediate superior."
+      },
+      {
+        "fact_id": "D3-F0227",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation supplies real-property leasing/purchase, extraordinary/special/exception procedures, and the above-licitación-menor threshold required by the canonical assertion."
+      },
+      {
+        "fact_id": "D3-F0241",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation completes the rule allowing direct purchases where nature/circumstance is incompatible with competition and supplies the cited RLGCP exception articles."
+      },
+      {
+        "fact_id": "D3-F0268",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The pre-boundary portion already fully supports the initial post-opening transfer to US and its initial review to identify/request needed clarifications; the dangling 'Una vez que' begins a later proposition not needed by this fact."
+      },
+      {
+        "fact_id": "D3-F0269",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation states that after Proveeduría performs the clarification/subsanation step it transfers the offers again so US can issue the technical criterion."
+      },
+      {
+        "fact_id": "D3-F0270",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation expressly states the procedure is done this way because LGCP/RLGCP permit only one subsanation request procedure."
+      },
+      {
+        "fact_id": "D3-F0294",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation completes the collection method: charge against price retentions already made and outstanding payment balances."
+      },
+      {
+        "fact_id": "D3-F0313",
+        "expected_classification": "REPAIR_REQUIRED",
+        "result": "VERIFIED",
+        "finding": "Continuation supplies the integrated responsibility regimes and all named statutes/codes required by the canonical assertion."
+      },
+      {
+        "fact_id": "D3-F0346",
+        "expected_classification": "ALREADY_SUFFICIENT_BEFORE_BOUNDARY",
+        "result": "VERIFIED",
+        "finding": "The complete pre-boundary sentence assigns exclusive payment-processing responsibility to CCDRE under its own defined regulations; no continuation is needed."
+      }
+    ]
+  },
+  "dangling_referents": [
+    {
+      "fact_id": "D3-F0098",
+      "result": "PASS",
+      "basis": "Exact preceding evidence states the supplier obligation to verify/update registry information, including annual/update-on-change context, so 'esta disposición' resolves to that update duty."
+    },
+    {
+      "fact_id": "D3-F0292",
+      "result": "PASS",
+      "basis": "Exact preceding evidence states that to execute fines/penalty clauses the Administration must issue a motivated act supported by evidence, so 'esa decisión' resolves to that decision/act."
+    }
+  ],
+  "local_semantic_repairs": [
+    {
+      "fact_id": "D3-F0232",
+      "result": "PASS",
+      "check": "competent second actor",
+      "verified_value": "Junta Directiva del CCDRE"
+    },
+    {
+      "fact_id": "D3-F0261",
+      "result": "PASS",
+      "check": "technical-scope qualifier",
+      "verified_value": "aspectos de carácter técnico propios de su competencia"
+    },
+    {
+      "fact_id": "D3-F0148",
+      "result": "PASS",
+      "check": "reporting attribution",
+      "verified_value": "Proveeduría -> Alcaldía Municipal; collaborators not promoted to reporting co-subjects"
+    }
+  ],
+  "article_27_y_z": {
+    "result": "PASS",
+    "primary_pdf_check": "PASS - source PDF page 7 (printed Pág 57) visually confirms y) ends after 'para asumir' and the next printed line is malformed z) 'Vigente. El pago de la contratación.'",
+    "d3_f0351": "Preserves only the recoverable y) duty prefix and explicitly marks the missing object/complement after 'asumir' unrecoverable.",
+    "missing_object_or_complement_after_asumir": "UNRECOVERABLE",
+    "invented_completion_detected": false,
+    "article_27_z_complete_reconstruction_detected": false
+  },
+  "six_finding_regression": {
+    "status": "RESOLVED_6_OF_6",
+    "resolved": 6,
+    "total": 6,
+    "rows": [
+      {
+        "finding_id": "HF-001",
+        "classification": "RESOLVED_IN_V3",
+        "basis": "D3-F0351 now represents only the recoverable Article 27(y) prefix and explicitly records the object/complement after 'asumir' as unrecoverable; no A27-z fact reconstructs a complete duty."
+      },
+      {
+        "finding_id": "HF-002",
+        "classification": "RESOLVED_IN_V3",
+        "basis": "All 24 page-adjacent targets were reclassified against source semantics: 12/12 REPAIR_REQUIRED rows now contain sufficient continuation evidence and 12/12 ALREADY_SUFFICIENT_BEFORE_BOUNDARY rows remain genuinely sufficient without continuation."
+      },
+      {
+        "finding_id": "HF-003",
+        "classification": "RESOLVED_IN_V3",
+        "basis": "D3-F0098 includes the immediately preceding supplier-update duty resolving 'esta disposición'; D3-F0292 includes the immediately preceding motivated-act context resolving 'esa decisión'."
+      },
+      {
+        "finding_id": "HF-004",
+        "classification": "RESOLVED_IN_V3",
+        "basis": "D3-F0232 preserves the competent second actor exactly as 'Junta Directiva del CCDRE' rather than broadening authority to CCDRE generally."
+      },
+      {
+        "finding_id": "HF-005",
+        "classification": "RESOLVED_IN_V3",
+        "basis": "D3-F0261 expressly preserves 'aspectos de carácter técnico propios de su competencia' in both canonical semantics and scope qualifier."
+      },
+      {
+        "finding_id": "HF-006",
+        "classification": "RESOLVED_IN_V3",
+        "basis": "D3-F0148 attributes the duty to inform Alcaldía Municipal to Proveeduría; Asesoría Jurídica and Administrador del Contrato are not promoted to co-subjects of that reporting duty."
+      }
+    ]
+  },
+  "residual_hard_findings": [],
+  "residual_hard_finding_count": 0,
+  "verdict": "TARGETED_CLOSURE_PASS",
+  "recommended_next_action": "Governance/internal freeze. No further broad audit."
+}
