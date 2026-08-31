@@ -498,7 +498,7 @@
     {
       "article_number": 27,
       "article_text_sha256": "039b4a36d6116d7d96baba53f06a16dd0243ff4bc5471eb62e875436f404bf2a",
-      "fact_count": 34,
+      "fact_count": 35,
       "fact_ids": [
         "D3-F0193",
         "D3-F0194",
@@ -533,15 +533,14 @@
         "D3-F0223",
         "D3-F0224",
         "D3-F0225",
-        "D3-F0226"
+        "D3-F0226",
+        "D3-F0351"
       ],
-      "material_assertions_exhausted": "UNRESOLVED",
-      "omission_audit": "UNRESOLVED_PRIMARY_TEXT",
+      "material_assertions_exhausted": "PASS_WITH_SOURCE_AMBIGUITY_PRESERVED",
+      "omission_audit": "PASS_AFTER_PRIMARY_SOURCE_AMBIGUITY_ADJUDICATION",
       "scope_char_end": 41307,
       "scope_char_start": 36202,
-      "unresolved_ids": [
-        "D3-UQ-0001"
-      ]
+      "unresolved_ids": []
     },
     {
       "article_number": 28,
@@ -994,7 +993,7 @@
   ],
   "authority": {
     "authoring_method": "REFERENCE_AUTHORING_METHOD_V1",
-    "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2",
+    "reference_protocol": "REFERENCE_PROTOCOL_FREEZE_V2 + REFERENCE_ASSURANCE_AMENDMENT_V1",
     "semantic_target": "BENCHMARK_SEMANTICS_FREEZE_V1"
   },
   "authorship": {
@@ -1005,7 +1004,13 @@
     "script_generated_semantic_notes": false,
     "semantic_author_role": "supervising_cloud_author",
     "supervising_author_adversarial_review_complete": true,
-    "supervising_author_adversarial_review_id": "D3_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1"
+    "supervising_author_adversarial_review_id": "D3_SUPERVISING_AUTHOR_ADVERSARIAL_REVIEW_V1",
+    "closure_audit_v2_received": true,
+    "closure_audit_v2_complete": true,
+    "closure_audit_v2_independence_strength": "WEAK_OR_UNKNOWN",
+    "closure_systemic_class_repair_complete": true,
+    "closure_local_findings_adjudicated": true,
+    "targeted_post_repair_audit_required": true
   },
   "facts": [
     {
@@ -1541,7 +1546,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [],
       "canonical_semantic_note": "El reglamento establece regulaciones internas que deben cumplir todas las unidades administrativas y operativas de la Municipalidad de Esparza y del CCDRE durante la tramitación de contratación pública y la fase de ejecución.",
@@ -1570,6 +1577,24 @@
           "text_preview": "I.—Propósito. El presente Reglamento tiene como propósito establecer las regulaciones internas que deben cumplir todas las unidades administrativas y operativas de la",
           "unit_ids": [
             "U0001"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 3261,
+          "representation_char_start": 3041,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 2322,
+          "scope_char_start": 2102,
+          "scope_containment": "PASS",
+          "selected_characters": 220,
+          "selected_text_sha256": "4ce7bb458830b9502bca2b5d02bf989d2096b9d8d502af10e0993729dead3cbf",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "PRE-PURPOSE",
+          "text_preview": "Municipalidad de Esparza, en adelante ME, así como el Comité Cantonal de Deportes y Recreación de Esparza, en adelante CCDRE, en el trámite de los procedimientos de contratación pública, así como en su fase de ejecución.",
+          "unit_ids": [
+            "U0003"
           ]
         }
       ],
@@ -1613,7 +1638,8 @@
         "PRE-PURPOSE"
       ],
       "unit_ids": [
-        "U0001"
+        "U0001",
+        "U0003"
       ]
     },
     {
@@ -2481,7 +2507,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         3
@@ -2532,6 +2560,24 @@
           "unit_ids": [
             "U0003"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 6387,
+          "representation_char_start": 6113,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 5448,
+          "scope_char_start": 5174,
+          "scope_containment": "PASS",
+          "selected_characters": 274,
+          "selected_text_sha256": "69635ff0dc9af577e10b8d21f202ceb71acd46347b99b556a74e19952cd8bccd",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A03-b",
+          "text_preview": "LGCP y el Artículo 12 del RLGCP, sin embargo, a más tardar el día hábil siguiente de realizada la liquidación del respectivo vale de caja chica, la Tesorería por medio del funcionario designado para tal fin deberá ingresar la información de las compras realizadas en el SDU.",
+          "unit_ids": [
+            "U0006"
+          ]
         }
       ],
       "fact_id": "D3-F0017",
@@ -2579,11 +2625,14 @@
         "A03-b"
       ],
       "unit_ids": [
-        "U0003"
+        "U0003",
+        "U0006"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         3
@@ -2616,6 +2665,24 @@
           "text_preview": "b) Las compras realizadas con fondos de caja chica de conformidad con lo estipulado en el Artículo 3, inciso g) de la Ley General de Contratación Pública, en adelante",
           "unit_ids": [
             "U0003"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 6387,
+          "representation_char_start": 6113,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 5448,
+          "scope_char_start": 5174,
+          "scope_containment": "PASS",
+          "selected_characters": 274,
+          "selected_text_sha256": "69635ff0dc9af577e10b8d21f202ceb71acd46347b99b556a74e19952cd8bccd",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A03-b",
+          "text_preview": "LGCP y el Artículo 12 del RLGCP, sin embargo, a más tardar el día hábil siguiente de realizada la liquidación del respectivo vale de caja chica, la Tesorería por medio del funcionario designado para tal fin deberá ingresar la información de las compras realizadas en el SDU.",
+          "unit_ids": [
+            "U0006"
           ]
         }
       ],
@@ -2661,7 +2728,8 @@
         "A03-b"
       ],
       "unit_ids": [
-        "U0003"
+        "U0003",
+        "U0006"
       ]
     },
     {
@@ -7453,7 +7521,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         14
@@ -7484,6 +7554,24 @@
           "text_preview": "En la decisión inicial de proyectos de obra se deberán indicar los parámetros de calidad y la estrategia de comunicación que se utilizará con la comunidad en la cual se",
           "unit_ids": [
             "U0008"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 17036,
+          "representation_char_start": 16775,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 16097,
+          "scope_char_start": 15836,
+          "scope_containment": "PASS",
+          "selected_characters": 261,
+          "selected_text_sha256": "a1dc43f5db60cad30ae3ebf013ba6396d4cb4acc8424dd7134db0d8689261774",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A14-P4",
+          "text_preview": "desarrollará el proyecto, aspectos de la posterior ejecución tales como objeto, plazo de inicio y finalización, costo del proyecto, contratista, encargados de la inspección de la obra y el medio efectivo para comunicarse con la entidad que promueve el concurso.",
+          "unit_ids": [
+            "U0010"
           ]
         }
       ],
@@ -7529,11 +7617,14 @@
         "A14-P4"
       ],
       "unit_ids": [
-        "U0008"
+        "U0008",
+        "U0010"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         14
@@ -7565,6 +7656,24 @@
           "text_preview": "En la decisión inicial de proyectos de obra se deberán indicar los parámetros de calidad y la estrategia de comunicación que se utilizará con la comunidad en la cual se",
           "unit_ids": [
             "U0008"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 17036,
+          "representation_char_start": 16775,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 16097,
+          "scope_char_start": 15836,
+          "scope_containment": "PASS",
+          "selected_characters": 261,
+          "selected_text_sha256": "a1dc43f5db60cad30ae3ebf013ba6396d4cb4acc8424dd7134db0d8689261774",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A14-P4",
+          "text_preview": "desarrollará el proyecto, aspectos de la posterior ejecución tales como objeto, plazo de inicio y finalización, costo del proyecto, contratista, encargados de la inspección de la obra y el medio efectivo para comunicarse con la entidad que promueve el concurso.",
+          "unit_ids": [
+            "U0010"
           ]
         }
       ],
@@ -7615,7 +7724,8 @@
         "A14-P4"
       ],
       "unit_ids": [
-        "U0008"
+        "U0008",
+        "U0010"
       ]
     },
     {
@@ -9070,7 +9180,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-003: antecedent context added for “esta disposición”."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         18
@@ -9078,6 +9190,7 @@
       "canonical_semantic_note": "Los proveedores que suministren bienes o servicios mediante compras de caja chica quedan exceptuados de la obligación de actualización prevista en el artículo 18.",
       "capability_bindings": [
         "COV-01",
+        "CTX-01",
         "ENT-01",
         "EVD-01",
         "LANG-ES-01",
@@ -9085,6 +9198,24 @@
         "SCP-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 21305,
+          "representation_char_start": 21008,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 20366,
+          "scope_char_start": 20069,
+          "scope_containment": "PASS",
+          "selected_characters": 297,
+          "selected_text_sha256": "6d3c539e8ad8e4ec3bf241da685546f2b500996d5e4a5abd690ac7457196cde5",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A18-P3",
+          "text_preview": "Todo proveedor inscrito está obligado a verificar y actualizar la información aportada al registro en el momento de darse un cambio en su situación jurídica o de los bienes y servicios que ofrecen, al menos el primer mes de cada año, para lo cual debe realizar la actualización por medio del SDU.",
+          "unit_ids": [
+            "U0013"
+          ]
+        },
         {
           "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
           "reopening": "PASS",
@@ -13850,12 +13981,14 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-006: reporting remains attributed to Proveeduría."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         21
       ],
-      "canonical_semantic_note": "La Proveeduría, la Asesoría Jurídica y el Administrador del Contrato deben informar a la Alcaldía Municipal sobre los trámites indicados en el inciso 21.ee.",
+      "canonical_semantic_note": "La Proveeduría debe informar a la Alcaldía Municipal sobre los trámites indicados en el inciso 21.ee.",
       "capability_bindings": [
         "ATR-01",
         "COV-01",
@@ -13907,9 +14040,7 @@
       "fact_id": "D3-F0148",
       "mandatory_qualifiers": {
         "attribution": [
-          "Proveeduría",
-          "Asesoría Jurídica",
-          "Administrador del Contrato"
+          "Proveeduría"
         ],
         "condition": [],
         "cross_reference": [],
@@ -19727,7 +19858,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         27
@@ -19778,6 +19911,24 @@
           "unit_ids": [
             "U0022"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 39700,
+          "representation_char_start": 39647,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 38761,
+          "scope_char_start": 38708,
+          "scope_containment": "PASS",
+          "selected_characters": 53,
+          "selected_text_sha256": "272bbe6c65e35bb64b68f1a2a64bf59b44fe4faf3edf5015aa4c49dcb74de742",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A27-n",
+          "text_preview": "la aprobación del superior inmediato que corresponda.",
+          "unit_ids": [
+            "U0023"
+          ]
         }
       ],
       "fact_id": "D3-F0210",
@@ -19825,7 +19976,8 @@
         "A27-n"
       ],
       "unit_ids": [
-        "U0022"
+        "U0022",
+        "U0023"
       ]
     },
     {
@@ -21412,7 +21564,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         28
@@ -21463,6 +21617,24 @@
           "unit_ids": [
             "U0023"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 42888,
+          "representation_char_start": 42721,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 41949,
+          "scope_char_start": 41782,
+          "scope_containment": "PASS",
+          "selected_characters": 167,
+          "selected_text_sha256": "0d1c7bc875aa705a5e972c9ba6a8c50bb38a6d6002074cd4d808532424ddeffc",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A28-1-a",
+          "text_preview": "de arrendamiento y compra de bienes inmuebles, extraordinarios, especiales y de excepción cuyo monto presupuestado sobrepase el límite superior de la licitación menor.",
+          "unit_ids": [
+            "U0025"
+          ]
         }
       ],
       "fact_id": "D3-F0227",
@@ -21511,7 +21683,8 @@
         "A28-1-a"
       ],
       "unit_ids": [
-        "U0023"
+        "U0023",
+        "U0025"
       ]
     },
     {
@@ -21926,12 +22099,14 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-004: Junta Directiva del CCDRE preserved as the competent actor."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         28
       ],
-      "canonical_semantic_note": "El Concejo Municipal y el CCDRE pueden delegar en sus secretarías la operación en el SDU necesaria para aprobar los asuntos de los incisos a) a e) del bloque 1.",
+      "canonical_semantic_note": "El Concejo Municipal y la Junta Directiva del CCDRE pueden delegar en la Secretaría del Concejo Municipal y en la Secretaría del CCDRE la parte operativa en el SDU necesaria para aprobar los asuntos de los incisos a) a e) del bloque 1.",
       "capability_bindings": [
         "ATR-01",
         "COV-01",
@@ -21984,7 +22159,7 @@
       "mandatory_qualifiers": {
         "attribution": [
           "Concejo Municipal",
-          "CCDRE"
+          "Junta Directiva del CCDRE"
         ],
         "condition": [],
         "cross_reference": [],
@@ -22827,7 +23002,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         29
@@ -22858,6 +23035,24 @@
           "text_preview": "Artículo 29.—Materias excluidas de los procedimientos ordinarios de contratación o sin contenido presupuestario. De conformidad a la LGCP y el RGLCP, podrán realizarse",
           "unit_ids": [
             "U0025"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 45900,
+          "representation_char_start": 45720,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 44961,
+          "scope_char_start": 44781,
+          "scope_containment": "PASS",
+          "selected_characters": 180,
+          "selected_text_sha256": "6906d51e739eb65b461f4fd036a761db473a7e14ac342b4e4559583bdf56217b",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A29-P1",
+          "text_preview": "compras directas de naturaleza o circunstancia concurrente incompatibles con el concurso conforme lo establecido en el Artículos 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 del RGLCP.",
+          "unit_ids": [
+            "U0028"
           ]
         }
       ],
@@ -22901,7 +23096,8 @@
         "A29-P1"
       ],
       "unit_ids": [
-        "U0025"
+        "U0025",
+        "U0028"
       ]
     },
     {
@@ -24604,12 +24800,14 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-005: restored “de carácter técnico”."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         35
       ],
-      "canonical_semantic_note": "La Proveeduría y la Unidad Solicitante deben revisar las ofertas del SDU para determinar su elegibilidad legal y técnica, cada una exclusivamente dentro de los aspectos de su competencia.",
+      "canonical_semantic_note": "La Proveeduría y la Unidad Solicitante deben revisar las ofertas del SDU para determinar su elegibilidad legal y técnica; la responsabilidad de cada instancia corresponde exclusivamente a los aspectos de carácter técnico propios de su competencia.",
       "capability_bindings": [
         "ATR-01",
         "COV-01",
@@ -24677,7 +24875,7 @@
         "quantity": [],
         "referent": [],
         "scope": [
-          "aspectos de competencia de cada instancia"
+          "aspectos de carácter técnico propios de la competencia de cada instancia"
         ],
         "temporal": [],
         "unit": []
@@ -25391,7 +25589,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         35
@@ -25443,6 +25643,24 @@
           "unit_ids": [
             "U0029"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 52525,
+          "representation_char_start": 52270,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 51586,
+          "scope_char_start": 51331,
+          "scope_containment": "PASS",
+          "selected_characters": 255,
+          "selected_text_sha256": "12b4410eefc4c23c6a28c3c358b5c3ea59adf230ee28dec9bdc6fda46fd3995b",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A35-g",
+          "text_preview": "la Proveeduría haya efectuado dicho trámite, trasladará nuevamente las ofertas para que la US emita el criterio técnico correspondiente. Este se realizará de esta manera dado que la LGCP y el RLGCP solo permiten el trámite de una solicitud de subsanación.",
+          "unit_ids": [
+            "U0030"
+          ]
         }
       ],
       "fact_id": "D3-F0269",
@@ -25489,11 +25707,14 @@
         "A35-g"
       ],
       "unit_ids": [
-        "U0029"
+        "U0029",
+        "U0030"
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         35
@@ -25544,6 +25765,24 @@
           "unit_ids": [
             "U0029"
           ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 52525,
+          "representation_char_start": 52270,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 51586,
+          "scope_char_start": 51331,
+          "scope_containment": "PASS",
+          "selected_characters": 255,
+          "selected_text_sha256": "12b4410eefc4c23c6a28c3c358b5c3ea59adf230ee28dec9bdc6fda46fd3995b",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A35-g",
+          "text_preview": "la Proveeduría haya efectuado dicho trámite, trasladará nuevamente las ofertas para que la US emita el criterio técnico correspondiente. Este se realizará de esta manera dado que la LGCP y el RLGCP solo permiten el trámite de una solicitud de subsanación.",
+          "unit_ids": [
+            "U0030"
+          ]
         }
       ],
       "fact_id": "D3-F0270",
@@ -25588,7 +25827,8 @@
         "A35-g"
       ],
       "unit_ids": [
-        "U0029"
+        "U0029",
+        "U0030"
       ]
     },
     {
@@ -27676,7 +27916,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-003: antecedent context added for “esa decisión”."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         35
@@ -27684,6 +27926,7 @@
       "canonical_semantic_note": "Contra la decisión de aplicar multas o cláusulas penales pueden interponerse recursos de revocatoria y apelación dentro de los tres días hábiles siguientes a la notificación.",
       "capability_bindings": [
         "COV-01",
+        "CTX-01",
         "ENT-01",
         "EVD-01",
         "LANG-ES-01",
@@ -27693,6 +27936,24 @@
         "TMP-01"
       ],
       "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 55219,
+          "representation_char_start": 55079,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 54280,
+          "scope_char_start": 54140,
+          "scope_containment": "PASS",
+          "selected_characters": 140,
+          "selected_text_sha256": "a9e2f1ab2cc145a36d1ab9a610685f9d9125b6b98523e8b7502dbfd45e95002a",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A35-o1",
+          "text_preview": "o) Para ejecutar las multas y cláusula penal la Administración deberá emitir un acto motivado, con indicación de la prueba que lo sustente.",
+          "unit_ids": [
+            "U0030"
+          ]
+        },
         {
           "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
           "reopening": "PASS",
@@ -27839,7 +28100,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         35
@@ -27870,6 +28133,24 @@
           "text_preview": "El cobro de las multas podrá hacerse",
           "unit_ids": [
             "U0030"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 55624,
+          "representation_char_start": 55526,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 54685,
+          "scope_char_start": 54587,
+          "scope_containment": "PASS",
+          "selected_characters": 98,
+          "selected_text_sha256": "c13c786fb7a66b708e326d4ed9f76e56bdd70c2e5c1cdbf623e050ae5e37c9a1",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A35-o3",
+          "text_preview": "con cargo a las retenciones del precio que se hubieran practicado y los saldos pendientes de pago.",
+          "unit_ids": [
+            "U0032"
           ]
         }
       ],
@@ -27914,7 +28195,8 @@
         "A35-o3"
       ],
       "unit_ids": [
-        "U0030"
+        "U0030",
+        "U0032"
       ]
     },
     {
@@ -29333,7 +29615,9 @@
       ]
     },
     {
-      "adjudication_notes": [],
+      "adjudication_notes": [
+        "D3 closure HF-002: post-layout-boundary continuation added to make evidence sufficient for the complete canonical assertion."
+      ],
       "allowed_variants_or_equivalence_notes": [],
       "article_numbers": [
         41
@@ -29364,6 +29648,24 @@
           "text_preview": "Artículo 41.—Integración con otras sanciones. Para los efectos de la aplicación del régimen de sanciones del presente Reglamento, se deberá tomar en cuenta para su",
           "unit_ids": [
             "U0032"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 59389,
+          "representation_char_start": 58996,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 58450,
+          "scope_char_start": 58057,
+          "scope_containment": "PASS",
+          "selected_characters": 393,
+          "selected_text_sha256": "8d19c9b352cc715a58d1a9b55c0efb04e0b44f1e59fc6c414dd17f3d7625a38e",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A41",
+          "text_preview": "integración, el régimen de responsabilidad establecido en la LGCP y en el RLGCP; Ley de Administración Financiera de la República y Presupuestos Públicos y sus reformas; Ley contra la Corrupción y el Enriquecimiento Ilícito en la Función Pública, y toda aquella normativa relativa a la materia sin perjuicio de lo establecido en el Código de Trabajo, Código Penal y Código Civil Costarricense.",
+          "unit_ids": [
+            "U0035"
           ]
         }
       ],
@@ -29413,7 +29715,8 @@
         "A41"
       ],
       "unit_ids": [
-        "U0032"
+        "U0032",
+        "U0035"
       ]
     },
     {
@@ -32377,6 +32680,112 @@
       "unit_ids": [
         "U0037"
       ]
+    },
+    {
+      "adjudication_notes": [
+        "D3 closure HF-001: primary PDF confirms real truncation; preserve only the recoverable duty prefix."
+      ],
+      "allowed_variants_or_equivalence_notes": [
+        "The missing object/complement after “asumir” must remain explicitly unrecoverable; no completion may be invented."
+      ],
+      "article_numbers": [
+        27
+      ],
+      "canonical_semantic_note": "El Administrador del Contrato debe gestionar los trámites relacionados con modificaciones presupuestarias que se requieran para asumir, pero el objeto o complemento posterior a «asumir» no es recuperable en la fuente congelada.",
+      "capability_bindings": [
+        "AMB-01",
+        "ATR-01",
+        "COV-01",
+        "CTX-01",
+        "ENT-01",
+        "EVD-01",
+        "LANG-ES-01",
+        "MOD-01",
+        "SCP-01"
+      ],
+      "evidence_targets": [
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 37403,
+          "representation_char_start": 37141,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 36464,
+          "scope_char_start": 36202,
+          "scope_containment": "PASS",
+          "selected_characters": 262,
+          "selected_text_sha256": "55d88f79483b0438eb8cee35700769fa860bbed51cd2219113886c94f98468af",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A27-INTRO",
+          "text_preview": "Artículo 27.—Del Administrador del Contrato. Para cada procedimiento de contratación, el área solicitante deberá asignar uno o varios funcionarios, quienes fungirán como administradores de contrato y tendrán al menos las siguientes funciones y responsabilidades:",
+          "unit_ids": [
+            "U0022"
+          ]
+        },
+        {
+          "benchmark_scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+          "reopening": "PASS",
+          "representation_char_end": 41822,
+          "representation_char_start": 41720,
+          "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+          "scope_char_end": 40883,
+          "scope_char_start": 40781,
+          "scope_containment": "PASS",
+          "selected_characters": 102,
+          "selected_text_sha256": "4fd7fe603bf6538fd28f209cc67c8f82a69ec1517b6660f0db80410cb71e77c8",
+          "selector_kind": "scope_char_range/v1",
+          "structure_id": "A27-y",
+          "text_preview": "y) Gestionar los trámites relacionados con modificaciones presupuestarias que se requieran para asumir",
+          "unit_ids": [
+            "U0023"
+          ]
+        }
+      ],
+      "fact_id": "D3-F0351",
+      "mandatory_qualifiers": {
+        "attribution": [
+          "Administrador del Contrato"
+        ],
+        "condition": [],
+        "cross_reference": [],
+        "currency": [],
+        "denominator": [],
+        "exception": [],
+        "location": [],
+        "modality": [
+          "debe gestionar"
+        ],
+        "negation": [],
+        "period": [],
+        "quantity": [],
+        "referent": [
+          "objeto o complemento posterior a «asumir» no recuperable"
+        ],
+        "scope": [
+          "trámites relacionados con modificaciones presupuestarias"
+        ],
+        "temporal": [],
+        "unit": []
+      },
+      "material_civic": true,
+      "reference_state": "SUPERVISOR_DRAFT",
+      "semantic_support_audit": {
+        "capability_binding": "PASS",
+        "duplicate_equivalence": "PASS",
+        "evidence_semantic_sufficiency": "PASS",
+        "qualifier_support": "PASS",
+        "review_note": "A27-y has a recoverable duty prefix and a primary-source truncation preserved via AMB-01.",
+        "self_sufficient_minimality": "PASS",
+        "source_entailment": "PASS",
+        "unit_mapping": "PASS"
+      },
+      "structure_ids": [
+        "A27-y"
+      ],
+      "unit_ids": [
+        "U0022",
+        "U0023"
+      ]
     }
   ],
   "fixture": {
@@ -32548,14 +32957,14 @@
     "articles_exhaustion_pass": 53,
     "articles_unresolved": 1,
     "blank_reverse_audit_notes": 0,
-    "cross_unit_fact_count": 100,
+    "cross_unit_fact_count": 113,
     "empty_or_zero_evidence": 0,
-    "fact_count": 350,
+    "fact_count": 351,
     "facts_without_units": 0,
     "generic_placeholder_qualifiers": 0,
     "generic_reverse_audit_notes": 0,
     "material_carriers_without_facts": 0,
-    "multi_evidence_fact_count": 162,
+    "multi_evidence_fact_count": 172,
     "note_equals_single_evidence": 0,
     "scope_escape_evidence": 0,
     "string_false_qualifiers": 0,
@@ -32564,9 +32973,16 @@
     "unaccounted_units": 0,
     "unit_count": 37,
     "unknown_capability_ids": 0,
-    "unresolved_region_count": 1
+    "unresolved_region_count": 1,
+    "evidence_target_count": 545,
+    "unresolved_structure_count": 0,
+    "unaccounted_structures": 0,
+    "closure_hard_findings_accepted": 6,
+    "closure_systemic_class_repaired": "EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION",
+    "page_adjacent_target_class_sweep": "24/24 classified; 12 repaired; 12 sufficient",
+    "targeted_post_repair_audit_pending": true
   },
-  "reference_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001-reference-v2",
+  "reference_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001-reference-v3",
   "reference_state": "SUPERVISOR_DRAFT",
   "structure_ledger": [
     {
@@ -33771,7 +34187,9 @@
       "article_number": 18,
       "char_end": 20366,
       "char_start": 20069,
-      "context_consumed_by_fact_ids": [],
+      "context_consumed_by_fact_ids": [
+        "D3-F0098"
+      ],
       "kind": "article_paragraph",
       "label": "Artículo 18 actualización del registro",
       "material_assertions_exhausted": "PASS",
@@ -35098,7 +35516,8 @@
         "D3-F0222",
         "D3-F0223",
         "D3-F0224",
-        "D3-F0225"
+        "D3-F0225",
+        "D3-F0351"
       ],
       "kind": "article_intro",
       "label": "Artículo 27 introducción",
@@ -35506,9 +35925,11 @@
       "context_consumed_by_fact_ids": [],
       "kind": "article_clause",
       "label": "Artículo 27 y)",
-      "material_assertions_exhausted": "UNRESOLVED",
-      "material_fact_ids": [],
-      "semantic_state": "NEEDS_ADJUDICATION",
+      "material_assertions_exhausted": "PASS_WITH_SOURCE_AMBIGUITY_PRESERVED",
+      "material_fact_ids": [
+        "D3-F0351"
+      ],
+      "semantic_state": "MATERIAL_ASSERTION_CARRIER",
       "structure_id": "A27-y",
       "text_preview": "y) Gestionar los trámites relacionados con modificaciones presupuestarias que se requieran para asumir",
       "text_sha256": "795696b4e6d1ac36b0bf5d37ee78bd680faf64613f6f0ede7264bddbcbbdd13e"
@@ -35520,9 +35941,9 @@
       "context_consumed_by_fact_ids": [],
       "kind": "article_clause",
       "label": "Artículo 27 z)",
-      "material_assertions_exhausted": "UNRESOLVED",
+      "material_assertions_exhausted": "PASS_SOURCE_AMBIGUITY_NO_RECOVERABLE_COMPLETE_ASSERTION",
       "material_fact_ids": [],
-      "semantic_state": "NEEDS_ADJUDICATION",
+      "semantic_state": "NO_MATERIAL_CIVIC_FACT",
       "structure_id": "A27-z",
       "text_preview": "z) Vigente. El pago de la contratación.",
       "text_sha256": "93c1c0b7376b6783f690c786c5d6725e72d1e7055bb3707c2d24ea19f2666eb3"
@@ -36403,7 +36824,9 @@
       "article_number": 35,
       "char_end": 54280,
       "char_start": 54140,
-      "context_consumed_by_fact_ids": [],
+      "context_consumed_by_fact_ids": [
+        "D3-F0292"
+      ],
       "kind": "article_clause",
       "label": "Acto motivado para multas y cláusula penal",
       "material_assertions_exhausted": "PASS",
@@ -37031,8 +37454,13 @@
     }
   ],
   "supervising_author_conclusion": {
-    "note": "A supervising-author adversarial review of all 54 articles and all 294 V1 facts found localized semantic/granularity defects and rewrote the draft to 350 facts. Article 27 y)/z) remains unresolved because the primary PDF itself is malformed/ambiguous. Independent big-model semantic review is still required before reference freeze.",
-    "status": "PASS_WITH_PRIMARY_TEXT_ADJUDICATION_REQUIRED"
+    "note": "D3 v3 is a bounded closure repair; no generic broad re-audit is authorized.",
+    "status": "PASS_WITH_PRIMARY_TEXT_ADJUDICATION_REQUIRED",
+    "reference_state": "SUPERVISOR_DRAFT",
+    "closure_audit_v2": "CLOSURE_SYSTEMIC_CLASS_FOUND; 6 finding records; systemic layout-boundary evidence truncation across 12 facts/9 regions.",
+    "closure_audit_v2_adjudication": "6 ACCEPT / 0 REJECT / 0 UNRESOLVED.",
+    "targeted_class_sweep": "24/24 existing targets ending adjacent to a frozen page/layout marker classified; 12 repaired and 12 already sufficient.",
+    "next_gate": "MECHANICAL_CERTIFICATION_THEN_SINGLE_TARGETED_POST_REPAIR_AUDIT_ONLY"
   },
   "unit_state_inventory": [
     {
@@ -37641,7 +38069,8 @@
         "D3-F0207",
         "D3-F0208",
         "D3-F0209",
-        "D3-F0210"
+        "D3-F0210",
+        "D3-F0351"
       ],
       "page_end": 6,
       "page_start": 6,
@@ -37681,18 +38110,17 @@
         "D3-F0224",
         "D3-F0225",
         "D3-F0226",
-        "D3-F0227"
+        "D3-F0227",
+        "D3-F0351"
       ],
       "page_end": 7,
       "page_start": 7,
       "preview": "La Gaceta Nº 69 — Jueves 10 de abril del 2025 la aprobación del superior inmediato que corresponda. o) Supervisar que la compra solicitada y sus modificaciones no supere los umbrales previstos en la LGCP y el RLGCP para el tipo de procedimiento del concurso. p) Atender en conjunt",
       "scope_char_end": 41774,
       "scope_char_start": 38662,
-      "semantic_state": "NEEDS_ADJUDICATION",
+      "semantic_state": "MATERIAL_FACTS",
       "unit_id": "U0023",
-      "unresolved_ids": [
-        "D3-UQ-0001"
-      ]
+      "unresolved_ids": []
     },
     {
       "context_consumed_by_fact_ids": [],
@@ -38079,17 +38507,6 @@
       "unresolved_ids": []
     }
   ],
-  "unresolved_adjudications": [
-    {
-      "article_number": 27,
-      "reason": "La Representation congelada contiene “Gestionar los trámites relacionados con modificaciones presupuestarias que se requieran para asumir / z) Vigente. El pago de la contratación.”. No se puede reconstruir fielmente la frontera ni el predicado de los incisos y)/z) sin adivinar; requiere adjudicación contra evidencia primaria antes del freeze.",
-      "reference_state": "NEEDS_ADJUDICATION",
-      "structure_ids": [
-        "A27-y",
-        "A27-z"
-      ],
-      "unresolved_id": "D3-UQ-0001"
-    }
-  ],
+  "unresolved_adjudications": [],
   "work": "LECTOR-PRODUCTION-FIT-BENCH"
 }

@@ -1,0 +1,44 @@
+{
+  "format": "canario.lector.d3-closure-adjudication/v1",
+  "fixture_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001",
+  "verdict": "CLOSURE_SYSTEMIC_CLASS_FOUND",
+  "independence": "WEAK_OR_UNKNOWN",
+  "adjudication": {
+    "accept": 6,
+    "reject": 0,
+    "unresolved": 0
+  },
+  "systemic_class": {
+    "name": "EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION",
+    "affected_facts": [
+      "D3-F0008",
+      "D3-F0017",
+      "D3-F0018",
+      "D3-F0078",
+      "D3-F0079",
+      "D3-F0210",
+      "D3-F0227",
+      "D3-F0241",
+      "D3-F0269",
+      "D3-F0270",
+      "D3-F0294",
+      "D3-F0313"
+    ],
+    "page_adjacent_targets_classified": 24,
+    "targets_requiring_repair": 12,
+    "targets_already_sufficient": 12
+  },
+  "local_repairs": {
+    "dangling_referents": [
+      "D3-F0098",
+      "D3-F0292"
+    ],
+    "semantic": [
+      "D3-F0148",
+      "D3-F0232",
+      "D3-F0261"
+    ],
+    "new_partial_fact": "D3-F0351"
+  },
+  "generic_broad_reaudit_performed": false
+}

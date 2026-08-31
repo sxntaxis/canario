@@ -1,0 +1,910 @@
+{
+  "audit_name": "Canario D3 single-webchat closure audit",
+  "audit_date": "2026-08-30",
+  "custody": {
+    "fixture": "D3",
+    "fixture_id": "CR-ESPARZA-PROCUREMENT-REGULATION-001",
+    "reference_commit": "13eb976e17c52c4680499fa5b1e6ad21fb49c0c6",
+    "reference_file": "D3_REFERENCE_SUPERVISOR_DRAFT_V2.json",
+    "reference_sha256": "69bfa31dc4d8f3c2528de0dc7e085277fc1f6cc90337e857c6b7c859f7b9f69b",
+    "reference_bytes": 1411053,
+    "reference_state": "SUPERVISOR_DRAFT",
+    "fact_count": 350,
+    "evidence_target_count": 529,
+    "source_pack_sha256": "abafceed74ace547859ae91f72c07ce4b9d85a01792127a80cb80b555133f047",
+    "source_pack_bytes": 653636,
+    "primary_source_sha256": "d6aed7b952ac8b6b1770dcbf957471390016507ef8ee2c98553f52ba5f579c59",
+    "representation_sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+    "scope_sha256": "676e7b78bddc8f928481e95bcd15816a0cb827e5e9ae71e3226f4f709fef6d81",
+    "unit_inventory_sha256": "b744773c22ee862904052db0ee19bcbdf3674d5935016054795ad38705a87253",
+    "unit_count": 37,
+    "independence_policy": {
+      "fresh_webchat_execution_independence": true,
+      "if_openai_gpt_5_6_family": "WEAK_OR_UNKNOWN",
+      "strong_gate": false,
+      "human_gate": false
+    }
+  },
+  "input_integrity": {
+    "sha256sums_verified_against_supplied_SHA256SUMS": true,
+    "files": [
+      {
+        "path": "CUSTODY/CUSTODY.json",
+        "sha256": "6534fdedb97918e81ccede792b5d42dd54060f21ffcc6c966c6f635ed0e537a4",
+        "bytes": 1117
+      },
+      {
+        "path": "PRIMARY_SOURCE_CHECK/D3_PDF_PAGE_7.png",
+        "sha256": "562804e0879c1ce5e7296c00bbcccffdf8fde76b0fe7a5792e0cad3cee1f3b93",
+        "bytes": 849635
+      },
+      {
+        "path": "PRIMARY_SOURCE_CHECK/PRIMARY_SOURCE_CHECK.json",
+        "sha256": "753564e82c7651018b6683932f643790b5e36bbb42786da7ab545504cbc1b0d3",
+        "bytes": 1132
+      },
+      {
+        "path": "REFERENCE/D3_REFERENCE_SUPERVISOR_DRAFT_V2.json",
+        "sha256": "69bfa31dc4d8f3c2528de0dc7e085277fc1f6cc90337e857c6b7c859f7b9f69b",
+        "bytes": 1411053
+      },
+      {
+        "path": "REFERENCE/REFERENCE_COVERAGE_INDEX.json",
+        "sha256": "79626d1e4b9ff365a71692768c60711707c68042f896a7c1611ea0bf5868f90d",
+        "bytes": 421802
+      },
+      {
+        "path": "REVERSE_SAMPLE/REVERSE_SAMPLE.json",
+        "sha256": "cbfdd15479a348864a5f25ce64c54ef32edaf49118c5115fc374b60c9e55851e",
+        "bytes": 175599
+      },
+      {
+        "path": "SOURCE/SCOPED_SOURCE_UNITS.json",
+        "sha256": "e32a9b39c5db758d11128332e843affdaebcdf9d1aa9c56c79663e0fc6be0caf",
+        "bytes": 75009
+      },
+      {
+        "path": "SOURCE/representation.txt",
+        "sha256": "3a32786f91a312b2dadae8e7e8af9349396886ca30bfc22d4dccbeb705799d28",
+        "bytes": 71816
+      },
+      {
+        "path": "SOURCE/scope.json",
+        "sha256": "4c6f9410c584b11506fa9597d546242c1cd16d0e3b42958a232ac417318b5cc6",
+        "bytes": 841
+      },
+      {
+        "path": "SOURCE/source.pdf",
+        "sha256": "d6aed7b952ac8b6b1770dcbf957471390016507ef8ee2c98553f52ba5f579c59",
+        "bytes": 653922
+      },
+      {
+        "path": "SOURCE/units.csv",
+        "sha256": "b744773c22ee862904052db0ee19bcbdf3674d5935016054795ad38705a87253",
+        "bytes": 7500
+      }
+    ]
+  },
+  "reviewer": {
+    "identity": "OpenAI GPT-5.6 Sol",
+    "model_family": "GPT-5.6-family",
+    "fresh_webchat_execution_independence": true,
+    "independence": "WEAK_OR_UNKNOWN",
+    "independence_reason": "The audit prompt requires OpenAI/GPT-5.6-family reviewers to record WEAK_OR_UNKNOWN; fresh-chat execution independence is not materially independent model assurance."
+  },
+  "constraints_observed": {
+    "reference_mutated": false,
+    "commits_created": false,
+    "lector_implemented": false,
+    "forbidden_materials_inspected": false,
+    "forbidden_materials": [
+      "A0-A5 candidate outputs/scores",
+      "Acta 160",
+      "H2",
+      "production Lector output",
+      "thresholds"
+    ],
+    "web_used_to_reconstruct_source": false
+  },
+  "phase_0": {
+    "check_id": "D3-PRIMARY-A27-YZ",
+    "files_inspected_first": [
+      "PRIMARY_SOURCE_CHECK/D3_PDF_PAGE_7.png",
+      "PRIMARY_SOURCE_CHECK/PRIMARY_SOURCE_CHECK.json"
+    ],
+    "result": "SOURCE_AMBIGUITY_CONFIRMED_WITH_RECOVERABLE_PARTIAL_FACT",
+    "primary_visual_result": "The frozen page image visibly prints the same malformed y)/z) boundary recorded in PRIMARY_SOURCE_CHECK.json; no missing continuation is visually recoverable.",
+    "recoverable_partial_fact": "Within Article 27’s functions/responsibilities of the Administrador del Contrato: “Gestionar los trámites relacionados con modificaciones presupuestarias que se requieran para asumir [TRUNCATED/AMBIGUOUS: object or complement of ‘asumir’ not recoverable].”",
+    "unrecoverable_portion": "No source-faithful completion of what is to be “asumir” can be made. The adjacent z) text (“Vigente. El pago de la contratación.”) does not resolve the missing boundary into a complete duty.",
+    "exact_source_ranges": [
+      {
+        "representation_char_start": 41720,
+        "representation_char_end": 41822,
+        "exact_text": "y) Gestionar los trámites relacionados con modificaciones\npresupuestarias que se requieran para asumir",
+        "role": "recoverable_partial_printed_text"
+      },
+      {
+        "representation_char_start": 41823,
+        "representation_char_end": 41862,
+        "exact_text": "z) Vigente. El pago de la contratación.",
+        "role": "adjacent_malformed_printed_text"
+      }
+    ],
+    "local_closure_item": true,
+    "systemic_class_by_itself": false,
+    "hard_finding_id": "HF-001"
+  },
+  "phase_1": {
+    "completion": "COMPLETE",
+    "scoped_units_reviewed": 37,
+    "scoped_units_total": 37,
+    "all_scoped_units_reviewed": true,
+    "scope_char_start": 939,
+    "scope_char_end": 66065,
+    "unit_ids_reviewed": [
+      "U0001",
+      "U0002",
+      "U0003",
+      "U0004",
+      "U0005",
+      "U0006",
+      "U0007",
+      "U0008",
+      "U0009",
+      "U0010",
+      "U0011",
+      "U0012",
+      "U0013",
+      "U0014",
+      "U0015",
+      "U0016",
+      "U0017",
+      "U0018",
+      "U0019",
+      "U0020",
+      "U0021",
+      "U0022",
+      "U0023",
+      "U0024",
+      "U0025",
+      "U0026",
+      "U0027",
+      "U0028",
+      "U0029",
+      "U0030",
+      "U0031",
+      "U0032",
+      "U0033",
+      "U0034",
+      "U0035",
+      "U0036",
+      "U0037"
+    ],
+    "review_order": "source order",
+    "coverage_index_fact_count": 350,
+    "candidate_omissions": 1,
+    "candidate_omission_items": [
+      "Article 27(y) recoverable partial duty at representation chars [41720,41822)."
+    ],
+    "confirmed_hard_omissions": 1,
+    "confirmed_hard_omission_finding_ids": [
+      "HF-001"
+    ],
+    "other_hard_source_fidelity_findings_from_full_sweep": [
+      "HF-002"
+    ],
+    "systemic_class_observed": "EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION",
+    "excluded_as_nonmaterial_or_nonrecoverable": [
+      "ceremonial/page furniture",
+      "exact repeats",
+      "extraction artifacts",
+      "derived arithmetic",
+      "completions requiring guessing",
+      "Article 27(z) as a complete reconstructed duty"
+    ],
+    "checkpoint_persisted_in_this_artifact": true,
+    "result_summary": "All 37 scoped units were reviewed against the complete 350-fact coverage index in source order. One recoverable partial source assertion (A27-y) is omitted. A repeated evidence-target truncation pattern was also confirmed across nine source regions/twelve facts."
+  },
+  "phase_2": {
+    "completion": "80/80",
+    "sample_count": 80,
+    "reviewed_count": 80,
+    "all_sampled_facts_reviewed": true,
+    "reviewed_fact_ids": [
+      "D3-F0001",
+      "D3-F0003",
+      "D3-F0006",
+      "D3-F0010",
+      "D3-F0014",
+      "D3-F0016",
+      "D3-F0017",
+      "D3-F0019",
+      "D3-F0027",
+      "D3-F0028",
+      "D3-F0030",
+      "D3-F0032",
+      "D3-F0034",
+      "D3-F0044",
+      "D3-F0049",
+      "D3-F0055",
+      "D3-F0056",
+      "D3-F0066",
+      "D3-F0083",
+      "D3-F0096",
+      "D3-F0098",
+      "D3-F0110",
+      "D3-F0112",
+      "D3-F0126",
+      "D3-F0134",
+      "D3-F0137",
+      "D3-F0148",
+      "D3-F0152",
+      "D3-F0153",
+      "D3-F0154",
+      "D3-F0155",
+      "D3-F0156",
+      "D3-F0160",
+      "D3-F0162",
+      "D3-F0181",
+      "D3-F0187",
+      "D3-F0189",
+      "D3-F0190",
+      "D3-F0191",
+      "D3-F0192",
+      "D3-F0195",
+      "D3-F0206",
+      "D3-F0211",
+      "D3-F0213",
+      "D3-F0215",
+      "D3-F0218",
+      "D3-F0222",
+      "D3-F0224",
+      "D3-F0229",
+      "D3-F0232",
+      "D3-F0236",
+      "D3-F0237",
+      "D3-F0241",
+      "D3-F0261",
+      "D3-F0265",
+      "D3-F0271",
+      "D3-F0274",
+      "D3-F0275",
+      "D3-F0278",
+      "D3-F0279",
+      "D3-F0281",
+      "D3-F0282",
+      "D3-F0283",
+      "D3-F0286",
+      "D3-F0289",
+      "D3-F0291",
+      "D3-F0292",
+      "D3-F0304",
+      "D3-F0312",
+      "D3-F0320",
+      "D3-F0321",
+      "D3-F0325",
+      "D3-F0335",
+      "D3-F0337",
+      "D3-F0338",
+      "D3-F0339",
+      "D3-F0340",
+      "D3-F0341",
+      "D3-F0343",
+      "D3-F0347"
+    ],
+    "dimensions_checked": [
+      "source entailment",
+      "attribution/provenance",
+      "modality",
+      "conditions/reasons/negation",
+      "referent resolution",
+      "temporal/quantitative qualifiers",
+      "evidence sufficiency",
+      "minimality",
+      "no stronger claim than the source"
+    ],
+    "hard_affected_sample_fact_count": 7,
+    "hard_affected_sample_fact_ids": [
+      "D3-F0017",
+      "D3-F0098",
+      "D3-F0148",
+      "D3-F0232",
+      "D3-F0241",
+      "D3-F0261",
+      "D3-F0292"
+    ],
+    "sample_facts_without_hard_finding_count": 73,
+    "hard_finding_ids_encountered": [
+      "HF-002",
+      "HF-003",
+      "HF-004",
+      "HF-005",
+      "HF-006"
+    ],
+    "full_reverse_audit_expanded": false,
+    "expansion_reason": "Not needed. The bounded 80-fact reverse audit was completed. The systemic layout-boundary class was already demonstrated by the full source→reference sweep; no generic full reverse audit was performed.",
+    "result_summary": "80/80 sampled facts were audited. Seven sampled facts carry hard findings: two systemic layout-boundary evidence-target instances and five local semantic/evidence defects."
+  },
+  "hard_finding_count": 6,
+  "hard_findings": [
+    {
+      "finding_id": "HF-001",
+      "issue_type": "OMITTED_RECOVERABLE_PARTIAL_DUTY",
+      "affected_fact_ids": [],
+      "structure_ids": [
+        "A27-y",
+        "A27-z"
+      ],
+      "source_ranges": [
+        {
+          "representation_char_start": 41720,
+          "representation_char_end": 41822,
+          "exact_text": "y) Gestionar los trámites relacionados con modificaciones\npresupuestarias que se requieran para asumir",
+          "role": "recoverable_partial_printed_text"
+        },
+        {
+          "representation_char_start": 41823,
+          "representation_char_end": 41862,
+          "exact_text": "z) Vigente. El pago de la contratación.",
+          "role": "adjacent_malformed_printed_text"
+        }
+      ],
+      "source_grounded_reason": "The frozen primary-source image and frozen representation both print Article 27(y) ending at “para asumir” immediately before malformed Article 27(z). Article 27’s heading makes (y) part of the Administrador del Contrato functions/responsibilities, so a partial material duty is recoverable without guessing: gestionar los trámites relacionados con modificaciones presupuestarias que se requieran para asumir [truncated]. The object/complement of “asumir” is not recoverable and must not be reconstructed. No reference fact represents even this bounded partial entailment.",
+      "systemic_class_flag": false,
+      "phase_detected": "Phase 0 / confirmed as omission in Phase 1"
+    },
+    {
+      "finding_id": "HF-002",
+      "issue_type": "EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION",
+      "affected_fact_ids": [
+        "D3-F0008",
+        "D3-F0017",
+        "D3-F0018",
+        "D3-F0078",
+        "D3-F0079",
+        "D3-F0210",
+        "D3-F0227",
+        "D3-F0241",
+        "D3-F0269",
+        "D3-F0270",
+        "D3-F0294",
+        "D3-F0313"
+      ],
+      "structure_ids": [
+        "PRE-PURPOSE",
+        "A03-b",
+        "A14-P4",
+        "A27-n",
+        "A28-1-a",
+        "A29-P1",
+        "A35-g",
+        "A35-o3",
+        "A41"
+      ],
+      "source_ranges": [
+        {
+          "representation_char_start": 3041,
+          "representation_char_end": 3261,
+          "exact_text": "Municipalidad de Esparza, en adelante ME, así como el Comité\nCantonal de Deportes y Recreación de Esparza, en adelante\nCCDRE, en el trámite de los procedimientos de contratación\npública, así como en su fase de ejecución.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 6113,
+          "representation_char_end": 6387,
+          "exact_text": "LGCP y el Artículo 12 del RLGCP, sin embargo, a más\ntardar el día hábil siguiente de realizada la liquidación\ndel respectivo vale de caja chica, la Tesorería por medio\ndel funcionario designado para tal fin deberá ingresar la\ninformación de las compras realizadas en el SDU.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 16775,
+          "representation_char_end": 17036,
+          "exact_text": "desarrollará el proyecto, aspectos de la posterior ejecución\ntales como objeto, plazo de inicio y finalización, costo del\nproyecto, contratista, encargados de la inspección de la obra\ny el medio efectivo para comunicarse con la entidad que\npromueve el concurso.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 39647,
+          "representation_char_end": 39700,
+          "exact_text": "la aprobación del superior inmediato que corresponda.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 42721,
+          "representation_char_end": 42888,
+          "exact_text": "de arrendamiento y compra de bienes inmuebles,\nextraordinarios, especiales y de excepción cuyo monto\npresupuestado sobrepase el límite superior de la\nlicitación menor.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 45720,
+          "representation_char_end": 45900,
+          "exact_text": "compras directas de naturaleza o circunstancia concurrente\nincompatibles con el concurso conforme lo establecido en el\nArtículos 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 del RGLCP.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 52270,
+          "representation_char_end": 52525,
+          "exact_text": "la Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 55526,
+          "representation_char_end": 55624,
+          "exact_text": "con cargo a las retenciones del precio que se hubieran\npracticado y los saldos pendientes de pago.",
+          "role": "material_text_outside_selected_evidence"
+        },
+        {
+          "representation_char_start": 58996,
+          "representation_char_end": 59389,
+          "exact_text": "integración, el régimen de responsabilidad establecido en la\nLGCP y en el RLGCP; Ley de Administración Financiera de la\nRepública y Presupuestos Públicos y sus reformas; Ley contra\nla Corrupción y el Enriquecimiento Ilícito en la Función Pública,\ny toda aquella normativa relativa a la materia sin perjuicio de lo\nestablecido en el Código de Trabajo, Código Penal y Código\nCivil Costarricense.",
+          "role": "material_text_outside_selected_evidence"
+        }
+      ],
+      "instances": [
+        {
+          "structure_ids": [
+            "PRE-PURPOSE"
+          ],
+          "affected_fact_ids": [
+            "D3-F0008"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 2865,
+              "representation_char_end": 3031,
+              "exact_text": "I.—Propósito. El presente Reglamento tiene como\npropósito establecer las regulaciones internas que deben\ncumplir todas las unidades administrativas y operativas de la",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 3041,
+              "representation_char_end": 3261,
+              "exact_text": "Municipalidad de Esparza, en adelante ME, así como el Comité\nCantonal de Deportes y Recreación de Esparza, en adelante\nCCDRE, en el trámite de los procedimientos de contratación\npública, así como en su fase de ejecución.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops after “de la”; the actor scope (Municipalidad de Esparza and CCDRE), procurement-procedure scope, and execution-phase scope used by the canonical fact occur after the layout break."
+        },
+        {
+          "structure_ids": [
+            "A03-b"
+          ],
+          "affected_fact_ids": [
+            "D3-F0017",
+            "D3-F0018"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 5650,
+              "representation_char_end": 5862,
+              "exact_text": "Artículo 3º—Exclusión de adquisición de servicios\nutilizando el sistema: No será necesario que la Proveeduría\ntrámite en el sistema digital unificado, en adelante SDU, la\ncontratación de los siguientes servicios:",
+              "role": "selected_evidence"
+            },
+            {
+              "representation_char_start": 5889,
+              "representation_char_end": 6055,
+              "exact_text": "b) Las compras realizadas con fondos de caja chica de\nconformidad con lo estipulado en el Artículo 3, inciso g)\nde la Ley General de Contratación Pública, en adelante",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 6113,
+              "representation_char_end": 6387,
+              "exact_text": "LGCP y el Artículo 12 del RLGCP, sin embargo, a más\ntardar el día hábil siguiente de realizada la liquidación\ndel respectivo vale de caja chica, la Tesorería por medio\ndel funcionario designado para tal fin deberá ingresar la\ninformación de las compras realizadas en el SDU.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected item evidence stops at “en adelante” before the page break. The RLGCP cross-reference needed by D3-F0017 and the entire Treasury next-business-day SDU duty in D3-F0018 are in the continuation."
+        },
+        {
+          "structure_ids": [
+            "A14-P4"
+          ],
+          "affected_fact_ids": [
+            "D3-F0078",
+            "D3-F0079"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 16597,
+              "representation_char_end": 16765,
+              "exact_text": "En la decisión inicial de proyectos de obra se deberán\nindicar los parámetros de calidad y la estrategia de\ncomunicación que se utilizará con la comunidad en la cual se",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 16775,
+              "representation_char_end": 17036,
+              "exact_text": "desarrollará el proyecto, aspectos de la posterior ejecución\ntales como objeto, plazo de inicio y finalización, costo del\nproyecto, contratista, encargados de la inspección de la obra\ny el medio efectivo para comunicarse con la entidad que\npromueve el concurso.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops at “en la cual se”; the project-location completion and the enumerated execution information used by both canonical facts appear only after the layout break."
+        },
+        {
+          "structure_ids": [
+            "A27-n"
+          ],
+          "affected_fact_ids": [
+            "D3-F0210"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 37141,
+              "representation_char_end": 37403,
+              "exact_text": "Artículo 27.—Del Administrador del Contrato. Para\ncada procedimiento de contratación, el área solicitante deberá\nasignar uno o varios funcionarios, quienes fungirán como\nadministradores de contrato y tendrán al menos las siguientes\nfunciones y responsabilidades:",
+              "role": "selected_evidence"
+            },
+            {
+              "representation_char_start": 39318,
+              "representation_char_end": 39598,
+              "exact_text": "n) Solicitar a la PI, las modificaciones a los contratos que\nse encuentran bajo su fiscalización, cumpliendo con lo\nque señala la LGCP y el RLGCP al respecto. Cuando la\nmodificación exceda el 20% del contrato original hasta un\n50% como máximo, dicha solicitud deberá de contar con",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 39647,
+              "representation_char_end": 39700,
+              "exact_text": "la aprobación del superior inmediato que corresponda.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops at “deberá de contar con”; the required approval by the corresponding immediate superior is outside the selected target."
+        },
+        {
+          "structure_ids": [
+            "A28-1-a"
+          ],
+          "affected_fact_ids": [
+            "D3-F0227"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 42246,
+              "representation_char_end": 42543,
+              "exact_text": "Artículo 28.—Competencia para autorizar desembolsos,\naprobar pliego de condiciones, adjudicar declarar desierto o\ninfructuoso los procedimientos de contratación administrativa,\nmodificar contratos y suscripción de finiquitos.\n1) Corresponde a la Concejo Municipal y a la Junta\nDirectiva del CCDRE:",
+              "role": "selected_evidence"
+            },
+            {
+              "representation_char_start": 42544,
+              "representation_char_end": 42711,
+              "exact_text": "a) Autorizar los egresos y aprobar el inicio de procedimientos\ny los pliegos de condiciones de remates y la licitación\nmayor, así como de los procedimientos especiales",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 42721,
+              "representation_char_end": 42888,
+              "exact_text": "de arrendamiento y compra de bienes inmuebles,\nextraordinarios, especiales y de excepción cuyo monto\npresupuestado sobrepase el límite superior de la\nlicitación menor.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops after “procedimientos especiales”; the real-estate, extraordinary/special/exception scope and amount threshold used by the canonical fact lie beyond the page break."
+        },
+        {
+          "structure_ids": [
+            "A29-P1"
+          ],
+          "affected_fact_ids": [
+            "D3-F0241"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 45495,
+              "representation_char_end": 45662,
+              "exact_text": "Artículo 29.—Materias excluidas de los procedimientos\nordinarios de contratación o sin contenido presupuestario.\nDe conformidad a la LGCP y el RGLCP, podrán realizarse",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 45720,
+              "representation_char_end": 45900,
+              "exact_text": "compras directas de naturaleza o circunstancia concurrente\nincompatibles con el concurso conforme lo establecido en el\nArtículos 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 del RGLCP.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops at “podrán realizarse”; the direct-purchase condition and cited RGLCP articles are entirely in the continuation."
+        },
+        {
+          "structure_ids": [
+            "A35-g"
+          ],
+          "affected_fact_ids": [
+            "D3-F0269",
+            "D3-F0270"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 49036,
+              "representation_char_end": 49302,
+              "exact_text": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.",
+              "role": "selected_evidence"
+            },
+            {
+              "representation_char_start": 51938,
+              "representation_char_end": 52221,
+              "exact_text": "g) De la solicitud de subsanación: La Proveeduría, luego\nde realizado el proceso de apertura trasladará las ofertas\nrecibidas a la US para que realice una revisión inicial\ncon el fin que determine y solicite a la PI que tramite\nlas solicitudes de aclaración que requiera. Una vez que",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 52270,
+              "representation_char_end": 52525,
+              "exact_text": "la Proveeduría haya efectuado dicho trámite, trasladará\nnuevamente las ofertas para que la US emita el criterio\ntécnico correspondiente. Este se realizará de esta\nmanera dado que la LGCP y el RLGCP solo permiten el\ntrámite de una solicitud de subsanación.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops at “Una vez que”; the return of offers for technical criterion and the one-subsanation limitation both occur after the layout break."
+        },
+        {
+          "structure_ids": [
+            "A35-o3"
+          ],
+          "affected_fact_ids": [
+            "D3-F0294"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 55480,
+              "representation_char_end": 55516,
+              "exact_text": "El cobro de las multas podrá hacerse",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 55526,
+              "representation_char_end": 55624,
+              "exact_text": "con cargo a las retenciones del precio que se hubieran\npracticado y los saldos pendientes de pago.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence consists only of “El cobro de las multas podrá hacerse”; the permitted charge sources are outside the selected target."
+        },
+        {
+          "structure_ids": [
+            "A41"
+          ],
+          "affected_fact_ids": [
+            "D3-F0313"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 58775,
+              "representation_char_end": 58938,
+              "exact_text": "Artículo 41.—Integración con otras sanciones. Para\nlos efectos de la aplicación del régimen de sanciones del\npresente Reglamento, se deberá tomar en cuenta para su",
+              "role": "selected_evidence"
+            }
+          ],
+          "required_source_continuation": [
+            {
+              "representation_char_start": 58996,
+              "representation_char_end": 59389,
+              "exact_text": "integración, el régimen de responsabilidad establecido en la\nLGCP y en el RLGCP; Ley de Administración Financiera de la\nRepública y Presupuestos Públicos y sus reformas; Ley contra\nla Corrupción y el Enriquecimiento Ilícito en la Función Pública,\ny toda aquella normativa relativa a la materia sin perjuicio de lo\nestablecido en el Código de Trabajo, Código Penal y Código\nCivil Costarricense.",
+              "role": "material_text_outside_selected_evidence"
+            }
+          ],
+          "reason": "The selected evidence stops at “para su”; the responsibility regimes and statutes enumerated in the canonical fact occur after the page break."
+        }
+      ],
+      "source_grounded_reason": "A repeated evidence-target authoring defect stops selected evidence at a page/layout boundary while the canonical fact depends on material continuation text outside the target. Nine confirmed source-region instances affect twelve facts across multiple structures. This is not a claim-entailment failure when full source context is read; it is a hard evidence-sufficiency/source-fidelity failure because the exact target does not support the complete canonical assertion.",
+      "systemic_class_flag": true,
+      "phase_detected": "Phase 1, with two sampled instances independently encountered in Phase 2"
+    },
+    {
+      "finding_id": "HF-003",
+      "issue_type": "EVIDENCE_TARGET_DANGLING_REFERENT",
+      "affected_fact_ids": [
+        "D3-F0098",
+        "D3-F0292"
+      ],
+      "structure_ids": [
+        "A18-P4",
+        "A35-o2"
+      ],
+      "source_ranges": [
+        {
+          "representation_char_start": 21305,
+          "representation_char_end": 21425,
+          "exact_text": "Se exceptúa de\nesta disposición a los proveedores que suministren bienes y\nservicios mediante las compras de caja chica.",
+          "role": "selected_evidence_D3-F0098"
+        },
+        {
+          "representation_char_start": 21008,
+          "representation_char_end": 21425,
+          "exact_text": "Todo proveedor inscrito está obligado a verificar y actualizar\nla información aportada al registro en el momento de darse un\ncambio en su situación jurídica o de los bienes y servicios que\nofrecen, al menos el primer mes de cada año, para lo cual debe\nrealizar la actualización por medio del SDU. Se exceptúa de\nesta disposición a los proveedores que suministren bienes y\nservicios mediante las compras de caja chica.",
+          "role": "source_context_resolving_D3-F0098"
+        },
+        {
+          "representation_char_start": 55219,
+          "representation_char_end": 55479,
+          "exact_text": "En contra de esa decisión, el\nafectado podrá interponer los recursos de revocatoria\ny apelación, los cuales deberán presentarse dentro\nde los tres días hábiles siguientes a la notificación del\nacto. La resolución de dichos recursos agota la vía\nadministrativa.",
+          "role": "selected_evidence_D3-F0292"
+        },
+        {
+          "representation_char_start": 55079,
+          "representation_char_end": 55479,
+          "exact_text": "o) Para ejecutar las multas y cláusula penal la Administración\ndeberá emitir un acto motivado, con indicación de la\nprueba que lo sustente. En contra de esa decisión, el\nafectado podrá interponer los recursos de revocatoria\ny apelación, los cuales deberán presentarse dentro\nde los tres días hábiles siguientes a la notificación del\nacto. La resolución de dichos recursos agota la vía\nadministrativa.",
+          "role": "source_context_resolving_D3-F0292"
+        }
+      ],
+      "instances": [
+        {
+          "affected_fact_ids": [
+            "D3-F0098"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 21305,
+              "representation_char_end": 21425,
+              "exact_text": "Se exceptúa de\nesta disposición a los proveedores que suministren bienes y\nservicios mediante las compras de caja chica.",
+              "role": "selected_evidence"
+            }
+          ],
+          "resolving_source_context": [
+            {
+              "representation_char_start": 21008,
+              "representation_char_end": 21425,
+              "exact_text": "Todo proveedor inscrito está obligado a verificar y actualizar\nla información aportada al registro en el momento de darse un\ncambio en su situación jurídica o de los bienes y servicios que\nofrecen, al menos el primer mes de cada año, para lo cual debe\nrealizar la actualización por medio del SDU. Se exceptúa de\nesta disposición a los proveedores que suministren bienes y\nservicios mediante las compras de caja chica.",
+              "role": "source_context"
+            }
+          ],
+          "reason": "The target begins “Se exceptúa de esta disposición…”. The antecedent that makes “esta disposición” the supplier-update duty is outside the selected target; the canonical fact resolves that referent explicitly."
+        },
+        {
+          "affected_fact_ids": [
+            "D3-F0292"
+          ],
+          "selected_evidence": [
+            {
+              "representation_char_start": 55219,
+              "representation_char_end": 55479,
+              "exact_text": "En contra de esa decisión, el\nafectado podrá interponer los recursos de revocatoria\ny apelación, los cuales deberán presentarse dentro\nde los tres días hábiles siguientes a la notificación del\nacto. La resolución de dichos recursos agota la vía\nadministrativa.",
+              "role": "selected_evidence"
+            }
+          ],
+          "resolving_source_context": [
+            {
+              "representation_char_start": 55079,
+              "representation_char_end": 55479,
+              "exact_text": "o) Para ejecutar las multas y cláusula penal la Administración\ndeberá emitir un acto motivado, con indicación de la\nprueba que lo sustente. En contra de esa decisión, el\nafectado podrá interponer los recursos de revocatoria\ny apelación, los cuales deberán presentarse dentro\nde los tres días hábiles siguientes a la notificación del\nacto. La resolución de dichos recursos agota la vía\nadministrativa.",
+              "role": "source_context"
+            }
+          ],
+          "reason": "The target begins “En contra de esa decisión…”. The antecedent identifying the decision/act in the fines and penalty-clause procedure is outside the selected target, while the canonical fact resolves the referent."
+        }
+      ],
+      "source_grounded_reason": "In both cases the full source context supports the canonical referent, but the exact evidence target starts with an unresolved demonstrative. Two confirmed instances do not by themselves meet the prompt’s >=3-across-regions systemic threshold, and no broader shared transformation was established beyond these local targets.",
+      "systemic_class_flag": false,
+      "phase_detected": "Phase 2"
+    },
+    {
+      "finding_id": "HF-004",
+      "issue_type": "ACTOR_SCOPE_BROADENING",
+      "affected_fact_ids": [
+        "D3-F0232"
+      ],
+      "structure_ids": [
+        "A28-1-f"
+      ],
+      "source_ranges": [
+        {
+          "representation_char_start": 42246,
+          "representation_char_end": 42543,
+          "exact_text": "Artículo 28.—Competencia para autorizar desembolsos,\naprobar pliego de condiciones, adjudicar declarar desierto o\ninfructuoso los procedimientos de contratación administrativa,\nmodificar contratos y suscripción de finiquitos.\n1) Corresponde a la Concejo Municipal y a la Junta\nDirectiva del CCDRE:",
+          "role": "selected_evidence"
+        },
+        {
+          "representation_char_start": 43577,
+          "representation_char_end": 43781,
+          "exact_text": "f) Delegar en la Secretaría del Concejo Municipal y\ndel CCDRE, la parte operativa correspondiente a la\naprobación en SDU de todos los aspectos señalados\nen los numerales a), b), c), d) y e) que anteceden.",
+          "role": "selected_evidence"
+        }
+      ],
+      "source_grounded_reason": "Article 28(1) expressly assigns the block to “el Concejo Municipal” and “la Junta Directiva del CCDRE”. The canonical note changes the second actor to “el CCDRE”, broadening authority from the named governing board to the organization as a whole. The delegation item itself does not cure that actor substitution.",
+      "systemic_class_flag": false,
+      "phase_detected": "Phase 2"
+    },
+    {
+      "finding_id": "HF-005",
+      "issue_type": "SCOPE_QUALIFIER_LOSS",
+      "affected_fact_ids": [
+        "D3-F0261"
+      ],
+      "structure_ids": [
+        "A35-d"
+      ],
+      "source_ranges": [
+        {
+          "representation_char_start": 49036,
+          "representation_char_end": 49302,
+          "exact_text": "Artículo 35.—De la elaboración de pliegos de condiciones,\ncalificación de ofertas, atención de aclaraciones y/o\nrecursos de objeción al pliego de condiciones o en contra\ndel acto de adjudicación, y la firmeza de los actos de\nadjudicación, cláusulas penales y multas.",
+          "role": "selected_evidence"
+        },
+        {
+          "representation_char_start": 50920,
+          "representation_char_end": 51280,
+          "exact_text": "d) De la calificación de ofertas. La Proveeduría y la\nunidad solicitante, serán las instancias responsables\nde la revisión de las ofertas que se presenten en cada\nconcurso en el SDU para determinar su elegibilidad\nlegal y técnica. La responsabilidad de cada instancia\ncorresponde en forma exclusiva a los aspectos de\ncarácter técnico propios de su competencia.",
+          "role": "selected_evidence"
+        }
+      ],
+      "source_grounded_reason": "The printed source limits each instance’s exclusive responsibility to “los aspectos de carácter técnico propios de su competencia”. The canonical note restates the exclusivity as “cada una exclusivamente dentro de los aspectos de su competencia”, dropping the material qualifier “de carácter técnico” while simultaneously describing legal and technical eligibility review. That smooths/changes the printed responsibility scope rather than preserving it.",
+      "systemic_class_flag": false,
+      "phase_detected": "Phase 2"
+    },
+    {
+      "finding_id": "HF-006",
+      "issue_type": "ATTRIBUTION_EXPANSION",
+      "affected_fact_ids": [
+        "D3-F0148"
+      ],
+      "structure_ids": [
+        "A21-ee"
+      ],
+      "source_ranges": [
+        {
+          "representation_char_start": 23490,
+          "representation_char_end": 23639,
+          "exact_text": "Artículo 21.—Funciones de la Proveeduría: Además\nde las que legal y reglamentariamente se le asignen, la\nProveeduría tendrá las siguientes funciones:",
+          "role": "selected_evidence"
+        },
+        {
+          "representation_char_start": 28975,
+          "representation_char_end": 29546,
+          "exact_text": "ee) Tramitar en conjunto con la Asesoría Jurídica y el\nAdministrador del Contrato los procesos de cobro de\nmultas, cláusulas penales, ejecución de garantías,\nreclamos administrativos, nulidades, intereses moratorios\ny diferenciales cambiarios e informar de dichos trámites\na la Alcaldía Municipal. Las multas podrán tramitarse\ntanto por incumplimientos contractuales como por\npresentación de recursos temerarios. Contra la decisión\nde aplicación de multas y cláusulas penales cabrá\nrecurso de revocatoria ante la ante la Alcaldía y de\napelación ante el Concejo Municipal.",
+          "role": "selected_evidence"
+        }
+      ],
+      "source_grounded_reason": "Article 21 is explicitly a list of “Funciones de la Proveeduría”. Item ee says the Proveeduría is to “Tramitar en conjunto con la Asesoría Jurídica y el Administrador del Contrato … e informar … a la Alcaldía Municipal.” The canonical note turns the collaborators into co-subjects of the reporting duty (“La Proveeduría, la Asesoría Jurídica y el Administrador del Contrato deben informar”), a stronger attribution than the source expressly assigns.",
+      "systemic_class_flag": false,
+      "phase_detected": "Phase 2"
+    }
+  ],
+  "systemic_class_analysis": {
+    "systemic_class_found": true,
+    "class_name": "EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION",
+    "finding_id": "HF-002",
+    "confirmed_affected_fact_count": 12,
+    "confirmed_affected_fact_ids": [
+      "D3-F0008",
+      "D3-F0017",
+      "D3-F0018",
+      "D3-F0078",
+      "D3-F0079",
+      "D3-F0210",
+      "D3-F0227",
+      "D3-F0241",
+      "D3-F0269",
+      "D3-F0270",
+      "D3-F0294",
+      "D3-F0313"
+    ],
+    "distinct_source_region_instance_count": 9,
+    "distinct_structures": [
+      "A03-b",
+      "A14-P4",
+      "A27-n",
+      "A28-1-a",
+      "A29-P1",
+      "A35-g",
+      "A35-o3",
+      "A41",
+      "PRE-PURPOSE"
+    ],
+    "rule_satisfied": ">=3 confirmed affected facts across >=2 distinct structures/source regions, plus a shared authoring pattern (selected evidence stopping at layout/page boundaries before material continuation).",
+    "plausible_wider_reach": true,
+    "local_findings_not_promoted_to_systemic": [
+      "HF-001",
+      "HF-003",
+      "HF-004",
+      "HF-005",
+      "HF-006"
+    ]
+  },
+  "final_verdict": "CLOSURE_SYSTEMIC_CLASS_FOUND",
+  "recommended_next_action": "Repair and audit only the demonstrated EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION class across the reference; do not run another generic full-reference audit. Preserve the enumerated local findings for bounded source-only adjudication/repair, then run mechanical certification before governance/freeze."
+}

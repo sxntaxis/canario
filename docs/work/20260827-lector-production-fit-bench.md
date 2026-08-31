@@ -530,3 +530,16 @@ D1 v10 was mechanically certified unchanged at `7a1441c736653d67737378545d038105
 `REFERENCE_ASSURANCE_AMENDMENT_V1.md` separates immutable benchmark freeze from independence assurance. D1 is therefore promoted to `FROZEN_INTERNAL` with assurance tier `SATURATED_INTERNAL`: its semantic digest is `dd438800e31c27f7edfacedd5a424840a48f7ae02e67980b0125d42b1cc4a1df` and its deterministic evidence-reopening manifest digest is `cdec79058c0de89b8d7d17ac4a4e9597778b4829ed9a9174168a004dfe512714`. This state is eligible for internal fit-bench use once the remaining pre-run gates close, but it is not strong materially-independent certification. Independence remains `WEAK_OR_UNKNOWN`; strong/human gates remain false.
 
 No further broad D1 semantic audit is authorized. Reopening D1 semantics now requires an explicit `REFERENCE_DEFECT` Research Interrupt. Formal A0–A5 outputs/scores remain unseen, thresholds remain unfrozen, Acta 160 and H2 remain untouched, and production broad-Lector implementation remains unauthorized. F3 continues only for the remaining development references.
+
+## F3 progress — D3 bounded closure repair v3
+
+- Closure audit preserved exactly as `D3_CLOSURE_AUDIT_V2.{json,md}`.
+- Verdict: `CLOSURE_SYSTEMIC_CLASS_FOUND`.
+- Demonstrated class: `EVIDENCE_TARGET_LAYOUT_BOUNDARY_TRUNCATION`, 12 facts / 9 source regions.
+- Targeted class sweep: all 24 pre-existing evidence targets ending adjacent to a frozen page/layout marker classified; 12 required post-boundary continuation evidence, 12 already supported their canonical assertion before the boundary.
+- Local findings accepted: dangling referents (2), actor scope (1), technical scope qualifier (1), reporting attribution (1), Article 27(y) bounded partial omission/ambiguity (1 finding record).
+- Adjudication: 6 ACCEPT / 0 REJECT / 0 UNRESOLVED.
+- v3 inventory: 351 facts / 545 evidence targets.
+- New fact: `D3-F0351` for the recoverable portion of Article 27(y), with `AMB-01`; no completion of the missing text or 27(z) is invented.
+- No generic broad D3 audit was performed or authorized.
+- Next: mechanical certification then one targeted fresh-chat post-repair audit of the exact closure surface only.
