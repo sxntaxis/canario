@@ -1,0 +1,66 @@
+{
+  "format": "canario.lector.reference-adjudication/v1",
+  "fixture_id": "CR-ESPARZA-MINUTES-001",
+  "source_review": "D1_V9_CLOSURE_AUDIT.json",
+  "reviewed_reference": "D1_REFERENCE_SUPERVISOR_DRAFT_V9.json",
+  "reviewed_commit": "807c49c7768f435405b760104fb90a14e5b06064",
+  "decision": "BOUNDED_CLOSURE_REPAIR",
+  "accepted_count": 3,
+  "rejected_count": 0,
+  "unresolved_count": 0,
+  "broad_reaudit_after_v10_authoring_authorized": false,
+  "findings": [
+    {
+      "finding_id": "D1-V9-CLOSURE-P1-0001",
+      "decision": "ACCEPT",
+      "repair_kind": "IN_PLACE",
+      "affected_fact_ids": [
+        "D1-F0074",
+        "D1-F0075",
+        "D1-F0076",
+        "D1-F0077"
+      ],
+      "source_ranges": [
+        [
+          20115,
+          20385
+        ],
+        [
+          19704,
+          20109
+        ]
+      ],
+      "resolution": "Preserve Secretaría del Concejo as the procedural response/attachment agent in Olivier López’s proposal."
+    },
+    {
+      "finding_id": "D1-V9-CLOSURE-P1-0002",
+      "decision": "ACCEPT",
+      "repair_kind": "IN_PLACE",
+      "affected_fact_ids": [
+        "D1-F0084"
+      ],
+      "source_ranges": [
+        [
+          21382,
+          21822
+        ]
+      ],
+      "resolution": "Preserve Flor Cubero’s explicit uncertainty about not knowing who filed the complaint as the reason motivating broader communication."
+    },
+    {
+      "finding_id": "D1-V9-CLOSURE-P1-0003",
+      "decision": "ACCEPT",
+      "repair_kind": "NEW_FACT",
+      "affected_fact_ids": [
+        "D1-F0837"
+      ],
+      "source_ranges": [
+        [
+          151623,
+          151762
+        ]
+      ],
+      "resolution": "Restore the formal session adjournment, exact date and 21:07 time."
+    }
+  ]
+}
